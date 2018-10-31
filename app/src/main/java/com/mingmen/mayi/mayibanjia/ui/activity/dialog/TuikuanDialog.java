@@ -119,7 +119,8 @@ public class TuikuanDialog extends Dialog{
         HttpManager.getInstance()
                 .with(context)
                 .setObservable(RetrofitManager.getService()
-                        .orderTuikuan(PreferenceUtils.getString(MyApplication.mContext, "token", ""),order_id,etTuikuan.getText().toString()))
+                        .orderTuikuan(PreferenceUtils.getString(MyApplication.mContext, "token", ""),
+                                order_id,etTuikuan.getText().toString(),etYuanyin.getText().toString().trim()))
                 .setDataListener(new HttpDataListener<String>() {
 
                     @Override

@@ -115,7 +115,7 @@ public class QiangDanAdapter extends BaseQuickAdapter<QiangDanBean,BaseViewHolde
                                 .setData(data)
                                 .setCallBack(new QiangDanShangPinDialog.CallBack() {
                                     @Override
-                                    public void xuanzhongitem(ShangPinBean msg) {
+                                    public void xuanzhongitem(ShangPinBean msg,String fujiafei) {
                                         if (msg==null){
                                         }else{
                                             Log.e("canshu","user_token="+PreferenceUtils.getString(MyApplication.mContext,"token","")+"&commodity_id="+msg.getCommodity_id()+"&market_id="+item.getMarket_id()+"&son_order_id"+item.getSon_order_id());
@@ -124,7 +124,8 @@ public class QiangDanAdapter extends BaseQuickAdapter<QiangDanBean,BaseViewHolde
                                                     .setObservable(
                                                             RetrofitManager
                                                                     .getService()
-                                                                    .qiangdan(PreferenceUtils.getString(MyApplication.mContext,"token",""),msg.getCommodity_id(),item.getQuote_price_id()))
+                                                                    .qiangdan(PreferenceUtils.getString(MyApplication.mContext,"token",""),
+                                                                            msg.getCommodity_id(),item.getQuote_price_id(),fujiafei))
                                                     .setDataListener(new HttpDataListener<String>() {
                                                         @Override
                                                         public void onNext(String data) {

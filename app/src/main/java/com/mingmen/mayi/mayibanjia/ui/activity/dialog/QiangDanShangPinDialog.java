@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
@@ -38,7 +39,8 @@ public class QiangDanShangPinDialog extends BaseFragmentDialog {
     Button btQuxiao;
     @BindView(R.id.bt_queding)
     Button btQueding;
-
+    @BindView(R.id.et_fujiafei)
+    EditText etFujiafei;
     private QiangDanShangPinAdapter adapter;
     private List<ShangPinBean> data;
     private CallBack mCallBack;
@@ -82,7 +84,7 @@ public class QiangDanShangPinDialog extends BaseFragmentDialog {
             @Override
             public void onClick(View v) {
                 if(mCallBack!=null)
-                    mCallBack.xuanzhongitem(xuanzhongitem);
+                    mCallBack.xuanzhongitem(xuanzhongitem,etFujiafei.getText().toString());
                 dismiss();
             }
         });
@@ -90,7 +92,7 @@ public class QiangDanShangPinDialog extends BaseFragmentDialog {
             @Override
             public void onClick(View v) {
                 if(mCallBack!=null)
-                    mCallBack.xuanzhongitem(null);
+                    mCallBack.xuanzhongitem(null,null);
                 dismiss();
             }
         });
@@ -109,6 +111,6 @@ public class QiangDanShangPinDialog extends BaseFragmentDialog {
     }
 
     public interface CallBack{
-        void xuanzhongitem(ShangPinBean msg);
+        void xuanzhongitem(ShangPinBean msg,String fujifei);
     }
 }

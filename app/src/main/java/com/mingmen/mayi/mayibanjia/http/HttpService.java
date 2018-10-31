@@ -496,7 +496,8 @@ public interface HttpService {
     @POST("ctBuyHostorder/getcompanyid.do")
     Observable<ResultModel<String>> qiangdan(@Query("user_token")String user_token,
                                                          @Query("commodity_id")String commodity_id,
-                                                         @Query("quote_price_id")String quote_price_id);
+                                                         @Query("quote_price_id")String quote_price_id,
+                                             @Query("append_money")String append_money);
     //获取抢单商家商品
     @POST("gyCommodity/queryByTypeTreeId.do")
     Observable<ResultModel<List<ShangPinBean>>> qiangdanshangpin(@Query("company_id")String user_token,
@@ -706,5 +707,6 @@ public interface HttpService {
     @POST("gyOreder/returnMoney.do")
     Observable<ResultModel<String>> orderTuikuan(@Query("user_token") String user_token,
                                                  @Query("gy_order_id") String gy_order_id,
-                                                 @Query("price") String price);
+                                                 @Query("price") String price,
+                                                 @Query("return_remarke") String return_remarke);
 }

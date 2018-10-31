@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -28,6 +29,7 @@ import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
+import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
@@ -157,6 +159,13 @@ public class AddAddressActivity extends BaseActivity {
                 xiangxidizhi=etXiangxidizhi.getText().toString().trim();
                 phoneName=etShouhuoren.getText().toString().trim();
                 phonenumber=etDianhua.getText().toString().trim();
+                if(AppUtil.isMobile(phonenumber)){
+                    etDianhua.setText(phonenumber);
+                }else{
+                    ToastUtil.showToast("请正确填写手机号");
+                    return;
+                }
+
                 //验证信息是否有空
                 if (!"".equals(phoneName)&!"".equals(phonenumber)&!"".equals(shengming)&!"".equals(shiming)&!"".equals(quming)&!"".equals(xiangxidizhi)){
                     if ("add".equals(rukou)){

@@ -199,6 +199,15 @@ public class SPXiangQingBean {
             private String son_number;
             private String city;
             private String market_name;
+            private String spec_describe;
+
+            public String getSpec_describe() {
+                return spec_describe;
+            }
+
+            public void setSpec_describe(String spec_describe) {
+                this.spec_describe = spec_describe;
+            }
 
             public String getClassify_name() {
                 return classify_name;

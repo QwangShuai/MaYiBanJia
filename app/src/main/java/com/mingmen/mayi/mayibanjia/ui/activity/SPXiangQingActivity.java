@@ -142,8 +142,8 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
     Banner xiangqingBanner;
     @BindView(R.id.tv_qidingliang1)
     TextView tvQidingliang1;
-    @BindView(R.id.tv_qidingliangjiage1)
-    TextView tvQidingliangjiage1;
+/*    @BindView(R.id.tv_qidingliangjiage1)
+    TextView tvQidingliangjiage1;*/
 //    @BindView(R.id.tv_qidingliang2)
 //    TextView tvQidingliang2;
 //    @BindView(R.id.tv_qidingliangjiage2)
@@ -280,7 +280,11 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
         tvDianming.setText(xq.getCompanyName());
         Glide.with(mContext).load(xq.getCompanyPhoto()).into(ivDiantu);
         tvDizhi.setText(xq.getCompanyAddress());
-        tvGuige.setText(xq.getPackStandard());
+        if(TextUtils.isEmpty(xq.getSpec_describe())){
+            tvGuige.setVisibility(View.GONE);
+        }else{
+            tvGuige.setText(xq.getSpec_describe());
+        }
         tvXiaoliang.setText(xq.getCommodity_sales());
         tvFuwufen.setText(spxinxi.getAvgNum() + "");
         dianpuid = xq.getCompany_id();
@@ -300,11 +304,11 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
                     break;
             }
         }
-        if (!StringUtil.isEmpty(xq.getRation_one())){
+       if (!StringUtil.isEmpty(xq.getRation_one())){
             tvQidingliang1.setText(xq.getRation_one()+guigename+"起批");
-            if (!StringUtil.isEmpty(xq.getPice_one())){
+/*            if (!StringUtil.isEmpty(xq.getPice_one())){
                 tvQidingliangjiage1.setText(xq.getPice_one());
-            }
+            }*/
         }
 //        if (!StringUtil.isEmpty(xq.getRation_two())){
 //            tvQidingliang2.setText(!StringUtil.isEmpty(xq.getRation_three())?xq.getRation_two()+"-"+xq.getRation_three()+guigename:xq.getRation_two()+guigename+"以上");

@@ -115,14 +115,14 @@
                             android:layout_height="wrap_content"
                             android:text="库存："
                             android:textColor="@color/zicolor"
-                            android:textSize="18sp"
+                            android:textSize="14sp"
                             android:layout_marginLeft="30dp"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="1000"
                             android:textColor="@color/zicolor"
-                            android:textSize="18sp"
+                            android:textSize="14sp"
                             />
                     </LinearLayout>
                     <!--<TextView-->
@@ -144,25 +144,17 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:layout_weight="1">
-                            <LinearLayout
+                           <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
-                                <TextView
+<!--                                <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="¥"
                                     android:textColor="@color/mayihong"
                                     android:textSize="12sp"
-                                    />
-                                <TextView
-                                    android:id="@+id/tv_qidingliangjiage1"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text=""
-                                    android:textColor="@color/mayihong"
-                                    android:textSize="18sp"
-                                    />
+                                    />-->
                             </LinearLayout>
 
                             <TextView

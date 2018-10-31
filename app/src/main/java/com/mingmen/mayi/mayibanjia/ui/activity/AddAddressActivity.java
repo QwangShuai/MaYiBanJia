@@ -41,7 +41,7 @@ import cn.qqtheme.framework.picker.SinglePicker;
 /**
  * Created by Administrator on 2018/7/18/018.
  */
-//添加收货地址
+//添加收货地址--
 public class AddAddressActivity extends BaseActivity {
     @BindView(R.id.tv_title)
     TextView tvTitle;

@@ -108,6 +108,7 @@ public abstract class BaseGHOrderFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        ye = 1;
         getData();
     }
 }

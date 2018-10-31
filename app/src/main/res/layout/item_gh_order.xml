@@ -282,19 +282,35 @@
             android:textColor="@color/lishisousuo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/tv_dayin"
+        <LinearLayout
+            android:id="@+id/ll"
+            android:layout_marginRight="13dp"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="27dp"
-            android:textSize="15sp"
-            android:textColor="@color/zicolor"
-            android:text="打印二维码"
             android:layout_centerVertical="true"
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_tuikuan"
+                android:textSize="15sp"
+                android:textColor="@color/zicolor"
+                android:text="退款"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginLeft="21dp"
+                android:id="@+id/tv_dayin"
+                android:textSize="15sp"
+                android:textColor="@color/zicolor"
+                android:text="打印二维码"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
         <View
-            android:layout_marginRight="49dp"
-            android:layout_toLeftOf="@+id/tv_dayin"
+            android:layout_marginRight="20dp"
+            android:id="@+id/fengexian"
+            android:layout_toLeftOf="@+id/ll"
             android:layout_centerVertical="true"
             android:background="@color/cutoff"
             android:layout_width="1dp"

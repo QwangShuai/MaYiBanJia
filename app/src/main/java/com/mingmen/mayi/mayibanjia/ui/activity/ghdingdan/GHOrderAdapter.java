@@ -23,6 +23,7 @@ import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.DaYinQrCodeActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.TuikuanDialog;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
@@ -102,6 +103,7 @@ public class GHOrderAdapter extends RecyclerView.Adapter<GHOrderAdapter.ViewHold
             holder.tv_chepaihao.setText(String.valueOf(bean.getPlate_number()));
             holder.tv_fahuoshijian.setText("发货时间:" + String.valueOf(bean.getWl_sweep_time()));
             holder.tv_end_time.setText(bean.getMj_sweep_time());
+            holder.tvTuikuan.setVisibility(View.GONE);
         }
         holder.tvDianpu.setText(bean.getCompany_name() + ":");
         holder.tvDianpuPhone.setText(bean.getTelephone());
@@ -113,6 +115,12 @@ public class GHOrderAdapter extends RecyclerView.Adapter<GHOrderAdapter.ViewHold
             @Override
             public void onClick(View v) {
                 CallPhone(bean.getTelephone());
+            }
+        });
+        holder.tvTuikuan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new TuikuanDialog(mContext,bean.getGy_order_id(),bean.getGy_order_number()).show();
             }
         });
         holder.iv_del.setOnClickListener(new View.OnClickListener() {
@@ -222,7 +230,8 @@ public class GHOrderAdapter extends RecyclerView.Adapter<GHOrderAdapter.ViewHold
         TextView tvDianpuPhone;
         @BindView(R.id.iv_dianpu_dianhua)
         ImageView ivDianpuDianhua;
-
+        @BindView(R.id.tv_tuikuan)
+        TextView tvTuikuan;
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/fillet_hollow_999999_3">
+    <TextView
+        android:id="@+id/tv_xiaoliangzuigao"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="销量最高"
+        android:textColor="@color/zicolor"
+        android:layout_weight="1"
+        android:textSize="18sp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/cutoff"/>
+    <TextView
+        android:id="@+id/tv_jiagezuidi"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="价格最低"
+        android:layout_weight="1"
+        android:textColor="@color/zicolor"
+        android:textSize="18sp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/cutoff"/>
+    <TextView
+        android:id="@+id/tv_pingfenzuigao"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:text="评分最高"
+        android:textColor="@color/zicolor"
+        android:textSize="18sp"/>
+
+</LinearLayout>

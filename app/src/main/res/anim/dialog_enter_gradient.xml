@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--
+     fromAlpha：动画的初始状态
+     toAlpha：动画的最终状态
+    duration：动画从初始状态到最终状态的持续时间
+    repeatCount：不包括第一次显示的，显示次数
+       -->
+    <alpha
+        android:duration="300"
+        android:fromAlpha="0.1"
+        android:repeatCount="0"
+        android:toAlpha="1.0" />
+</set>

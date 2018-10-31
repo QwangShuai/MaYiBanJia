@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_time"
+            android:text="今天(8月3日) 18:00送达"
+            android:textSize="15sp"
+            android:textColor="@color/zangqing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_state"
+            android:textSize="12sp"
+            android:textColor="@color/zicolor"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:id="@+id/rl_wancheng"
+            android:layout_marginRight="12dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_toLeftOf="@+id/fenge"
+                android:layout_marginRight="12dp"
+                android:id="@+id/tv_wancheng"
+                android:textSize="12sp"
+                android:textColor="@color/zicolor"
+                android:layout_centerVertical="true"
+                android:text="已完成"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <View
+                android:background="@color/cutoff"
+                android:layout_marginRight="12dp"
+                android:layout_toLeftOf="@+id/iv_del"
+                android:id="@+id/fenge"
+                android:layout_width="1dp"
+                android:layout_height="12dp"></View>
+            <ImageView
+                android:src="@mipmap/del_gray"
+                android:id="@+id/iv_del"
+                android:layout_alignParentRight="true"
+                android:layout_width="15dp"
+                android:layout_height="14dp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/tv_wait_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/zicolor"
+            android:textSize="12sp" />
+
+        <RelativeLayout
+            android:id="@+id/rl_rongqi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/ll_rongqi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_peisongyuan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="配送员:李光哲"
+                    android:textColor="@color/zicolor"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="14dp"
+                    android:text="18513349775"
+                    android:textColor="@color/lishisousuo"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:id="@+id/iv_dianhua"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="12dp"
+                    android:src="@mipmap/dianhua_black" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_chepaihao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_rongqi"
+                android:layout_marginTop="8dp"
+                android:text="(黑A  94885)"
+                android:textColor="@color/zicolor"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_fahuoshijian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_chepaihao"
+                android:layout_marginTop="12dp"
+                android:text="发货时间：8-01 06:50:00"
+                android:textColor="@color/color3"
+                android:textSize="12sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <View
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="12dp"
+        android:background="@color/cutoff"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"></View>
+    <RelativeLayout
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="13dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_shangpin"
+            android:layout_centerVertical="true"
+            android:textSize="15sp"
+            android:textColor="@color/zicolor"
+            android:text="西红柿西红...等20件商品"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btn_more"
+            android:textSize="15sp"
+            android:textColor="@color/zangqing"
+            android:background="@drawable/bg_bt_f2f2f2"
+            android:layout_marginRight="12dp"
+            android:layout_alignParentRight="true"
+            android:text="展开"
+            android:layout_width="60dp"
+            android:layout_height="28dp" />
+    </RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:id="@+id/rv_shangpin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+    <View
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="12dp"
+        android:background="@color/cutoff"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"></View>
+    <RelativeLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_toLeftOf="@+id/heji"
+            android:layout_marginRight="20dp"
+            android:layout_centerVertical="true"
+            android:text="已支付"
+            android:background="@color/yingguanglv"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:gravity="center"
+            android:layout_width="35dp"
+            android:layout_height="16dp" />
+        <TextView
+            android:id="@+id/heji"
+            android:layout_toLeftOf="@+id/tv_zongjia"
+            android:text="合计:"
+            android:layout_marginRight="9dp"
+            android:textSize="12sp"
+            android:textColor="@color/zicolor"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginRight="12dp"
+            android:id="@+id/tv_zongjia"
+            android:layout_alignParentRight="true"
+            android:textSize="18sp"
+            android:textColor="@color/zicolor"
+            android:text="￥:1035.9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <View
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="12dp"
+        android:background="@color/cutoff"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"></View>
+    <RelativeLayout
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginBottom="12dp"
+            android:id="@+id/tv_order_number"
+            android:text="订单编号：1857094230751"
+            android:textSize="12sp"
+            android:textColor="@color/lishisousuo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginBottom="12dp"
+            android:text="下单时间：7-31 18:46:23"
+            android:layout_below="@+id/tv_order_number"
+            android:id="@+id/tv_order_time"
+            android:textSize="12sp"
+            android:textColor="@color/lishisousuo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginBottom="12dp"
+            android:text="完成时间：7-31 18:46:23"
+            android:layout_below="@+id/tv_order_time"
+            android:id="@+id/tv_end_time"
+            android:textSize="12sp"
+            android:textColor="@color/lishisousuo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_dayin"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="27dp"
+            android:textSize="15sp"
+            android:textColor="@color/zicolor"
+            android:text="打印二维码"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_marginRight="49dp"
+            android:layout_toLeftOf="@+id/tv_dayin"
+            android:layout_centerVertical="true"
+            android:background="@color/cutoff"
+            android:layout_width="1dp"
+            android:layout_height="30dp"></View>
+    </RelativeLayout>
+    <View
+        android:background="@color/cutoff"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"></View>
+</LinearLayout>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:id="@+id/ll_rongqi"
+    android:background="@mipmap/bg_peisong"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="36dp">
+        <TextView
+            android:id="@+id/tv_state"
+            android:layout_marginRight="13dp"
+            android:textSize="13sp"
+            android:textColor="@color/mayihong"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="待取货"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <View
+        android:layout_marginLeft="12dp"
+        android:background="@color/cutoff"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"></View>
+    <TextView
+        android:id="@+id/tv_order_number"
+        android:textSize="15sp"
+        android:textColor="@color/lishisousuo"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="13dp"
+        android:text="订单编号：1794633446547"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="13dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_songdashijian0"
+            android:textSize="15sp"
+            android:textColor="@color/lishisousuo"
+            android:text="送达时间："
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_songdashijian"
+            android:textSize="15sp"
+            android:textColor="@color/zangqing"
+            android:text="2018-08-20 07:30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="13dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_shichang0"
+            android:textSize="15sp"
+            android:textColor="@color/lishisousuo"
+            android:text="市        场："
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_shichang"
+            android:textSize="15sp"
+            android:textColor="@color/zicolor"
+            android:text="哈达农贸市场"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="13dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_dizhi0"
+            android:textSize="15sp"
+            android:textColor="@color/lishisousuo"
+            android:text="地        址："
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginRight="12dp"
+            android:id="@+id/tv_dizhi"
+            android:textSize="15sp"
+            android:textColor="@color/zicolor"
+            android:text="哈尔滨市道里区友谊路50号"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

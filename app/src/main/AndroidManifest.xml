@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mingmen.mayi.mayibanjia">
+
+    <!-- 请求网络 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 获取网络状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 相机权限 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- 在SD卡中创建与删除文件权限 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <!-- 打电话 -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <!-- 用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 用于访问GPS定位 -->
+    <!-- 获取精确位置 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 用于提高GPS定位速度 -->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <!-- 写入扩展存储，向扩展卡写入数据，用于写入缓存定位数据 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 读取缓存数据 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- 用于读取手机当前的状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 更改设置 -->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <!-- 读取电话簿 -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 蓝牙权限 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <application
+        android:name=".app.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/NoTitle">
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.mingmen.mayi.mayibanjia.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <!-- 设置key -->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="9048b4f8d6d23eb426dddbd54e7ffde5" />
+
+        <!-- 定位需要的服务 -->
+        <service android:name="com.amap.api.location.APSService" />
+
+        <activity
+            android:name=".MainActivity"
+            android:label="首页"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.activity.LoginActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.activity.ZhuCeActivity"
+            android:label="注册页"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.activity.XuanZeJueSeActivity"
+            android:label="选择角色"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.activity.CTDWanShanXinXiActivity"
+            android:label="餐厅端完善信息"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.activity.GHDWanShanXinXiActivity"
+            android:label="供货端完善信息"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.activity.SouSuoActivity"
+            android:label="首页跳转搜索"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.activity.SouSuoJieGuoActivity"
+            android:label="店铺商品市场列表，搜索结果"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.activity.ShouHuoDiZhiActivity"
+            android:label="收货地址"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.activity.AddAddressActivity"
+            android:label="添加收货地址"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.activity.FCGDiQuXuanZeActivity"
+            android:label="发采购选择地区"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.activity.FCGCaiGouXuQiuActivity"
+            android:label="发采购采购需求"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.activity.XinXiLuRuActivity"
+            android:label="信息录入"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.activity.SPXiangQingActivity"
+            android:label="商品详情"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.activity.dingdan.DingDanActivity"
+            android:label="订单"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.activity.YeWuYuanMainActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 业务员首页 -->
+        <activity
+            android:name=".ui.activity.ShenPiActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 审批 -->
+        <activity
+            android:name=".ui.activity.CaiGouDanActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 采购单 -->
+        <!-- 历史购买以及历史收藏 -->
+        <activity
+            android:name=".ui.activity.DianPuActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 店铺 -->
+        <activity
+            android:name=".ui.activity.FaBuShangPinActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 发布商品 -->
+        <activity
+            android:name=".ui.activity.FaBuShangPinQiDingLiangActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 发布商品起订量 -->
+        <activity
+            android:name=".ui.activity.FaBuShangPinXiangQingTuActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 发布商品详情 -->
+        <activity
+            android:name=".ui.activity.QueRenDingDanActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 确认订单 -->
+        <activity
+            android:name=".ui.activity.XuanZeZhiFuFangShiActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 选择支付方式 -->
+        <activity
+            android:name=".ui.activity.GongYingDuanShouYeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 供应端首页 -->
+        <activity
+            android:name=".ui.activity.QiangDanActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 供应端抢单 -->
+        <activity
+            android:name=".ui.activity.ZhangHuXinXiActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 餐厅端账户信息 -->
+        <activity
+            android:name=".ui.activity.GongYingDuanSheZhiActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 供应端设置 -->
+        <activity
+            android:name=".ui.activity.ShiChangSouSuoShangPinActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 市场搜索商品 -->
+        <activity
+            android:name=".ui.activity.ShouCangListActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 收藏列表 -->
+        <activity
+            android:name=".ui.activity.QuanBuPingjiaActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 商品详情全部评价 -->
+        <activity
+            android:name=".ui.activity.TubiaoActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan" /> <!-- 走势图 -->
+        <activity
+            android:name=".ui.activity.ShangPinGuanLiActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 供货端商品管理 -->
+
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name="com.alipay.sdk.app.H5AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <!-- //轮询服务 -->
+        <service android:name=".utils.PollingService" />
+
+        <activity
+            android:name=".ui.activity.WuLiuActivity"
+            android:label="@string/title_activity_wu_liu"
+            android:theme="@style/NoTitle" /> <!-- 物流 -->
+        <activity android:name=".ui.activity.ghdingdan.GHDOrderActivity" /> <!-- 供货订单 -->
+        <activity android:name=".ui.activity.DaYinQrCodeActivity" /> <!-- 打印二维码 -->
+        <activity
+            android:name=".utils.dayinji.PrintfBlueListActivity"
+            android:label="@string/title_activity_printf_blue_list"
+            android:theme="@style/NoTitle" /> <!-- 连接蓝牙 -->
+        <activity android:name=".ui.activity.SiJiActivity" /> <!-- 司机配送 -->
+        <activity android:name=".ui.activity.PeiSongXiangQingActivity" /><!-- 司机配送详情 -->
+
+        <receiver
+            android:name=".utils.dayinji.NameOfBroadcastReceiverClass"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.bluetooth.adapter.action.STATE_CHANGED" /> <!-- 蓝牙适配器状态改变 -->
+                <action android:name="android.bluetooth.device.action.ACL_DISCONNECTED" /> <!-- 连接已经断开 -->
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".utils.qrCode.CaptureActivity" /> <!-- 扫码页面 -->
+        <activity android:name=".ui.activity.YiJianFanKuiActivity" /> <!-- 意见反馈 -->
+        <activity android:name=".ui.activity.DianPuGuanZhuActivity" /><!-- 店铺关注 -->
+        <activity android:name=".ui.activity.LiuLanJiLuActivity" /><!-- 浏览记录 -->
+        <activity android:name=".ui.activity.WeiYiQrCodeActivity" /><!-- 唯一取货码 -->
+        <activity android:name=".ui.activity.YinHangKaActivity" /><!-- 银行卡 -->
+        <activity android:name=".ui.activity.YinHangKaTianJiaActivity" /><!-- 添加银行卡 -->
+        <activity android:name=".ui.activity.XuanZeYinHangActivity" /><!-- 选择银行 -->
+        <activity android:name=".ui.activity.DingDanXiangQingActivity"></activity><!-- 订单详情 -->
+    </application>
+
+</manifest>

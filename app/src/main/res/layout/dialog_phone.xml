@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_dialog_phone_yewujingli"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/bg_btn_top_round"
+        android:gravity="center"
+        android:text="号码正在获取..."
+        android:textColor="@color/blue_3794e5"
+        android:textSize="15sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line" />
+
+
+    <TextView
+        android:id="@+id/tv_dialog_phone_yewuyuan"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="号码正在获取..."
+        android:textColor="@color/blue_3794e5"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/tv_dialog_phone_cancle"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_btn_top_round"
+        android:gravity="center"
+        android:text="取消"
+        android:textColor="@color/lishisousuo"
+        android:textSize="15sp" />
+</LinearLayout>

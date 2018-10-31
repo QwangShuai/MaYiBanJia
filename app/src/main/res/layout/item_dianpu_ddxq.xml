@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:paddingTop="15dp"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:id="@+id/ll_mydianpu"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@mipmap/dianpu_gray"
+                android:layout_width="16dp"
+                android:layout_height="15dp" />
+            <TextView
+                android:id="@+id/tv_dianpuming"
+                android:layout_marginLeft="8dp"
+                android:text="飘香水果店"
+                android:textColor="@color/lishisousuo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:layout_marginLeft="12dp"
+                android:src="@mipmap/jinru"
+                android:layout_width="6dp"
+                android:layout_height="10dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/ll_mydianpu"
+            android:id="@+id/ll_saoma"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_marginRight="9dp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@mipmap/saoma"/>
+            <TextView
+                android:text="扫码"
+                android:textSize="12sp"
+                android:textColor="@color/blue_3794e5"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_quhuoma"
+            android:layout_centerVertical="true"
+            android:textSize="12sp"
+            android:textColor="@color/blue_3794e5"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/ll_saoma"
+            android:text="取货码"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:id="@+id/ll_phone"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@mipmap/dianhua_black"
+                android:layout_width="15dp"
+                android:layout_height="15dp" />
+            <TextView
+                android:layout_marginLeft="6dp"
+                android:text="联系卖家"
+                android:textSize="12sp"
+                android:textColor="@color/zicolor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <View
+        android:background="@color/cutoff"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"></View>
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/rv_shangpin"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+    <!--</android.support.v7.widget.RecyclerView>-->
+    <!--<Button-->
+        <!--android:textSize="15sp"-->
+        <!--android:id="@+id/btn_more"-->
+        <!--android:textColor="@color/lishisousuo"-->
+        <!--android:text="查看更多"-->
+        <!--android:background="@color/white"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="37dp" />-->
+</LinearLayout>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.mingmen.mayi.mayibanjia.ui.activity.YiJianFanKuiActivity">
+    <include layout="@layout/head_beijingse" />
+    <EditText
+        android:id="@+id/et_content"
+        android:maxLength="200"
+        android:textColor="@color/zicolor"
+        android:gravity="start"
+        android:paddingTop="11dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:textSize="12sp"
+        android:hint="请留下您的宝贵意见或建议，我们将努力改进(不少于五个字)"
+        android:layout_marginTop="18dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:background="@drawable/fillet_hollow_999999_3"
+        android:layout_width="match_parent"
+        android:layout_height="100dp" />
+
+    <EditText
+        android:id="@+id/et_phone"
+        android:maxLength="11"
+        android:gravity="center_vertical"
+        android:textColor="@color/zicolor"
+        android:paddingLeft="12dp"
+        android:textSize="12sp"
+        android:hint="请留下您手机号码，以便我们回复您"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:background="@drawable/fillet_hollow_999999_3"
+        android:layout_width="match_parent"
+        android:layout_height="45dp" />
+
+        <Button
+            android:id="@+id/btn_submit"
+            android:text="提交"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:background="@drawable/bg_bt"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="39dp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp" />
+</LinearLayout>

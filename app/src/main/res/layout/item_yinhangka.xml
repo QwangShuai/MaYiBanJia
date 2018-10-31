@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_item"
+    android:layout_marginBottom="12dp"
+    android:background="@drawable/bg_bt"
+    android:layout_width="match_parent"
+    android:layout_height="116dp">
+    <ImageView
+        android:id="@+id/iv_bg"
+        android:scaleType="fitXY"
+        android:src="@mipmap/bianxing"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <RelativeLayout
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.mingmen.mayi.mayibanjia.ui.view.CircleImageView
+            android:id="@+id/iv_tubiao"
+            android:src="@mipmap/qr_code"
+            android:layout_width="45dp"
+            android:layout_height="45dp" />
+        <LinearLayout
+            android:layout_toRightOf="@+id/iv_tubiao"
+            android:layout_marginLeft="20dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_bank_card_name"
+                android:text="中国银行"
+                android:textSize="15sp"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginTop="9dp"
+                android:id="@+id/tv_bank_card_type"
+                android:text="储蓄卡"
+                android:textSize="12sp"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginTop="10dp"
+                android:id="@+id/tv_bank_card_number"
+                android:text="6217  ****  ****  2953"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_marginTop="20dp"
+        android:text="原物流信息"
+        android:textSize="14sp"
+        android:textColor="@color/zicolor"
+        android:layout_marginLeft="21dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="21dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/chepaihao"
+            android:text="    车牌号:"
+            android:textSize="14sp"
+            android:textColor="@color/color3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textSize="14sp"
+            android:textColor="@color/color3"
+            android:layout_toRightOf="@+id/chepaihao"
+            android:id="@+id/tv_chepaihao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="21dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/lianxiren"
+            android:text="    联系人:"
+            android:textSize="14sp"
+            android:textColor="@color/color3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textSize="14sp"
+            android:textColor="@color/color3"
+            android:layout_toRightOf="@+id/lianxiren"
+            android:id="@+id/tv_lianxiren"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="21dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/lianxifangshi"
+            android:text="联系方式"
+            android:textSize="14sp"
+            android:textColor="@color/color3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textSize="14sp"
+            android:textColor="@color/color3"
+            android:layout_toRightOf="@+id/lianxifangshi"
+            android:id="@+id/tv_lianxifangshi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"/>
+    </RelativeLayout>
+    <TextView
+        android:text="输入新的物流信息"
+        android:layout_marginLeft="21dp"
+        android:layout_marginTop="34dp"
+        android:textSize="14sp"
+        android:textColor="@color/zicolor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp">
+
+        <TextView
+            android:id="@+id/tv_cheliangleixing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="车辆类型:"
+            android:textColor="@color/lishisousuo"
+            android:textSize="14sp" />
+
+        <RelativeLayout
+            android:id="@+id/rl_cheliangleixing"
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="11dp"
+            android:layout_toRightOf="@+id/tv_cheliangleixing">
+
+            <TextView
+                android:paddingLeft="9dp"
+                android:gravity="center_vertical"
+                android:id="@+id/et_cheliangleixing"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:background="@drawable/fillet_hollow_999999_3"
+                android:text="请选择车牌类型"
+                android:textSize="13sp" />
+
+            <ImageView
+                android:layout_width="8dp"
+                android:layout_height="4dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="12dp"
+                android:src="@mipmap/xiangxia_hui" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="35dp">
+        <TextView
+            android:layout_centerVertical="true"
+            android:id="@+id/tv_xinchepaihao"
+            android:text="    车牌号:"
+            android:textSize="14sp"
+            android:textColor="@color/lishisousuo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="11dp"
+            android:layout_toRightOf="@+id/tv_xinchepaihao"
+            android:layout_width="240dp"
+            android:layout_height="match_parent">
+            <EditText
+                android:paddingLeft="9dp"
+                android:background="@drawable/fillet_hollow_999999_3"
+                android:maxLength="10"
+                android:id="@+id/et_chepaihao"
+                android:layout_centerVertical="true"
+                android:textSize="13sp"
+                android:hint="请输入车牌号"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </RelativeLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="35dp">
+        <TextView
+            android:layout_centerVertical="true"
+            android:id="@+id/tv_xinlianxiren"
+            android:text="    联系人:"
+            android:textSize="14sp"
+            android:textColor="@color/lishisousuo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="11dp"
+            android:layout_toRightOf="@+id/tv_xinlianxiren"
+            android:layout_width="240dp"
+            android:layout_height="match_parent">
+            <EditText
+                android:paddingLeft="9dp"
+                android:background="@drawable/fillet_hollow_999999_3"
+                android:maxLength="5"
+                android:id="@+id/et_xinxingming"
+                android:layout_centerVertical="true"
+                android:textSize="13sp"
+                android:hint="请输入姓名"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </RelativeLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_xinlianxifangshi"
+            android:text="联系方式:"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:textColor="@color/lishisousuo"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp" />
+        <RelativeLayout
+            android:id="@+id/rl_lianxifangshi"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="11dp"
+            android:layout_toRightOf="@+id/tv_xinlianxifangshi"
+            android:layout_width="240dp"
+            android:layout_height="35dp">
+            <EditText
+                android:paddingLeft="9dp"
+                android:background="@drawable/fillet_hollow_999999_3"
+                android:maxLength="11"
+                android:id="@+id/et_xinlianxifangshi"
+                android:inputType="phone"
+                android:layout_centerVertical="true"
+                android:textSize="13sp"
+                android:hint="请输入联系方式"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </RelativeLayout>
+        <TextView
+            android:textColor="@color/color3"
+            android:text="注:每个订单只可以变更一次"
+            android:layout_marginLeft="11dp"
+            android:layout_toRightOf="@+id/tv_xinlianxifangshi"
+            android:layout_marginTop="12dp"
+            android:layout_below="@+id/rl_lianxifangshi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/bt_cancle"
+            android:layout_width="113dp"
+            android:layout_height="28dp"
+            android:background="@drawable/bg_bt_true"
+            android:text="取消"
+            android:textColor="@color/lishisousuo"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/bt_sure"
+            android:layout_width="113dp"
+            android:layout_height="28dp"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/bg_bt_false"
+            android:text="确定"
+            android:textColor="@color/lishisousuo"
+            android:textSize="12sp" />
+    </LinearLayout>
+</LinearLayout>

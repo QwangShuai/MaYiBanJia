@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/rl_dayin"
+    android:paddingLeft="13dp"
+    android:paddingTop="20dp">
+    <TextView
+        android:id="@+id/tv_suoyin"
+        android:text="#1"
+        android:textSize="15sp"
+        android:textColor="@color/zicolor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:src="@mipmap/qr_code"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/tv_suoyin"
+        android:id="@+id/iv_qr_code"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
+    <LinearLayout
+        android:id="@+id/zhanwei"
+        android:layout_marginLeft="12dp"
+        android:layout_toRightOf="@+id/iv_qr_code"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_biaoshi"
+            android:textSize="30sp"
+            android:textColor="@color/zicolor"
+            android:text="A"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@mipmap/dianpu_gray"
+                android:layout_width="16dp"
+                android:layout_height="15dp" />
+            <TextView
+                android:textSize="15sp"
+                android:textColor="@color/lishisousuo"
+                android:id="@+id/tv_dianpu"
+                android:layout_marginLeft="9dp"
+                android:text="华竹饭店"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/iv_dingwei"
+                android:src="@mipmap/dingwei_gray"
+                android:layout_width="16dp"
+                android:layout_height="15dp" />
+            <TextView
+                android:layout_toRightOf="@+id/iv_dingwei"
+                android:id="@+id/tv_dizhi"
+                android:layout_marginLeft="9dp"
+                android:maxLines="2"
+                android:text="饭店华竹店华竹饭店华竹饭店华竹饭店"
+                android:textSize="12sp"
+                android:textColor="@color/lishisousuo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="15dp"
+                android:src="@mipmap/dianhua"/>
+            <TextView
+                android:id="@+id/tv_phone"
+                android:text="18888888888"
+                android:textSize="14sp"
+                android:textColor="@color/lishisousuo"
+                android:layout_marginLeft="9dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_marginTop="8dp"
+        android:id="@+id/zhanwei2"
+        android:layout_below="@+id/zhanwei"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_toLeftOf="@+id/fengexian"
+            android:layout_marginRight="12dp"
+            android:id="@+id/tv_zuofei"
+            android:text="作废"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_marginRight="12dp"
+            android:layout_toLeftOf="@+id/tv_dayin"
+            android:id="@+id/fengexian"
+            android:background="@color/cutoff"
+            android:layout_centerVertical="true"
+            android:layout_width="1dp"
+            android:layout_height="10dp" />
+        <TextView
+            android:layout_marginRight="12dp"
+            android:id="@+id/tv_dayin"
+            android:layout_alignParentRight="true"
+            android:textSize="15sp"
+            android:textColor="@color/zangqing"
+            android:text="打印"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <View
+        android:layout_below="@+id/zhanwei2"
+        android:layout_marginTop="20dp"
+        android:background="@color/cutoff"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"></View>
+</RelativeLayout>

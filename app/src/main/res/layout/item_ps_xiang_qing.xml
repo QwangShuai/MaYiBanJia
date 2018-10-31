@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="36dp">
+        <TextView
+            android:id="@+id/tv_state"
+            android:layout_marginRight="13dp"
+            android:textSize="13sp"
+            android:textColor="@color/mayihong"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="待取货"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <View
+        android:layout_marginLeft="12dp"
+        android:background="@color/cutoff"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"></View>
+    <RelativeLayout
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/quhuotanwei"
+            android:layout_centerVertical="true"
+            android:textSize="15sp"
+            android:textColor="@color/lishisousuo"
+            android:text="取货摊位："
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginRight="71dp"
+            android:textSize="15sp"
+            android:textColor="@color/zicolor"
+            android:text="二楼鸡货16号"
+            android:id="@+id/tv_quhuotanwei"
+            android:layout_toRightOf="@+id/quhuotanwei"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:id="@+id/ll_saoma"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_marginRight="9dp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@mipmap/saoma"/>
+            <TextView
+                android:text="扫码"
+                android:textSize="14sp"
+                android:textColor="@color/zangqing"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="13dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="13dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/lianxidianhua"
+            android:textSize="15sp"
+            android:textColor="@color/lishisousuo"
+            android:text="联系电话："
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_lianxidianhua"
+            android:textSize="15sp"
+            android:textColor="@color/zicolor"
+            android:text="18645111899"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/ll_baozhuang"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="13dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/baozhuanggeshu"
+                android:textSize="15sp"
+                android:textColor="@color/lishisousuo"
+                android:text="包装个数："
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_baozhuanggeshu"
+                android:textSize="15sp"
+                android:textColor="@color/zangqing"
+                android:text="15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <TextView
+            android:textSize="14sp"
+            android:id="@+id/tv_quhuoma"
+            android:layout_marginRight="12dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/zangqing"
+            android:text="取货码"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_saomageshu"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="13dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/saomageshu"
+            android:textSize="15sp"
+            android:textColor="@color/lishisousuo"
+            android:text="扫码个数："
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_saomageshu"
+            android:textSize="15sp"
+            android:textColor="@color/zicolor"
+            android:text="10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="13dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/peisongcanting"
+            android:textSize="15sp"
+            android:textColor="@color/lishisousuo"
+            android:text="配送餐厅："
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_peisongcanting"
+            android:textSize="15sp"
+            android:textColor="@color/zicolor"
+            android:text="华竹饭店"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="13dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="15sp"
+            android:textColor="@color/lishisousuo"
+            android:text="配送地址："
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginRight="12dp"
+            android:id="@+id/tv_peisongdizhi"
+            android:textSize="15sp"
+            android:textColor="@color/zicolor"
+            android:text="都会撒娇的哈卡三等奖萨克来得快"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="13dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="15sp"
+            android:textColor="@color/lishisousuo"
+            android:text="餐厅电话："
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_cantingdianhua"
+            android:textSize="15sp"
+            android:textColor="@color/zicolor"
+            android:text="15888888888"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <View
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/cutoff"></View>
+</LinearLayout>

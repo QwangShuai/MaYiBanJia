@@ -1,0 +1,75 @@
+package com.mingmen.mayi.mayibanjia.ui.activity.ghdingdan;
+
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.mingmen.mayi.mayibanjia.R;
+import com.mingmen.mayi.mayibanjia.bean.GHOrderBean;
+
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+/**
+ * Created by Administrator on 2018/9/29.
+ */
+
+public class GHShangPinAdapter extends RecyclerView.Adapter<GHShangPinAdapter.ViewHolder> {
+
+    private ViewHolder viewHolder;
+    private Context mContext;
+    private List<GHOrderBean.ZilistBean> mList;
+
+    public GHShangPinAdapter(Context context, List<GHOrderBean.ZilistBean> list){
+        this.mContext = context;
+        this.mList = list;
+    }
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        viewHolder = new GHShangPinAdapter.ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ghshangpin, parent, false));
+        return viewHolder;
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        GHOrderBean.ZilistBean bean = mList.get(position);
+        if(!TextUtils.isEmpty(bean.getRemarke())){//判断是否有备注
+            holder.tv_shangpinbeizhu.setText(bean.getRemarke());
+        } else {
+            holder.tv_teshushangpin.setVisibility(View.GONE);
+            holder.tv_shangpinbeizhu.setVisibility(View.GONE);
+        }
+        holder.tv_shangpinming.setText(bean.getCommodity_name());
+        holder.tv_jiliang.setText(bean.getAcount_spec());
+        holder.tv_jiage.setText(String.valueOf(bean.getAll_price()));
+    }
+
+    @Override
+    public int getItemCount() {
+        return mList.size();
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.tv_teshushangpin)
+        TextView tv_teshushangpin;
+        @BindView(R.id.tv_shangpinming)
+        TextView tv_shangpinming;
+        @BindView(R.id.tv_jiliang)
+        TextView tv_jiliang;
+        @BindView(R.id.tv_jiage)
+        TextView tv_jiage;
+        @BindView(R.id.tv_shangpinbeizhu)
+        TextView tv_shangpinbeizhu;
+
+        ViewHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+    }
+}

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="12dp"
+
+        android:paddingBottom="12dp">
+        <ImageView
+            android:id="@+id/iv_sptu"
+            android:layout_width="162dp"
+            android:layout_height="162dp"
+            android:background="@color/cutoff"/>
+
+        <TextView
+            android:id="@+id/tv_spming"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:layout_marginTop="8dp"
+            android:text="农种巨甘甜 甜橙"
+            android:textColor="#ff474747"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="bottom"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="12dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¥"
+                android:textColor="#ffff3300"
+                android:textSize="15sp"
+                />
+            <TextView
+                android:id="@+id/tv_danjia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2.5"
+                android:textColor="#ffff3300"
+                android:textSize="15sp"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

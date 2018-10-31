@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <include layout="@layout/head_beijingse"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_shouhuodizhi"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        ></android.support.v7.widget.RecyclerView>
+    <LinearLayout
+        android:id="@+id/ll_meiyou"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/shouhuodizhi_kong"
+            android:layout_marginTop="150dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="您还没有添加收货地址"
+            android:textColor="#999999"
+            android:textSize="15sp"
+            android:layout_marginTop="30dp"
+            />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:id="@+id/ll_item"
+    android:padding="20dp"
+    android:gravity="center_vertical"
+    android:layout_height="62dp">
+    <com.mingmen.mayi.mayibanjia.ui.view.CircleImageView
+        android:id="@+id/iv_tubiao"
+        android:src="@mipmap/qr_code"
+        android:layout_width="23dp"
+        android:layout_height="23dp" />
+    <TextView
+        android:id="@+id/tv_yinhang"
+        android:textSize="15sp"
+        android:textColor="@color/zicolor"
+        android:layout_marginLeft="20dp"
+        android:text="中国银行"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

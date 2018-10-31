@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--内部-->
+    <solid android:color="@color/zangqing" />
+
+    <corners
+        android:bottomLeftRadius="35dp"
+        android:bottomRightRadius="35dp"
+        android:topLeftRadius="35dp"
+        android:topRightRadius="35dp"/>
+    <!--边框-->
+    <stroke android:width="0dp" android:color="#c0c0c0" />
+
+</shape>

@@ -1,0 +1,325 @@
+package com.mingmen.mayi.mayibanjia.ui.activity;
+
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
+
+import com.mingmen.mayi.mayibanjia.R;
+import com.mingmen.mayi.mayibanjia.app.MyApplication;
+import com.mingmen.mayi.mayibanjia.bean.QiYeLeiBieBean;
+import com.mingmen.mayi.mayibanjia.bean.QiYeLieBiaoBean;
+import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
+import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
+import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
+import com.mingmen.mayi.mayibanjia.ui.activity.adapter.QiYeLieBiaoAdapter;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.QiYeLieBiaoDialog;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.QiYeSouSUoDialog;
+import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
+import com.mingmen.mayi.mayibanjia.utils.AppUtil;
+import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.OnClick;
+import cn.qqtheme.framework.picker.SinglePicker;
+import it.sephiroth.android.library.easing.Linear;
+
+import static com.mingmen.mayi.mayibanjia.R.id.rv_yijifenlei;
+
+/**
+ * Created by Administrator on 2018/7/25/025.
+ */
+
+public class YeWuYuanMainActivity extends BaseActivity {
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.iv_back)
+    ImageView ivBack;
+    @BindView(R.id.iv_sangedian)
+    ImageView ivSangedian;
+    @BindView(R.id.tv_right)
+    TextView tvRight;
+    @BindView(R.id.rv_qiyeliebiao)
+    RecyclerView rvQiyeliebiao;
+    @BindView(R.id.srl_shuaxin)
+    SwipeRefreshLayout srlShuaxin;
+    private Context mContext;
+    private QiYeLieBiaoAdapter adapter;
+    private QiYeLieBiaoDialog bianjidialog;
+    private ArrayList<QiYeLieBiaoBean> mlist;
+    private QiYeSouSUoDialog sousuodialog;
+    private SinglePicker<QiYeLeiBieBean> leibiepicker;
+    private String leibiename;
+    private String leibieid="";
+    private PopupWindow tuichupop;
+    private ConfirmDialog confirmDialog;
+
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_yewuyuanmain;
+    }
+
+    @Override
+    protected void initData() {
+        tvTitle.setText("企业列表");
+        ivBack.setImageResource(R.mipmap.sousuo_bai);
+        mContext=YeWuYuanMainActivity.this;
+        getQiyeLiebiao();
+        confirmDialog = new ConfirmDialog(mContext,
+                mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
+        srlShuaxin.setColorSchemeResources(R.color.zangqing, R.color.zangqing,
+                R.color.zangqing, R.color.zangqing);
+        srlShuaxin.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // 设置可见
+                srlShuaxin.setRefreshing(true);
+                // 重置adapter的数据源为空
+                getQiyeLiebiao();
+                srlShuaxin.setRefreshing(false);
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getQiyeLiebiao();
+    }
+
+    //查询企业列表
+    private void getQiyeLiebiao() {
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .getqiyeliebiao(PreferenceUtils.getString(MyApplication.mContext, "token","")))
+                .setDataListener(new HttpDataListener<List<QiYeLieBiaoBean>>() {
+                    @Override
+                    public void onNext(final List<QiYeLieBiaoBean> data) {
+                        initadapter(data);
+                    }
+                });
+
+    }
+
+    //查询企业列表..带参数
+    private void getQiyeLiebiaodaicanshu(String trim, String leibieid) {
+        Log.e("getQiyeLiebiaodaicanshu",trim+"--"+leibieid);
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .getqiyedaicanshu(PreferenceUtils.getString(MyApplication.mContext, "token",""),trim,leibieid))
+                .setDataListener(new HttpDataListener<List<QiYeLieBiaoBean>>() {
+                    @Override
+                    public void onNext(final List<QiYeLieBiaoBean> data) {
+                        initadapter(data);
+                    }
+                });
+
+    }
+
+    private void initadapter(List<QiYeLieBiaoBean> data) {
+        mlist = new ArrayList<>();
+        mlist.addAll(data);
+        Log.e("data","--"+gson.toJson(data));
+        adapter = new QiYeLieBiaoAdapter(mContext, mlist);
+        rvQiyeliebiao.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+        rvQiyeliebiao.setAdapter(adapter);
+        adapter.setOnItemClickListener(new QiYeLieBiaoAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(View view, final int position) {
+                switch (view.getId()){
+                    case R.id.ll_bianji:
+                        //dialog
+                        bianjidialog = new QiYeLieBiaoDialog(mContext,
+                                mContext.getResources().getIdentifier("TouMingDialog", "style", mContext.getPackageName()));
+                        bianjidialog.showDialog();
+                        bianjidialog.getLlBianji().setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                bianji(position);
+                                Log.e("bianji","bianji"+position);
+                                bianjidialog.cancel();
+                            }
+                        });
+                        bianjidialog.getLlShanchu().setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                shanchu(position);
+                                bianjidialog.cancel();
+                            }
+                        });
+                        bianjidialog.getIvGuanbi().setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                bianjidialog.cancel();
+                            }
+                        });
+                        break;
+
+                }
+            }
+        });
+    }
+
+    //删除
+    private void shanchu(final int position) {
+        Log.e("shanchu",position+"-");
+        String id = mlist.get(position).getCompany_id();
+        Log.e("id",id+"_--");
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .delqiye(PreferenceUtils.getString(MyApplication.mContext, "token",""),id))
+                .setDataListener(new HttpDataListener<String>() {
+                    @Override
+                    public void onNext(String data) {
+                        Log.e("data",data+"---");
+                        mlist.remove(position);
+                        adapter.notifyDataSetChanged();
+
+                    }
+                });
+    }
+    //编辑
+    private void bianji(int position) {
+        Intent intent = new Intent(mContext, XinXiLuRuActivity.class);
+        bundle.putString("rukou","edit");
+        bundle.putString("xinxi",gson.toJson(mlist.get(position)));
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    @OnClick({R.id.iv_back, R.id.tv_right,R.id.iv_sangedian})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_back:
+                //搜索弹出框
+//dialog
+                sousuodialog = new QiYeSouSUoDialog(mContext,
+                        mContext.getResources().getIdentifier("BottomDialog", "style", mContext.getPackageName()));
+                sousuodialog.showDialog();
+                sousuodialog.getBtQueding().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        String name = sousuodialog.getEtQiyemingcheng().getText().toString().trim();
+                        Log.e("name",name+"--");
+                        getQiyeLiebiaodaicanshu(name,leibieid);
+                        sousuodialog.cancel();
+                    }
+                });
+                sousuodialog.getTvQuxiao().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        sousuodialog.cancel();
+                    }
+                });
+                sousuodialog.getTvQiyeleibie().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+//企业类别
+                        HttpManager.getInstance()
+                                .with(mContext)
+                                .setObservable(
+                                        RetrofitManager
+                                                .getService()
+                                                .getqylb())
+                                .setDataListener(new HttpDataListener<List<QiYeLeiBieBean>>(){
+                                    @Override
+                                    public void onNext(List<QiYeLeiBieBean> data) {
+                                        leibiepicker = new SinglePicker<>(YeWuYuanMainActivity.this, data);
+                                        leibiepicker.setCanceledOnTouchOutside(false);
+                                        leibiepicker.setSelectedIndex(1);
+                                        leibiepicker.setCycleDisable(false);
+                                        leibiepicker.setOnItemPickListener(new SinglePicker.OnItemPickListener<QiYeLeiBieBean>() {
+                                            @Override
+                                            public void onItemPicked(int index, QiYeLeiBieBean item) {
+                                                leibiename = item.getSon_name();
+                                                leibieid = item.getSon_number();
+                                                sousuodialog.getTvQiyeleibie().setText(leibiename);
+                                                Log.e("leibiename+leibieid", leibiename +"+"+ leibieid);
+                                                leibiepicker.dismiss();
+                                            }
+                                        });
+                                        leibiepicker.show();
+
+                                    }
+                                });
+                    }
+
+                });
+                break;
+            case R.id.tv_right:
+                //添加企业
+                Intent intent = new Intent(mContext, XinXiLuRuActivity.class);
+                bundle.putString("rukou","add");
+                intent.putExtras(bundle);
+                startActivity(intent);
+                break;
+            case R.id.iv_sangedian:
+                showTuiChuPop();
+
+                break;
+        }
+    }
+
+    private void showTuiChuPop() {
+        View view = View.inflate(mContext, R.layout.pop_tuichu, null);
+        tuichupop = new PopupWindow(view);
+
+        WindowManager wm1 = this.getWindowManager();
+        int width = wm1.getDefaultDisplay().getWidth();
+        int height = wm1.getDefaultDisplay().getHeight();
+        tuichupop.setWidth(AppUtil.dip2px(130));
+        tuichupop.setHeight(AppUtil.dip2px(50));
+        LinearLayout ll_tuichu = view.findViewById(R.id.ll_tuichu);
+        ll_tuichu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirmDialog.showDialog("是否确定退出当前账号");
+                confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        PreferenceUtils.putBoolean(MyApplication.mContext, "isLogin", false);
+                        Intent intent = new Intent(mContext, LoginActivity.class);
+                        startActivity(intent);
+                        confirmDialog.dismiss();
+                        tuichupop.dismiss();
+                        finish();
+                    }
+                });
+                confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        confirmDialog.dismiss();
+                        tuichupop.dismiss();
+                    }
+                });
+            }
+        });
+        tuichupop.setOutsideTouchable(true);
+        tuichupop.setBackgroundDrawable(new BitmapDrawable());
+        tuichupop.showAsDropDown(ivSangedian);
+    }
+}

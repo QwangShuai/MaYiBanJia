@@ -725,6 +725,8 @@ public class FaBuShangPinActivity extends BaseActivity {
                             Glide.with(FaBuShangPinActivity.this).load(bean.getHostPicture()).into(ivSptu);
                             shangpintu = bean.getHostPicture();
                         }
+                        etMiaoshu.setText(bean.getSpec_describe());
+                        tvTishi.setText(bean.getSpec_describe().length()+"/50");
                         etSpming.setText(bean.getCommodity_name());
                         tvFenleimingcheng.setText(bean.getClassify_name());
 //                        switch (bean.getChoose_specifications()) {

@@ -284,7 +284,7 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                                 canshu.getSpecThreeNum(),canshu.getRation_one(),canshu.getPice_one(),canshu.getRation_two(),canshu.getPice_two(),
                                 canshu.getRation_three(),canshu.getPice_three(),canshu.getInventory(),canshu.getOrigin(),canshu.getLevel(),
                                 canshu.getApply(),canshu.getProportion(),canshu.getType_one_id(),canshu.getGoods(),canshu.getCommodity_state(),canshu.getCommodity_name(),
-                                canshu.getType_two_id(),canshu.getType_tree_id(),canshu.getHostPicture()))
+                                canshu.getType_two_id(),canshu.getType_tree_id(),canshu.getHostPicture(),canshu.getSpec_describe()))
                 .setDataListener(new HttpDataListener<String>() {
             @Override
             public void onNext(String data) {

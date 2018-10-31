@@ -358,7 +358,8 @@ public interface HttpService {
                                                  @Query("commodity_name") String commodity_name,
                                                  @Query("type_two_id") String type_two_id,
                                                  @Query("type_tree_id") String type_tree_id,
-                                                 @Query("hostPicture") String hostPicture
+                                                 @Query("hostPicture") String hostPicture,
+                                                 @Query("spec_describe") String spec_describe
                                                  );
     //编辑商品
     @POST("gyCommodity/update.do")
@@ -701,4 +702,9 @@ public interface HttpService {
     @POST("gyCommodity/queryCommodityname.do")
     Observable<ResultModel<List<ShangPinSousuoMohuBean>>> searchSpname(@Query("user_token") String user_token,
                                                                        @Query("commodity_name") String commodity_name);
+    //供应端退款
+    @POST("gyOreder/returnMoney.do")
+    Observable<ResultModel<String>> orderTuikuan(@Query("user_token") String user_token,
+                                                 @Query("gy_order_id") String gy_order_id,
+                                                 @Query("price") String price);
 }

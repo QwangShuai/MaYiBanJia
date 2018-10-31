@@ -59,6 +59,24 @@ public class GHOrderBean {
     private String state_name;
     private String countname;
     private String mj_sweep_time;
+    private String company_name;
+    private String telephone;
+
+    public String getCompany_name() {
+        return company_name;
+    }
+
+    public void setCompany_name(String company_name) {
+        this.company_name = company_name;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
 
     public String getMj_sweep_time() {
         return mj_sweep_time;

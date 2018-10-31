@@ -44,7 +44,8 @@ public class ShenPiShangPinAdapter1 extends BaseMultiItemQuickAdapter<MultiItemE
     private PopupWindow mPopWindow;
     CaiGouDanBean.CcListBeanLevel ccListBeanLevel;
     ShangpinidAndDianpuidBean xuanzhongid;
-    HashMap<String, ShangpinidAndDianpuidBean> xuanzhong;
+    private int po=0;
+    HashMap<String, ShangpinidAndDianpuidBean> xuanzhong = new HashMap<>();
     public ShenPiShangPinAdapter1(ShenPiActivity activity) {
         super(null);
         addItemType(CaiGouDanBean.ListBean.Level_0, R.layout.item_shenpi_zhengchang);//一级
@@ -185,27 +186,32 @@ public class ShenPiShangPinAdapter1 extends BaseMultiItemQuickAdapter<MultiItemE
                }else{
                    rl_kuang.setVisibility(View.GONE);
                }
-               xuanzhong = activity.getXuanzhong();
-
-               xuanzhongid = xuanzhong.get(ccListBeanLevel.getCcListBean().getSon_order_id());
-//               LinearLayout ll_qidingliang = holder.getView(R.id.ll_qidingliang);
-               boolean b = false;
-//               Log.e("aaaa",activity.getItem_position()+"----");
+                rl_kuang.setBackgroundColor(mContext.getResources().getColor(R.color.white));
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Log.e("选中ID",xuanzhongid+"");
-                        if(xuanzhongid!=null){
-                            if (ccListBeanLevel.getCcListBean().getCommodity_id().equals(xuanzhongid.getCommodity_id())) {
-                                rl_kuang.setBackgroundColor(mContext.getResources().getColor(R.color.hei20));
-                            }else{
-                                rl_kuang.setBackgroundColor(mContext.getResources().getColor(R.color.white));
-                            }
-                        } else {
-                            rl_kuang.setBackgroundColor(mContext.getResources().getColor(R.color.white));
-                        }
+                        activity.getIvQuanxuan().setSelected(false);
+                        activity.getTvBiaoqian().setText("");
+                        activity.getTvBiaoqian().setHint("请选择");
+                        rl_kuang.setBackgroundColor(mContext.getResources().getColor(R.color.hei20));
+                        activity.setViewShow(ccListBeanLevel.getCcListBean());
                     }
                 });
+//               xuanzhong = activity.getXuanzhong();
+//                xuanzhongid = new ShangpinidAndDianpuidBean();
+//               xuanzhongid = xuanzhong.get(ccListBeanLevel.getCcListBean().getSon_order_id());
+//               LinearLayout ll_qidingliang = holder.getView(R.id.ll_qidingliang);
+//               boolean b = false;
+//               Log.e("aaaa",activity.getItem_position()+"----");
+//                        if(xuanzhongid!=null){
+//                            if (ccListBeanLevel.getCcListBean().getCommodity_id().equals(xuanzhongid.getCommodity_id())) {
+//                                rl_kuang.setBackgroundColor(mContext.getResources().getColor(R.color.hei20));
+//                            }else{
+//                                rl_kuang.setBackgroundColor(mContext.getResources().getColor(R.color.white));
+//                            }
+//                        } else {
+//                            rl_kuang.setBackgroundColor(mContext.getResources().getColor(R.color.white));
+//                        }
 //               if(activity.getItem_position()==1&&ccListBeanLevel.getType()==3){
 //                    b = true;
 //               } else if(activity.getItem_position()==2&&ccListBeanLevel.getType()==1){
@@ -252,9 +258,7 @@ public class ShenPiShangPinAdapter1 extends BaseMultiItemQuickAdapter<MultiItemE
 //                       rl_kuang.setBackgroundColor(mContext.getResources().getColor(R.color.white));
 //                   }
 
-               activity.getIvQuanxuan().setSelected(false);
-               activity.getTvBiaoqian().setText("");
-               activity.getTvBiaoqian().setHint("请选择");
+
 
                holder.setText(R.id.tv_spming,ccListBeanLevel.getCcListBean().getCommodity_name()+"");
                holder.setText(R.id.tv_dianming,ccListBeanLevel.getCcListBean().getCompany_name()+"");
@@ -303,6 +307,8 @@ public class ShenPiShangPinAdapter1 extends BaseMultiItemQuickAdapter<MultiItemE
         mPopWindow.showAsDropDown(xianshiView);
 
     }
-
+    public void setPosition(int po){
+        this.po = po;
+    }
 }
 

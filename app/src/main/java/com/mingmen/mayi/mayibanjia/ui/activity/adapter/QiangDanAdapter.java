@@ -125,7 +125,7 @@ public class QiangDanAdapter extends BaseQuickAdapter<QiangDanBean,BaseViewHolde
                                                             RetrofitManager
                                                                     .getService()
                                                                     .qiangdan(PreferenceUtils.getString(MyApplication.mContext,"token",""),
-                                                                            msg.getCommodity_id(),item.getQuote_price_id(),fujiafei))
+                                                                            msg.getCommodity_id(),item.getQuote_price_id(),"".equals(fujiafei)?"0":fujiafei))
                                                     .setDataListener(new HttpDataListener<String>() {
                                                         @Override
                                                         public void onNext(String data) {

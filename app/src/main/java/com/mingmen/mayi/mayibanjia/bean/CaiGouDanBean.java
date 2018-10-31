@@ -271,8 +271,8 @@ public class CaiGouDanBean {
 
 
     public static class ListBean extends AbstractExpandableItem<CcListBeanLevel> implements MultiItemEntity {
-            public static final int Level_0=0x10;
-            public static final int Level_1=0x20;
+            public static final int Level_0=0;
+            public static final int Level_1=1;
 
             /**
              * count : 55
@@ -468,7 +468,7 @@ public class CaiGouDanBean {
 
         @Override
         public int getLevel() {
-            return Level_0;
+            return 0;
         }
 
         @Override

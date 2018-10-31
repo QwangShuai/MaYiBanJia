@@ -1,5 +1,7 @@
 package com.mingmen.mayi.mayibanjia.bean;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -186,7 +188,7 @@ public class XiTongTuiJianBean {
             this.changer = changer;
         }
     }
-    public static class CcListBean {
+    public static class CcListBean implements Serializable {
             /**
              * count : null
              * company_name : 津津乐道123
@@ -245,6 +247,15 @@ public class XiTongTuiJianBean {
         private String price_three;// 单价3
         private String creat_time;
         private String end_time;
+        private BigDecimal append_money;//附加费
+
+        public BigDecimal getAppend_money() {
+            return append_money;
+        }
+
+        public void setAppend_money(BigDecimal append_money) {
+            this.append_money = append_money;
+        }
 
         public String getCreat_time() {
             return creat_time;

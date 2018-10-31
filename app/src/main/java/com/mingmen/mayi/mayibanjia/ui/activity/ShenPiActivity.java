@@ -111,7 +111,7 @@ public class ShenPiActivity extends BaseActivity {
     private ConfirmDialog confirmDialog;
     private ShenPiShangPinAdapter1 shangpinadapter;
     private PopupWindow mPopWindow;
-    private HashMap<String,ShangpinidAndDianpuidBean> xuanzhong;
+    private HashMap<String,ShangpinidAndDianpuidBean> xuanzhong = new HashMap<>();
     private int item_position;
     private String purchase_id;
     List listBeanLevel = new ArrayList();
@@ -127,7 +127,7 @@ public class ShenPiActivity extends BaseActivity {
         tvRight.setText("添加商品");
         purchase_id = getIntent().getStringExtra("data");
         caigoudan = gson.fromJson(purchase_id, CaiGouDanBean.class).getList();//采购单一级数据
-        xuanzhong=new HashMap();
+//        xuanzhong=new HashMap();
         //存储选中商品的商品id 店铺id  单价
         for (int i = 0; i < caigoudan.size(); i++) {
             ShangpinidAndDianpuidBean bean = new ShangpinidAndDianpuidBean();
@@ -150,7 +150,6 @@ public class ShenPiActivity extends BaseActivity {
                 if (adapter.getItemViewType(position) == CaiGouDanBean.ListBean.Level_0) {
                     final CaiGouDanBean.ListBean listBean = (CaiGouDanBean.ListBean) adapter.getItem(position);
                         if (listBean.isNeedLoad()) {//是否需要加载数据
-
                             if (!listBean.isSpecial()){//如果不是特殊商品
                                 getshenpi(listBean, position,false);
                             }else{
@@ -171,42 +170,6 @@ public class ShenPiActivity extends BaseActivity {
                             }
 
                         }
-                }else{
-                    Log.e("2级",position+"");
-                    //点击二级列表
-                    final CaiGouDanBean.CcListBeanLevel level = (CaiGouDanBean.CcListBeanLevel) adapter.getItem(position);
-                        Log.e("点击","点击");
-                        String son_order_id = "";
-                        String commodity_id = "";
-                        Set<String> keys = xuanzhong.keySet();
-                        Log.e("keys",gson.toJson(keys)+"--");
-                    //存储选中的商品信息  更新adapter
-                        for (String key: keys){
-                            if (key.equals(level.getCcListBean().getSon_order_id())){
-                                ShangpinidAndDianpuidBean bean=new ShangpinidAndDianpuidBean();
-                                bean.setCommodity_id(level.getCcListBean().getCommodity_id());
-                                bean.setCompany_id(level.getCcListBean().getCompany_id());
-                                bean.setDanjia(level.getCcListBean().getPrice());
-                                xuanzhong.put(level.getCcListBean().getSon_order_id(),bean);
-                                adapter.notifyDataSetChanged();
-                            }
-                        }
-                        //把所有选中的商品拼接起来
-                        Set<String> mapkey = xuanzhong.keySet();
-                        for (String key:mapkey) {
-                            ShangpinidAndDianpuidBean value = xuanzhong.get(key);
-                            if (value.getCommodity_id().isEmpty()){//没选中的不拼   避免有多余的,
-                            }else{
-                                son_order_id+=key+",";
-                                commodity_id+=value.getCommodity_id()+",";
-                            }
-                        }
-                        son_order_id=son_order_id.substring(0,son_order_id.length()-1);
-                        commodity_id=commodity_id.substring(0,commodity_id.length()-1);
-                        Log.e("commodity_id",commodity_id+"---");
-                        Log.e("son_order_id",son_order_id+"---");
-                    //调用接口获取总价
-                        zongjia(son_order_id,commodity_id);
                 }
             }
         });
@@ -554,8 +517,9 @@ public class ShenPiActivity extends BaseActivity {
                         List<XiTongTuiJianBean.CcListBean> commodity_sales = list.getCommodity_sales(); //销量
                         if (commodity_sales != null && commodity_sales.size() > 0) {
                             XiTongTuiJianBean.CcListBean xiaoliang = list.getCommodity_sales().get(0);
+                            Log.e("xiaoliang",xiaoliang.getSon_order_id());
                             xiaoliang.setBiaoqian("销量最高");
-                            listBeanLevel.add(new CaiGouDanBean.CcListBeanLevel(TYPE_ONE,xiaoliang ));
+                            listBeanLevel.add(new CaiGouDanBean.CcListBeanLevel(TYPE_ONE,xiaoliang));
                         }else{
                             listBeanLevel.add(new CaiGouDanBean.CcListBeanLevel(TYPE_ONE, new XiTongTuiJianBean.CcListBean()));
                         }
@@ -792,5 +756,39 @@ public class ShenPiActivity extends BaseActivity {
     }
     public int getItem_position(){
         return item_position;
+    }
+
+    public void setViewShow(XiTongTuiJianBean.CcListBean level){
+        Log.e("点击",new Gson().toJson(level));
+        String son_order_id = "";
+        String commodity_id = "";
+        Set<String> keys = xuanzhong.keySet();
+        //存储选中的商品信息  更新adapter
+        for (String key: keys){
+                Log.e("我的key",key);
+            if (key.equals(level.getSon_order_id())){
+                ShangpinidAndDianpuidBean bean=new ShangpinidAndDianpuidBean();
+                bean.setCommodity_id(level.getCommodity_id());
+                bean.setCompany_id(level.getCompany_id());
+                bean.setDanjia(level.getPrice());
+                xuanzhong.put(level.getSon_order_id(),bean);
+            }
+        }
+        //把所有选中的商品拼接起来
+        Set<String> mapkey = xuanzhong.keySet();
+        for (String key:mapkey) {
+            ShangpinidAndDianpuidBean value = xuanzhong.get(key);
+            if (value.getCommodity_id().isEmpty()){//没选中的不拼   避免有多余的,
+            }else{
+                son_order_id+=key+",";
+                commodity_id+=value.getCommodity_id()+",";
+            }
+        }
+        son_order_id=son_order_id.substring(0,son_order_id.length()-1);
+        commodity_id=commodity_id.substring(0,commodity_id.length()-1);
+        Log.e("commodity_id",commodity_id+"---");
+        Log.e("son_order_id",son_order_id+"---");
+        //调用接口获取总价
+        zongjia(son_order_id,commodity_id);
     }
 }

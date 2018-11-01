@@ -20,19 +20,24 @@
             android:layout_marginLeft="12dp"
             android:layout_weight="1"
             />
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@color/zangqing"
-            />
-        <ImageView
+        <LinearLayout
+            android:id="@+id/ll_touxiang"
+            android:gravity="center_vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/jinru"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            />
-
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@color/zangqing"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/jinru"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                />
+        </LinearLayout>
     </LinearLayout>
     <View
         android:layout_width="match_parent"
@@ -85,6 +90,7 @@
             android:textSize="15sp" />
 
         <ImageView
+            android:id="@+id/iv_anquan_jinru"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@mipmap/jinru"
@@ -114,20 +120,26 @@
             android:textSize="15sp"
             android:layout_weight="1"
             />
-        <TextView
+        <LinearLayout
+            android:id="@+id/ll_zizhirenzheng"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="审核通过"
-            android:textColor="#2fc22f"
-            android:textSize="14sp"
-            />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@mipmap/jinru"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            />
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="审核通过"
+                android:textColor="#2fc22f"
+                android:textSize="14sp"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@mipmap/jinru"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                />
+        </LinearLayout>
+
     </LinearLayout>
     <View
         android:layout_width="match_parent"
@@ -149,20 +161,26 @@
             android:textSize="15sp"
             android:layout_weight="1"
             />
-        <TextView
+        <LinearLayout
+            android:id="@+id/ll_farenrenzheng"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="审核通过"
-            android:textColor="#2fc22f"
-            android:textSize="14sp"
-            />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@mipmap/jinru"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            />
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="审核通过"
+                android:textColor="#2fc22f"
+                android:textSize="14sp"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@mipmap/jinru"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                />
+        </LinearLayout>
+
     </LinearLayout>
     <View
         android:layout_width="match_parent"

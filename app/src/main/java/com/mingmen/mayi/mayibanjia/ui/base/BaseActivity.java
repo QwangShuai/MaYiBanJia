@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.R;
@@ -87,7 +88,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         return super.dispatchTouchEvent(ev);
     }
-
 
 }
 

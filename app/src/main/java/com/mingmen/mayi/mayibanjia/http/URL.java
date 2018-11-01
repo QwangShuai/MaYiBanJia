@@ -5,11 +5,11 @@ package com.mingmen.mayi.mayibanjia.http;
  */
 
 public class URL {
-    public static String url = "http://192.168.1.153:8080/ant/"; //李岩
+//    public static String url = "http://192.168.1.153:8080/ant/"; //李岩
 //    public static String url = "http://192.168.1.142:8080/ant/"; //毕森
 //    public static String url = "http://192.168.43.59:8080/ant/"; //毕森--
 //    public static String url = "http://192.168.1.125:8080/ant/"; //春波
 //    public static String url = "http://192.168.1.151:8080/ant/"; //刘哥
 //    public static String url = "http://192.168.1.128:8080/ant/"; //李岩
-//  public static String url = "http://www.canchengxiang.com/";//服务器
+  public static String url = "http://www.canchengxiang.com/";//服务器
 }

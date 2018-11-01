@@ -3,7 +3,7 @@
     <string name="title_activity_wu_liu">WuLiuActivity</string>
     <string name="wl_fenpeiwuliuche"><u>分配物流车</u></string>
     <string name="wl_biangeng"><u>变更</u></string>
-
+    <string name="only_input">qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM1234567890</string>
 
     <string name="no_connect_blue_tooth">未连接蓝牙</string>
     <string name="new_label">新建标签</string>

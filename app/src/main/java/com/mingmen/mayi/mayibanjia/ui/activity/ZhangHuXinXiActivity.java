@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mingmen.mayi.mayibanjia.MainActivity;
@@ -31,6 +32,14 @@ public class ZhangHuXinXiActivity extends BaseActivity {
     TextView tvRight;
     @BindView(R.id.tv_tuichu)
     TextView tvTuichu;
+    @BindView(R.id.ll_touxiang)
+    LinearLayout llTouxiang;
+    @BindView(R.id.iv_anquan_jinru)
+    ImageView ivAnquanJinru;
+    @BindView(R.id.ll_zizhirenzheng)
+    LinearLayout llZizhirenzheng;
+    @BindView(R.id.ll_farenrenzheng)
+    LinearLayout llFarenrenzheng;
     private Context mContext;
     private ConfirmDialog confirmDialog;
 
@@ -41,14 +50,15 @@ public class ZhangHuXinXiActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        mContext=ZhangHuXinXiActivity.this;
+        mContext = ZhangHuXinXiActivity.this;
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
     }
 
 
-    @OnClick({R.id.iv_back, R.id.tv_tuichu})
+    @OnClick({R.id.iv_back, R.id.tv_tuichu,R.id.ll_touxiang, R.id.iv_anquan_jinru, R.id.ll_zizhirenzheng, R.id.ll_farenrenzheng})
     public void onViewClicked(View view) {
+        Intent it;
         switch (view.getId()) {
             case R.id.iv_back:
                 finish();
@@ -73,6 +83,24 @@ public class ZhangHuXinXiActivity extends BaseActivity {
                     }
                 });
                 break;
+            case R.id.ll_touxiang:
+                break;
+            case R.id.iv_anquan_jinru:
+                break;
+            case R.id.ll_zizhirenzheng://资质认证
+                it= new Intent(mContext,ZiZhiRenZhengActivity.class);
+                it.putExtra("id","");
+                startActivity(it);
+                break;
+            case R.id.ll_farenrenzheng:
+                break;
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

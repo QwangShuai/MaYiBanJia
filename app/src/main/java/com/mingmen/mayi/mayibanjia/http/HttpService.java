@@ -19,6 +19,7 @@ import com.mingmen.mayi.mayibanjia.bean.FenLeiBean;
 import com.mingmen.mayi.mayibanjia.bean.FenLeiMingChengBean;
 import com.mingmen.mayi.mayibanjia.bean.GHOrderBean;
 import com.mingmen.mayi.mayibanjia.bean.GWCShangPinBean;
+import com.mingmen.mayi.mayibanjia.bean.GetZiZhiBean;
 import com.mingmen.mayi.mayibanjia.bean.LiShiJiLuBean;
 import com.mingmen.mayi.mayibanjia.bean.LiuLanJiLuBean;
 import com.mingmen.mayi.mayibanjia.bean.PhoneBean;
@@ -802,4 +803,15 @@ public interface HttpService {
                                                  @Query("gy_order_id") String gy_order_id,
                                                  @Query("price") String price,
                                                  @Query("return_remarke") String return_remarke);
+
+    //资质认证回显
+    @POST("allCompany/getAptitude.do")
+    Observable<ResultModel<GetZiZhiBean>> getZizhiShow(@Query("user_token") String user_token);
+
+    //申请资质认证
+    @POST("allCompany/referAptitude.do")
+    Observable<ResultModel<String>> saveZizhi(@Query("user_token") String user_token,
+                                              @Query("id_number") String id_number,
+                                              @Query("legal_person") String legal_person,
+                                              @Query("duty_paragraph") String duty_paragraph);
 }

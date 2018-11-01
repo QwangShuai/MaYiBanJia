@@ -38,6 +38,7 @@
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
+
     <application
         android:name=".app.MyApplication"
         android:allowBackup="true"
@@ -245,7 +246,7 @@
             android:label="@string/title_activity_printf_blue_list"
             android:theme="@style/NoTitle" /> <!-- 连接蓝牙 -->
         <activity android:name=".ui.activity.SiJiActivity" /> <!-- 司机配送 -->
-        <activity android:name=".ui.activity.PeiSongXiangQingActivity" /><!-- 司机配送详情 -->
+        <activity android:name=".ui.activity.PeiSongXiangQingActivity" /> <!-- 司机配送详情 -->
 
         <receiver
             android:name=".utils.dayinji.NameOfBroadcastReceiverClass"
@@ -258,13 +259,14 @@
 
         <activity android:name=".utils.qrCode.CaptureActivity" /> <!-- 扫码页面 -->
         <activity android:name=".ui.activity.YiJianFanKuiActivity" /> <!-- 意见反馈 -->
-        <activity android:name=".ui.activity.DianPuGuanZhuActivity" /><!-- 店铺关注 -->
-        <activity android:name=".ui.activity.LiuLanJiLuActivity" /><!-- 浏览记录 -->
-        <activity android:name=".ui.activity.WeiYiQrCodeActivity" /><!-- 唯一取货码 -->
-        <activity android:name=".ui.activity.YinHangKaActivity" /><!-- 银行卡 -->
-        <activity android:name=".ui.activity.YinHangKaTianJiaActivity" /><!-- 添加银行卡 -->
-        <activity android:name=".ui.activity.XuanZeYinHangActivity" /><!-- 选择银行 -->
-        <activity android:name=".ui.activity.DingDanXiangQingActivity"></activity><!-- 订单详情 -->
+        <activity android:name=".ui.activity.DianPuGuanZhuActivity" /> <!-- 店铺关注 -->
+        <activity android:name=".ui.activity.LiuLanJiLuActivity" /> <!-- 浏览记录 -->
+        <activity android:name=".ui.activity.WeiYiQrCodeActivity" /> <!-- 唯一取货码 -->
+        <activity android:name=".ui.activity.YinHangKaActivity" /> <!-- 银行卡 -->
+        <activity android:name=".ui.activity.YinHangKaTianJiaActivity" /> <!-- 添加银行卡 -->
+        <activity android:name=".ui.activity.XuanZeYinHangActivity" /> <!-- 选择银行 -->
+        <activity android:name=".ui.activity.DingDanXiangQingActivity" /> <!-- 订单详情 -->
+        <activity android:name=".ui.activity.ZiZhiRenZhengActivity"></activity>
     </application>
 
 </manifest>

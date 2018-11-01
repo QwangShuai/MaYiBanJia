@@ -92,8 +92,6 @@ public class WoDeFragment extends BaseFragment {
     TextView tvLiulanjilu;
     @BindView(R.id.ll_liulanjilu)
     LinearLayout llLiulanjilu;
-    @BindView(R.id.ll_quanbudingdan)
-    LinearLayout llQuanbudingdan;
     @BindView(R.id.tv_daifukuan)
     TextView tvDaifukuan;
     @BindView(R.id.rl_daifukuan)
@@ -222,7 +220,7 @@ public class WoDeFragment extends BaseFragment {
         startActivity(intent);
     }
 
-    @OnClick({R.id.iv_tongzhi, R.id.iv_touxiang,R.id.ll_shoucang, R.id.iv_mingpian, R.id.ll_quanbudingdan, R.id.rl_daifukuan,
+    @OnClick({R.id.iv_tongzhi, R.id.iv_touxiang,R.id.ll_shoucang, R.id.iv_mingpian, R.id.rl_dingdan, R.id.rl_daifukuan,
             R.id.rl_daifahuo, R.id.rl_daishouhuo, R.id.rl_yishouhuo, R.id.rl_shouhuodizhi, R.id.rl_xuqiudan,R.id.rl_yijian,
             R.id.rl_kefu,R.id.ll_guanzhu,R.id.ll_liulanjilu,R.id.rl_yinhang})
     public void onViewClicked(View view) {
@@ -239,7 +237,7 @@ public class WoDeFragment extends BaseFragment {
             case R.id.iv_mingpian:
                 Jump_intent(ZhangHuXinXiActivity.class, new Bundle());
                 break;
-            case R.id.ll_quanbudingdan:
+            case R.id.rl_dingdan:
                 Bundle quanbu = new Bundle();
                 quanbu.putInt("to_shop", 0);
                 Jump_intent(DingDanActivity.class, quanbu);

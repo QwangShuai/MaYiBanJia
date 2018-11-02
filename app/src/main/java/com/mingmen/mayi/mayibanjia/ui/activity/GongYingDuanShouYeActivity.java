@@ -95,6 +95,7 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
             case R.id.ll_shezhi:
                 Intent shezhi=new Intent(mContext,GongYingDuanSheZhiActivity.class);
                 startActivity(shezhi);
+                finish();
                 break;
             case R.id.ll_tejiashangpin:
                 break;

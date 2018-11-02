@@ -187,25 +187,7 @@ public class DdxqBean {
         private Object specific_address;
         private Object create_time;
         private String orderState;
-        private String packCount;//包装个数
-        private String scanCount;//扫码个数
         private List<DplistBean> dplist;
-
-        public String getPackCount() {
-            return packCount;
-        }
-
-        public void setPackCount(String packCount) {
-            this.packCount = packCount;
-        }
-
-        public String getScanCount() {
-            return scanCount;
-        }
-
-        public void setScanCount(String scanCount) {
-            this.scanCount = scanCount;
-        }
 
         public String getOrderState() {
             return orderState;
@@ -584,7 +566,25 @@ public class DdxqBean {
             private Object change_time;
             private String order_number;
             private String scanState;//扫码状态 0:已扫完1:未扫完
+            private String packCount;//包装个数
+            private String scanCount;//扫码个数
             private List<ListspBean> listsp;
+
+            public String getPackCount() {
+                return packCount;
+            }
+
+            public void setPackCount(String packCount) {
+                this.packCount = packCount;
+            }
+
+            public String getScanCount() {
+                return scanCount;
+            }
+
+            public void setScanCount(String scanCount) {
+                this.scanCount = scanCount;
+            }
 
             public String getScanState() {
                 return scanState;

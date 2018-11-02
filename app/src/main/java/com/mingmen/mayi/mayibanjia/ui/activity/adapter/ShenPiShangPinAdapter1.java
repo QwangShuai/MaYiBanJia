@@ -90,9 +90,9 @@ public class ShenPiShangPinAdapter1 extends BaseMultiItemQuickAdapter<MultiItemE
                 ShangpinidAndDianpuidBean bean = map.get(listBean.getSon_order_id());
 
                 ImageView iv_select = holder.getView(R.id.iv_select);
-                Log.e("hahahaha",bean.getCommodity_id()+"");
-                iv_select.setSelected(!bean.getCommodity_id().isEmpty());//设置选中状态
-
+                if(!TextUtils.isEmpty(bean.getCommodity_id())||bean.getCommodity_id()==null){
+                    iv_select.setSelected(!bean.getCommodity_id().isEmpty());//设置选中状态
+                }
                 holder.setText(R.id.tv_shangpinming,listBean.getClassify_name());//商品名
 
                 ImageView sptu = holder.getView(R.id.iv_sptu);
@@ -173,7 +173,37 @@ public class ShenPiShangPinAdapter1 extends BaseMultiItemQuickAdapter<MultiItemE
                         showPopupWindow(listBean.getSpecial_commodity(),tv_teshu);
                     }
                 });
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.e("这是我的点击位置",getParentPosition(listBean)+"---");
+                        int position = getParentPosition(listBean);
+                        if (listBean.isNeedLoad()) {//是否需要加载数据
+                            if (!listBean.isSpecial()){//如果不是特殊商品
+                                activity.getshenpi(listBean, getParentPosition(listBean),false);
+                            }else{
+//                                ToastUtil.showToast("");
+                            }
+                        } else {
+                            //不需要加载数据时
+                            List<CaiGouDanBean.CcListBeanLevel> levels = listBean.getSubItems();
+//                            展开二级列表
+                            if (levels.get(0).getCcListBean().getCommodity_id()!=null){//如果第一个是空的  说明全是空的
+                                if (listBean.isExpanded()) {//判断展开还是关闭
+//                                    collapse(getParentPosition(listBean));
+                                    collapse(position);
 
+                                } else {
+                                    expand(position);
+//                                    expand(getParentPosition(listBean));
+                                }
+                            }else{
+                                ToastUtil.showToast("该市场下没有此分类商品");//
+                            }
+
+                        }
+                    }
+                });
                 holder.addOnClickListener(R.id.ll_lishi);
                 holder.addOnClickListener(R.id.iv_shanchu);
                 holder.addOnClickListener(R.id.iv_xiugai);
@@ -186,15 +216,19 @@ public class ShenPiShangPinAdapter1 extends BaseMultiItemQuickAdapter<MultiItemE
                }else{
                    rl_kuang.setVisibility(View.GONE);
                }
+//                rl_kuang.setSelected(true);
                 rl_kuang.setBackgroundColor(mContext.getResources().getColor(R.color.white));
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Log.e("我的原始老Gson",new Gson().toJson(item));
+                        Log.e("我的新的老Gson",new Gson().toJson(ccListBeanLevel));
                         activity.getIvQuanxuan().setSelected(false);
                         activity.getTvBiaoqian().setText("");
                         activity.getTvBiaoqian().setHint("请选择");
+                        rl_kuang.setSelected(true);
                         rl_kuang.setBackgroundColor(mContext.getResources().getColor(R.color.hei20));
-                        activity.setViewShow(ccListBeanLevel.getCcListBean());
+                        activity.setViewShow(item);
                     }
                 });
 //               xuanzhong = activity.getXuanzhong();

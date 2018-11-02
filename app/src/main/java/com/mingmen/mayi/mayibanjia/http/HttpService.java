@@ -814,4 +814,7 @@ public interface HttpService {
                                               @Query("id_number") String id_number,
                                               @Query("legal_person") String legal_person,
                                               @Query("duty_paragraph") String duty_paragraph);
+    //切换角色
+    @POST("allCompanyAccount/updateByType.do")
+    Observable<ResultModel<String>> qiehuan(@Query("user_token") String user_token);
 }

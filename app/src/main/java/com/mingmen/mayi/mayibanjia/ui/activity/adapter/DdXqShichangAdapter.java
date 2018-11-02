@@ -64,11 +64,8 @@ public class DdXqShichangAdapter extends BaseMultiItemQuickAdapter<MultiItemEnti
                     else {
                         if(TextUtils.isEmpty(item0.getDriver_name())){
                             helper.getView(R.id.rl_rongqi).setVisibility(View.GONE);
-                            helper.getView(R.id.ll_baozhuang).setVisibility(View.GONE);
                         } else {
                             // 已发货==已完成
-                            helper.setText(R.id.tv_baozhuanggeshu,item0.getPackCount()+"个");
-                            helper.setText(R.id.tv_saomageshu,item0.getScanCount()+"个");
                             helper.getView(R.id.tv_daiquhuo).setVisibility(View.GONE);
                             helper.setText(R.id.tv_peisongyuan, "配送员:" + item0.getDriver_name());
                             helper.setText(R.id.tv_phone, item0.getDriver_phone());
@@ -89,8 +86,9 @@ public class DdXqShichangAdapter extends BaseMultiItemQuickAdapter<MultiItemEnti
                     final DdxqBean.MarketBean.DplistBean item1 = (DdxqBean.MarketBean.DplistBean) item;
                     helper.setText(R.id.tv_dianpuming, String.valueOf(item1.getCompany_name()));
                     if(item1.getScanState().equals("0")){
-                        helper.getView(R.id.ll_saoma).setVisibility(View.GONE);
-                        helper.getView(R.id.tv_quhuoma).setVisibility(View.GONE);
+                        helper.getView(R.id.ll_baozhuang).setVisibility(View.GONE);
+//                        helper.getView(R.id.ll_saoma).setVisibility(View.GONE);
+//                        helper.getView(R.id.tv_quhuoma).setVisibility(View.GONE);
                     } else {
                         helper.getView(R.id.ll_saoma).setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -106,6 +104,8 @@ public class DdXqShichangAdapter extends BaseMultiItemQuickAdapter<MultiItemEnti
                                 mContext.startActivity(it);
                             }
                         });
+                        helper.setText(R.id.tv_baozhuanggeshu,item1.getPackCount()+"个");
+                        helper.setText(R.id.tv_saomageshu,item1.getScanCount()+"个");
                     }
 
                     helper.getView(R.id.ll_mydianpu).setOnClickListener(new View.OnClickListener() {

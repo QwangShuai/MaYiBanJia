@@ -117,20 +117,20 @@ public class TubiaoActivity extends FragmentActivity {
     }
 
     private void getShichang(){
-         HttpManager.getInstance()
-                 .with(mContext)
-                        .setObservable(
-                    RetrofitManager
-                            .getService()
-                            .getShiChangByCity(PreferenceUtils.getString(MyApplication.mContext, "token",""),"230100"))//230100  哈尔滨市编码
-                    .setDataListener(new HttpDataListener<List<ShiChangBean>>() {
-                @Override
-                public void onNext(List<ShiChangBean> data) {
-                    Log.e("data",data+"---");
-                    shichanglist = new ArrayList<>();
-                    shichanglist.addAll(data);
-                }
-            },false);
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .getShiChangByCity(PreferenceUtils.getString(MyApplication.mContext, "token",""),"230100"))//230100  哈尔滨市编码
+                .setDataListener(new HttpDataListener<List<ShiChangBean>>() {
+                    @Override
+                    public void onNext(List<ShiChangBean> data) {
+                        Log.e("data",data+"---");
+                        shichanglist = new ArrayList<>();
+                        shichanglist.addAll(data);
+                    }
+                },false);
     }
     //走势图接口
     private void zoushitu() {
@@ -210,6 +210,10 @@ public class TubiaoActivity extends FragmentActivity {
         LineDataSet lineDataSet = new LineDataSet(entries, "日期");
         initLineDataSet(lineDataSet, getResources().getColor(R.color.accent), LineDataSet.Mode.LINEAR);
         LineData lineData = new LineData(lineDataSet);
+        //设置一页最大显示个数为6，超出部分就滑动
+        float ratio = (float) dataList.size()/(float) 7;
+        // 显示的时候是按照多大的比率缩放显示,1f表示不放大缩小
+        lineChart.zoom(ratio,1f,0,0);
         lineChart.setData(lineData);
         xAxis.setValueFormatter(new IAxisValueFormatter() {
             @Override
@@ -252,15 +256,25 @@ public class TubiaoActivity extends FragmentActivity {
      */
     private void initChart(LineChart lineChart) {
         /***图表设置***/
-        //是否展示网格线
+
+        //设置描述文本不显示
+        lineChart.getDescription().setEnabled(false);
+        //设置是否显示表格背景
+        // mLineChart.setDrawGridBackground(true);
+        // 设置是否可以触摸
+        lineChart.setTouchEnabled(true);
+        lineChart.setDragDecelerationFrictionCoef(0.9f);
+        //设置是否可以拖拽 mLineChart.setDragEnabled(true);
+        // 设置是否可以缩放
+        lineChart.setScaleEnabled(false);
         lineChart.setDrawGridBackground(false);
-        //是否显示边界
-        lineChart.setDrawBorders(false);
-        //是否可以拖动
-        lineChart.setDragEnabled(false);
-        //是否有触摸事件
-        lineChart.setTouchEnabled(false);
-        //设置XY轴动画效果
+        lineChart.setHighlightPerDragEnabled(true);
+        lineChart.setPinchZoom(true);
+        //设置背景颜色
+        // lineChart.setBackgroundColor(ColorAndImgUtils.CHART_BACKGROUND_COLOR);
+        // 设置从X轴出来的动画时间 //
+        //lineChart.animateX(1500);
+        // 设置XY轴动画
         lineChart.animateY(2500);
         lineChart.animateX(1500);
 
@@ -272,6 +286,8 @@ public class TubiaoActivity extends FragmentActivity {
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setAxisMinimum(0f);
         xAxis.setGranularity(1f);
+        xAxis.setTextSize(9f);
+        xAxis.setAvoidFirstLastClipping(true);
         //保证Y轴从0开始，不然会上移一点
         leftYAxis.setAxisMinimum(0f);
         rightYaxis.setAxisMinimum(0f);
@@ -288,7 +304,7 @@ public class TubiaoActivity extends FragmentActivity {
         //是否绘制在图表里面
         legend.setDrawInside(false);
     }
-//
+    //
     @OnClick({R.id.iv_back, R.id.ll_shichang, R.id.ll_kaishi, R.id.ll_jieshu,R.id.bt_chongzhi,R.id.bt_queding})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -318,36 +334,37 @@ public class TubiaoActivity extends FragmentActivity {
             case R.id.ll_kaishi:
                 new XuanZeRiQiDialog(mContext, mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()))
                         .setmCallBack(new XuanZeRiQiDialog.CallBack() {
-                    @Override
-                    public void getDate(String date) {
-                        Log.e("date",date);
-                        tvKaishi.setText(date);
-                        startDate=date;
-                    }
-                }).show();
+                            @Override
+                            public void getDate(String date) {
+                                Log.e("date",date);
+                                tvKaishi.setText(date);
+                                startDate=date;
+                            }
+                        }).show();
                 break;
             case R.id.ll_jieshu:
                 new XuanZeRiQiDialog(mContext, mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()))
                         .setmCallBack(new XuanZeRiQiDialog.CallBack() {
-                    @Override
-                    public void getDate(String date) {
-                        Log.e("date",date);
-                        tvJieshu.setText(date);
-                        endDate=date;
-                    }
-                }).show();
+                            @Override
+                            public void getDate(String date) {
+                                Log.e("date",date);
+                                tvJieshu.setText(date);
+                                endDate=date;
+                            }
+                        }).show();
                 break;
             case R.id.bt_queding:
-
                 int leixing = DateUtil.compare_date(DateUtil.StringToDate(startDate, geshi), DateUtil.StringToDate(endDate, geshi));
-                Log.e("DateUtil.StringToDate(startDate, geshi)", String.valueOf(DateUtil.StringToDate(startDate, geshi)));
-                Log.e("DateUtil.StringToDate(startDate, geshi)", String.valueOf(DateUtil.StringToDate(endDate, geshi)));
-                Log.e("leixing", String.valueOf(leixing));
-                if (leixing!=-1){
-                    ToastUtil.showToast("请确定日期选择正确");
+                if (leixing==1){
+                    ToastUtil.showToast("开始时间不能大于结束时间");
+                    return;
+                }
+                if (leixing==2){
+                    ToastUtil.showToast("时间间隔不得超过30天");
                     return;
                 }
                 zoushitu();
+
                 break;
             case R.id.bt_chongzhi:
                 startDate=qitianqian;

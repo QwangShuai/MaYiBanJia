@@ -126,7 +126,6 @@ public class TubiaoActivity extends FragmentActivity {
                 .setDataListener(new HttpDataListener<List<ShiChangBean>>() {
                     @Override
                     public void onNext(List<ShiChangBean> data) {
-                        Log.e("data",data+"---");
                         shichanglist = new ArrayList<>();
                         shichanglist.addAll(data);
                     }
@@ -134,7 +133,6 @@ public class TubiaoActivity extends FragmentActivity {
     }
     //走势图接口
     private void zoushitu() {
-        Log.e("zoushitucanshu",classify_id+"="+mark_id+"="+startDate+"="+endDate);
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
@@ -144,7 +142,6 @@ public class TubiaoActivity extends FragmentActivity {
                 .setDataListener(new HttpDataListener<List<ZouShiTuBean>>() {
                     @Override
                     public void onNext(List<ZouShiTuBean> data) {
-                        Log.e("data", new Gson().toJson(data));
                         list = new ArrayList<>();
                         list.addAll(data);
 
@@ -336,7 +333,6 @@ public class TubiaoActivity extends FragmentActivity {
                         .setmCallBack(new XuanZeRiQiDialog.CallBack() {
                             @Override
                             public void getDate(String date) {
-                                Log.e("date",date);
                                 tvKaishi.setText(date);
                                 startDate=date;
                             }
@@ -347,7 +343,6 @@ public class TubiaoActivity extends FragmentActivity {
                         .setmCallBack(new XuanZeRiQiDialog.CallBack() {
                             @Override
                             public void getDate(String date) {
-                                Log.e("date",date);
                                 tvJieshu.setText(date);
                                 endDate=date;
                             }

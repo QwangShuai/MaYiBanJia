@@ -1,5 +1,6 @@
 package com.mingmen.mayi.mayibanjia.ui.base;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -80,5 +81,12 @@ public abstract class BaseFragment extends Fragment implements StateLayout.OnRel
      * 子类加载数据
      */
     protected abstract void loadData();
+    public void Jump_intent(Class<?> cla, Bundle bundle) {
+        Intent intent = new Intent(getContext(), cla);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
+        startActivity(intent);
+    }
 
 }

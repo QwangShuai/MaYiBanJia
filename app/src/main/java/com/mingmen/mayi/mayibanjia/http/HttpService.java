@@ -20,6 +20,8 @@ import com.mingmen.mayi.mayibanjia.bean.FenLeiMingChengBean;
 import com.mingmen.mayi.mayibanjia.bean.GHOrderBean;
 import com.mingmen.mayi.mayibanjia.bean.GWCShangPinBean;
 import com.mingmen.mayi.mayibanjia.bean.GetZiZhiBean;
+import com.mingmen.mayi.mayibanjia.bean.JYMXBean;
+import com.mingmen.mayi.mayibanjia.bean.JYMXItemBean;
 import com.mingmen.mayi.mayibanjia.bean.LiShiJiLuBean;
 import com.mingmen.mayi.mayibanjia.bean.LiuLanJiLuBean;
 import com.mingmen.mayi.mayibanjia.bean.PhoneBean;
@@ -52,6 +54,7 @@ import com.mingmen.mayi.mayibanjia.bean.XQPingJiaBean;
 import com.mingmen.mayi.mayibanjia.bean.XiTongTuiJianBean;
 import com.mingmen.mayi.mayibanjia.bean.XuanZeYinHangKaBean;
 import com.mingmen.mayi.mayibanjia.bean.YinHangKaBean;
+import com.mingmen.mayi.mayibanjia.bean.ZhangHuRenZhengBean;
 import com.mingmen.mayi.mayibanjia.bean.ZhuCeChengGongBean;
 import com.mingmen.mayi.mayibanjia.bean.ZouShiTuBean;
 import com.mingmen.mayi.mayibanjia.http.result.ResultModel;
@@ -814,7 +817,33 @@ public interface HttpService {
                                               @Query("id_number") String id_number,
                                               @Query("legal_person") String legal_person,
                                               @Query("duty_paragraph") String duty_paragraph);
+
     //切换角色
     @POST("allCompanyAccount/updateByType.do")
     Observable<ResultModel<String>> qiehuan(@Query("user_token") String user_token);
+
+    //获取账户信息认证资料
+    @POST("allCompany/queryByCompany.do")
+    Observable<ResultModel<ZhangHuRenZhengBean>> getGerenrenzheng(@Query("user_token") String user_token);
+
+    //余额详情
+    @POST("payHistory/getBalance.do")
+    Observable<ResultModel<String>> getYue(@Query("user_token") String user_token);
+
+    //交易明细列表
+    @POST("payHistory/list.do")
+    Observable<ResultModel<List<JYMXBean>>> getJYMXList(@Query("user_token") String user_token,
+                                                        @Query("state") String state, @Query("timeState") String timeState,
+                                                        @Query("pageNumber") Integer pageNumber);
+
+    //交易明细
+    @POST("payHistory/getId.do")
+    Observable<ResultModel<JYMXItemBean>> getJYMXItem(@Query("user_token") String user_token,
+                                                                 @Query("history_id") String history_id);
+
+    //提现
+    @POST("payHistory/withdrawCash.do")
+    Observable<ResultModel<String>> tixian(@Query("user_token") String user_token,
+                                           @Query("pay_money") String pay_money,
+                                           @Query("collect_bank_id") String collect_bank_id);
 }

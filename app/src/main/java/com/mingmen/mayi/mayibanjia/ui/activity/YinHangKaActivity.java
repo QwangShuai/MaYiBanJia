@@ -1,6 +1,7 @@
 package com.mingmen.mayi.mayibanjia.ui.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,7 @@ import com.mingmen.mayi.mayibanjia.bean.YinHangKaBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
+import com.mingmen.mayi.mayibanjia.ui.activity.adapter.XuanZeYinHangKaAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.YinHangKaAdapter;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
@@ -38,6 +40,7 @@ public class YinHangKaActivity extends BaseActivity {
     private List<YinHangKaBean> mList = new ArrayList<>();
     private YinHangKaAdapter adapter ;
     private Context mContext;
+    private int tixian = 0;
     @Override
     public int getLayoutId() {
         return R.layout.activity_yin_hang_ka;
@@ -46,7 +49,18 @@ public class YinHangKaActivity extends BaseActivity {
     @Override
     protected void initData() {
         mContext = YinHangKaActivity.this;
-        adapter = new YinHangKaAdapter(mContext,mList);
+        tixian = getIntent().getIntExtra("tixian",0);
+        adapter = new YinHangKaAdapter(mContext, mList, new YinHangKaAdapter.CallBack() {
+            @Override
+            public void xuanzhong(YinHangKaBean bean) {
+                if(tixian!=0){
+                    Intent it = new Intent();
+                    it.putExtra("bean",bean);
+                    setResult(1,it);
+                    finish();
+                }
+            }
+        });
         rvYinHangKa.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         rvYinHangKa.setAdapter(adapter);
         getBankCardList();

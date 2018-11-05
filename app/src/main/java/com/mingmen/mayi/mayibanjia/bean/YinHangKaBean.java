@@ -1,10 +1,12 @@
 package com.mingmen.mayi.mayibanjia.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2018/10/24.
  */
 
-public class YinHangKaBean {
+public class YinHangKaBean implements Serializable{
     private String bank_id;
     private String bank_account;
     private String bank_name;

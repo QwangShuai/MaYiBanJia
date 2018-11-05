@@ -32,6 +32,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.ShouCangListActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShouHuoDiZhiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.YiJianFanKuiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.YinHangKaActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.YueActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ZhangHuXinXiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.PhoneDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dingdan.DingDanActivity;
@@ -224,7 +225,7 @@ public class WoDeFragment extends BaseFragment {
 
     @OnClick({R.id.iv_tongzhi, R.id.iv_touxiang,R.id.ll_shoucang, R.id.iv_mingpian, R.id.rl_dingdan, R.id.rl_daifukuan,
             R.id.rl_daifahuo, R.id.rl_daishouhuo, R.id.rl_yishouhuo, R.id.rl_shouhuodizhi, R.id.rl_xuqiudan,R.id.rl_yijian,
-            R.id.rl_kefu,R.id.ll_guanzhu,R.id.ll_liulanjilu,R.id.rl_yinhang,R.id.tv_qiehuan})
+            R.id.rl_kefu,R.id.ll_guanzhu,R.id.ll_liulanjilu,R.id.rl_yinhang,R.id.tv_qiehuan,R.id.ll_myyue})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_tongzhi:
@@ -289,6 +290,9 @@ public class WoDeFragment extends BaseFragment {
                 break;
             case R.id.tv_qiehuan:
                 qiehuan();
+                break;
+            case R.id.ll_myyue:
+                Jump_intent(YueActivity.class, new Bundle());
                 break;
         }
     }

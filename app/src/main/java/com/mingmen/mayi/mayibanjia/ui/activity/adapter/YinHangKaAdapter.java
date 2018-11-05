@@ -43,11 +43,17 @@ public class YinHangKaAdapter extends RecyclerView.Adapter<YinHangKaAdapter.View
     private Context mContext;
     private List<YinHangKaBean> mList;
     private ConfirmDialog confirmDialog;
-    public YinHangKaAdapter(Context mContext, List<YinHangKaBean> list) {
+    private CallBack callBack;
+
+    public YinHangKaAdapter(Context mContext, List<YinHangKaBean> list, CallBack callBack) {
         this.mContext = mContext;
         this.mList = list;
+        this.callBack = callBack;
     }
 
+    public interface CallBack {
+        void xuanzhong(YinHangKaBean bean);
+    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -65,7 +71,12 @@ public class YinHangKaAdapter extends RecyclerView.Adapter<YinHangKaAdapter.View
         holder.tvBankCardName.setText(bean.getBank_name());
         holder.tvBankCardNumber.setText(bean.getBank_account());
         holder.tvBankCardType.setText(bean.getBank_branch());
-
+        holder.rlItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callBack.xuanzhong(mList.get(position));
+            }
+        });
         holder.rlItem.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -122,6 +133,7 @@ public class YinHangKaAdapter extends RecyclerView.Adapter<YinHangKaAdapter.View
             ButterKnife.bind(this, view);
         }
     }
+
     public void addBankCard(String bank_id) {//添加银行卡
 
     }

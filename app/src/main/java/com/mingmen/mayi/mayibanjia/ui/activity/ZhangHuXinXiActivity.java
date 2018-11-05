@@ -8,9 +8,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.mingmen.mayi.mayibanjia.MainActivity;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
+import com.mingmen.mayi.mayibanjia.bean.ZhangHuRenZhengBean;
+import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
+import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
+import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
@@ -40,6 +45,12 @@ public class ZhangHuXinXiActivity extends BaseActivity {
     LinearLayout llZizhirenzheng;
     @BindView(R.id.ll_farenrenzheng)
     LinearLayout llFarenrenzheng;
+    @BindView(R.id.iv_touxiang)
+    ImageView ivTouxiang;
+    @BindView(R.id.tv_zz_shenhe)
+    TextView tvZzShenhe;
+    @BindView(R.id.tv_fr_shenhe)
+    TextView tvFrShenhe;
     private Context mContext;
     private ConfirmDialog confirmDialog;
 
@@ -53,10 +64,11 @@ public class ZhangHuXinXiActivity extends BaseActivity {
         mContext = ZhangHuXinXiActivity.this;
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
+        getRenzheng();
     }
 
 
-    @OnClick({R.id.iv_back, R.id.tv_tuichu,R.id.ll_touxiang, R.id.iv_anquan_jinru, R.id.ll_zizhirenzheng, R.id.ll_farenrenzheng})
+    @OnClick({R.id.iv_back, R.id.tv_tuichu, R.id.ll_touxiang, R.id.iv_anquan_jinru, R.id.ll_zizhirenzheng, R.id.ll_farenrenzheng})
     public void onViewClicked(View view) {
         Intent it;
         switch (view.getId()) {
@@ -88,8 +100,8 @@ public class ZhangHuXinXiActivity extends BaseActivity {
             case R.id.iv_anquan_jinru:
                 break;
             case R.id.ll_zizhirenzheng://资质认证
-                it= new Intent(mContext,ZiZhiRenZhengActivity.class);
-                it.putExtra("id","");
+                it = new Intent(mContext, ZiZhiRenZhengActivity.class);
+                it.putExtra("id", "");
                 startActivity(it);
                 break;
             case R.id.ll_farenrenzheng:
@@ -102,5 +114,21 @@ public class ZhangHuXinXiActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+    }
+
+
+    private void getRenzheng() {
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(RetrofitManager.getService()
+                        .getGerenrenzheng(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
+                .setDataListener(new HttpDataListener<ZhangHuRenZhengBean>() {
+                    @Override
+                    public void onNext(ZhangHuRenZhengBean bean) {
+                        Glide.with(mContext).load(bean.getFile_path()).into(ivTouxiang);
+                        tvZzShenhe.setText(bean.getZz().toString());
+                        tvFrShenhe.setText(bean.getFr().toString());
+                    }
+                });
     }
 }

@@ -51,6 +51,8 @@ public class ZhangHuXinXiActivity extends BaseActivity {
     TextView tvZzShenhe;
     @BindView(R.id.tv_fr_shenhe)
     TextView tvFrShenhe;
+    @BindView(R.id.tv_dianming)
+    TextView tvDianming;
     private Context mContext;
     private ConfirmDialog confirmDialog;
 
@@ -126,6 +128,7 @@ public class ZhangHuXinXiActivity extends BaseActivity {
                     @Override
                     public void onNext(ZhangHuRenZhengBean bean) {
                         Glide.with(mContext).load(bean.getFile_path()).into(ivTouxiang);
+                        tvDianming.setText(bean.getCompany_name());
                         tvZzShenhe.setText(bean.getZz().toString());
                         tvFrShenhe.setText(bean.getFr().toString());
                     }

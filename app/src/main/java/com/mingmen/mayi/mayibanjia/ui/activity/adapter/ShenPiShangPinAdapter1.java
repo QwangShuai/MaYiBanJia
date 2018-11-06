@@ -294,7 +294,8 @@ public class ShenPiShangPinAdapter1 extends BaseMultiItemQuickAdapter<MultiItemE
 //                   ll_qidingliang.setVisibility(View.GONE);
 //                       rl_kuang.setBackgroundColor(mContext.getResources().getColor(R.color.white));
 //                   }
-                if(ccListBeanLevel.getCcListBean().getAppend_money()!=null)
+                Log.e("这是我的附加费",""+ccListBeanLevel.getCcListBean().getAppend_money());
+                if(ccListBeanLevel.getCcListBean().getAppend_money()!=null&&!TextUtils.isEmpty(ccListBeanLevel.getCcListBean().getAppend_money()+""))
                     holder.setText(R.id.tv_fujiafei, "附加费：￥" + ccListBeanLevel.getCcListBean().getAppend_money());
                 else
                     holder.getView(R.id.tv_fujiafei).setVisibility(View.GONE);

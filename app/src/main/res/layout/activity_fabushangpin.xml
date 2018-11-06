@@ -271,66 +271,38 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="规格数量"
+            android:text="规格名称"
             android:textColor="#ff666666"
             android:textSize="15sp"
             android:layout_marginLeft="12dp"
             />
         <LinearLayout
+            android:id="@+id/ll_sanjiguige"
             android:layout_width="match_parent"
             android:layout_height="35dp"
-            android:background="@drawable/fillet_hollow_e7e7e7_3"
+            android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginLeft="12dp"
-            android:paddingLeft="9dp"
-            >
-            <EditText
-                android:id="@+id/et_sanji"
+            android:layout_marginLeft="50dp"
+            android:background="@drawable/fillet_hollow_999999_3">
+            <TextView
+                android:id="@+id/tv_sanji"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:text=""
-                android:textSize="15sp"
                 android:textColor="@color/zicolor"
-                android:hint="请输入规格售卖数量"
+                android:textSize="12sp"
+                android:paddingLeft="10dp"
+                android:background="@null"
+                android:hint="请填写"
                 android:textColorHint="@color/hintcolor"
-                android:inputType="number"
-                android:background="@null"/>
-            <RelativeLayout
-                android:id="@+id/rl_sanjiguige"
-                android:layout_width="77dp"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:gravity="center_vertical|right">
-
-                <TextView
-                    android:id="@+id/tv_sanjiguige"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text=""
-                    android:textColor="@color/zicolor"
-                    android:textSize="12sp"
-                    android:gravity="center"
-                    android:hint="选择规格"
-                    android:textColorHint="@color/hintcolor"
-                    />
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/cutoff"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    />
-                <ImageView
-                    android:id="@+id/tv_xiangxia"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/xiangxia_hui"
-                    android:layout_marginRight="6dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"/>
-            </RelativeLayout>
+                android:gravity="center_vertical"
+                android:layout_weight="1"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="4dp"
+                android:src="@mipmap/xiangxia_hui"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -359,10 +331,10 @@
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginBottom="12dp"
-            android:layout_marginLeft="12dp"
+            android:layout_marginLeft="50dp"
             android:layout_marginRight="12dp"
             android:layout_marginTop="12dp"
-            android:background="@drawable/fillet_hollow_e7e7e7_3">
+            android:background="@drawable/fillet_hollow_999999_3">
 
             <EditText
                 android:id="@+id/et_miaoshu"

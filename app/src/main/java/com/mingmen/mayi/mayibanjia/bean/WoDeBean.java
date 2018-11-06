@@ -16,6 +16,15 @@ public class WoDeBean {
     private String stay_delivery;
     private String stay_ecipient;
     private String already_ecipient;
+    private String role;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 
     public String getTelephone() {
         return telephone;

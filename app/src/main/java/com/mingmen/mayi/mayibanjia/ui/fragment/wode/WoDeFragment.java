@@ -124,11 +124,10 @@ public class WoDeFragment extends BaseFragment {
     @BindView(R.id.rl_kefu)
     RelativeLayout rlKefu;
     @BindView(R.id.rl_yijian)
-    RelativeLayout rlYijian;
+    RelativeLayout  rlYijian;
     private View viewSPYXFragment;
     private Context mContext;
     private WoDeBean woDeBean;
-
     @Override
     protected View getSuccessView() {
         mContext=getActivity();
@@ -163,8 +162,9 @@ public class WoDeFragment extends BaseFragment {
         super.onResume();
         getwode(false);
     }
-
+    private LinearLayout layout_1;
     private void getwode(boolean isxianshi) {
+        View view = View.inflate(mContext, R.layout.pop_tuichu, null);
          HttpManager.getInstance()
          .with(mContext)
                 .setObservable(
@@ -176,6 +176,14 @@ public class WoDeFragment extends BaseFragment {
         public void onNext(WoDeBean data) {
             Log.e("data",new Gson().toJson(data)+"---");
             woDeBean=data;
+            Log.e("role", data.getRole()+"role: ----------------------");
+            if(!data.getRole().isEmpty()){
+                if(data.getRole().equals("1")){
+                    llQiehuan.setVisibility(View.GONE);//这一句即隐藏布局LinearLayout区域
+                }
+            }
+
+
             initView();
         }
      },isxianshi);

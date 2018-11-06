@@ -110,7 +110,6 @@ public class MainActivity extends AppCompatActivity{
 
             }
         });
-
         viewPager.setNoScroll(true);
         viewPager.setOffscreenPageLimit(0); //设置向左和向右都缓存limit个页面
         int tosome =  getIntent().getIntExtra("tosome",0);

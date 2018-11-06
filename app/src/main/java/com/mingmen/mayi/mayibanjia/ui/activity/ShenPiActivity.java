@@ -129,50 +129,46 @@ public class ShenPiActivity extends BaseActivity {
         caigoudan = gson.fromJson(purchase_id, CaiGouDanBean.class).getList();//采购单一级数据
 //        xuanzhong=new HashMap();
         //存储选中商品的商品id 店铺id  单价
+//        for (int i = 0; i < caigoudan.size(); i++) {
+//            ShangpinidAndDianpuidBean bean = new ShangpinidAndDianpuidBean();
+//            bean.setCommodity_id("");
+//            bean.setCompany_id("");
+//            bean.setDanjia("");
+//            xuanzhong.put(caigoudan.get(i).getSon_order_id(),bean);
+//            Log.e("caigoudan"+i,caigoudan.get(i).getSon_order_id()+"--");
+//            getshenpi(caigoudan.get(i),i,true);
+//        }
+        List<MultiItemEntity> data = new ArrayList<>();
         for (int i = 0; i < caigoudan.size(); i++) {
+            CaiGouDanBean.ListBean item0 = caigoudan.get(i);
             ShangpinidAndDianpuidBean bean = new ShangpinidAndDianpuidBean();
             bean.setCommodity_id("");
             bean.setCompany_id("");
             bean.setDanjia("");
             xuanzhong.put(caigoudan.get(i).getSon_order_id(),bean);
-            Log.e("caigoudan"+i,caigoudan.get(i).getSon_order_id()+"--");
-            getshenpi(caigoudan.get(i),i,true);
+            if(item0.getLevels() != null && item0.getLevels().size()>0) {
+                for (int j = 0; j < item0.getLevels().size(); j++) {
+                    CaiGouDanBean.CcListBeanLevel item1 = item0.getLevels().get(j);;
+                    item0.addSubItem(item1);
+                }
+            }
+            data.add(item0);
         }
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         shangpinadapter = new ShenPiShangPinAdapter1(this);
 
-        shangpinadapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                item_position = position;
-                //判断点击的是一级还是二级
-                if (adapter.getItemViewType(position) == CaiGouDanBean.ListBean.Level_0) {
-                    final CaiGouDanBean.ListBean listBean = (CaiGouDanBean.ListBean) adapter.getItem(position);
-                        if (listBean.isNeedLoad()) {//是否需要加载数据
-                            if (!listBean.isSpecial()){//如果不是特殊商品
-                                getshenpi(listBean, position,false);
-                            }else{
-//                                ToastUtil.showToast("");
-                            }
-                        } else {
-                            //不需要加载数据时
-                            List<CaiGouDanBean.CcListBeanLevel> levels = listBean.getSubItems();
-//                            展开二级列表
-                            if (levels.get(0).getCcListBean().getCommodity_id()!=null){//如果第一个是空的  说明全是空的
-                                if (listBean.isExpanded()) {//判断展开还是关闭
-                                    adapter.collapse(position);
-                                } else {
-                                    adapter.expand(position);
-                                }
-                            }else{
-                                ToastUtil.showToast("该市场下没有此分类商品");//
-                            }
-
-                        }
-                }
-            }
-        });
+//        shangpinadapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+//                item_position = position;
+//                //判断点击的是一级还是二级
+//                if (adapter.getItemViewType(position) == CaiGouDanBean.ListBean.Level_0) {
+//                    final CaiGouDanBean.ListBean listBean = (CaiGouDanBean.ListBean) adapter.getItem(position);
+//
+//                }
+//            }
+//        });
 
         shangpinadapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
@@ -495,6 +491,7 @@ public class ShenPiActivity extends BaseActivity {
     //获取子采购单的系统推荐数据
     public void getshenpi(final CaiGouDanBean.ListBean listBean, final int pos, final boolean isgangkaishi) {
         Log.e("getshenpi()getSon_order_id", listBean.getMarket_id()+"---"+listBean.getSon_order_id());
+        Log.e("这是我的当前位置",pos+"---");
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
@@ -758,7 +755,8 @@ public class ShenPiActivity extends BaseActivity {
         return item_position;
     }
 
-    public void setViewShow(XiTongTuiJianBean.CcListBean level){
+    public void setViewShow(MultiItemEntity item){//存储点击item,计算总价
+        CaiGouDanBean.CcListBeanLevel level = (CaiGouDanBean.CcListBeanLevel) item;
         Log.e("点击",new Gson().toJson(level));
         String son_order_id = "";
         String commodity_id = "";
@@ -766,12 +764,12 @@ public class ShenPiActivity extends BaseActivity {
         //存储选中的商品信息  更新adapter
         for (String key: keys){
                 Log.e("我的key",key);
-            if (key.equals(level.getSon_order_id())){
+            if (key.equals(level.getCcListBean().getSon_order_id())){
                 ShangpinidAndDianpuidBean bean=new ShangpinidAndDianpuidBean();
-                bean.setCommodity_id(level.getCommodity_id());
-                bean.setCompany_id(level.getCompany_id());
-                bean.setDanjia(level.getPrice());
-                xuanzhong.put(level.getSon_order_id(),bean);
+                bean.setCommodity_id(level.getCcListBean().getCommodity_id());
+                bean.setCompany_id(level.getCcListBean().getCompany_id());
+                bean.setDanjia(level.getCcListBean().getPrice());
+                xuanzhong.put(level.getCcListBean().getSon_order_id(),bean);
             }
         }
         //把所有选中的商品拼接起来

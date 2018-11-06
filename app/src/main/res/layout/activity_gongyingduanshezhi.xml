@@ -54,6 +54,7 @@
             </LinearLayout>
         </LinearLayout>
         <TextView
+            android:id="@+id/tv_qiehuan"
             android:layout_width="80dp"
             android:layout_height="28dp"
             android:text="切换为买家"

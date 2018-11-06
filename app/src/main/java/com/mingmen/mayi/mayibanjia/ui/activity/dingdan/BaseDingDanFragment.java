@@ -16,6 +16,7 @@ import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.DingDanXiangQingActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.WeiYiQrCodeActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.DingDanXiangQingAdapter;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseFragment;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
@@ -144,14 +145,20 @@ public abstract class BaseDingDanFragment extends BaseFragment {
         adapter.setOnItemClickListener(new DingDanXiangQingAdapter.OnItemClickListener() {
             @Override
             public void onClick(View view, int position) {
+                Intent it;
                 switch (view.getId()){
                     case R.id.ll_saoma:
                         saomiaoQrCode();
                         break;
                     case R.id.ll_rongqi:
-                        Intent it = new Intent(getActivity(), DingDanXiangQingActivity.class);
+                         it= new Intent(getActivity(), DingDanXiangQingActivity.class);
                         it.putExtra("orderID",mlist.get(position).getOrder_id());
                         startActivity(it);
+                        break;
+                    case R.id.tv_quhuoma:
+                        it = new Intent(getActivity(),WeiYiQrCodeActivity.class);
+                        it.putExtra("gyID",mlist.get(position).getGy_order_id());
+                        getActivity().startActivity(it);
                         break;
                 }
             }

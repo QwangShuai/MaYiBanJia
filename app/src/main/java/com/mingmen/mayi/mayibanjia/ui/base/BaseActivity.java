@@ -2,6 +2,7 @@ package com.mingmen.mayi.mayibanjia.ui.base;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -88,6 +89,12 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         return super.dispatchTouchEvent(ev);
     }
-
+    public void Jump_intent(Class<?> cla, Bundle bundle) {
+        Intent intent = new Intent(this, cla);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
+        startActivity(intent);
+    }
 }
 

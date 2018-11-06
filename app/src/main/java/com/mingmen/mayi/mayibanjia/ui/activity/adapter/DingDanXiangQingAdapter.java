@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mingmen.mayi.mayibanjia.R;
@@ -31,13 +32,10 @@ public class DingDanXiangQingAdapter extends RecyclerView.Adapter<DingDanXiangQi
     private Context mContext;
     private List<DingDanBean> mList;
     private OnItemClickListener mOnItemClickListener;
+
     public DingDanXiangQingAdapter(Context mContext, List<DingDanBean> list) {
         this.mContext = mContext;
         this.mList = list;
-    }
-
-    public interface OnItemClickListener {
-        void onClick(View view, int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -53,27 +51,31 @@ public class DingDanXiangQingAdapter extends RecyclerView.Adapter<DingDanXiangQi
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         DingDanBean dingdan = mList.get(position);
-        holder.tvDingdanbianhao.setText("订单编号："+dingdan.getOrder_number());
-        holder.tvZhuangtai.setText(zhuangtai(holder,Integer.parseInt(dingdan.getState())));
+        holder.tvDingdanbianhao.setText("订单编号：" + dingdan.getOrder_number());
+        holder.tvZhuangtai.setText(zhuangtai(holder, Integer.parseInt(dingdan.getState())));
         String zongjia = dingdan.getTotal_price() + "";
         if (zongjia.contains("\\.")) {
             holder.tvZongjia1.setText(zongjia.split("\\.")[0]);
             holder.tvZongjia2.setText(zongjia.split("\\.")[1]);
-        }else{
+        } else {
             holder.tvZongjia1.setText(zongjia);
             holder.tvZongjia2.setText("00");
         }
-//
-        int zongshu=0;
-        for (int i = 0; i < dingdan.getList().size(); i++) {
-            zongshu= zongshu+dingdan.getList().get(i).getAcount();
+        if(dingdan.getScanState().equals("0")){
+            holder.tv_baozhuanggeshu.setText(dingdan.getPackCount());
+            holder.tv_saomageshu.setText(dingdan.getScanCount());
+        } else {
+            holder.rl_baozhuang.setVisibility(View.GONE);
         }
-        holder.tvJianshu.setText("共"+zongshu+"件商品");
+        int zongshu = 0;
+        for (int i = 0; i < dingdan.getList().size(); i++) {
+            zongshu = zongshu + dingdan.getList().get(i).getAcount();
+        }
+        holder.tvJianshu.setText("共" + zongshu + "件商品");
 
         DingDanShangPinAdapter shangpinadapter = new DingDanShangPinAdapter(mContext, dingdan.getList());
         holder.rvShangpinliebiao.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         holder.rvShangpinliebiao.setAdapter(shangpinadapter);
-
 
 
         if (mOnItemClickListener != null) {
@@ -110,20 +112,26 @@ public class DingDanXiangQingAdapter extends RecyclerView.Adapter<DingDanXiangQi
             holder.ll_saoma.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mOnItemClickListener.onClick(v,position);
+                    mOnItemClickListener.onClick(v, position);
                 }
             });
             holder.ll_rongqi.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mOnItemClickListener.onClick(v,position);
+                    mOnItemClickListener.onClick(v, position);
+                }
+            });
+            holder.tv_quhuoma.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mOnItemClickListener.onClick(v, position);
                 }
             });
         }
     }
 
-    private String zhuangtai(ViewHolder holder, int zhuantai){
-        switch (zhuantai){
+    private String zhuangtai(ViewHolder holder, int zhuantai) {
+        switch (zhuantai) {
             case 401:
                 holder.btQuxiao.setVisibility(View.VISIBLE);
                 holder.btFukuan.setVisibility(View.GONE);
@@ -154,13 +162,17 @@ public class DingDanXiangQingAdapter extends RecyclerView.Adapter<DingDanXiangQi
         }
         return "";
     }
+
     @Override
     public int getItemCount() {
         return mList.size();
     }
 
+    public interface OnItemClickListener {
+        void onClick(View view, int position);
+    }
 
-    static class ViewHolder extends RecyclerView.ViewHolder{
+    static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_dingdanbianhao)
         TextView tvDingdanbianhao;
         @BindView(R.id.tv_zhuangtai)
@@ -189,6 +201,15 @@ public class DingDanXiangQingAdapter extends RecyclerView.Adapter<DingDanXiangQi
         LinearLayout ll_saoma;
         @BindView(R.id.ll_rongqi)
         LinearLayout ll_rongqi;
+        @BindView(R.id.tv_quhuoma)
+        TextView tv_quhuoma;
+        @BindView(R.id.tv_baozhuanggeshu)
+        TextView tv_baozhuanggeshu;
+        @BindView(R.id.tv_saomageshu)
+        TextView tv_saomageshu;
+        @BindView(R.id.rl_baozhuang)
+        RelativeLayout rl_baozhuang;
+
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);

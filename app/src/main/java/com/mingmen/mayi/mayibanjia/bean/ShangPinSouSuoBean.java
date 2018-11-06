@@ -200,6 +200,15 @@ public class ShangPinSouSuoBean  {
             private String sortOrder;
             private String picture_url;
             private String classify_name;
+            private String spec_describe;//规格描述
+
+            public String getSpec_describe() {
+                return spec_describe;
+            }
+
+            public void setSpec_describe(String spec_describe) {
+                this.spec_describe = spec_describe;
+            }
 
             public String getClassify_name() {
                 return classify_name;

@@ -131,7 +131,7 @@ public class WoDeFragment extends BaseFragment {
     @Override
     protected View getSuccessView() {
         mContext=getActivity();
-        viewSPYXFragment = View.inflate(mContext, R.layout.fragment_wode, null);
+        viewSPYXFragment = View.inflate(mContext, R .layout.fragment_wode, null);
         ButterKnife.bind(this, viewSPYXFragment);
         return viewSPYXFragment;
     }

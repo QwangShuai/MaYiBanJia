@@ -121,7 +121,7 @@ public class ShiChangSouSuoShangPinActivity extends BaseActivity {
                                                 break;
                                         }
                                         jiarugouwuchedialog.showDialog(data.getInventory(),data.getCommodity_name(), spguige, data.getRation_one() + "", data.getPice_one() + ""
-                                                ,data.getRation_two() + "", data.getPice_two() + "", data.getRation_three() + "", data.getPice_three() + "", "");
+                                                ,data.getRation_two() + "", data.getPice_two() + "", data.getRation_three() + "", data.getPice_three() + "", data.getPicture_url());
                                         final String finalSpguige = spguige;
                                         jiarugouwuchedialog.getBtQueding().setOnClickListener(new View.OnClickListener() {
                                             @Override

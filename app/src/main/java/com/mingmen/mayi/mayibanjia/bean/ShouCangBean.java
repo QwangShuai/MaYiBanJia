@@ -201,6 +201,15 @@ public class ShouCangBean {
         private String pageNumber;
         private String collect_id;
     private String classify_name;//三级分类名称
+       private String spec_describe;
+
+    public String getSpec_describe() {
+        return spec_describe;
+    }
+
+    public void setSpec_describe(String spec_describe) {
+        this.spec_describe = spec_describe;
+    }
 
     public String getdPicture() {
         return dPicture;

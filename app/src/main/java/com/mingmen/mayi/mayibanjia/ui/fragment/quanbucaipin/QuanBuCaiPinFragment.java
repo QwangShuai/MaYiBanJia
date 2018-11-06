@@ -183,8 +183,6 @@ public class QuanBuCaiPinFragment extends BaseFragment {
 
 //        ... // 请求数据，并更新数据源操作。
                 ye++;
-                Log.e("ye++++",ye+"--");
-                Log.e(TAG,yijipinleiid+"-"+erjipinleiid+"-"+sanjipinleiid+"-"+shichangid+"-"+zuigaojia+"-"+zuidijia+"-"+type+"-"+ye);
 //                sousuoshangpin(sousuozi,type);
                 HttpManager.getInstance()
                         .with(mContext)
@@ -239,7 +237,6 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         yijiadapter = new YiJiFenLeiAdapter();
         if(!TextUtils.isEmpty(activity.getType())){//是否是首页传参过来的
             tvPinlei.setText(activity.getType());
-            Log.e(TAG,activity.getSp_id());
             tvPinlei.setTextColor(getResources().getColor(R.color.zangqing));
             yijipinleiid = activity.getSp_id();
             getOneList();
@@ -286,11 +283,9 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         if ("sousuo".equals(sousuo)){
             rvSousuo.setVisibility(View.VISIBLE);
             rvShangpin.setVisibility(View.GONE);
-            Log.e("sousuo展示","==");
         }else{
             rvSousuo.setVisibility(View.GONE);
             rvShangpin.setVisibility(View.VISIBLE);
-            Log.e("商品展示","==");
         }
 
     }
@@ -298,7 +293,6 @@ public class QuanBuCaiPinFragment extends BaseFragment {
 
     //商品搜索
     private void sousuoshangpin(final String sousuo, final String type) {
-        Log.e("shangpinsousuo",yijipinleiid+"-"+erjipinleiid+"-"+sanjipinleiid+"-"+shichangid+"-"+zuigaojia+"-"+zuidijia+"-"+type+"-"+ye);
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
@@ -316,7 +310,6 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                         }else if ("4".equals(type)){
                             isdi=false;
                         }
-                        Log.e("sousuoshangpin", "sousuoshangpin");
                         shangpinlist.clear();
                         if (shangpin.getZhengchang()!=null){
                             shangpinlist.addAll(shangpin.getZhengchang());
@@ -348,8 +341,9 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                                                 spguige = data.getPack_standard_tree();
                                                 break;
                                         }
+
                                         jiarugouwuchedialog.showDialog(data.getInventory(),data.getCommodity_name(), data.getPackStandard(), data.getRation_one() + "", data.getPice_one() + ""
-                                                , data.getRation_two() + "", data.getPice_two() + "", data.getRation_three() + "", data.getPice_three() + "", "");
+                                                , data.getRation_two() + "", data.getPice_two() + "", data.getRation_three() + "", data.getPice_three() + "", data.getHostPath());
                                         final String finalSpguige = spguige;
                                         jiarugouwuchedialog.getBtQueding().setOnClickListener(new View.OnClickListener() {
                                             @Override
@@ -361,7 +355,6 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                                                     } else {
                                                         ToastUtil.showToast("不够起订量");
                                                     }
-                                                Log.e("jiarugouwuche", jiarugouwuchedialog.getEtShuliang().getText().toString().trim());
                                                 jiarugouwuchedialog.getEtShuliang().setText("0");
                                                 jiarugouwuchedialog.cancel();
                                             }
@@ -955,20 +948,18 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                                                 spguige = data.getPack_standard_tree();
                                                 break;
                                         }
-                                        jiarugouwuchedialog.showDialog(data.getInventory(),data.getCommodity_name(), data.getPackStandard(), data.getRation_one() + "", data.getPice_one() + ""
-                                                , data.getRation_two() + "", data.getPice_two() + "", data.getRation_three() + "", data.getPice_three() + "", "");
+                                        jiarugouwuchedialog.showDialog(data.getInventory(),data.getCommodity_name(), data.getSpec_describe(), data.getRation_one() + "", data.getPice_one() + ""
+                                                , data.getRation_two() + "", data.getPice_two() + "", data.getRation_three() + "", data.getPice_three() + "", data.getPicture_url());
                                         final String finalSpguige = spguige;
                                         jiarugouwuchedialog.getBtQueding().setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View v) {
                                                 String shuliang = jiarugouwuchedialog.getEtShuliang().getText().toString().trim();
-                                                Log.e("data.getShopping_id()", data.getShopping_id() + "---");
                                                 if (Integer.parseInt(shuliang) >= Integer.parseInt(data.getRation_one())) {
                                                     addcar(data.getCommodity_id(), shuliang, data.getCompany_id(), "", finalSpguige);
                                                 } else {
                                                     ToastUtil.showToast("不够起订量");
                                                 }
-                                                Log.e("jiarugouwuche", jiarugouwuchedialog.getEtShuliang().getText().toString().trim());
                                                 jiarugouwuchedialog.getEtShuliang().setText("0");
                                                 jiarugouwuchedialog.cancel();
                                             }

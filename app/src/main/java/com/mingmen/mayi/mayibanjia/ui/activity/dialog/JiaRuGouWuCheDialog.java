@@ -26,7 +26,7 @@ public class JiaRuGouWuCheDialog extends Dialog {
     TextView tvSpming;
     @BindView(R.id.tv_kucun)
     TextView tvKucun;
-    @BindView(R.id.tv_spguige)
+    @BindView(R.id.tv_guigexiangqing)
     TextView tvSpguige;
     @BindView(R.id.tv_qidingliang1)
     TextView tvQidingliang1;
@@ -64,7 +64,7 @@ public class JiaRuGouWuCheDialog extends Dialog {
         this.setContentView(view);
         this.c = context;
         tvSpming = (TextView) findViewById(R.id.tv_spming);
-        tvSpguige =  (TextView)findViewById(R.id.tv_spguige);
+        tvSpguige =  (TextView)findViewById(R.id.tv_guigexiangqing);
         tvQidingliang1 = (TextView) findViewById(R.id.tv_qidingliang1);
         tvQidingliangjiage1 = (TextView) findViewById(R.id.tv_qidingliangjiage1);
 //        tvQidingliang2 = (TextView) findViewById(R.id.tv_qidingliang2);

@@ -5,7 +5,7 @@
     >
     <include layout="@layout/head_beijingse"/>
 
-    <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_shenpi"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

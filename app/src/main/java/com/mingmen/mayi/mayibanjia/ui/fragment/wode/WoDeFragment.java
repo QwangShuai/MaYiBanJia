@@ -232,7 +232,7 @@ public class WoDeFragment extends BaseFragment {
     }
 
     @OnClick({R.id.iv_tongzhi, R.id.iv_touxiang,R.id.ll_shoucang, R.id.iv_mingpian, R.id.rl_dingdan, R.id.rl_daifukuan,
-            R.id.rl_daifahuo, R.id.rl_daishouhuo, R.id.rl_yishouhuo, R.id.rl_shouhuodizhi, R.id.rl_xuqiudan,R.id.rl_yijian,
+            R.id.rl_daifahuo, R.id.rl_daishouhuo, R.id.rl_yishouhuo, R.id.rl_yiwancheng,R.id.rl_shouhuodizhi, R.id.rl_xuqiudan,R.id.rl_yijian,
             R.id.rl_kefu,R.id.ll_guanzhu,R.id.ll_liulanjilu,R.id.rl_yinhang,R.id.tv_qiehuan,R.id.ll_myyue})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -272,6 +272,11 @@ public class WoDeFragment extends BaseFragment {
                 Bundle yishouhuo = new Bundle();
                 yishouhuo.putInt("to_shop", 4);
                 Jump_intent(DingDanActivity.class, yishouhuo);
+                break;
+            case R.id.rl_yiwancheng:
+                Bundle yiwancheng = new Bundle();
+                yiwancheng.putInt("to_shop", 5);
+                Jump_intent(DingDanActivity.class, yiwancheng);
                 break;
             case R.id.rl_shouhuodizhi://收货地址
                 Bundle bundle = new Bundle();

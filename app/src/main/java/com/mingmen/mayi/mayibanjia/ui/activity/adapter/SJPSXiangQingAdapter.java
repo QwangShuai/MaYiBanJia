@@ -83,6 +83,7 @@ public class SJPSXiangQingAdapter extends  RecyclerView.Adapter<SJPSXiangQingAda
             @Override
             public void onClick(View v) {
                 Intent it = new Intent(mContext,WeiYiQrCodeActivity.class);
+                it.putExtra("type","gyID");
                 it.putExtra("gyID",String.valueOf(mList.get(position).getGy_order_id()));
                 mContext.startActivity(it);
             }

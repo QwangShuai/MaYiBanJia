@@ -16,6 +16,7 @@ import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.DingDanXiangQingActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.FaBiaoPingJiaActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.WeiYiQrCodeActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.DingDanXiangQingAdapter;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseFragment;
@@ -40,17 +41,18 @@ public abstract class BaseDingDanFragment extends BaseFragment {
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout refreshLayout;
     View view;
-    private ArrayList<DingDanBean> mlist = new ArrayList<DingDanBean>();;
+    private ArrayList<DingDanBean> mlist = new ArrayList<DingDanBean>();
+    ;
     private DingDanXiangQingAdapter adapter;
     private SwipeMenuRecyclerView.LoadMoreListener mLoadMoreListener;
-    private int ye =1;
+    private int ye = 1;
     private boolean b = false;
     protected boolean isCreate = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        isCreate=true;
+        isCreate = true;
     }
 //    @Override
 //    public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -85,28 +87,29 @@ public abstract class BaseDingDanFragment extends BaseFragment {
         initview();
         getData();
     }
-//数据
+
+    //数据
     private void getData() {
-        Log.e(" tokentoken",PreferenceUtils.getString(MyApplication.mContext, "token","")+getZhuangTai());
+        Log.e(" tokentoken", PreferenceUtils.getString(MyApplication.mContext, "token", "") + getZhuangTai());
         HttpManager.getInstance()
                 .with(getActivity())
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getdingdan(PreferenceUtils.getString(MyApplication.mContext, "token",""),getZhuangTai(),ye))
+                                .getdingdan(PreferenceUtils.getString(MyApplication.mContext, "token", ""), getZhuangTai(), ye))
                 .setDataListener(new HttpDataListener<List<DingDanBean>>() {
                     @Override
                     public void onNext(List<DingDanBean> list) {
 //                        Log.e("data",data+"---");
-                        if(!"null".equals(String.valueOf(list))){
+                        if (!"null".equals(String.valueOf(list))) {
                             mlist.clear();
                             mlist.addAll(list);
-                            if(list.size()==5){
+                            if (list.size() == 5) {
                                 rvDingdan.loadMoreFinish(false, true);
-                            }else if(list.size()>0){
+                            } else if (list.size() > 0) {
                                 rvDingdan.loadMoreFinish(false, false);
                             } else {
-                                    rvDingdan.loadMoreFinish(true, false);
+                                rvDingdan.loadMoreFinish(true, false);
                             }
                             adapter.notifyDataSetChanged();
                         }
@@ -126,7 +129,7 @@ public abstract class BaseDingDanFragment extends BaseFragment {
             }
         };
 
-        rvDingdan.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL, false));
+        rvDingdan.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 //        rvDingdan.useDefaultLoadMore(); // 使用默认的加载更多的View。
         rvDingdan.setLoadMoreListener(mLoadMoreListener); // 加载更多的监听。
 //        rvDingdan.loadMoreFinish(false, true);
@@ -146,19 +149,25 @@ public abstract class BaseDingDanFragment extends BaseFragment {
             @Override
             public void onClick(View view, int position) {
                 Intent it;
-                switch (view.getId()){
+                switch (view.getId()) {
                     case R.id.ll_saoma:
                         saomiaoQrCode();
                         break;
                     case R.id.ll_rongqi:
-                         it= new Intent(getActivity(), DingDanXiangQingActivity.class);
-                        it.putExtra("orderID",mlist.get(position).getOrder_id());
+                        it = new Intent(getActivity(), DingDanXiangQingActivity.class);
+                        it.putExtra("orderID", mlist.get(position).getOrder_id());
                         startActivity(it);
                         break;
                     case R.id.tv_quhuoma:
-                        it = new Intent(getActivity(),WeiYiQrCodeActivity.class);
-                        it.putExtra("gyID",mlist.get(position).getGy_order_id());
+                        it = new Intent(getActivity(), WeiYiQrCodeActivity.class);
+                        it.putExtra("type","ddID");
+                        it.putExtra("ddID", mlist.get(position).getOrder_id());
                         getActivity().startActivity(it);
+                        break;
+                    case R.id.bt_pingjia://评价
+                        it = new Intent(getActivity(), FaBiaoPingJiaActivity.class);
+                        it.putExtra("orderID", mlist.get(position).getOrder_id());
+                        startActivity(it);
                         break;
                 }
             }
@@ -175,20 +184,22 @@ public abstract class BaseDingDanFragment extends BaseFragment {
         }
         startActivity(intent);
     }
-    public void saomiaoQrCode(){
+
+    public void saomiaoQrCode() {
 //        this.id = id;
         Intent intent = new Intent();
         intent.setClass(getActivity(), CaptureActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivityForResult(intent,1 );
+        startActivityForResult(intent, 1);
     }
-    public void updateQrCode(String id){
+
+    public void updateQrCode(String id) {
         HttpManager.getInstance()
                 .with(getActivity())
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .updateQrCode(PreferenceUtils.getString(MyApplication.mContext, "token",""),id,"","1",""))
+                                .updateQrCode(PreferenceUtils.getString(MyApplication.mContext, "token", ""), id, "", "1", ""))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
@@ -198,26 +209,26 @@ public abstract class BaseDingDanFragment extends BaseFragment {
                 });
     }
 
-    public void updateList(final boolean b_clear){
-        Log.e("ye",ye+"--嘿呀");
+    public void updateList(final boolean b_clear) {
+        Log.e("ye", ye + "--嘿呀");
         HttpManager.getInstance()
                 .with(getActivity())
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getdingdan(PreferenceUtils.getString(MyApplication.mContext, "token",""),getZhuangTai(),ye))
+                                .getdingdan(PreferenceUtils.getString(MyApplication.mContext, "token", ""), getZhuangTai(), ye))
                 .setDataListener(new HttpDataListener<List<DingDanBean>>() {
                     @Override
                     public void onNext(final List<DingDanBean> list) {
-                        if(!"null".equals(String.valueOf(list))){
-                            if(list.size()==5){
+                        if (!"null".equals(String.valueOf(list))) {
+                            if (list.size() == 5) {
                                 rvDingdan.loadMoreFinish(false, true);
-                            }else if(list.size()>0){
+                            } else if (list.size() > 0) {
                                 rvDingdan.loadMoreFinish(false, false);
                             } else {
-                                    rvDingdan.loadMoreFinish(true, false);
+                                rvDingdan.loadMoreFinish(true, false);
                             }
-                            if(b_clear){//刷新清空当前页面数据
+                            if (b_clear) {//刷新清空当前页面数据
                                 mlist.clear();
                             }
                             mlist.addAll(list);
@@ -225,9 +236,10 @@ public abstract class BaseDingDanFragment extends BaseFragment {
                         }
 
                     }
-                },false);
+                }, false);
         ye++;
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -235,7 +247,7 @@ public abstract class BaseDingDanFragment extends BaseFragment {
         if (resultCode == CaptureActivity.RESULT_CODE_QR_SCAN) {
             Bundle bundle = data.getExtras();
             String scanResult = bundle.getString(CaptureActivity.INTENT_EXTRA_KEY_QR_SCAN);
-            Log.e("678678",scanResult);
+            Log.e("678678", scanResult);
             updateQrCode(scanResult);
         }
     }
@@ -244,7 +256,7 @@ public abstract class BaseDingDanFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         ye = 1;
-        Log.e("onResume",getZhuangTai());
+        Log.e("onResume", getZhuangTai());
 //        updateList(true);
         getData();
         adapter.notifyDataSetChanged();

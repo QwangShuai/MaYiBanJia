@@ -743,7 +743,8 @@ public interface HttpService {
 
     //获取二维码列表
     @POST("twocode/queryOnlyCode.do")
-    Observable<ResultModel<List<WeiYiQrCodeBean>>> getWeiYiQrCodeList(@Query("user_token") String user_token, @Query("gy_order_id") String gy_order_id);
+    Observable<ResultModel<List<WeiYiQrCodeBean>>> getWeiYiQrCodeList(@Query("user_token") String user_token, @Query("gy_order_id") String gy_order_id,
+                                                                      @Query("order_id") String order_id);
 
     //修改需求单商品
     @POST("ctBuySonorder/updateBySonorder.do")

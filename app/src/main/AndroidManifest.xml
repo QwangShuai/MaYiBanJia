@@ -266,11 +266,12 @@
         <activity android:name=".ui.activity.YinHangKaTianJiaActivity" /> <!-- 添加银行卡 -->
         <activity android:name=".ui.activity.XuanZeYinHangActivity" /> <!-- 选择银行 -->
         <activity android:name=".ui.activity.DingDanXiangQingActivity" /> <!-- 订单详情 -->
-        <activity android:name=".ui.activity.ZiZhiRenZhengActivity" /><!-- 资质认证 -->
-        <activity android:name=".ui.activity.TiXianActivity" /><!-- 提现 -->
-        <activity android:name=".ui.activity.YueActivity" /><!-- 余额 -->
-        <activity android:name=".ui.activity.jiaoyiliushui.JiaoYiMingXiActivity" /><!-- 交易明细 -->
-        <activity android:name=".ui.activity.JiaoYiXiangQingActivity"></activity><!-- 交易详情 -->
+        <activity android:name=".ui.activity.ZiZhiRenZhengActivity" /> <!-- 资质认证 -->
+        <activity android:name=".ui.activity.TiXianActivity" /> <!-- 提现 -->
+        <activity android:name=".ui.activity.YueActivity" /> <!-- 余额 -->
+        <activity android:name=".ui.activity.jiaoyiliushui.JiaoYiMingXiActivity" /> <!-- 交易明细 -->
+        <activity android:name=".ui.activity.JiaoYiXiangQingActivity" /> <!-- 交易详情 -->
+        <activity android:name=".ui.activity.FaBiaoPingJiaActivity"></activity><!-- 发表评价 -->
     </application>
 
 </manifest>

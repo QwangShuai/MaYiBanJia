@@ -54,9 +54,11 @@ public class QrCodeAdapter extends RecyclerView.Adapter<QrCodeAdapter.ViewHolder
         if(!TextUtils.isEmpty(bean.getTwocode()))
             Glide.with(mContext).load(bean.getTwocode()).into(holder.iv_qr_code);
         holder.tv_biaoshi.setText(bean.getIdentifying());
-        holder.tv_dianpu.setText(bean.getCompany_name());
+        holder.tv_dianpu.setText(bean.getCompany_name()+"(餐厅端)");
         holder.tv_dizhi.setText(bean.getCompanyAddress());
         holder.tv_phone.setText(bean.getTelephone());
+        holder.tv_weiyima.setText(bean.getOnlyCode());
+        holder.tv_dianming.setText(bean.getGy_company_name()+"(卖家店铺)");
         holder.tv_zuofei.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,6 +109,10 @@ public class QrCodeAdapter extends RecyclerView.Adapter<QrCodeAdapter.ViewHolder
                 TextView tv_dayin;
         @BindView(R.id.rl_dayin)
         RelativeLayout rl_dayin;
+        @BindView(R.id.tv_weiyima)
+                TextView tv_weiyima;
+        @BindView(R.id.tv_dianming)
+                TextView tv_dianming;
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);

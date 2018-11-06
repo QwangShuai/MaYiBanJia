@@ -452,7 +452,7 @@ public class FCGCaiGouXuQiuActivity extends BaseActivity {
         }else{
 
         }
-        Log.e("getSon_order_id",son_order_id+"===");
+        Log.e("我的请求数据",purchase_id+"==="+shichangid+"==="+pack_standard_id+"==="+caigouliang);
         Log.e("guigeid",pack_standard_id+"===");
         HttpManager.getInstance()
                 .with(mContext)
@@ -514,11 +514,10 @@ public class FCGCaiGouXuQiuActivity extends BaseActivity {
                                             });
                                         }
                                         Log.e("FCGCaiGouXuQiuActivity.this.dijige",FCGCaiGouXuQiuActivity.this.dijige+"---");
-                                        if (data.getCtBuySonorder()==null){
-
-                                        }else{
-                                            purchase_id=data.getCtBuySonorder().getPurchase_id();
-                                            mlist.get(dijige).setSon_order_id(data.getCtBuySonorder().getSon_order_id());
+                                        if (data!=null){
+                                            Log.e("这是主表ID",data.getPurchase_id());
+                                            purchase_id=data.getPurchase_id();
+                                            mlist.get(dijige).setSon_order_id(data.getSon_order_id());
                                         }
                                     }
                                 });

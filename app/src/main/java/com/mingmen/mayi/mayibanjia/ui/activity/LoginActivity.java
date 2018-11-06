@@ -68,7 +68,8 @@ public class LoginActivity extends BaseActivity {
         mContext = LoginActivity.this;
         isLogin = PreferenceUtils.getBoolean(MyApplication.mContext, "isLogin", false);
         if (isLogin) {
-            tiaozhuan(PreferenceUtils.getString(MyApplication.mContext, "juese", ""));
+            tiaozhuan(PreferenceUtils.getString(MyApplication.mContext, "juese", ""),
+                    PreferenceUtils.getInt(MyApplication.mContext,"random_id",0));
         }
 
         if ("魅族".equals(AppUtil.getDeviceBrand())) {
@@ -173,15 +174,15 @@ public class LoginActivity extends BaseActivity {
                         PreferenceUtils.putBoolean(MyApplication.mContext, "isLogin", true);
                         PreferenceUtils.putString(MyApplication.mContext, "token", bean.getToken());
                         PreferenceUtils.putString(MyApplication.mContext, "juese", bean.getRole());
-
-                        tiaozhuan(bean.getRole());
+                        PreferenceUtils.putInt(MyApplication.mContext,"random_id",bean.getRandom_id());
+                        tiaozhuan(bean.getRole(),bean.getRandom_id());
 
 
                     }
                 });
     }
 
-    private void tiaozhuan(String juese) {
+    private void tiaozhuan(String juese,int random_id) {
         //登录成功后  跳转
         if ("5".equals(juese)) {
             Intent intent = new Intent(mContext, WuLiuActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -196,9 +197,16 @@ public class LoginActivity extends BaseActivity {
             startActivity(intent);
             finish();
         } else if ("2".equals(juese)) {//供应端
-            Intent intent = new Intent(mContext, GongYingDuanShouYeActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
+            if(random_id==0){
+                Intent intent = new Intent(mContext, GongYingDuanShouYeActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+            } else {
+                Intent intent = new Intent(mContext, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+            }
+
         } else if ("1".equals(juese)) {//餐厅端
             Intent intent = new Intent(mContext, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);

@@ -25,6 +25,25 @@ public class QrCodeBean {
     private String company_name;//企业名称
     private String telephone;//电话
     private String companyAddress;//详细地址
+    private String onlyCode;//唯一码
+    private String gy_company_name;//卖家店铺名
+
+    public String getOnlyCode() {
+        return onlyCode;
+    }
+
+    public void setOnlyCode(String onlyCode) {
+        this.onlyCode = onlyCode;
+    }
+
+    public String getGy_company_name() {
+        return gy_company_name;
+    }
+
+    public void setGy_company_name(String gy_company_name) {
+        this.gy_company_name = gy_company_name;
+    }
+
     public String getIs_true() {
         return is_true;
     }

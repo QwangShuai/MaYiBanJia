@@ -61,11 +61,12 @@ public class DingDanXiangQingAdapter extends RecyclerView.Adapter<DingDanXiangQi
             holder.tvZongjia1.setText(zongjia);
             holder.tvZongjia2.setText("00");
         }
-        if(dingdan.getScanState().equals("0")){
+        if(dingdan.getScanState().equals("1")){
             holder.tv_baozhuanggeshu.setText(dingdan.getPackCount());
             holder.tv_saomageshu.setText(dingdan.getScanCount());
         } else {
             holder.rl_baozhuang.setVisibility(View.GONE);
+            holder.viewFenge.setVisibility(View.GONE);
         }
         int zongshu = 0;
         for (int i = 0; i < dingdan.getList().size(); i++) {
@@ -149,6 +150,9 @@ public class DingDanXiangQingAdapter extends RecyclerView.Adapter<DingDanXiangQi
                 holder.btPingjia.setVisibility(View.VISIBLE);
                 holder.btZaimai.setVisibility(View.VISIBLE);
                 return "买家已收货";
+            case 406:
+
+                return "买家已收货";
             case 407:
                 holder.btPingjia.setVisibility(View.VISIBLE);
                 holder.btZaimai.setVisibility(View.VISIBLE);
@@ -156,9 +160,9 @@ public class DingDanXiangQingAdapter extends RecyclerView.Adapter<DingDanXiangQi
             case 409:
                 holder.btZaimai.setVisibility(View.VISIBLE);
                 return "买家已付款";
-            case 406:
-                holder.btZaimai.setVisibility(View.VISIBLE);
-                return "已取消";
+//            case 406:
+//                holder.btZaimai.setVisibility(View.VISIBLE);
+//                return "已取消";
         }
         return "";
     }
@@ -209,6 +213,8 @@ public class DingDanXiangQingAdapter extends RecyclerView.Adapter<DingDanXiangQi
         TextView tv_saomageshu;
         @BindView(R.id.rl_baozhuang)
         RelativeLayout rl_baozhuang;
+        @BindView(R.id.view_fenge)
+        View viewFenge;
 
         ViewHolder(View view) {
             super(view);

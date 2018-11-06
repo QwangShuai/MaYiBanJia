@@ -291,8 +291,8 @@
                 android:layout_weight="1"
                 android:text=""
                 android:textSize="15sp"
-                android:textColor="#474747"
-                android:hint="请输入采购数量"
+                android:textColor="@color/zicolor"
+                android:hint="请输入规格售卖数量"
                 android:textColorHint="@color/hintcolor"
                 android:inputType="number"
                 android:background="@null"/>

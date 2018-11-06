@@ -39,7 +39,9 @@ public class WeiYiQrCodeActivity extends BaseActivity {
 
     private List<WeiYiQrCodeBean> list = new ArrayList<WeiYiQrCodeBean>();
     private WeiYiQrCodeAdapter adapter;
-    private String id;
+    private String gyID;
+    private String ddID;
+    private String type;
     @Override
     public int getLayoutId() {
         return R.layout.activity_wei_yi_qr_code;
@@ -48,7 +50,16 @@ public class WeiYiQrCodeActivity extends BaseActivity {
     @Override
     protected void initData() {
         tvTitle.setText("唯一二维码");
-        id = getIntent().getStringExtra("gyID");
+        type = getIntent().getStringExtra("type");
+        if(type.equals("gyID")){
+            gyID = getIntent().getStringExtra("gyID");
+            ddID = "";
+        } else {
+            ddID = getIntent().getStringExtra("ddID");
+            gyID = "";
+        }
+
+
 
         getQrList();
     }
@@ -73,7 +84,7 @@ public class WeiYiQrCodeActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getWeiYiQrCodeList(PreferenceUtils.getString(MyApplication.mContext, "token",""),id))
+                                .getWeiYiQrCodeList(PreferenceUtils.getString(MyApplication.mContext, "token",""),gyID,ddID))
                 .setDataListener(new HttpDataListener<List<WeiYiQrCodeBean>>() {
                     @Override
                     public void onNext(List<WeiYiQrCodeBean> data) {

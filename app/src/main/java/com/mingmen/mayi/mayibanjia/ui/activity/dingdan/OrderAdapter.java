@@ -13,13 +13,14 @@ public class OrderAdapter  extends FragmentPagerAdapter {
 
 
     private Context mContext;
-    private String[] Titles = {"全部","待付款","待发货","待收货","已完成"};
+    private String[] Titles = {"全部","待付款","待发货","待收货","已收货","已完成"};
     private final String[] fragments = {
 
             QuanBuFragment.class.getName(),
             DaiFuKuanFragment.class.getName(),
             DaiFaHuoFragment.class.getName(),
             DaiShouHuoFragment.class.getName(),
+            YiShouHuoFragment.class.getName(),
             YiWanChengFragment.class.getName(),
 
     };

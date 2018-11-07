@@ -54,6 +54,7 @@ import com.mingmen.mayi.mayibanjia.bean.XQPingJiaBean;
 import com.mingmen.mayi.mayibanjia.bean.XiTongTuiJianBean;
 import com.mingmen.mayi.mayibanjia.bean.XuanZeYinHangKaBean;
 import com.mingmen.mayi.mayibanjia.bean.YinHangKaBean;
+import com.mingmen.mayi.mayibanjia.bean.YunFeiBean;
 import com.mingmen.mayi.mayibanjia.bean.ZhangHuRenZhengBean;
 import com.mingmen.mayi.mayibanjia.bean.ZhuCeChengGongBean;
 import com.mingmen.mayi.mayibanjia.bean.ZouShiTuBean;
@@ -659,7 +660,7 @@ public interface HttpService {
 
     //运费查询
     @POST("Ordermain/qyeryByFreightFee.do")
-    Observable<ResultModel<BigDecimal>> getYunFei(@Query("commodity_id") String commodity_id,
+    Observable<ResultModel<YunFeiBean>> getYunFei(@Query("commodity_id") String commodity_id,
                                                   @Query("deliver_address") String deliver_address,
                                                   @Query("number") String number);
 

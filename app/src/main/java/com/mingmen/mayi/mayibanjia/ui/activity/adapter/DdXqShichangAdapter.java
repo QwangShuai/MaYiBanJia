@@ -55,7 +55,6 @@ public class DdXqShichangAdapter extends BaseMultiItemQuickAdapter<MultiItemEnti
                     final DdxqBean.MarketBean item0 = (DdxqBean.MarketBean) item;
                     if (item0.getOrderState().equals("401")) {//待付款
                         helper.getView(R.id.rl_rongqi).setVisibility(View.GONE);
-                        helper.getView(R.id.ll_baozhuang).setVisibility(View.GONE);
                         helper.getView(R.id.tv_daiquhuo).setVisibility(View.GONE);
                     }
 //                else if(item0.getOrderState().equals("402")){//待发货
@@ -128,15 +127,24 @@ public class DdXqShichangAdapter extends BaseMultiItemQuickAdapter<MultiItemEnti
                     helper.setText(R.id.tv_spming, item2.getCommodity_name());
                     helper.setText(R.id.tv_guige, item2.getPackStandard());
                     helper.setText(R.id.tv_jiage, item2.getPrice());
+                    if(TextUtils.isEmpty(item2.getAppend_money()+"")||item2.getAppend_money()==null){
+                        helper.getView(R.id.tv_fujiafei).setVisibility(View.GONE);
+                    } else {
+                        helper.setText(R.id.tv_fujiafei,"(附加费："+item2.getAppend_money()+")");
+                    }
                     helper.setText(R.id.tv_shuliang, "x" + item2.getAcount());
-                    helper.itemView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Bundle bundle=new Bundle();
-                            bundle.putString("spid",item2.getCommodity_id());
-                            JumpUtil.Jump_intent(mContext, SPXiangQingActivity.class,bundle);
-                        }
-                    });
+                    if(item2.isEnd()){
+                        helper.getView(R.id.ll_tongji).setVisibility(View.VISIBLE);
+                    } else {
+                        helper.itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Bundle bundle=new Bundle();
+                                bundle.putString("spid",item2.getCommodity_id());
+                                JumpUtil.Jump_intent(mContext, SPXiangQingActivity.class,bundle);
+                            }
+                        });
+                    }
                     break;
             }
         }

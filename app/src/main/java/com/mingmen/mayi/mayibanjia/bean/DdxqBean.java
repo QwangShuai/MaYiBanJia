@@ -4,6 +4,7 @@ import com.chad.library.adapter.base.entity.AbstractExpandableItem;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.DdXqShichangAdapter;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -37,6 +38,16 @@ public class DdxqBean {
     private int total_price;
     private String dianhua;
     private String total;
+    private BigDecimal append_money;
+
+    public BigDecimal getAppend_money() {
+        return append_money;
+    }
+
+    public void setAppend_money(BigDecimal append_money) {
+        this.append_money = append_money;
+    }
+
     private List<MarketBean> market;
 
     public String getTotal() {
@@ -568,6 +579,16 @@ public class DdxqBean {
             private String scanState;//扫码状态 0:已扫完1:未扫完
             private String packCount;//包装个数
             private String scanCount;//扫码个数
+            private String dpprice;//店铺总价（包含特殊商品）
+
+            public String getDpprice() {
+                return dpprice;
+            }
+
+            public void setDpprice(String dpprice) {
+                this.dpprice = dpprice;
+            }
+
             private List<ListspBean> listsp;
 
             public String getPackCount() {
@@ -1449,7 +1470,7 @@ public class DdxqBean {
                 private Object shopping_id;
                 private Object picture_url;
                 private Object create_time;
-                private Object append_money;
+                private BigDecimal append_money;
                 private Object quote_price_id;
                 private Object son_order_id;
                 private Object pack_standard_one;
@@ -1464,7 +1485,15 @@ public class DdxqBean {
                 private Object deputyPicture;
                 private Object packThreeName;
                 private Object type_one_id;
+                private boolean isEnd;
 
+                public boolean isEnd() {
+                    return isEnd;
+                }
+
+                public void setEnd(boolean end) {
+                    isEnd = end;
+                }
                 public Object getNumber() {
                     return number;
                 }
@@ -2177,11 +2206,11 @@ public class DdxqBean {
                     this.create_time = create_time;
                 }
 
-                public Object getAppend_money() {
+                public BigDecimal getAppend_money() {
                     return append_money;
                 }
 
-                public void setAppend_money(Object append_money) {
+                public void setAppend_money(BigDecimal append_money) {
                     this.append_money = append_money;
                 }
 

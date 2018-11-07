@@ -204,20 +204,20 @@ public class GouWuCheAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         String spguige = "";
                         String guigeid = "";
 //                        Log.e("data.getChoose_specifications()",data.getChoose_specifications()+"==");
-                        switch (Integer.parseInt(data.getChoose_specifications())){
-                            case 1:
-                                spguige =data.getPack_standard_one_name();
-                                guigeid = data.getPack_standard_one();
-                                break;
-                            case 2:
-                                spguige =data.getPack_standard_two_name();
-                                guigeid = data.getPack_standard_two();
-                                break;
-                            case 3:
-                                spguige =data.getPack_standard_tree_name();
-                                guigeid = data.getPack_standard_tree();
-                                break;
-                        }
+//                        switch (Integer.parseInt(data.getChoose_specifications())){
+//                            case 1:
+//                                spguige =data.getPack_standard_one_name();
+//                                guigeid = data.getPack_standard_one();
+//                                break;
+//                            case 2:
+//                                spguige =data.getPack_standard_two_name();
+//                                guigeid = data.getPack_standard_two();
+//                                break;
+//                            case 3:
+//                                spguige =data.getPack_standard_tree_name();
+//                                guigeid = data.getPack_standard_tree();
+//                                break;
+//                        }
                         jiarugouwuchedialog = new JiaRuGouWuCheDialog(mContext,
                                 mContext.getResources().getIdentifier("BottomDialog", "style", mContext.getPackageName()));
                         jiarugouwuchedialog.getWindow().setGravity(Gravity.BOTTOM | Gravity.LEFT | Gravity.RIGHT);

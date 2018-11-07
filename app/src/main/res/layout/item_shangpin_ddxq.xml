@@ -3,29 +3,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="92dp"
+    android:layout_height="wrap_content"
     android:background="@color/white"
     android:paddingTop="12dp"
     android:id="@+id/cl_kuang"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="92dp">
         <ImageView
             android:id="@+id/iv_sptu"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:src="@color/turquoise" />
-        <TextView
-            android:layout_toRightOf="@+id/iv_sptu"
-            android:id="@+id/tv_spming"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="甜橙"
-            android:textColor="#474747"
-            android:textSize="14sp"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_marginTop="4dp"
-            android:layout_marginLeft="12dp"/>
+            android:layout_marginLeft="12dp"
+            android:layout_toRightOf="@+id/iv_sptu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_spming"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="甜橙"
+                android:textColor="#474747"
+                android:textSize="14sp"/>
+            <TextView
+                android:id="@+id/tv_fujiafei"
+                android:textColor="@color/mayihong"
+                android:text="(附加费:200元)"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
         <LinearLayout
             android:layout_marginLeft="12dp"
             android:layout_marginTop="30dp"
@@ -33,14 +45,8 @@
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="¥"
-                android:textColor="#333333"
-                android:textSize="7sp" />
-            <TextView
-                android:layout_marginLeft="4dp"
                 android:id="@+id/tv_guige"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -85,4 +91,57 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="#e7e7e7"/>
+    <LinearLayout
+        android:id="@+id/ll_tongji"
+        android:layout_width="match_parent"
+        android:layout_height="37dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical|right">
+
+        <TextView
+            android:id="@+id/tv_jianshu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="共2件商品"
+            android:textColor="#ff666666"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  合计： ¥  "
+            android:textColor="#ff666666"
+            android:textSize="13sp"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="bottom"
+            android:paddingRight="12dp">
+            <TextView
+                android:id="@+id/tv_zongjia1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="7700"
+                android:textColor="@color/mayihong"
+                android:textSize="15sp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="."
+                android:textColor="@color/mayihong"
+                android:textSize="12sp"
+                />
+            <TextView
+                android:id="@+id/tv_zongjia2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00"
+                android:textColor="@color/mayihong"
+                android:textSize="12sp"
+                />
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

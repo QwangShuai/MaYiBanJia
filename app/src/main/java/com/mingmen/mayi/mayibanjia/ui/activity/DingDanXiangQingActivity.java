@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
@@ -85,15 +87,25 @@ public class DingDanXiangQingActivity extends BaseActivity {
     TextView tvSpNumber;
     @BindView(R.id.btn_queren_shouhuo)
     Button btnQuerenShouhuo;
+    @BindView(R.id.tv_fujiafei)
+    TextView tvFujiafei;
+    @BindView(R.id.tv_fujiafei1)
+    TextView tvFujiafei1;
+    @BindView(R.id.btn_queren_fukuan)
+    Button btnQuerenFukuan;
+    @BindView(R.id.rl_fujiafei)
+    RelativeLayout rlFujiafei;
+
     private Context mContext;
     private String order_id = "";
     private List<MultiItemEntity> mList = new ArrayList<>();
     private DdXqShichangAdapter adapter;
     private ConfirmDialog dialog;
-    private String zongjia="0";
+    private String zongjia = "0";
     private String yue = "0";
     private final static int SCANNIN_GREQUEST_CODE = 1;
     public static DingDanXiangQingActivity instance = null;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_ding_dan_xiang_qing;
@@ -132,6 +144,9 @@ public class DingDanXiangQingActivity extends BaseActivity {
 //                            btnZaiciGoumai.setVisibility(View.VISIBLE);
                             btnQuerenShouhuo.setVisibility(View.VISIBLE);
                             tvState.setText("卖家已发货");
+                        } else if (data.getState().equals("406")) {
+                            ivState.setImageResource(R.mipmap.yiwancheng);
+                            tvState.setText("卖家已收货");
                         } else {
                             ivState.setImageResource(R.mipmap.yiwancheng);
                             btnShanchuDingdan.setVisibility(View.VISIBLE);
@@ -147,6 +162,12 @@ public class DingDanXiangQingActivity extends BaseActivity {
                         zongjia = data.getTotal();
                         setJiaGeShowView(tvZong0, tvZong1, data.getTotal_price() + "");
                         setJiaGeShowView(tvYunfei0, tvYunfei1, data.getFreight_fee() + "");
+                        if (TextUtils.isEmpty(data.getAppend_money()+"") || data.getAppend_money() == null) {
+                            rlFujiafei.setVisibility(View.GONE);
+                        } else {
+                            setJiaGeShowView(tvFujiafei, tvFujiafei1, data.getAppend_money() + "");
+                        }
+
                         setJiaGeShowView(tvHeji0, tvHeji1, data.getTotal() + "");
                         mList.clear();
                         mList.addAll(getAdapterData(data));
@@ -156,7 +177,7 @@ public class DingDanXiangQingActivity extends BaseActivity {
                                 return false;
                             }
                         };
-                        adapter = new DdXqShichangAdapter(mList,DingDanXiangQingActivity.this);
+                        adapter = new DdXqShichangAdapter(mList, DingDanXiangQingActivity.this);
                         adapter.expandAll();
                         rvShichang.setLayoutManager(linearLayoutManager);
                         rvShichang.setAdapter(adapter);
@@ -164,7 +185,6 @@ public class DingDanXiangQingActivity extends BaseActivity {
                     }
                 });
     }
-
     private List<MultiItemEntity> getAdapterData(DdxqBean deDdxqBean) {//三级列表数据源
         List<MultiItemEntity> data = new ArrayList<>();
         for (int i = 0; i < deDdxqBean.getMarket().size(); i++) {
@@ -173,6 +193,11 @@ public class DingDanXiangQingActivity extends BaseActivity {
                 DdxqBean.MarketBean.DplistBean item1 = item0.getDplist().get(j);
                 for (int k = 0; k < item1.getListsp().size(); k++) {
                     DdxqBean.MarketBean.DplistBean.ListspBean item2 = item1.getListsp().get(k);
+                    if(k==item1.getListsp().size()-1){
+                        item2.setEnd(true);
+                    } else {
+                        item2.setEnd(false);
+                    }
                     item1.addSubItem(item2);
                 }
                 item0.addSubItem(item1);
@@ -190,7 +215,7 @@ public class DingDanXiangQingActivity extends BaseActivity {
     }
 
     @OnClick({R.id.iv_fanhui, R.id.iv_sangedian, R.id.btn_zaici_goumai, R.id.btn_shanchu_dingdan, R.id.btn_quxiao_dingdan,
-            R.id.btn_liji_fukuan,R.id.btn_queren_shouhuo})
+            R.id.btn_liji_fukuan, R.id.btn_queren_shouhuo, R.id.btn_queren_fukuan})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_fanhui:
@@ -257,6 +282,9 @@ public class DingDanXiangQingActivity extends BaseActivity {
                     }
                 });
                 break;
+            case R.id.btn_queren_fukuan://支付订单中全部商品
+
+                break;
         }
     }
 
@@ -267,10 +295,13 @@ public class DingDanXiangQingActivity extends BaseActivity {
     }
 
     public void setJiaGeShowView(TextView tv1, TextView tv2, String zongjia) {
-        if (zongjia.contains("\\.")) {
+        Log.e("总价",zongjia);
+        if (zongjia.contains(".")) {
+            Log.e("总价",zongjia+"包含");
             tv1.setText(zongjia.split("\\.")[0] + ".");
             tv2.setText(zongjia.split("\\.")[1]);
         } else {
+            Log.e("总价",zongjia+"不包含");
             tv1.setText(zongjia + ".");
             tv2.setText("00");
         }
@@ -291,6 +322,7 @@ public class DingDanXiangQingActivity extends BaseActivity {
                     }
                 });
     }
+
     private void confirmOrder() {
         HttpManager.getInstance()
                 .with(mContext)
@@ -307,16 +339,17 @@ public class DingDanXiangQingActivity extends BaseActivity {
                 });
     }
 
-    private void pay(){
+    private void pay() {
         Intent intent = new Intent(mContext, XuanZeZhiFuFangShiActivity.class);
         intent.putExtra("dingdanid", order_id);
         intent.putExtra("dingdanleixing", "1");
 //        intent.putExtra("yuezhifu",shiyongyue);
-        intent.putExtra("zongjia",zongjia );
+        intent.putExtra("zongjia", zongjia);
         intent.putExtra("yue", yue);
         startActivity(intent);
         finish();
     }
+
     private void getyue() {
         HttpManager.getInstance()
                 .with(mContext)
@@ -332,19 +365,21 @@ public class DingDanXiangQingActivity extends BaseActivity {
                     }
                 });
     }
-    public void saomiaoQrCode(){
+
+    public void saomiaoQrCode() {
         Intent intent = new Intent();
         intent.setClass(mContext, CaptureActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivityForResult(intent, SCANNIN_GREQUEST_CODE);
     }
-    public void updateQrCode(String id){
+
+    public void updateQrCode(String id) {
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .updateQrCode(PreferenceUtils.getString(MyApplication.mContext, "token",""),id,"","1",""))
+                                .updateQrCode(PreferenceUtils.getString(MyApplication.mContext, "token", ""), id, "", "1", ""))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
@@ -361,7 +396,7 @@ public class DingDanXiangQingActivity extends BaseActivity {
         if (resultCode == CaptureActivity.RESULT_CODE_QR_SCAN) {
             Bundle bundle = data.getExtras();
             String scanResult = bundle.getString(CaptureActivity.INTENT_EXTRA_KEY_QR_SCAN);
-            Log.e("678678",scanResult);
+            Log.e("678678", scanResult);
             updateQrCode(scanResult);
         }
     }
@@ -371,4 +406,5 @@ public class DingDanXiangQingActivity extends BaseActivity {
         super.onRestart();
         getOrderXiangqing();
     }
+
 }

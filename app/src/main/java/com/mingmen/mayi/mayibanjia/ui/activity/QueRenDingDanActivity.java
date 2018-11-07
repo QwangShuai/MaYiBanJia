@@ -22,6 +22,7 @@ import com.mingmen.mayi.mayibanjia.bean.GWCDianPuShangPinBean;
 import com.mingmen.mayi.mayibanjia.bean.QueRenDingDanShangPinBean;
 import com.mingmen.mayi.mayibanjia.bean.ReUserOrder;
 import com.mingmen.mayi.mayibanjia.bean.SongDaShiJianBean;
+import com.mingmen.mayi.mayibanjia.bean.YunFeiBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
@@ -444,13 +445,14 @@ public class QueRenDingDanActivity extends BaseActivity {
                     .with(mContext)
                     .setObservable(RetrofitManager.getService()
                             .getYunFei(spID, dizhi.getAddress_id(), number))
-                    .setDataListener(new HttpDataListener<BigDecimal>() {
+                    .setDataListener(new HttpDataListener<YunFeiBean>() {
                         @Override
-                        public void onNext(BigDecimal o) {
+                        public void onNext(YunFeiBean o) {
                             Log.e("21212","走不到了啊");
-                            yunfei = o + "";
+                            yunfei = o.getPrice() + "";
                             tvYunfei.setText(o + "");
-                            hejijine = MyMath.addBigDecType(new BigDecimal(zongjia), new BigDecimal(o + "")) + "";
+                            tvZhongliang.setText(o.getSumzl()+")");
+                            hejijine = MyMath.addBigDecType(new BigDecimal(zongjia), new BigDecimal(o.getPrice() + "")) + "";
                             tvHejijine.setText(hejijine + "");
                         }
                     });

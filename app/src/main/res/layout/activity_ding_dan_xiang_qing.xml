@@ -270,7 +270,51 @@
                                 android:textSize="12sp" />
                         </LinearLayout>
                     </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/rl_fujiafei"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp">
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="附加费"
+                            android:textColor="@color/lishisousuo"
+                            android:textSize="13sp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="￥"
+                                android:textColor="@color/zicolor"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/tv_fujiafei"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="4dp"
+                                android:text="137."
+                                android:textColor="@color/zicolor"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/tv_fujiafei1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="00"
+                                android:textColor="@color/zicolor"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+                    </RelativeLayout>
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -382,6 +426,17 @@
                         android:layout_centerVertical="true"
                         android:background="@drawable/bg_zangqing_biankuang"
                         android:text="再次购买"
+                        android:textColor="@color/zangqing"
+                        android:textSize="12sp" />
+                    <Button
+                        android:visibility="gone"
+                        android:id="@+id/btn_queren_fukuan"
+                        android:layout_width="70dp"
+                        android:layout_height="28dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/bg_zangqing_biankuang"
+                        android:text="确认付款"
                         android:textColor="@color/zangqing"
                         android:textSize="12sp" />
                     <Button

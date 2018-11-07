@@ -59,8 +59,17 @@ public class TuiJianBean {
         private String company_name;
         private String commodity_id;
         private String ration_three;
-    private String inventory;
-    private String shopping_id;
+        private String inventory;
+        private String shopping_id;
+        private String spec_describe;
+
+    public String getSpec_describe() {
+        return spec_describe;
+    }
+
+    public void setSpec_describe(String spec_describe) {
+        this.spec_describe = spec_describe;
+    }
 
     public String getInventory() {
         return inventory;

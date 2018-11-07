@@ -222,7 +222,7 @@ public class GouWuCheAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                                 mContext.getResources().getIdentifier("BottomDialog", "style", mContext.getPackageName()));
                         jiarugouwuchedialog.getWindow().setGravity(Gravity.BOTTOM | Gravity.LEFT | Gravity.RIGHT);
                         Log.e("getInventory",data.getInventory()+"===");
-                        jiarugouwuchedialog.showDialog(data.getInventory(),data.getCommodity_name(), spguige,data.getRation_one()+"",data.getPice_one()+""
+                        jiarugouwuchedialog.showDialog(data.getInventory(),data.getCommodity_name(), data.getSpec_describe(),data.getRation_one()+"",data.getPice_one()+""
                                 ,data.getRation_two()+"",data.getPice_two()+"",data.getRation_three()+"",data.getPice_three()+"",data.getPicture_url()+"");
                         final String finalGuigeid = guigeid;
                         jiarugouwuchedialog.getBtQueding().setOnClickListener(new View.OnClickListener() {

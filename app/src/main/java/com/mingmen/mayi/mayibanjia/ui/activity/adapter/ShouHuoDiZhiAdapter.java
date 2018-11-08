@@ -52,7 +52,7 @@ public class ShouHuoDiZhiAdapter extends RecyclerView.Adapter<ShouHuoDiZhiAdapte
 //        holder.tv_ming.setText(zi);
         holder.tvName.setText(data.getLinkman());
         holder.tvPhone.setText(data.getContact_type());
-        holder.tvDizhi.setText(data.getProvince_name()+data.getCity_name()+data.getRegion_name()+data.getSpecific_address());
+        holder.tvDizhi.setText(data.getProvince_name()+data.getCity_name()+data.getRegion_name()+data.getStreet_name()+data.getSpecific_address());
         if (Integer.parseInt(data.getDefault_address())!=0){
             holder.tvMoren.setVisibility(View.GONE);
         }else{

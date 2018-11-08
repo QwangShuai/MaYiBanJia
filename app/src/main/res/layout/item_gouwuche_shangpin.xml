@@ -37,11 +37,11 @@
                     android:layout_height="wrap_content"
                     android:text="利木赞牛 自繁自养"
                     android:textColor="#ff474747"
-                    android:textSize="12sp"
+                    android:textSize="18sp"
                     android:layout_marginTop="8dp"
                     />
 
-               <LinearLayout
+               <!--<LinearLayout
                    android:id="@+id/ll_qidingliang"
                    android:layout_width="wrap_content"
                    android:layout_height="match_parent"
@@ -61,7 +61,7 @@
                        android:textColor="#ff999999"
                        android:textSize="10sp"
                        />
-               </LinearLayout>
+               </LinearLayout>-->
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -84,21 +84,30 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="11dp"
                 android:gravity="bottom">
-                <TextView
+<!--                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="¥"
+                    android:text=""
                     android:textSize="8dp"
                     android:textColor="#999999"
-                    />
+                    />-->
                 <TextView
-                    android:id="@+id/tv_guige"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="4500元/头(15元*300斤)"
+                    android:text="起订量："
                     android:textColor="#ff999999"
                     android:textSize="12sp"
                     android:layout_marginLeft="4dp"
+                    />
+                <TextView
+                    android:id="@+id/tv_qidingliang"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="12sp"
+                    android:textColor="@color/zicolor"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     />
             </LinearLayout>
             <View

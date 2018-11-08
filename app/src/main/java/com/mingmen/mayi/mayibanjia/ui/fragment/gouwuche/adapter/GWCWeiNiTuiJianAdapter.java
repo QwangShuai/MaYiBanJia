@@ -57,7 +57,7 @@ public class GWCWeiNiTuiJianAdapter extends RecyclerView.Adapter<GWCWeiNiTuiJian
         final TuiJianBean data = mList.get(position);
         holder.tvSpming.setText(data.getCommodity_name());
         holder.tvDanjia.setText(data.getPrice()+"");
-        holder.tvGuige.setText(data.getPack_standard()+"");
+        //holder.tvGuige.setText(data.getPack_standard()+"");
         Glide.with(mContext).load(data.getPicture_url())
                 .into(holder.ivSptu);
         holder.ivSptu.setOnClickListener(new View.OnClickListener() {
@@ -89,8 +89,8 @@ public class GWCWeiNiTuiJianAdapter extends RecyclerView.Adapter<GWCWeiNiTuiJian
         ImageView ivSptu;
         @BindView(R.id.tv_spming)
         TextView tvSpming;
-        @BindView(R.id.tv_guige)
-        TextView tvGuige;
+/*        @BindView(R.id.tv_guige)
+        TextView tvGuige;*/
         @BindView(R.id.tv_danjia)
         TextView tvDanjia;
         @BindView(R.id.iv_addcar)

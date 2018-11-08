@@ -87,16 +87,25 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {//购物车页面初始数据加载
         final GWCShangPinBean.ShoppingBean shoppingBean = mList.get(position);
         Log.e("shoppingBeanjson",new Gson().toJson(shoppingBean));
         holder.tvName.setText(shoppingBean.getCommodity_name());
-        holder.tvGuige.setText(shoppingBean.getPack_standard());
+        //holder.tvGuige.setText(shoppingBean.getPack_standard());
         holder.tvPrice.setText(shoppingBean.getPrice()+"");
         holder.tvNumber.setText(shoppingBean.getNumber()+"");
         Glide.with(mContext).load(shoppingBean.getUrl())
                 .into(holder.ivTu);
         holder.ivDanxuan.setSelected(shoppingBean.isSelected());
+
+        if (!StringUtil.isEmpty(shoppingBean.getRation_one())){
+            if (!StringUtil.isEmpty(shoppingBean.getSpecNameTwo())){
+                holder.tvQidingliang.setText(shoppingBean.getRation_one()+shoppingBean.getSpecNameTwo());
+            }else{
+                holder.tvQidingliang.setText(shoppingBean.getRation_one()+shoppingBean.getSpecNameThree());
+            }
+
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,14 +114,14 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
                 JumpUtil.Jump_intent(mContext, SPXiangQingActivity.class,bundle);
             }
         });
-        holder.llQidingliang.setOnClickListener(new View.OnClickListener() {
+/*        holder.llQidingliang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                showQiDingLiangPop(shoppingBean.getRation_one(),shoppingBean.getRation_two(),shoppingBean.getRation_three(),shoppingBean.getPice_one(),shoppingBean.getPice_two(),shoppingBean.getPice_three(),holder.tvName);
             }
 
 
-        });
+        });*/
 
         holder.ivZoushi.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -235,7 +244,7 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
         }
     }
 
-    private void showQiDingLiangPop(String qidingliang1,String qidingliang2,String qidingliang3,String qidingliangjiage1,String qidingliangjiage2,String qidingliangjiage3,TextView spming) {
+    /*private void showQiDingLiangPop(String qidingliang1,String qidingliang2,String qidingliang3,String qidingliangjiage1,String qidingliangjiage2,String qidingliangjiage3,TextView spming) {
         View view = View.inflate(mContext, R.layout.pop_gouwuche_qidingliang, null);
         PopupWindow qidingliangPop = new PopupWindow(view);
         WindowManager wm1 = MainActivity.instance.getWindowManager();
@@ -243,23 +252,17 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
         int height = wm1.getDefaultDisplay().getHeight();
         qidingliangPop.setWidth(AppUtil.dip2px(170));
         qidingliangPop.setHeight(AppUtil.dip2px(70));
-        TextView tv_qidingliang1 = view.findViewById(R.id.tv_qidingliang1);
-        TextView tv_qidingliang2 = view.findViewById(R.id.tv_qidingliang2);
-        TextView tv_qidingliang3 = view.findViewById(R.id.tv_qidingliang3);
+        TextView tv_qidingliang1 = view.findViewById(R.id.tv_qidingliang);
+*//*        TextView tv_qidingliang2 = view.findViewById(R.id.tv_qidingliang2);
+        TextView tv_qidingliang3 = view.findViewById(R.id.tv_qidingliang3);*//*
         TextView tv_qidingliangjiage1 = view.findViewById(R.id.tv_qidingliangjiage1);
-        TextView tv_qidingliangjiage2 = view.findViewById(R.id.tv_qidingliangjiage2);
-        TextView tv_qidingliangjiage3 = view.findViewById(R.id.tv_qidingliangjiage3);
-
-        Log.e("qidingliang1",qidingliang1+"-");
-        Log.e("qidingliang2",qidingliang2+"-");
-        Log.e("qidingliang3",qidingliang3+"-");
-        Log.e("qidingliangjiage1",qidingliangjiage1+"-");
-        Log.e("qidingliangjiage2",qidingliangjiage2+"-");
-        Log.e("qidingliangjiage3",qidingliangjiage3+"-");
+*//*        TextView tv_qidingliangjiage2 = view.findViewById(R.id.tv_qidingliangjiage2);
+        TextView tv_qidingliangjiage3 = view.findViewById(R.id.tv_qidingliangjiage3);*//*
+        Log.e("qidingliang", qidingliang1+"qidingliang:------------------" );
         if (!StringUtil.isEmpty(qidingliang1)){
             tv_qidingliang1.setText(qidingliang1+"<");
         }
-        if (!StringUtil.isEmpty(qidingliang2)){
+        *//*if (!StringUtil.isEmpty(qidingliang2)){
             if (!StringUtil.isEmpty(qidingliang3)){
                 tv_qidingliang2.setText(qidingliang2+"-"+qidingliang3);
             }else{
@@ -269,20 +272,20 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
         }
         if (!StringUtil.isEmpty(qidingliang3)){
             tv_qidingliang3.setText(qidingliang3+"<");
-        }
+        }*//*
         if (!StringUtil.isEmpty(qidingliangjiage1)){
             tv_qidingliangjiage1.setText("¥"+qidingliangjiage1);
         }
-        if (!StringUtil.isEmpty(qidingliangjiage2)){
+        *//*if (!StringUtil.isEmpty(qidingliangjiage2)){
             tv_qidingliangjiage2.setText("¥"+qidingliangjiage2);
         }
         if (!StringUtil.isEmpty(qidingliangjiage3)){
             tv_qidingliangjiage3.setText("¥"+qidingliangjiage3);
-        }
+        }*//*
         qidingliangPop.setOutsideTouchable(true);
         qidingliangPop.setBackgroundDrawable(new BitmapDrawable());
         qidingliangPop.showAsDropDown(spming);
-    }
+    }*/
 
 
     //修改购物车数量
@@ -324,8 +327,8 @@ public void setmList(List<GWCShangPinBean.ShoppingBean> list){
         ImageView ivTu;
         @BindView(R.id.tv_name)
         TextView tvName;
-        @BindView(R.id.tv_guige)
-        TextView tvGuige;
+/*        @BindView(R.id.tv_guige)
+        TextView tvGuige;*/
         @BindView(R.id.tv_price)
         TextView tvPrice;
         @BindView(R.id.tv_jianhao)
@@ -334,11 +337,12 @@ public void setmList(List<GWCShangPinBean.ShoppingBean> list){
         TextView tvNumber;
         @BindView(R.id.tv_jiahao)
         TextView tvJiahao;
-        @BindView(R.id.ll_qidingliang)
-        LinearLayout llQidingliang;
+/*        @BindView(R.id.ll_qidingliang)
+        LinearLayout llQidingliang;*/
         @BindView(R.id.iv_zoushi)
         ImageView ivZoushi;
-
+        @BindView(R.id.tv_qidingliang)
+        TextView tvQidingliang;
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);

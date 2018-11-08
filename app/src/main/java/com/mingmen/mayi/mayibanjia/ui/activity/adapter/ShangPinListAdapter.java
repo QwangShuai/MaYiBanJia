@@ -68,7 +68,7 @@ public class ShangPinListAdapter extends RecyclerView.Adapter<ShangPinListAdapte
         holder.tvSpming.setText(data.getCommodity_name());
         holder.tvDianming.setText(data.getCompany_name());
         holder.tvJiage.setText(data.getPrice()+"");
-        holder.tvGuige.setText(data.getPackStandard()+"");
+        //holder.tvGuige.setText(data.getPackStandard()+"");
         holder.tvSpxiaoliang.setText("已售"+data.getCommodity_sales());
         Glide.with(mContext).load(data.getPicture_url()).into(holder.ivSptu);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -114,8 +114,8 @@ public class ShangPinListAdapter extends RecyclerView.Adapter<ShangPinListAdapte
         TextView tvSpming;
         @BindView(R.id.tv_dianming)
         TextView tvDianming;
-        @BindView(R.id.tv_guige)
-        TextView tvGuige;
+/*        @BindView(R.id.tv_guige)
+        TextView tvGuige;*/
         @BindView(R.id.tv_renminbi)
         TextView tvRenminbi;
         @BindView(R.id.tv_jiage)

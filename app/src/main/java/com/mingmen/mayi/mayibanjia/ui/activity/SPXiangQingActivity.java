@@ -288,7 +288,7 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
         tvXiaoliang.setText(xq.getCommodity_sales());
         tvFuwufen.setText(spxinxi.getAvgNum() + "");
         dianpuid = xq.getCompany_id();
-        if (xq.getChoose_specifications() != null) {
+/*        if (xq.getChoose_specifications() != null) {
             switch (Integer.parseInt(xq.getChoose_specifications())) {
                 case 1:
                     guigeid = xq.getPack_standard_one();
@@ -303,6 +303,11 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
                     guigename = xq.getPackThreeName();
                     break;
             }
+        }*/
+        if(!StringUtil.isEmpty(xq.getPack_standard_two())){
+            guigename=xq.getPackTwoName();
+        }else{
+            guigename=xq.getPackThreeName();
         }
        if (!StringUtil.isEmpty(xq.getRation_one())){
             tvQidingliang1.setText(xq.getRation_one()+guigename+"起批");

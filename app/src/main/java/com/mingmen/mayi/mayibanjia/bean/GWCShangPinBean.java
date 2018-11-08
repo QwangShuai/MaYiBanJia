@@ -54,7 +54,16 @@ public class GWCShangPinBean {
             private String company_name;
             private String pack_standard;
             private String commodity_name;
+            private String pack_standard_two;
             private String pack_standard_tree;
+
+            public String getPack_standard_two() {
+                return pack_standard_two;
+            }
+
+            public void setPack_standard_two(String pack_standard_two) {
+                this.pack_standard_two = pack_standard_two;
+            }
 
             public String getType() {
                 return type;
@@ -195,10 +204,29 @@ public class GWCShangPinBean {
             private String market_name;
             private String type_tree_id;
             private String classify_name;
+            private String specNameThree;
+            private String specNameTwo;
+
+            public String getSpecNameThree() {
+                return specNameThree;
+            }
+
+            public void setSpecNameThree(String specNameThree) {
+                this.specNameThree = specNameThree;
+            }
+
+            public String getSpecNameTwo() {
+                return specNameTwo;
+            }
+
+            public void setSpecNameTwo(String specNameTwo) {
+                this.specNameTwo = specNameTwo;
+            }
 
             public String getType_tree_id() {
                 return type_tree_id;
             }
+
 
             public void setType_tree_id(String type_tree_id) {
                 this.type_tree_id = type_tree_id;

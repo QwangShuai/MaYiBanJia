@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
            >
-            <TextView
+<!--            <TextView
                 android:id="@+id/tv_guige"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
                 android:textColor="#ff999999"
                 android:textSize="12sp"
                 android:layout_marginLeft="4dp"
-                />
+                />-->
         </LinearLayout>
         <View
             android:layout_width="match_parent"

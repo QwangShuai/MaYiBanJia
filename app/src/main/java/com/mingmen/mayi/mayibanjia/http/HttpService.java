@@ -819,6 +819,7 @@ public interface HttpService {
     //交易明细列表
     @POST("payHistory/list.do")
     Observable<ResultModel<List<JYMXBean>>> getJYMXList(@Query("user_token") String user_token,
+
                                                         @Query("state") String state, @Query("timeState") String timeState,
                                                         @Query("pageNumber") Integer pageNumber);
 
@@ -836,4 +837,7 @@ public interface HttpService {
     @POST("payHistory/ture.do")
     Observable<ResultModel<String>> querenshouhuo(@Query("user_token") String user_token,
                                            @Query("order_id") String order_id);
+    //获取经纬度
+    @POST("Ordermain/jingweidu.do")
+    Observable<ResultModel<String>> getJingweidu(@Query("addr") String addr);
 }

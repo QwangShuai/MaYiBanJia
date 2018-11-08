@@ -38,16 +38,7 @@ public class DdxqBean {
     private int total_price;
     private String dianhua;
     private String total;
-    private String company_id;
     private BigDecimal append_money;
-
-    public String getCompany_id() {
-        return company_id;
-    }
-
-    public void setCompany_id(String company_id) {
-        this.company_id = company_id;
-    }
 
     public BigDecimal getAppend_money() {
         return append_money;
@@ -1426,7 +1417,7 @@ public class DdxqBean {
                 private Object city;
                 private Object son_number;
                 private Object province;
-                private Object company_id;
+                private String company_id;
                 private Object goods;
                 private int acount;
                 private Object file_path;
@@ -1746,11 +1737,11 @@ public class DdxqBean {
                     this.province = province;
                 }
 
-                public Object getCompany_id() {
+                public String getCompany_id() {
                     return company_id;
                 }
 
-                public void setCompany_id(Object company_id) {
+                public void setCompany_id(String company_id) {
                     this.company_id = company_id;
                 }
 

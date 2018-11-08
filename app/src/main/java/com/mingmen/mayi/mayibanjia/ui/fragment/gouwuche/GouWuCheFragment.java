@@ -294,10 +294,17 @@ public class GouWuCheFragment extends BaseFragment {
                 startActivity(intent);
                 break;
             case R.id.tv_shoucang:
-
+                if (selectedId.size()==0){
+                    ToastUtil.showToast("请选择商品后再收藏");
+                    return;
+                }
                 break;
             case R.id.tv_shanchu:
-
+                if (selectedId.size()==0){
+                    ToastUtil.showToast("请选择商品后再删除");
+                    return;
+                }
+                delGouwucheList();
                 break;
         }
     }
@@ -362,5 +369,25 @@ public class GouWuCheFragment extends BaseFragment {
                             tvJiesuan.setEnabled(true);
                         }
                     });
+    }
+
+    private void delGouwucheList(){
+        String id = "";
+        for (String myid : selectedId.keySet()){
+            id+=","+myid;
+        }
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .delgwc(PreferenceUtils.getString(MyApplication.mContext, "token",""),"2",id))
+                .setDataListener(new HttpDataListener<String>() {
+                    @Override
+                    public void onNext(String data) {
+                        Log.e("data",data+"(＾－＾)V");
+                        setShuaxin();
+                    }
+                },false);
     }
 }

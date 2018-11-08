@@ -11,13 +11,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mingmen.mayi.mayibanjia.R;
+import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.WuLiuBean;
+import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
+import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
+import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.PeiSongXiangQingActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.SiJiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.WuLiuActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ChangeWuLiuDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.DiTuDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.FenPeiWuLiuCheDialog;
+import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
 import java.util.List;
@@ -71,9 +76,18 @@ public class SiJiPeiSongAdapter extends  RecyclerView.Adapter<SiJiPeiSongAdapter
         holder.tv_ditu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DiTuDialog dialog = new DiTuDialog();
-                dialog.setData(mContext,"45.706428","126.593124",data.getSpecific_address());
-                dialog.show(activity.getSupportFragmentManager());
+                HttpManager.getInstance()
+                        .with(mContext)
+                        .setObservable(RetrofitManager.getService()
+                                .getJingweidu(data.getSpecific_address()+""))
+                        .setDataListener(new HttpDataListener<String>() {
+                            @Override
+                            public void onNext(String weizhi) {
+                                DiTuDialog dialog = new DiTuDialog();
+                                dialog.setData(mContext,weizhi.split(",")[1],weizhi.split(",")[0],data.getSpecific_address());
+                                dialog.show(activity.getSupportFragmentManager());
+                            }
+                        });
             }
         });
     }
@@ -110,4 +124,6 @@ public class SiJiPeiSongAdapter extends  RecyclerView.Adapter<SiJiPeiSongAdapter
 
         }
     }
+
+
 }

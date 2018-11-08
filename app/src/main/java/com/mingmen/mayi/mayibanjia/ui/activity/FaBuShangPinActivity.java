@@ -451,13 +451,13 @@ public class FaBuShangPinActivity extends BaseActivity {
     }
 
     private void getguige() {
-        Log.e("yijiid", yijiid);
+        Log.e("sanjiid", sanjiid);
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getguige(yijiid))
+                                .getguige(sanjiid))
                 .setDataListener(new HttpDataListener<List<FbspGuiGeBean>>() {
 
                     @Override

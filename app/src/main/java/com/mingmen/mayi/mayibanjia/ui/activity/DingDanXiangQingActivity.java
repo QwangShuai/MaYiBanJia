@@ -104,7 +104,6 @@ public class DingDanXiangQingActivity extends BaseActivity {
     private String zongjia = "0";
     private String yue = "0";
     private final static int SCANNIN_GREQUEST_CODE = 1;
-    private String company_id;
     public static DingDanXiangQingActivity instance = null;
 
     @Override
@@ -153,7 +152,6 @@ public class DingDanXiangQingActivity extends BaseActivity {
                             btnShanchuDingdan.setVisibility(View.VISIBLE);
                             tvState.setText("已完成");
                         }
-                        company_id = data.getCompany_id();
                         tvYaoqiushijian.setText("要求送达时间:" + data.getSon_name());
                         tvName.setText(data.getLinman());
                         tvPhone.setText(data.getDianhua());
@@ -341,7 +339,7 @@ public class DingDanXiangQingActivity extends BaseActivity {
                     }
                 });
     }
-    public void confirmOrder() {
+    public void confirmOrder(String company_id) {
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(

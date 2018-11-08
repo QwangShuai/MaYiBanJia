@@ -151,7 +151,7 @@ public class DdXqShichangAdapter extends BaseMultiItemQuickAdapter<MultiItemEnti
                                     @Override
                                     public void onClick(View v) {
                                         dialog.dismiss();
-                                        activity.confirmOrder();
+                                        activity.confirmOrder(item2.getCompany_id());
                                     }
                                 });
                                 dialog.getTvCancel().setOnClickListener(new View.OnClickListener() {

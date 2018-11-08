@@ -24,7 +24,7 @@
             android:layout_marginTop="8dp"
             android:text="农种巨甘甜 甜橙"
             android:textColor="#ff474747"
-            android:textSize="14sp" />
+            android:textSize="15sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"

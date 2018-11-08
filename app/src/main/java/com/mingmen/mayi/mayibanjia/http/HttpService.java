@@ -775,10 +775,11 @@ public interface HttpService {
     Observable<ResultModel<String>> delOrder(@Query("user_token") String user_token,
                                              @Query("order_id") String order_id);
 
-    //删除订单
+    //确认订单
     @POST("payHistory/tureMoney.do")
     Observable<ResultModel<String>> confirmOrder(@Query("user_token") String user_token,
-                                                 @Query("order_id") String order_id);
+                                                 @Query("order_id") String order_id,
+                                                 @Query("company_id") String company_id);
 
     //新建商品模糊查询
     @POST("gyCommodity/queryCommodityname.do")
@@ -831,4 +832,8 @@ public interface HttpService {
     Observable<ResultModel<String>> tixian(@Query("user_token") String user_token,
                                            @Query("pay_money") String pay_money,
                                            @Query("collect_bank_id") String collect_bank_id);
+    //确认收货
+    @POST("payHistory/ture.do")
+    Observable<ResultModel<String>> querenshouhuo(@Query("user_token") String user_token,
+                                           @Query("order_id") String order_id);
 }

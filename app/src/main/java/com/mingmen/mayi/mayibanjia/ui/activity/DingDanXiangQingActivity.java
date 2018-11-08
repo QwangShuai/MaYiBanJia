@@ -104,6 +104,7 @@ public class DingDanXiangQingActivity extends BaseActivity {
     private String zongjia = "0";
     private String yue = "0";
     private final static int SCANNIN_GREQUEST_CODE = 1;
+    private String company_id;
     public static DingDanXiangQingActivity instance = null;
 
     @Override
@@ -152,6 +153,7 @@ public class DingDanXiangQingActivity extends BaseActivity {
                             btnShanchuDingdan.setVisibility(View.VISIBLE);
                             tvState.setText("已完成");
                         }
+                        company_id = data.getCompany_id();
                         tvYaoqiushijian.setText("要求送达时间:" + data.getSon_name());
                         tvName.setText(data.getLinman());
                         tvPhone.setText(data.getDianhua());
@@ -195,6 +197,8 @@ public class DingDanXiangQingActivity extends BaseActivity {
                     DdxqBean.MarketBean.DplistBean.ListspBean item2 = item1.getListsp().get(k);
                     if(k==item1.getListsp().size()-1){
                         item2.setEnd(true);
+                        item2.setShu(item1.getShu());
+                        item2.setDpprice(item1.getDpprice());
                     } else {
                         item2.setEnd(false);
                     }
@@ -272,7 +276,7 @@ public class DingDanXiangQingActivity extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         dialog.dismiss();
-                        confirmOrder();
+                        querenshouhuo();
                     }
                 });
                 dialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
@@ -322,18 +326,32 @@ public class DingDanXiangQingActivity extends BaseActivity {
                     }
                 });
     }
-
-    private void confirmOrder() {
+    private void querenshouhuo() {
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .confirmOrder(PreferenceUtils.getString(MyApplication.mContext, "token", ""), order_id))
+                                .querenshouhuo(PreferenceUtils.getString(MyApplication.mContext, "token", ""), order_id))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String s) {
                         ToastUtil.showToast("确认收货成功");
+                        getOrderXiangqing();
+                    }
+                });
+    }
+    public void confirmOrder() {
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .confirmOrder(PreferenceUtils.getString(MyApplication.mContext, "token", ""), order_id,company_id))
+                .setDataListener(new HttpDataListener<String>() {
+                    @Override
+                    public void onNext(String s) {
+                        ToastUtil.showToast("支付成功");
                         getOrderXiangqing();
                     }
                 });

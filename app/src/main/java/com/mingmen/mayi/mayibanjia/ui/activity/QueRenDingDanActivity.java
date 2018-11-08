@@ -450,7 +450,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                         public void onNext(YunFeiBean o) {
                             Log.e("21212","走不到了啊");
                             yunfei = o.getPrice() + "";
-                            tvYunfei.setText(o + "");
+                            tvYunfei.setText(o.getPrice() + "");
                             tvZhongliang.setText(o.getSumzl()+")");
                             hejijine = MyMath.addBigDecType(new BigDecimal(zongjia), new BigDecimal(o.getPrice() + "")) + "";
                             tvHejijine.setText(hejijine + "");

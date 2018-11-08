@@ -9,6 +9,7 @@
     android:id="@+id/cl_kuang"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <RelativeLayout
+        android:id="@+id/rl_item"
         android:layout_width="match_parent"
         android:layout_height="92dp">
         <ImageView
@@ -92,56 +93,66 @@
         android:layout_height="2dp"
         android:background="#e7e7e7"/>
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/ll_tongji"
+        android:padding="12dp"
+        android:gravity="center_vertical|right"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="37dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical|right">
-
-        <TextView
-            android:id="@+id/tv_jianshu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="共2件商品"
-            android:textColor="#ff666666"
-            android:textSize="13sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="  合计： ¥  "
-            android:textColor="#ff666666"
-            android:textSize="13sp"
-            />
+        android:layout_height="wrap_content">
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
             android:orientation="horizontal"
-            android:gravity="bottom"
-            android:paddingRight="12dp">
+            android:gravity="center_vertical|right">
+
             <TextView
-                android:id="@+id/tv_zongjia1"
+                android:id="@+id/tv_jianshu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="7700"
-                android:textColor="@color/mayihong"
-                android:textSize="15sp"
-                />
+                android:text="共2件商品"
+                android:textColor="#ff666666"
+                android:textSize="13sp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="."
-                android:textColor="@color/mayihong"
-                android:textSize="12sp"
+                android:text="  合计： ¥  "
+                android:textColor="#ff666666"
+                android:textSize="13sp"
                 />
-            <TextView
-                android:id="@+id/tv_zongjia2"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="00"
-                android:textColor="@color/mayihong"
-                android:textSize="12sp"
-                />
+                android:orientation="horizontal"
+                android:gravity="bottom">
+                <TextView
+                    android:id="@+id/tv_zongjia1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0."
+                    android:textColor="@color/mayihong"
+                    android:textSize="15sp"
+                    />
+                <TextView
+                    android:id="@+id/tv_zongjia2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="00"
+                    android:textColor="@color/mayihong"
+                    android:textSize="12sp"
+                    />
+            </LinearLayout>
         </LinearLayout>
+        <Button
+            android:layout_marginTop="12dp"
+            android:id="@+id/btn_fukuan"
+            android:textSize="12sp"
+            android:textColor="@color/zangqing"
+            android:background="@drawable/bg_bt_true"
+            android:text="确认付款"
+            android:layout_width="70dp"
+            android:layout_height="28dp" />
     </LinearLayout>
+
 </LinearLayout>

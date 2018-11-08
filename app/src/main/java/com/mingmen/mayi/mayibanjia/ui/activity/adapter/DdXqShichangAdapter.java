@@ -24,6 +24,8 @@ import com.mingmen.mayi.mayibanjia.ui.activity.DianPuActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.DingDanXiangQingActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.SPXiangQingActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.WeiYiQrCodeActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.XuanZeZhiFuFangShiActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 
 import java.util.List;
@@ -39,6 +41,7 @@ public class DdXqShichangAdapter extends BaseMultiItemQuickAdapter<MultiItemEnti
         public static final int TYPE_LEVEL_1 = 1;
         public static final int TYPE_LEVEL_2 = 2;
         private DingDanXiangQingActivity activity;
+    private ConfirmDialog dialog;
         //    private DingDanXiangQingActivity activity;
     public DdXqShichangAdapter(List<MultiItemEntity> data,DingDanXiangQingActivity activity) {
             super(data);
@@ -135,16 +138,39 @@ public class DdXqShichangAdapter extends BaseMultiItemQuickAdapter<MultiItemEnti
                     helper.setText(R.id.tv_shuliang, "x" + item2.getAcount());
                     if(item2.isEnd()){
                         helper.getView(R.id.ll_tongji).setVisibility(View.VISIBLE);
-                    } else {
-                        helper.itemView.setOnClickListener(new View.OnClickListener() {
+                        helper.setText(R.id.tv_jianshu,"共"+item2.getShu()+"件商品");
+                        activity.setJiaGeShowView((TextView) helper.getView(R.id.tv_zongjia1),(TextView)helper.getView(R.id.tv_zongjia2),item2.getDpprice()+"");
+                        helper.getView(R.id.btn_fukuan).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Bundle bundle=new Bundle();
-                                bundle.putString("spid",item2.getCommodity_id());
-                                JumpUtil.Jump_intent(mContext, SPXiangQingActivity.class,bundle);
+
+                                dialog = new ConfirmDialog(mContext,
+                                        mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
+                                dialog.showDialog("是否确认订单完成");
+                                dialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        dialog.dismiss();
+                                        activity.confirmOrder();
+                                    }
+                                });
+                                dialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        dialog.cancel();
+                                    }
+                                });
                             }
                         });
                     }
+                    helper.getView(R.id.rl_item).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Bundle bundle=new Bundle();
+                            bundle.putString("spid",item2.getCommodity_id());
+                            JumpUtil.Jump_intent(mContext, SPXiangQingActivity.class,bundle);
+                        }
+                    });
                     break;
             }
         }

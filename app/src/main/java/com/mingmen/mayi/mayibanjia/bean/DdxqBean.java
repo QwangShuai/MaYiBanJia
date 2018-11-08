@@ -38,7 +38,16 @@ public class DdxqBean {
     private int total_price;
     private String dianhua;
     private String total;
+    private String company_id;
     private BigDecimal append_money;
+
+    public String getCompany_id() {
+        return company_id;
+    }
+
+    public void setCompany_id(String company_id) {
+        this.company_id = company_id;
+    }
 
     public BigDecimal getAppend_money() {
         return append_money;
@@ -579,7 +588,16 @@ public class DdxqBean {
             private String scanState;//扫码状态 0:已扫完1:未扫完
             private String packCount;//包装个数
             private String scanCount;//扫码个数
+            private String shu;//数量
             private String dpprice;//店铺总价（包含特殊商品）
+
+            public String getShu() {
+                return shu;
+            }
+
+            public void setShu(String shu) {
+                this.shu = shu;
+            }
 
             public String getDpprice() {
                 return dpprice;
@@ -1472,7 +1490,7 @@ public class DdxqBean {
                 private Object create_time;
                 private BigDecimal append_money;
                 private Object quote_price_id;
-                private Object son_order_id;
+                private String son_order_id;
                 private Object pack_standard_one;
                 private Object pack_standard_two;
                 private Object pack_standard_tree;
@@ -1485,7 +1503,25 @@ public class DdxqBean {
                 private Object deputyPicture;
                 private Object packThreeName;
                 private Object type_one_id;
+                private String dpprice;//总价
+                private String shu;//数量
                 private boolean isEnd;
+
+                public String getDpprice() {
+                    return dpprice;
+                }
+
+                public void setDpprice(String dpprice) {
+                    this.dpprice = dpprice;
+                }
+
+                public String getShu() {
+                    return shu;
+                }
+
+                public void setShu(String shu) {
+                    this.shu = shu;
+                }
 
                 public boolean isEnd() {
                     return isEnd;
@@ -2222,11 +2258,11 @@ public class DdxqBean {
                     this.quote_price_id = quote_price_id;
                 }
 
-                public Object getSon_order_id() {
+                public String getSon_order_id() {
                     return son_order_id;
                 }
 
-                public void setSon_order_id(Object son_order_id) {
+                public void setSon_order_id(String son_order_id) {
                     this.son_order_id = son_order_id;
                 }
 

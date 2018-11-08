@@ -16,6 +16,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.PeiSongXiangQingActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.SiJiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.WuLiuActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ChangeWuLiuDialog;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.DiTuDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.FenPeiWuLiuCheDialog;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
@@ -67,6 +68,14 @@ public class SiJiPeiSongAdapter extends  RecyclerView.Adapter<SiJiPeiSongAdapter
                 mContext.startActivity(it);
             }
         });
+        holder.tv_ditu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DiTuDialog dialog = new DiTuDialog();
+                dialog.setData(mContext,"45.706428","126.593124",data.getSpecific_address());
+                dialog.show(activity.getSupportFragmentManager());
+            }
+        });
     }
 
     @Override
@@ -93,6 +102,8 @@ public class SiJiPeiSongAdapter extends  RecyclerView.Adapter<SiJiPeiSongAdapter
                 TextView tv_dizhi;
         @BindView(R.id.ll_rongqi)
         LinearLayout ll_rongqi;
+        @BindView(R.id.tv_ditu)
+                TextView tv_ditu;
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);

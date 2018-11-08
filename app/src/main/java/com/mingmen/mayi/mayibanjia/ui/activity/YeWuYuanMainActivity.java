@@ -25,6 +25,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.adapter.QiYeLieBiaoAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.QiYeLieBiaoDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.QiYeSouSUoDialog;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.YeWuYuanDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
@@ -66,8 +67,9 @@ public class YeWuYuanMainActivity extends BaseActivity {
     private String leibieid="";
     private PopupWindow tuichupop;
     private ConfirmDialog confirmDialog;
-
-
+    private int ye = 1;
+    private YeWuYuanDialog dialog;
+    private String type = "1";
     @Override
     public int getLayoutId() {
         return R.layout.activity_yewuyuanmain;
@@ -75,10 +77,10 @@ public class YeWuYuanMainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        tvTitle.setText("企业列表");
+        tvTitle.setText("我的");
         ivBack.setImageResource(R.mipmap.sousuo_bai);
         mContext=YeWuYuanMainActivity.this;
-        getQiyeLiebiao();
+        getQiyeLiebiao(type);
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         srlShuaxin.setColorSchemeResources(R.color.zangqing, R.color.zangqing,
@@ -89,7 +91,8 @@ public class YeWuYuanMainActivity extends BaseActivity {
                 // 设置可见
                 srlShuaxin.setRefreshing(true);
                 // 重置adapter的数据源为空
-                getQiyeLiebiao();
+                ye = 1;
+                getQiyeLiebiao(type);
                 srlShuaxin.setRefreshing(false);
             }
         });
@@ -98,20 +101,22 @@ public class YeWuYuanMainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        getQiyeLiebiao();
+        ye = 1;
+        getQiyeLiebiao(type);
     }
 
     //查询企业列表
-    private void getQiyeLiebiao() {
+    public void getQiyeLiebiao(String type) {
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getqiyeliebiao(PreferenceUtils.getString(MyApplication.mContext, "token","")))
+                                .getqiyeliebiao(PreferenceUtils.getString(MyApplication.mContext, "token",""),type,ye+""))
                 .setDataListener(new HttpDataListener<List<QiYeLieBiaoBean>>() {
                     @Override
                     public void onNext(final List<QiYeLieBiaoBean> data) {
+                        ye++;
                         initadapter(data);
                     }
                 });
@@ -135,7 +140,30 @@ public class YeWuYuanMainActivity extends BaseActivity {
                 });
 
     }
+    //查询企业列表..带参数
+    public void shuaxinList(String type) {
+        ye = 1;
+        this.type = type;
+        if(type.equals("1")){
+            tvTitle.setText("我的");
+        } else {
+            tvTitle.setText("企业列表");
+        }
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .getqiyeliebiao(PreferenceUtils.getString(MyApplication.mContext, "token",""),type,ye+""))
+                .setDataListener(new HttpDataListener<List<QiYeLieBiaoBean>>() {
+                    @Override
+                    public void onNext(final List<QiYeLieBiaoBean> data) {
+                        ye++;
+                        initadapter(data);
+                    }
+                });
 
+    }
     private void initadapter(List<QiYeLieBiaoBean> data) {
         mlist = new ArrayList<>();
         mlist.addAll(data);
@@ -160,13 +188,13 @@ public class YeWuYuanMainActivity extends BaseActivity {
                                 bianjidialog.cancel();
                             }
                         });
-                        bianjidialog.getLlShanchu().setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                shanchu(position);
-                                bianjidialog.cancel();
-                            }
-                        });
+//                        bianjidialog.getLlShanchu().setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                shanchu(position);
+//                                bianjidialog.cancel();
+//                            }
+//                        });
                         bianjidialog.getIvGuanbi().setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -210,7 +238,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
         startActivity(intent);
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_right,R.id.iv_sangedian})
+    @OnClick({R.id.iv_back, R.id.tv_right,R.id.iv_sangedian,R.id.tv_title})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -279,7 +307,11 @@ public class YeWuYuanMainActivity extends BaseActivity {
                 break;
             case R.id.iv_sangedian:
                 showTuiChuPop();
-
+                break;
+            case R.id.tv_title:
+                dialog = new YeWuYuanDialog();
+                dialog.setTop(AppUtil.dip2px(44)).setActivity(YeWuYuanMainActivity.this);
+                dialog.show(getSupportFragmentManager());
                 break;
         }
     }

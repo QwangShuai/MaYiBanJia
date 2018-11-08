@@ -5,26 +5,26 @@
     android:gravity="center"
     android:orientation="vertical"
     android:background="#00000000">
-    <LinearLayout
-        android:id="@+id/ll_shanchu"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:background="@drawable/fillet_solid_white_100"
-        android:orientation="vertical"
-        android:gravity="center">
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@mipmap/shouhuodizhi_shanchu"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="删除"
-            android:textColor="#ff999999"
-            android:textSize="15sp"
-            android:layout_marginTop="12dp"
-            />
-    </LinearLayout>
+    <!--<LinearLayout-->
+        <!--android:id="@+id/ll_shanchu"-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:background="@drawable/fillet_solid_white_100"-->
+        <!--android:orientation="vertical"-->
+        <!--android:gravity="center">-->
+        <!--<ImageView-->
+            <!--android:layout_width="30dp"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:src="@mipmap/shouhuodizhi_shanchu"/>-->
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="删除"-->
+            <!--android:textColor="#ff999999"-->
+            <!--android:textSize="15sp"-->
+            <!--android:layout_marginTop="12dp"-->
+            <!--/>-->
+    <!--</LinearLayout>-->
     <LinearLayout
         android:id="@+id/ll_bianji"
         android:layout_width="100dp"

@@ -298,7 +298,9 @@ public interface HttpService {
 
     //查询企业列表（业务员）
     @POST("allCompany/queryAll.do")
-    Observable<ResultModel<List<QiYeLieBiaoBean>>> getqiyeliebiao(@Query("user_token") String user_token);
+    Observable<ResultModel<List<QiYeLieBiaoBean>>> getqiyeliebiao(@Query("user_token") String user_token,
+                                                                  @Query("type") String type,
+                                                                  @Query("pageNumber") String pageNumber);
 
     //查询。。企业列表（业务员）
     @POST("allCompany/selectType.do")
@@ -516,8 +518,8 @@ public interface HttpService {
 
     //重发抢单
     @POST("ctBuyHostorder/refresh.do")
-    Observable<ResultModel<String>> chongfaqiangdan(@Query("son_order_id") String company_id,
-                                                    @Query("user_token") String type_tree_id,
+    Observable<ResultModel<String>> chongfaqiangdan(@Query("son_order_id") String son_order_id,
+                                                    @Query("user_token") String user_token,
                                                     @Query("market_id") String market_id);
 
     //查询可抢单信息

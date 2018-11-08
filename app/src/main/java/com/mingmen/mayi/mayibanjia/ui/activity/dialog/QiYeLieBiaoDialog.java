@@ -19,8 +19,8 @@ import butterknife.BindView;
 
 public class QiYeLieBiaoDialog extends Dialog {
     public View view;
-    @BindView(R.id.ll_shanchu)
-    LinearLayout llShanchu;
+//    @BindView(R.id.ll_shanchu)
+//    LinearLayout llShanchu;
     @BindView(R.id.ll_bianji)
     LinearLayout llBianji;
     @BindView(R.id.iv_guanbi)
@@ -38,7 +38,7 @@ public class QiYeLieBiaoDialog extends Dialog {
         view = View.inflate(context, R.layout.dialog_qiyeliebiao, null);
         this.setContentView(view);
         this.c = context;
-        llShanchu = (LinearLayout) findViewById(R.id.ll_shanchu);
+//        llShanchu = (LinearLayout) findViewById(R.id.ll_shanchu);
         llBianji = (LinearLayout) findViewById(R.id.ll_bianji);
         ivGuanbi = (ImageView) findViewById(R.id.iv_guanbi);
     }
@@ -75,13 +75,13 @@ public class QiYeLieBiaoDialog extends Dialog {
         this.setContentView(view);
     }
 
-    public LinearLayout getLlShanchu() {
-        return llShanchu;
-    }
-
-    public void setLlShanchu(LinearLayout llShanchu) {
-        this.llShanchu = llShanchu;
-    }
+//    public LinearLayout getLlShanchu() {
+//        return llShanchu;
+//    }
+//
+//    public void setLlShanchu(LinearLayout llShanchu) {
+//        this.llShanchu = llShanchu;
+//    }
 
     public LinearLayout getLlBianji() {
         return llBianji;

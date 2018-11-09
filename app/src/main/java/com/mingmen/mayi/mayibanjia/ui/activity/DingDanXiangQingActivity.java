@@ -193,6 +193,7 @@ public class DingDanXiangQingActivity extends BaseActivity {
                 DdxqBean.MarketBean.DplistBean item1 = item0.getDplist().get(j);
                 for (int k = 0; k < item1.getListsp().size(); k++) {
                     DdxqBean.MarketBean.DplistBean.ListspBean item2 = item1.getListsp().get(k);
+                    item2.setPay_state(item1.getState());
                     if(k==item1.getListsp().size()-1){
                         item2.setEnd(true);
                         item2.setShu(item1.getShu());

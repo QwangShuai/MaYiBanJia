@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:background="@color/white"
@@ -26,17 +27,6 @@
         app:layout_constraintTop_toTopOf="@+id/iv_sptu"
         android:layout_marginLeft="12dp"
         android:layout_marginStart="12dp" />
-    <TextView
-        android:id="@+id/tv_guige"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textColor="#ff999999"
-        android:textSize="12sp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_spming"
-        app:layout_constraintLeft_toLeftOf="@+id/tv_spming"
-        android:layout_marginTop="7dp"
-        />
 
     <TextView
         android:id="@+id/tv_renminbi"
@@ -45,10 +35,12 @@
         android:text="¥"
         android:textColor="#ff3300"
         android:textSize="12sp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_guige"
         app:layout_constraintLeft_toLeftOf="@+id/tv_spming"
-        android:layout_marginTop="7dp"
-        />
+        android:layout_marginLeft="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp" />
     <TextView
         android:id="@+id/tv_jiage"
         android:layout_width="wrap_content"
@@ -56,10 +48,13 @@
         android:text="5.5"
         android:textColor="#ff3300"
         android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_renminbi"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/tv_renminbi"
         android:layout_marginLeft="4dp"
-        android:layout_marginStart="4dp" />
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp" />
     <TextView
         android:id="@+id/tv_danjia"
         android:layout_width="wrap_content"
@@ -79,8 +74,9 @@
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_danjia"
         app:layout_constraintLeft_toRightOf="@+id/tv_danjia"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp" />
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="3dp" />
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

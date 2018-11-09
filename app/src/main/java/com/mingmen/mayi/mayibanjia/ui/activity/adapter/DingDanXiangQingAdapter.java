@@ -54,6 +54,10 @@ public class DingDanXiangQingAdapter extends RecyclerView.Adapter<DingDanXiangQi
         holder.tvDingdanbianhao.setText("订单编号：" + dingdan.getOrder_number());
         holder.tvZhuangtai.setText(zhuangtai(holder, Integer.parseInt(dingdan.getState())));
         String zongjia = dingdan.getTotal_price() + "";
+        if(!dingdan.getState().equals("404")){
+            holder.rl_baozhuang.setVisibility(View.GONE);
+            holder.viewFenge.setVisibility(View.GONE);
+        }
         if (zongjia.contains(".")) {
             holder.tvZongjia1.setText(zongjia.split("\\.")[0]);
             holder.tvZongjia2.setText(zongjia.split("\\.")[1]);

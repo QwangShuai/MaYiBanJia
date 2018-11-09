@@ -452,7 +452,7 @@ public class FCGCaiGouXuQiuActivity extends BaseActivity {
         }else{
 
         }
-        Log.e("我的请求数据",purchase_id+"==="+shichangid+"==="+pack_standard_id+"==="+caigouliang);
+        Log.e("我的请求数据",PreferenceUtils.getString(MyApplication.mContext, "token","")+"==="+purchase_id+"==="+shichangid+"==="+pack_standard_id+"==="+caigouliang);
         Log.e("guigeid",pack_standard_id+"===");
         HttpManager.getInstance()
                 .with(mContext)

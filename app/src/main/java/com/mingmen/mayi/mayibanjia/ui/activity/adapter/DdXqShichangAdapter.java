@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -140,28 +141,33 @@ public class DdXqShichangAdapter extends BaseMultiItemQuickAdapter<MultiItemEnti
                         helper.getView(R.id.ll_tongji).setVisibility(View.VISIBLE);
                         helper.setText(R.id.tv_jianshu,"共"+item2.getShu()+"件商品");
                         activity.setJiaGeShowView((TextView) helper.getView(R.id.tv_zongjia1),(TextView)helper.getView(R.id.tv_zongjia2),item2.getDpprice()+"");
-                        helper.getView(R.id.btn_fukuan).setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
+                        Button btnFukuan = helper.getView(R.id.btn_fukuan);
+                        if(item2.getPay_state().equals("405")){
+                            btnFukuan.setText("已支付");
+                        } else {
+                            btnFukuan.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
 
-                                dialog = new ConfirmDialog(mContext,
-                                        mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
-                                dialog.showDialog("是否确认订单完成");
-                                dialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        dialog.dismiss();
-                                        activity.confirmOrder(item2.getCompany_id());
-                                    }
-                                });
-                                dialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        dialog.cancel();
-                                    }
-                                });
-                            }
-                        });
+                                    dialog = new ConfirmDialog(mContext,
+                                            mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
+                                    dialog.showDialog("是否确认订单完成");
+                                    dialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            dialog.dismiss();
+                                            activity.confirmOrder(item2.getCompany_id());
+                                        }
+                                    });
+                                    dialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            dialog.cancel();
+                                        }
+                                    });
+                                }
+                            });
+                        }
                     }
                     helper.getView(R.id.rl_item).setOnClickListener(new View.OnClickListener() {
                         @Override

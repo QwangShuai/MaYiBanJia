@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#3C92A3"
+    android:background="@mipmap/login_bg"
     >
     <ScrollView
         android:layout_width="match_parent"
@@ -22,9 +22,9 @@
                 android:layout_marginRight="18dp"
                 >
                 <ImageView
+                    android:src="@mipmap/logo"
                     android:layout_width="122dp"
                     android:layout_height="126dp"
-                    android:background="@color/blue"
                     android:layout_marginTop="20dp"
                     android:layout_gravity="center_horizontal"/>
                 <LinearLayout

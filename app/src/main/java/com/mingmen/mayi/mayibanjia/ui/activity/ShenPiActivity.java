@@ -115,6 +115,7 @@ public class ShenPiActivity extends BaseActivity {
     private int item_position;
     private String purchase_id;
     List listBeanLevel = new ArrayList();
+    List<MultiItemEntity> data;
     @Override
     public int getLayoutId() {
         return R.layout.activity_shenpi;
@@ -128,47 +129,26 @@ public class ShenPiActivity extends BaseActivity {
         purchase_id = getIntent().getStringExtra("data");
         caigoudan = gson.fromJson(purchase_id, CaiGouDanBean.class).getList();//采购单一级数据
         xuanzhong=new HashMap();
-//        存储选中商品的商品id 店铺id  单价
+//        shujuyuan
+        data = new ArrayList<>();
         for (int i = 0; i < caigoudan.size(); i++) {
+            CaiGouDanBean.ListBean item0 = caigoudan.get(i);
             ShangpinidAndDianpuidBean bean = new ShangpinidAndDianpuidBean();
             bean.setCommodity_id("");
             bean.setCompany_id("");
             bean.setDanjia("");
             xuanzhong.put(caigoudan.get(i).getSon_order_id(),bean);
-            Log.e("caigoudan"+i,caigoudan.get(i).getSon_order_id()+"--");
-            getshenpi(caigoudan.get(i),i,true);
+            if(item0.getLevels() != null && item0.getLevels().size()>0) {
+                for (int j = 0; j < item0.getLevels().size(); j++) {
+                    CaiGouDanBean.CcListBeanLevel item1 = item0.getLevels().get(j);;
+                    item0.addSubItem(item1);
+                }
+            }
+            data.add(item0);
         }
-//        List<MultiItemEntity> data = new ArrayList<>();
-//        for (int i = 0; i < caigoudan.size(); i++) {
-//            CaiGouDanBean.ListBean item0 = caigoudan.get(i);
-//            ShangpinidAndDianpuidBean bean = new ShangpinidAndDianpuidBean();
-//            bean.setCommodity_id("");
-//            bean.setCompany_id("");
-//            bean.setDanjia("");
-//            xuanzhong.put(caigoudan.get(i).getSon_order_id(),bean);
-//            if(item0.getLevels() != null && item0.getLevels().size()>0) {
-//                for (int j = 0; j < item0.getLevels().size(); j++) {
-//                    CaiGouDanBean.CcListBeanLevel item1 = item0.getLevels().get(j);;
-//                    item0.addSubItem(item1);
-//                }
-//            }
-//            data.add(item0);
-//        }
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         shangpinadapter = new ShenPiShangPinAdapter1(this);
-
-//        shangpinadapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//                item_position = position;
-//                //判断点击的是一级还是二级
-//                if (adapter.getItemViewType(position) == CaiGouDanBean.ListBean.Level_0) {
-//                    final CaiGouDanBean.ListBean listBean = (CaiGouDanBean.ListBean) adapter.getItem(position);
-//
-//                }
-//            }
-//        });
 
         shangpinadapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
@@ -263,9 +243,7 @@ public class ShenPiActivity extends BaseActivity {
                                 bean.setDanjia("");
                                 xuanzhong.put(caigoudan.get(position).getSon_order_id(),bean);
                                 shangpinadapter.setData(position,msg);
-                                getshenpi(caigoudan.get(position),position,true);
                                 shangpinadapter.notifyDataSetChanged();
-//                                getList();
                             }
                         }).show(getSupportFragmentManager());
                         break;
@@ -274,14 +252,7 @@ public class ShenPiActivity extends BaseActivity {
                         final List<CaiGouDanBean.CcListBeanLevel> level=new ArrayList<CaiGouDanBean.CcListBeanLevel>();
                         if (listBean.isNeedLoad()) {
                             getshenpi(listBean, position,false);
-//                            ToastUtil.showToast("请先打开系统推荐");
                             return;
-                        } else {
-//                            if (listBean.isExpanded()) {
-//                                adapter.collapse(position);
-//                            } else {
-//                                adapter.expand(position);
-//                            }
                         }
                         for (int i = 0; i < 5; i++) {
                             CaiGouDanBean.CcListBeanLevel subitem = listBean.getSubItem(i);
@@ -330,8 +301,7 @@ public class ShenPiActivity extends BaseActivity {
         rvShenpi.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         rvShenpi.setNestedScrollingEnabled(false);
         rvShenpi.setAdapter(shangpinadapter);
-        shangpinadapter.addData(caigoudan);
-//        getList();
+        shangpinadapter.addData(data);
     }
 //获取总价
     private void zongjia(String son_order_id,String commodity_id) {
@@ -488,8 +458,9 @@ public class ShenPiActivity extends BaseActivity {
         }
         return map;
     }
-    //获取子采购单的系统推荐数据
+    //获取子采购单的系统推荐数据   2级---
     public void getshenpi(final CaiGouDanBean.ListBean listBean, final int pos, final boolean isgangkaishi) {
+        final int index = data.indexOf(listBean);
         Log.e("getshenpi()getSon_order_id", listBean.getMarket_id()+"---"+listBean.getSon_order_id());
         Log.e("这是我的当前位置",pos+"---");
         HttpManager.getInstance()
@@ -542,13 +513,25 @@ public class ShenPiActivity extends BaseActivity {
                                 listBean.setNeedLoad(true);
                             }
                         }
-
+//                        Log.e("数据更改的位置",pos+"---");
+//                        if(index!=-1){
+//                            Log.e("找到了",new Gson().toJson(listBean));
+//                            data.add(index,listBean);
+//                            data.remove(index+1);
+//                        }
+//
+//                        shangpinadapter.replaceData(data);
                         shangpinadapter.notifyDataSetChanged();
                         if (isgangkaishi){
                             return;
                         }
                         if (listBean.hasSubItem()) {
-                            shangpinadapter.expand(pos);
+//                            if (listBean.isExpanded()){
+//                                shangpinadapter.collapse(pos);
+//                            } else {
+                                shangpinadapter.expand(pos);
+//                            }
+
                         } else {
                             if (listBean.isSpecial()) {//特殊商品 特殊处理
                                 ToastUtil.showToast("没有商家推送商品");
@@ -586,7 +569,7 @@ public class ShenPiActivity extends BaseActivity {
                                 bean.setDanjia("");
                                 xuanzhong.put(caigoudan.get(caigoudan.size()-1).getSon_order_id(),bean);
                                 shangpinadapter.addData(msg);
-                                getshenpi(caigoudan.get(caigoudan.size()-1),caigoudan.size()-1,true);
+                                getshenpi(caigoudan.get(caigoudan.size()-1),caigoudan.size()-1,false);
                                 shangpinadapter.notifyDataSetChanged();
 //                                getList();
                             }
@@ -683,39 +666,6 @@ public class ShenPiActivity extends BaseActivity {
         }
         },false);
     }
-    //获取单条数据
-    private void getList(){
-        HttpManager.getInstance()
-                .with(mContext)
-                .setObservable(
-                        RetrofitManager
-                                .getService()
-                                .getShenpiItem(purchase_id))
-                .setDataListener(new HttpDataListener<List<CaiGouDanBean.ListBean>>() {
-                    @Override
-                    public void onNext(List<CaiGouDanBean.ListBean> data) {
-                        caigoudan.clear();
-                        caigoudan.addAll(data);
-                        //存储选中商品的商品id 店铺id  单价
-                        for (int i = caigoudan.size(); i < data.size(); i++) {
-                            ShangpinidAndDianpuidBean bean = new ShangpinidAndDianpuidBean();
-                            bean.setCommodity_id("");
-                            bean.setCompany_id("");
-                            bean.setDanjia("");
-                            xuanzhong.put(data.get(i).getSon_order_id(),bean);
-                            Log.e("caigoudan"+i,data.get(i).getSon_order_id()+"--");
-                            getshenpi(data.get(i),i,true);
-                        } 
-//                        shangpinadapter.setNewData(caigoudan.get(0));
-                        shangpinadapter.addData(caigoudan);
-                        shangpinadapter.notifyDataSetChanged();
-                        for (MultiItemEntity bean : shangpinadapter.getData()){
-                            CaiGouDanBean.ListBean mu = (CaiGouDanBean.ListBean) bean;
-                            Log.e("位置--",mu.getClassify_name());
-                        }
-                    }
-                },true);
-    }
     public TextView getTvBiaoqian() {
         return tvBiaoqian;
     }
@@ -742,7 +692,6 @@ public class ShenPiActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-//        super.onBackPressed();
         myBack();
     }
 

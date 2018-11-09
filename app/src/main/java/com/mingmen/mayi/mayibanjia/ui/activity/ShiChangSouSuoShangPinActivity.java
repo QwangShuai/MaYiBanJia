@@ -109,17 +109,17 @@ public class ShiChangSouSuoShangPinActivity extends BaseActivity {
                                         //添加购物车
                                         final ShangPinSouSuoBean.ZhengchangBean data = shangpinlist.get(position);
                                         String spguige = "";
-                                        switch (Integer.parseInt(data.getChoose_specifications())) {
-                                            case 1:
-                                                spguige = data.getPack_standard_one();
-                                                break;
-                                            case 2:
-                                                spguige = data.getPack_standard_two();
-                                                break;
-                                            case 3:
-                                                spguige = data.getPack_standard_tree();
-                                                break;
-                                        }
+//                                        switch (Integer.parseInt(data.getChoose_specifications())) {
+//                                            case 1:
+//                                                spguige = data.getPack_standard_one();
+//                                                break;
+//                                            case 2:
+//                                                spguige = data.getPack_standard_two();
+//                                                break;
+//                                            case 3:
+//                                                spguige = data.getPack_standard_tree();
+//                                                break;
+//                                        }
                                         jiarugouwuchedialog.showDialog(data.getInventory(),data.getCommodity_name(), spguige, data.getRation_one() + "", data.getPice_one() + ""
                                                 ,data.getRation_two() + "", data.getPice_two() + "", data.getRation_three() + "", data.getPice_three() + "", data.getPicture_url());
                                         final String finalSpguige = spguige;

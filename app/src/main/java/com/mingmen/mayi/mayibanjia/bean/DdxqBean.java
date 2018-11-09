@@ -581,6 +581,15 @@ public class DdxqBean {
             private String scanCount;//扫码个数
             private String shu;//数量
             private String dpprice;//店铺总价（包含特殊商品）
+            private String state;//支付状态
+
+            public String getState() {
+                return state;
+            }
+
+            public void setState(String state) {
+                this.state = state;
+            }
 
             public String getShu() {
                 return shu;
@@ -1496,7 +1505,16 @@ public class DdxqBean {
                 private Object type_one_id;
                 private String dpprice;//总价
                 private String shu;//数量
-                private boolean isEnd;
+                private String pay_state;//支付状态
+                private boolean isEnd;//是否结束
+
+                public String getPay_state() {
+                    return pay_state;
+                }
+
+                public void setPay_state(String pay_state) {
+                    this.pay_state = pay_state;
+                }
 
                 public String getDpprice() {
                     return dpprice;

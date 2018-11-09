@@ -56,7 +56,7 @@ public class ShenPiShangPinAdapter1 extends BaseMultiItemQuickAdapter<MultiItemE
 
     public int getLevel0size() {
 
-        return 0;
+        return getItemCount();
     }
 
     @Override
@@ -179,11 +179,10 @@ public class ShenPiShangPinAdapter1 extends BaseMultiItemQuickAdapter<MultiItemE
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Log.e("这是我的点击位置", getParentPosition(listBean) + "---");
                         int position = getParentPosition(listBean);
                         if (listBean.isNeedLoad()) {//是否需要加载数据
                             if (!listBean.isSpecial()) {//如果不是特殊商品
-                                activity.getshenpi(listBean, getParentPosition(listBean), false);
+                                activity.getshenpi(listBean, position, false);
                             } else {
 //                                ToastUtil.showToast("");
                             }
@@ -192,12 +191,14 @@ public class ShenPiShangPinAdapter1 extends BaseMultiItemQuickAdapter<MultiItemE
                             List<CaiGouDanBean.CcListBeanLevel> levels = listBean.getSubItems();
 //                            展开二级列表
                             if (levels.get(0).getCcListBean().getCommodity_id() != null) {//如果第一个是空的  说明全是空的
+                                Log.e("这是我的点击位置", position + "---");
                                 if (listBean.isExpanded()) {//判断展开还是关闭
 //                                    collapse(getParentPosition(listBean));
                                     collapse(position);
-
+                                    Log.e("收起的位置", position + "---");
                                 } else {
                                     expand(position);
+                                    Log.e("展开的位置", position + "---");
 //                                    expand(getParentPosition(listBean));
                                 }
                             } else {

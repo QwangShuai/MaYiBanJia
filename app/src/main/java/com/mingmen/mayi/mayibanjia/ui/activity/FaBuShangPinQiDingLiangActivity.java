@@ -321,11 +321,13 @@ public class FaBuShangPinQiDingLiangActivity extends BaseActivity {
         canshu.setPice_one(qidingliangdanjia1);
 //        canshu.setPice_two(qidingliangdanjia2);
 //        canshu.setPice_three(qidingliangdanjia3);
-        if (tvTejia.equals("是")) {
+
+        if (tvTejia.getText().toString().equals("是")) {
             canshu.setGoods("1");
         } else {
             canshu.setGoods("0");
         }
+        Log.e("传的啥玩意啊",canshu.getGoods());
         Intent intent = new Intent(mContext, FaBuShangPinXiangQingTuActivity.class);
         intent.putExtra("yemian",yemian);
         intent.putExtra("canshu", gson.toJson(canshu));
@@ -355,6 +357,6 @@ public class FaBuShangPinQiDingLiangActivity extends BaseActivity {
         etQidingliang1.setText(bean.getRation_one());
 //        etQidingliang2.setText(bean.getRation_two());
 //        etQidingliang3.setText(bean.getRation_three());
-        tvTejia.setText(bean.getGoods().equals("0") ? "是" : "否");
+        tvTejia.setText(bean.getGoods().equals("1") ? "是" : "否");
     }
 }

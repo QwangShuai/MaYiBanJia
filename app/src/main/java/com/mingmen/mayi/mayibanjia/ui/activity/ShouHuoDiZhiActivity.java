@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -80,7 +79,6 @@ public class ShouHuoDiZhiActivity extends BaseActivity {
                         if (data.size()>0){
                             rvShouhuodizhi.setVisibility(View.VISIBLE);
                             llMeiyou.setVisibility(View.GONE);
-                            Log.e("data","--"+gson.toJson(data));
                             adapter = new ShouHuoDiZhiAdapter(mContext, data);
                             rvShouhuodizhi.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
                             rvShouhuodizhi.setAdapter(adapter);
@@ -96,7 +94,6 @@ public class ShouHuoDiZhiActivity extends BaseActivity {
                                            startActivity(intent);
                                            break;
                                        case R.id.ll_shanchu:
-                                           Log.e("delid",data.get(position).getAddress_id());
                                            addressDel(data.get(position).getAddress_id());
                                            break;
                                        case R.id.ll_kuang:
@@ -123,7 +120,6 @@ public class ShouHuoDiZhiActivity extends BaseActivity {
     }
 
     private void addressDel(String lid) {
-        Log.e("idididididid",lid);
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
@@ -133,7 +129,6 @@ public class ShouHuoDiZhiActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
-                        Log.e("del",data+"(＾－＾)V"+"shanchula");
                         getaddressList();
 
                     }

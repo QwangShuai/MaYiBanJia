@@ -2,6 +2,7 @@ package com.mingmen.mayi.mayibanjia.ui.activity.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -52,7 +53,7 @@ public class JiaRuGouWuCheDialog extends Dialog {
     ImageView ivSptu;
     private Context c;
     private int shuliang=0;
-
+    private int qidingliang1XZ;
     /**
      * 构造确认信息弹窗
      *
@@ -97,8 +98,8 @@ public class JiaRuGouWuCheDialog extends Dialog {
                 }else{
                     shuliang=1;
                 }
-                if (shuliang==1){
-                    ToastUtil.showToast("不能再减了");
+                if (shuliang==qidingliang1XZ){
+                    ToastUtil.showToast("不能低于起订量");
                 }else{
                     shuliang=shuliang-1;
                     etShuliang.setText(shuliang+"");
@@ -112,7 +113,7 @@ public class JiaRuGouWuCheDialog extends Dialog {
      * 显示确认信息弹窗
      */
     public void showDialog(String kucun,String spming,String spguige,String qidingliang1,String qidingliangjiage1,String qidingliang2,String qidingliangjiage2,String qidingliang3,String qidingliangjiage3,String sptu) {
-
+        qidingliang1XZ= Integer.parseInt(qidingliang1); ;//做验证的时候需要此变量的值
         tvSpming.setText(spming);
         tvSpguige.setText(spguige);
         if (!StringUtil.isEmpty(qidingliang1)){

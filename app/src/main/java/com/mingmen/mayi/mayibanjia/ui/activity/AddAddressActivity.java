@@ -104,7 +104,6 @@ public class AddAddressActivity extends BaseActivity {
             //入口为修改
             String json = getIntent().getStringExtra("json");
             AddressListBean editdata = gson.fromJson(json, AddressListBean.class);
-            Log.e("json",json);
 //            回显
             addressid=editdata.getAddress_id();
             phoneName=editdata.getLinkman();
@@ -117,7 +116,6 @@ public class AddAddressActivity extends BaseActivity {
             shiming=editdata.getCity_name();
             quming=editdata.getRegion_name();
             jieming=editdata.getStreet_name();
-            Log.e("jieid",jieid);
 
             xiangxidizhi=editdata.getSpecific_address();
             moren= Integer.parseInt(editdata.getDefault_address());
@@ -175,18 +173,6 @@ public class AddAddressActivity extends BaseActivity {
                     }
                 }else{
                     ToastUtil.showToast("请确认信息填写完整后再提交");
-                    Log.e("phonename",phoneName);
-                    Log.e("phonenumber",phonenumber);
-                    Log.e("shengming",shengming);
-                    Log.e("shiming",shiming);
-                    Log.e("quming",quming);
-                    Log.e("jieming",jieming);
-                    Log.e("xiangxidizhi",xiangxidizhi);
-                    Log.e("moren",moren+"--");
-                    Log.e("shengid",shengid+"==");
-                    Log.e("shiid",shiid+"==");
-                    Log.e("quid",quid+"==");
-                    Log.e("jieid",jieid+"==");
                 }
                 break;
             case R.id.tv_suozaidiqu:
@@ -199,12 +185,10 @@ public class AddAddressActivity extends BaseActivity {
             case R.id.ll_dianhuabu:
                 //通过电话簿获取姓名电话
                 if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-                    Log.e("quanxian"," 没有权限，申请权限。");
                     // 没有权限，申请权限。
                     ActivityCompat.requestPermissions(AddAddressActivity.this , new String[]{Manifest.permission.READ_CONTACTS} , 1);
                 }else{
                     // 有权限了，去放肆吧。
-                    Log.e("quanxian"," 有权限了，去放肆吧。");
                     try {
                         Intent intentPhone=new Intent(Intent.ACTION_PICK);
                         intentPhone.setData(ContactsContract.Contacts.CONTENT_URI);
@@ -251,7 +235,6 @@ public class AddAddressActivity extends BaseActivity {
             public void onItemPicked(int index, ProvinceBean item) {
                 shengming = item.getQuymc();
                 shengid = item.getQuybm()+"";
-                Log.e("shengsheng",shengid+"==="+shengming);
                 shilist = new ArrayList();
                 for (int i = 0; i < zonglist.size(); i++) {
                     if (zonglist.get(i).getQuyfjbm()==Integer.parseInt(shengid)) {
@@ -274,7 +257,6 @@ public class AddAddressActivity extends BaseActivity {
             public void onItemPicked(int index, ProvinceBean item) {
                 shiming = item.getQuymc();
                 shiid = item.getQuybm()+"";
-                Log.e("shishishsi",shiid+"===");
                 qulist = new ArrayList();
                 for (int i = 0; i < zonglist.size(); i++) {
                     if (zonglist.get(i).getQuyfjbm()==Integer.parseInt(shiid)) {
@@ -298,8 +280,6 @@ public class AddAddressActivity extends BaseActivity {
                 public void onItemPicked(int index, ProvinceBean item) {
                     quming = item.getQuymc();
                     quid = item.getQuybm()+"";
-                    Log.e("hishishsi",quid+"===");
-
                     jielist = new ArrayList();
                     for (int i = 0; i < zonglist.size(); i++) {
                         if (zonglist.get(i).getQuyfjbm()==Integer.parseInt(quid)) {
@@ -333,7 +313,6 @@ public class AddAddressActivity extends BaseActivity {
             public void onItemPicked(int index, ProvinceBean item) {
                 jieming = item.getQuymc();
                 jieid = item.getQuybm()+"";
-                Log.e("jieidjieid",jieid+"===");
                 picker.dismiss();
                 tvSuozaidiqu.setText(shengming+shiming+quming+jieming);
             }
@@ -369,8 +348,6 @@ public class AddAddressActivity extends BaseActivity {
                         //手机号码
                         phonenumber = phone.getString(phone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                         //格式化手机号
-                        Log.e("phoneName", phoneName);
-                        Log.e("phonenumber", phonenumber);
                         etShouhuoren.setText(phoneName);
                         etDianhua.setText(phonenumber);
                     }
@@ -390,7 +367,6 @@ public class AddAddressActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
-                        Log.e("datatianjia",data+"==");
                         finish();
 
                     }
@@ -407,7 +383,6 @@ public class AddAddressActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
-                        Log.e("dataxiugai",data+"==");
                         finish();
                     }
                 });

@@ -270,9 +270,8 @@ public class CaiGouDanBean {
     }
 
 
-    public static class ListBean extends AbstractExpandableItem<CcListBeanLevel> implements MultiItemEntity {
-        public static final int Level_0 = 0;
-        public static final int Level_1 = 1;
+//    public static class ListBean extends AbstractExpandableItem<CcListBeanLevel> implements MultiItemEntity {
+    public static class ListBean{
 
         /**
          * count : 55
@@ -314,7 +313,7 @@ public class CaiGouDanBean {
             this.pack_standard_id = pack_standard_id;
         }
 
-        private List<CaiGouDanBean.CcListBeanLevel> levels;
+        private List<CcListBeanLevel> levels;
         private boolean needLoad = true;
         private String mark_id;
 
@@ -465,20 +464,7 @@ public class CaiGouDanBean {
         public void setChanger(String changer) {
             this.changer = changer;
         }
-
-        @Override
-        public int getLevel() {
-            return 0;
-        }
-
-        @Override
-        public int getItemType() {
-            return Level_0;
-        }
-    }
-
-
-    public static class CcListBeanLevel implements MultiItemEntity,Serializable {
+    public static class CcListBeanLevel implements Serializable {
         private int type;
 
         private XiTongTuiJianBean.CcListBean ccListBean;
@@ -504,10 +490,11 @@ public class CaiGouDanBean {
             return ccListBean;
         }
 
-        @Override
-        public int getItemType() {
-            return CaiGouDanBean.ListBean.Level_1;
-        }
     }
+
+    }
+
+
+
 
 }

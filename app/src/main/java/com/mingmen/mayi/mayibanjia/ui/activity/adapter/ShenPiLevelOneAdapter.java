@@ -316,6 +316,7 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
                             public void onNext(String data) {
                                 Log.e("data", data + "---");
                                 tv_zongjia.setText(data);
+                                notifyDataSetChanged();
                             }
                         });
     }

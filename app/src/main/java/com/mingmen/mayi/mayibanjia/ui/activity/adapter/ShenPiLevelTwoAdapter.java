@@ -1,5 +1,6 @@
 package com.mingmen.mayi.mayibanjia.ui.activity.adapter;
 
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -20,7 +21,10 @@ import com.mingmen.mayi.mayibanjia.bean.XiTongTuiJianBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
+import com.mingmen.mayi.mayibanjia.ui.activity.SPXiangQingActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShenPiActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.GengDuoShangJiaDialog;
+import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
@@ -43,10 +47,8 @@ public class ShenPiLevelTwoAdapter extends RecyclerView.Adapter<ShenPiLevelTwoAd
 
 
     private ShenPiActivity activity;
-    private PopupWindow mPopWindow;
     private ViewHolder viewHolder;
     private List<CaiGouDanBean.ListBean.CcListBeanLevel> mList;
-
 
     public ShenPiLevelTwoAdapter(ShenPiActivity activity, List<CaiGouDanBean.ListBean.CcListBeanLevel> mList) {
         this.activity = activity;
@@ -55,55 +57,90 @@ public class ShenPiLevelTwoAdapter extends RecyclerView.Adapter<ShenPiLevelTwoAd
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        viewHolder = new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_shenpi_zhengchang_child, parent, false));
+        viewHolder = new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_shenpi_zhengchang_child, null));
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        Log.e("真是难受的一比",new Gson().toJson(mList));
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
+        Log.e("真是难受的一比", new Gson().toJson(mList));
         final CaiGouDanBean.ListBean.CcListBeanLevel ccListBeanLevel = mList.get(position);
         if (ccListBeanLevel.getCcListBean().getCommodity_id() != null) {
             holder.rlKuang.setVisibility(View.VISIBLE);
         } else {
             holder.rlKuang.setVisibility(View.GONE);
         }
-        holder.rlKuang.setBackgroundColor(activity.getResources().getColor(R.color.white));
+        Log.e("是否选中了呢",ccListBeanLevel.getCcListBean().isXuanzhong()+"---");
+        if (ccListBeanLevel.getCcListBean().isXuanzhong()){
+            holder.rlKuang.setBackgroundColor(activity.getResources().getColor(R.color.hei20));
+        } else {
+            holder.rlKuang.setBackgroundColor(activity.getResources().getColor(R.color.white));
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("我的新的老Gson", new Gson().toJson(ccListBeanLevel));
                 activity.getIvQuanxuan().setSelected(false);
                 activity.getTvBiaoqian().setText("");
                 activity.getTvBiaoqian().setHint("请选择");
-                holder.rlKuang.setSelected(true);
-                holder.rlKuang.setBackgroundColor(activity.getResources().getColor(R.color.hei20));
+                for (int i = 0; i < mList.size(); i++) {
+                    if (i == position) {
+                        mList.get(position).getCcListBean().setXuanzhong(true);
+                        activity.setMoreShangjia();
+                    } else {
+                        mList.get(i).getCcListBean().setXuanzhong(false);
+                        activity.setMoreShangjia();
+                    }
+                }
                 activity.setViewShow(ccListBeanLevel);
             }
         });
-        Log.e("这是我的附加费",""+ccListBeanLevel.getCcListBean().getAppend_money());
-        if(ccListBeanLevel.getCcListBean().getAppend_money()!=null&&!TextUtils.isEmpty(ccListBeanLevel.getCcListBean().getAppend_money()+""))
-            holder.tvFujiafei.setText( "附加费：￥" + ccListBeanLevel.getCcListBean().getAppend_money());
+        Log.e("这是我的附加费", "" + ccListBeanLevel.getCcListBean().getAppend_money());
+        if (ccListBeanLevel.getCcListBean().getAppend_money() != null && !TextUtils.isEmpty(ccListBeanLevel.getCcListBean().getAppend_money() + ""))
+            holder.tvFujiafei.setText("附加费：￥" + ccListBeanLevel.getCcListBean().getAppend_money());
         else
             holder.tvFujiafei.setVisibility(View.GONE);
-        holder.tvSpming.setText( ccListBeanLevel.getCcListBean().getCommodity_name() + "");
+        holder.tvSpming.setText(ccListBeanLevel.getCcListBean().getCommodity_name() + "");
         holder.tvDianming.setText(ccListBeanLevel.getCcListBean().getCompany_name() + "");
         holder.tvGuige.setText(ccListBeanLevel.getCcListBean().getPack_standard() + "");
         holder.tvDanjia.setText(ccListBeanLevel.getCcListBean().getPrice() + "");
         holder.tvSpming.setText("已售" + ccListBeanLevel.getCcListBean().getCommodity_sales());
-        if(ccListBeanLevel.getCcListBean().isxianshi())
+        if (ccListBeanLevel.getCcListBean().isxianshi())
             holder.biaoqian.setVisibility(View.VISIBLE);
         else
             holder.biaoqian.setVisibility(View.GONE);
         holder.biaoqian.setText(ccListBeanLevel.getCcListBean().getBiaoqian() + "");
-//        viewHolder.biaoqian.setOnClickListener();
-//        viewHolder.btXiangqing.setOnClickListener();
+        holder.btShangjia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new GengDuoShangJiaDialog()
+                        .setId(mList.get(position).getCcListBean().getSon_order_id(), mList.get(position).getCcListBean().getMarket_id())
+                        .setCallBack(new GengDuoShangJiaDialog.CallBack() {
+                            @Override
+                            public void xuanzhong(XiTongTuiJianBean.CcListBean msg) {
+                                msg.setIsxianshi(true);
+                                msg.setBiaoqian("推荐商家");
+                                mList.get(position).setCcListBean(msg);
+//                                activity.setMoreShangjia(msg);
+                                activity.setMoreShangjia();
+                            }
+                        })
+                        .show(activity.getSupportFragmentManager());
+            }
+        });
+        holder.btXiangqing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("spid", mList.get(position).getCcListBean().getCommodity_id());
+                JumpUtil.Jump_intent(activity, SPXiangQingActivity.class, bundle);
+            }
+        });
     }
 
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mList == null ? 0 : mList.size();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -133,6 +170,7 @@ public class ShenPiLevelTwoAdapter extends RecyclerView.Adapter<ShenPiLevelTwoAd
         Button btShangjia;
         @BindView(R.id.rl_kuang)
         RelativeLayout rlKuang;
+
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);

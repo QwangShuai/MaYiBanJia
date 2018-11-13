@@ -5,8 +5,8 @@ package com.mingmen.mayi.mayibanjia.http;
  */
 
 public class URL {
-//    public static String url = "http://192.168.1.153:8080/ant/"; //李岩
-//    public static String url = "http://192.168.1.100:8080/ant/"; //毕森
+//    public static String url = "http://192.168.1.155:8080/ant/"; //李岩
+//    public static String url = "http://192.168.1.101:8080/ant/"; //毕森
 //    public static String url = "http://192.168.43.59:8080/ant/"; //毕森--
 //    public static String url = "http://192.168.1.125:8080/ant/"; //春波
 //    public static String url = "http://192.168.1.151:8080/ant/"; //刘哥

@@ -1,5 +1,6 @@
 package com.mingmen.mayi.mayibanjia.ui.activity.adapter;
 
+import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.CountDownTimer;
 import android.support.v7.widget.LinearLayoutManager;
@@ -54,17 +55,29 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
     private List<CaiGouDanBean.ListBean> mList;
     private List<CaiGouDanBean.ListBean.CcListBeanLevel> listBeanLevel;
     private ShenPiLevelTwoAdapter adapter;
-    private boolean isShow = false;
+    private boolean[] isShow;
 
+
+
+    public void setShow(int pos) {
+        isShow[pos] = true;
+    }
+
+    public void addShow(){
+        isShow = new boolean[isShow.length+1];
+    }
+
+    public CallBack callBack;
 
     public ShenPiLevelOneAdapter(ShenPiActivity activity,List<CaiGouDanBean.ListBean> mList){
         this.activity = activity;
         this.mList = mList;
+        isShow = new boolean[mList.size()];
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        viewHolder = new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_shenpi_zhengchang, parent, false));
+        viewHolder = new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_shenpi_zhengchang, null, false));
         return viewHolder;
     }
 
@@ -72,13 +85,18 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final CaiGouDanBean.ListBean listBean = mList.get(position);
         holder.tvShuliang.setText(listBean.getCount() + "");
-//        viewHolder.rvDplist.setNestedScrollingEnabled(false);
         listBeanLevel = new ArrayList<>();
-        adapter = new ShenPiLevelTwoAdapter(activity,listBeanLevel);
+        adapter = new ShenPiLevelTwoAdapter(activity,mList.get(position).getLevels());
         holder.rvDplist.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
         holder.rvDplist.setAdapter(adapter);
+        holder.rvDplist.setNestedScrollingEnabled(false);
 //        adapter.notifyDataSetChanged();
-        holder.rvDplist.setVisibility(View.VISIBLE);
+        if(isShow[position]){
+            holder.rvDplist.setVisibility(View.VISIBLE);
+        } else {
+            holder.rvDplist.setVisibility(View.GONE);
+        }
+
         boolean youtuijian = false;
         final boolean[] runningThree = {true};
         final CountDownTimer downTimer = new CountDownTimer(300 * 1000, 1000) {
@@ -93,7 +111,7 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
             public void onFinish() {
                 runningThree[0] = true;
                 holder.tvXitongtuijian.setText("重发抢单");
-                getshenpi(listBean, position, false,holder.rvDplist);
+                getshenpi(listBean, position,activity);
                 holder.tvXitongtuijian.setEnabled(true);
                 holder.tvXitongtuijian.setTextColor(activity.getResources().getColor(R.color.lishisousuo));
 
@@ -144,7 +162,7 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
             @Override
             public void onClick(View v) {
                 if (finalYoutuijian) {//有推荐
-                    if (isShow) {//判断展开还是关闭
+                    if (isShow[position]) {//判断展开还是关闭
 //                        collapse(getParentPosition(listBean));
                     } else {
 //                        expand(getParentPosition(listBean));
@@ -190,31 +208,52 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                activity.MoveToPosition(position);
                 if (listBean.isNeedLoad()) {//是否需要加载数据
                     if (!listBean.isSpecial()) {//如果不是特殊商品
-                        getshenpi(listBean, position, false,holder.rvDplist);
+                        getshenpi(listBean, position,activity);
                     } else {
 //                                ToastUtil.showToast("");
                     }
                 } else {
                     //不需要加载数据时
 //                    展开二级列表
-                    if(isShow){
-                        isShow = false;
+                    if(isShow[position]){
+                        isShow[position] = false;
                         holder.rvDplist.setVisibility(View.GONE);
+//                        adapter.notifyDataSetChanged();
                     } else {
-                        isShow = true;
+                        isShow[position] = true;
                         holder.rvDplist.setVisibility(View.VISIBLE);
+//                        adapter.notifyDataSetChanged();
                     }
-                    adapter.notifyDataSetChanged();
                 }
             }
         });
-//        holder.addOnClickListener(R.id.ll_lishi);
-//        holder.addOnClickListener(R.id.iv_shanchu);
-//        holder.addOnClickListener(R.id.iv_xiugai);
+        holder.llLishi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callBack.isClick(holder.llLishi,position);
+            }
+        });
+
+        holder.ivShanchu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callBack.isClick(holder.ivShanchu,position);
+            }
+        });
+        holder.ivXiugai.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callBack.isClick(holder.ivXiugai,position);
+            }
+        });
     }
 
+    public void setCallBack(CallBack callBack){
+        this.callBack = callBack;
+    }
 
     @Override
     public int getItemCount() {
@@ -296,7 +335,7 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
         mPopWindow.showAsDropDown(xianshiView);
     }
 
-    public void getshenpi(final CaiGouDanBean.ListBean listBean, final int pos, final boolean isgangkaishi, final RecyclerView rv) {
+    public void getshenpi(final CaiGouDanBean.ListBean listBean, final int pos, final ShenPiActivity myactivity) {
         HttpManager.getInstance()
                 .with(activity)
                 .setObservable(
@@ -345,24 +384,14 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
 //                                listBean.setNeedLoad(true);
 //                            }
 //                        }
-//                        adapter.notifyDataSetChanged();
-                        if (isgangkaishi){
-                            return;
-                        }
-                        if(listBeanLevel.size()!=0){
-                            Log.e("获取到的数据",listBeanLevel.size()+"---");
-                            if(isShow){
-//                                isShow = false;
-                                Log.e("关闭了啊","隐藏的");
-                                rv.setVisibility(View.GONE);
-                                adapter.notifyDataSetChanged();
-                            } else {
-                                Log.e("展开了啊","显示的");
-//                                isShow = true;
-                                rv.setVisibility(View.VISIBLE);
-                                adapter.notifyDataSetChanged();
-                            }
 
+                        mList.get(pos).setLevels(listBeanLevel);
+                        Log.e("瓜娃子",new Gson().toJson(mList.get(pos).getLevels()));
+                        notifyDataSetChanged();
+
+                        if(mList.get(pos).getLevels().size()!=0){
+                            isShow[pos] = true;
+                            notifyDataSetChanged();
                         } else {
                             if (listBean.isSpecial()) {//特殊商品 特殊处理
                                 ToastUtil.showToast("没有商家推送商品");
@@ -373,5 +402,9 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
                     }
                 }, "正在获取数据...");
 
+    }
+
+    public interface CallBack{
+        void isClick(View v, int pos);
     }
 }

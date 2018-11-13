@@ -85,7 +85,7 @@ public class ShenPiActivity extends BaseActivity {
     @BindView(R.id.tv_right)
     TextView tvRight;
     @BindView(R.id.rv_shenpi)
-    TvRecyclerView rvShenpi;
+    RecyclerView rvShenpi;
     @BindView(R.id.tv_zongjia)
     TextView tvZongjia;
     @BindView(R.id.tv_tijiao)

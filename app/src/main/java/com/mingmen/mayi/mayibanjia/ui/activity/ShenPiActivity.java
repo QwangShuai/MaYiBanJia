@@ -255,7 +255,9 @@ public class ShenPiActivity extends BaseActivity {
         });
         manager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
         rvShenpi.setLayoutManager(manager);
-        rvShenpi.setNestedScrollingEnabled(true);
+        rvShenpi.setFocusable(true);
+        rvShenpi.setFocusableInTouchMode(true);
+        rvShenpi.setNestedScrollingEnabled(false);
         rvShenpi.setAdapter(adapter);
     }
 //获取总价

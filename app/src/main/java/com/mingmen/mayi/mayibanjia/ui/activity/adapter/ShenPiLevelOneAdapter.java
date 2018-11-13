@@ -89,6 +89,7 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
         adapter = new ShenPiLevelTwoAdapter(activity,mList.get(position).getLevels());
         holder.rvDplist.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
         holder.rvDplist.setAdapter(adapter);
+        holder.rvDplist.setFocusable(false);
         holder.rvDplist.setNestedScrollingEnabled(false);
 //        adapter.notifyDataSetChanged();
         if(isShow[position]){
@@ -209,6 +210,7 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
             @Override
             public void onClick(View v) {
 //                activity.MoveToPosition(position);
+
                 if (listBean.isNeedLoad()) {//是否需要加载数据
                     if (!listBean.isSpecial()) {//如果不是特殊商品
                         getshenpi(listBean, position,activity);

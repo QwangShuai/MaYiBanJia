@@ -149,11 +149,13 @@ public class LoginActivity extends BaseActivity {
                 }
                 break;
             case R.id.tv_dongtaimimadenglu:
-//                Intent dongtailogin=new Intent(mContext, MainActivity.class);
-//                startActivity(dongtailogin);
+                Intent dongtailogin=new Intent(mContext, ZhuCeActivity.class);
+                dongtailogin.putExtra("yemian","2");
+                startActivity(dongtailogin);
                 break;
             case R.id.tv_zhuce:
                 Intent zhuce = new Intent(mContext, ZhuCeActivity.class);
+                zhuce.putExtra("yemian","1");
                 startActivity(zhuce);
                 break;
         }

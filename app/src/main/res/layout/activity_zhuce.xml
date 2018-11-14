@@ -63,47 +63,52 @@
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
         />
-
-    <EditText
-        android:id="@+id/et_pass1"
+    <LinearLayout
+        android:id="@+id/ll_zhuce"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="12dp"
-        android:background="@null"
-        android:hint="请输入8-16位字数密码"
-        android:text=""
-        android:textColor="#333333"
-        android:textColorHint="#cccccc"
-        android:maxLength="16"
-        android:textSize="12sp" />
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/et_pass1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="12dp"
+            android:background="@null"
+            android:hint="请输入8-16位字数密码"
+            android:text=""
+            android:textColor="#333333"
+            android:textColorHint="#cccccc"
+            android:maxLength="16"
+            android:textSize="12sp" />
 
-    <View
-        android:layout_width="351dp"
-        android:layout_height="1dp"
-        android:background="#e7e7e7"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
-        />
-    <EditText
-        android:id="@+id/et_pass2"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="12dp"
-        android:background="@null"
-        android:hint="请确认密码"
-        android:text=""
-        android:textColor="#333333"
-        android:textColorHint="#cccccc"
-        android:maxLength="16"
-        android:textSize="12sp" />
+        <View
+            android:layout_width="351dp"
+            android:layout_height="1dp"
+            android:background="#e7e7e7"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            />
+        <EditText
+            android:id="@+id/et_pass2"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="12dp"
+            android:background="@null"
+            android:hint="请确认密码"
+            android:text=""
+            android:textColor="#333333"
+            android:textColorHint="#cccccc"
+            android:maxLength="16"
+            android:textSize="12sp" />
 
-    <View
-        android:layout_width="351dp"
-        android:layout_height="1dp"
-        android:background="#e7e7e7"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
-        />
+        <View
+            android:layout_width="351dp"
+            android:layout_height="1dp"
+            android:background="#e7e7e7"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            />
+    </LinearLayout>
     <Button
         android:id="@+id/bt_xiayibu"
         android:layout_width="match_parent"
@@ -119,7 +124,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-       android:layout_weight="1" ></View>
+        android:layout_weight="1" ></View>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

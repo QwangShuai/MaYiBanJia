@@ -11,14 +11,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.mingmen.mayi.mayibanjia.MainActivity;
 import com.mingmen.mayi.mayibanjia.R;
+import com.mingmen.mayi.mayibanjia.app.MyApplication;
+import com.mingmen.mayi.mayibanjia.bean.ZhuCeChengGongBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
+import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
 import java.util.List;
@@ -51,8 +56,11 @@ public class ZhuCeActivity extends BaseActivity {
     Button btXiayibu;
     @BindView(R.id.tv_xieyi)
     TextView tvXieyi;
+    @BindView(R.id.ll_zhuce)
+    LinearLayout llZhuce;
     private Context mContext;
     private boolean runningThree = true;
+    private String yemian = "1";
     private CountDownTimer downTimer = new CountDownTimer(60 * 1000, 1000) {
         @Override
         public void onTick(long l) {
@@ -75,22 +83,33 @@ public class ZhuCeActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        tvTitle.setText("注册");
+        yemian = getIntent().getStringExtra("yemian");
+        if(yemian.equals("1")){
+            tvTitle.setText("注册");
+        } else {
+            tvTitle.setText("登录");
+            llZhuce.setVisibility(View.GONE);
+        }
         mContext=ZhuCeActivity.this;
-        etPass2.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        if(yemian.equals("1")){
+            etPass2.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Log.e("changed",s.toString());
-                String pass1 = etPass1.getText().toString().trim();
-                if (pass1.length()>=8&&pass1.length()<=16){
-                    if (pass1.equals(s.toString().trim())){
-                        if (etYanzhengma.getText().toString().trim().length()==6){
-                            btXiayibu.setBackground(getResources().getDrawable(R.drawable.fillet_solid_zangqing_5));
-                            btXiayibu.setEnabled(true);
+                }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    Log.e("changed",s.toString());
+                    String pass1 = etPass1.getText().toString().trim();
+                    if (pass1.length()>=8&&pass1.length()<=16){
+                        if (pass1.equals(s.toString().trim())){
+                            if (etYanzhengma.getText().toString().trim().length()==6){
+                                btXiayibu.setBackground(getResources().getDrawable(R.drawable.fillet_solid_zangqing_5));
+                                btXiayibu.setEnabled(true);
+                            }else{
+                                btXiayibu.setBackground(getResources().getDrawable(R.drawable.fillet_solid_buliang_5));
+                                btXiayibu.setEnabled(false);
+                            }
                         }else{
                             btXiayibu.setBackground(getResources().getDrawable(R.drawable.fillet_solid_buliang_5));
                             btXiayibu.setEnabled(false);
@@ -99,32 +118,32 @@ public class ZhuCeActivity extends BaseActivity {
                         btXiayibu.setBackground(getResources().getDrawable(R.drawable.fillet_solid_buliang_5));
                         btXiayibu.setEnabled(false);
                     }
-                }else{
-                    btXiayibu.setBackground(getResources().getDrawable(R.drawable.fillet_solid_buliang_5));
-                    btXiayibu.setEnabled(false);
                 }
-            }
 
-            @Override
-            public void afterTextChanged(Editable s) {
+                @Override
+                public void afterTextChanged(Editable s) {
 
-            }
-        });
-        etPass1.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+            });
+            etPass1.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
+                }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Log.e("changed",s.toString());
-                String pass1 = etPass2.getText().toString().trim();
-                if (pass1.length()>=8&&pass1.length()<=16){
-                    if (pass1.equals(s.toString().trim())){
-                        if (etYanzhengma.getText().toString().trim().length()==6){
-                            btXiayibu.setBackground(getResources().getDrawable(R.drawable.fillet_solid_zangqing_5));
-                            btXiayibu.setEnabled(true);
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    Log.e("changed",s.toString());
+                    String pass1 = etPass2.getText().toString().trim();
+                    if (pass1.length()>=8&&pass1.length()<=16){
+                        if (pass1.equals(s.toString().trim())){
+                            if (etYanzhengma.getText().toString().trim().length()==6){
+                                btXiayibu.setBackground(getResources().getDrawable(R.drawable.fillet_solid_zangqing_5));
+                                btXiayibu.setEnabled(true);
+                            }else{
+                                btXiayibu.setBackground(getResources().getDrawable(R.drawable.fillet_solid_buliang_5));
+                                btXiayibu.setEnabled(false);
+                            }
                         }else{
                             btXiayibu.setBackground(getResources().getDrawable(R.drawable.fillet_solid_buliang_5));
                             btXiayibu.setEnabled(false);
@@ -133,17 +152,15 @@ public class ZhuCeActivity extends BaseActivity {
                         btXiayibu.setBackground(getResources().getDrawable(R.drawable.fillet_solid_buliang_5));
                         btXiayibu.setEnabled(false);
                     }
-                }else{
-                    btXiayibu.setBackground(getResources().getDrawable(R.drawable.fillet_solid_buliang_5));
-                    btXiayibu.setEnabled(false);
                 }
-            }
 
-            @Override
-            public void afterTextChanged(Editable s) {
+                @Override
+                public void afterTextChanged(Editable s) {
 
-            }
-        });
+                }
+            });
+        }
+
         etYanzhengma.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -152,13 +169,18 @@ public class ZhuCeActivity extends BaseActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 Log.e("changed",s.toString());
-                String pass1 = etPass1.getText().toString().trim();
-                String pass2 = etPass2.getText().toString().trim();
-                if (pass1.length()>=8&&pass1.length()<=16){
-                    if (pass1.equals(pass2)){
-                        if (s.toString().trim().length()==6){
-                            btXiayibu.setBackground(getResources().getDrawable(R.drawable.fillet_solid_zangqing_5));
-                            btXiayibu.setEnabled(true);
+                if(yemian.equals("1")){
+                    String pass1 = etPass1.getText().toString().trim();
+                    String pass2 = etPass2.getText().toString().trim();
+                    if (pass1.length()>=8&&pass1.length()<=16){
+                        if (pass1.equals(pass2)){
+                            if (s.toString().trim().length()==6){
+                                btXiayibu.setBackground(getResources().getDrawable(R.drawable.fillet_solid_zangqing_5));
+                                btXiayibu.setEnabled(true);
+                            }else{
+                                btXiayibu.setBackground(getResources().getDrawable(R.drawable.fillet_solid_buliang_5));
+                                btXiayibu.setEnabled(false);
+                            }
                         }else{
                             btXiayibu.setBackground(getResources().getDrawable(R.drawable.fillet_solid_buliang_5));
                             btXiayibu.setEnabled(false);
@@ -167,10 +189,16 @@ public class ZhuCeActivity extends BaseActivity {
                         btXiayibu.setBackground(getResources().getDrawable(R.drawable.fillet_solid_buliang_5));
                         btXiayibu.setEnabled(false);
                     }
-                }else{
-                    btXiayibu.setBackground(getResources().getDrawable(R.drawable.fillet_solid_buliang_5));
-                    btXiayibu.setEnabled(false);
+                } else {
+                    if (s.toString().trim().length()==6){
+                        btXiayibu.setBackground(getResources().getDrawable(R.drawable.fillet_solid_zangqing_5));
+                        btXiayibu.setEnabled(true);
+                    }else{
+                        btXiayibu.setBackground(getResources().getDrawable(R.drawable.fillet_solid_buliang_5));
+                        btXiayibu.setEnabled(false);
+                    }
                 }
+
             }
             @Override
             public void afterTextChanged(Editable s) {
@@ -201,7 +229,12 @@ public class ZhuCeActivity extends BaseActivity {
             case R.id.bt_xiayibu:
                 //下一步
                 btXiayibu.setEnabled(false);
-                querenYanzhengma();
+                if(yemian.equals("1")){
+                    querenYanzhengma();
+                } else {
+                    login();
+                }
+
 //                String pass1 = etPass1.getText().toString().trim();
 //                String pass2 = etPass2.getText().toString().trim();
 //                String yanzhengma = etYanzhengma.getText().toString().trim();
@@ -276,7 +309,7 @@ public class ZhuCeActivity extends BaseActivity {
                     .setObservable(
                             RetrofitManager
                                     .getService()
-                                    . getcode("1",etPhone.getText().toString().trim()))
+                                    . getcode(yemian,etPhone.getText().toString().trim()))
                     .setDataListener(new HttpDataListener<String>() {
 
                         @Override
@@ -289,5 +322,59 @@ public class ZhuCeActivity extends BaseActivity {
                         }
                     });
 
+    }
+    private void login() {
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .login(etPhone.getText().toString().trim(), "", etYanzhengma.getText().toString(), "2"))
+                .setDataListener(new HttpDataListener<ZhuCeChengGongBean>() {
+                    @Override
+                    public void onNext(ZhuCeChengGongBean bean) {
+                        Log.e("token", bean.getToken() + "===");
+
+                        PreferenceUtils.putBoolean(MyApplication.mContext, "isLogin", true);
+                        PreferenceUtils.putString(MyApplication.mContext, "token", bean.getToken());
+                        PreferenceUtils.putString(MyApplication.mContext, "juese", bean.getRole());
+                        PreferenceUtils.putInt(MyApplication.mContext,"random_id",bean.getRandom_id());
+                        tiaozhuan(bean.getRole(),bean.getRandom_id());
+
+
+                    }
+                });
+    }
+
+    private void tiaozhuan(String juese,int random_id) {
+        //登录成功后  跳转
+        if ("5".equals(juese)) {
+            Intent intent = new Intent(mContext, WuLiuActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+        } else if ("4".equals(juese)) {//业务员
+            Intent intent = new Intent(mContext, YeWuYuanMainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+        } else if ("3".equals(juese)) {//物流司机
+            Intent intent = new Intent(mContext, SiJiActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+        } else if ("2".equals(juese)) {//供应端
+            if(random_id==0){
+                Intent intent = new Intent(mContext, GongYingDuanShouYeActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+            } else {
+                Intent intent = new Intent(mContext, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+            }
+
+        } else if ("1".equals(juese)) {//餐厅端
+            Intent intent = new Intent(mContext, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+        }
     }
 }

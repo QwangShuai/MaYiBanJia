@@ -248,15 +248,6 @@ public class XiTongTuiJianBean {
         private String creat_time;
         private String end_time;
         private BigDecimal append_money;//附加费
-        private boolean isXuanzhong;
-
-        public boolean isXuanzhong() {
-            return isXuanzhong;
-        }
-
-        public void setXuanzhong(boolean xuanzhong) {
-            isXuanzhong = xuanzhong;
-        }
 
         public BigDecimal getAppend_money() {
             return append_money;

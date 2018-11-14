@@ -466,7 +466,15 @@ public class CaiGouDanBean {
         }
     public static class CcListBeanLevel implements Serializable {
         private int type;
+        private boolean isXuanzhong;
 
+        public boolean isXuanzhong() {
+            return isXuanzhong;
+        }
+
+        public void setXuanzhong(boolean xuanzhong) {
+            isXuanzhong = xuanzhong;
+        }
         private XiTongTuiJianBean.CcListBean ccListBean;
 
         public CcListBeanLevel(int type, XiTongTuiJianBean.CcListBean ccListBean) {

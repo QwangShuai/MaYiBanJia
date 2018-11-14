@@ -130,13 +130,15 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
 
         Glide.with(activity).load(listBean.getPicture_url()).into(holder.ivSptu);//商品图
         holder.tvGuige.setText(listBean.getPack_standard_name());//规格
+        if(position==0){//只执行一次  查询价格
 
-        if (bean.getCommodity_id() == null || bean.getCommodity_id().isEmpty()) {//是否选中
-            holder.llZongjia.setVisibility(View.GONE);
-        } else {
-            holder.llZongjia.setVisibility(View.VISIBLE);//选中的就获取当前总价
-            getcaigoudanjiage(listBean.getSon_order_id(), bean.getCommodity_id(), viewHolder.tvZongjia);
         }
+//        if (bean.getCommodity_id() == null || bean.getCommodity_id().isEmpty()) {//是否选中
+//            holder.llZongjia.setVisibility(View.GONE);
+//        } else {
+//            holder.llZongjia.setVisibility(View.VISIBLE);//选中的就获取当前总价
+//            getcaigoudanjiage(listBean.getSon_order_id(), bean.getCommodity_id(), holder.tvZongjia);
+//        }
         if(listBean.isSpecial()){
             holder.tvTeshu.setVisibility(View.VISIBLE);//特殊商品显示标签
         }
@@ -380,13 +382,6 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
 
                         //获取之后  改成不需要加载状态
                         listBean.setNeedLoad(false);
-//                        if (listBean.isSpecial()){
-//                            if (pflist != null && pflist.size() > 0){
-//                            }else{
-//                                //没有系统推荐   继续加载
-//                                listBean.setNeedLoad(true);
-//                            }
-//                        }
 
                         mList.get(pos).setLevels(listBeanLevel);
                         Log.e("瓜娃子",new Gson().toJson(mList.get(pos).getLevels()));
@@ -409,5 +404,9 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
 
     public interface CallBack{
         void isClick(View v, int pos);
+    }
+
+    public void setXuanzhong(int pos){
+        adapter.setXuanzhong(pos);
     }
 }

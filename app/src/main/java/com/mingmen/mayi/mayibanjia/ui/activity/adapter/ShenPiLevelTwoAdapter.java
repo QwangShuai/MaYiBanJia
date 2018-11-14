@@ -70,8 +70,8 @@ public class ShenPiLevelTwoAdapter extends RecyclerView.Adapter<ShenPiLevelTwoAd
         } else {
             holder.rlKuang.setVisibility(View.GONE);
         }
-        Log.e("是否选中了呢",ccListBeanLevel.getCcListBean().isXuanzhong()+"---");
-        if (ccListBeanLevel.getCcListBean().isXuanzhong()){
+        Log.e("是否选中了呢",ccListBeanLevel.isXuanzhong()+"---");
+        if (ccListBeanLevel.isXuanzhong()){
             holder.rlKuang.setBackgroundColor(activity.getResources().getColor(R.color.hei20));
         } else {
             holder.rlKuang.setBackgroundColor(activity.getResources().getColor(R.color.white));
@@ -83,15 +83,11 @@ public class ShenPiLevelTwoAdapter extends RecyclerView.Adapter<ShenPiLevelTwoAd
                 activity.getTvBiaoqian().setText("");
                 activity.getTvBiaoqian().setHint("请选择");
                 for (int i = 0; i < mList.size(); i++) {
-                    if (i == position) {
-                        mList.get(position).getCcListBean().setXuanzhong(true);
-                        activity.setMoreShangjia();
-                    } else {
-                        mList.get(i).getCcListBean().setXuanzhong(false);
-                        activity.setMoreShangjia();
-                    }
+                        mList.get(i).setXuanzhong(false);
                 }
-                activity.setViewShow(ccListBeanLevel);
+                mList.get(position).setXuanzhong(true);
+                activity.setMoreShangjia();
+                activity.setViewShow(mList.get(position));
             }
         });
         Log.e("这是我的附加费", "" + ccListBeanLevel.getCcListBean().getAppend_money());
@@ -175,5 +171,11 @@ public class ShenPiLevelTwoAdapter extends RecyclerView.Adapter<ShenPiLevelTwoAd
             super(view);
             ButterKnife.bind(this, view);
         }
+    }
+    public void setXuanzhong(int pos){//全选设置选中状态
+        for (int i = 0;i<mList.size();i++){
+            mList.get(i).setXuanzhong(false);
+        }
+        mList.get(pos).setXuanzhong(true);
     }
 }

@@ -261,7 +261,7 @@ public class ShenPiActivity extends BaseActivity {
         rvShenpi.setAdapter(adapter);
     }
 //获取总价
-    private void zongjia(String son_order_id,String commodity_id) {
+    private void zongjia(String son_order_id,String commodity_id,final TextView tv) {
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
@@ -272,7 +272,7 @@ public class ShenPiActivity extends BaseActivity {
                     @Override
                     public void onNext(String data) {
                         Log.e("data",data+"---");
-                        tvZongjia.setText(data);
+                        tv.setText(data);
                     }
                 });
     }
@@ -298,6 +298,7 @@ public class ShenPiActivity extends BaseActivity {
             public void onClick(View v) {
                 //全选销量最高
                 Log.e("woyaode id",finalListBean.getPurchase_id());
+//                adapter.setXuanzhong(0);
                 setquanxuan(finalListBean.getMarket_id(), finalListBean.getPurchase_id(),CaiGouDanBean.TYPE_TWO+"");
             }
         });
@@ -305,6 +306,7 @@ public class ShenPiActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //全选评分最高
+//                adapter.setXuanzhong(1);
                 setquanxuan(finalListBean.getMarket_id(), finalListBean.getPurchase_id(),CaiGouDanBean.TYPE_THREE+"");
             }
         });
@@ -312,6 +314,7 @@ public class ShenPiActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //全选评分最高
+//                adapter.setXuanzhong(2);
                 setquanxuan(finalListBean.getMarket_id(), finalListBean.getPurchase_id(),CaiGouDanBean.TYPE_ONE+"");
             }
         });
@@ -365,8 +368,7 @@ public class ShenPiActivity extends BaseActivity {
                         commodity_id=commodity_id.substring(0,commodity_id.length()-1);
                         Log.e("commodity_id",commodity_id+"---");
                         Log.e("son_order_id",son_order_id+"---");
-                        zongjia(son_order_id,commodity_id);
-//                        shangpinadapter.notifyDataSetChanged();
+                        zongjia(son_order_id,commodity_id,tvZongjia);
                         //通过传入的type确定选中的选项  显示在页面上
                         switch (Integer.parseInt(type)){
                             case CaiGouDanBean.TYPE_ONE:
@@ -391,6 +393,7 @@ public class ShenPiActivity extends BaseActivity {
                                 }
                                 break;
                         }
+                        adapter.notifyDataSetChanged();
                         Log.e("xuanzhong-activity",gson.toJson(xuanzhong));
                     }
                 });
@@ -695,7 +698,7 @@ public class ShenPiActivity extends BaseActivity {
         Log.e("commodity_id",commodity_id+"---");
         Log.e("son_order_id",son_order_id+"---");
         //调用接口获取总价
-        zongjia(son_order_id,commodity_id);
+        zongjia(son_order_id,commodity_id,tvZongjia);
     }
 
 //    public void setMoreShangjia(XiTongTuiJianBean.CcListBean bean){

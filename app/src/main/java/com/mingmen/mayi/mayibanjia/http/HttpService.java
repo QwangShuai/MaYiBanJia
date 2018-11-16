@@ -6,6 +6,7 @@ import com.mingmen.mayi.mayibanjia.bean.AllShiChangBean;
 import com.mingmen.mayi.mayibanjia.bean.CaiGouDanBean;
 import com.mingmen.mayi.mayibanjia.bean.CarsTypeBean;
 import com.mingmen.mayi.mayibanjia.bean.DdxqBean;
+import com.mingmen.mayi.mayibanjia.bean.DdxqListBean;
 import com.mingmen.mayi.mayibanjia.bean.DianMingChaXunBean;
 import com.mingmen.mayi.mayibanjia.bean.DianPuBean;
 import com.mingmen.mayi.mayibanjia.bean.DianPuZhanShiBean;
@@ -662,7 +663,7 @@ public interface HttpService {
 
     //运费查询
     @POST("Ordermain/qyeryByFreightFee.do")
-    Observable<ResultModel<YunFeiBean>> getYunFei(@Query("commodity_id") String commodity_id,
+    Observable<ResultModel<List<YunFeiBean>>> getYunFei(@Query("commodity_id") String commodity_id,
                                                   @Query("deliver_address") String deliver_address,
                                                   @Query("number") String number);
 
@@ -769,8 +770,8 @@ public interface HttpService {
 
     //获取订单详情
     @POST("Ordermain/listDetal.do")
-    Observable<ResultModel<DdxqBean>> getOrderXiangqing(@Query("user_token") String user_token,
-                                                        @Query("order_id") String order_id);
+    Observable<ResultModel<DdxqListBean>> getOrderXiangqing(@Query("user_token") String user_token,
+                                                            @Query("order_id") String order_id);
 
     //删除订单
     @POST("Ordermain/update.do")

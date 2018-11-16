@@ -70,7 +70,17 @@ public class DingDanBean {
     private String scanState;//扫码状态 0:已扫完1:未扫完
     private String packCount;//包装个数
     private String scanCount;//扫码个数
-    private List<ListBean> list;
+    private String shichang;//市场商品数量
+
+    public String getShichang() {
+        return shichang;
+    }
+
+    public void setShichang(String shichang) {
+        this.shichang = shichang;
+    }
+
+    private List<DdShichangBean> marklist;
 
     public String getGy_order_id() {
         return gy_order_id;
@@ -320,147 +330,147 @@ public class DingDanBean {
         this.freight_fee = freight_fee;
     }
 
-    public List<ListBean> getList() {
-        return list;
+    public List<DdShichangBean> getList() {
+        return marklist;
     }
 
-    public void setList(List<ListBean> list) {
-        this.list = list;
+    public void setList(List<DdShichangBean> marklist) {
+        this.marklist = marklist;
     }
 
-    public static class ListBean {
-        /**
-         * count : null
-         * url : FvHTbYSBTEA4B7J-3xVnY6CgpqZm
-         * order_id : null
-         * company_name : 古色古香
-         * commodity_id : 31
-         * create_time : null
-         * commodity_name : 肉类
-         * spec_name : 斤
-         * price : 3
-         * acount : 10
-         * all_price : null
-         * total_weight : null
-         * order_details_id : null
-         */
-
-        private Object count;
-        private String url;
-        private Object order_id;
-        private String company_name;
-        private String commodity_id;
-        private Object create_time;
-        private String commodity_name;
-        private String spec_name;
-        private int price;
-        private int acount;
-        private Object all_price;
-        private Object total_weight;
-        private Object order_details_id;
-
-        public Object getCount() {
-            return count;
-        }
-
-        public void setCount(Object count) {
-            this.count = count;
-        }
-
-        public String getUrl() {
-            return url;
-        }
-
-        public void setUrl(String url) {
-            this.url = url;
-        }
-
-        public Object getOrder_id() {
-            return order_id;
-        }
-
-        public void setOrder_id(Object order_id) {
-            this.order_id = order_id;
-        }
-
-        public String getCompany_name() {
-            return company_name;
-        }
-
-        public void setCompany_name(String company_name) {
-            this.company_name = company_name;
-        }
-
-        public String getCommodity_id() {
-            return commodity_id;
-        }
-
-        public void setCommodity_id(String commodity_id) {
-            this.commodity_id = commodity_id;
-        }
-
-        public Object getCreate_time() {
-            return create_time;
-        }
-
-        public void setCreate_time(Object create_time) {
-            this.create_time = create_time;
-        }
-
-        public String getCommodity_name() {
-            return commodity_name;
-        }
-
-        public void setCommodity_name(String commodity_name) {
-            this.commodity_name = commodity_name;
-        }
-
-        public String getSpec_name() {
-            return spec_name;
-        }
-
-        public void setSpec_name(String spec_name) {
-            this.spec_name = spec_name;
-        }
-
-        public int getPrice() {
-            return price;
-        }
-
-        public void setPrice(int price) {
-            this.price = price;
-        }
-
-        public int getAcount() {
-            return acount;
-        }
-
-        public void setAcount(int acount) {
-            this.acount = acount;
-        }
-
-        public Object getAll_price() {
-            return all_price;
-        }
-
-        public void setAll_price(Object all_price) {
-            this.all_price = all_price;
-        }
-
-        public Object getTotal_weight() {
-            return total_weight;
-        }
-
-        public void setTotal_weight(Object total_weight) {
-            this.total_weight = total_weight;
-        }
-
-        public Object getOrder_details_id() {
-            return order_details_id;
-        }
-
-        public void setOrder_details_id(Object order_details_id) {
-            this.order_details_id = order_details_id;
-        }
-    }
+//    public static class ListBean {
+//        /**
+//         * count : null
+//         * url : FvHTbYSBTEA4B7J-3xVnY6CgpqZm
+//         * order_id : null
+//         * company_name : 古色古香
+//         * commodity_id : 31
+//         * create_time : null
+//         * commodity_name : 肉类
+//         * spec_name : 斤
+//         * price : 3
+//         * acount : 10
+//         * all_price : null
+//         * total_weight : null
+//         * order_details_id : null
+//         */
+//
+//        private Object count;
+//        private String url;
+//        private Object order_id;
+//        private String company_name;
+//        private String commodity_id;
+//        private Object create_time;
+//        private String commodity_name;
+//        private String spec_name;
+//        private int price;
+//        private int acount;
+//        private Object all_price;
+//        private Object total_weight;
+//        private Object order_details_id;
+//
+//        public Object getCount() {
+//            return count;
+//        }
+//
+//        public void setCount(Object count) {
+//            this.count = count;
+//        }
+//
+//        public String getUrl() {
+//            return url;
+//        }
+//
+//        public void setUrl(String url) {
+//            this.url = url;
+//        }
+//
+//        public Object getOrder_id() {
+//            return order_id;
+//        }
+//
+//        public void setOrder_id(Object order_id) {
+//            this.order_id = order_id;
+//        }
+//
+//        public String getCompany_name() {
+//            return company_name;
+//        }
+//
+//        public void setCompany_name(String company_name) {
+//            this.company_name = company_name;
+//        }
+//
+//        public String getCommodity_id() {
+//            return commodity_id;
+//        }
+//
+//        public void setCommodity_id(String commodity_id) {
+//            this.commodity_id = commodity_id;
+//        }
+//
+//        public Object getCreate_time() {
+//            return create_time;
+//        }
+//
+//        public void setCreate_time(Object create_time) {
+//            this.create_time = create_time;
+//        }
+//
+//        public String getCommodity_name() {
+//            return commodity_name;
+//        }
+//
+//        public void setCommodity_name(String commodity_name) {
+//            this.commodity_name = commodity_name;
+//        }
+//
+//        public String getSpec_name() {
+//            return spec_name;
+//        }
+//
+//        public void setSpec_name(String spec_name) {
+//            this.spec_name = spec_name;
+//        }
+//
+//        public int getPrice() {
+//            return price;
+//        }
+//
+//        public void setPrice(int price) {
+//            this.price = price;
+//        }
+//
+//        public int getAcount() {
+//            return acount;
+//        }
+//
+//        public void setAcount(int acount) {
+//            this.acount = acount;
+//        }
+//
+//        public Object getAll_price() {
+//            return all_price;
+//        }
+//
+//        public void setAll_price(Object all_price) {
+//            this.all_price = all_price;
+//        }
+//
+//        public Object getTotal_weight() {
+//            return total_weight;
+//        }
+//
+//        public void setTotal_weight(Object total_weight) {
+//            this.total_weight = total_weight;
+//        }
+//
+//        public Object getOrder_details_id() {
+//            return order_details_id;
+//        }
+//
+//        public void setOrder_details_id(Object order_details_id) {
+//            this.order_details_id = order_details_id;
+//        }
+//    }
 }

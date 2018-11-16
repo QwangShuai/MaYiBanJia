@@ -29,18 +29,17 @@ public class TiJiaoDingDanDianPuAdapter extends RecyclerView.Adapter<TiJiaoDingD
 
     private ViewHolder viewHolder;
     private Context mContext;
-    private List<QueRenDingDanShangPinBean> dianpulist;
+    private List<QueRenDingDanShangPinBean.DplistBean> dianpulist;
     private OnItemClickListener mOnItemClickListener1;
-    Gson gson = new Gson();
     private boolean isSelected;
-    private List<QueRenDingDanShangPinBean.ListBean> shangpinlist;
+    private List<QueRenDingDanShangPinBean.DplistBean.ListBean> shangpinlist;
 
 
     public void setSelected(boolean selected) {
         isSelected = selected;
     }
 
-    public TiJiaoDingDanDianPuAdapter(Context mContext, List<QueRenDingDanShangPinBean> list) {
+    public TiJiaoDingDanDianPuAdapter(Context mContext, List<QueRenDingDanShangPinBean.DplistBean> list) {
         this.mContext = mContext;
         this.dianpulist = list;
     }
@@ -62,11 +61,7 @@ public class TiJiaoDingDanDianPuAdapter extends RecyclerView.Adapter<TiJiaoDingD
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        final QueRenDingDanShangPinBean datas = dianpulist.get(position);
-//        holder.tv_name.setText(string.getTitle());
-//        holder.tv_laizi.setText(string.getCat_name());
-//        Glide.with(mContext).load("http://www.zhenlvw.com/"+string.getFile_url())
-//                .into(holder.iv_danxuan);
+        final QueRenDingDanShangPinBean.DplistBean datas = dianpulist.get(position);
         shangpinlist = datas.getList();
         holder.tvDianming.setText(datas.getCompany_name());
         final TiJiaoDingDanShangPinAdapter shangpinadapter = new TiJiaoDingDanShangPinAdapter(mContext, shangpinlist);
@@ -86,12 +81,12 @@ public class TiJiaoDingDanDianPuAdapter extends RecyclerView.Adapter<TiJiaoDingD
             @Override
             public void afterTextChanged(Editable s) {
                 String liuyan = s.toString().trim();
-                dianpulist.get(position).setLiuyan(liuyan);
+                dianpulist.get(position).setRemark(liuyan);
             }
         });
     }
 
-    public List<QueRenDingDanShangPinBean> getDianpulist(){
+    public List<QueRenDingDanShangPinBean.DplistBean> getDianpulist(){
         return dianpulist;
     }
     @Override

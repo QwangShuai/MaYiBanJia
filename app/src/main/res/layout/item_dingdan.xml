@@ -29,30 +29,39 @@
             android:textSize="12sp"
             android:paddingRight="12dp"
             />
-        <View
-            android:layout_width="1dp"
-            android:layout_height="12dp"
-            android:background="@color/cutoff"/>
-        <ImageView
-            android:id="@+id/iv_shanchu"
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ll_shanchu"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            android:src="@mipmap/shouhuodizhi_shanchu"/>
+            android:layout_height="wrap_content">
+            <View
+                android:layout_width="1dp"
+                android:layout_height="12dp"
+                android:background="@color/cutoff"/>
+            <ImageView
+                android:id="@+id/iv_shanchu"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:src="@mipmap/shouhuodizhi_shanchu"/>
+        </LinearLayout>
+
     </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/cutoff"
         android:layout_marginLeft="12dp"/>
-    <RelativeLayout
-        android:id="@+id/rl_baozhuang"
+    <LinearLayout
+        android:visibility="gone"
+        android:orientation="vertical"
+        android:id="@+id/ll_baozhuang"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
+        android:layout_height="81dp">
+        <RelativeLayout
             android:layout_marginTop="13dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
@@ -78,33 +87,7 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
             <LinearLayout
-                android:layout_marginLeft="31dp"
-                android:id="@+id/ll_saomageshu"
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/saomageshu"
-                    android:textSize="13sp"
-                    android:textColor="@color/lishisousuo"
-                    android:text="扫码个数："
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:id="@+id/tv_saomageshu"
-                    android:textSize="13sp"
-                    android:textColor="@color/zicolor"
-                    android:text="10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="13dp"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <LinearLayout
+                android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
                 android:layout_toRightOf="@+id/ll_mydianpu"
@@ -114,8 +97,8 @@
                 android:layout_height="wrap_content">
                 <ImageView
                     android:layout_marginRight="9dp"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
                     android:src="@mipmap/saoma"/>
                 <TextView
                     android:text="扫码"
@@ -125,6 +108,37 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_marginTop="12dp"
+            android:id="@+id/ll_saomageshu"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/saomageshu"
+                android:textSize="13sp"
+                android:textColor="@color/lishisousuo"
+                android:text="扫码个数："
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_saomageshu"
+                android:textSize="13sp"
+                android:textColor="@color/zicolor"
+                android:text="10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="2dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <View
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></View>
             <TextView
                 android:id="@+id/tv_quhuoma"
                 android:layout_centerVertical="true"
@@ -136,16 +150,54 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
-    </RelativeLayout>
-
-    <View
-        android:id="@+id/view_fenge"
-        android:background="@color/cutoff"
-        android:layout_marginTop="16dp"
+    </LinearLayout>
+    <LinearLayout
         android:layout_marginLeft="12dp"
+        android:orientation="vertical"
+        android:id="@+id/ll_state"
         android:layout_width="match_parent"
-        android:layout_height="1dp"></View>
+        android:layout_height="53dp">
+        <TextView
+            android:id="@+id/tv_tishi"
+            android:layout_weight="1"
+            android:text=""
+            android:textSize="13sp"
+            android:textColor="@color/lishisousuo"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:id="@+id/view_fenge"
+            android:background="@color/cutoff"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"></View>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="13dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_sp_shuliang"
+            android:layout_centerVertical="true"
+            android:textSize="15sp"
+            android:textColor="@color/zicolor"
+            android:text="西红柿西红...等20件商品"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btn_more"
+            android:textSize="15sp"
+            android:textColor="@color/zangqing"
+            android:background="@drawable/bg_bt_f2f2f2"
+            android:layout_marginRight="12dp"
+            android:layout_alignParentRight="true"
+            android:text="展开"
+            android:layout_width="60dp"
+            android:layout_height="28dp" />
+    </RelativeLayout>
     <android.support.v7.widget.RecyclerView
+        android:visibility="gone"
         android:id="@+id/rv_shangpinliebiao"
         android:layout_marginTop="12dp"
         android:layout_width="match_parent"
@@ -161,13 +213,13 @@
         android:orientation="horizontal"
         android:gravity="center_vertical|right">
 
-        <TextView
-            android:id="@+id/tv_jianshu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="共2件商品"
-            android:textColor="#ff666666"
-            android:textSize="13sp" />
+        <!--<TextView-->
+            <!--android:id="@+id/tv_jianshu"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="共2件商品"-->
+            <!--android:textColor="#ff666666"-->
+            <!--android:textSize="13sp" />-->
 
         <TextView
             android:layout_width="wrap_content"

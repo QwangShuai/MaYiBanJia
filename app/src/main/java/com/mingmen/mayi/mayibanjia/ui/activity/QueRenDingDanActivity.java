@@ -29,6 +29,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 
 
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.TiJiaoDingDanDianPuAdapter;
+import com.mingmen.mayi.mayibanjia.ui.activity.adapter.TiJiaoDingDanShichangAdapter;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.MyMath;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
@@ -89,15 +90,16 @@ public class QueRenDingDanActivity extends BaseActivity {
 //    @BindView(R.id.iv_xuanzeyue)
 //    ImageView ivXuanzeyue;
     private Context mContext;
-    private List<QueRenDingDanShangPinBean> shangpindata = new ArrayList<>();
+    private List<QueRenDingDanShangPinBean> shichangdata = new ArrayList<>();
     private String zongjia;
-    private TiJiaoDingDanDianPuAdapter shangpinadapter;
+    private TiJiaoDingDanShichangAdapter adapter;
     private AddressListBean dizhi;
     private ArrayList<SongDaShiJianBean> songdashijianlist;
     private String songdashijianname;
     private String songdashijianid = "";
-    private String yunfei;
-    private String hejijine = "0";
+    private Double yunfei = 0.00;
+    private Double zongzhong = 0.00;
+    private Double hejijine = 0.00;
     private String shopping_id = "";
     private String remarke = "";
     private String yue = "";
@@ -150,9 +152,12 @@ public class QueRenDingDanActivity extends BaseActivity {
     }
 
     private void tijiaodingdan() {
-        List<QueRenDingDanShangPinBean> list = shangpinadapter.getDianpulist();
+        List<QueRenDingDanShangPinBean> list = shichangdata;
         for (int i = 0; i < list.size(); i++) {
-            remarke += list.get(i).getLiuyan() + ",";
+            for (int j=0;j<list.get(i).getDplist().size();j++){
+                remarke += list.get(i).getDplist().get(j).getRemark() + ",";
+            }
+
         }
         remarke = remarke.substring(0, remarke.length() - 1);
 
@@ -169,7 +174,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .tijiaodingdan(PreferenceUtils.getString(MyApplication.mContext, "token", ""), hejijine, "", yunfei, yue, dizhi.getAddress_id(), songdashijianid, shopping_id, remarke))
+                                .tijiaodingdan(PreferenceUtils.getString(MyApplication.mContext, "token", ""), hejijine+"", "", yunfei+"", yue, dizhi.getAddress_id(), songdashijianid, shopping_id, remarke))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
@@ -177,7 +182,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                         Intent intent = new Intent(mContext, XuanZeZhiFuFangShiActivity.class);
                         intent.putExtra("dingdanid", data);
                         intent.putExtra("dingdanleixing", "2");
-                        intent.putExtra("zongjia", hejijine);
+                        intent.putExtra("zongjia", hejijine+"");
                         intent.putExtra("yue", yue);
                         intent.putExtra("yemian", "0");
                         startActivity(intent);
@@ -188,9 +193,12 @@ public class QueRenDingDanActivity extends BaseActivity {
     }
 
     private void caigoutijiaodingdan() {
-        List<QueRenDingDanShangPinBean> list = shangpinadapter.getDianpulist();
+        List<QueRenDingDanShangPinBean> list = shichangdata;
         for (int i = 0; i < list.size(); i++) {
-            remarke += list.get(i).getLiuyan() + ",";
+            for (int j=0;j<list.get(i).getDplist().size();j++){
+                remarke += list.get(i).getDplist().get(j).getRemark() + ",";
+            }
+
         }
         remarke = remarke.substring(0, remarke.length() - 1);
         Log.e("canshucanshu", "user_token=" + PreferenceUtils.getString(MyApplication.mContext, "token", "") + "&total_price=" + hejijine + "&pay_type=&freight_fee=" + yunfei + "&balance_pice=" + yue + "&deliver_address=" + dizhi.getAddress_id() + "&arrival_time=" + songdashijianid + "&son_order_id=" + son_order_id + "&commodity_id=" + commodity_id + "&remarke=" + remarke);
@@ -199,7 +207,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .caigoutijiaodingdan(PreferenceUtils.getString(MyApplication.mContext, "token", ""), hejijine, "", yunfei, yue, dizhi.getAddress_id(), songdashijianid, son_order_id, commodity_id, remarke))
+                                .caigoutijiaodingdan(PreferenceUtils.getString(MyApplication.mContext, "token", ""), hejijine+"", "", yunfei+"", yue, dizhi.getAddress_id(), songdashijianid, son_order_id, commodity_id, remarke))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
@@ -208,7 +216,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                         intent.putExtra("dingdanid", data);
                         intent.putExtra("dingdanleixing", "1");
 //                    intent.putExtra("yuezhifu",shiyongyue);
-                        intent.putExtra("zongjia", hejijine);
+                        intent.putExtra("zongjia", hejijine+"");
                         intent.putExtra("yue", yue);
                         startActivity(intent);
                     }
@@ -228,26 +236,29 @@ public class QueRenDingDanActivity extends BaseActivity {
                     @Override
                     public void onNext(List<QueRenDingDanShangPinBean> data) {
                         Log.e("getsplist", gson.toJson(data));
-                        shangpindata = new ArrayList<QueRenDingDanShangPinBean>();
-                        shangpindata.addAll(data);
-                        shangpinadapter = new TiJiaoDingDanDianPuAdapter(mContext, shangpindata);
+                        shichangdata = new ArrayList<QueRenDingDanShangPinBean>();
+                        shichangdata.addAll(data);
+                        adapter = new TiJiaoDingDanShichangAdapter(mContext, shichangdata);
                         rvTijiaodingdan.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
                         rvTijiaodingdan.setNestedScrollingEnabled(false);
-                        rvTijiaodingdan.setAdapter(shangpinadapter);
-                        for (int i = 0; i < data.size(); i++) {//i是店铺
-                            for (int j = 0; j < data.get(i).getList().size(); j++) {
-                                if (i==0&&j == 0) {//j是商品
-                                    spID += data.get(i).getList().get(j).getCommodity_id();
-                                    number += data.get(i).getList().get(j).getCount();
-                                } else {
-                                    spID += "," + data.get(i).getList().get(j).getCommodity_id();
-                                    number += "," + data.get(i).getList().get(j).getCount();
-                                }
-                                if (i == data.size() - 1 && j == data.get(i).getList().size() - 1) {
-                                    getYunFei();
+                        rvTijiaodingdan.setAdapter(adapter);
+                        for (int k=0;k<data.size();k++){
+                            for (int i = 0; i < data.get(k).getDplist().size(); i++) {//i是店铺
+                                for (int j = 0; j < data.get(k).getDplist().get(i).getList().size(); j++) {
+                                    if (k==0&&i==0&&j == 0) {//j是商品
+                                        spID += data.get(k).getDplist().get(i).getList().get(j).getCommodity_id();
+                                        number += data.get(k).getDplist().get(i).getList().get(j).getCount();
+                                    } else {
+                                        spID += "," + data.get(k).getDplist().get(i).getList().get(j).getCommodity_id();
+                                        number += "," + data.get(k).getDplist().get(i).getList().get(j).getCount();
+                                    }
+                                    if (k == data.size() - 1 && i == data.get(k).getDplist().size() - 1&&j==data.get(k).getDplist().get(i).getList().size()-1) {
+                                        getYunFei();
+                                    }
                                 }
                             }
                         }
+
 
                     }
                 });
@@ -265,6 +276,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                     public void onNext(Double data) {
                         Log.e("data", data + "---");
                         yue = data + "";
+                        Log.e("我的余额",yue);
 //                        tvYue.setText(yue);
                     }
                 });
@@ -368,7 +380,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                 startActivityForResult(intent, 1);
                 break;
             case R.id.tv_tijiaodingdan:
-                if ("0".equals(yunfei)) {
+                if (yunfei==0.00) {
                     ToastUtil.showToast("超重,暂无物流接单,请联系客服");
                 } else {
                     //提交订单
@@ -445,15 +457,20 @@ public class QueRenDingDanActivity extends BaseActivity {
                     .with(mContext)
                     .setObservable(RetrofitManager.getService()
                             .getYunFei(spID, dizhi.getAddress_id(), number))
-                    .setDataListener(new HttpDataListener<YunFeiBean>() {
+                    .setDataListener(new HttpDataListener<List<YunFeiBean>>() {
                         @Override
-                        public void onNext(YunFeiBean o) {
+                        public void onNext(List<YunFeiBean> o) {
+                            adapter.setYunfei(o);
                             Log.e("21212","走不到了啊");
-                            yunfei = o.getPrice() + "";
-                            tvYunfei.setText(o.getPrice() + "");
-                            tvZhongliang.setText(o.getSumzl()+")");
-                            hejijine = MyMath.addBigDecType(new BigDecimal(zongjia), new BigDecimal(o.getPrice() + "")) + "";
+                            hejijine = Double.valueOf(zongjia);
+                            for (int i=0;i<o.size();i++ ){
+                                hejijine += o.get(i).getMoney();
+                                yunfei +=o.get(i).getMoney();
+                                zongzhong += o.get(i).getSumZL();
+                            }
                             tvHejijine.setText(hejijine + "");
+                            tvZhongliang.setText("￥"+zongzhong+")");
+                            tvYunfei.setText(yunfei+"");
                         }
                     });
         }

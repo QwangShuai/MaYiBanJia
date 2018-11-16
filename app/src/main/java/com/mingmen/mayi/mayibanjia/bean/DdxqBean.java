@@ -2,7 +2,7 @@ package com.mingmen.mayi.mayibanjia.bean;
 
 import com.chad.library.adapter.base.entity.AbstractExpandableItem;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
-import com.mingmen.mayi.mayibanjia.ui.activity.adapter.DdXqShichangAdapter;
+import com.mingmen.mayi.mayibanjia.ui.activity.adapter.XqShichangAdapter;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -198,6 +198,25 @@ public class DdxqBean {
         private Object specific_address;
         private Object create_time;
         private String orderState;
+        private String freight_fee;
+        private String price;
+
+        public String getFreight_fee() {
+            return freight_fee;
+        }
+
+        public void setFreight_fee(String freight_fee) {
+            this.freight_fee = freight_fee;
+        }
+
+        public String getPrice() {
+            return price;
+        }
+
+        public void setPrice(String price) {
+            this.price = price;
+        }
+
         private List<DplistBean> dplist;
 
         public String getOrderState() {
@@ -407,7 +426,7 @@ public class DdxqBean {
 
         @Override
         public int getItemType() {
-            return DdXqShichangAdapter.TYPE_LEVEL_0;
+            return XqShichangAdapter.TYPE_LEVEL_0;
         }
 
         public static class DplistBean extends AbstractExpandableItem<DplistBean.ListspBean> implements MultiItemEntity{
@@ -1288,7 +1307,7 @@ public class DdxqBean {
 
             @Override
             public int getItemType() {
-                return DdXqShichangAdapter.TYPE_LEVEL_1;
+                return XqShichangAdapter.TYPE_LEVEL_1;
             }
 
             public static class ListspBean  implements MultiItemEntity {
@@ -2373,7 +2392,7 @@ public class DdxqBean {
 
                 @Override
                 public int getItemType() {
-                    return DdXqShichangAdapter.TYPE_LEVEL_2;
+                    return XqShichangAdapter.TYPE_LEVEL_2;
                 }
             }
         }

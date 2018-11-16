@@ -2,6 +2,7 @@ package com.mingmen.mayi.mayibanjia.ui.activity.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +29,7 @@ public class TiJiaoDingDanShangPinAdapter extends RecyclerView.Adapter<TiJiaoDin
 
     private ViewHolder viewHolder;
     private Context mContext;
-    private List<QueRenDingDanShangPinBean.ListBean> mList;
+    private List<QueRenDingDanShangPinBean.DplistBean.ListBean> mList;
     private boolean isSelected;
     private OnItemClickListener mOnItemClickListener;
 
@@ -38,7 +39,7 @@ public class TiJiaoDingDanShangPinAdapter extends RecyclerView.Adapter<TiJiaoDin
 
 
     public interface OnItemClickListener {
-        void onClick(View view, int position, List<QueRenDingDanShangPinBean.ListBean> mList);
+        void onClick(View view, int position, List<QueRenDingDanShangPinBean.DplistBean.ListBean> mList);
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -49,7 +50,7 @@ public class TiJiaoDingDanShangPinAdapter extends RecyclerView.Adapter<TiJiaoDin
         isSelected = selected;
     }
 
-    public TiJiaoDingDanShangPinAdapter(Context mContext, List<QueRenDingDanShangPinBean.ListBean> list) {
+    public TiJiaoDingDanShangPinAdapter(Context mContext, List<QueRenDingDanShangPinBean.DplistBean.ListBean> list) {
         this.mContext = mContext;
         this.mList = list;
     }
@@ -62,7 +63,13 @@ public class TiJiaoDingDanShangPinAdapter extends RecyclerView.Adapter<TiJiaoDin
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        final QueRenDingDanShangPinBean.ListBean shoppingBean = mList.get(position);
+        final QueRenDingDanShangPinBean.DplistBean.ListBean shoppingBean = mList.get(position);
+        if(TextUtils.isEmpty(shoppingBean.getAppend_money()+"")||shoppingBean.getAppend_money()==null){
+            holder.tvFujiafei.setVisibility(View.GONE);
+        } else {
+            holder.tvFujiafei.setText("(附加费："+shoppingBean.getAppend_money()+"元)");
+            holder.tvFujiafei.setVisibility(View.VISIBLE);
+        }
         holder.tvName.setText(shoppingBean.getCommodity_name());
         holder.tvGuige.setText(shoppingBean.getPack_standard());
         holder.tvDanjia.setText(shoppingBean.getPrice() + "");
@@ -70,12 +77,12 @@ public class TiJiaoDingDanShangPinAdapter extends RecyclerView.Adapter<TiJiaoDin
         Glide.with(mContext).load(shoppingBean.getUrl()).into(holder.ivSptu);
     }
 
-    public List<QueRenDingDanShangPinBean.ListBean> getmList() {
+    public List<QueRenDingDanShangPinBean.DplistBean.ListBean> getmList() {
         Log.e("gson2", new Gson().toJson(mList) + "--");
         return mList;
     }
 
-    public void setmList(List<QueRenDingDanShangPinBean.ListBean> list) {
+    public void setmList(List<QueRenDingDanShangPinBean.DplistBean.ListBean> list) {
         mList = list;
         notifyDataSetChanged();
     }
@@ -97,6 +104,8 @@ public class TiJiaoDingDanShangPinAdapter extends RecyclerView.Adapter<TiJiaoDin
         TextView tvDanjia;
         @BindView(R.id.tv_shuliang)
         TextView tvShuliang;
+        @BindView(R.id.tv_fujiafei)
+        TextView tvFujiafei;
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);

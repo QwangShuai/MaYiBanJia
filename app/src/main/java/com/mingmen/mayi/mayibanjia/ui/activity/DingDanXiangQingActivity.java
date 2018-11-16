@@ -19,10 +19,12 @@ import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.DdxqBean;
+import com.mingmen.mayi.mayibanjia.bean.DdxqListBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.DdXqShichangAdapter;
+import com.mingmen.mayi.mayibanjia.ui.activity.adapter.XqShichangAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
@@ -98,7 +100,9 @@ public class DingDanXiangQingActivity extends BaseActivity {
 
     private Context mContext;
     private String order_id = "";
-    private List<MultiItemEntity> mList = new ArrayList<>();
+//    private List<MultiItemEntity> mList = new ArrayList<>();
+    private List<DdxqListBean.MarketBean> mList = new ArrayList<>();
+//    private XqShichangAdapter adapter;
     private DdXqShichangAdapter adapter;
     private ConfirmDialog dialog;
     private String zongjia = "0";
@@ -120,27 +124,27 @@ public class DingDanXiangQingActivity extends BaseActivity {
         getOrderXiangqing();
     }
 
-    private void getOrderXiangqing() {
+    public void getOrderXiangqing() {
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
                         RetrofitManager
                                 .getService()
                                 .getOrderXiangqing(PreferenceUtils.getString(MyApplication.mContext, "token", ""), order_id))
-                .setDataListener(new HttpDataListener<DdxqBean>() {
+                .setDataListener(new HttpDataListener<DdxqListBean>() {
                     @Override
-                    public void onNext(DdxqBean data) {
+                    public void onNext(DdxqListBean data) {
                         Log.e("1122", new Gson().toJson(data));
                         if (data.getState().equals("401")) {
                             tvState.setText("等待卖家付款");
                             llDaifukuan.setVisibility(View.VISIBLE);
                             ivState.setImageResource(R.mipmap.daifukuan_ddxq);
                         } else if (data.getState().equals("402")) {
-                            ivState.setImageResource(R.mipmap.gouwuche);
+                            ivState.setImageResource(R.mipmap.daifahuo_ddxq);
 //                            btnZaiciGoumai.setVisibility(View.VISIBLE);
                             tvState.setText("待卖家发货");
                         } else if (data.getState().equals("404")) {
-                            ivState.setImageResource(R.mipmap.gouwuche);
+                            ivState.setImageResource(R.mipmap.daifahuo_ddxq);
 //                            btnZaiciGoumai.setVisibility(View.VISIBLE);
                             btnQuerenShouhuo.setVisibility(View.VISIBLE);
                             tvState.setText("卖家已发货");
@@ -156,10 +160,10 @@ public class DingDanXiangQingActivity extends BaseActivity {
                         tvName.setText(data.getLinman());
                         tvPhone.setText(data.getDianhua());
                         tvDizhi.setText("地址:" + data.getDizhi());
-                        tvSpNumber.setText(data.getSp() + "    合计:");
+//                        tvSpNumber.setText(data.getSp() + "    合计:");
                         tvDingdanBianhao.setText("订单编号:" + data.getOrder_number());
                         tvXiadanRiqi.setText("下单日期:" + data.getCreate_time());
-                        zongjia = data.getTotal();
+                        zongjia = data.getTotal()+"";
                         setJiaGeShowView(tvZong0, tvZong1, data.getTotal_price() + "");
                         setJiaGeShowView(tvYunfei0, tvYunfei1, data.getFreight_fee() + "");
                         if (TextUtils.isEmpty(data.getAppend_money()+"") || data.getAppend_money() == null) {
@@ -169,45 +173,27 @@ public class DingDanXiangQingActivity extends BaseActivity {
                         }
 
                         setJiaGeShowView(tvHeji0, tvHeji1, data.getTotal() + "");
-                        mList.clear();
-                        mList.addAll(getAdapterData(data));
-                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false) {
-                            @Override
-                            public boolean canScrollVertically() {
-                                return false;
-                            }
-                        };
-                        adapter = new DdXqShichangAdapter(mList, DingDanXiangQingActivity.this);
-                        adapter.expandAll();
-                        rvShichang.setLayoutManager(linearLayoutManager);
+//                        mList.clear();
+//                        mList.addAll(data.getMarket());
+//                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false) {
+//                            @Override
+//                            public boolean canScrollVertically() {
+//                                return false;
+//                            }
+//                        };
+//                        adapter = new XqShichangAdapter(mList, DingDanXiangQingActivity.this);
+//                        adapter.expandAll();
+                        adapter = new DdXqShichangAdapter(mContext,data.getMarket());
+                        rvShichang.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
                         rvShichang.setAdapter(adapter);
+                        //解决数据加载不完的问题
+                        rvShichang.setNestedScrollingEnabled(false);
+                        //当知道Adapter内Item的改变不会影响RecyclerView宽高的时候，可以设置为true让RecyclerView避免重新计算大小
+                        rvShichang.setHasFixedSize(true);
+                        rvShichang.setFocusable(false);
                         adapter.notifyDataSetChanged();
                     }
                 });
-    }
-    private List<MultiItemEntity> getAdapterData(DdxqBean deDdxqBean) {//三级列表数据源
-        List<MultiItemEntity> data = new ArrayList<>();
-        for (int i = 0; i < deDdxqBean.getMarket().size(); i++) {
-            DdxqBean.MarketBean item0 = deDdxqBean.getMarket().get(i);
-            for (int j = 0; j < item0.getDplist().size(); j++) {
-                DdxqBean.MarketBean.DplistBean item1 = item0.getDplist().get(j);
-                for (int k = 0; k < item1.getListsp().size(); k++) {
-                    DdxqBean.MarketBean.DplistBean.ListspBean item2 = item1.getListsp().get(k);
-                    item2.setPay_state(item1.getState());
-                    if(k==item1.getListsp().size()-1){
-                        item2.setEnd(true);
-                        item2.setShu(item1.getShu());
-                        item2.setDpprice(item1.getDpprice());
-                    } else {
-                        item2.setEnd(false);
-                    }
-                    item1.addSubItem(item2);
-                }
-                item0.addSubItem(item1);
-            }
-            data.add(item0);
-        }
-        return data;
     }
 
     @Override

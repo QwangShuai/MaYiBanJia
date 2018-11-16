@@ -169,6 +169,9 @@ public abstract class BaseDingDanFragment extends BaseFragment {
                         it.putExtra("orderID", mlist.get(position).getOrder_id());
                         startActivity(it);
                         break;
+//                    case R.id.btn_more://展开收起
+//
+//                        break;
                 }
             }
         });

@@ -103,6 +103,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <android.support.v7.widget.RecyclerView
+                        android:descendantFocusability="blocksDescendants"
                         android:id="@+id/rv_shichang"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -376,7 +377,7 @@
                             android:id="@+id/tv_sp_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="共0件商品    合计:"
+                            android:text="合计:"
                             android:textColor="@color/zicolor"
                             android:textSize="13sp" />
 
@@ -507,7 +508,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="13dp"
+                    android:layout_marginLeft="24dp"
                     android:text="要求送达时间:"
                     android:textColor="@color/zangqing"
                     android:textSize="15sp" />

@@ -131,14 +131,13 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
         Glide.with(activity).load(listBean.getPicture_url()).into(holder.ivSptu);//商品图
         holder.tvGuige.setText(listBean.getPack_standard_name());//规格
         if(position==0){//只执行一次  查询价格
-
+            if (bean.getCommodity_id() == null || bean.getCommodity_id().isEmpty()) {//是否选中
+                holder.llZongjia.setVisibility(View.GONE);
+            } else {
+                holder.llZongjia.setVisibility(View.VISIBLE);//选中的就获取当前总价
+                getcaigoudanjiage(listBean.getSon_order_id(), bean.getCommodity_id(), holder.tvZongjia);
+            }
         }
-//        if (bean.getCommodity_id() == null || bean.getCommodity_id().isEmpty()) {//是否选中
-//            holder.llZongjia.setVisibility(View.GONE);
-//        } else {
-//            holder.llZongjia.setVisibility(View.VISIBLE);//选中的就获取当前总价
-//            getcaigoudanjiage(listBean.getSon_order_id(), bean.getCommodity_id(), holder.tvZongjia);
-//        }
         if(listBean.isSpecial()){
             holder.tvTeshu.setVisibility(View.VISIBLE);//特殊商品显示标签
         }
@@ -148,29 +147,29 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
 
         }
 
-        holder.tvXitongtuijian.setText(listBean.isNeedLoad() == true ? "重发抢单" : "系统推荐");
+        holder.tvXitongtuijian.setText("系统推荐");
         if (listBean.isSpecial()) {
-            if (listBean.getLevels() == null) {
-                Log.e("meiyou系统推荐", "meiyou系统推荐");
+//            if (listBean.getLevels() == null) {
+//                Log.e("meiyou系统推荐", "meiyou系统推荐");
                 holder.tvXitongtuijian.setText("重新抢单");//特殊商品没有系统推荐  重新抢单
-                youtuijian = false;
-            } else {
-                Log.e("有系统推荐", "有系统推荐");
-                holder.tvXitongtuijian.setText( "系统推荐");//特殊商品  有推荐  点系统推荐
-                youtuijian = true;
-            }
+//                youtuijian = false;
+//            } else {
+//                Log.e("有系统推荐", "有系统推荐");
+//                holder.tvXitongtuijian.setText( "系统推荐");//特殊商品  有推荐  点系统推荐
+//                youtuijian = true;
+//            }
         }
         final boolean finalYoutuijian = youtuijian;
         holder.tvXitongtuijian.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (finalYoutuijian) {//有推荐
-                    if (isShow[position]) {//判断展开还是关闭
+//                if (finalYoutuijian) {//有推荐
+//                    if (isShow[position]) {//判断展开还是关闭
 //                        collapse(getParentPosition(listBean));
-                    } else {
+//                    } else {
 //                        expand(getParentPosition(listBean));
-                    }
-                } else {//没有推荐
+//                    }
+//                } else {//没有推荐
                     if (!listBean.isSpecial()) {//不是特殊商品  不调用接口
                         return;
                     }
@@ -186,10 +185,13 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
                                 .setDataListener(new HttpDataListener<String>() {
                                     @Override
                                     public void onNext(String data) {
+                                        mList.get(position).getLevels().clear();
+                                        isShow[position] = false;
                                         Log.e("data", data + "---");
                                         ToastUtil.showToast("发送抢单信息成功");
                                         downTimer.start();
                                         runningThree[0] = false;
+
                                     }
                                 });
                     }
@@ -197,7 +199,7 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
 
                 }
 
-            }
+//            }
         });
 
 
@@ -214,11 +216,12 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
 //                activity.MoveToPosition(position);
 
                 if (listBean.isNeedLoad()) {//是否需要加载数据
-                    if (!listBean.isSpecial()) {//如果不是特殊商品
-                        getshenpi(listBean, position,activity);
-                    } else {
+//                    if (!listBean.isSpecial()) {//如果不是特殊商品
+//                        getshenpi(listBean, position,activity);
+//                    } else {
 //                                ToastUtil.showToast("");
-                    }
+//                    }
+                    getshenpi(listBean, position,activity);
                 } else {
                     //不需要加载数据时
 //                    展开二级列表
@@ -318,7 +321,7 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
                             public void onNext(String data) {
                                 Log.e("data", data + "---");
                                 tv_zongjia.setText(data);
-                                notifyDataSetChanged();
+//                                notifyDataSetChanged();
                             }
                         });
     }
@@ -408,5 +411,9 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
 
     public void setXuanzhong(int pos){
         adapter.setXuanzhong(pos);
+    }
+
+    public void setZongjia(String zongjia){
+
     }
 }

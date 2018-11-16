@@ -99,7 +99,7 @@ public class ShenPiLevelTwoAdapter extends RecyclerView.Adapter<ShenPiLevelTwoAd
         holder.tvDianming.setText(ccListBeanLevel.getCcListBean().getCompany_name() + "");
         holder.tvGuige.setText(ccListBeanLevel.getCcListBean().getPack_standard() + "");
         holder.tvDanjia.setText(ccListBeanLevel.getCcListBean().getPrice() + "");
-        holder.tvSpming.setText("已售" + ccListBeanLevel.getCcListBean().getCommodity_sales());
+        holder.tvSpming.setText(ccListBeanLevel.getCcListBean().getCommodity_name()+"");
         if (ccListBeanLevel.getCcListBean().isxianshi())
             holder.biaoqian.setVisibility(View.VISIBLE);
         else

@@ -185,7 +185,9 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
                                 .setDataListener(new HttpDataListener<String>() {
                                     @Override
                                     public void onNext(String data) {
-                                        mList.get(position).getLevels().clear();
+                                        if (mList!=null){
+                                            mList.get(position).getLevels().clear();
+                                        }
                                         isShow[position] = false;
                                         Log.e("data", data + "---");
                                         ToastUtil.showToast("发送抢单信息成功");

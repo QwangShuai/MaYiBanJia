@@ -23,15 +23,40 @@
         android:background="@color/cutoff"
         android:layout_width="match_parent"
         android:layout_height="1dp"></View>
-    <TextView
-        android:id="@+id/tv_order_number"
-        android:textSize="15sp"
-        android:textColor="@color/lishisousuo"
+    <RelativeLayout
         android:layout_marginTop="20dp"
         android:layout_marginLeft="13dp"
-        android:text="订单编号：1794633446547"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_order_number"
+            android:textSize="15sp"
+            android:textColor="@color/lishisousuo"
+            android:text="订单编号：1794633446547"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:id="@+id/ll_saoma"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_marginRight="9dp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@mipmap/saoma"/>
+            <TextView
+                android:text="扫码"
+                android:textSize="14sp"
+                android:textColor="@color/zangqing"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="13dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </RelativeLayout>
     <LinearLayout
         android:layout_marginTop="12dp"
         android:layout_marginLeft="13dp"
@@ -53,6 +78,66 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/ll_baozhuang"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="13dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/baozhuanggeshu"
+                android:textSize="15sp"
+                android:textColor="@color/lishisousuo"
+                android:text="包装个数："
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_baozhuanggeshu"
+                android:textSize="15sp"
+                android:textColor="@color/zangqing"
+                android:text="15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <TextView
+            android:textSize="14sp"
+            android:id="@+id/tv_quhuoma"
+            android:layout_marginRight="12dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/zangqing"
+            android:text="取货码"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_saomageshu"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="13dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/saomageshu"
+            android:textSize="15sp"
+            android:textColor="@color/lishisousuo"
+            android:text="扫码个数："
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_saomageshu"
+            android:textSize="15sp"
+            android:textColor="@color/zicolor"
+            android:text="10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
     <LinearLayout
         android:layout_marginTop="12dp"
         android:layout_marginLeft="13dp"

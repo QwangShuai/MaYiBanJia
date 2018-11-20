@@ -7,6 +7,7 @@ package com.mingmen.mayi.mayibanjia.app;
 import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
+import android.support.multidex.MultiDexApplication;
 
 import com.qiniu.android.common.FixedZone;
 import com.qiniu.android.storage.Configuration;
@@ -16,7 +17,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
-public class MyApplication extends Application {
+public class MyApplication extends MultiDexApplication {
     ExecutorService cachedThreadPool = null;
 
     public ExecutorService getCachedThreadPool() {

@@ -41,7 +41,6 @@ public class PeiSongXiangQingActivity extends BaseActivity {
     private String wlID = "";
     private Context mContext;
     private SJPSXiangQingAdapter adapter;
-    private final static int SCANNIN_GREQUEST_CODE = 1;
     private List<SiJiWLXQBean> mList = new ArrayList<SiJiWLXQBean>();
     @Override
     public int getLayoutId() {
@@ -72,44 +71,13 @@ public class PeiSongXiangQingActivity extends BaseActivity {
                     }
                 });
     }
-    public void saomiaoQrCode(){
-//        this.id = id;
-        Intent intent = new Intent();
-        intent.setClass(mContext, CaptureActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivityForResult(intent, SCANNIN_GREQUEST_CODE);
-    }
-    public void updateQrCode(String id){
-        HttpManager.getInstance()
-                .with(mContext)
-                .setObservable(
-                        RetrofitManager
-                                .getService()
-                                .updateQrCode(PreferenceUtils.getString(MyApplication.mContext, "token",""),id,"","1",""))
-                .setDataListener(new HttpDataListener<String>() {
-                    @Override
-                    public void onNext(String data) {
-                        getWLXQ(wlID);
-                    }
-                });
-    }
+
     @OnClick(R.id.iv_back)
     public void OnClick(View v){
         switch (v.getId()){
             case R.id.iv_back:
                 finish();
                 break;
-        }
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        //扫描结果回调
-        if (resultCode == CaptureActivity.RESULT_CODE_QR_SCAN) {
-            Bundle bundle = data.getExtras();
-            String scanResult = bundle.getString(CaptureActivity.INTENT_EXTRA_KEY_QR_SCAN);
-            Log.e("678678",scanResult);
-            updateQrCode(scanResult);
         }
     }
 }

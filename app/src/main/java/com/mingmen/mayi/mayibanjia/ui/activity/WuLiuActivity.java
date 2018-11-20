@@ -32,6 +32,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.dialog.WuLiuDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import java.util.ArrayList;
@@ -128,15 +129,16 @@ public class WuLiuActivity extends BaseActivity {
                 });
     }
     private void showTuiChuPop() {
-        View view = View.inflate(mContext, R.layout.pop_tuichu, null);
+        View view = View.inflate(mContext, R.layout.pop_jiesuan, null);
         tuichupop = new PopupWindow(view);
 
         WindowManager wm1 = this.getWindowManager();
         int width = wm1.getDefaultDisplay().getWidth();
         int height = wm1.getDefaultDisplay().getHeight();
         tuichupop.setWidth(AppUtil.dip2px(130));
-        tuichupop.setHeight(AppUtil.dip2px(50));
+        tuichupop.setHeight(AppUtil.dip2px(100));
         LinearLayout ll_tuichu = view.findViewById(R.id.ll_tuichu);
+        LinearLayout ll_yunfei = view.findViewById(R.id.ll_jiesuan);
         ll_tuichu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,6 +161,12 @@ public class WuLiuActivity extends BaseActivity {
                         tuichupop.dismiss();
                     }
                 });
+            }
+        });
+        ll_yunfei.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(mContext,YunFeiJieSuanActivity.class));
             }
         });
         tuichupop.setOutsideTouchable(true);

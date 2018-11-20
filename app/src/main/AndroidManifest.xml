@@ -271,7 +271,8 @@
         <activity android:name=".ui.activity.YueActivity" /> <!-- 余额 -->
         <activity android:name=".ui.activity.jiaoyiliushui.JiaoYiMingXiActivity" /> <!-- 交易明细 -->
         <activity android:name=".ui.activity.JiaoYiXiangQingActivity" /> <!-- 交易详情 -->
-        <activity android:name=".ui.activity.FaBiaoPingJiaActivity"></activity><!-- 发表评价 -->
+        <activity android:name=".ui.activity.FaBiaoPingJiaActivity" /> <!-- 发表评价 -->
+        <activity android:name=".ui.activity.YunFeiJieSuanActivity" /><!-- 运费结算 -->
     </application>
 
 </manifest>

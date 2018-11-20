@@ -71,7 +71,7 @@ public class DdXqDianpuAdapter extends RecyclerView.Adapter<DdXqDianpuAdapter.Vi
                 CallPhone(dplistBean.getTelephone());
             }
         });
-        if (dplistBean.getState().equals("404")){
+        if (dplistBean.getState().equals("406")){
             holder.llTongji.setVisibility(View.VISIBLE);
             holder.tvJianshu.setText(dplistBean.getShu());
             DingDanXiangQingActivity.instance.setJiaGeShowView(holder.tvZongjia1,holder.tvZongjia2,dplistBean.getTotal());

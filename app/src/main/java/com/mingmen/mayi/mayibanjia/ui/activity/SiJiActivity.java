@@ -7,12 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
+import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.WuLiuBean;
@@ -27,6 +29,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.dialog.WuLiuDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.qrCode.CaptureActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +50,7 @@ public class SiJiActivity extends BaseActivity {
     private PopupWindow tuichupop;
     private ConfirmDialog confirmDialog;
     private SiJiPeiSongAdapter adapter;
+    private final static int SCANNIN_GREQUEST_CODE = 1;
     private int count = 1;
     private List<WuLiuBean> mList= new ArrayList<WuLiuBean>();
     @Override
@@ -159,5 +163,39 @@ public class SiJiActivity extends BaseActivity {
     protected void onRestart() {
         super.onRestart();
         getShuaXinPeiSong("");
+    }
+    public void updateQrCode(String id){
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .updateQrCode(PreferenceUtils.getString(MyApplication.mContext, "token",""),id,"","1",""))
+                .setDataListener(new HttpDataListener<String>() {
+                    @Override
+                    public void onNext(String data) {
+                        getPeiSong("");
+                    }
+                });
+    }
+
+    public void saomiaoQrCode(){
+//        this.id = id;
+        Intent intent = new Intent();
+        intent.setClass(mContext, CaptureActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivityForResult(intent, SCANNIN_GREQUEST_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //扫描结果回调
+        if (resultCode == CaptureActivity.RESULT_CODE_QR_SCAN) {
+            Bundle bundle = data.getExtras();
+            String scanResult = bundle.getString(CaptureActivity.INTENT_EXTRA_KEY_QR_SCAN);
+            Log.e("678678",scanResult);
+            updateQrCode(scanResult);
+        }
     }
 }

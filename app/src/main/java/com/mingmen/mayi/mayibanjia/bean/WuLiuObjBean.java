@@ -24,7 +24,7 @@ public class WuLiuObjBean<T> {
     private int state2;
     private int state3;
     private int state4;
-
+    private List<T> ddList;
     public int getState1() {
         return state1;
     }
@@ -56,8 +56,6 @@ public class WuLiuObjBean<T> {
     public void setState4(int state4) {
         this.state4 = state4;
     }
-
-    private List<T> ddList;
 
     public int getCount() {
         return count;
@@ -97,8 +95,5 @@ public class WuLiuObjBean<T> {
 
     public void setDdList(List<T> ddList) {
         this.ddList = ddList;
-    }
-
-    public static class DdListBean {
     }
 }

@@ -9,6 +9,8 @@ android {
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
+
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     lintOptions {
@@ -72,6 +74,7 @@ dependencies {
     compile 'com.zhihu.android:matisse:0.4.3'
     compile 'com.android.support:design:27.+'
     compile 'com.google.zxing:core:3.3.3'
+    compile 'com.android.support:multidex:1.0.0'
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
 }

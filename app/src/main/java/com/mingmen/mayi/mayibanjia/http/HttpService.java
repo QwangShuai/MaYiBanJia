@@ -56,6 +56,7 @@ import com.mingmen.mayi.mayibanjia.bean.XiTongTuiJianBean;
 import com.mingmen.mayi.mayibanjia.bean.XuanZeYinHangKaBean;
 import com.mingmen.mayi.mayibanjia.bean.YinHangKaBean;
 import com.mingmen.mayi.mayibanjia.bean.YunFeiBean;
+import com.mingmen.mayi.mayibanjia.bean.YunFeiJieSuanBean;
 import com.mingmen.mayi.mayibanjia.bean.ZhangHuRenZhengBean;
 import com.mingmen.mayi.mayibanjia.bean.ZhuCeChengGongBean;
 import com.mingmen.mayi.mayibanjia.bean.ZouShiTuBean;
@@ -664,8 +665,8 @@ public interface HttpService {
     //运费查询
     @POST("Ordermain/qyeryByFreightFee.do")
     Observable<ResultModel<List<YunFeiBean>>> getYunFei(@Query("commodity_id") String commodity_id,
-                                                  @Query("deliver_address") String deliver_address,
-                                                  @Query("number") String number);
+                                                        @Query("deliver_address") String deliver_address,
+                                                        @Query("number") String number);
 
     //获取司机物流详情列表
     @POST("wl/wlByOrderNumber.do")
@@ -829,18 +830,33 @@ public interface HttpService {
     //交易明细
     @POST("payHistory/getId.do")
     Observable<ResultModel<JYMXItemBean>> getJYMXItem(@Query("user_token") String user_token,
-                                                                 @Query("history_id") String history_id);
+                                                      @Query("history_id") String history_id);
 
     //提现
     @POST("payHistory/withdrawCash.do")
     Observable<ResultModel<String>> tixian(@Query("user_token") String user_token,
                                            @Query("pay_money") String pay_money,
                                            @Query("collect_bank_id") String collect_bank_id);
+
     //确认收货
     @POST("payHistory/ture.do")
     Observable<ResultModel<String>> querenshouhuo(@Query("user_token") String user_token,
-                                           @Query("order_id") String order_id);
+                                                  @Query("order_id") String order_id);
+
     //获取经纬度
     @POST("Ordermain/jingweidu.do")
     Observable<ResultModel<String>> getJingweidu(@Query("addr") String addr);
+
+    //获取运费结算列表
+    @POST("wlSettlement/list.do")
+    Observable<ResultModel<YunFeiJieSuanBean>> getYunfeiList(@Query("user_token") String user_token,
+                                                             @Query("pageNumber") String pageNumber,
+                                                             @Query("settle_accounts_state") String settle_accounts_state);
+
+    //运费结算
+    @POST("wlSettlement/settlement.do")
+    Observable<ResultModel<String>> yunfeijiesuan(@Query("user_token") String user_token,
+                                                  @Query("wl_cars_order_id") String wl_cars_order_id,
+                                                  @Query("freight_fee") String freight_fee,
+                                                  @Query("actual_freight") String actual_freight);
 }

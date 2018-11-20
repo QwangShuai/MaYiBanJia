@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.mingmen.mayi.mayibanjia.ui.activity.YunFeiJieSuanActivity">
+
+    <include layout="@layout/head_zangqing_select" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"></android.support.v7.widget.RecyclerView>
+
+    <LinearLayout
+        android:id="@+id/ll_jiesuan"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="39dp"
+        android:orientation="vertical"
+        android:visibility="visible">
+        <RelativeLayout
+            android:id="@+id/rl"
+            android:paddingTop="9dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/ll_quanxuan"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/iv_quanxuan"
+                    android:src="@drawable/selectr_gouwuche_danxuan"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
+                <TextView
+                    android:text="全选"
+                    android:layout_marginLeft="8dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/zicolor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textSize="13sp"
+                    android:textColor="@color/lishisousuo"
+                    android:text="合计：￥"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tv_zongjia"
+                    android:textSize="18sp"
+                    android:textColor="@color/zicolor"
+                    android:text="0"
+                    android:layout_marginLeft="2dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </RelativeLayout>
+        <View
+            android:layout_marginTop="11dp"
+            android:layout_marginLeft="12dp"
+            android:background="@color/cutoff"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+        <RelativeLayout
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:background="@drawable/bg_zangqing_biankuang"
+                android:layout_alignParentRight="true"
+                android:id="@+id/bt_jiesuan"
+                android:text="合并结算"
+                android:textColor="@color/zangqing"
+                android:textSize="12sp"
+                android:layout_width="70dp"
+                android:layout_height="28dp" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

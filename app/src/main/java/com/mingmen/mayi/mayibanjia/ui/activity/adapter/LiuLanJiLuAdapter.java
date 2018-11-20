@@ -65,7 +65,7 @@ public class LiuLanJiLuAdapter extends RecyclerView.Adapter<LiuLanJiLuAdapter.Vi
         holder.tvSpming.setText(data.getGoodsName());
         holder.tvDianming.setText(data.getShopName());
         holder.tvJiage.setText(data.getPrice()+"");
-        holder.tvGuige.setText(data.getPackStandard()+"");
+        //holder.tvGuige.setText(data.getPackStandard()+"");
         holder.tvSpxiaoliang.setText(data.getCollectCount()+"人收藏");
         Glide.with(mContext).load(data.getGoodsPicture()).into(holder.ivSptu);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -84,7 +84,6 @@ public class LiuLanJiLuAdapter extends RecyclerView.Adapter<LiuLanJiLuAdapter.Vi
                 zoushi.putExtra("market_name",data.getMarket_name());//市场名
                 zoushi.putExtra("classify_id",data.getType_tree_id());//三级分类名称
                 zoushi.putExtra("classify_name",data.getClassify_name());//三级分类名称
-                Log.e("classify_name",data.getClassify_name()+"=");
                 mContext.startActivity(zoushi);
             }
         });
@@ -111,8 +110,8 @@ public class LiuLanJiLuAdapter extends RecyclerView.Adapter<LiuLanJiLuAdapter.Vi
         TextView tvSpming;
         @BindView(R.id.tv_dianming)
         TextView tvDianming;
-        @BindView(R.id.tv_guige)
-        TextView tvGuige;
+/*        @BindView(R.id.tv_guige)
+        TextView tvGuige;*/
         @BindView(R.id.tv_renminbi)
         TextView tvRenminbi;
         @BindView(R.id.tv_jiage)

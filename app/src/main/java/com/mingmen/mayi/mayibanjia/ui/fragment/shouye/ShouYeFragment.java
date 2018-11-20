@@ -292,14 +292,14 @@ public class ShouYeFragment extends BaseFragment {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getbanner())
+                                .getbanner(PreferenceUtils.getString(MyApplication.mContext, "token","")))
                 .setDataListener(new HttpDataListener<List<ShouYeBannerBean>>() {
 
                     @Override
                     public void onNext(List<ShouYeBannerBean> list) {
                         bannerBean=new ArrayList<ShouYeBannerBean>();
                         bannerBean.addAll(list);
-                        Log.e("fenleifenlei", bannerBean.size() + "---");
+                        Log.e("fenleifenlei1", bannerBean.size() + "---");
                         getShouyeFenLei();
                     }
                 },false);

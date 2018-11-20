@@ -75,7 +75,7 @@ public interface HttpService {
 
     //首页轮播图
     @POST("allPhoto/show.do")
-    Observable<ResultModel<List<ShouYeBannerBean>>> getbanner();
+    Observable<ResultModel<List<ShouYeBannerBean>>> getbanner(@Query("user_token") String user_token);
 
     //首页特价商品
     @POST("sy/querytjgoods.do")

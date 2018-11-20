@@ -67,7 +67,7 @@
                 android:text=""
                 android:textColor="#474747"
                 android:textSize="12sp"
-                android:hint="西红柿"
+                android:hint=""
                 android:paddingLeft="2dp"
                 android:textColorHint="#999999"
                 android:imeOptions="actionSearch"

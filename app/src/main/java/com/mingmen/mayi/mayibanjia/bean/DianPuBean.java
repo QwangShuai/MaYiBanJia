@@ -71,6 +71,15 @@ public class DianPuBean {
     private float evaluation;
     private String attention_number;
     private String market_name;
+    private String commodity_sales;
+
+    public String getCommodity_sales() {
+        return commodity_sales;
+    }
+
+    public void setCommodity_sales(String commodity_sales) {
+        this.commodity_sales = commodity_sales;
+    }
 
     public String getMarket_name() {
         return market_name;

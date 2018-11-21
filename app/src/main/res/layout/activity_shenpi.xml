@@ -30,23 +30,24 @@
             android:background="@color/beijing"
             >
             <LinearLayout
+                android:gravity="center"
                 android:id="@+id/ll_quanxuan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingLeft="12dp"
-                android:gravity="bottom"
+
                 android:layout_centerVertical="true"
                 >
-                <ImageView
-                    android:id="@+id/iv_quanxuan"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/selectr_gouwuche_danxuan"/>
+                <!--<ImageView-->
+                    <!--android:id="@+id/iv_quanxuan"-->
+                    <!--android:layout_width="20dp"-->
+                    <!--android:layout_height="20dp"-->
+                    <!--android:src="@drawable/selectr_gouwuche_danxuan"/>-->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="全选"
+                    android:text="批量选择:"
                     android:textColor="#ff474747"
                     android:textSize="12sp"
                     android:layout_marginLeft="8dp"
@@ -54,9 +55,8 @@
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/ll_select"
-                android:layout_width="178dp"
+                android:layout_width="wrap_content"
                 android:layout_height="35dp"
-                android:background="@drawable/fillet_hollow_999999_3"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="12dp"
                 android:layout_alignParentRight="true">
@@ -64,21 +64,40 @@
                     android:id="@+id/tv_biaoqian"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text=""
                     android:textColor="@color/zicolor"
-                    android:textSize="12sp"
+                    android:textSize="15sp"
                     android:gravity="center_vertical"
-                    android:paddingLeft="12dp"
-                    android:hint="请选择"
-                    android:textColorHint="@color/hintcolor"
+                    android:text="@string/xiaoliangzuigao"
+                    android:textColorHint="@color/zicolor"
                     android:layout_weight="1"
                     />
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/xiangxia_hui"
-                    android:layout_marginRight="4dp"
-                    android:layout_gravity="center_vertical"
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:id="@+id/tv_jiagezuidi"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/zicolor"
+                    android:textSize="15sp"
+                    android:gravity="center_vertical"
+                    android:text="@string/jiagezuidi"
+                    android:textColorHint="@color/zicolor"
+                    android:layout_weight="1"
+                    />
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:id="@+id/tv_pingfenzuigao"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/zicolor"
+                    android:textSize="15sp"
+                    android:gravity="center_vertical"
+                    android:text="@string/pingfenzuigao"
+                    android:textColorHint="@color/zicolor"
+                    android:layout_weight="1"
                     />
             </LinearLayout>
         </RelativeLayout>

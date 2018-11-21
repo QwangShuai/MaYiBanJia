@@ -93,7 +93,7 @@ public abstract class BaseGHOrderFragment extends BaseFragment {
     }
     private void initview() {
         rvDingdan.setLayoutManager(new LinearLayoutManager(rvDingdan.getContext(), LinearLayoutManager.VERTICAL, false));
-        adapter = new GHOrderAdapter(getActivity(), mlist,getActivity());
+        adapter = new GHOrderAdapter(getActivity(), mlist,getActivity(),this);
         rvDingdan.setAdapter(adapter);
     }
     public abstract String getZhuangTai();
@@ -110,5 +110,26 @@ public abstract class BaseGHOrderFragment extends BaseFragment {
         super.onResume();
         ye = 1;
         getData();
+    }
+    //数据
+    public void shuaxinData() {
+        ye = 1;
+        Log.e("110",getZhuangTai());
+        HttpManager.getInstance()
+                .with(getActivity())
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .getGHOrderList(PreferenceUtils.getString(MyApplication.mContext, "token",""),getZhuangTai(),ye))
+                .setDataListener(new HttpDataListener<List<GHOrderBean>>() {
+                    @Override
+                    public void onNext(List<GHOrderBean> data) {
+                        Log.e("data1",data+"---");
+                        mlist.clear();
+                        mlist.addAll(data);
+                        adapter.notifyDataSetChanged();
+                        ye++;
+                    }
+                });
     }
 }

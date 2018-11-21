@@ -61,6 +61,15 @@ public class GHOrderBean {
     private String mj_sweep_time;
     private String company_name;
     private String telephone;
+    private String refund;
+
+    public String getRefund() {
+        return refund;
+    }
+
+    public void setRefund(String refund) {
+        this.refund = refund;
+    }
 
     public String getCompany_name() {
         return company_name;

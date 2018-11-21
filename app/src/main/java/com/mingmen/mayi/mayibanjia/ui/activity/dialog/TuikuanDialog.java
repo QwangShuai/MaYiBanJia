@@ -23,6 +23,7 @@ import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
+import com.mingmen.mayi.mayibanjia.ui.activity.ghdingdan.BaseGHOrderFragment;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
@@ -52,12 +53,14 @@ public class TuikuanDialog extends Dialog{
     private String order_id;
     private String order_number;
     private Context context;
+    private BaseGHOrderFragment fragment;
 
-    public TuikuanDialog(@NonNull Context context,String order_id,String order_number) {
+    public TuikuanDialog(@NonNull Context context,String order_id,String order_number,BaseGHOrderFragment fragment) {
         super(context);
         this.context = context;
         this.order_id = order_id;
         this.order_number = order_number;
+        this.fragment = fragment;
     }
 
     @OnClick({R.id.btn_cancle,R.id.btn_confirm})
@@ -126,6 +129,7 @@ public class TuikuanDialog extends Dialog{
                     @Override
                     public void onNext(String bean) {
                         ToastUtil.showToast("退款成功");
+                        fragment.shuaxinData();
                         dismiss();
                     }
                 },true);

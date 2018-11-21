@@ -79,9 +79,6 @@ public class ShenPiLevelTwoAdapter extends RecyclerView.Adapter<ShenPiLevelTwoAd
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.getIvQuanxuan().setSelected(false);
-                activity.getTvBiaoqian().setText("");
-                activity.getTvBiaoqian().setHint("请选择");
                 for (int i = 0; i < mList.size(); i++) {
                         mList.get(i).setXuanzhong(false);
                 }

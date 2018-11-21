@@ -92,12 +92,16 @@ public class ShenPiActivity extends BaseActivity {
     TextView tvTijiao;
     @BindView(R.id.tv_biaoqian)
     TextView tvBiaoqian;
-    @BindView(R.id.view_showpop)
-    View viewShowpop;
-    @BindView(R.id.ll_select)
-    LinearLayout llSelect;
-    @BindView(R.id.iv_quanxuan)
-    ImageView ivQuanxuan;
+    @BindView(R.id.tv_pingfenzuigao)
+    TextView tvPingfenzuigao;
+    @BindView(R.id.tv_jiagezuidi)
+    TextView tvJiagezuidi;
+//    @BindView(R.id.view_showpop)
+//    View viewShowpop;
+//    @BindView(R.id.ll_select)
+//    LinearLayout llSelect;
+//    @BindView(R.id.iv_quanxuan)
+//    ImageView ivQuanxuan;
     private Context mContext;
     private List<CaiGouDanBean.ListBean> caigoudan = new ArrayList<>();
     private ConfirmDialog confirmDialog;
@@ -278,52 +282,6 @@ public class ShenPiActivity extends BaseActivity {
                 });
     }
 
-
-    //PopupWindow  三个选项的pop   价格最低  评分最高  销量最高
-    private void showPopupWindow() {
-        CaiGouDanBean.ListBean listBean = caigoudan.get(0);
-
-        View view = View.inflate(mContext, R.layout.pop_xuanzebiaoqian, null);
-        mPopWindow = new PopupWindow(view);
-        int width = getWindowManager().getDefaultDisplay().getWidth();
-        mPopWindow.setWidth(width * 2 / 6);
-        mPopWindow.setHeight(AppUtil.dip2px(160));
-
-        TextView tv_xiaoliangzuigao =  (TextView)view.findViewById(R.id.tv_xiaoliangzuigao);
-        TextView tv_pingfenzuigao = (TextView) view.findViewById(R.id.tv_pingfenzuigao);
-        TextView tv_jiagezuidi = (TextView) view.findViewById(R.id.tv_jiagezuidi);
-        final Set<String> keys = xuanzhong.keySet();
-        final CaiGouDanBean.ListBean finalListBean = listBean;
-        tv_xiaoliangzuigao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //全选销量最高
-                Log.e("woyaode id",finalListBean.getPurchase_id());
-//                adapter.setXuanzhong(0);
-                setquanxuan(finalListBean.getMarket_id(), finalListBean.getPurchase_id(),CaiGouDanBean.TYPE_TWO+"");
-            }
-        });
-        tv_pingfenzuigao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //全选评分最高
-//                adapter.setXuanzhong(1);
-                setquanxuan(finalListBean.getMarket_id(), finalListBean.getPurchase_id(),CaiGouDanBean.TYPE_THREE+"");
-            }
-        });
-        tv_jiagezuidi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //全选评分最高
-//                adapter.setXuanzhong(2);
-                setquanxuan(finalListBean.getMarket_id(), finalListBean.getPurchase_id(),CaiGouDanBean.TYPE_ONE+"");
-            }
-        });
-        mPopWindow.setOutsideTouchable(true);
-        mPopWindow.setBackgroundDrawable(new BitmapDrawable());
-        mPopWindow.showAsDropDown(viewShowpop);
-
-    }
     //全选接口   返回的是全选后选择商品list
     private void setquanxuan(String market_id, String purchase_id, final String type) {
         Log.e("canshu",PreferenceUtils.getString(MyApplication.mContext, "token","")+"-"+market_id+"-"+purchase_id+"-"+type);
@@ -371,29 +329,29 @@ public class ShenPiActivity extends BaseActivity {
                         Log.e("son_order_id",son_order_id+"---");
                         zongjia(son_order_id,commodity_id,tvZongjia);
                         //通过传入的type确定选中的选项  显示在页面上
-                        switch (Integer.parseInt(type)){
-                            case CaiGouDanBean.TYPE_ONE:
-                                if (mPopWindow.isShowing()){
-                                    tvBiaoqian.setText("价格最低");
-                                    ivQuanxuan.setSelected(true);
-                                    mPopWindow.dismiss();
-                                }
-                                break;
-                            case CaiGouDanBean.TYPE_TWO:
-                                if (mPopWindow.isShowing()){
-                                    tvBiaoqian.setText("销量最高");
-                                    ivQuanxuan.setSelected(true);
-                                    mPopWindow.dismiss();
-                                }
-                                break;
-                            case CaiGouDanBean.TYPE_THREE:
-                                if (mPopWindow.isShowing()){
-                                    tvBiaoqian.setText("评分最高");
-                                    ivQuanxuan.setSelected(true);
-                                    mPopWindow.dismiss();
-                                }
-                                break;
-                        }
+//                        switch (Integer.parseInt(type)){
+//                            case CaiGouDanBean.TYPE_ONE:
+//                                if (mPopWindow.isShowing()){
+//                                    tvBiaoqian.setText("价格最低");
+//                                    ivQuanxuan.setSelected(true);
+//                                    mPopWindow.dismiss();
+//                                }
+//                                break;
+//                            case CaiGouDanBean.TYPE_TWO:
+//                                if (mPopWindow.isShowing()){
+//                                    tvBiaoqian.setText("销量最高");
+//                                    ivQuanxuan.setSelected(true);
+//                                    mPopWindow.dismiss();
+//                                }
+//                                break;
+//                            case CaiGouDanBean.TYPE_THREE:
+//                                if (mPopWindow.isShowing()){
+//                                    tvBiaoqian.setText("评分最高");
+//                                    ivQuanxuan.setSelected(true);
+//                                    mPopWindow.dismiss();
+//                                }
+//                                break;
+//                        }
                         adapter.notifyDataSetChanged();
                         Log.e("xuanzhong-activity",gson.toJson(xuanzhong));
                     }
@@ -506,8 +464,10 @@ public class ShenPiActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_tijiao, R.id.tv_right, R.id.ll_select,R.id.ll_quanxuan})
+    @OnClick({R.id.iv_back, R.id.tv_tijiao, R.id.tv_right, R.id.ll_select,R.id.ll_quanxuan,R.id.tv_biaoqian,
+            R.id.tv_pingfenzuigao,R.id.tv_jiagezuidi})
     public void onViewClicked(View view) {
+        CaiGouDanBean.ListBean listBean = caigoudan.get(0);
         switch (view.getId()) {
             case R.id.iv_back:
                 myBack();
@@ -530,7 +490,7 @@ public class ShenPiActivity extends BaseActivity {
                                 bean.setCompany_id("");
                                 bean.setDanjia("");
                                 tvZongjia.setText("0");
-                                ivQuanxuan.setSelected(false);
+//                                ivQuanxuan.setSelected(false);
                                 xuanzhong.put(caigoudan.get(caigoudan.size()-1).getSon_order_id(),bean);
                                 adapter.notifyDataSetChanged();
 //                                shangpinadapter.addData(msg);
@@ -600,17 +560,32 @@ public class ShenPiActivity extends BaseActivity {
                     }
                 break;
             case R.id.ll_select:
-                showPopupWindow();
+//                showPopupWindow();
                 break;
             case R.id.ll_quanxuan://点击全选按钮
-                if(isQuanXuan()!=null){
-                    xuanzhong.clear();
+//                if(isQuanXuan()!=null){
+//                    xuanzhong.clear();
 //                    shangpinadapter.notifyDataSetChanged();
-                    ivQuanxuan.setSelected(false);
-                    tvZongjia.setText("0.00");
-                } else {
-                    ToastUtil.showToast("请选择右边的标签");
-                }
+//                    ivQuanxuan.setSelected(false);
+//                    tvZongjia.setText("0.00");
+//                } else {
+//                    ToastUtil.showToast("请选择右边的标签");
+//                }
+                break;
+            case R.id.tv_biaoqian:
+                setShowColor();
+                setquanxuan(listBean.getMarket_id(), listBean.getPurchase_id(),CaiGouDanBean.TYPE_TWO+"");
+                tvBiaoqian.setTextColor(getResources().getColor(R.color.zangqing));
+                break;
+            case R.id.tv_pingfenzuigao:
+                setShowColor();
+                setquanxuan(listBean.getMarket_id(), listBean.getPurchase_id(),CaiGouDanBean.TYPE_THREE+"");
+                tvPingfenzuigao.setTextColor(getResources().getColor(R.color.zangqing));
+                break;
+            case R.id.tv_jiagezuidi:
+                setShowColor();
+                setquanxuan(listBean.getMarket_id(), listBean.getPurchase_id(),CaiGouDanBean.TYPE_ONE+"");
+                tvJiagezuidi.setTextColor(getResources().getColor(R.color.zangqing));
                 break;
         }
     }
@@ -637,14 +612,6 @@ public class ShenPiActivity extends BaseActivity {
 
     public void setTvBiaoqian(TextView tvBiaoqian) {
         this.tvBiaoqian = tvBiaoqian;
-    }
-
-    public ImageView getIvQuanxuan() {
-        return ivQuanxuan;
-    }
-
-    public void setIvQuanxuan(ImageView ivQuanxuan) {
-        this.ivQuanxuan = ivQuanxuan;
     }
 
     public HashMap<String,ShangpinidAndDianpuidBean> getXuanzhong() {
@@ -708,7 +675,6 @@ public class ShenPiActivity extends BaseActivity {
             zongjia(son_order_id,commodity_id,tvZongjia);
         } else {
             tvZongjia.setText("0");
-            ivQuanxuan.setSelected(false);
         }
 
     }
@@ -739,7 +705,6 @@ public class ShenPiActivity extends BaseActivity {
             zongjia(son_order_id,commodity_id,tvZongjia);
         } else {
             tvZongjia.setText("0");
-            ivQuanxuan.setSelected(false);
         }
 
     }
@@ -759,5 +724,11 @@ public class ShenPiActivity extends BaseActivity {
         } else {
             rvShenpi.scrollToPosition(n);
         }
+    }
+
+    public void setShowColor(){
+        tvBiaoqian.setTextColor(getResources().getColor(R.color.zicolor));
+        tvPingfenzuigao.setTextColor(getResources().getColor(R.color.zicolor));
+        tvJiagezuidi.setTextColor(getResources().getColor(R.color.zicolor));
     }
 }

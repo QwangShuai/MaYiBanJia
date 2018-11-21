@@ -42,11 +42,12 @@ public class GHOrderAdapter extends RecyclerView.Adapter<GHOrderAdapter.ViewHold
     private Context mContext;
     private List<GHOrderBean> mList;
     private Activity activity;
-
-    public GHOrderAdapter(Context mContext, List<GHOrderBean> list, Activity activity) {
+    private BaseGHOrderFragment fragment;
+    public GHOrderAdapter(Context mContext, List<GHOrderBean> list, Activity activity,BaseGHOrderFragment fragment) {
         this.mContext = mContext;
         this.mList = list;
         this.activity = activity;
+        this.fragment = fragment;
     }
 
     public interface OnItemClickListener {
@@ -66,6 +67,10 @@ public class GHOrderAdapter extends RecyclerView.Adapter<GHOrderAdapter.ViewHold
         final LinearLayoutManager manager = new LinearLayoutManager(mContext);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         holder.rv_shangpin.setLayoutManager(manager);
+        if(!TextUtils.isEmpty(bean.getRefund())){
+            holder.rlTuikuan.setVisibility(View.VISIBLE);
+            holder.tvTuikuanjine.setText(bean.getRefund());
+        }
         if (bean.getState_name().equals("待发货")) {
             holder.tv_state.setText("待发货");
             holder.rl_wancheng.setVisibility(View.GONE);
@@ -120,7 +125,7 @@ public class GHOrderAdapter extends RecyclerView.Adapter<GHOrderAdapter.ViewHold
         holder.tvTuikuan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new TuikuanDialog(mContext,bean.getGy_order_id(),bean.getGy_order_number()).show();
+                new TuikuanDialog(mContext,bean.getGy_order_id(),bean.getGy_order_number(),fragment).show();
             }
         });
         holder.iv_del.setOnClickListener(new View.OnClickListener() {
@@ -232,6 +237,10 @@ public class GHOrderAdapter extends RecyclerView.Adapter<GHOrderAdapter.ViewHold
         ImageView ivDianpuDianhua;
         @BindView(R.id.tv_tuikuan)
         TextView tvTuikuan;
+        @BindView(R.id.rl_tuikuan)
+        RelativeLayout rlTuikuan;
+        @BindView(R.id.tv_tuikuanjine)
+        TextView tvTuikuanjine;
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);

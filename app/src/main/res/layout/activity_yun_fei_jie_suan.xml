@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/gray_fafafa"
     tools:context="com.mingmen.mayi.mayibanjia.ui.activity.YunFeiJieSuanActivity">
 
     <include layout="@layout/head_zangqing_select" />

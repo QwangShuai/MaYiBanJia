@@ -100,15 +100,14 @@
                     </RelativeLayout>
                 </RelativeLayout>
                 <RelativeLayout
+                    android:layout_marginTop="44dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <android.support.v7.widget.RecyclerView
                         android:descendantFocusability="blocksDescendants"
                         android:id="@+id/rv_shichang"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="56dp"
-                        android:padding="12dp"></android.support.v7.widget.RecyclerView>
+                        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
                 </RelativeLayout>
 
 

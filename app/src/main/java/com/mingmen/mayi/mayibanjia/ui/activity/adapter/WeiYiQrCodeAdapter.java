@@ -107,7 +107,7 @@ public class WeiYiQrCodeAdapter extends RecyclerView.Adapter<WeiYiQrCodeAdapter.
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .updateQrCode(PreferenceUtils.getString(MyApplication.mContext, "token",""),"",data.getGy_order_id(),"2",data.getOnlyCode()))
+                                .updateQrCode(PreferenceUtils.getString(MyApplication.mContext, "token",""),"",mList.get(pos).getGy_order_id(),"2",mList.get(pos).getOnlyCode()))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {

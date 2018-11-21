@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/bg_item_yinying"
     android:padding="12dp">
     <RelativeLayout
         android:orientation="horizontal"
@@ -133,11 +134,11 @@
                 android:textSize="13sp" />
         </RelativeLayout>
     </RelativeLayout>
-    <View
-        android:layout_marginTop="18dp"
-        android:background="@mipmap/bg_dian_ddxq"
-        android:layout_width="match_parent"
-        android:layout_height="5dp"></View>
+    <!--<View-->
+        <!--android:layout_marginTop="18dp"-->
+        <!--android:background="@mipmap/bg_dian_ddxq"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="5dp"></View>-->
     <android.support.v7.widget.RecyclerView
         android:visibility="gone"
         android:id="@+id/rv_dianpu"

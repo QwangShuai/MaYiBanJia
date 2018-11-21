@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.mingmen.mayi.mayibanjia.R;
@@ -320,7 +321,7 @@ public class CaiGouDanActivity extends BaseActivity{
                             createTime = DateUtil.StrToDate(item.getQdTime(), "yyyy-MM-dd HH:mm:ss");
                             fen = DateUtil.dqsj(createTime, dangqianTime, "3");
                             if (fen<5){
-                                ToastUtil.showToast("商家正在抢单中，请抢单结束后再点击。距离抢单结束还有"+(5-fen)+"分钟。");
+                                ToastUtil.showToastLong("商家正在抢单中，请抢单结束后再点击。距离抢单结束还有"+(5-fen)+"分钟。");
                                 return false;
                             }else{
                                 return true;

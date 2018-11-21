@@ -55,7 +55,7 @@ public class DianPuListAdapter extends  RecyclerView.Adapter<DianPuListAdapter.V
         Glide.with(mContext).load(bean.getPhoto()).into(holder.iv_tu);
         holder.rb_pingfen.setRating(bean.getEvaluation());
         holder.tv_pingfen.setText(String.valueOf(bean.getEvaluation()));
-        holder.tv_yishou.setText("已售"+bean.getCompany_number());
+        holder.tv_yishou.setText("已售"+bean.getCommodity_sales());
         holder.tv_shichangming.setText(bean.getMarket_name());
         holder.tv_dizhi.setText(bean.getSpecific_address());
 

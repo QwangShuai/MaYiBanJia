@@ -48,7 +48,8 @@ public class YiJiFenLeiAdapter extends BaseQuickAdapter<FenLeiBean,BaseViewHolde
     protected void convert(final BaseViewHolder helper,final FenLeiBean item) {
         TextView yijifenlei = helper.getView(R.id.tv_yijifenlei);
         if (xuanzhongid.equals(item.getClassify_id())){
-            yijifenlei.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_zangqing_3));
+            yijifenlei.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_solid_zangqing_3));
+            yijifenlei.setTextColor(mContext.getResources().getColor(R.color.white));
         }else{
             yijifenlei.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_999999_3));
         }

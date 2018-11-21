@@ -71,37 +71,39 @@ public class DdXqDianpuAdapter extends RecyclerView.Adapter<DdXqDianpuAdapter.Vi
                 CallPhone(dplistBean.getTelephone());
             }
         });
-        if (dplistBean.getState().equals("406")){
-            holder.llTongji.setVisibility(View.VISIBLE);
-            holder.tvJianshu.setText(dplistBean.getShu());
-            DingDanXiangQingActivity.instance.setJiaGeShowView(holder.tvZongjia1,holder.tvZongjia2,dplistBean.getTotal());
-            holder.btnFukuan.setText("确认付款");
-            holder.btnFukuan.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog = new ConfirmDialog(mContext,
-                            mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
-                    dialog.showDialog("是否确认订单完成");
-                    dialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.dismiss();
-                            DingDanXiangQingActivity.instance.confirmOrder(dplistBean.getCompany_id());
-                        }
-                    });
-                    dialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.cancel();
-                        }
-                    });
-                }
-            });
-        } else if(dplistBean.getState().equals("405")){
-            holder.llTongji.setVisibility(View.VISIBLE);
-            holder.tvJianshu.setText(dplistBean.getShu());
-            DingDanXiangQingActivity.instance.setJiaGeShowView(holder.tvZongjia1,holder.tvZongjia2,dplistBean.getTotal());
-            holder.btnFukuan.setText("已支付");
+        if (dplistBean.getCt_state().equals("406")){
+            if(dplistBean.getState().equals("404")){
+                holder.llTongji.setVisibility(View.VISIBLE);
+                holder.tvJianshu.setText(dplistBean.getShu());
+                DingDanXiangQingActivity.instance.setJiaGeShowView(holder.tvZongjia1,holder.tvZongjia2,dplistBean.getTotal());
+                holder.btnFukuan.setText("确认付款");
+                holder.btnFukuan.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog = new ConfirmDialog(mContext,
+                                mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
+                        dialog.showDialog("是否确认订单完成");
+                        dialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                                DingDanXiangQingActivity.instance.confirmOrder(dplistBean.getCompany_id());
+                            }
+                        });
+                        dialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.cancel();
+                            }
+                        });
+                    }
+                });
+            }else if(dplistBean.getState().equals("405")){
+                holder.llTongji.setVisibility(View.VISIBLE);
+                holder.tvJianshu.setText(dplistBean.getShu());
+                DingDanXiangQingActivity.instance.setJiaGeShowView(holder.tvZongjia1,holder.tvZongjia2,dplistBean.getTotal());
+                holder.btnFukuan.setText("已支付");
+            }
         }
     }
 

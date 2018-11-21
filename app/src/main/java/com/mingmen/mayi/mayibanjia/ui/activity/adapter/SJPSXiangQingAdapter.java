@@ -20,6 +20,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.SiJiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.WeiYiQrCodeActivity;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
+import com.mingmen.mayi.mayibanjia.utils.custom.RecycleViewDivider;
 
 import java.util.List;
 
@@ -65,6 +66,8 @@ public class SJPSXiangQingAdapter extends RecyclerView.Adapter<SJPSXiangQingAdap
         holder.rvList.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         holder.rvList.setAdapter(adapter);
         holder.rvList.setFocusable(false);
+//        holder.rvList.addItemDecoration(new RecycleViewDivider(
+//                mContext, LinearLayoutManager.VERTICAL));
         holder.tv_peisongcanting.setText(String.valueOf(data.getCtName()));
         holder.tv_peisongdizhi.setText(data.getCtAddress());
         holder.tv_cantingdianhua.setText(data.getCtPhone());

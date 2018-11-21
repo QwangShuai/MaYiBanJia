@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingBottom="12dp"
     android:background="@drawable/bg_item_yinying">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -100,7 +101,9 @@
         <!--android:layout_height="2dp"-->
         <!--android:background="@color/cutoff"></View>-->
     <android.support.v7.widget.RecyclerView
+        android:padding="6dp"
         android:visibility="gone"
+        android:scrollbars="none"
         android:id="@+id/rv_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>

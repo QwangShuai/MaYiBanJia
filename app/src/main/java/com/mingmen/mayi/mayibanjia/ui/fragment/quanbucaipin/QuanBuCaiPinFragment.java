@@ -121,23 +121,23 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     private ArrayList<FenLeiBean> erjiFenLei;
     private ArrayList<FenLeiBean> sanjiFenLei;
     private boolean isLodeFenLei = false;
-    private YiJiFenLeiAdapter yijiadapter;
+    private YiJiFenLeiAdapter adapter;
     private ShangPinMohuAdapter sousuoadapter;
     private String yijipinleiid="";
     private String erjipinleiid="";
     private String sanjipinleiid="";
     private String erjipinleiname="";
     private String shichangid="";
-    private String sousuozi="";
     private boolean isdi=true;
     private String sousuo="";
     private int ye=1;
-    private String type="0";
     private SwipeMenuRecyclerView.LoadMoreListener mLoadMoreListener;
     private String shichangname;
     private ArrayList<FenLeiBean> dangqianerji;
     private MainActivity activity;
     private String TAG = "QuanBuCaiPinFragment";
+    public String type="0";
+    private PopupWindow yijipop;
     @Override
     protected View getSuccessView() {
         viewSPYXFragment = View.inflate(MyApplication.mContext, R.layout.fragment_quanbucaipin, null);
@@ -169,7 +169,9 @@ public class QuanBuCaiPinFragment extends BaseFragment {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH){
-                    sousuoshangpin( etSousuozi.getText().toString().trim(),"0");
+                    sousuo = etSousuozi.getText().toString().trim();
+//                    sousuomoren(sousuo);
+                    sousuoshangpin( sousuo,"0");
                     xianshi("shangpin");
                     return true;
                 }
@@ -234,7 +236,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 mContext.getResources().getIdentifier("BottomDialog", "style", mContext.getPackageName()));
         jiarugouwuchedialog.getWindow().setGravity(Gravity.BOTTOM | Gravity.LEFT | Gravity.RIGHT);
 
-        yijiadapter = new YiJiFenLeiAdapter();
+        adapter = new YiJiFenLeiAdapter();
         if(!TextUtils.isEmpty(activity.getType())){//是否是首页传参过来的
             tvPinlei.setText(activity.getType());
             tvPinlei.setTextColor(getResources().getColor(R.color.zangqing));
@@ -248,8 +250,8 @@ public class QuanBuCaiPinFragment extends BaseFragment {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 if (s.length()>0){
-                    sousuozi=s.toString().trim();
-                    sousuomoren(s.toString().trim());
+                    sousuo=s.toString().trim();
+                    sousuomoren(sousuo);
                     xianshi("sousuo");
                 }else{
                     xianshi("shangpin");
@@ -259,7 +261,8 @@ public class QuanBuCaiPinFragment extends BaseFragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length()>0){
-                    sousuomoren(s.toString().trim());
+                    sousuo=s.toString().trim();
+                    sousuomoren(sousuo);
                     xianshi("sousuo");
                 }else{
                     xianshi("shangpin");
@@ -269,7 +272,8 @@ public class QuanBuCaiPinFragment extends BaseFragment {
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.length()>0){
-                    sousuomoren(s.toString().trim());
+                    sousuo=s.toString().trim();
+                    sousuomoren(sousuo);
                     xianshi("sousuo");
                 }else{
                     xianshi("shangpin");
@@ -367,13 +371,13 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 },rvShangpin.getVisibility()==View.VISIBLE?true:false);
     }
     //商品搜索
-    private void sousuomoren(final String sousuo) {
+    private void sousuomoren(String sousuozi) {
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .sousuomoren(PreferenceUtils.getString(MyApplication.mContext, "token", ""), sousuo,"0"))
+                                .sousuomoren(PreferenceUtils.getString(MyApplication.mContext, "token", ""), sousuozi,"0"))
                 .setDataListener(new HttpDataListener<ShangPinSouSuoBean>() {
                     @Override
                     public void onNext(final ShangPinSouSuoBean data) {
@@ -389,6 +393,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                             @Override
                             public void onClick(View view, int position) {
                                 etSousuozi.setText(data.getZhengchang().get(position).getCommodity_name());
+                                sousuo = etSousuozi.getText().toString();
                                 sousuoshangpin(sousuo,"0");
                                 xianshi("shangpin");
 
@@ -452,7 +457,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 zuigaojia=et_jiagegao.getText().toString().trim();
                 tvShaixuan.setText(StringUtil.isEmpty(shichangname)?"不限":shichangname);
                 tvShaixuan.setTextColor(StringUtil.isEmpty(shichangname)?getResources().getColor(R.color.zicolor):getResources().getColor(R.color.zangqing));
-                sousuoshangpin(sousuozi,"0");
+                sousuoshangpin(sousuo,"0");
                 shaixuanpop.dismiss();
             }
         });
@@ -633,7 +638,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
 
     private void showYiJiPop() {
         View view = View.inflate(mContext, R.layout.pop_pinlei, null);
-        final PopupWindow yijipop = new PopupWindow(view);
+        yijipop = new PopupWindow(view);
 
         WindowManager wm1 = getActivity().getWindowManager();
         int width = wm1.getDefaultDisplay().getWidth();
@@ -648,11 +653,22 @@ public class QuanBuCaiPinFragment extends BaseFragment {
             height = zhengchu * 55 + 20;
         }
         yijipop.setHeight(AppUtil.dip2px(height));
-
-        rv_yijifenlei.setLayoutManager(new GridLayoutManager(mContext, 3));
-        rv_yijifenlei.setAdapter(yijiadapter);
-        yijiadapter.setNewData(yijiFenLei);
-        yijiadapter.setCallBack(new YiJiFenLeiAdapter.CallBack() {
+        GridLayoutManager manager = new GridLayoutManager(mContext,3);
+        rv_yijifenlei.setLayoutManager(manager);
+        rv_yijifenlei.setAdapter(adapter);
+        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize( int position) {
+                if(position==0){
+                    Log.e("看到了全部",""+position);
+                    return 3;
+                } else{
+                    return 1;
+                }
+            }
+        });
+        adapter.setNewData(yijiFenLei);
+        adapter.setCallBack(new YiJiFenLeiAdapter.CallBack() {
             @Override
             public void xuanzhong(FenLeiBean msg) {
                 Log.e("item",new Gson().toJson(msg));
@@ -665,7 +681,6 @@ public class QuanBuCaiPinFragment extends BaseFragment {
 
                 if (yijipinleiid.equals("")){
                     tvPinlei.setTextColor(getResources().getColor(R.color.zicolor));
-
                 }else{
                     tvPinlei.setTextColor(getResources().getColor(R.color.zangqing));
                     dangqianerji = new ArrayList<>();
@@ -679,7 +694,9 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                     }
 
                 }
-                sousuoshangpin(sousuozi,"0");
+                sousuo = "";
+                erjipinleiid = "";
+                sousuoshangpin(sousuo,"0");
 
             }
         });
@@ -687,7 +704,6 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         yijipop.setBackgroundDrawable(new BitmapDrawable());
         yijipop.showAsDropDown(llDiqu);
     }
-
     private void showErJiFenLei() {
         View view = View.inflate(mContext, R.layout.pop_ersanjifenlei, null);
         final PopupWindow yijipop = new PopupWindow(view);
@@ -704,10 +720,11 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         rv_erjifenlei.setLayoutManager(new AutoLineFeedLayoutManager());
         rv_erjifenlei.setAdapter(erjiadapter);
 
-        SanJiFenLeiAdapter sanJiFenLeiAdapter = new SanJiFenLeiAdapter();
+        final SanJiFenLeiAdapter sanJiFenLeiAdapter = new SanJiFenLeiAdapter();
         rv_sanjifenlei.setLayoutManager(new AutoLineFeedLayoutManager());
         rv_sanjifenlei.setAdapter(sanJiFenLeiAdapter);
         erjiadapter.setNewData(dangqianerji);
+        final ArrayList<FenLeiBean> dangqiansanji=new ArrayList<>();
         if (dangqianerji.size()>0){
             erjipinleiid= dangqianerji.get(0).getClassify_id();
             erjipinleiname= dangqianerji.get(0).getClassify_name();
@@ -719,14 +736,37 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                     tvPinlei.setText(msg.getClassify_name());
                     erjipinleiid = msg.getClassify_id();
                     erjipinleiname = msg.getClassify_name();
-
                     tvPinlei.setTextColor(getResources().getColor(R.color.zangqing));
-                    sousuoshangpin(sousuozi,"0");
-                    yijipop.dismiss();
+                    sousuoshangpin(sousuo,"0");
+                    dangqiansanji.clear();
+                    for (int i = 0; i < sanjiFenLei.size(); i++) {
+                        if (erjipinleiid.equals(sanjiFenLei.get(i).getParent_id())){
+                            dangqiansanji.add(sanjiFenLei.get(i));
+                        }
+                    }
+                    sanJiFenLeiAdapter.setNewData(dangqiansanji);
+                    sanJiFenLeiAdapter.setCallBack(new SanJiFenLeiAdapter.CallBack() {
+                        @Override
+                        public void xuanzhong(FenLeiBean msg) {
+                            Log.e("item",new Gson().toJson(msg));
+                            sanjipinleiid = msg.getClassify_id();
+                            tvPinlei.setTextColor(getResources().getColor(R.color.zangqing));
+                            if (sanjipinleiid.equals("0")){
+                                tvPinlei.setText(erjipinleiname);
+
+                            }else{
+                                tvPinlei.setText(msg.getClassify_name());
+                            }
+                            sanjipinleiid = "";
+                            sousuoshangpin(sousuo,"0");
+                            yijipop.dismiss();
+                        }
+
+                    });
+//                    yijipop.dismiss();
                 }
 
             });
-            ArrayList<FenLeiBean> dangqiansanji=new ArrayList<>();
             for (int i = 0; i < sanjiFenLei.size(); i++) {
                 if (erjipinleiid.equals(sanjiFenLei.get(i).getParent_id())){
                     dangqiansanji.add(sanjiFenLei.get(i));
@@ -744,9 +784,8 @@ public class QuanBuCaiPinFragment extends BaseFragment {
 
                     }else{
                         tvPinlei.setText(msg.getClassify_name());
-
                     }
-                    sousuoshangpin(sousuozi,"0");
+                    sousuoshangpin(sousuo,"0");
                     yijipop.dismiss();
                 }
 
@@ -760,7 +799,15 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         yijipop.setBackgroundDrawable(new BitmapDrawable());
         yijipop.showAsDropDown(llDiqu);
     }
-
+    private ArrayList<FenLeiBean> shauxinSanji(){
+        ArrayList<FenLeiBean> dangqiansanji=new ArrayList<>();
+        for (int i = 0; i < sanjiFenLei.size(); i++) {
+            if (erjipinleiid.equals(sanjiFenLei.get(i).getParent_id())){
+                dangqiansanji.add(sanjiFenLei.get(i));
+            }
+        }
+        return dangqiansanji;
+    }
     //添加购物车
     private void addcar(final String spid, String shuliang, String dianpuid, String gouwucheid, String guigeid) {
         Log.e("canshu", spid + "---" + shuliang + "---" + dianpuid + "---" + gouwucheid + "---" + guigeid);
@@ -812,7 +859,14 @@ public class QuanBuCaiPinFragment extends BaseFragment {
             case R.id.ll_pinlei:
                 //品类
                 if (isLodeFenLei) {
-                    showYiJiPop();
+                    Log.e("是否展示了",yijipop.isShowing()+"");
+                    yijipop.setFocusable(true);
+                    if(yijipop.isShowing()){
+                        yijipop.dismiss();
+                    } else {
+                        yijipop.showAsDropDown(llDiqu);
+//                        showYiJiPop();
+                    }
                 } else {
                     getFenLei();
                 }
@@ -837,7 +891,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 sousuo="";
                 type="1";
 
-                sousuoshangpin(sousuozi,type);
+                sousuoshangpin(sousuo,type);
                 setXuanXiangColor(tvXiaoliang);
                 break;
             case R.id.ll_jiage:
@@ -846,10 +900,10 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 sousuo="";
                 if (isdi){
                     type="4";
-                    sousuoshangpin(sousuozi,type);
+                    sousuoshangpin(sousuo,type);
                 }else{
                     type="3";
-                    sousuoshangpin(sousuozi,type);
+                    sousuoshangpin(sousuo,type);
                 }
                 setXuanXiangColor(tvJiage);
                 break;
@@ -861,7 +915,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 }
                 sousuo="";
                 type="2";
-                sousuoshangpin(sousuozi,type);
+                sousuoshangpin(sousuo,type);
                 setXuanXiangColor(tvPingfenzuigao);
                 break;
         }
@@ -878,15 +932,17 @@ public class QuanBuCaiPinFragment extends BaseFragment {
             yijipinleiid = activity.getSp_id();
         } else {
             type = "0";
-//            tvPinlei.setText("全部");
+            tvPinlei.setText("全部");
             tvPinlei.setTextColor(getResources().getColor(R.color.zicolor));
             yijipinleiid = "";
+            erjipinleiid = "";
+            sanjipinleiid = "";
             tvXiaoliang.setTextColor(getResources().getColor(R.color.zicolor));
             tvJiage.setTextColor(getResources().getColor(R.color.zicolor));
             tvPingfenzuigao.setTextColor(getResources().getColor(R.color.zicolor));
 
         }
-        sousuozi = "";
+        sousuo = "";
         getOneList();
     }
 

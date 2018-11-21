@@ -135,6 +135,9 @@ public class GouWuCheFragment extends BaseFragment {
 
     public void setShuaxin(){
         tvZongjia.setText("0");
+        selectedId.clear();
+        isSelect = false;
+        ivQuanxuan.setSelected(isSelect);
         getGouWuChe(true);
     }
     @Override

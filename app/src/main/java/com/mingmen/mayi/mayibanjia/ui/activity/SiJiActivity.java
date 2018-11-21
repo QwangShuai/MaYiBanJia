@@ -174,7 +174,7 @@ public class SiJiActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
-                        getPeiSong("");
+                        getShuaXinPeiSong("");
                     }
                 });
     }

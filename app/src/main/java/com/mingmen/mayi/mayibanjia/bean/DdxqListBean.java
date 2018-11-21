@@ -609,6 +609,16 @@ public class DdxqListBean {
             private String state;
             private String shu;
             private String total;
+            private String ct_state;
+
+            public String getCt_state() {
+                return ct_state;
+            }
+
+            public void setCt_state(String ct_state) {
+                this.ct_state = ct_state;
+            }
+
             private List<ListspBean> listsp;
 
             public String getState() {

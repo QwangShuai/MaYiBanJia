@@ -150,7 +150,7 @@ public class DingDanXiangQingActivity extends BaseActivity {
                             tvState.setText("卖家已发货");
                         } else if (data.getState().equals("406")) {
                             ivState.setImageResource(R.mipmap.yiwancheng);
-                            tvState.setText("卖家已收货");
+                            tvState.setText("买家已收货");
                         } else {
                             ivState.setImageResource(R.mipmap.yiwancheng);
                             btnShanchuDingdan.setVisibility(View.VISIBLE);

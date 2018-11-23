@@ -21,7 +21,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="历史购买"
+                android:text="已购店铺"
                 android:textColor="#ff3c92a3"
                 android:textSize="15sp"
                 android:layout_marginTop="12dp"
@@ -43,7 +43,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="历史收藏"
+                android:text="收藏店铺"
                 android:textColor="#ff3c92a3"
                 android:textSize="15sp"
                 android:layout_marginTop="12dp"

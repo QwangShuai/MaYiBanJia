@@ -84,31 +84,50 @@
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:background="@color/cutoff"/>
-                    <LinearLayout
-                        android:id="@+id/ll_dingdan"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                    <RelativeLayout
                         android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@mipmap/dingdan"
-                            />
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="我的订单"
-                            android:textColor="#ff666666"
-                            android:textSize="12sp"
-                            android:layout_marginTop="12dp"
+                            android:id="@+id/tv_dingdan"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:text="1"
+                            android:textSize="10sp"
+                            android:textColor="#ff3300"
+                            android:background="@drawable/fillet_hollow_ff3300_10"
+                            android:gravity="center"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="50dp"
+                            android:visibility="gone"
                             />
-                    </LinearLayout>
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/cutoff"/>
+                        <LinearLayout
+                            android:id="@+id/ll_dingdan"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/dingdan"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="我的订单"
+                                android:textColor="#ff666666"
+                                android:textSize="12sp"
+                                android:layout_marginTop="12dp"
+                                />
+                        </LinearLayout>
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/cutoff"/>
+                    </RelativeLayout>
+
                     <LinearLayout
                         android:id="@+id/ll_shangpinguanli"
                         android:layout_width="match_parent"

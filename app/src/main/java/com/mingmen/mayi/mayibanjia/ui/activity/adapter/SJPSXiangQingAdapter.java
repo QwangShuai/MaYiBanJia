@@ -15,9 +15,13 @@ import android.widget.TextView;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.SiJiWLXQBean;
 import com.mingmen.mayi.mayibanjia.bean.WuLiuBean;
+import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
+import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
+import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.PeiSongXiangQingActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.SiJiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.WeiYiQrCodeActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.DiTuDialog;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 import com.mingmen.mayi.mayibanjia.utils.custom.RecycleViewDivider;
@@ -72,7 +76,23 @@ public class SJPSXiangQingAdapter extends RecyclerView.Adapter<SJPSXiangQingAdap
         holder.tv_peisongdizhi.setText(data.getCtAddress());
         holder.tv_cantingdianhua.setText(data.getCtPhone());
         holder.tvLable.setText(data.getIdentifying());
-
+        holder.tv_ditu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HttpManager.getInstance()
+                        .with(mContext)
+                        .setObservable(RetrofitManager.getService()
+                                .getJingweidu(data.getCtAddress() + ""))
+                        .setDataListener(new HttpDataListener<String>() {
+                            @Override
+                            public void onNext(String weizhi) {
+                                DiTuDialog dialog = new DiTuDialog();
+                                dialog.setData(mContext, weizhi.split(",")[1], weizhi.split(",")[0], data.getCtAddress());
+                                dialog.show(activity.getSupportFragmentManager());
+                            }
+                        });
+            }
+        });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,6 +141,8 @@ public class SJPSXiangQingAdapter extends RecyclerView.Adapter<SJPSXiangQingAdap
 //        TextView tv_quhuoma;
         @BindView(R.id.rv_list)
         RecyclerView rvList;
+        @BindView(R.id.tv_ditu)
+        TextView tv_ditu;
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);

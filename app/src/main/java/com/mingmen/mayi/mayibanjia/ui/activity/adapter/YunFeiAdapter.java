@@ -32,7 +32,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2018/9/26.
  */
 
-public class YunFeiJieSuanAdapter extends RecyclerView.Adapter<YunFeiJieSuanAdapter.ViewHolder> {
+public class YunFeiAdapter extends RecyclerView.Adapter<YunFeiAdapter.ViewHolder> {
 
     private ViewHolder viewHolder;
     private Context mContext;
@@ -40,7 +40,7 @@ public class YunFeiJieSuanAdapter extends RecyclerView.Adapter<YunFeiJieSuanAdap
     private YunFeiJieSuanActivity activity;
     private boolean[] isSelect;
 
-    public YunFeiJieSuanAdapter(Context context, List<YunFeiJieSuanBean.DdListBean> list, YunFeiJieSuanActivity activity) {
+    public YunFeiAdapter(Context context, List<YunFeiJieSuanBean.DdListBean> list, YunFeiJieSuanActivity activity) {
         this.mContext = context;
         this.mList = list;
         this.activity = activity;

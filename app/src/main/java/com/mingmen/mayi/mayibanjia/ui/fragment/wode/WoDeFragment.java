@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.MainActivity;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
+import com.mingmen.mayi.mayibanjia.bean.CaiGouDanBean;
 import com.mingmen.mayi.mayibanjia.bean.PhoneBean;
 import com.mingmen.mayi.mayibanjia.bean.WoDeBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
@@ -40,6 +41,8 @@ import com.mingmen.mayi.mayibanjia.ui.base.BaseFragment;
 import com.mingmen.mayi.mayibanjia.ui.view.CircleImageView;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -109,6 +112,8 @@ public class WoDeFragment extends BaseFragment {
     RelativeLayout rlDaishouhuo;
     @BindView(R.id.tv_yishouhuo)
     TextView tvYishouhuo;
+    @BindView(R.id.tv_yiwancheng)
+    TextView tvYiwancheng;
     @BindView(R.id.rl_yishouhuo)
     RelativeLayout rlYishouhuo;
     @BindView(R.id.textView3)
@@ -125,6 +130,8 @@ public class WoDeFragment extends BaseFragment {
     RelativeLayout rlKefu;
     @BindView(R.id.rl_yijian)
     RelativeLayout  rlYijian;
+    @BindView(R.id.tv_xuqiudan_tishi)
+    TextView tvXuqiudanTishi;
     private View viewSPYXFragment;
     private Context mContext;
     private WoDeBean woDeBean;
@@ -155,12 +162,14 @@ public class WoDeFragment extends BaseFragment {
             }
         }
         getwode(true);
+        getlist();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         getwode(false);
+        getlist();
     }
     private LinearLayout layout_1;
     private void getwode(boolean isxianshi) {
@@ -218,6 +227,12 @@ public class WoDeFragment extends BaseFragment {
         }else{
             tvYishouhuo.setVisibility(View.VISIBLE);
             tvYishouhuo.setText(woDeBean.getAlready_ecipient());
+        }
+        if (Integer.parseInt(woDeBean.getAlready_complete())==0){
+            tvYiwancheng.setVisibility(View.GONE);
+        }else{
+            tvYiwancheng.setVisibility(View.VISIBLE);
+            tvYiwancheng.setText(woDeBean.getAlready_complete());
         }
 
         tvMingzi.setText(woDeBean.getCompany_name());
@@ -335,6 +350,29 @@ public class WoDeFragment extends BaseFragment {
                         Intent it = new Intent(mContext, GongYingDuanSheZhiActivity.class);
                         startActivity(it);
                         getActivity().finish();
+                    }
+                });
+    }
+    //采购单列表
+    public  void getlist() {
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .getcaigoudanlist(PreferenceUtils.getString(MyApplication.mContext, "token",""),"902" ))
+                .setDataListener(new HttpDataListener<List<CaiGouDanBean>>() {
+                    @Override
+                    public void onNext(List<CaiGouDanBean> list) {
+                        int zs = list==null?0:list.size();
+                        if(zs>0){
+                            tvXuqiudanTishi.setText(zs+"");
+                            tvXuqiudanTishi.setVisibility(View.VISIBLE);
+                        } else {
+                            tvXuqiudanTishi.setVisibility(View.GONE);
+                        }
+
+
                     }
                 });
     }

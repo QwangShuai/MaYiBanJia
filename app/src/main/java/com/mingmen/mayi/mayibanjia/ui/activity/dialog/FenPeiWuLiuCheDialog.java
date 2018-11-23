@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
+import android.text.method.ReplacementTransformationMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -73,6 +74,7 @@ public class FenPeiWuLiuCheDialog extends Dialog {
 
         bt_sure = (Button) v.findViewById(R.id.bt_sure);
         bt_cancle = (Button) v.findViewById(R.id.bt_cancle);
+        et_chepaihao.setTransformationMethod(new StringUtil.A2bigA());
         rl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {//弹出选择车辆类型

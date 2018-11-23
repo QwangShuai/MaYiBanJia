@@ -18,7 +18,7 @@ import com.mingmen.mayi.mayibanjia.bean.YunFeiJieSuanBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
-import com.mingmen.mayi.mayibanjia.ui.activity.adapter.YunFeiJieSuanAdapter;
+import com.mingmen.mayi.mayibanjia.ui.activity.adapter.YunFeiAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.YunFeiDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.YunFeiTypeDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
@@ -56,7 +56,7 @@ public class YunFeiJieSuanActivity extends BaseActivity {
     @BindView(R.id.tv_zongjia)
     TextView tvZongjia;
     private List<YunFeiJieSuanBean.DdListBean> list = new ArrayList<>();
-    private YunFeiJieSuanAdapter adapter;
+    private YunFeiAdapter adapter;
     private YunFeiTypeDialog dialog;
     private Context mContext;
     private int ye = 1;
@@ -79,7 +79,7 @@ public class YunFeiJieSuanActivity extends BaseActivity {
                 .setActivity(YunFeiJieSuanActivity.this)
                 .init(0, 0, 0)
                 .setTop(AppUtil.dip2px(44));
-        adapter = new YunFeiJieSuanAdapter(mContext, list, YunFeiJieSuanActivity.this);
+        adapter = new YunFeiAdapter(mContext, list, YunFeiJieSuanActivity.this);
         rvList.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         rvList.setAdapter(adapter);
         getList("0");

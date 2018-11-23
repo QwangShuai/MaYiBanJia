@@ -56,6 +56,24 @@ public class GWCShangPinBean {
             private String commodity_name;
             private String pack_standard_two;
             private String pack_standard_tree;
+            private String market_name;
+            private String market_id;
+
+            public String getMarket_name() {
+                return market_name;
+            }
+
+            public void setMarket_name(String market_name) {
+                this.market_name = market_name;
+            }
+
+            public String getMarket_id() {
+                return market_id;
+            }
+
+            public void setMarket_id(String market_id) {
+                this.market_id = market_id;
+            }
 
             public String getPack_standard_two() {
                 return pack_standard_two;

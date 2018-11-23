@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:text="待买家付款"
             android:textColor="#ff3c92a3"
-            android:textSize="12sp"
+            android:textSize="15sp"
             android:paddingRight="12dp"
             />
         <LinearLayout
@@ -49,11 +49,20 @@
         </LinearLayout>
 
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/cutoff"
-        android:layout_marginLeft="12dp"/>
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:background="@color/cutoff"-->
+        <!--android:layout_marginLeft="12dp"/>-->
+    <TextView
+        android:id="@+id/tv_shijian"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="创建时间："
+        android:textColor="#ff666666"
+        android:textSize="12sp"
+        android:paddingLeft="12dp"
+        />
     <LinearLayout
         android:visibility="gone"
         android:orientation="vertical"
@@ -241,14 +250,14 @@
                 android:layout_height="wrap_content"
                 android:text="7700"
                 android:textColor="#ff333333"
-                android:textSize="15sp"
+                android:textSize="18sp"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="."
                 android:textColor="#ff333333"
-                android:textSize="12sp"
+                android:textSize="15sp"
                 />
             <TextView
                 android:id="@+id/tv_zongjia2"
@@ -256,7 +265,7 @@
                 android:layout_height="wrap_content"
                 android:text="00"
                 android:textColor="#ff333333"
-                android:textSize="12sp"
+                android:textSize="15sp"
                 />
         </LinearLayout>
 

@@ -202,6 +202,15 @@ public class DdxqListBean {
         private Object region;
         private String price;
         private String freight_fee;
+        private String refund;//退款金额
+
+        public String getRefund() {
+            return refund;
+        }
+
+        public void setRefund(String refund) {
+            this.refund = refund;
+        }
 
         public String getPrice() {
             return price;

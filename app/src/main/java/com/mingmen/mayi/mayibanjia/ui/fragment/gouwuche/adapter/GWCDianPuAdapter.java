@@ -90,6 +90,7 @@ public class GWCDianPuAdapter extends  RecyclerView.Adapter<GWCDianPuAdapter.Vie
 //        Glide.with(mContext).load("http://www.zhenlvw.com/"+string.getFile_url())
 //                .into(holder.iv_danxuan);
         holder.tv_dianming.setText(datas.getCompany_name());
+        holder.tv_dianpushichang.setText(datas.getMarket_name());
         holder.iv_danxuan.setSelected(isSelected);
         shangpinlist = datas.getShangPinBeen();
         final GWCShangPinAdapter shangpinadapter = new GWCShangPinAdapter(mContext, shangpinlist, isSelected, gouWuCheFragment);
@@ -146,7 +147,6 @@ public class GWCDianPuAdapter extends  RecyclerView.Adapter<GWCDianPuAdapter.Vie
                         .setDataListener(new HttpDataListener<String>() {
                             @Override
                             public void onNext(String data) {
-                                Log.e("data",data+"(＾－＾)V");
                                 gouWuCheFragment.setShuaxin();
                             }
                         },false);
@@ -164,10 +164,8 @@ public class GWCDianPuAdapter extends  RecyclerView.Adapter<GWCDianPuAdapter.Vie
                 @Override
                 public void onClick(View v) {
                     datas.setSelected(!datas.isSelected());
-                    Log.e("sss",datas.isSelected()+"-");
                     holder.iv_danxuan.setSelected(datas.isSelected());
                     dianpulist.get(position).setSelected(datas.isSelected());
-                    Log.e("position",position+"-");
                     shangpinadapter.setSelected(datas.isSelected());
                     List<GWCShangPinBean.ShoppingBean> splist = shangpinadapter.getmList();
                     for (int i = 0; i <splist.size() ; i++) {
@@ -243,6 +241,7 @@ public class GWCDianPuAdapter extends  RecyclerView.Adapter<GWCDianPuAdapter.Vie
     static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView iv_danxuan;
         TextView tv_dianming;
+        TextView tv_dianpushichang;
         LinearLayout ll_jindian;
         SwipeMenuRecyclerView rv_shangpin;
         ViewHolder(View view) {
@@ -251,6 +250,7 @@ public class GWCDianPuAdapter extends  RecyclerView.Adapter<GWCDianPuAdapter.Vie
             ll_jindian=view.findViewById(R.id.ll_jindian);
             iv_danxuan=(ImageView) view.findViewById(R.id.iv_danxuan);
             tv_dianming=(TextView)view.findViewById(R.id.tv_dianming);
+            tv_dianpushichang=(TextView)view.findViewById(R.id.tv_dianpushichang);
             rv_shangpin=(SwipeMenuRecyclerView)view.findViewById(R.id.rv_shangpin);
         }
     }

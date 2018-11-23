@@ -13,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -44,6 +45,8 @@ import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.DateUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
+
+import org.w3c.dom.Text;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -176,7 +179,6 @@ public class TubiaoActivity extends FragmentActivity {
 
         startDate = qitianqian;
         endDate = jintian;
-
         tvKaishi.setText(startDate);
         tvFenleimingcheng.setText("分类名称："+classify_name);
         tvJieshu.setText(endDate);
@@ -357,6 +359,15 @@ public class TubiaoActivity extends FragmentActivity {
                 if (leixing==2){
                     ToastUtil.showToast("时间间隔不得超过30天");
                     return;
+                }
+                if(!TextUtils.isEmpty(startDate) && !TextUtils.isEmpty(endDate)){
+                    Date  startDateTwo = DateUtil.StringToDate(startDate, geshi);
+                    Date  endDateTwo = DateUtil.StringToDate(endDate, geshi);
+                    long badDate= DateUtil.dqsj(startDateTwo,endDateTwo,"1");
+                    if(badDate>30){
+                        ToastUtil.showToast("只能查三十天内的价格");
+                        return;
+                    }
                 }
                 zoushitu();
 

@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +49,6 @@ public class DdXqShichangAdapter extends RecyclerView.Adapter<DdXqShichangAdapte
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        Log.e("我的数据不知道拿到没",new Gson().toJson(mList));
         final DdxqListBean.MarketBean item0 = mList.get(position);
         adapter = new DdXqDianpuAdapter(mContext,item0.getDplist());
         holder.rvDianpu.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
@@ -58,11 +56,15 @@ public class DdXqShichangAdapter extends RecyclerView.Adapter<DdXqShichangAdapte
         holder.rvDianpu.setFocusable(false);
         holder.tvZonge.setText("商品总额：  ￥"+item0.getPrice());
         holder.tvYunfei.setText(item0.getFreight_fee());
+        if(item0.getRefund()==null || TextUtils.isEmpty(item0.getRefund()) || item0.getRefund().equals("0")){
+            holder.llTuikuan.setVisibility(View.GONE);
+        }else{
+            holder.tvTuikuanjier.setText("退款金额：  ￥"+item0.getRefund());
+        }
         if (item0.getOrderState().equals("401")) {//待付款
             holder.rlRongqi.setVisibility(View.GONE);
             holder.tvDaiquhuo.setVisibility(View.GONE);
             holder.tvFahuoshijian.setVisibility(View.GONE);
-
         } else if(item0.getOrderState().equals("402")){
             holder.rlRongqi.setVisibility(View.GONE);
             holder.tvFahuoshijian.setVisibility(View.GONE);
@@ -133,6 +135,10 @@ public class DdXqShichangAdapter extends RecyclerView.Adapter<DdXqShichangAdapte
         RelativeLayout rlRongqi;
         @BindView(R.id.rv_dianpu)
         RecyclerView rvDianpu;
+        @BindView(R.id.tv_tuikuanjier)
+        TextView tvTuikuanjier;
+        @BindView(R.id.ll_tuikuan)
+        LinearLayout llTuikuan;
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);

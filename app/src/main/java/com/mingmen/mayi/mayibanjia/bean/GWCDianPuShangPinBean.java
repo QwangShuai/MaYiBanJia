@@ -23,6 +23,24 @@ public class GWCDianPuShangPinBean {
     private boolean isSelected=false;
     private String liuyan="";
     private List<GWCShangPinBean.ShoppingBean> shangPinBeen;
+    private String market_name;
+    private String market_id;
+
+    public String getMarket_name() {
+        return market_name;
+    }
+
+    public void setMarket_name(String market_name) {
+        this.market_name = market_name;
+    }
+
+    public String getMarket_id() {
+        return market_id;
+    }
+
+    public void setMarket_id(String market_id) {
+        this.market_id = market_id;
+    }
 
     public String getLiuyan() {
         return liuyan;
@@ -143,5 +161,6 @@ public class GWCDianPuShangPinBean {
     public void setShangPinBeen(List<GWCShangPinBean.ShoppingBean> shangPinBeen) {
         this.shangPinBeen = shangPinBeen;
     }
+
 
 }

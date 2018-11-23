@@ -88,6 +88,7 @@ public class DingDanXiangQingAdapter extends RecyclerView.Adapter<DingDanXiangQi
         holder.rvShangpinliebiao.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         holder.rvShangpinliebiao.setAdapter(shangpinadapter);
         holder.rvShangpinliebiao.setFocusable(false);
+        holder.tvShijian.setText("创建时间："+dingdan.getCreate_time());
         if (mOnItemClickListener != null) {
             holder.btFukuan.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -275,6 +276,8 @@ public class DingDanXiangQingAdapter extends RecyclerView.Adapter<DingDanXiangQi
         LinearLayout llShanchu;
         @BindView(R.id.btn_more)
         Button btnMore;
+        @BindView(R.id.tv_shijian)
+        TextView tvShijian;
 
         ViewHolder(View view) {
             super(view);

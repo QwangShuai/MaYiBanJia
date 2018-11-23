@@ -133,8 +133,7 @@ public class DingDanXiangQingActivity extends BaseActivity {
                                 .getOrderXiangqing(PreferenceUtils.getString(MyApplication.mContext, "token", ""), order_id))
                 .setDataListener(new HttpDataListener<DdxqListBean>() {
                     @Override
-                    public void onNext(DdxqListBean data) {
-                        Log.e("1122", new Gson().toJson(data));
+                    public void onNext(DdxqListBean data) {;
                         if (data.getState().equals("401")) {
                             tvState.setText("等待卖家付款");
                             llDaifukuan.setVisibility(View.VISIBLE);
@@ -286,7 +285,6 @@ public class DingDanXiangQingActivity extends BaseActivity {
     public void setJiaGeShowView(TextView tv1, TextView tv2, String zongjia) {
         Log.e("总价",zongjia);
         if (zongjia.contains(".")) {
-            Log.e("总价",zongjia+"包含");
             tv1.setText(zongjia.split("\\.")[0] + ".");
             tv2.setText(zongjia.split("\\.")[1]);
         } else {

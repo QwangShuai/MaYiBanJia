@@ -22,7 +22,8 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:paddingRight="12dp">
+            android:paddingRight="12dp"
+            android:weightSum="1">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -42,7 +43,19 @@
                 android:layout_height="wrap_content"
                 android:src="@mipmap/jinru"
                 android:layout_marginLeft="12dp"/>
+
         </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_dianpushichang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="150dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="0.02"
+                android:text="市场"
+                android:textColor="#ff3300"
+                android:textSize="12sp" />
 
     </LinearLayout>
     <View

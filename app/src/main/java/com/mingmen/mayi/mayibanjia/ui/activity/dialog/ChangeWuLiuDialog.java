@@ -2,34 +2,44 @@ package com.mingmen.mayi.mayibanjia.ui.activity.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.CarsTypeBean;
+import com.mingmen.mayi.mayibanjia.bean.ChePaiBean;
 import com.mingmen.mayi.mayibanjia.bean.WuLiuBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.WuLiuActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.adapter.ChePaiMohuAdapter;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.qqtheme.framework.picker.SinglePicker;
@@ -48,6 +58,11 @@ public class ChangeWuLiuDialog extends Dialog {
     private WuLiuBean bean;
     private String car_type_name = "",car_type_id="";
     private String type = "";
+    private RecyclerView rv_mohu;
+    private PopupWindow mPopWindow;
+    private ChePaiMohuAdapter mohuAdapter;
+    private ArrayList<ChePaiBean> datas = new ArrayList<>();
+    private String chepai="";
     public ChangeWuLiuDialog(@NonNull Context context,WuLiuBean bean,WuLiuActivity activity,String type) {
         super(context);
         this.context = context;
@@ -81,6 +96,27 @@ public class ChangeWuLiuDialog extends Dialog {
         tv_chepaihao.setText(bean.getPlateNumber());
         tv_lianxiren.setText(bean.getDriverName());
         tv_lianxifangshi.setText(bean.getDriverPhone());
+        et_xinchepaihao.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().length() > 0) {
+                    if(!s.toString().trim().equals(chepai)){
+                        getChepaihao(s.toString().trim());
+                    }
+                }
+
+            }
+        });
         et_xinchepaihao.setTransformationMethod(new StringUtil.A2bigA());
         Window dialogWindow = getWindow();
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
@@ -99,7 +135,6 @@ public class ChangeWuLiuDialog extends Dialog {
                             @Override
                             public void onNext(List<CarsTypeBean> data) {
                                 final SinglePicker<CarsTypeBean> picker =new SinglePicker<>(activity,data);
-                                Log.e("2222",data.toString());
                                 picker.setCanceledOnTouchOutside(false);
                                 picker.setSelectedIndex(1);
                                 picker.setCycleDisable(false);
@@ -156,5 +191,52 @@ public class ChangeWuLiuDialog extends Dialog {
                 dismiss();
             }
         });
+    }
+    //PopupWindow
+    private void showPopupWindow() {
+        View view = View.inflate(context, R.layout.pp_textview_recycleview, null);
+        mPopWindow = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        int width = activity.getWindowManager().getDefaultDisplay().getWidth();
+        int height = activity.getWindowManager().getDefaultDisplay().getHeight();
+        mPopWindow.setWidth(width * 2 / 6);
+        mPopWindow.setHeight(height * 2 / 9);
+        mPopWindow.setOutsideTouchable(true);
+        mPopWindow.setBackgroundDrawable(new BitmapDrawable());
+        mPopWindow.showAsDropDown(et_xinchepaihao);
+        rv_mohu = (RecyclerView) view.findViewById(R.id.rv_list);
+        mohuAdapter = new ChePaiMohuAdapter(context, datas);
+        rv_mohu.setAdapter(mohuAdapter);
+        rv_mohu.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+        mohuAdapter.setOnItemClickListener(new ChePaiMohuAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                chepai = datas.get(position).getNew_plate_number()+"";
+                et_xinchepaihao.setText(datas.get(position).getNew_plate_number()+"");
+                mPopWindow.dismiss();
+            }
+        });
+    }
+    private void getChepaihao(final String name) {
+        HttpManager.getInstance()
+                .with(context)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .getChepai(name, car_type_id))
+                .setDataListener(new HttpDataListener<List<ChePaiBean>>() {
+                    @Override
+                    public void onNext(List<ChePaiBean> data) {
+                        datas = new ArrayList<ChePaiBean>();
+                        datas.addAll(data);
+                        Log.e("data", data + "---");
+                        if (mPopWindow != null) {
+                            mPopWindow.showAsDropDown(et_xinchepaihao);
+                            mohuAdapter.setData(datas);
+                        } else {
+                            showPopupWindow();
+                        }
+
+                    }
+                }, false);
     }
 }

@@ -109,6 +109,43 @@
                     android:layout_marginTop="8dp"
                     />
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_shaixuan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_weight="1">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="筛选"
+                        android:textColor="#ff999999"
+                        android:textSize="12sp"
+                        />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/xialajiantou"
+                        />
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_shaixuan"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="不限"
+                    android:textColor="#474747"
+                    android:textSize="15sp"
+                    android:layout_marginTop="8dp"
+                    />
+            </LinearLayout>
             <LinearLayout
                 android:id="@+id/ll_pinlei"
                 android:layout_width="wrap_content"
@@ -144,42 +181,6 @@
                     android:textSize="15sp"
                     android:layout_marginTop="8dp"
 
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/ll_shaixuan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_weight="1">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="筛选"
-                        android:textColor="#ff999999"
-                        android:textSize="12sp"
-                        />
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/xialajiantou"
-                        />
-                </LinearLayout>
-                <TextView
-                    android:id="@+id/tv_shaixuan"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="不限"
-                    android:textColor="#474747"
-                    android:textSize="15sp"
-                    android:layout_marginTop="8dp"
                     />
             </LinearLayout>
         </LinearLayout>

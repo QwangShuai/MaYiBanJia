@@ -136,7 +136,10 @@ public class GouWuCheFragment extends BaseFragment {
     public void setShuaxin(){
         tvZongjia.setText("0");
         selectedId.clear();
+        isGuanli = false;
         isSelect = false;
+        rlGuanli.setVisibility(View.GONE);
+        rlZhengchang.setVisibility(View.VISIBLE);
         ivQuanxuan.setSelected(isSelect);
         getGouWuChe(true);
     }

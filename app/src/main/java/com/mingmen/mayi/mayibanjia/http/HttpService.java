@@ -5,6 +5,7 @@ import com.mingmen.mayi.mayibanjia.bean.AddressListBean;
 import com.mingmen.mayi.mayibanjia.bean.AllShiChangBean;
 import com.mingmen.mayi.mayibanjia.bean.CaiGouDanBean;
 import com.mingmen.mayi.mayibanjia.bean.CarsTypeBean;
+import com.mingmen.mayi.mayibanjia.bean.ChePaiBean;
 import com.mingmen.mayi.mayibanjia.bean.DdxqBean;
 import com.mingmen.mayi.mayibanjia.bean.DdxqListBean;
 import com.mingmen.mayi.mayibanjia.bean.DianMingChaXunBean;
@@ -872,4 +873,9 @@ public interface HttpService {
     @POST("ctBuyHostorder/queryByPurchase_name.do")
     Observable<ResultModel<List<FCGSaveFanHuiBean>>> getCaigouming(@Query("user_token") String user_token,
                                                         @Query("purchase_name") String purchase_name);
+
+    //匹配车牌
+    @POST("wl/matchPlate.do")
+    Observable<ResultModel<List<ChePaiBean>>> getChepai(@Query("new_plate_number") String new_plate_number,
+                                                        @Query("new_wl_cars_type") String new_wl_cars_type);
 }

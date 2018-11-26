@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
+import com.mingmen.mayi.mayibanjia.MainActivity;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.AddressListBean;
@@ -30,6 +31,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.TiJiaoDingDanDianPuAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.TiJiaoDingDanShichangAdapter;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.MyMath;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
@@ -111,6 +113,8 @@ public class QueRenDingDanActivity extends BaseActivity {
     private String spID = "";
     private String number = "";
     private int count = 0;
+    private int shichangCount = 0;
+    private ConfirmDialog confirmDialog;
     //    private boolean shiyongyue=false;
     public static QueRenDingDanActivity instance = null;
 
@@ -144,7 +148,8 @@ public class QueRenDingDanActivity extends BaseActivity {
 
 
         Log.e("zongjia", zongjia + "");
-
+        confirmDialog = new ConfirmDialog(mContext,
+                mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         tvSpjine.setText(zongjia);
         getaddressList();
         getsplist();
@@ -242,6 +247,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                         rvTijiaodingdan.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
                         rvTijiaodingdan.setNestedScrollingEnabled(false);
                         rvTijiaodingdan.setAdapter(adapter);
+                        shichangCount = data==null?0:data.size();
                         for (int k=0;k<data.size();k++){
                             for (int i = 0; i < data.get(k).getDplist().size(); i++) {//i是店铺
                                 for (int j = 0; j < data.get(k).getDplist().get(i).getList().size(); j++) {
@@ -395,17 +401,36 @@ public class QueRenDingDanActivity extends BaseActivity {
                         } else if (dizhi == null) {
                             ToastUtil.showToast("请选择收货地址后提交订单");
                         } else {
-                            if (Integer.parseInt(lujingtype) == 1) {
-                                tijiaodingdan();
-                            } else {
+
+                                if(shichangCount>1){
+                                    confirmDialog.showDialog("购买了"+shichangCount+"个市场的商品，将产生高额运费，是否确认提交订单");
+                                } else {
+                                    confirmDialog.showDialog("是否确认提交订单");
+                                }
+
+                                confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        if (Integer.parseInt(lujingtype) == 1) {
+                                            tijiaodingdan();
+                                        } else {
+                                            caigoutijiaodingdan();
+                                        }
+                                    }
+                                });
+                                confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        confirmDialog.dismiss();
+                                    }
+                                });
 //                            Intent intent1=new Intent(mContext,XuanZeZhiFuFangShiActivity.class);
 ////                            intent.putExtra("dingdanid",);
 //                            intent.putExtra("yuezhifu",shiyongyue);
 //                            intent.putExtra("zongjia",zongjia);
 //                            intent.putExtra("yue",yue);
 //                            startActivity(intent1);
-                                caigoutijiaodingdan();
-                            }
+
 //                        }
                     }
                 }

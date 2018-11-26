@@ -9,6 +9,7 @@
         android:orientation="vertical"
         android:background="@drawable/fillet_hollow_e7e7e7_3">
         <TextView
+            android:padding="12dp"
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="130dp"

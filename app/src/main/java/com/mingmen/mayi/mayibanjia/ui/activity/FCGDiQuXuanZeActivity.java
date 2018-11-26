@@ -92,6 +92,7 @@ public class FCGDiQuXuanZeActivity extends BaseActivity {
     private FaCaiGouLishiAdapter adapter;
     private PopupWindow mPopWindow;
     private RecyclerView rv_mohu;
+    private String shichang="";
     @Override
     public int getLayoutId() {
         return R.layout.activity_facaigou_diquxuanze;
@@ -213,7 +214,10 @@ public class FCGDiQuXuanZeActivity extends BaseActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().length()>0){
+                    if(!s.toString().trim().equals(shichang)){
                         getfcgname(s.toString().trim());
+                    }
+
                 }
 
             }
@@ -279,6 +283,7 @@ public class FCGDiQuXuanZeActivity extends BaseActivity {
         adapter.setOnItemClickListener(new FaCaiGouLishiAdapter.OnItemClickListener() {
             @Override
             public void onClick(View view, int position) {
+                shichang = ""+datas.get(position).getPurchase_name();
                 et_caigouming.setText(""+datas.get(position).getPurchase_name());
                 mPopWindow.dismiss();
             }

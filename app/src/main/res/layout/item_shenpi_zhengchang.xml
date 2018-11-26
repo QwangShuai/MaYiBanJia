@@ -196,14 +196,13 @@
 
                             <ImageView
                                 android:id="@+id/iv_shanchu"
-                                android:layout_width="wrap_content"
+                                android:layout_width="18dp"
                                 android:layout_height="match_parent"
-                                android:padding="12dp"
                                 android:src="@mipmap/shouhuodizhi_shanchu" />
 
                             <ImageView
                                 android:id="@+id/iv_xiugai"
-                                android:layout_width="wrap_content"
+                                android:layout_width="40dp"
                                 android:layout_height="match_parent"
                                 android:layout_marginRight="12dp"
                                 android:padding="12dp"

@@ -203,6 +203,24 @@ public class DdxqListBean {
         private String price;
         private String freight_fee;
         private String refund;//退款金额
+        private String wfstate;//未付款店家数量
+        private String yfstate;//已付款店家数量
+
+        public String getWfstate() {
+            return wfstate;
+        }
+
+        public void setWfstate(String wfstate) {
+            this.wfstate = wfstate;
+        }
+
+        public String getYfstate() {
+            return yfstate;
+        }
+
+        public void setYfstate(String yfstate) {
+            this.yfstate = yfstate;
+        }
 
         public String getRefund() {
             return refund;

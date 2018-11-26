@@ -56,6 +56,8 @@ public class DdXqShichangAdapter extends RecyclerView.Adapter<DdXqShichangAdapte
         holder.rvDianpu.setFocusable(false);
         holder.tvZonge.setText("商品总额：  ￥"+item0.getPrice());
         holder.tvYunfei.setText(item0.getFreight_fee());
+        holder.tvWfkdpsl.setVisibility(View.GONE);
+        holder.tvYfkdpsl.setVisibility(View.GONE);
         if(item0.getRefund()==null || TextUtils.isEmpty(item0.getRefund()) || item0.getRefund().equals("0")){
             holder.llTuikuan.setVisibility(View.GONE);
         }else{
@@ -68,8 +70,7 @@ public class DdXqShichangAdapter extends RecyclerView.Adapter<DdXqShichangAdapte
         } else if(item0.getOrderState().equals("402")){
             holder.rlRongqi.setVisibility(View.GONE);
             holder.tvFahuoshijian.setVisibility(View.GONE);
-        }
-        else {
+        }else {
             if(TextUtils.isEmpty(item0.getDriver_name())){
                 holder.rlRongqi.setVisibility(View.GONE);
                 holder.tvDaiquhuo.setText("待配送员取商品");
@@ -78,8 +79,15 @@ public class DdXqShichangAdapter extends RecyclerView.Adapter<DdXqShichangAdapte
                 holder.tvDaiquhuo.setVisibility(View.GONE);
                 holder.tvPeisongyuan.setText("配送员:" + item0.getDriver_name());
                 holder.tvPhone.setText(item0.getDriver_phone());
-                holder.tvChepaihao.setText(item0.getPlate_number());
+                holder.tvChepaihao.setText("车牌号:" + item0.getPlate_number());
                 holder.tvFahuoshijian.setText("发货时间:" + item0.getUpdate_time());
+
+            }
+            if(item0.getOrderState().equals("405") || item0.getOrderState().equals("406")){
+                holder.tvWfkdpsl.setVisibility(View.VISIBLE);
+                holder.tvYfkdpsl.setVisibility(View.VISIBLE);
+                holder.tvYfkdpsl.setText("已付款店家数量:"+ item0.getYfstate());
+                holder.tvWfkdpsl.setText("未付款店家数量:"+ item0.getWfstate());
             }
         }
         holder.tvShichang.setText(item0.getMarket_name());
@@ -139,6 +147,10 @@ public class DdXqShichangAdapter extends RecyclerView.Adapter<DdXqShichangAdapte
         TextView tvTuikuanjier;
         @BindView(R.id.ll_tuikuan)
         LinearLayout llTuikuan;
+        @BindView(R.id.tv_yfkdpsl)
+        TextView tvYfkdpsl;
+        @BindView(R.id.tv_wfkdpsl)
+        TextView tvWfkdpsl;
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);

@@ -123,6 +123,7 @@
                     android:layout_marginLeft="14dp"
                     android:text="18513349775"
                     android:textColor="@color/zicolor"
+                    android:visibility="gone"
                     android:textSize="15sp" />
 
                 <ImageView
@@ -131,17 +132,17 @@
                     android:layout_height="15dp"
                     android:layout_marginLeft="12dp"
                     android:src="@mipmap/dianhua_black" />
+                <TextView
+                    android:id="@+id/tv_chepaihao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="车牌号:(黑A  94885)"
+                    android:textColor="@color/zicolor"
+                    android:textSize="13sp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_chepaihao"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/ll_rongqi"
-                android:layout_marginTop="12dp"
-                android:text="车牌号:(黑A  94885)"
-                android:textColor="@color/zicolor"
-                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/tv_fahuoshijian"
@@ -150,10 +151,36 @@
                 android:layout_below="@+id/tv_chepaihao"
                 android:layout_marginTop="12dp"
                 android:text="发货时间：8-01 06:50:00"
-                android:textColor="@color/color3"
+                android:textColor="@color/zicolor"
                 android:textSize="13sp" />
         </RelativeLayout>
     </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/ll_dianpushuliang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_yfkdpsl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已付款店铺数量:10"
+            android:textColor="@color/zicolor"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tv_wfkdpsl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="未付款店铺数量:10"
+            android:textColor="@color/zicolor"
+            android:textSize="13sp"
+            android:layout_centerVertical="true"
+             />
+    </LinearLayout>
+
     <!--<View-->
         <!--android:layout_marginTop="18dp"-->
         <!--android:background="@mipmap/bg_dian_ddxq"-->

@@ -16,7 +16,16 @@ public class WoDeBean {
     private String stay_delivery;
     private String stay_ecipient;
     private String already_ecipient;
+    private String already_complete;
     private String role;
+
+    public String getAlready_complete() {
+        return already_complete;
+    }
+
+    public void setAlready_complete(String already_complete) {
+        this.already_complete = already_complete;
+    }
 
     public String getRole() {
         return role;

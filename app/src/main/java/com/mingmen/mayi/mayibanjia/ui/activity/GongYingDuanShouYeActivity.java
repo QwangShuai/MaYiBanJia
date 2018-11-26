@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,11 +13,20 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mingmen.mayi.mayibanjia.R;
+import com.mingmen.mayi.mayibanjia.app.MyApplication;
+import com.mingmen.mayi.mayibanjia.bean.GHOrderBean;
+import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
+import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
+import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.ghdingdan.GHDOrderActivity;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.PollingService;
 import com.mingmen.mayi.mayibanjia.utils.PollingUtils;
+import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.dayinji.PrintfManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,6 +61,8 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
     LinearLayout llTejiashangpin;
     @BindView(R.id.tv_tianjiashangpin)
     TextView tvTianjiashangpin;
+    @BindView(R.id.tv_dingdan)
+    TextView tvDingdan;
     private Context mContext;
     public static GongYingDuanShouYeActivity instance=null;
 
@@ -69,6 +81,7 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
             PollingUtils.startPollingService(mContext,1,PollingService.class, PollingService.ACTION);
         }
         instance=this;
+        getData();
     }
 
 
@@ -113,5 +126,24 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
         System.out.println("Stop polling service...");
         PollingUtils.stopPollingService(this, PollingService.class, PollingService.ACTION);
     }
+    private void getData() {
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .getOrderNumber(PreferenceUtils.getString(MyApplication.mContext, "token","")))
+                .setDataListener(new HttpDataListener<String>() {
+                    @Override
+                    public void onNext(String data) {
+                        if(TextUtils.isEmpty(data)||data.equals("0")){
+                            tvDingdan.setVisibility(View.GONE);
+                        } else {
+                            tvDingdan.setText(data);
+                            tvDingdan.setVisibility(View.VISIBLE);
+                        }
 
+                    }
+                });
+    }
 }

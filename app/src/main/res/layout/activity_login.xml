@@ -21,7 +21,7 @@
                 android:layout_marginRight="18dp"
                 >
                 <ImageView
-                    android:src="@mipmap/logo"
+                    android:src="@mipmap/ceshi_logo"
                     android:layout_width="175dp"
                     android:layout_height="46dp"
                     android:layout_marginTop="20dp"

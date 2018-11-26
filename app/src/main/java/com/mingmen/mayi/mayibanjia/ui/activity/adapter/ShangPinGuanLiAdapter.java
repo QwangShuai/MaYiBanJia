@@ -21,6 +21,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.ShangPinGuanLiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
 import java.util.List;
 
@@ -48,10 +49,14 @@ public class ShangPinGuanLiAdapter extends BaseQuickAdapter<ShangPinGuanLiBean.G
         helper.setOnClickListener(R.id.bt_bianji, new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent it = new Intent(mContext, FaBuShangPinActivity.class);
-                it.putExtra("state","1");
-                it.putExtra("bean",item.getCommodity_id());
-                mContext.startActivity(it);
+                if(item.getApproval_state().equals("0")||item.getApproval_state().equals("2")){
+                    ToastUtil.showToast("上架不能编辑，请先下架");
+                } else {
+                    Intent it = new Intent(mContext, FaBuShangPinActivity.class);
+                    it.putExtra("state","1");
+                    it.putExtra("bean",item.getCommodity_id());
+                    mContext.startActivity(it);
+                }
             }
         });
         //上下架状态

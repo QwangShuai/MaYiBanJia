@@ -859,4 +859,17 @@ public interface HttpService {
                                                   @Query("wl_cars_order_id") String wl_cars_order_id,
                                                   @Query("freight_fee") String freight_fee,
                                                   @Query("actual_freight") String actual_freight);
+
+    //提交采购单
+    @POST("ctBuyHostorder/saveTime.do")
+    Observable<ResultModel<String>> postCaigoudan(@Query("purchase_id") String purchase_id);
+
+    //提交采购单
+    @POST("gyOreder/account.do")
+    Observable<ResultModel<String>> getOrderNumber(@Query("user_token") String user_token);
+
+    //采购单历史
+    @POST("ctBuyHostorder/queryByPurchase_name.do")
+    Observable<ResultModel<List<FCGSaveFanHuiBean>>> getCaigouming(@Query("user_token") String user_token,
+                                                        @Query("purchase_name") String purchase_name);
 }

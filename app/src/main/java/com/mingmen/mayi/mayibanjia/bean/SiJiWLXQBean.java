@@ -55,7 +55,7 @@ public class SiJiWLXQBean {
     private Object user_token;
     private Object city;
     private Object street;
-    private Object specific_address;
+    private String specific_address;
     private Object market_id;
     private String identifying;
     private String gy_order_id;
@@ -123,11 +123,11 @@ public class SiJiWLXQBean {
         this.street = street;
     }
 
-    public Object getSpecific_address() {
+    public String getSpecific_address() {
         return specific_address;
     }
 
-    public void setSpecific_address(Object specific_address) {
+    public void setSpecific_address(String specific_address) {
         this.specific_address = specific_address;
     }
 

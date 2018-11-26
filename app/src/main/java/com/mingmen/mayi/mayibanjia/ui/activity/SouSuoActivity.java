@@ -1105,10 +1105,21 @@ public class SouSuoActivity extends BaseActivity {
         }
 
         yijipop.setHeight(AppUtil.dip2px(height));
-
-        rv_yijifenlei.setLayoutManager(new GridLayoutManager(mContext, 3));
+        GridLayoutManager manager = new GridLayoutManager(mContext, 3);
+        rv_yijifenlei.setLayoutManager(manager);
         rv_yijifenlei.setAdapter(yijiadapter);
         yijiadapter.setNewData(yijiFenLei);
+//        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+//            @Override
+//            public int getSpanSize(int position) {
+//                if(position==0){
+//                    return 1;
+//                } else {
+//                    return 3;
+//                }
+//
+//            }
+//        });
         yijiadapter.setCallBack(new YiJiFenLeiAdapter.CallBack() {
             @Override
             public void xuanzhong(FenLeiBean msg) {
@@ -1133,6 +1144,8 @@ public class SouSuoActivity extends BaseActivity {
                         showErJiFenLei();
                     }
                 }
+                sousuozi = "";
+                erjipinleiid = "";
                 sousuoshangpin("0",sousuozi);
             }
         });
@@ -1200,6 +1213,8 @@ public class SouSuoActivity extends BaseActivity {
                         tvPinlei.setText(msg.getClassify_name());
 
                     }
+                    sousuozi = "";
+                    sanjipinleiid = "";
                     sousuoshangpin("0",sousuozi);
                     yijipop.dismiss();
                 }

@@ -81,6 +81,7 @@ public class ChangeWuLiuDialog extends Dialog {
         tv_chepaihao.setText(bean.getPlateNumber());
         tv_lianxiren.setText(bean.getDriverName());
         tv_lianxifangshi.setText(bean.getDriverPhone());
+        et_xinchepaihao.setTransformationMethod(new StringUtil.A2bigA());
         Window dialogWindow = getWindow();
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
         DisplayMetrics d = context.getResources().getDisplayMetrics(); // 获取屏幕宽、高用

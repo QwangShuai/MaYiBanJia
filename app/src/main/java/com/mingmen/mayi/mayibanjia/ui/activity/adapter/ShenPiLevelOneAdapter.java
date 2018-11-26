@@ -56,10 +56,12 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
     private List<CaiGouDanBean.ListBean.CcListBeanLevel> listBeanLevel;
     private ShenPiLevelTwoAdapter adapter;
     private boolean[] isShow;
+    private boolean isClick = true;
 
 
     public void setShow(int pos) {
         isShow[pos] = true;
+//        viewHolder.rvDplist.setVisibility(View.VISIBLE);
     }
 
     public void addShow() {
@@ -146,115 +148,124 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
 
         holder.tvXitongtuijian.setText("系统推荐");
         if (listBean.isSpecial()) {
-//            if (listBean.getLevels() == null) {
-//                Log.e("meiyou系统推荐", "meiyou系统推荐");
+            if (listBean.getLevels() == null) {
+                Log.e("meiyou系统推荐", "meiyou系统推荐");
             holder.tvXitongtuijian.setText("重新抢单");//特殊商品没有系统推荐  重新抢单
-//                youtuijian = false;
-//            } else {
-//                Log.e("有系统推荐", "有系统推荐");
-//                holder.tvXitongtuijian.setText( "系统推荐");//特殊商品  有推荐  点系统推荐
-//                youtuijian = true;
-//            }
+                youtuijian = false;
+            } else {
+                Log.e("有系统推荐", "有系统推荐");
+                holder.tvXitongtuijian.setText( "系统推荐");//特殊商品  有推荐  点系统推荐
+                youtuijian = true;
+            }
         }
-        final boolean finalYoutuijian = youtuijian;
-        holder.tvXitongtuijian.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                if (finalYoutuijian) {//有推荐
-//                    if (isShow[position]) {//判断展开还是关闭
-//                        collapse(getParentPosition(listBean));
-//                    } else {
-//                        expand(getParentPosition(listBean));
-//                    }
-//                } else {//没有推荐
-                if (!listBean.isSpecial()) {//不是特殊商品  不调用接口
-                    return;
+        if(holder.tvXitongtuijian.getText().equals("系统推荐")){
+            holder.tvXitongtuijian.setVisibility(View.GONE);
+        }
+        if(isClick){
+            final boolean finalYoutuijian = youtuijian;
+            holder.tvXitongtuijian.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (finalYoutuijian) {//有推荐
+                        if (isShow[position]) {//判断展开还是关闭
+                            isShow[position] = false;
+                            holder.rvDplist.setVisibility(View.VISIBLE);
+                        } else {
+                            isShow[position] = true;
+                            holder.rvDplist.setVisibility(View.GONE);
+                        }
+                    } else {//没有推荐
+                        ToastUtil.showToast("暂无匹配商家");
+                        if (!listBean.isSpecial()) {//不是特殊商品  不调用接口
+                            return;
+                        }
+                        Log.e("listBean.getMarket_id()", listBean.getMarket_id() + "==");
+                        if (runningThree[0] == true) {//是否在进行倒计时    不在倒计时就调取接口
+                            HttpManager.getInstance()
+                                    .with(activity)
+                                    .setObservable(
+                                            RetrofitManager
+                                                    .getService()
+                                                    .chongfaqiangdan(listBean.getSon_order_id(),
+                                                            PreferenceUtils.getString(MyApplication.mContext, "token", ""), listBean.getMarket_id()))
+                                    .setDataListener(new HttpDataListener<String>() {
+                                        @Override
+                                        public void onNext(String data) {
+                                            if (mList != null) {
+                                                mList.get(position).getLevels().clear();
+                                            }
+                                            isShow[position] = false;
+                                            Log.e("data", data + "---");
+                                            ToastUtil.showToast("发送抢单信息成功");
+                                            downTimer.start();
+                                            runningThree[0] = false;
+
+                                        }
+                                    });
+                        }
+
+
+                    }
+
                 }
-                Log.e("listBean.getMarket_id()", listBean.getMarket_id() + "==");
-                if (runningThree[0] == true) {//是否在进行倒计时    不在倒计时就调取接口
-                    HttpManager.getInstance()
-                            .with(activity)
-                            .setObservable(
-                                    RetrofitManager
-                                            .getService()
-                                            .chongfaqiangdan(listBean.getSon_order_id(),
-                                                    PreferenceUtils.getString(MyApplication.mContext, "token", ""), listBean.getMarket_id()))
-                            .setDataListener(new HttpDataListener<String>() {
-                                @Override
-                                public void onNext(String data) {
-                                    if (mList != null) {
-                                        mList.get(position).getLevels().clear();
-                                    }
-                                    isShow[position] = false;
-                                    Log.e("data", data + "---");
-                                    ToastUtil.showToast("发送抢单信息成功");
-                                    downTimer.start();
-                                    runningThree[0] = false;
+            });
 
-                                }
-                            });
+
+            //特殊商品的pop
+            holder.tvTeshu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showPopupWindow(listBean.getSpecial_commodity(), holder.tvTeshu);
                 }
-
-
-            }
-
-//            }
-        });
-
-
-        //特殊商品的pop
-        holder.tvTeshu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showPopupWindow(listBean.getSpecial_commodity(), holder.tvTeshu);
-            }
-        });
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            });
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 //                activity.MoveToPosition(position);
-
-                if (listBean.isNeedLoad()) {//是否需要加载数据
+                    Log.e("是否需要加载",listBean.isNeedLoad()+"");
+                    if (listBean.isNeedLoad()) {//是否需要加载数据
 //                    if (!listBean.isSpecial()) {//如果不是特殊商品
 //                        getshenpi(listBean, position,activity);
 //                    } else {
 //                                ToastUtil.showToast("");
 //                    }
-                    getshenpi(listBean, position, activity);
-                } else {
-                    //不需要加载数据时
-//                    展开二级列表
-                    if (isShow[position]) {
-                        isShow[position] = false;
-                        holder.rvDplist.setVisibility(View.GONE);
-//                        adapter.notifyDataSetChanged();
+                        getshenpi(listBean, position, activity);
                     } else {
-                        isShow[position] = true;
-                        holder.rvDplist.setVisibility(View.VISIBLE);
+                        //不需要加载数据时
+//                    展开二级列表
+                        if (isShow[position]) {
+                            isShow[position] = false;
+                            holder.rvDplist.setVisibility(View.GONE);
 //                        adapter.notifyDataSetChanged();
+                        } else {
+                            isShow[position] = true;
+                            holder.rvDplist.setVisibility(View.VISIBLE);
+//                        adapter.notifyDataSetChanged();
+                        }
                     }
                 }
-            }
-        });
-        holder.llLishi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                callBack.isClick(holder.llLishi, position);
-            }
-        });
+            });
+            holder.llLishi.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    callBack.isClick(holder.llLishi, position);
+                }
+            });
 
-        holder.ivShanchu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                callBack.isClick(holder.ivShanchu, position);
-            }
-        });
-        holder.ivXiugai.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                callBack.isClick(holder.ivXiugai, position);
-            }
-        });
+            holder.ivShanchu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    callBack.isClick(holder.ivShanchu, position);
+                }
+            });
+            holder.ivXiugai.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    callBack.isClick(holder.ivXiugai, position);
+                }
+            });
+        }
+
     }
 
     public void setCallBack(CallBack callBack) {
@@ -416,5 +427,9 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
 
     public void setZongjia(String zongjia) {
 
+    }
+
+    public void setClick(boolean b){
+        this.isClick = b;
     }
 }

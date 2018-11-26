@@ -141,6 +141,7 @@ public class LiShiJiLuDialog extends BaseFragmentDialog {
             rvLishi.setAdapter(lishigoumaiadapter);
             rvLishi.setVisibility(View.VISIBLE);
             tvMeiyou.setVisibility(View.GONE);
+            lishigoumaiadapter.notifyDataSetChanged();
         }
 
     }
@@ -154,10 +155,12 @@ public class LiShiJiLuDialog extends BaseFragmentDialog {
             rvLishi.setAdapter(shoucangadapter);
             rvLishi.setVisibility(View.VISIBLE);
             tvMeiyou.setVisibility(View.GONE);
+            shoucangadapter.notifyDataSetChanged();
         }
     }
 
     public interface CallBack {
         void xuanzhong(String lujing, XiTongTuiJianBean.CcListBean msg);
     }
+
 }

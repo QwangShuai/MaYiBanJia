@@ -6,6 +6,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
@@ -83,26 +84,26 @@ public class FCGCaiGouXuQiuActivity extends BaseActivity {
     Button btTijiao;
     @BindView(R.id.rl_guige)
     RelativeLayout rlGuige;
-    private int isTeshu=0;
-    private int dijige=0;
+    private int isTeshu = 0;
+    private int dijige = 0;
 
-    private String caigouliang="";
-    private String teshuyaoqiu="";
-    private List<FCGShangPinbean> mlist=new ArrayList<>();
+    private String caigouliang = "";
+    private String teshuyaoqiu = "";
+    private List<FCGShangPinbean> mlist = new ArrayList<>();
     private String guige;
     private Context mContext;
     private String shichangid;
-    private String purchase_id="";
+    private String purchase_id = "";
     private TiJiaoXuQiuDialog tijiaoxuqiuDialog;
     private PopupWindow mPopWindow;
-    private ArrayList<FCGName> datas=new ArrayList<>();
+    private ArrayList<FCGName> datas = new ArrayList<>();
     private String leibieid;
     private FaCaiGouMohuAdapter mohuAdapter;
     private RecyclerView rv_mohu;
     private String sanjifenleiName;
-    private String sanjifenleiId="";
-    private String pack_standard_id="";
-    private String purchase_name="";
+    private String sanjifenleiId = "";
+    private String pack_standard_id = "";
+    private String purchase_name = "";
     private PopupWindow guigePop;
     private RecyclerView rvguige;
     private FaCaiGouGuiGeAdapter guigeadapter;
@@ -117,11 +118,11 @@ public class FCGCaiGouXuQiuActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        mContext=FCGCaiGouXuQiuActivity.this;
+        mContext = FCGCaiGouXuQiuActivity.this;
         tvTitle.setText("采购需求");
-        bundle=getIntent().getExtras();
-        shichangid =bundle.getString("shichang");
-        purchase_name =bundle.getString("caigouming");
+        bundle = getIntent().getExtras();
+        shichangid = bundle.getString("shichang");
+        purchase_name = bundle.getString("caigouming");
         teshu(isTeshu);
         tijiaoxuqiuDialog = new TiJiaoXuQiuDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
@@ -138,13 +139,13 @@ public class FCGCaiGouXuQiuActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.toString().trim().length()>0){
-                    if (s.toString().trim().equals(sanjifenleiName)){
+                if (s.toString().trim().length() > 0) {
+                    if (s.toString().trim().equals(sanjifenleiName)) {
 
-                    }else{
+                    } else {
                         getfcgname(s.toString().trim());
-                        Log.e("s.toString().trim()",s.toString().trim()+"=");
-                        Log.e("sanjifenleiName",sanjifenleiName+"=");
+                        Log.e("s.toString().trim()", s.toString().trim() + "=");
+                        Log.e("sanjifenleiName", sanjifenleiName + "=");
                     }
                 }
 
@@ -158,7 +159,7 @@ public class FCGCaiGouXuQiuActivity extends BaseActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                tishi.setText(s.toString().trim().length()+"/50");
+                tishi.setText(s.toString().trim().length() + "/50");
             }
 
             @Override
@@ -171,59 +172,60 @@ public class FCGCaiGouXuQiuActivity extends BaseActivity {
     }
 
     private void getfcgguige(String sanjifenleiId) {
-     HttpManager.getInstance()
-             .with(mContext)
-                    .setObservable(
-                RetrofitManager
-                        .getService()
-                        .getfcgguige(sanjifenleiId))
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .getfcgguige(sanjifenleiId))
                 .setDataListener(new HttpDataListener<List<FCGGuige>>() {
-            @Override
-            public void onNext(List<FCGGuige> data) {
-                guigedatas = new ArrayList<>();
-                guigedatas.addAll(data);
-                tvGuige.setText("");
-                pack_standard_id="";
-                if (guigeadapter!=null){
-                    guigeadapter.setData(guigedatas);
-                }
-                Log.e("data",data+"---");
+                    @Override
+                    public void onNext(List<FCGGuige> data) {
+                        guigedatas = new ArrayList<>();
+                        guigedatas.addAll(data);
+                        tvGuige.setText("");
+                        pack_standard_id = "";
+                        if (guigeadapter != null) {
+                            guigeadapter.setData(guigedatas);
+                        }
+                        Log.e("data", data + "---");
 
-            }
-        },false);
+                    }
+                }, false);
     }
 
     private void getfcgname(final String name) {
-        if (name.equals(sanjifenleiName)){
+        if (name.equals(sanjifenleiName)) {
             return;
         }
-        Log.e("name",name+"---");
-         HttpManager.getInstance()
-                 .with(mContext)
-                        .setObservable(
-                    RetrofitManager
-                            .getService()
-                            .getfcgname(PreferenceUtils.getString(MyApplication.mContext, "token",""),name))
-                    .setDataListener(new HttpDataListener<List<FCGName>>() {
-                @Override
-                public void onNext(List<FCGName> data) {
-                    datas=new ArrayList<FCGName>();
-                    datas.addAll(data);
-                    Log.e("data",data+"---");
-                    if (mPopWindow!=null){
-                        Log.e("data",data+"111111111");
-                        if (name.equals(sanjifenleiName)){
-                            return;
+        Log.e("name", name + "---");
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .getfcgname(PreferenceUtils.getString(MyApplication.mContext, "token", ""), name))
+                .setDataListener(new HttpDataListener<List<FCGName>>() {
+                    @Override
+                    public void onNext(List<FCGName> data) {
+                        datas = new ArrayList<FCGName>();
+                        datas.addAll(data);
+                        Log.e("data", data + "---");
+                        if (mPopWindow != null) {
+                            Log.e("data", data + "111111111");
+                            if (name.equals(sanjifenleiName)) {
+                                return;
+                            }
+                            mPopWindow.showAsDropDown(etShangpinMing);
+                            mohuAdapter.setData(datas);
+                        } else {
+                            showPopupWindow();
                         }
-                        mPopWindow.showAsDropDown(etShangpinMing);
-                        mohuAdapter.setData(datas);
-                    }else{
-                        showPopupWindow();
-                    }
 
-                }
-            },false);
+                    }
+                }, false);
     }
+
     //PopupWindow
     private void showPopupWindow() {
         View view = View.inflate(mContext, R.layout.pp_textview_recycleview, null);
@@ -243,15 +245,16 @@ public class FCGCaiGouXuQiuActivity extends BaseActivity {
             @Override
             public void onClick(View view, int position) {
                 leibieid = datas.get(position).getClassify_id();
-                Log.e("leibieid",leibieid+"--");
-                etShangpinMing.setText(""+datas.get(position).getClassify_name());
-                sanjifenleiName=datas.get(position).getClassify_name();
-                sanjifenleiId=datas.get(position).getClassify_id();
+                Log.e("leibieid", leibieid + "--");
+                etShangpinMing.setText("" + datas.get(position).getClassify_name());
+                sanjifenleiName = datas.get(position).getClassify_name();
+                sanjifenleiId = datas.get(position).getClassify_id();
                 getfcgguige(sanjifenleiId);
                 mPopWindow.dismiss();
             }
         });
     }
+
     private void showGuigePopupWindow() {
         View view = View.inflate(mContext, R.layout.pp_textview_recycleview, null);
         guigePop = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -283,6 +286,7 @@ public class FCGCaiGouXuQiuActivity extends BaseActivity {
             }
         });
     }
+
     @OnClick({R.id.iv_back, R.id.rl_guige, R.id.ll_teshu, R.id.bt_shanchu, R.id.bt_shangyige, R.id.bt_xiayige, R.id.bt_tianjia, R.id.bt_tijiao})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -291,22 +295,22 @@ public class FCGCaiGouXuQiuActivity extends BaseActivity {
                 break;
             case R.id.rl_guige:
 //                tv_guigename
-                if (guigedatas!=null&&guigedatas.size()>0){
+                if (guigedatas != null && guigedatas.size() > 0) {
                     showGuigePopupWindow();
-                }else{
+                } else {
                     ToastUtil.showToast("请输入商品名，并选择相应的分类");
                 }
 
                 break;
             case R.id.ll_teshu:
-                if (isTeshu==0){
+                if (isTeshu == 0) {
                     ivTeshu.setSelected(true);
                     rlTeshu.setVisibility(View.VISIBLE);
-                    isTeshu=1;
-                }else{
+                    isTeshu = 1;
+                } else {
                     ivTeshu.setSelected(false);
                     rlTeshu.setVisibility(View.GONE);
-                    isTeshu=0;
+                    isTeshu = 0;
                 }
                 break;
             case R.id.bt_shanchu:
@@ -315,52 +319,66 @@ public class FCGCaiGouXuQiuActivity extends BaseActivity {
                 rlTeshu.setVisibility(View.GONE);
                 etShangpinMing.setText("");
                 etCaigouliang.setText("");
-                isTeshu=0;
+                isTeshu = 0;
                 break;
             case R.id.bt_shangyige:
-                if (mlist.size()==0|dijige==0){
+                if (mlist.size() == 0 | dijige == 0) {
                     ToastUtil.showToast("前面没商品了");
-                }else{
+                } else {
                     dijige--;
-                    Log.e("bt_shangyige.dijige",dijige+"=");
+                    Log.e("bt_shangyige.dijige", dijige + "=");
                     fuxian(dijige);
                 }
                 break;
             case R.id.bt_xiayige:
-                if (dijige>=mlist.size()-1){
+                if (dijige >= mlist.size() - 1) {
                     ToastUtil.showToast("后面没商品了");
-                }else{
+                } else {
                     dijige++;
-                    Log.e("bt_xiayige.dijige",dijige+"=");
+                    Log.e("bt_xiayige.dijige", dijige + "=");
                     fuxian(dijige);
                 }
                 break;
             case R.id.bt_tianjia:
                 huoqushuju();
-                if (!"".equals(sanjifenleiId)&!"".equals(caigouliang)){
-                    if (mlist.size()>=dijige) {
-                        save(dijige,3);
-                    }else{
+                if (!"".equals(sanjifenleiId) & !"".equals(caigouliang)) {
+                    if (mlist.size() >= dijige) {
+                        save(dijige, 3);
+                    } else {
                     }
-                }else{
+                } else {
                     ToastUtil.showToast("请确认填写好商品名以及采购量");
                 }
                 break;
             case R.id.bt_tijiao:
                 huoqushuju();
-                if (!"".equals(sanjifenleiId)&!"".equals(caigouliang)){
-                    save(dijige,4);
-                    Log.e("zheli333",dijige+"---");
-                }else{
-                    if (mlist.size()==0){
+                if (!"".equals(sanjifenleiId) & !"".equals(caigouliang)) {
+//                    mlist.get(dijige).setSon_order_id(purchase_id);
+                    save(dijige, 4);
+                } else {
+                    if (mlist.size() == 0) {
                         ToastUtil.showToast("请先添加至少一个商品再提交");
-                    }else{
+                    } else {
+                        HttpManager.getInstance()
+                                .with(mContext)
+                                .setObservable(
+                                        RetrofitManager
+                                                .getService()
+                                                //user_token  是否是特殊商品不是0 是1    如果是特殊商品 填写要求   市场id  类别id  产品数量
+                                                .postCaigoudan(purchase_id))
+                                .setDataListener(new HttpDataListener<String>() {
+                                    @Override
+                                    public void onNext(String data) {
+                                        ToastUtil.showToast("data");
+                                    }
+
+                                }, false);
                         //dialog
                         tijiaoxuqiuDialog.showDialog();
                         tijiaoxuqiuDialog.getTvCaigoudan().setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Intent intent=new Intent(mContext, CaiGouDanActivity.class);
+                                Intent intent = new Intent(mContext, CaiGouDanActivity.class);
                                 startActivity(intent);
                                 FCGDiQuXuanZeActivity.instance.finish();
                                 tijiaoxuqiuDialog.dismiss();
@@ -370,7 +388,7 @@ public class FCGCaiGouXuQiuActivity extends BaseActivity {
                         tijiaoxuqiuDialog.getTvShouye().setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Intent intent=new Intent(mContext, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                Intent intent = new Intent(mContext, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
                                 tijiaoxuqiuDialog.dismiss();
                                 finish();
@@ -383,22 +401,21 @@ public class FCGCaiGouXuQiuActivity extends BaseActivity {
     }
 
 
-
     //复现
     private void fuxian(int dijige) {
-        Log.e("复现第几个",dijige+"---");
+        Log.e("复现第几个", dijige + "---");
         FCGShangPinbean muqianbean = mlist.get(dijige);
-        pack_standard_id=muqianbean.getGuigeId();
-        sanjifenleiName=muqianbean.getSpname();
-        sanjifenleiId=muqianbean.getSpid();
+        pack_standard_id = muqianbean.getGuigeId();
+        sanjifenleiName = muqianbean.getSpname();
+        sanjifenleiId = muqianbean.getSpid();
         etShangpinMing.setText(muqianbean.getSpname());
         etCaigouliang.setText(muqianbean.getNumber());
         etTeshu.setText(muqianbean.getTeshuyaoqiu());
         tvGuige.setText(muqianbean.getGuigeName());
-        tishi.setText(muqianbean.getTeshuyaoqiu().length()+"/50");
-        if (muqianbean.getTeshuyaoqiu()!=null&!"".equals(muqianbean.getTeshuyaoqiu())){
+        tishi.setText(muqianbean.getTeshuyaoqiu().length() + "/50");
+        if (muqianbean.getTeshuyaoqiu() != null & !"".equals(muqianbean.getTeshuyaoqiu())) {
             teshu(1);
-        }else{
+        } else {
             teshu(0);
         }
 
@@ -415,14 +432,12 @@ public class FCGCaiGouXuQiuActivity extends BaseActivity {
         fcgShangPinbean.setGuigeName(tvGuige.getText().toString().trim());
         fcgShangPinbean.setGuigeId(pack_standard_id);
         fcgShangPinbean.setTeshuyaoqiu(teshuyaoqiu);
-        if (this.dijige ==mlist.size()){
+        if (this.dijige == mlist.size()) {
             fcgShangPinbean.setGe(mlist.size());
             mlist.add(fcgShangPinbean);
-        }else{
-            mlist.set(dijige,fcgShangPinbean);
+        } else {
+            mlist.set(dijige, fcgShangPinbean);
         }
-
-
 
 
     }
@@ -431,131 +446,150 @@ public class FCGCaiGouXuQiuActivity extends BaseActivity {
     private void save(final int dijige, final int leixing) {
         huoqushuju();
 
-            if (sanjifenleiId.isEmpty()) {
-                ToastUtil.showToast("请输入商品名，并选择名称");
-                return;
-            }
-            if (pack_standard_id.isEmpty()) {
-                ToastUtil.showToast("请选择规格");
-                return;
-            }
+        if (sanjifenleiId.isEmpty()) {
+            ToastUtil.showToast("请输入商品名，并选择名称");
+            return;
+        }
+        if (pack_standard_id.isEmpty()) {
+            ToastUtil.showToast("请选择规格");
+            return;
+        }
 
 
-        Log.e("保存第几个",dijige+"---");
+        Log.e("保存第几个", dijige + "---");
 
-        String son_order_id="";
-        String getTeshuyaoqiu="";
+        String son_order_id = "";
+        String getTeshuyaoqiu = "";
 
-        if (dijige!=mlist.size()){
+        if (dijige != mlist.size()) {
             son_order_id = mlist.get(dijige).getSon_order_id();
             getTeshuyaoqiu = mlist.get(dijige).getTeshuyaoqiu();
-        }else{
+        } else {
 
         }
-        Log.e("我的请求数据",PreferenceUtils.getString(MyApplication.mContext, "token","")+"==="+purchase_id+"==="+shichangid+"==="+pack_standard_id+"==="+caigouliang);
-        Log.e("guigeid",pack_standard_id+"===");
+        Log.e("我的请求数据", PreferenceUtils.getString(MyApplication.mContext, "token", "") + "===" + purchase_id + "===" + shichangid + "===" + pack_standard_id + "===" + caigouliang);
+        Log.e("guigeid", pack_standard_id + "=" +
+                "==");
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
                         RetrofitManager
                                 .getService()
                                 //user_token  是否是特殊商品不是0 是1    如果是特殊商品 填写要求   市场id  类别id  产品数量
-                                .getfcgsave(PreferenceUtils.getString(MyApplication.mContext, "token",""),"".equals(getTeshuyaoqiu)?teshuyaoqiu:getTeshuyaoqiu,
-                                        shichangid,sanjifenleiId,purchase_id,son_order_id,pack_standard_id,purchase_name,caigouliang+""))
-                                .setDataListener(new HttpDataListener<FCGSaveFanHuiBean>() {
-                                    @Override
-                                    public void onNext(FCGSaveFanHuiBean data) {
-                                        Log.e("FCGSaveFanHuiBean,data",gson.toJson(data));
-                                        baocunxintianjiade(dijige);
-                                        qingkongshuju();
-                                        if (leixing==1){
-                                            FCGCaiGouXuQiuActivity.this.dijige++;
-                                        }else if (leixing==2){
-                                            FCGCaiGouXuQiuActivity.this.dijige--;
-                                        }else if (leixing==3){
-                                            FCGCaiGouXuQiuActivity.this.dijige=mlist.size();
-                                        }else if (leixing==4){
-                                            FCGCaiGouXuQiuActivity.this.dijige=mlist.size();
+                                .getfcgsave(PreferenceUtils.getString(MyApplication.mContext, "token", ""), "".equals(getTeshuyaoqiu) ? teshuyaoqiu : getTeshuyaoqiu,
+                                        shichangid, sanjifenleiId, purchase_id, son_order_id, pack_standard_id, purchase_name, caigouliang + ""))
+                .setDataListener(new HttpDataListener<FCGSaveFanHuiBean>() {
+                    @Override
+                    public void onNext(FCGSaveFanHuiBean data) {
+                        Log.e("FCGCaiGouXuQiuActivity.this.dijige", FCGCaiGouXuQiuActivity.this.dijige + "---");
+                        if (data != null) {
+                            Log.e("这是主表ID", data.getPurchase_id());
+                            purchase_id = data.getPurchase_id();
+                        }
+                        Log.e("FCGSaveFanHuiBean,data", gson.toJson(data));
+                        baocunxintianjiade(dijige);
+                        qingkongshuju();
+                        if (leixing == 1) {
+                            FCGCaiGouXuQiuActivity.this.dijige++;
+                        } else if (leixing == 2) {
+                            FCGCaiGouXuQiuActivity.this.dijige--;
+                        } else if (leixing == 3) {
+                            FCGCaiGouXuQiuActivity.this.dijige = mlist.size();
+                        } else if (leixing == 4) {
+                            FCGCaiGouXuQiuActivity.this.dijige = mlist.size();
+                            confirmDialog.showDialog("是否确认提交采购单");
+                            confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                        HttpManager.getInstance()
+                                                .with(mContext)
+                                                .setObservable(
+                                                        RetrofitManager
+                                                                .getService()
+                                                                //user_token  是否是特殊商品不是0 是1    如果是特殊商品 填写要求   市场id  类别id  产品数量
+                                                                .postCaigoudan(purchase_id))
+                                                .setDataListener(new HttpDataListener<String>() {
+                                                    @Override
+                                                    public void onNext(String data) {
+                                                        ToastUtil.showToast("主表真是好使啊");
+                                                    }
 
-
-
-                                            confirmDialog.showDialog("是否确认提交采购单");
-                                            confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
-                                                @Override
-                                                public void onClick(View v) {
-                                                    confirmDialog.cancel();
-                                                    tijiaoxuqiuDialog.showDialog();
-                                                    tijiaoxuqiuDialog.getTvCaigoudan().setOnClickListener(new View.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(View v) {
-                                                            Intent intent=new Intent(mContext, CaiGouDanActivity.class);
-                                                            startActivity(intent);
-                                                            FCGDiQuXuanZeActivity.instance.finish();
-                                                            tijiaoxuqiuDialog.dismiss();
-                                                            finish();
-                                                        }
-                                                    });
-                                                    tijiaoxuqiuDialog.getTvShouye().setOnClickListener(new View.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(View v) {
-                                                            Intent intent=new Intent(mContext, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                            startActivity(intent);
-                                                            tijiaoxuqiuDialog.dismiss();
-                                                            finish();
-                                                        }
-                                                    });
-                                                }
-                                            });
-                                            confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
-                                                @Override
-                                                public void onClick(View v) {
-                                                    confirmDialog.cancel();
-                                                }
-                                            });
+                                                }, false);
+                                    confirmDialog.cancel();
+                                    tijiaoxuqiuDialog.showDialog();
+                                    tijiaoxuqiuDialog.getTvCaigoudan().setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            Intent intent = new Intent(mContext, CaiGouDanActivity.class);
+                                            startActivity(intent);
+                                            FCGDiQuXuanZeActivity.instance.finish();
+                                            tijiaoxuqiuDialog.dismiss();
+                                            finish();
                                         }
-                                        Log.e("FCGCaiGouXuQiuActivity.this.dijige",FCGCaiGouXuQiuActivity.this.dijige+"---");
-                                        if (data!=null){
-                                            Log.e("这是主表ID",data.getPurchase_id());
-                                            purchase_id=data.getPurchase_id();
-                                            mlist.get(dijige).setSon_order_id(data.getSon_order_id());
+                                    });
+                                    tijiaoxuqiuDialog.getTvShouye().setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            Intent intent = new Intent(mContext, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            startActivity(intent);
+                                            tijiaoxuqiuDialog.dismiss();
+                                            finish();
                                         }
-                                    }
-                                });
+                                    });
+                                }
+                            });
+                            confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    confirmDialog.cancel();
+                                }
+                            });
+                        }
+
+                    }
+                });
 
     }
+
     //特殊
-    private void teshu(int teshu){
-        if (teshu==1){
+    private void teshu(int teshu) {
+        if (teshu == 1) {
             ivTeshu.setSelected(true);
             rlTeshu.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             ivTeshu.setSelected(false);
             rlTeshu.setVisibility(View.GONE);
         }
     }
+
     //清空各种数据  让用户重新填写
     private void qingkongshuju() {
         etShangpinMing.setText("");
         etCaigouliang.setText("");
         etTeshu.setText("");
         tvGuige.setText("");
-        sanjifenleiName="";
-        sanjifenleiId="";
-        pack_standard_id="";
-        datas=new ArrayList<>();
+        sanjifenleiName = "";
+        sanjifenleiId = "";
+        pack_standard_id = "";
+        datas = new ArrayList<>();
         mohuAdapter.setData(datas);
-        guigedatas=new ArrayList<>();
+        guigedatas = new ArrayList<>();
         guigeadapter.setData(guigedatas);
-
+        etShangpinMing.setFocusable(true);
+        etShangpinMing.setFocusableInTouchMode(true);
+        etShangpinMing.requestFocus();
+        ivTeshu.setSelected(false);
+        rlTeshu.setVisibility(View.GONE);
 
 //        shangpinid="";
 //        shangpinming="";
 //        caigouliang="";
 //        teshuyaoqiu="";
     }
+
     //获取用户填写的数据
     private void huoqushuju() {
-        sanjifenleiName=etShangpinMing.getText().toString().trim();
+        sanjifenleiName = etShangpinMing.getText().toString().trim();
         caigouliang = etCaigouliang.getText().toString().trim();
         teshuyaoqiu = etTeshu.getText().toString().trim();
         guige = tvGuige.getText().toString().trim();

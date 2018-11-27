@@ -277,8 +277,14 @@ public class SouSuoActivity extends BaseActivity {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 if ("".equals(etSousuo.getText().toString().trim()) || etSousuo.getText().toString().trim() == null) {
-                    llWuzi.setVisibility(View.VISIBLE);
-                    rvYouzi.setVisibility(View.GONE);
+                    if(sousuo_state==0){
+                        if(!TextUtils.isEmpty(tvPipei.getText().toString().trim())){
+                            getmohuchaxun(tvPipei.getText().toString().trim());
+                        }
+                    } else {
+                        llWuzi.setVisibility(View.VISIBLE);
+                        rvYouzi.setVisibility(View.GONE);
+                    }
                 }
                 if(s.length()>0){
                     sousuozi=s.toString().trim();
@@ -287,8 +293,14 @@ public class SouSuoActivity extends BaseActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (etSousuo.getText().toString().trim().length() == 0) {
-                    llWuzi.setVisibility(View.VISIBLE);
-                    rvYouzi.setVisibility(View.GONE);
+                    if(sousuo_state==0){
+                        if(!TextUtils.isEmpty(tvPipei.getText().toString().trim())){
+                            getmohuchaxun(tvPipei.getText().toString().trim());
+                        }
+                    } else {
+                        llWuzi.setVisibility(View.VISIBLE);
+                        rvYouzi.setVisibility(View.GONE);
+                    }
                 } else {
                     if(s.length()>0){
                         sousuozi=s.toString().trim();
@@ -296,9 +308,11 @@ public class SouSuoActivity extends BaseActivity {
                     llWuzi.setVisibility(View.GONE);
                     rvYouzi.setVisibility(View.VISIBLE);
                     if(sousuo_state==0){
-                        String sousuo = etSousuo.getText().toString().trim();
-                        //查询
-                        getmohuchaxun(sousuo);
+                        if(TextUtils.isEmpty(tvPipei.getText().toString().trim())){
+                            String sousuo = etSousuo.getText().toString().trim();
+                            //查询
+                            getmohuchaxun(sousuo);
+                        }
                     } else if(sousuo_state==1){
                         sousuodianpu(etSousuo.getText().toString().trim());
                     } else {
@@ -616,7 +630,7 @@ public class SouSuoActivity extends BaseActivity {
             viewShangpin.setVisibility(View.GONE);
             llShichang.setVisibility(View.GONE);
             llShangpin.setVisibility(View.GONE);
-            llPipei.setVisibility(View.GONE);
+//            llPipei.setVisibility(View.GONE);
             fenleiid="";
             fenleiname="";
 //            shichanglist.clear();

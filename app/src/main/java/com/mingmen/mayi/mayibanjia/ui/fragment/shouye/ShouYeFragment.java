@@ -21,6 +21,7 @@ import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.ShouYeBannerBean;
 import com.mingmen.mayi.mayibanjia.bean.ShouYeLeiBean;
+import com.mingmen.mayi.mayibanjia.bean.ShouYeShangChangBean;
 import com.mingmen.mayi.mayibanjia.bean.ShouYeTeJiaBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
@@ -61,8 +62,9 @@ public class ShouYeFragment extends BaseFragment {
     private View viewSPYXFragment;
     private ShouYeAdapter adapter;
     private List<ShouYeBannerBean> bannerBean = new ArrayList<>();
-    private List<ShouYeLeiBean> leiBean = new ArrayList<>();
+//    private List<ShouYeLeiBean> leiBean = new ArrayList<>();
     private List<ShouYeTeJiaBean> teJiaBean = new ArrayList<>();
+    private List<ShouYeShangChangBean> shangJiaBean = new ArrayList<>();
     private AMapLocationClient locationClient = null;
     private AMapLocationClientOption locationOption = null;
     private String xingQuDian;
@@ -132,9 +134,11 @@ public class ShouYeFragment extends BaseFragment {
                         teJiaBean=new ArrayList<ShouYeTeJiaBean>();
                         teJiaBean.addAll(list);
                         Log.e("tejiatejia",teJiaBean.size()+"---");
-                        adapter = new ShouYeAdapter(getActivity(), bannerBean, leiBean, teJiaBean,(MainActivity) getActivity());
+//                        adapter = new ShouYeAdapter(getActivity(), bannerBean, leiBean, teJiaBean,(MainActivity) getActivity());
+                        adapter = new ShouYeAdapter(getActivity(), bannerBean, shangJiaBean, teJiaBean,(MainActivity) getActivity());
                         rvShouye.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
                         rvShouye.setAdapter(adapter);
+                        rvShouye.setFocusable(false);
 
                     }
                 });
@@ -267,20 +271,37 @@ public class ShouYeFragment extends BaseFragment {
         }
     }
 
-    private void getShouyeFenLei() {
+//    private void getShouyeFenLei() {
+//        HttpManager.getInstance()
+//                .with(getActivity())
+//                .setObservable(
+//                        RetrofitManager
+//                                .getService()
+//                                .getShouYeFenLei(PreferenceUtils.getString(MyApplication.mContext, "token","")))
+//                .setDataListener(new HttpDataListener<List<ShouYeLeiBean>>() {
+//
+//                    @Override
+//                    public void onNext(List<ShouYeLeiBean> list) {
+//                        leiBean=new ArrayList<ShouYeLeiBean>();
+//                        leiBean.addAll(list);
+//                        Log.e("fenleifenlei", leiBean.size() + "---");
+//                        getShouyeTeJia();
+//                    }
+//                },false);
+//    }
+
+   private void getShouyeShangJia() {
         HttpManager.getInstance()
                 .with(getActivity())
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getShouYeFenLei(PreferenceUtils.getString(MyApplication.mContext, "token","")))
-                .setDataListener(new HttpDataListener<List<ShouYeLeiBean>>() {
+                                .getShouYeShangJia())
+                .setDataListener(new HttpDataListener<ShouYeShangChangBean>() {
 
                     @Override
-                    public void onNext(List<ShouYeLeiBean> list) {
-                        leiBean=new ArrayList<ShouYeLeiBean>();
-                        leiBean.addAll(list);
-                        Log.e("fenleifenlei", leiBean.size() + "---");
+                    public void onNext(ShouYeShangChangBean list) {
+                        shangJiaBean.add(list);
                         getShouyeTeJia();
                     }
                 },false);
@@ -300,7 +321,7 @@ public class ShouYeFragment extends BaseFragment {
                         bannerBean=new ArrayList<ShouYeBannerBean>();
                         bannerBean.addAll(list);
                         Log.e("fenleifenlei1", bannerBean.size() + "---");
-                        getShouyeFenLei();
+                        getShouyeShangJia();
                     }
                 },false);
 

@@ -45,6 +45,7 @@ import com.mingmen.mayi.mayibanjia.bean.ShiChangSouSuoShangPinBean;
 import com.mingmen.mayi.mayibanjia.bean.ShouCangBean;
 import com.mingmen.mayi.mayibanjia.bean.ShouYeBannerBean;
 import com.mingmen.mayi.mayibanjia.bean.ShouYeLeiBean;
+import com.mingmen.mayi.mayibanjia.bean.ShouYeShangChangBean;
 import com.mingmen.mayi.mayibanjia.bean.ShouYeTeJiaBean;
 import com.mingmen.mayi.mayibanjia.bean.SiJiWLXQBean;
 import com.mingmen.mayi.mayibanjia.bean.SongDaShiJianBean;
@@ -76,6 +77,9 @@ public interface HttpService {
     @POST("sy/list.do")
     Observable<ResultModel<List<ShouYeLeiBean>>> getShouYeFenLei(@Query("user_token") String user_token);
 
+    //首页分类数据
+    @POST("allCompany/account.do")
+    Observable<ResultModel<ShouYeShangChangBean>> getShouYeShangJia();
     //首页轮播图
     @POST("allPhoto/show.do")
     Observable<ResultModel<List<ShouYeBannerBean>>> getbanner(@Query("user_token") String user_token);

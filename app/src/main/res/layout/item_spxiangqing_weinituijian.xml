@@ -11,6 +11,7 @@
 
         android:paddingBottom="12dp">
         <ImageView
+            android:scaleType="fitXY"
             android:id="@+id/iv_sptu"
             android:layout_width="162dp"
             android:layout_height="162dp"

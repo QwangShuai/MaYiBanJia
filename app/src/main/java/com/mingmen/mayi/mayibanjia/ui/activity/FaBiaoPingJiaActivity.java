@@ -116,7 +116,6 @@ public class FaBiaoPingJiaActivity extends BaseActivity {
                     isNiming = false;
                     ivXuanzhong.setSelected(false);
                     niming = "0";
-
                 } else {
                     isNiming = true;
                     ivXuanzhong.setSelected(true);

@@ -1,14 +1,9 @@
 package com.mingmen.mayi.mayibanjia.ui.activity.adapter;
 
-import android.support.annotation.LayoutRes;
-import android.support.annotation.Nullable;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.ShangPinBean;
-
-import java.util.List;
 
 /**
  * Created by Administrator on 2018/8/30.
@@ -17,7 +12,7 @@ import java.util.List;
 public class QiangDanShangPinAdapter extends BaseQuickAdapter<ShangPinBean,BaseViewHolder> {
     private String xuanzhong;
     public QiangDanShangPinAdapter() {
-        super(R.layout.ietm_qiangdanshangpin);
+        super(R.layout.item_qiangdanshangpin);
     }
 
     public void setXuanzhong(String xuanzhong){

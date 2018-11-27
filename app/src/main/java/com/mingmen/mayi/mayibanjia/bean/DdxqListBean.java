@@ -574,7 +574,7 @@ public class DdxqListBean {
             private Object picture_id;
             private Object business_state;
             private Object approval_state;
-            private Object photo;
+            private String photo;
             private String gy_order_id;
             private Object comment_text;
             private Object scale;
@@ -637,6 +637,16 @@ public class DdxqListBean {
             private String shu;
             private String total;
             private String ct_state;
+            private String pjstate;
+
+
+            public String getPjstate() {
+                return pjstate;
+            }
+
+            public void setPjstate(String pjstate) {
+                this.pjstate = pjstate;
+            }
 
             public String getCt_state() {
                 return ct_state;
@@ -856,11 +866,11 @@ public class DdxqListBean {
                 this.approval_state = approval_state;
             }
 
-            public Object getPhoto() {
+            public String getPhoto() {
                 return photo;
             }
 
-            public void setPhoto(Object photo) {
+            public void setPhoto(String photo) {
                 this.photo = photo;
             }
 

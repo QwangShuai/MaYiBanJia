@@ -191,7 +191,7 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
                                     .setDataListener(new HttpDataListener<String>() {
                                         @Override
                                         public void onNext(String data) {
-                                            if (mList != null) {
+                                            if (mList.get(position).getLevels() != null) {
                                                 mList.get(position).getLevels().clear();
                                             }
                                             isShow[position] = false;

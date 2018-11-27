@@ -43,7 +43,7 @@ public class DianPuListAdapter extends  RecyclerView.Adapter<DianPuListAdapter.V
     }
     @Override
     public DianPuListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        viewHolder = new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.ietm_dianpuliebiao, parent, false));
+        viewHolder = new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_dianpuliebiao, parent, false));
         return viewHolder;
     }
 

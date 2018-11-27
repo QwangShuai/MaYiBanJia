@@ -17,6 +17,7 @@ import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.DdxqListBean;
 import com.mingmen.mayi.mayibanjia.ui.activity.DianPuActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.DingDanXiangQingActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.FaBiaoPingJiaActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 
@@ -99,11 +100,15 @@ public class DdXqDianpuAdapter extends RecyclerView.Adapter<DdXqDianpuAdapter.Vi
                     }
                 });
             }else if(dplistBean.getState().equals("405")){
-                holder.llTongji.setVisibility(View.VISIBLE);
-                holder.tvJianshu.setText(dplistBean.getShu());
-                DingDanXiangQingActivity.instance.setJiaGeShowView(holder.tvZongjia1,holder.tvZongjia2,dplistBean.getTotal());
-                holder.btnFukuan.setText("已支付");
+//                holder.llTongji.setVisibility(View.VISIBLE);
+//                holder.tvJianshu.setText(dplistBean.getShu());
+//                DingDanXiangQingActivity.instance.setJiaGeShowView(holder.tvZongjia1,holder.tvZongjia2,dplistBean.getTotal());
+                holder.btnPingjia.setVisibility(View.VISIBLE);
+                setListener(dplistBean.getPjstate(),dplistBean);
             }
+        } else if(dplistBean.getState().equals("405")){
+            holder.btnPingjia.setVisibility(View.VISIBLE);
+            setListener(dplistBean.getPjstate(),dplistBean);
         }
     }
 
@@ -131,6 +136,8 @@ public class DdXqDianpuAdapter extends RecyclerView.Adapter<DdXqDianpuAdapter.Vi
         Button btnFukuan;
         @BindView(R.id.ll_tongji)
         LinearLayout llTongji;
+        @BindView(R.id.btn_pingjia)
+        Button btnPingjia;
 
         ViewHolder(View view) {
             super(view);
@@ -143,5 +150,24 @@ public class DdXqDianpuAdapter extends RecyclerView.Adapter<DdXqDianpuAdapter.Vi
         Uri data = Uri.parse("tel:" + phone);
         intent.setData(data);
         mContext.startActivity(intent);
+    }
+
+    public void setListener(String state, final DdxqListBean.MarketBean.DplistBean bean){
+        if(state.equals("0")){
+            viewHolder.btnPingjia.setText("待评价");
+            viewHolder.btnPingjia.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("company_id", bean.getCompany_id());
+                    bundle.putString("order_id", bean.getOrder_id());
+                    bundle.putString("photo", bean.getPhoto());
+                    JumpUtil.Jump_intent(mContext, FaBiaoPingJiaActivity.class, bundle);
+                }
+            });
+        } else {
+            viewHolder.btnPingjia.setText("已评价");
+        }
+
     }
 }

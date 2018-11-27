@@ -27,6 +27,7 @@ import com.mingmen.mayi.mayibanjia.bean.JYMXItemBean;
 import com.mingmen.mayi.mayibanjia.bean.LiShiJiLuBean;
 import com.mingmen.mayi.mayibanjia.bean.LiuLanJiLuBean;
 import com.mingmen.mayi.mayibanjia.bean.PhoneBean;
+import com.mingmen.mayi.mayibanjia.bean.PingJiaLableBean;
 import com.mingmen.mayi.mayibanjia.bean.ProvinceBean;
 import com.mingmen.mayi.mayibanjia.bean.QiYeGuiMoBean;
 import com.mingmen.mayi.mayibanjia.bean.QiYeLeiBieBean;
@@ -878,4 +879,20 @@ public interface HttpService {
     @POST("wl/matchPlate.do")
     Observable<ResultModel<List<ChePaiBean>>> getChepai(@Query("new_plate_number") String new_plate_number,
                                                         @Query("new_wl_cars_type") String new_wl_cars_type);
+
+    //评价标签
+    @POST("allDictionary/selectEvaluate.do")
+    Observable<ResultModel<List<PingJiaLableBean>>> getPingjiaLable();
+
+    //发表评价
+    @POST("gyCommentReply/save.do")
+    Observable<ResultModel<String>> postPingjia(@Query("user_token") String user_token,
+                                                @Query("anonymous") String anonymous,
+                                                @Query("order_id") String order_id,
+                                                @Query("star_evaluation") String star_evaluation,
+                                                @Query("comment_text") String comment_text,
+                                                @Query("company_id") String company_id,
+                                                @Query("shop_rowgu") String shop_rowgu);
+
+
 }

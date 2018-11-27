@@ -130,9 +130,9 @@
                     android:id="@+id/iv_dianhua"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:layout_marginLeft="12dp"
                     android:src="@mipmap/dianhua_black" />
                 <TextView
+                    android:layout_marginLeft="12dp"
                     android:id="@+id/tv_chepaihao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -148,7 +148,7 @@
                 android:id="@+id/tv_fahuoshijian"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_chepaihao"
+                android:layout_below="@+id/ll_rongqi"
                 android:layout_marginTop="12dp"
                 android:text="发货时间：8-01 06:50:00"
                 android:textColor="@color/zicolor"
@@ -156,6 +156,7 @@
         </RelativeLayout>
     </RelativeLayout>
     <LinearLayout
+        android:layout_marginTop="12dp"
         android:id="@+id/ll_dianpushuliang"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -171,6 +172,7 @@
             android:textSize="13sp" />
 
         <TextView
+            android:layout_marginLeft="12dp"
             android:id="@+id/tv_wfkdpsl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

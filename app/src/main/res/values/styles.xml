@@ -75,6 +75,11 @@
         <item name="android:numColumns">8</item>
         <!--//这里放一些你觉得公共的属性(你可以在控件里覆盖这里的属性)-->
     </style>
+    <style name="RatingBar30" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/layer_live_rating_bar_30</item>
+        <item name="android:minHeight">30dp</item>
+        <item name="android:maxHeight">30dp</item>
+    </style>
 
     <style name="foodRatingBar" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/layer_live_rating_bar</item>

@@ -63,9 +63,11 @@ public class SJPSXiangQingAdapter extends RecyclerView.Adapter<SJPSXiangQingAdap
         } else {
             holder.tv_state.setTextColor(R.color.zicolor);
         }
-//        holder.tv_state.setText(String.valueOf(data.getWl_order_state()));
-//        holder.tv_quhuotanwei.setText(data.getGyAddress());
-//        holder.tv_lianxidianhua.setText(data.getGyPhone());
+        if(TextUtils.isEmpty(String.valueOf(data.getWl_order_state()))){
+            holder.tv_state.setText("");
+        }else{
+            holder.tv_state.setText(String.valueOf(data.getWl_order_state()));
+        }
         adapter = new SJPSXiangQingTwoAdapter(mContext,data.getGyMsgList());
         holder.rvList.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         holder.rvList.setAdapter(adapter);

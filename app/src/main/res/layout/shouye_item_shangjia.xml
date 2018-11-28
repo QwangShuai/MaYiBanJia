@@ -3,9 +3,10 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="20dp"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp">
+    android:paddingBottom="12dp"
+    android:background="@drawable/bg_item_yinying">
     <LinearLayout
+        android:layout_marginBottom="12dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -23,10 +24,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
-                android:layout_marginTop="12dp"
-                android:text="注册供应商(家)"
+                android:layout_marginTop="8dp"
+                android:text="注册商家"
                 android:textColor="@color/lishisousuo"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -49,10 +50,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
-                android:layout_marginTop="12dp"
-                android:text="注册餐厅(家)"
+                android:layout_marginTop="8dp"
+                android:text="注册餐厅"
                 android:textColor="@color/lishisousuo"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -75,23 +76,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:text="全部市场"
                 android:textColor="@color/lishisousuo"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
     </LinearLayout>
-    <Button
-        android:layout_marginBottom="2dp"
-        android:id="@+id/btn_caigou"
-        android:textColor="@color/white"
-        android:textSize="15sp"
-        android:background="@drawable/bg_bt_false"
-        android:text="原材料采购    >>"
-        android:layout_marginTop="25dp"
-        android:layout_gravity="center"
-        android:layout_width="140dp"
-        android:layout_height="35dp" />
+    <!--<Button-->
+        <!--android:layout_marginBottom="2dp"-->
+        <!--android:id="@+id/btn_caigou"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textSize="15sp"-->
+        <!--android:background="@drawable/bg_bt_false"-->
+        <!--android:text="原材料采购    >>"-->
+        <!--android:layout_marginTop="25dp"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_width="140dp"-->
+        <!--android:layout_height="35dp" />-->
 </LinearLayout>

@@ -1,6 +1,7 @@
 package com.mingmen.mayi.mayibanjia;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -40,6 +41,8 @@ public class MainActivity extends AppCompatActivity{
     ImageView ivGouwuche;
     @BindView(R.id.iv_wode)
     ImageView ivWode;
+    @BindView(R.id.iv_facaigou)
+    ImageView ivFacaigou;
     @BindView(R.id.viewpager)
     NoScrollViewPager viewPager;
     private long exitTime = 0;
@@ -150,20 +153,28 @@ public class MainActivity extends AppCompatActivity{
 //            System.exit(0);
         }
     }
-    @OnClick({R.id.iv_shouye, R.id.iv_quanbucaipin,R.id.iv_gouwuche, R.id.iv_wode})
+    @OnClick({R.id.iv_shouye, R.id.iv_quanbucaipin,R.id.iv_gouwuche, R.id.iv_wode,R.id.iv_facaigou})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_shouye:
+//                ivFacaigou.setVisibility(View.VISIBLE);
                 gaibianye(0);
                 break;
             case R.id.iv_quanbucaipin:
+//                ivFacaigou.setVisibility(View.GONE);
                 gaibianye(1);
                 break;
             case R.id.iv_gouwuche:
+//                ivFacaigou.setVisibility(View.GONE);
                 gaibianye(2);
                 break;
             case R.id.iv_wode:
+//                ivFacaigou.setVisibility(View.GONE);
                 gaibianye(3);
+                break;
+            case R.id.iv_facaigou:
+                Intent caigouintent=new Intent(MainActivity.this,FCGDiQuXuanZeActivity.class);
+                startActivity(caigouintent);
                 break;
         }
     }

@@ -62,7 +62,7 @@ public class ShouYeFragment extends BaseFragment {
     private View viewSPYXFragment;
     private ShouYeAdapter adapter;
     private List<ShouYeBannerBean> bannerBean = new ArrayList<>();
-//    private List<ShouYeLeiBean> leiBean = new ArrayList<>();
+    private List<ShouYeLeiBean> leiBean = new ArrayList<>();
     private List<ShouYeTeJiaBean> teJiaBean = new ArrayList<>();
     private List<ShouYeShangChangBean> shangJiaBean = new ArrayList<>();
     private AMapLocationClient locationClient = null;
@@ -117,7 +117,7 @@ public class ShouYeFragment extends BaseFragment {
 
 
         getShouyeBanner();
-
+        getShouyeFenLei();
     }
 
     private void getShouyeTeJia() {
@@ -135,7 +135,7 @@ public class ShouYeFragment extends BaseFragment {
                         teJiaBean.addAll(list);
                         Log.e("tejiatejia",teJiaBean.size()+"---");
 //                        adapter = new ShouYeAdapter(getActivity(), bannerBean, leiBean, teJiaBean,(MainActivity) getActivity());
-                        adapter = new ShouYeAdapter(getActivity(), bannerBean, shangJiaBean, teJiaBean,(MainActivity) getActivity());
+                        adapter = new ShouYeAdapter(getActivity(), bannerBean, shangJiaBean,leiBean, teJiaBean,(MainActivity) getActivity());
                         rvShouye.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
                         rvShouye.setAdapter(adapter);
                         rvShouye.setFocusable(false);
@@ -271,24 +271,24 @@ public class ShouYeFragment extends BaseFragment {
         }
     }
 
-//    private void getShouyeFenLei() {
-//        HttpManager.getInstance()
-//                .with(getActivity())
-//                .setObservable(
-//                        RetrofitManager
-//                                .getService()
-//                                .getShouYeFenLei(PreferenceUtils.getString(MyApplication.mContext, "token","")))
-//                .setDataListener(new HttpDataListener<List<ShouYeLeiBean>>() {
-//
-//                    @Override
-//                    public void onNext(List<ShouYeLeiBean> list) {
-//                        leiBean=new ArrayList<ShouYeLeiBean>();
-//                        leiBean.addAll(list);
-//                        Log.e("fenleifenlei", leiBean.size() + "---");
+    private void getShouyeFenLei() {
+        HttpManager.getInstance()
+                .with(getActivity())
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .getShouYeFenLei(PreferenceUtils.getString(MyApplication.mContext, "token","")))
+                .setDataListener(new HttpDataListener<List<ShouYeLeiBean>>() {
+
+                    @Override
+                    public void onNext(List<ShouYeLeiBean> list) {
+                        leiBean=new ArrayList<ShouYeLeiBean>();
+                        leiBean.addAll(list);
+                        Log.e("fenleifenlei", leiBean.size() + "---");
 //                        getShouyeTeJia();
-//                    }
-//                },false);
-//    }
+                    }
+                },false);
+    }
 
    private void getShouyeShangJia() {
         HttpManager.getInstance()
@@ -340,10 +340,10 @@ public class ShouYeFragment extends BaseFragment {
                 Intent intent=new Intent(getActivity(),SouSuoActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.iv_facaigou:
-                Intent caigouintent=new Intent(getActivity(),FCGDiQuXuanZeActivity.class);
-                startActivity(caigouintent);
-                break;
+//            case R.id.iv_facaigou:
+//                Intent caigouintent=new Intent(getActivity(),FCGDiQuXuanZeActivity.class);
+//                startActivity(caigouintent);
+//                break;
         }
     }
 }

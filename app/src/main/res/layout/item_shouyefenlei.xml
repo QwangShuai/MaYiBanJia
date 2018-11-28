@@ -19,7 +19,7 @@
 
             >
 
-            <ImageView
+            <com.mingmen.mayi.mayibanjia.ui.view.CircleImageView
                 android:id="@+id/iv1"
                 android:layout_width="63dp"
                 android:layout_height="63dp"
@@ -29,7 +29,7 @@
                 android:id="@+id/tv1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:text="中药材"
                 android:textColor="#474747"
                 android:textSize="12sp" />
@@ -47,7 +47,7 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageView
+            <com.mingmen.mayi.mayibanjia.ui.view.CircleImageView
                 android:id="@+id/iv2"
                 android:layout_width="63dp"
                 android:layout_height="63dp"
@@ -57,7 +57,7 @@
                 android:id="@+id/tv2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:text="中药材"
                 android:textColor="#474747"
                 android:textSize="12sp" />
@@ -75,7 +75,7 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageView
+            <com.mingmen.mayi.mayibanjia.ui.view.CircleImageView
                 android:id="@+id/iv3"
                 android:layout_width="63dp"
                 android:layout_height="63dp"
@@ -85,7 +85,7 @@
                 android:id="@+id/tv3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:text="中药材"
                 android:textColor="#474747"
                 android:textSize="12sp" />
@@ -104,7 +104,7 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageView
+            <com.mingmen.mayi.mayibanjia.ui.view.CircleImageView
                 android:id="@+id/iv4"
                 android:layout_width="63dp"
                 android:layout_height="63dp"
@@ -114,7 +114,7 @@
                 android:id="@+id/tv4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:text="中药材"
                 android:textColor="#474747"
                 android:textSize="12sp" />
@@ -125,7 +125,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="12dp">
         <LinearLayout
             android:id="@+id/ll5"
             android:layout_width="wrap_content"
@@ -134,7 +134,7 @@
             android:gravity="center"
             android:layout_marginLeft="12dp"
             >
-            <ImageView
+            <com.mingmen.mayi.mayibanjia.ui.view.CircleImageView
                 android:id="@+id/iv5"
                 android:layout_width="63dp"
                 android:layout_height="63dp"
@@ -146,7 +146,7 @@
                 android:text="中药材"
                 android:textColor="#474747"
                 android:textSize="12sp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 />
         </LinearLayout>
         <View
@@ -160,7 +160,7 @@
             android:orientation="vertical"
             android:gravity="center"
             >
-            <ImageView
+            <com.mingmen.mayi.mayibanjia.ui.view.CircleImageView
                 android:id="@+id/iv6"
                 android:layout_width="63dp"
                 android:layout_height="63dp"
@@ -172,7 +172,7 @@
                 android:text="中药材"
                 android:textColor="#474747"
                 android:textSize="12sp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 />
         </LinearLayout>
         <View
@@ -186,7 +186,7 @@
             android:orientation="vertical"
             android:gravity="center"
             >
-            <ImageView
+            <com.mingmen.mayi.mayibanjia.ui.view.CircleImageView
                 android:id="@+id/iv7"
                 android:layout_width="63dp"
                 android:layout_height="63dp"
@@ -198,7 +198,7 @@
                 android:text="中药材"
                 android:textColor="#474747"
                 android:textSize="12sp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 />
         </LinearLayout>
         <View
@@ -213,7 +213,7 @@
             android:gravity="center"
             android:layout_marginRight="12dp"
             >
-            <ImageView
+            <com.mingmen.mayi.mayibanjia.ui.view.CircleImageView
                 android:id="@+id/iv8"
                 android:layout_width="63dp"
                 android:layout_height="63dp"
@@ -225,7 +225,7 @@
                 android:text="中药材"
                 android:textColor="#474747"
                 android:textSize="12sp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 />
         </LinearLayout>
 

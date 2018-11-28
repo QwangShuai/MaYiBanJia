@@ -98,7 +98,6 @@ public class LiShiJiLuDialog extends BaseFragmentDialog {
     }
 
     private void getJiLu() {
-        lishixianshi();
         rvLishi.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         rvLishi.setNestedScrollingEnabled(false);
         lishigoumaiadapter = new LiShiGouMaiAdapter(getContext(), lishidata);
@@ -122,7 +121,7 @@ public class LiShiJiLuDialog extends BaseFragmentDialog {
         });
         shoucangadapter.notifyDataSetChanged();
         lishigoumaiadapter.notifyDataSetChanged();
-
+        lishixianshi();
 
     }
 

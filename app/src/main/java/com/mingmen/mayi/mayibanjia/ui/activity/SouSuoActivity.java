@@ -26,6 +26,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.mingmen.mayi.mayibanjia.MainActivity;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.AllShiChangBean;
@@ -45,6 +46,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.adapter.ShangPinListAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.ShangPinMohuAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.ShiChangAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.ShiChangSouSuoShangPinListAdapter;
+import com.mingmen.mayi.mayibanjia.ui.activity.adapter.StringAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.YiJiFenLeiAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.JiaRuGouWuCheDialog;
@@ -84,24 +86,24 @@ public class SouSuoActivity extends BaseActivity {
     EditText etSousuo;
     @BindView(R.id.tv_quxiao)
     TextView tvQuxiao;
-    @BindView(R.id.tv_shichang)
-    TextView tvShichang;
-    @BindView(R.id.view_shichang)
-    View viewShichang;
-    @BindView(R.id.rl_shichang)
-    RelativeLayout rlShichang;
-    @BindView(R.id.tv_dianpu)
-    TextView tvDianpu;
-    @BindView(R.id.view_dianpu)
-    View viewDianpu;
-    @BindView(R.id.rl_dianpu)
-    RelativeLayout rlDianpu;
-    @BindView(R.id.tv_shangpin)
-    TextView tvShangpin;
-    @BindView(R.id.view_shangpin)
-    View viewShangpin;
-    @BindView(R.id.rl_shangpin)
-    RelativeLayout rlShangpin;
+//    @BindView(R.id.tv_shichang)
+//    TextView tvShichang;
+//    @BindView(R.id.view_shichang)
+//    View viewShichang;
+//    @BindView(R.id.rl_shichang)
+//    RelativeLayout rlShichang;
+//    @BindView(R.id.tv_dianpu)
+//    TextView tvDianpu;
+//    @BindView(R.id.view_dianpu)
+//    View viewDianpu;
+//    @BindView(R.id.rl_dianpu)
+//    RelativeLayout rlDianpu;
+//    @BindView(R.id.tv_shangpin)
+//    TextView tvShangpin;
+//    @BindView(R.id.view_shangpin)
+//    View viewShangpin;
+//    @BindView(R.id.rl_shangpin)
+//    RelativeLayout rlShangpin;
     @BindView(R.id.iv_lishishanchu)
     ImageView ivLishishanchu;
     @BindView(R.id.rl_lishisousuo)
@@ -110,8 +112,8 @@ public class SouSuoActivity extends BaseActivity {
     XCFlowLayout xcfLishisousuo;
     @BindView(R.id.xcf_remensousuo)
     XCFlowLayout xcfRemensousuo;
-    @BindView(R.id.ll_shangpin)
-    LinearLayout llShangpin;
+//    @BindView(R.id.ll_shangpin)
+//    LinearLayout llShangpin;
     @BindView(R.id.ll_wuzi)
     LinearLayout llWuzi;
     @BindView(R.id.rv_youzi)
@@ -122,25 +124,28 @@ public class SouSuoActivity extends BaseActivity {
     ImageView ivTu;
     @BindView(R.id.ll_lishi)
     LinearLayout llLishi;
-    @BindView(R.id.tv_xiaoliang)
-    TextView tvXiaoliang;
-    @BindView(R.id.tv_jiage)
-    TextView tvJiage;
-    @BindView(R.id.ll_jiage)
-    LinearLayout llJiage;
-    @BindView(R.id.tv_pingfenzuigao)
-    TextView tvPingfenzuigao;
-    @BindView(R.id.tv_diqu)
-    TextView tvDiqu;
-    @BindView(R.id.tv_pinlei)
-    TextView tvPinlei;
-    @BindView(R.id.tv_shaixuan)
-    TextView tvShaixuan;
-    @BindView(R.id.ll_diqu)
-    LinearLayout llDiqu;
+//    @BindView(R.id.tv_xiaoliang)
+//    TextView tvXiaoliang;
+//    @BindView(R.id.tv_jiage)
+//    TextView tvJiage;
+//    @BindView(R.id.ll_jiage)
+//    LinearLayout llJiage;
+//    @BindView(R.id.tv_pingfenzuigao)
+//    TextView tvPingfenzuigao;
+//    @BindView(R.id.tv_diqu)
+//    TextView tvDiqu;
+//    @BindView(R.id.tv_pinlei)
+//    TextView tvPinlei;
+//    @BindView(R.id.tv_shaixuan)
+//    TextView tvShaixuan;
+//    @BindView(R.id.ll_diqu)
+//    LinearLayout llDiqu;
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout refreshLayout;
-
+    @BindView(R.id.ll_xiala)
+    LinearLayout llXiala;
+    @BindView(R.id.tv_lable)
+    TextView tvLable;
 
 
     private DianPuListAdapter dianpuadapter;
@@ -150,7 +155,7 @@ public class SouSuoActivity extends BaseActivity {
     private RecordSQLiteOpenHelper helper;
     private RecordsDao recordsDao;
     private String lastSearch;
-    private List<String> shangpinNamelist;
+//    private List<String> shangpinNamelist;
     private List<String> dianpuNamelist;
     private ArrayList<TextView> tvs;
     private ConfirmDialog confirmDialog;
@@ -189,6 +194,10 @@ public class SouSuoActivity extends BaseActivity {
     private ArrayList<FenLeiBean> dangqianerji;
     private int ye=1;
     private String type="0";
+    private List<String> xuanze = new ArrayList<>();
+    private PopupWindow pop;
+    private RecyclerView rv;
+    private StringAdapter adapter;
     @Override
     public int getLayoutId() {
         return R.layout.activity_sousuo;
@@ -201,6 +210,9 @@ public class SouSuoActivity extends BaseActivity {
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         etSousuo.setText("");
+        xuanze.add("市场");
+        xuanze.add("店铺");
+        xuanze.add("商品");
         sousuofangxiang = "shichang";
         setViewMoren();
         if (getIntent().getStringExtra("sousuofangxiang") != null) {
@@ -212,7 +224,6 @@ public class SouSuoActivity extends BaseActivity {
                 dianpuxianshi();
             } else if ("shangpin".equals(sousuofangxiang)) {
                 shangpinxianshi();
-
             }
         }
         mLoadMoreListener = new SwipeMenuRecyclerView.LoadMoreListener() {
@@ -330,7 +341,7 @@ public class SouSuoActivity extends BaseActivity {
                 }
                 if(sousuo_state==2){
                     sousuo(sousuozi,true);
-                    llShangpin.setVisibility(View.VISIBLE);
+//                    llShangpin.setVisibility(View.VISIBLE);
                 }
 
             }
@@ -374,7 +385,41 @@ public class SouSuoActivity extends BaseActivity {
             sousuomoren(sousuo);
         }
     }
+    private void showXialaPopupWindow() {
+        View view = View.inflate(mContext, R.layout.pp_textview_recycleview, null);
+        pop = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//        int width = getWindowManager().getDefaultDisplay().getWidth();
+        int height = getWindowManager().getDefaultDisplay().getHeight();
 
+        pop.setWidth(llXiala.getWidth());
+        pop.setHeight(height * 2 / 9);
+        pop.setOutsideTouchable(true);
+        pop.setBackgroundDrawable(new BitmapDrawable());
+        pop.showAsDropDown(llXiala);
+        rv = (RecyclerView) view.findViewById(R.id.rv_list);
+        adapter = new StringAdapter(mContext,xuanze);
+        rv.setAdapter(adapter);
+        rv.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+        adapter.setOnItemClickListener(new StringAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                if (position == 0) {
+                    sousuofangxiang = "shichang";
+                    shichangxianshi();
+                } else if(position==1){
+                    sousuofangxiang = "dianpu";
+                    dianpuxianshi();
+                } else {
+                    sousuofangxiang = "shangpin";
+                    finish();
+                    MainActivity.instance.gaibianye(1);
+                }
+
+                tvLable.setText(xuanze.get(position));
+                pop.dismiss();
+            }
+        });
+    }
     private void getfcgname(final String name) {//搜索市场
         HttpManager.getInstance()
                 .with(mContext)
@@ -488,8 +533,7 @@ public class SouSuoActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.iv_back,R.id.tv_quxiao, R.id.rl_shichang, R.id.rl_dianpu, R.id.rl_shangpin, R.id.iv_pipei, R.id.iv_lishishanchu
-            , R.id.ll_diqu, R.id.ll_pinlei, R.id.ll_shaixuan, R.id.tv_xiaoliang, R.id.ll_jiage, R.id.tv_pingfenzuigao})
+    @OnClick({R.id.iv_back,R.id.tv_quxiao, R.id.iv_pipei, R.id.iv_lishishanchu, R.id.ll_xiala})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -498,18 +542,18 @@ public class SouSuoActivity extends BaseActivity {
             case R.id.tv_quxiao:
                 finish();
                 break;
-            case R.id.rl_shichang:
-                shichangxianshi();
-                sousuofangxiang = "shichang";
-                break;
-            case R.id.rl_dianpu:
-                dianpuxianshi();
-                sousuofangxiang = "dianpu";
-                break;
-            case R.id.rl_shangpin:
-                shangpinxianshi();
-                sousuofangxiang = "shangpin";
-                break;
+//            case R.id.rl_shichang:
+//                shichangxianshi();
+//                sousuofangxiang = "shichang";
+//                break;
+//            case R.id.rl_dianpu:
+//                dianpuxianshi();
+//                sousuofangxiang = "dianpu";
+//                break;
+//            case R.id.rl_shangpin:
+//                shangpinxianshi();
+//                sousuofangxiang = "shangpin";
+//                break;
             case R.id.iv_pipei:
                 tvPipei.setText("");
                 llPipei.setVisibility(View.GONE);
@@ -535,59 +579,67 @@ public class SouSuoActivity extends BaseActivity {
                     }
                 });
                 break;
-            case R.id.ll_diqu:
-                //地区
-
-                break;
-            case R.id.ll_pinlei:
-                //品类
-                if (isLodeFenLei) {
-                    showYiJiPop();
-                } else {
-                    getFenLei();
-                }
-                break;
-            case R.id.ll_shaixuan:
-                //筛选
-                if (shiChangBean ==null) {
-                    getshichang();
-                } else {
-                    showShaiXuanPop();
-                }
-
-                break;
-            case R.id.tv_xiaoliang:
-                ye = 1;
-                type="1";
-                //按销量排序
-                sousuoshangpin(type,sousuozi);
-                setXuanXiangColor(tvXiaoliang);
-                break;
-            case R.id.ll_jiage:
-                ye = 1;
-                //按价格升序或者降序
-                if (isdi){
-                    sousuoshangpin("4",sousuozi);
-                }else{
-                    sousuoshangpin("3",sousuozi);
-                }
-                setXuanXiangColor(tvJiage);
-                break;
-            case R.id.tv_pingfenzuigao:
-                ye = 1;
-                type = "2";
-                //按评分最高排序
-                sousuoshangpin(type,sousuozi);
-                setXuanXiangColor(tvPingfenzuigao);
+//            case R.id.ll_diqu:
+//                //地区
+//
+//                break;
+//            case R.id.ll_pinlei:
+//                //品类
+//                if (isLodeFenLei) {
+//                    showYiJiPop();
+//                } else {
+//                    getFenLei();
+//                }
+//                break;
+//            case R.id.ll_shaixuan:
+//                //筛选
+//                if (shiChangBean ==null) {
+//                    getshichang();
+//                } else {
+//                    showShaiXuanPop();
+//                }
+//
+//                break;
+//            case R.id.tv_xiaoliang:
+//                ye = 1;
+//                type="1";
+//                //按销量排序
+//                sousuoshangpin(type,sousuozi);
+//                setXuanXiangColor(tvXiaoliang);
+//                break;
+//            case R.id.ll_jiage:
+//                ye = 1;
+//                //按价格升序或者降序
+//                if (isdi){
+//                    sousuoshangpin("4",sousuozi);
+//                }else{
+//                    sousuoshangpin("3",sousuozi);
+//                }
+//                setXuanXiangColor(tvJiage);
+//                break;
+//            case R.id.tv_pingfenzuigao:
+//                ye = 1;
+//                type = "2";
+//                //按评分最高排序
+//                sousuoshangpin(type,sousuozi);
+//                setXuanXiangColor(tvPingfenzuigao);
+//                break;
+            case R.id.ll_xiala:
+//                pop.setFocusable(true);
+//                if(pop.isShowing()){
+//                    pop.dismiss();
+//                } else {
+                    showXialaPopupWindow();
+//                }
                 break;
         }
     }
-    private void setXuanXiangColor(TextView bianseview){
-        tvXiaoliang.setTextColor(getResources().getColor(R.color.lishisousuo));
-        tvJiage.setTextColor(getResources().getColor(R.color.lishisousuo));
-        tvPingfenzuigao.setTextColor(getResources().getColor(R.color.lishisousuo));
-        bianseview.setTextColor(getResources().getColor(R.color.zangqing));
-    }
+//    private void setXuanXiangColor(TextView bianseview){
+//        tvXiaoliang.setTextColor(getResources().getColor(R.color.lishisousuo));
+//        tvJiage.setTextColor(getResources().getColor(R.color.lishisousuo));
+//        tvPingfenzuigao.setTextColor(getResources().getColor(R.color.lishisousuo));
+//        bianseview.setTextColor(getResources().getColor(R.color.zangqing));
+//    }
     private void shangpinxianshi() {
         if(sousuo_state!=2){
 //            if(TextUtils.isEmpty(etSousuo.getText().toString())){
@@ -597,12 +649,12 @@ public class SouSuoActivity extends BaseActivity {
 //                llShangpin.setVisibility(View.VISIBLE);
 //            }
             sousuo_state = 2;
-            tvShichang.setSelected(false);
-            tvDianpu.setSelected(false);
-            tvShangpin.setSelected(true);
-            viewShichang.setVisibility(View.GONE);
-            viewDianpu.setVisibility(View.GONE);
-            viewShangpin.setVisibility(View.VISIBLE);
+//            tvShichang.setSelected(false);
+//            tvDianpu.setSelected(false);
+//            tvShangpin.setSelected(true);
+//            viewShichang.setVisibility(View.GONE);
+//            viewDianpu.setVisibility(View.GONE);
+//            viewShangpin.setVisibility(View.VISIBLE);
             llShichang.setVisibility(View.GONE);
             llPipei.setVisibility(View.GONE);
             fenleiid = "";
@@ -622,20 +674,22 @@ public class SouSuoActivity extends BaseActivity {
 //                llLishi.setVisibility(View.GONE);
 //            }
             sousuo_state = 1;
-            tvShichang.setSelected(false);
-            tvDianpu.setSelected(true);
-            tvShangpin.setSelected(false);
-            viewShichang.setVisibility(View.GONE);
-            viewDianpu.setVisibility(View.VISIBLE);
-            viewShangpin.setVisibility(View.GONE);
+//            tvShichang.setSelected(false);
+//            tvDianpu.setSelected(true);
+//            tvShangpin.setSelected(false);
+//            viewShichang.setVisibility(View.GONE);
+//            viewDianpu.setVisibility(View.VISIBLE);
+//            viewShangpin.setVisibility(View.GONE);
             llShichang.setVisibility(View.GONE);
-            llShangpin.setVisibility(View.GONE);
+//            llShangpin.setVisibility(View.GONE);
 //            llPipei.setVisibility(View.GONE);
             fenleiid="";
             fenleiname="";
 //            shichanglist.clear();
 //            dianpulist.clear();
 //            shangpinlist.clear();
+            llPipei.setVisibility(View.GONE);
+            tvPipei.setText("");
             rvYouzi.setVisibility(View.GONE);
         }
     }
@@ -649,13 +703,13 @@ public class SouSuoActivity extends BaseActivity {
 //                llShichang.setVisibility(View.VISIBLE);
 //            }
             sousuo_state = 0;
-            llShangpin.setVisibility(View.GONE);
-            tvShichang.setSelected(true);
-            tvDianpu.setSelected(false);
-            tvShangpin.setSelected(false);
-            viewShichang.setVisibility(View.VISIBLE);
-            viewDianpu.setVisibility(View.GONE);
-            viewShangpin.setVisibility(View.GONE);
+//            llShangpin.setVisibility(View.GONE);
+//            tvShichang.setSelected(true);
+//            tvDianpu.setSelected(false);
+//            tvShangpin.setSelected(false);
+//            viewShichang.setVisibility(View.VISIBLE);
+//            viewDianpu.setVisibility(View.GONE);
+//            viewShangpin.setVisibility(View.GONE);
 //            shichanglist.clear();
 //            dianpulist.clear();
 //            shangpinlist.clear();
@@ -687,17 +741,17 @@ public class SouSuoActivity extends BaseActivity {
     private void setViewMoren(){//设置默认显示
         llLishi.setVisibility(View.VISIBLE);
         llShichang.setVisibility(View.GONE);
-        llShangpin.setVisibility(View.GONE);
+//        llShangpin.setVisibility(View.GONE);
         rvYouzi.setVisibility(View.GONE);
     }
     private void setViewList(int type){//设置列表显示
         if(type==0){
             llShichang.setVisibility(View.VISIBLE);
         } else if(type==1){
-            llShangpin.setVisibility(View.VISIBLE);
+//            llShangpin.setVisibility(View.VISIBLE);
         } else {
             llShichang.setVisibility(View.GONE);
-            llShangpin.setVisibility(View.GONE);
+//            llShangpin.setVisibility(View.GONE);
         }
         rvYouzi.setVisibility(View.VISIBLE);
         llLishi.setVisibility(View.GONE);
@@ -774,7 +828,7 @@ public class SouSuoActivity extends BaseActivity {
     //商品搜索
     private void sousuoshangpin(final String type,String sousuo) {
         Log.e("shangpinsousuo",yijipinleiid+"-"+erjipinleiid+"-"+sanjipinleiid+"-"+shichangid+"-"+zuigaojia+"-"+zuidijia+"-"+type);
-        llShangpin.setVisibility(View.VISIBLE);
+//        llShangpin.setVisibility(View.VISIBLE);
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
@@ -869,393 +923,393 @@ public class SouSuoActivity extends BaseActivity {
                     }
                 });
     }
-    private void showShaiXuanPop() {
-        View view = View.inflate(mContext, R.layout.pop_shaixuan, null);
-        shaixuanpop = new PopupWindow(view);
-        view.setFocusable(false);
-        shaixuanpop.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
-        shaixuanpop.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-
-        //设置可以获取焦点，否则弹出菜单中的EditText是无法获取输入的
-        shaixuanpop.setFocusable(true);
-        //这句是为了防止弹出菜单获取焦点之后，点击activity的其他组件没有响应
-        shaixuanpop.setBackgroundDrawable(new BitmapDrawable());
-        //防止虚拟软键盘被弹出菜单遮住
-        shaixuanpop.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-//        //在底部显示
-//        shaixuanpop.showAtLocation(this,Gravity.BOTTOM, 0, 0);
-        WindowManager wm1 = this.getWindowManager();
-        int width = wm1.getDefaultDisplay().getWidth();
-        int height = wm1.getDefaultDisplay().getHeight();
-
-        final RecyclerView rv_yijishichang = view.findViewById(R.id.rv_yijishichang);
-        final RecyclerView rv_erjishichang = view.findViewById(R.id.rv_erjishichang);
-        final RecyclerView rv_sanjishichang = view.findViewById(R.id.rv_sanjishichang);
-
-        LinearLayout ll_yijishichang = view.findViewById(R.id.ll_yijishichang);
-        LinearLayout ll_erjishichang = view.findViewById(R.id.ll_erjishichang);
-        LinearLayout ll_sanjishichang = view.findViewById(R.id.ll_sanjishichang);
-        TextView tv_queding = view.findViewById(R.id.tv_queding);
-        TextView tv_chongzhi = view.findViewById(R.id.tv_chongzhi);
-        final EditText et_jiagedi = view.findViewById(R.id.et_jiagedi);
-        final EditText et_jiagegao = view.findViewById(R.id.et_jiagegao);
-
-//        et_jiagedi.setFocusable(true);
-//        et_jiagegao.setFocusable(true);
-        final ImageView iv_yiji = view.findViewById(R.id.iv_yiji);
-        final ImageView iv_erji = view.findViewById(R.id.iv_erji);
-        final ImageView iv_sanji = view.findViewById(R.id.iv_sanji);
-
-        final ShiChangAdapter yijiadapter=new ShiChangAdapter();
-        final ShiChangAdapter erjiadapter=new ShiChangAdapter();
-        final ShiChangAdapter sanjiadapter=new ShiChangAdapter();
-
-        shaixuanpop.setWidth(width);
-        shaixuanpop.setHeight(height-AppUtil.dip2px(165));
-
-        et_jiagedi.setText(zuidijia);
-        et_jiagegao.setText(zuigaojia);
-        tv_queding.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                zuidijia=et_jiagedi.getText().toString().trim();
-                zuigaojia=et_jiagegao.getText().toString().trim();
-                tvShaixuan.setText(StringUtil.isEmpty(shichangname)?"不限":shichangname);
-                tvShaixuan.setTextColor(StringUtil.isEmpty(shichangname)?getResources().getColor(R.color.zicolor):getResources().getColor(R.color.zangqing));
-                sousuoshangpin("0",sousuozi);
-                shaixuanpop.dismiss();
-            }
-        });
-        tv_chongzhi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                et_jiagedi.setText("");
-                et_jiagegao.setText("");
-                shichangid="";
-                shichangname = "";
-                yijiadapter.setXuanZhongId(shichangid);
-                erjiadapter.setXuanZhongId(shichangid);
-                sanjiadapter.setXuanZhongId(shichangid);
-                yijiadapter.notifyDataSetChanged();
-                erjiadapter.notifyDataSetChanged();
-                sanjiadapter.notifyDataSetChanged();
-                tvShaixuan.setText("不限");
-                tvShaixuan.setTextColor(getResources().getColor(R.color.zicolor));
-            }
-        });
-
-
-        if (shiChangBean.getOneList()!=null){
-            yijiadapter.setNewData(shiChangBean.getOneList());
-        }
-        yijiadapter
-                .setXuanZhongId(shichangid)
-                .setCallBack(new ShiChangAdapter.CallBack() {
-                    @Override
-                    public void xuanzhong(AllShiChangBean.Bean msg) {
-                        Log.e("item",gson.toJson(msg));
-                        tvShaixuan.setText(msg.getMarket_name());
-                        shichangid = msg.getMark_id();
-                        shichangname = msg.getMarket_name();
-                        tvShichang.setTextColor(getResources().getColor(R.color.zangqing));
-                        yijiadapter.setXuanZhongId(shichangid);
-                        erjiadapter.setXuanZhongId(shichangid);
-                        sanjiadapter.setXuanZhongId(shichangid);
-                        yijiadapter.notifyDataSetChanged();
-                        erjiadapter.notifyDataSetChanged();
-                        sanjiadapter.notifyDataSetChanged();
-                    }
-                });
-        rv_yijishichang.setLayoutManager(new GridLayoutManager(mContext,2));
-        rv_yijishichang.setAdapter(yijiadapter);
-
-        if (shiChangBean.getTwoList()!=null){
-            erjiadapter.setNewData(shiChangBean.getTwoList());
-            Log.e("erji","erji");
-        }
-        erjiadapter
-                .setXuanZhongId(shichangid)
-                .setCallBack(new ShiChangAdapter.CallBack() {
-                    @Override
-                    public void xuanzhong(AllShiChangBean.Bean msg) {
-                        Log.e("item",gson.toJson(msg));
-                        tvShaixuan.setText(msg.getMarket_name());
-                        shichangid = msg.getMark_id();
-                        tvShichang.setTextColor(getResources().getColor(R.color.zangqing));
-                        yijiadapter.setXuanZhongId(shichangid);
-                        erjiadapter.setXuanZhongId(shichangid);
-                        sanjiadapter.setXuanZhongId(shichangid);
-                        yijiadapter.notifyDataSetChanged();
-                        erjiadapter.notifyDataSetChanged();
-                        sanjiadapter.notifyDataSetChanged();
-                    }
-                });
-        rv_erjishichang.setLayoutManager(new GridLayoutManager(mContext,2));
-        rv_erjishichang.setAdapter(erjiadapter);
-
-        if (shiChangBean.getThreeList()!=null){
-            Log.e("sanji","sanji");
-            sanjiadapter.setNewData(shiChangBean.getThreeList());
-        }
-        sanjiadapter
-                .setXuanZhongId(shichangid)
-                .setCallBack(new ShiChangAdapter.CallBack() {
-                    @Override
-                    public void xuanzhong(AllShiChangBean.Bean msg) {
-                        Log.e("item",gson.toJson(msg));
-                        tvShaixuan.setText(msg.getMarket_name());
-                        shichangid = msg.getMark_id();
-                        tvShichang.setTextColor(getResources().getColor(R.color.zangqing));
-                        yijiadapter.setXuanZhongId(shichangid);
-                        erjiadapter.setXuanZhongId(shichangid);
-                        sanjiadapter.setXuanZhongId(shichangid);
-                        yijiadapter.notifyDataSetChanged();
-                        erjiadapter.notifyDataSetChanged();
-                        sanjiadapter.notifyDataSetChanged();
-                    }
-                });
-        rv_sanjishichang.setLayoutManager(new  GridLayoutManager(mContext,2));
-        rv_sanjishichang.setAdapter(sanjiadapter);
-
-        ll_yijishichang.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (rv_yijishichang.getVisibility()==0){
-                    rv_yijishichang.setVisibility(View.GONE);
-                    Log.e("rv_yijishichang","一级关");
-                    iv_yiji.setImageResource(R.mipmap.jinru);
-                }else{
-                    rv_yijishichang.setVisibility(View.VISIBLE);
-                    Log.e("rv_yijishichang","一级kai ");
-                    iv_yiji.setImageResource(R.mipmap.xia_kongxin_hui);
-
-                }
-
-            }
-        });
-        ll_erjishichang.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (rv_erjishichang.getVisibility()==0){
-                    rv_erjishichang.setVisibility(View.GONE);
-                    Log.e("rv_erjishichang","er级关");
-                    Log.e("erjiadapter.getData().size()",erjiadapter.getData().size()+"--");
-                    iv_erji.setImageResource(R.mipmap.jinru);
-                }else{
-                    rv_erjishichang.setVisibility(View.VISIBLE);
-                    Log.e("rv_erjishichang","er级kai");
-                    iv_erji.setImageResource(R.mipmap.xia_kongxin_hui);
-                }
-            }
-        });
-        ll_sanjishichang.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (rv_sanjishichang.getVisibility()==0){
-                    rv_sanjishichang.setVisibility(View.GONE);
-                    iv_sanji.setImageResource(R.mipmap.jinru);
-                }else{
-                    rv_sanjishichang.setVisibility(View.VISIBLE);
-                    iv_sanji.setImageResource(R.mipmap.xia_kongxin_hui);
-                }
-            }
-        });
-        shaixuanpop.setOutsideTouchable(true);
-        shaixuanpop.setBackgroundDrawable(new BitmapDrawable());
-        shaixuanpop.showAsDropDown(llDiqu);
-    }
-
-    private void getFenLei() {
-        HttpManager.getInstance()
-                .with(mContext)
-                .setObservable(
-                        RetrofitManager
-                                .getService()
-                                .getfenlei())
-                .setDataListener(new HttpDataListener<List<FenLeiBean>>() {
-                    @Override
-                    public void onNext(List<FenLeiBean> data) {
-                        isLodeFenLei = true;
-                        allFenLei = new ArrayList<FenLeiBean>();
-                        yijiFenLei = new ArrayList<FenLeiBean>();
-                        erjiFenLei = new ArrayList<FenLeiBean>();
-                        sanjiFenLei = new ArrayList<FenLeiBean>();
-                        allFenLei.addAll(data);
-                        FenLeiBean quanbu = new FenLeiBean();
-                        quanbu.setClassify_name("全部");
-                        quanbu.setClassify_grade("0");
-                        quanbu.setClassify_id("");
-                        yijiFenLei.add(quanbu);
-                        sanjiFenLei.add(quanbu);
-                        for (int i = 0; i < allFenLei.size(); i++) {
-                            if ("1".equals(allFenLei.get(i).getClassify_grade())) {
-                                yijiFenLei.add(allFenLei.get(i));
-                            } else if ("2".equals(allFenLei.get(i).getClassify_grade())) {
-                                erjiFenLei.add(allFenLei.get(i));
-                            } else if ("3".equals(allFenLei.get(i).getClassify_grade())) {
-                                sanjiFenLei.add(allFenLei.get(i));
-                            }
-                        }
-                        showYiJiPop();
-                    }
-                }, false);
-    }
-
-    private void showYiJiPop() {
-        View view = View.inflate(mContext, R.layout.pop_pinlei, null);
-        final PopupWindow yijipop = new PopupWindow(view);
-
-        WindowManager wm1 = this.getWindowManager();
-        int width = wm1.getDefaultDisplay().getWidth();
-        int height = wm1.getDefaultDisplay().getHeight();
-        RecyclerView rv_yijifenlei = view.findViewById(R.id.rv_yijifenlei);
-        yijipop.setWidth(width);
-        int zhengchu = yijiFenLei.size() / 3;
-        int yushu = yijiFenLei.size() % 3;
-        if (yushu > 0) {
-            height = (zhengchu + 1) * 55 + 20;
-        } else {
-            height = zhengchu * 55 + 20;
-        }
-
-        yijipop.setHeight(AppUtil.dip2px(height));
-        GridLayoutManager manager = new GridLayoutManager(mContext, 3);
-        rv_yijifenlei.setLayoutManager(manager);
-        rv_yijifenlei.setAdapter(yijiadapter);
-        yijiadapter.setNewData(yijiFenLei);
-//        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+//    private void showShaiXuanPop() {
+//        View view = View.inflate(mContext, R.layout.pop_shaixuan, null);
+//        shaixuanpop = new PopupWindow(view);
+//        view.setFocusable(false);
+//        shaixuanpop.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
+//        shaixuanpop.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+//
+//        //设置可以获取焦点，否则弹出菜单中的EditText是无法获取输入的
+//        shaixuanpop.setFocusable(true);
+//        //这句是为了防止弹出菜单获取焦点之后，点击activity的其他组件没有响应
+//        shaixuanpop.setBackgroundDrawable(new BitmapDrawable());
+//        //防止虚拟软键盘被弹出菜单遮住
+//        shaixuanpop.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+////        //在底部显示
+////        shaixuanpop.showAtLocation(this,Gravity.BOTTOM, 0, 0);
+//        WindowManager wm1 = this.getWindowManager();
+//        int width = wm1.getDefaultDisplay().getWidth();
+//        int height = wm1.getDefaultDisplay().getHeight();
+//
+//        final RecyclerView rv_yijishichang = view.findViewById(R.id.rv_yijishichang);
+//        final RecyclerView rv_erjishichang = view.findViewById(R.id.rv_erjishichang);
+//        final RecyclerView rv_sanjishichang = view.findViewById(R.id.rv_sanjishichang);
+//
+//        LinearLayout ll_yijishichang = view.findViewById(R.id.ll_yijishichang);
+//        LinearLayout ll_erjishichang = view.findViewById(R.id.ll_erjishichang);
+//        LinearLayout ll_sanjishichang = view.findViewById(R.id.ll_sanjishichang);
+//        TextView tv_queding = view.findViewById(R.id.tv_queding);
+//        TextView tv_chongzhi = view.findViewById(R.id.tv_chongzhi);
+//        final EditText et_jiagedi = view.findViewById(R.id.et_jiagedi);
+//        final EditText et_jiagegao = view.findViewById(R.id.et_jiagegao);
+//
+////        et_jiagedi.setFocusable(true);
+////        et_jiagegao.setFocusable(true);
+//        final ImageView iv_yiji = view.findViewById(R.id.iv_yiji);
+//        final ImageView iv_erji = view.findViewById(R.id.iv_erji);
+//        final ImageView iv_sanji = view.findViewById(R.id.iv_sanji);
+//
+//        final ShiChangAdapter yijiadapter=new ShiChangAdapter();
+//        final ShiChangAdapter erjiadapter=new ShiChangAdapter();
+//        final ShiChangAdapter sanjiadapter=new ShiChangAdapter();
+//
+//        shaixuanpop.setWidth(width);
+//        shaixuanpop.setHeight(height-AppUtil.dip2px(165));
+//
+//        et_jiagedi.setText(zuidijia);
+//        et_jiagegao.setText(zuigaojia);
+//        tv_queding.setOnClickListener(new View.OnClickListener() {
 //            @Override
-//            public int getSpanSize(int position) {
-//                if(position==0){
-//                    return 1;
-//                } else {
-//                    return 3;
+//            public void onClick(View v) {
+//                zuidijia=et_jiagedi.getText().toString().trim();
+//                zuigaojia=et_jiagegao.getText().toString().trim();
+//                tvShaixuan.setText(StringUtil.isEmpty(shichangname)?"不限":shichangname);
+//                tvShaixuan.setTextColor(StringUtil.isEmpty(shichangname)?getResources().getColor(R.color.zicolor):getResources().getColor(R.color.zangqing));
+//                sousuoshangpin("0",sousuozi);
+//                shaixuanpop.dismiss();
+//            }
+//        });
+//        tv_chongzhi.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                et_jiagedi.setText("");
+//                et_jiagegao.setText("");
+//                shichangid="";
+//                shichangname = "";
+//                yijiadapter.setXuanZhongId(shichangid);
+//                erjiadapter.setXuanZhongId(shichangid);
+//                sanjiadapter.setXuanZhongId(shichangid);
+//                yijiadapter.notifyDataSetChanged();
+//                erjiadapter.notifyDataSetChanged();
+//                sanjiadapter.notifyDataSetChanged();
+//                tvShaixuan.setText("不限");
+//                tvShaixuan.setTextColor(getResources().getColor(R.color.zicolor));
+//            }
+//        });
+//
+//
+//        if (shiChangBean.getOneList()!=null){
+//            yijiadapter.setNewData(shiChangBean.getOneList());
+//        }
+//        yijiadapter
+//                .setXuanZhongId(shichangid)
+//                .setCallBack(new ShiChangAdapter.CallBack() {
+//                    @Override
+//                    public void xuanzhong(AllShiChangBean.Bean msg) {
+//                        Log.e("item",gson.toJson(msg));
+//                        tvShaixuan.setText(msg.getMarket_name());
+//                        shichangid = msg.getMark_id();
+//                        shichangname = msg.getMarket_name();
+////                        tvShichang.setTextColor(getResources().getColor(R.color.zangqing));
+//                        yijiadapter.setXuanZhongId(shichangid);
+//                        erjiadapter.setXuanZhongId(shichangid);
+//                        sanjiadapter.setXuanZhongId(shichangid);
+//                        yijiadapter.notifyDataSetChanged();
+//                        erjiadapter.notifyDataSetChanged();
+//                        sanjiadapter.notifyDataSetChanged();
+//                    }
+//                });
+//        rv_yijishichang.setLayoutManager(new GridLayoutManager(mContext,2));
+//        rv_yijishichang.setAdapter(yijiadapter);
+//
+//        if (shiChangBean.getTwoList()!=null){
+//            erjiadapter.setNewData(shiChangBean.getTwoList());
+//            Log.e("erji","erji");
+//        }
+//        erjiadapter
+//                .setXuanZhongId(shichangid)
+//                .setCallBack(new ShiChangAdapter.CallBack() {
+//                    @Override
+//                    public void xuanzhong(AllShiChangBean.Bean msg) {
+//                        Log.e("item",gson.toJson(msg));
+//                        tvShaixuan.setText(msg.getMarket_name());
+//                        shichangid = msg.getMark_id();
+////                        tvShichang.setTextColor(getResources().getColor(R.color.zangqing));
+//                        yijiadapter.setXuanZhongId(shichangid);
+//                        erjiadapter.setXuanZhongId(shichangid);
+//                        sanjiadapter.setXuanZhongId(shichangid);
+//                        yijiadapter.notifyDataSetChanged();
+//                        erjiadapter.notifyDataSetChanged();
+//                        sanjiadapter.notifyDataSetChanged();
+//                    }
+//                });
+//        rv_erjishichang.setLayoutManager(new GridLayoutManager(mContext,2));
+//        rv_erjishichang.setAdapter(erjiadapter);
+//
+//        if (shiChangBean.getThreeList()!=null){
+//            Log.e("sanji","sanji");
+//            sanjiadapter.setNewData(shiChangBean.getThreeList());
+//        }
+//        sanjiadapter
+//                .setXuanZhongId(shichangid)
+//                .setCallBack(new ShiChangAdapter.CallBack() {
+//                    @Override
+//                    public void xuanzhong(AllShiChangBean.Bean msg) {
+//                        Log.e("item",gson.toJson(msg));
+//                        tvShaixuan.setText(msg.getMarket_name());
+//                        shichangid = msg.getMark_id();
+////                        tvShichang.setTextColor(getResources().getColor(R.color.zangqing));
+//                        yijiadapter.setXuanZhongId(shichangid);
+//                        erjiadapter.setXuanZhongId(shichangid);
+//                        sanjiadapter.setXuanZhongId(shichangid);
+//                        yijiadapter.notifyDataSetChanged();
+//                        erjiadapter.notifyDataSetChanged();
+//                        sanjiadapter.notifyDataSetChanged();
+//                    }
+//                });
+//        rv_sanjishichang.setLayoutManager(new  GridLayoutManager(mContext,2));
+//        rv_sanjishichang.setAdapter(sanjiadapter);
+//
+//        ll_yijishichang.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (rv_yijishichang.getVisibility()==0){
+//                    rv_yijishichang.setVisibility(View.GONE);
+//                    Log.e("rv_yijishichang","一级关");
+//                    iv_yiji.setImageResource(R.mipmap.jinru);
+//                }else{
+//                    rv_yijishichang.setVisibility(View.VISIBLE);
+//                    Log.e("rv_yijishichang","一级kai ");
+//                    iv_yiji.setImageResource(R.mipmap.xia_kongxin_hui);
+//
 //                }
 //
 //            }
 //        });
-        yijiadapter.setCallBack(new YiJiFenLeiAdapter.CallBack() {
-            @Override
-            public void xuanzhong(FenLeiBean msg) {
-                Log.e("item",gson.toJson(msg));
-                yijipop.dismiss();
-                tvPinlei.setText(msg.getClassify_name());
-                yijipinleiid = msg.getClassify_id();
-                erjipinleiid="";
-                erjipinleiname="";
-                sanjipinleiid="";
-                if (yijipinleiid.equals("0")){
-                    tvPinlei.setTextColor(getResources().getColor(R.color.zicolor));
-                }else{
-                    tvPinlei.setTextColor(getResources().getColor(R.color.zangqing));
-                    dangqianerji = new ArrayList<>();
-                    for (int i = 0; i < erjiFenLei.size(); i++) {
-                        if (yijipinleiid.equals(erjiFenLei.get(i).getParent_id())){
-                            dangqianerji.add(erjiFenLei.get(i));
-                        }
-                    }
-                    if (dangqianerji.size()!=0){
-                        showErJiFenLei();
-                    }
-                }
-                sousuozi = "";
-                erjipinleiid = "";
-                sousuoshangpin("0",sousuozi);
-            }
-        });
+//        ll_erjishichang.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (rv_erjishichang.getVisibility()==0){
+//                    rv_erjishichang.setVisibility(View.GONE);
+//                    Log.e("rv_erjishichang","er级关");
+//                    Log.e("erjiadapter.getData().size()",erjiadapter.getData().size()+"--");
+//                    iv_erji.setImageResource(R.mipmap.jinru);
+//                }else{
+//                    rv_erjishichang.setVisibility(View.VISIBLE);
+//                    Log.e("rv_erjishichang","er级kai");
+//                    iv_erji.setImageResource(R.mipmap.xia_kongxin_hui);
+//                }
+//            }
+//        });
+//        ll_sanjishichang.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (rv_sanjishichang.getVisibility()==0){
+//                    rv_sanjishichang.setVisibility(View.GONE);
+//                    iv_sanji.setImageResource(R.mipmap.jinru);
+//                }else{
+//                    rv_sanjishichang.setVisibility(View.VISIBLE);
+//                    iv_sanji.setImageResource(R.mipmap.xia_kongxin_hui);
+//                }
+//            }
+//        });
+//        shaixuanpop.setOutsideTouchable(true);
+//        shaixuanpop.setBackgroundDrawable(new BitmapDrawable());
+//        shaixuanpop.showAsDropDown(llDiqu);
+//    }
 
-        yijipop.setOutsideTouchable(true);
-        yijipop.setBackgroundDrawable(new BitmapDrawable());
-        yijipop.showAsDropDown(llDiqu);
-    }
+//    private void getFenLei() {
+//        HttpManager.getInstance()
+//                .with(mContext)
+//                .setObservable(
+//                        RetrofitManager
+//                                .getService()
+//                                .getfenlei())
+//                .setDataListener(new HttpDataListener<List<FenLeiBean>>() {
+//                    @Override
+//                    public void onNext(List<FenLeiBean> data) {
+//                        isLodeFenLei = true;
+//                        allFenLei = new ArrayList<FenLeiBean>();
+//                        yijiFenLei = new ArrayList<FenLeiBean>();
+//                        erjiFenLei = new ArrayList<FenLeiBean>();
+//                        sanjiFenLei = new ArrayList<FenLeiBean>();
+//                        allFenLei.addAll(data);
+//                        FenLeiBean quanbu = new FenLeiBean();
+//                        quanbu.setClassify_name("全部");
+//                        quanbu.setClassify_grade("0");
+//                        quanbu.setClassify_id("");
+//                        yijiFenLei.add(quanbu);
+//                        sanjiFenLei.add(quanbu);
+//                        for (int i = 0; i < allFenLei.size(); i++) {
+//                            if ("1".equals(allFenLei.get(i).getClassify_grade())) {
+//                                yijiFenLei.add(allFenLei.get(i));
+//                            } else if ("2".equals(allFenLei.get(i).getClassify_grade())) {
+//                                erjiFenLei.add(allFenLei.get(i));
+//                            } else if ("3".equals(allFenLei.get(i).getClassify_grade())) {
+//                                sanjiFenLei.add(allFenLei.get(i));
+//                            }
+//                        }
+//                        showYiJiPop();
+//                    }
+//                }, false);
+//    }
 
-    private void showErJiFenLei() {
-        View view = View.inflate(mContext, R.layout.pop_ersanjifenlei, null);
-        final PopupWindow yijipop = new PopupWindow(view);
-        WindowManager wm1 = getWindowManager();
-        int width = wm1.getDefaultDisplay().getWidth();
-        int height = wm1.getDefaultDisplay().getHeight();
-
-        RecyclerView rv_erjifenlei = view.findViewById(R.id.rv_erjifenlei);
-        RecyclerView rv_sanjifenlei = view.findViewById(R.id.rv_sanjifenlei);
-
-        yijipop.setWidth(width);
-        yijipop.setHeight(height-AppUtil.dip2px(165));
-        ErJiFenLeiAdapter erjiadapter = new ErJiFenLeiAdapter();
-        rv_erjifenlei.setLayoutManager(new AutoLineFeedLayoutManager());
-        rv_erjifenlei.setAdapter(erjiadapter);
-
-        SanJiFenLeiAdapter sanJiFenLeiAdapter = new SanJiFenLeiAdapter();
-        rv_sanjifenlei.setLayoutManager(new AutoLineFeedLayoutManager());
-        rv_sanjifenlei.setAdapter(sanJiFenLeiAdapter);
-        erjiadapter.setNewData(dangqianerji);
-        if (dangqianerji.size()>0){
-            erjipinleiid= dangqianerji.get(0).getClassify_id();
-            erjipinleiname= dangqianerji.get(0).getClassify_name();
-
-            erjiadapter.setCallBack(new ErJiFenLeiAdapter.CallBack() {
-                @Override
-                public void xuanzhong(FenLeiBean msg) {
-                    Log.e("item",new Gson().toJson(msg));
-                    tvPinlei.setText(msg.getClassify_name());
-                    erjipinleiid = msg.getClassify_id();
-                    erjipinleiname = msg.getClassify_name();
-
-                    tvPinlei.setTextColor(getResources().getColor(R.color.zangqing));
-                    sousuoshangpin("0",sousuozi);
-                    yijipop.dismiss();
-                }
-
-            });
-            ArrayList<FenLeiBean> dangqiansanji=new ArrayList<>();
-            for (int i = 0; i < sanjiFenLei.size(); i++) {
-                if (erjipinleiid.equals(sanjiFenLei.get(i).getParent_id())){
-                    dangqiansanji.add(sanjiFenLei.get(i));
-                }
-            }
-            sanJiFenLeiAdapter.setNewData(dangqiansanji);
-            sanJiFenLeiAdapter.setCallBack(new SanJiFenLeiAdapter.CallBack() {
-                @Override
-                public void xuanzhong(FenLeiBean msg) {
-                    Log.e("item",new Gson().toJson(msg));
-                    sanjipinleiid = msg.getClassify_id();
-                    tvPinlei.setTextColor(getResources().getColor(R.color.zangqing));
-                    if (sanjipinleiid.equals("0")){
-                        tvPinlei.setText(erjipinleiname);
-
-                    }else{
-                        tvPinlei.setText(msg.getClassify_name());
-
-                    }
-                    sousuozi = "";
-                    sanjipinleiid = "";
-                    sousuoshangpin("0",sousuozi);
-                    yijipop.dismiss();
-                }
-
-            });
-        }else{
-
-        }
-
-
-        yijipop.setOutsideTouchable(true);
-        yijipop.setBackgroundDrawable(new BitmapDrawable());
-        yijipop.showAsDropDown(llDiqu);
-    }
-    private void getshichang() {
-        HttpManager.getInstance()
-                .with(mContext)
-                .setObservable(
-                        RetrofitManager
-                                .getService()
-                                .getallshichang("230000","230100"))
-                .setDataListener(new HttpDataListener<AllShiChangBean>() {
-                    @Override
-                    public void onNext(AllShiChangBean data) {
-                        shiChangBean = data;
-                        showShaiXuanPop();
-                    }
-                }, false);
-    }
+//    private void showYiJiPop() {
+//        View view = View.inflate(mContext, R.layout.pop_pinlei, null);
+//        final PopupWindow yijipop = new PopupWindow(view);
+//
+//        WindowManager wm1 = this.getWindowManager();
+//        int width = wm1.getDefaultDisplay().getWidth();
+//        int height = wm1.getDefaultDisplay().getHeight();
+//        RecyclerView rv_yijifenlei = view.findViewById(R.id.rv_yijifenlei);
+//        yijipop.setWidth(width);
+//        int zhengchu = yijiFenLei.size() / 3;
+//        int yushu = yijiFenLei.size() % 3;
+//        if (yushu > 0) {
+//            height = (zhengchu + 1) * 55 + 20;
+//        } else {
+//            height = zhengchu * 55 + 20;
+//        }
+//
+//        yijipop.setHeight(AppUtil.dip2px(height));
+//        GridLayoutManager manager = new GridLayoutManager(mContext, 3);
+//        rv_yijifenlei.setLayoutManager(manager);
+//        rv_yijifenlei.setAdapter(yijiadapter);
+//        yijiadapter.setNewData(yijiFenLei);
+////        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+////            @Override
+////            public int getSpanSize(int position) {
+////                if(position==0){
+////                    return 1;
+////                } else {
+////                    return 3;
+////                }
+////
+////            }
+////        });
+//        yijiadapter.setCallBack(new YiJiFenLeiAdapter.CallBack() {
+//            @Override
+//            public void xuanzhong(FenLeiBean msg) {
+//                Log.e("item",gson.toJson(msg));
+//                yijipop.dismiss();
+//                tvPinlei.setText(msg.getClassify_name());
+//                yijipinleiid = msg.getClassify_id();
+//                erjipinleiid="";
+//                erjipinleiname="";
+//                sanjipinleiid="";
+//                if (yijipinleiid.equals("0")){
+//                    tvPinlei.setTextColor(getResources().getColor(R.color.zicolor));
+//                }else{
+//                    tvPinlei.setTextColor(getResources().getColor(R.color.zangqing));
+//                    dangqianerji = new ArrayList<>();
+//                    for (int i = 0; i < erjiFenLei.size(); i++) {
+//                        if (yijipinleiid.equals(erjiFenLei.get(i).getParent_id())){
+//                            dangqianerji.add(erjiFenLei.get(i));
+//                        }
+//                    }
+//                    if (dangqianerji.size()!=0){
+//                        showErJiFenLei();
+//                    }
+//                }
+//                sousuozi = "";
+//                erjipinleiid = "";
+//                sousuoshangpin("0",sousuozi);
+//            }
+//        });
+//
+//        yijipop.setOutsideTouchable(true);
+//        yijipop.setBackgroundDrawable(new BitmapDrawable());
+//        yijipop.showAsDropDown(llDiqu);
+//    }
+//
+//    private void showErJiFenLei() {
+//        View view = View.inflate(mContext, R.layout.pop_ersanjifenlei, null);
+//        final PopupWindow yijipop = new PopupWindow(view);
+//        WindowManager wm1 = getWindowManager();
+//        int width = wm1.getDefaultDisplay().getWidth();
+//        int height = wm1.getDefaultDisplay().getHeight();
+//
+//        RecyclerView rv_erjifenlei = view.findViewById(R.id.rv_erjifenlei);
+//        RecyclerView rv_sanjifenlei = view.findViewById(R.id.rv_sanjifenlei);
+//
+//        yijipop.setWidth(width);
+//        yijipop.setHeight(height-AppUtil.dip2px(165));
+//        ErJiFenLeiAdapter erjiadapter = new ErJiFenLeiAdapter();
+//        rv_erjifenlei.setLayoutManager(new AutoLineFeedLayoutManager());
+//        rv_erjifenlei.setAdapter(erjiadapter);
+//
+//        SanJiFenLeiAdapter sanJiFenLeiAdapter = new SanJiFenLeiAdapter();
+//        rv_sanjifenlei.setLayoutManager(new AutoLineFeedLayoutManager());
+//        rv_sanjifenlei.setAdapter(sanJiFenLeiAdapter);
+//        erjiadapter.setNewData(dangqianerji);
+//        if (dangqianerji.size()>0){
+//            erjipinleiid= dangqianerji.get(0).getClassify_id();
+//            erjipinleiname= dangqianerji.get(0).getClassify_name();
+//
+//            erjiadapter.setCallBack(new ErJiFenLeiAdapter.CallBack() {
+//                @Override
+//                public void xuanzhong(FenLeiBean msg) {
+//                    Log.e("item",new Gson().toJson(msg));
+//                    tvPinlei.setText(msg.getClassify_name());
+//                    erjipinleiid = msg.getClassify_id();
+//                    erjipinleiname = msg.getClassify_name();
+//
+//                    tvPinlei.setTextColor(getResources().getColor(R.color.zangqing));
+//                    sousuoshangpin("0",sousuozi);
+//                    yijipop.dismiss();
+//                }
+//
+//            });
+//            ArrayList<FenLeiBean> dangqiansanji=new ArrayList<>();
+//            for (int i = 0; i < sanjiFenLei.size(); i++) {
+//                if (erjipinleiid.equals(sanjiFenLei.get(i).getParent_id())){
+//                    dangqiansanji.add(sanjiFenLei.get(i));
+//                }
+//            }
+//            sanJiFenLeiAdapter.setNewData(dangqiansanji);
+//            sanJiFenLeiAdapter.setCallBack(new SanJiFenLeiAdapter.CallBack() {
+//                @Override
+//                public void xuanzhong(FenLeiBean msg) {
+//                    Log.e("item",new Gson().toJson(msg));
+//                    sanjipinleiid = msg.getClassify_id();
+//                    tvPinlei.setTextColor(getResources().getColor(R.color.zangqing));
+//                    if (sanjipinleiid.equals("0")){
+//                        tvPinlei.setText(erjipinleiname);
+//
+//                    }else{
+//                        tvPinlei.setText(msg.getClassify_name());
+//
+//                    }
+//                    sousuozi = "";
+//                    sanjipinleiid = "";
+//                    sousuoshangpin("0",sousuozi);
+//                    yijipop.dismiss();
+//                }
+//
+//            });
+//        }else{
+//
+//        }
+//
+//
+//        yijipop.setOutsideTouchable(true);
+//        yijipop.setBackgroundDrawable(new BitmapDrawable());
+//        yijipop.showAsDropDown(llDiqu);
+//    }
+//    private void getshichang() {
+//        HttpManager.getInstance()
+//                .with(mContext)
+//                .setObservable(
+//                        RetrofitManager
+//                                .getService()
+//                                .getallshichang("230000","230100"))
+//                .setDataListener(new HttpDataListener<AllShiChangBean>() {
+//                    @Override
+//                    public void onNext(AllShiChangBean data) {
+//                        shiChangBean = data;
+//                        showShaiXuanPop();
+//                    }
+//                }, false);
+//    }
 }

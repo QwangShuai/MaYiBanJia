@@ -16,6 +16,7 @@ import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.ShouYeLeiBean;
 import com.mingmen.mayi.mayibanjia.ui.activity.SPXiangQingActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.myinterface.MainCallBack;
+import com.mingmen.mayi.mayibanjia.ui.view.CircleImageView;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
@@ -143,49 +144,49 @@ public class ShouYeLeiAdapter extends RecyclerView.Adapter<ShouYeLeiAdapter.View
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.iv1)
-        ImageView iv1;
+        CircleImageView iv1;
         @BindView(R.id.tv1)
         TextView tv1;
         @BindView(R.id.ll1)
         LinearLayout ll1;
         @BindView(R.id.iv2)
-        ImageView iv2;
+        CircleImageView iv2;
         @BindView(R.id.tv2)
         TextView tv2;
         @BindView(R.id.ll2)
         LinearLayout ll2;
         @BindView(R.id.iv3)
-        ImageView iv3;
+        CircleImageView iv3;
         @BindView(R.id.tv3)
         TextView tv3;
         @BindView(R.id.ll3)
         LinearLayout ll3;
         @BindView(R.id.iv4)
-        ImageView iv4;
+        CircleImageView iv4;
         @BindView(R.id.tv4)
         TextView tv4;
         @BindView(R.id.ll4)
         LinearLayout ll4;
         @BindView(R.id.iv5)
-        ImageView iv5;
+        CircleImageView iv5;
         @BindView(R.id.tv5)
         TextView tv5;
         @BindView(R.id.ll5)
         LinearLayout ll5;
         @BindView(R.id.iv6)
-        ImageView iv6;
+        CircleImageView iv6;
         @BindView(R.id.tv6)
         TextView tv6;
         @BindView(R.id.ll6)
         LinearLayout ll6;
         @BindView(R.id.iv7)
-        ImageView iv7;
+        CircleImageView iv7;
         @BindView(R.id.tv7)
         TextView tv7;
         @BindView(R.id.ll7)
         LinearLayout ll7;
         @BindView(R.id.iv8)
-        ImageView iv8;
+        CircleImageView iv8;
         @BindView(R.id.tv8)
         TextView tv8;
         @BindView(R.id.ll8)

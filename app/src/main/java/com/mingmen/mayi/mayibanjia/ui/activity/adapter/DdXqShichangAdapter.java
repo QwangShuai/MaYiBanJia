@@ -64,6 +64,7 @@ public class DdXqShichangAdapter extends RecyclerView.Adapter<DdXqShichangAdapte
             holder.tvTuikuanjier.setText("退款金额：  ￥"+item0.getRefund());
         }
         if (item0.getOrderState().equals("401")) {//待付款
+            holder.llYunfei.setVisibility(View.GONE);
             holder.rlRongqi.setVisibility(View.GONE);
             holder.tvDaiquhuo.setVisibility(View.GONE);
             holder.tvFahuoshijian.setVisibility(View.GONE);
@@ -151,6 +152,8 @@ public class DdXqShichangAdapter extends RecyclerView.Adapter<DdXqShichangAdapte
         TextView tvYfkdpsl;
         @BindView(R.id.tv_wfkdpsl)
         TextView tvWfkdpsl;
+        @BindView(R.id.ll_yunfei)
+        LinearLayout llYunfei;
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);

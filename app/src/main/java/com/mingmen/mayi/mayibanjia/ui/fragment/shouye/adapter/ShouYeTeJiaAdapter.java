@@ -15,6 +15,7 @@ import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.ShouYeTeJiaBean;
 import com.mingmen.mayi.mayibanjia.ui.activity.SPXiangQingActivity;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
+import com.mingmen.mayi.mayibanjia.utils.custom.GlideRoundTransform;
 
 import java.util.List;
 
@@ -48,7 +49,7 @@ public class ShouYeTeJiaAdapter extends RecyclerView.Adapter<ShouYeTeJiaAdapter.
         final ShouYeTeJiaBean data = mList.get(position);
         holder.tvSpming.setText(data.getCommodity_name());
         holder.tvDanjia.setText(data.getPrice()+"");
-        Glide.with(mContext).load("" + data.getPicture_url())
+        Glide.with(mContext).load("" + data.getPicture_url()).transform(new GlideRoundTransform(mContext,10))
                 .into(holder.ivSptu);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -2,10 +2,12 @@ package com.mingmen.mayi.mayibanjia.ui.activity.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -45,6 +47,9 @@ public class DdShichangAdapter extends RecyclerView.Adapter<DdShichangAdapter.Vi
         holder.tvShichang.setText(bean.getMarket_name());
         holder.tvZonge.setText("商品总额：  ￥"+bean.getPrice());
         holder.tvYunfei.setText(bean.getFreight_fee());
+        if(TextUtils.isEmpty(bean.getFreight_fee())||bean.getFreight_fee()==null){
+            holder.llYunfei.setVisibility(View.GONE);
+        }
     }
 
 
@@ -60,6 +65,8 @@ public class DdShichangAdapter extends RecyclerView.Adapter<DdShichangAdapter.Vi
         TextView tvZonge;
         @BindView(R.id.tv_yunfei)
         TextView tvYunfei;
+        @BindView(R.id.ll_yunfei)
+        LinearLayout llYunfei;
 
         ViewHolder(View itemView) {
             super(itemView);

@@ -266,8 +266,8 @@
             android:layout_marginRight="12dp"
             android:id="@+id/tv_zongjia"
             android:layout_alignParentRight="true"
-            android:textSize="18sp"
-            android:textColor="@color/zicolor"
+            android:textSize="20sp"
+            android:textColor="@color/mayihong"
             android:text="￥:1035.9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

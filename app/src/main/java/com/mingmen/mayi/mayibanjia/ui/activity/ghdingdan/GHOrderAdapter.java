@@ -162,7 +162,7 @@ public class GHOrderAdapter extends RecyclerView.Adapter<GHOrderAdapter.ViewHold
         holder.tv_dayin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!TextUtils.isEmpty(String.valueOf(bean.getDriver_name()))) {
+                //if (!TextUtils.isEmpty(String.valueOf(bean.getDriver_name()))) {
                     ToastUtil.showToast("打印功能待更新");
                     Intent it = new Intent(mContext, DaYinQrCodeActivity.class);
                     it.putExtra("id", bean.getGy_order_id());
@@ -170,9 +170,9 @@ public class GHOrderAdapter extends RecyclerView.Adapter<GHOrderAdapter.ViewHold
 //                    GHDOrderActivity activity = new GHDOrderActivity();
 //                    Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.qr_code);
 //                    activity.dayinQrCode(bitmap);
-                } else {
-                    ToastUtil.showToast("此状态不能打印");
-                }
+               // } else {
+                //    ToastUtil.showToast("此状态不能打印");
+                //}
             }
         });
 

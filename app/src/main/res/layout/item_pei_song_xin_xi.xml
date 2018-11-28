@@ -11,7 +11,7 @@
         <TextView
             android:id="@+id/tv_state"
             android:layout_marginRight="13dp"
-            android:textSize="23sp"
+            android:textSize="20sp"
             android:textColor="@color/mayihong"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"

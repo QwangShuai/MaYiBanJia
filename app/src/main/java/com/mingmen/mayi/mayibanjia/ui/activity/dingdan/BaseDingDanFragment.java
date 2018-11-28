@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.mingmen.mayi.mayibanjia.R;
@@ -90,7 +88,6 @@ public abstract class BaseDingDanFragment extends BaseFragment {
 
     //数据
     private void getData() {
-        Log.e(" tokentoken", PreferenceUtils.getString(MyApplication.mContext, "token", "") + getZhuangTai());
         HttpManager.getInstance()
                 .with(getActivity())
                 .setObservable(
@@ -100,7 +97,6 @@ public abstract class BaseDingDanFragment extends BaseFragment {
                 .setDataListener(new HttpDataListener<List<DingDanBean>>() {
                     @Override
                     public void onNext(List<DingDanBean> list) {
-//                        Log.e("data",data+"---");
                         if (!"null".equals(String.valueOf(list))) {
                             mlist.clear();
                             mlist.addAll(list);
@@ -213,7 +209,6 @@ public abstract class BaseDingDanFragment extends BaseFragment {
     }
 
     public void updateList(final boolean b_clear) {
-        Log.e("ye", ye + "--嘿呀");
         HttpManager.getInstance()
                 .with(getActivity())
                 .setObservable(
@@ -250,7 +245,6 @@ public abstract class BaseDingDanFragment extends BaseFragment {
         if (resultCode == CaptureActivity.RESULT_CODE_QR_SCAN) {
             Bundle bundle = data.getExtras();
             String scanResult = bundle.getString(CaptureActivity.INTENT_EXTRA_KEY_QR_SCAN);
-            Log.e("678678", scanResult);
             updateQrCode(scanResult);
         }
     }
@@ -259,7 +253,6 @@ public abstract class BaseDingDanFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         ye = 1;
-        Log.e("onResume", getZhuangTai());
 //        updateList(true);
         getData();
         adapter.notifyDataSetChanged();

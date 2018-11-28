@@ -111,6 +111,7 @@
                             android:layout_marginLeft="4dp"
                             />
                         <TextView
+                            android:id="@+id/tv_kucun"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="库存："
@@ -121,6 +122,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="1000"
+                            android:visibility="gone"
                             android:textColor="@color/zicolor"
                             android:textSize="14sp"
                             />

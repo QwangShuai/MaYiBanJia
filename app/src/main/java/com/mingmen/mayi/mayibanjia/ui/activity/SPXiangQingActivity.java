@@ -120,6 +120,8 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
     TextView tvWupingjia;
     @BindView(R.id.tv_riqi)
     TextView tvRiqi;
+    @BindView(R.id.tv_kucun)
+    TextView tvKucun;
     //    @BindView(R.id.tv_pingjiashangpin)
 //    TextView tvPingjiashangpin;
     @BindView(R.id.rv_tuijian)
@@ -276,6 +278,7 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
         initBanner();
         dianhua = spxinxi.getTelePhone();
         tvDanjia.setText(xq.getPrice());
+        tvKucun.setText("库存："+xq.getInventory());
         tvShangpinming.setText(xq.getCommodity_name());
         tvDianming.setText(xq.getCompanyName());
         Glide.with(mContext).load(xq.getCompanyPhoto()).into(ivDiantu);

@@ -17,7 +17,7 @@ public class GlideImageLoader extends ImageLoader {
     @Override
     public void displayImage(Context context, Object path, ImageView imageView) {
 
-        Glide.with(context).load(path).transform(new GlideRoundTransform(context,10)).into(imageView);
+        Glide.with(context).load(path).transform(new GlideRoundTransform(context,15)).into(imageView);
 
     }
 }

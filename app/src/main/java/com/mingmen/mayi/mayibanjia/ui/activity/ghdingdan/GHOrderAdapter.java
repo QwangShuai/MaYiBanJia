@@ -135,9 +135,9 @@ public class GHOrderAdapter extends RecyclerView.Adapter<GHOrderAdapter.ViewHold
                         .with(mContext)
                         .setObservable(RetrofitManager.getService()
                                 .delGHOrder(PreferenceUtils.getString(MyApplication.mContext, "token", ""), bean.getGy_order_id()))
-                        .setDataListener(new HttpDataListener() {
+                        .setDataListener(new HttpDataListener<String>() {
                             @Override
-                            public void onNext(Object o) {
+                            public void onNext(String o) {
                                 mList.remove(position);
                                 notifyDataSetChanged();
                             }

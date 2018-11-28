@@ -665,7 +665,7 @@ public interface HttpService {
 
     //删除供货订单
     @POST("gyOreder/delete.do")
-    Observable<ResultModel<List<GHOrderBean>>> delGHOrder(@Query("user_token") String user_token,
+    Observable<ResultModel<String>> delGHOrder(@Query("user_token") String user_token,
                                                           @Query("gy_order_id") String gy_order_id);
 
     //运费查询

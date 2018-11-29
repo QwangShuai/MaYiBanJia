@@ -136,9 +136,10 @@ public class WuLiuActivity extends BaseActivity {
         int width = wm1.getDefaultDisplay().getWidth();
         int height = wm1.getDefaultDisplay().getHeight();
         tuichupop.setWidth(AppUtil.dip2px(130));
-        tuichupop.setHeight(AppUtil.dip2px(100));
+        tuichupop.setHeight(AppUtil.dip2px(150));
         LinearLayout ll_tuichu = view.findViewById(R.id.ll_tuichu);
         LinearLayout ll_yunfei = view.findViewById(R.id.ll_jiesuan);
+        LinearLayout ll_jiesuanjieguo = view.findViewById(R.id.ll_jiesuanjieguo);
         ll_tuichu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -161,6 +162,12 @@ public class WuLiuActivity extends BaseActivity {
                         tuichupop.dismiss();
                     }
                 });
+            }
+        });
+        ll_jiesuanjieguo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(mContext,JieSuanJieGuoActivity.class));
             }
         });
         ll_yunfei.setOnClickListener(new View.OnClickListener() {

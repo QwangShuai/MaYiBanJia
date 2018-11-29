@@ -38,6 +38,33 @@
         android:paddingLeft="12dp"
         android:paddingRight="12dp">
         <LinearLayout
+            android:id="@+id/ll_jiesuanjieguo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/jiesuanjieguo"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="结算结果"
+                android:textColor="#ff474747"
+                android:textSize="15sp"
+                android:layout_marginLeft="12dp"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="130dp"
+        android:layout_height="51dp"
+        android:orientation="horizontal"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp">
+        <LinearLayout
             android:id="@+id/ll_tuichu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -24,6 +24,7 @@ import com.mingmen.mayi.mayibanjia.bean.GWCShangPinBean;
 import com.mingmen.mayi.mayibanjia.bean.GetZiZhiBean;
 import com.mingmen.mayi.mayibanjia.bean.JYMXBean;
 import com.mingmen.mayi.mayibanjia.bean.JYMXItemBean;
+import com.mingmen.mayi.mayibanjia.bean.JieSuanJirGuoBean;
 import com.mingmen.mayi.mayibanjia.bean.LiShiJiLuBean;
 import com.mingmen.mayi.mayibanjia.bean.LiuLanJiLuBean;
 import com.mingmen.mayi.mayibanjia.bean.PhoneBean;
@@ -856,8 +857,8 @@ public interface HttpService {
     //获取运费结算列表
     @POST("wlSettlement/list.do")
     Observable<ResultModel<YunFeiJieSuanBean>> getYunfeiList(@Query("user_token") String user_token,
-                                                             @Query("pageNumber") String pageNumber,
-                                                             @Query("settle_accounts_state") String settle_accounts_state);
+                                                             @Query("settle_accounts_state") String settle_accounts_state,
+                                                             @Query("wl_cars_order_id") String wl_cars_order_id);
 
     //运费结算
     @POST("wlSettlement/settlement.do")
@@ -902,4 +903,9 @@ public interface HttpService {
     @POST("gyCommentReply/getGoodsXq.do")
     Observable<ResultModel<List<XQPingJiaBean>>> getWodepingjia(@Query("user_token") String user_token,
                                                             @Query("pageNumber") String pageNumber);
+
+    // 结算结果列表
+    @POST("wlSettlement/dataList.do")
+    Observable<ResultModel<List<JieSuanJirGuoBean>>> getJiesuanjieguoList(@Query("user_token") String user_token,
+                                                                          @Query("pageNumber") String pageNumber);
 }

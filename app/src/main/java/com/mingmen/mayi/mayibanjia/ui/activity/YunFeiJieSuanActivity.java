@@ -59,7 +59,6 @@ public class YunFeiJieSuanActivity extends BaseActivity {
     private YunFeiAdapter adapter;
     private YunFeiTypeDialog dialog;
     private Context mContext;
-    private int ye = 1;
     private boolean b = false;
     private String type = "0";
     private String wl_cars_order_id = "";
@@ -143,7 +142,8 @@ public class YunFeiJieSuanActivity extends BaseActivity {
     public void getList(String type) {
         this.type = type;
         list.clear();
-        ye = 1;
+        zj = 0;
+        tvZongjia.setText("0");
         if (type.equals("0")) {
             tvTitle.setText("未结算");
             llJiesuan.setVisibility(View.VISIBLE);
@@ -157,14 +157,14 @@ public class YunFeiJieSuanActivity extends BaseActivity {
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(RetrofitManager.getService()
-                        .getYunfeiList(PreferenceUtils.getString(MyApplication.mContext, "token", ""), ye + "", type))
+                        .getYunfeiList(PreferenceUtils.getString(MyApplication.mContext, "token", ""), type,""))
                 .setDataListener(new HttpDataListener<YunFeiJieSuanBean>() {
                     @Override
                     public void onNext(YunFeiJieSuanBean bean) {
                         list.addAll(bean.getDdList());
                         dialog.init(bean.getCount(), bean.getCount1(), bean.getCount2());
+//                        adapter.setSelect(false);
                         adapter.notifyDataSetChanged();
-                        ye++;
                     }
                 });
     }

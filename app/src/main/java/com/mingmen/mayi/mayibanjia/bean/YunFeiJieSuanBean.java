@@ -105,7 +105,7 @@ public class YunFeiJieSuanBean {
          * freight_fee : 37
          */
 
-        private Object driverName;
+        private String driverName;
         private Object market_id;
         private Object create_time;
         private Object account;
@@ -131,7 +131,7 @@ public class YunFeiJieSuanBean {
         private Object ctName;
         private Object ct_address_id;
         private Object qy_company_id;
-        private Object driverPhone;
+        private String driverPhone;
         private Object plateNumber;
         private Object carTypeName;
         private Object marketName;
@@ -145,11 +145,11 @@ public class YunFeiJieSuanBean {
         private Object wl_cars_id;
         private int freight_fee;
 
-        public Object getDriverName() {
+        public String getDriverName() {
             return driverName;
         }
 
-        public void setDriverName(Object driverName) {
+        public void setDriverName(String driverName) {
             this.driverName = driverName;
         }
 
@@ -353,11 +353,11 @@ public class YunFeiJieSuanBean {
             this.qy_company_id = qy_company_id;
         }
 
-        public Object getDriverPhone() {
+        public String getDriverPhone() {
             return driverPhone;
         }
 
-        public void setDriverPhone(Object driverPhone) {
+        public void setDriverPhone(String driverPhone) {
             this.driverPhone = driverPhone;
         }
 

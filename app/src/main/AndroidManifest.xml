@@ -274,7 +274,8 @@
         <activity android:name=".ui.activity.FaBiaoPingJiaActivity" /> <!-- 发表评价 -->
         <activity android:name=".ui.activity.YunFeiJieSuanActivity" /> <!-- 运费结算 -->
         <activity android:name=".ui.activity.JieSuanJieGuoActivity" /> <!-- 结算结果 -->
-        <activity android:name=".ui.activity.WoDePingJiaActivity"></activity>
+        <activity android:name=".ui.activity.WoDePingJiaActivity" /> <!-- 我的评价 -->
+        <activity android:name=".ui.activity.JieSuanXiangQingActivity"></activity> <!-- 结算结果详情 -->
     </application>
 
 </manifest>

@@ -85,7 +85,7 @@ public class YunFeiAdapter extends RecyclerView.Adapter<YunFeiAdapter.ViewHolder
                     dialog.setdata(mContext,bean.getFreight_fee(), new YunFeiDialog.CallBack() {
                         @Override
                         public void succeed(String jine) {
-                            jiesuan(bean.getWl_cars_order_number(),bean.getFreight_fee()+"",jine);
+                            jiesuan(bean,position,bean.getWl_cars_order_number(),bean.getFreight_fee()+"",jine);
                         }
                     }).show(activity.getSupportFragmentManager());
                 }
@@ -134,14 +134,16 @@ public class YunFeiAdapter extends RecyclerView.Adapter<YunFeiAdapter.ViewHolder
         }
     }
 
-    public void jiesuan(String id,String yf,String sjyf){
+    public void jiesuan(final YunFeiJieSuanBean.DdListBean bean,final int pos, String id, String yf, String sjyf){
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(RetrofitManager.getService()
                         .yunfeijiesuan(PreferenceUtils.getString(MyApplication.mContext, "token", ""),id,yf,sjyf))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
-                    public void onNext(String bean) {
+                    public void onNext(String data) {
+                        isSelect[pos] = false;
+                        activity.delItem(bean);
                         activity.getList("0");
                     }
                 });

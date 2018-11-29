@@ -47,7 +47,8 @@ public class GHShangPinAdapter extends RecyclerView.Adapter<GHShangPinAdapter.Vi
         }
         holder.tv_shangpinming.setText(bean.getCommodity_name());
         holder.tv_jiliang.setText(bean.getAcount_spec());
-        holder.tv_jiage.setText(String.valueOf(bean.getAll_price()));
+        holder.tv_jiage.setText("￥:"+String.valueOf(bean.getAll_price())+"元");
+        holder.tv_danjia.setText(bean.getPrice()+"元/"+bean.getSpec_name());
     }
 
     @Override
@@ -66,7 +67,8 @@ public class GHShangPinAdapter extends RecyclerView.Adapter<GHShangPinAdapter.Vi
         TextView tv_jiage;
         @BindView(R.id.tv_shangpinbeizhu)
         TextView tv_shangpinbeizhu;
-
+        @BindView(R.id.tv_danjia)
+        TextView tv_danjia;
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);

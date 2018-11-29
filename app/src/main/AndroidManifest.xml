@@ -273,7 +273,8 @@
         <activity android:name=".ui.activity.JiaoYiXiangQingActivity" /> <!-- 交易详情 -->
         <activity android:name=".ui.activity.FaBiaoPingJiaActivity" /> <!-- 发表评价 -->
         <activity android:name=".ui.activity.YunFeiJieSuanActivity" /> <!-- 运费结算 -->
-        <activity android:name=".ui.activity.JieSuanJieGuoActivity"></activity><!-- 结算结果 -->
+        <activity android:name=".ui.activity.JieSuanJieGuoActivity" /> <!-- 结算结果 -->
+        <activity android:name=".ui.activity.WoDePingJiaActivity"></activity>
     </application>
 
 </manifest>

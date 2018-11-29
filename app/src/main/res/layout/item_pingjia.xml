@@ -87,6 +87,19 @@
             style="@style/foodRatingBar"
             android:layout_marginLeft="12dp"
             />
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></LinearLayout>
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_dingdan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dingdanxiangqing"
+            android:textColor="@color/blue_3794e5"
+            android:textSize="12sp"
+            />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

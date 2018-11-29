@@ -44,6 +44,7 @@
         ></android.support.v7.widget.RecyclerView>
     </android.support.v4.widget.SwipeRefreshLayout>
     <RelativeLayout
+        android:background="#f2f2f2"
         android:id="@+id/rl_dibu"
         android:layout_width="match_parent"
         android:layout_height="50dp"

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="54dp">
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_marginLeft="12dp"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@mipmap/dianpu_gray"
+                android:layout_width="16dp"
+                android:layout_height="16dp" />
+            <TextView
+                android:textSize="16sp"
+                android:textColor="@color/lishisousuo"
+                android:layout_marginLeft="8dp"
+                android:text="水果店"
+                android:id="@+id/tv_dianpu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <ImageView
+            android:layout_marginRight="12dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/jinru"
+            android:layout_alignParentRight="true"
+            android:layout_width="7dp"
+            android:layout_height="12dp" />
+    </RelativeLayout>
+    <include layout="@layout/view_cutoff_e7e7e7"></include>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

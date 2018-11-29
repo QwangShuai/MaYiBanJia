@@ -898,5 +898,8 @@ public interface HttpService {
                                                 @Query("company_id") String company_id,
                                                 @Query("shop_rowgu") String shop_rowgu);
 
-
+    //查询我的所有评价
+    @POST("gyCommentReply/getGoodsXq.do")
+    Observable<ResultModel<List<XQPingJiaBean>>> getWodepingjia(@Query("user_token") String user_token,
+                                                            @Query("pageNumber") String pageNumber);
 }

@@ -6,6 +6,7 @@
     <string name="xiaoliangzuigao"><u>销量最高</u></string>
     <string name="jiagezuidi"><u>价格最低</u></string>
     <string name="pingfenzuigao"><u>评分最高</u></string>
+    <string name="dingdanxiangqing"><u>订单详情</u></string>
     <string name="only_input">qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM1234567890</string>
 
     <string name="no_connect_blue_tooth">未连接蓝牙</string>

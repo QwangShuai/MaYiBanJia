@@ -152,8 +152,9 @@
                                 android:background="@drawable/fillet_hollow_ff3300_10"
                                 android:gravity="center"
                                 android:layout_marginTop="10dp"
-                                android:layout_marginLeft="50dp"
-                                android:visibility="gone"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginRight="15dp"
+                                android:visibility="visible"
                                 />
                             <TextView
                                 android:layout_marginTop="8dp"
@@ -191,7 +192,8 @@
                                 android:gravity="center"
                                 android:layout_marginTop="10dp"
                                 android:visibility="gone"
-                                android:layout_marginLeft="50dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginRight="15dp"
                                 />
                             <TextView
                                 android:layout_below="@+id/daifahuo"
@@ -228,7 +230,8 @@
                                 android:background="@drawable/fillet_hollow_ff3300_10"
                                 android:gravity="center"
                                 android:layout_marginTop="10dp"
-                                android:layout_marginLeft="50dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginRight="15dp"
                                 android:visibility="gone"
                                 />
                             <TextView
@@ -262,7 +265,8 @@
                                 android:id="@+id/tv_yishouhuo"
                                 android:layout_width="15dp"
                                 android:layout_height="15dp"
-                                android:layout_marginLeft="50dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginRight="15dp"
                                 android:layout_marginTop="10dp"
                                 android:background="@drawable/fillet_hollow_ff3300_10"
                                 android:gravity="center"
@@ -300,7 +304,8 @@
                                 android:id="@+id/tv_yiwancheng"
                                 android:layout_width="15dp"
                                 android:layout_height="15dp"
-                                android:layout_marginLeft="50dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginRight="15dp"
                                 android:layout_marginTop="10dp"
                                 android:background="@drawable/fillet_hollow_ff3300_10"
                                 android:gravity="center"
@@ -595,23 +600,25 @@
                             android:orientation="vertical">
 
                             <ImageView
+                                android:id="@+id/xqd"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="16dp"
                                 android:src="@mipmap/wodexuqiudan" />
                             <TextView
+                                android:layout_alignParentRight="true"
+                                android:layout_marginRight="24dp"
                                 android:id="@+id/tv_xuqiudan_tishi"
                                 android:layout_width="15dp"
                                 android:layout_height="15dp"
-                                android:layout_marginLeft="50dp"
                                 android:layout_marginTop="10dp"
                                 android:background="@drawable/fillet_hollow_ff3300_10"
                                 android:gravity="center"
                                 android:text="1"
                                 android:textColor="#ff3300"
                                 android:textSize="10sp"
-                                android:visibility="gone" />
+                                android:visibility="visible" />
                             <TextView
                                 android:id="@+id/tv_xuqiudan"
                                 android:layout_width="15dp"

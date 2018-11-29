@@ -1,7 +1,10 @@
 package com.mingmen.mayi.mayibanjia.ui.activity.adapter;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -13,6 +16,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.XQPingJiaBean;
+import com.mingmen.mayi.mayibanjia.ui.activity.DingDanXiangQingActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.AutoLineFeedLayoutManager;
 import com.mingmen.mayi.mayibanjia.ui.view.XCFlowLayout;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
@@ -32,16 +36,27 @@ public class PingJiaAdapter extends BaseQuickAdapter<XQPingJiaBean,BaseViewHolde
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, XQPingJiaBean item) {
+    protected void convert(BaseViewHolder helper, final XQPingJiaBean item) {
         helper.setText(R.id.tv_maijianame,item.getPjCompanyName());
         helper.setText(R.id.tv_dianming,item.getBpCompanyName());
         helper.setText(R.id.tv_pinglunshijian,item.getCreate_time());
-        if (item.getReplyList()!=null){
+        if (item.getOrder_id()!=null||TextUtils.isEmpty(item.getOrder_id())){
+            helper.getView(R.id.tv_dingdan).setVisibility(View.VISIBLE);
+            helper.getView(R.id.tv_dingdan).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent it = new Intent(mContext, DingDanXiangQingActivity.class);
+                    it.putExtra("orderID", item.getOrder_id());
+                    mContext.startActivity(it);
+                }
+            });
+        }
+        if (item.getReplyList()!=null&&item.getReplyList().size()!=0){
             helper.setText(R.id.tv_huifushijian,item.getReplyList().get(0).getCreate_time());
-
-            String huifuneirong = item.getReplyList().get(0).getComment_text();
-
-            String[] huifuarray = huifuneirong.split(",");
+            String[] huifuarray = new String[item.getReplyList().get(0).getPjList()==null?0:item.getReplyList().get(0).getPjList().size()];
+            for (int i=0;i<item.getReplyList().get(0).getPjList().size();i++){
+                huifuarray[i] = item.getReplyList().get(0).getPjList().get(i).getSon_name();
+            }
 
             if (huifuarray.length>0){
                 XCFlowLayout xcf_huifu = helper.getView(R.id.xcf_huifu);
@@ -58,20 +73,20 @@ public class PingJiaAdapter extends BaseQuickAdapter<XQPingJiaBean,BaseViewHolde
         }
 
         Glide.with(mContext).load(item.getHeadPhoto()).into((ImageView) helper.getView(R.id.iv_touxiang));
-        helper.setRating(R.id.rb_pingfen, Float.parseFloat(item.getStar_evaluation()));//评分
+        helper.setRating(R.id.rb_pingfen, item.getStar_evaluation());//评分
         String pingjianeirong = item.getComment_text();
-        String[] pingjiaarray = pingjianeirong.split(",");
-        if (pingjiaarray.length>0){
+        if (item.getPjList() != null&& item.getPjList().size()!=0) {
             XCFlowLayout xcf_pingjia = helper.getView(R.id.xcf_pingjia);
-            initShangpinChildViews(xcf_pingjia,pingjiaarray);
-//            PingJiaNeiRongAdapter pingjiaadapter=new PingJiaNeiRongAdapter();
-//            RecyclerView rv_pinglunneirong = helper.getView(R.id.rv_pinglunneirong);
-//            rv_pinglunneirong.setLayoutManager(new AutoLineFeedLayoutManager());
-//            rv_pinglunneirong.setAdapter(pingjiaadapter);
-//            pingjiaadapter.setNewData(pingjialist);
+            String[] pingjiaarray = new String[item.getPjList()==null?0:item.getPjList().size()];
+            for (int i=0;i<item.getPjList().size();i++){
+                pingjiaarray[i] = item.getPjList().get(i).getSon_name();
+            }
+
+            if (pingjiaarray.length>0){
+                initShangpinChildViews(xcf_pingjia,pingjiaarray);
+            }
 
         }
-
     }
     private void initShangpinChildViews(XCFlowLayout xcfShangpinlishisousuo,String[] shangpinNamelist) {
         xcfShangpinlishisousuo.removeAllViews();
@@ -87,7 +102,7 @@ public class PingJiaAdapter extends BaseQuickAdapter<XQPingJiaBean,BaseViewHolde
             view.setTextColor(mContext.getResources().getColor(R.color.lishisousuo));
             view.setTextSize(12);
             view.setPadding( AppUtil.dip2px(8), AppUtil.dip2px(12), AppUtil.dip2px(8), AppUtil.dip2px(12));
-            view.setBackground(mContext.getDrawable(R.drawable.fillet_solid_e7e7e7_3));
+            view.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_solid_e7e7e7_3));
             tvs.add(view);
             xcfShangpinlishisousuo.addView(view, lp);
         }

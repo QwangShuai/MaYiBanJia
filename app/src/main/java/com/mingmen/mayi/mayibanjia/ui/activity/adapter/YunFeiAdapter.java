@@ -128,9 +128,11 @@ public class YunFeiAdapter extends RecyclerView.Adapter<YunFeiAdapter.ViewHolder
     }
 
     public void setSelect(boolean b){
-        for(int i=0;i<isSelect.length;i++){
-            isSelect[i] = b;
-            notifyDataSetChanged();
+        if(isSelect.length!=0){
+            for(int i=0;i<isSelect.length;i++){
+                isSelect[i] = b;
+                notifyDataSetChanged();
+            }
         }
     }
 

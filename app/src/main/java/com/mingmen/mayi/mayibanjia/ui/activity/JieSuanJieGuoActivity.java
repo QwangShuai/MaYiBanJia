@@ -38,6 +38,7 @@ public class JieSuanJieGuoActivity extends BaseActivity {
     private Context mContext;
     private int ye = 1;
     private JieSuanJieGuoAdapter adapter;
+    private SwipeMenuRecyclerView.LoadMoreListener mLoadMoreListener;
     @Override
     public int getLayoutId() {
         return R.layout.activity_jie_suan_jie_guo;
@@ -47,10 +48,17 @@ public class JieSuanJieGuoActivity extends BaseActivity {
     protected void initData() {
         mContext = JieSuanJieGuoActivity.this;
         tvTitle.setText("结算结果");
-
         adapter = new JieSuanJieGuoAdapter(mContext, list, JieSuanJieGuoActivity.this);
         rvJieguo.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         rvJieguo.setAdapter(adapter);
+        mLoadMoreListener = new SwipeMenuRecyclerView.LoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                getList();
+            }
+        };
+        rvJieguo.setLoadMoreListener(mLoadMoreListener);
+        rvJieguo.loadMoreFinish(false, true);
         getList();
     }
 

@@ -98,10 +98,16 @@ public class YunFeiJieSuanActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.ll_quanxuan:
-                b = !b;
-                adapter.setSelect(b);
-                ivQuanxuan.setSelected(b);
-                adapter.notifyDataSetChanged();
+                int size = list==null?0:list.size();
+                if(size==0){
+                    ToastUtil.showToast("数据为空");
+                } else {
+                    b = !b;
+                    adapter.setSelect(b);
+                    ivQuanxuan.setSelected(b);
+                    adapter.notifyDataSetChanged();
+                }
+
                 break;
             case R.id.bt_jiesuan:
                 if(zj>0){
@@ -178,6 +184,7 @@ public class YunFeiJieSuanActivity extends BaseActivity {
                     @Override
                     public void onNext(String bean) {
                         adapter.setSelect(!b);
+                        ivQuanxuan.setSelected(false);
                         getList(type);
                     }
                 });

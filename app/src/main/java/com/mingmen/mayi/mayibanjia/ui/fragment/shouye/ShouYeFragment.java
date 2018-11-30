@@ -104,8 +104,6 @@ public class ShouYeFragment extends BaseFragment {
                 // 重置adapter的数据源为空
                 // 获取第第0条到第PAGE_COUNT（值为10）条的数据
                 getShouyeBanner();
-
-
                 srlShuaxin.setRefreshing(false);
             }
         });
@@ -301,6 +299,7 @@ public class ShouYeFragment extends BaseFragment {
 
                     @Override
                     public void onNext(ShouYeShangChangBean list) {
+                        shangJiaBean.clear();
                         shangJiaBean.add(list);
                         getShouyeTeJia();
                     }

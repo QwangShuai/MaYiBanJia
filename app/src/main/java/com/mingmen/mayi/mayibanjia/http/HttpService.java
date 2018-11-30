@@ -292,7 +292,7 @@ public interface HttpService {
                                              @Query("scale") String scale);
 
     //企业修改(业务员)
-    @POST("allCompany/update.do")
+    @POST("allCompany/updateCompany.do")
     Observable<ResultModel<String>> qiyexiugai(@Query("user_token") String user_token,
                                                @Query("company_id") String company_id,
                                                @Query("company_name") String company_name,

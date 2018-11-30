@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.QiYeLieBiaoBean;
 
@@ -63,6 +64,7 @@ public class QiYeLieBiaoAdapter extends RecyclerView.Adapter<QiYeLieBiaoAdapter.
         holder.tvMingzi.setText(data.getCompany_name());
         holder.tvLeibie.setText(data.getLeiBieName());
         holder.tvGuimo.setText(data.getGuiMoName());
+        Glide.with(mContext).load(data.getPhoto()).into(holder.ivTouxiang);
         Log.e("data.getsss",data.getCompany_id()+"-");
         if (data.getSpecific_address()!=null){
             holder.tvDizhi.setText(data.getQuYMC()+data.getQuYMCa()+data.getQuYMCb()+data.getQuYMCc()+data.getSpecific_address());
@@ -101,6 +103,8 @@ public class QiYeLieBiaoAdapter extends RecyclerView.Adapter<QiYeLieBiaoAdapter.
         ImageView ivBianji;
         @BindView(R.id.ll_bianji)
         LinearLayout llBianji;
+        @BindView(R.id.iv_touxiang)
+        ImageView ivTouxiang;
 
         ViewHolder(View view) {
             super(view);

@@ -340,7 +340,7 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
 
         Log.e("dianpuid", xq.getCompany_id() + "----");
         //评价
-        if (pingjia.getPjList() != null&& pingjia.getPjList().size()!=0) {
+        if (pingjia.getPjList() != null&& pingjia.getPjList().size()!=0&&TextUtils.isEmpty(pingjia.getPjList()+"")) {
             tvPingjiaming.setText(pingjia.getPjCompanyName());
 //            tvPingjianeirong.setText(pingjia.getComment_text());
             tvRiqi.setText(pingjia.getCreate_time() + "");

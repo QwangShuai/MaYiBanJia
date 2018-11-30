@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.DianMingChaXunBean;
 
@@ -51,6 +52,7 @@ public class DianPuMingAdapter extends  RecyclerView.Adapter<DianPuMingAdapter.V
         DianMingChaXunBean string = mList.get(position);
         String zi = string.getCompany_name().toString().trim();
         holder.tv_ming.setText(zi);
+        Glide.with(mContext).load(string.getPhoto()).into(holder.iv_touxiang);
         if (mOnItemClickListener!=null){
             holder.tv_ming.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -68,10 +70,12 @@ public class DianPuMingAdapter extends  RecyclerView.Adapter<DianPuMingAdapter.V
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tv_ming;
+        ImageView iv_touxiang;
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
             tv_ming=(TextView)view.findViewById(R.id.tv_ming);
+            iv_touxiang=(ImageView) view.findViewById(R.id.iv_touxiang);
         }
     }
 

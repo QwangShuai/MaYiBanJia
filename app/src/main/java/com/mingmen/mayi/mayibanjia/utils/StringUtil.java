@@ -1,9 +1,18 @@
 package com.mingmen.mayi.mayibanjia.utils;
 
+import android.content.Context;
+import android.content.res.AssetManager;
 import android.text.method.ReplacementTransformationMethod;
 
+import com.google.gson.Gson;
+import com.mingmen.mayi.mayibanjia.bean.JsonBean;
 import com.qiniu.android.utils.StringUtils;
 
+import org.json.JSONArray;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
@@ -1179,5 +1188,38 @@ public class StringUtil {
 			return cc;
 		}
 
+	}
+	//文件转json
+	public static String getJson(Context context, String fileName) {
+
+		StringBuilder stringBuilder = new StringBuilder();
+		try {
+			AssetManager assetManager = context.getAssets();
+			BufferedReader bf = new BufferedReader(new InputStreamReader(
+					assetManager.open(fileName)));
+			String line;
+			while ((line = bf.readLine()) != null) {
+				stringBuilder.append(line);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return stringBuilder.toString();
+	}
+	//获取城市列表
+	public static ArrayList<JsonBean> parseData(String result) {//Gson 解析
+		ArrayList<JsonBean> detail = new ArrayList<>();
+		try {
+			JSONArray data = new JSONArray(result);
+			Gson gson = new Gson();
+			for (int i = 0; i < data.length(); i++) {
+				JsonBean entity = gson.fromJson(data.optJSONObject(i).toString(), JsonBean.class);
+				detail.add(entity);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		return detail;
 	}
 }

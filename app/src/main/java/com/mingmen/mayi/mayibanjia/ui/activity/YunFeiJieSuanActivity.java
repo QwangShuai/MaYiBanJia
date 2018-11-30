@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -210,6 +211,8 @@ public class YunFeiJieSuanActivity extends BaseActivity {
             } else {
                 wl_cars_order_id += value.getWl_cars_order_number() + ",";
                 zj += value.getFreight_fee();
+                Log.e("我的ID和总价",wl_cars_order_id+"---"+zj);
+//                adapter.notifyDataSetChanged();
             }
         }
         tvZongjia.setText(zj+"");

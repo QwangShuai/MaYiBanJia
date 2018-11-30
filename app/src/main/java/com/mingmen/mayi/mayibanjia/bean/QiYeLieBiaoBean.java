@@ -81,8 +81,17 @@ public class QiYeLieBiaoBean {
         private String company_number;
         private String duty_paragraph;
         private String salesman_time;
+        private String file_path;
 
-        public String getType() {
+    public String getFile_path() {
+        return file_path;
+    }
+
+    public void setFile_path(String file_path) {
+        this.file_path = file_path;
+    }
+
+    public String getType() {
             return type;
         }
 

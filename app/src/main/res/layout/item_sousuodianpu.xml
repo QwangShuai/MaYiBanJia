@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="37dp"
+    android:layout_height="57dp"
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="36dp"
+        android:layout_height="56dp"
         android:orientation="horizontal"
         android:gravity="center_vertical">
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/iv_touxiang"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:src="@mipmap/dianpu"
             />
         <TextView
@@ -19,7 +20,7 @@
             android:layout_height="wrap_content"
             android:text="谷色谷香"
             android:textColor="#474747"
-            android:textSize="12sp"
+            android:textSize="14sp"
             android:layout_marginLeft="13dp"
             />
     </LinearLayout>

@@ -2,6 +2,7 @@ package com.mingmen.mayi.mayibanjia.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -70,6 +71,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
     private int ye = 1;
     private YeWuYuanDialog dialog;
     private String type = "1";
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_yewuyuanmain;
@@ -78,6 +80,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
     @Override
     protected void initData() {
         tvTitle.setText("我的");
+        ivSangedian.setVisibility(View.VISIBLE);
         ivBack.setImageResource(R.mipmap.sousuo_bai);
         mContext=YeWuYuanMainActivity.this;
         getQiyeLiebiao(type);

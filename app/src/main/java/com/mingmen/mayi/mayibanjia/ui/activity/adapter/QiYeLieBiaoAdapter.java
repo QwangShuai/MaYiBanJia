@@ -63,7 +63,7 @@ public class QiYeLieBiaoAdapter extends RecyclerView.Adapter<QiYeLieBiaoAdapter.
 //        }
         holder.tvMingzi.setText(data.getCompany_name());
         holder.tvLeibie.setText(data.getLeiBieName());
-        holder.tvGuimo.setText(data.getGuiMoName());
+        holder.tvGuimo.setText(data.getGuiMoId());
         Glide.with(mContext).load(data.getPhoto()).into(holder.ivTouxiang);
         Log.e("data.getsss",data.getCompany_id()+"-");
         if (data.getSpecific_address()!=null){

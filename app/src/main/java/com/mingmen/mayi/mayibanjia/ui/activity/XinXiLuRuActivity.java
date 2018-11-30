@@ -12,6 +12,7 @@ import android.os.Build;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -78,12 +79,14 @@ public class XinXiLuRuActivity extends BaseActivity {
     TextView tvQiyeleibie;
     @BindView(R.id.textView2)
     TextView textView2;
-    @BindView(R.id.tv_qiyeguimo)
-    TextView tvQiyeguimo;
+    @BindView(R.id.et_qiyeguimo)
+    TextView etQiyeguimo;
     @BindView(R.id.iv_tu)
     ImageView ivTu;
     @BindView(R.id.tv_quyuxuanze)
     TextView tvQuyuxuanze;
+    @BindView(R.id.tv_jiedaoxuanze)
+    TextView tvJiedaoxuanze;
     @BindView(R.id.et_xiangxidizhi)
     EditText etXiangxidizhi;
     @BindView(R.id.bt_queding)
@@ -151,11 +154,11 @@ public class XinXiLuRuActivity extends BaseActivity {
             qiyeid = qiyexinxi.getCompany_id();
             etQiyemingcheng.setText(qiyexinxi.getCompany_name());
             tvQiyeleibie.setText(qiyexinxi.getLeiBieName());
-            tvQiyeguimo.setText(qiyexinxi.getGuiMoName());
+            etQiyeguimo.setText(qiyexinxi.getGuiMoName());
 
             leibieid=qiyexinxi.getLeiBieId();
             leibiename=qiyexinxi.getLeiBieName();
-            guimoid=qiyexinxi.getGuiMoId();
+//            guimoid=qiyexinxi.getGuiMoId();
             guimoname=qiyexinxi.getGuiMoName();
             Log.e("guimo",guimoname+"---"+guimoid);
             shengid= Integer.parseInt(qiyexinxi.getProvince());
@@ -169,7 +172,9 @@ public class XinXiLuRuActivity extends BaseActivity {
             shidizhaopian=qiyexinxi.getPhoto();
             xiangxidizhi=qiyexinxi.getSpecific_address();
             Log.e("xiangxidizhi",xiangxidizhi+"===");
-            tvQuyuxuanze.setText(qiyexinxi.getQuYMC()+qiyexinxi.getQuYMCa()+qiyexinxi.getQuYMCb()+qiyexinxi.getQuYMCc());
+            tvQuyuxuanze.setText(qiyexinxi.getQuYMC()+"-"+qiyexinxi.getQuYMCa()+"-"+qiyexinxi.getQuYMCb());
+            tvJiedaoxuanze.setText(qiyexinxi.getQuYMCc());
+            etQiyeguimo.setText(qiyexinxi.getGuiMoId());
             etXiangxidizhi.setText(qiyexinxi.getSpecific_address());
         }
         photoDialog = new PhotoDialog(mContext,
@@ -183,7 +188,7 @@ public class XinXiLuRuActivity extends BaseActivity {
         initJsonData();
     }
 
-    @OnClick({R.id.tv_right, R.id.tv_qiyeleibie, R.id.tv_qiyeguimo, R.id.iv_tu, R.id.tv_quyuxuanze,R.id.bt_queding})
+    @OnClick({R.id.tv_right, R.id.tv_qiyeleibie, R.id.iv_tu, R.id.tv_quyuxuanze,R.id.tv_jiedaoxuanze,R.id.bt_queding})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_right:
@@ -193,10 +198,10 @@ public class XinXiLuRuActivity extends BaseActivity {
                 //企业类别
                 getleibie();
                 break;
-            case R.id.tv_qiyeguimo:
-                //企业规模
-                getguimo();
-                break;
+//            case R.id.tv_qiyeguimo:
+//                //企业规模
+//                getguimo();
+//                break;
             case R.id.iv_tu:
                 //上传图片
                 photoDialog.showDialog();
@@ -224,27 +229,39 @@ public class XinXiLuRuActivity extends BaseActivity {
                 });
                 break;
             case R.id.tv_quyuxuanze:
-                //区域选择
-//                if (zonglist!=null){
-//                    shengdialog();
-//                }else{
-//                    getsheng();
-//                }
                 showCityPicker();
-//                ShowViewCity showViewCity = new ShowViewCity(mContext);
-//                showViewCity.initJsonData();
-//                tvQuyuxuanze.setText(showViewCity.getTx());
-//                Log.e("我的区域编号",new Gson().toJson(showViewCity.getCity()));
                 break;
             case R.id.bt_queding:
-
                 qiyemingcheng = etQiyemingcheng.getText().toString().trim();
+                guimoname = etQiyeguimo.getText().toString().trim();
                 xiangxidizhi =etXiangxidizhi.getText().toString().trim();
-                if ("add".equals(rukou)){
-                    qiyeluru();
-                }else{
-                    xiugai();
+                if(TextUtils.isEmpty(qiyemingcheng)){
+                    ToastUtil.showToast("企业名称不可以为空");
+                } else if(TextUtils.isEmpty(guimoname)){
+                    ToastUtil.showToast("企业规模不可以为空");
+                } else if(TextUtils.isEmpty(xiangxidizhi)){
+                    ToastUtil.showToast("详细地址不可以为空");
+                } else {
+                    if ("add".equals(rukou)){
+                        qiyeluru();
+                    }else{
+                        xiugai();
+                    }
                 }
+
+                break;
+            case R.id.tv_jiedaoxuanze:
+                //区域选择
+                if(city==0){
+                    ToastUtil.showToast("请先选择区域");
+                } else {
+                    if (zonglist!=null){
+                        jiedialog();
+                    }else{
+                        getsheng();
+                    }
+                }
+
                 break;
         }
     }
@@ -255,7 +272,7 @@ public class XinXiLuRuActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .qiyexiugai(PreferenceUtils.getString(MyApplication.mContext, "token",""),qiyeid,qiyemingcheng,shengid+"",shiid+"",quid+"",jieid+"", xiangxidizhi,shidizhaopian,leibieid,guimoid))
+                                .qiyexiugai(PreferenceUtils.getString(MyApplication.mContext, "token",""),qiyeid,qiyemingcheng,shengid+"",shiid+"",quid+"",jieid+"", xiangxidizhi,shidizhaopian,leibieid,guimoname))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
@@ -273,7 +290,7 @@ public class XinXiLuRuActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .qiyeluru(PreferenceUtils.getString(MyApplication.mContext, "token",""),qiyemingcheng,shengid+"",shiid+"",quid+"",jieid+"", xiangxidizhi,yewuyuanweizhi,shidizhaopian,leibieid,guimoid))
+                                .qiyeluru(PreferenceUtils.getString(MyApplication.mContext, "token",""),qiyemingcheng,shengid+"",shiid+"",quid+"",jieid+"", xiangxidizhi,yewuyuanweizhi,shidizhaopian,leibieid,guimoname))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
@@ -449,103 +466,21 @@ public class XinXiLuRuActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getsheng())
+                                .getsheng(city+""))
                 .setDataListener(new HttpDataListener<List<ProvinceBean>>() {
                     @Override
                     public void onNext(final List<ProvinceBean> list) {
                         zonglist = new ArrayList<ProvinceBean>();
                         zonglist.addAll(list);
-                      shengdialog();
-                        
+                        jiedialog();
+
                     }
                 });
     }
 
-    private void shengdialog() {
-        shenglist = new ArrayList<ProvinceBean>();
-        for (int i = 0; i <zonglist.size() ; i++) {
-            if (zonglist.get(i).getQuyfjbm()==86) {
-                shenglist.add(zonglist.get(i));
-            }
-        }
-
-
-
-        final SinglePicker<ProvinceBean> picker =new SinglePicker<ProvinceBean>(XinXiLuRuActivity.this, shenglist);
-        picker.setCanceledOnTouchOutside(false);
-        picker.setSelectedIndex(1);
-        picker.setCycleDisable(false);
-        picker.setOnItemPickListener(new SinglePicker.OnItemPickListener<ProvinceBean>() {
-            @Override
-            public void onItemPicked(int index, ProvinceBean item) {
-                shengming = item.getQuymc();
-                shengid = item.getQuybm();
-                Log.e("shengsheng", shengid +"===");
-                shilist = new ArrayList();
-                for (int i = 0; i < zonglist.size(); i++) {
-                    if (zonglist.get(i).getQuyfjbm()== shengid) {
-                        shilist.add(zonglist.get(i));
-                    }
-                }
-                shidialog();
-                picker.dismiss();
-            }
-        });
-        picker.show();
-    }
-
-    private void shidialog() {
-        final SinglePicker<ProvinceBean> picker =new SinglePicker<ProvinceBean>(XinXiLuRuActivity.this,shilist);
-        picker.setCanceledOnTouchOutside(false);
-        picker.setSelectedIndex(1);
-        picker.setCycleDisable(false);
-        picker.setOnItemPickListener(new SinglePicker.OnItemPickListener<ProvinceBean>() {
-
-
-            @Override
-            public void onItemPicked(int index, ProvinceBean item) {
-                shiming = item.getQuymc();
-                shiid = item.getQuybm();
-                Log.e("shishishsi", shiid +"===");
-                qulist = new ArrayList();
-                for (int i = 0; i < zonglist.size(); i++) {
-                    if (zonglist.get(i).getQuyfjbm()== shiid) {
-                        qulist.add(zonglist.get(i));
-                    }
-                }
-                qudialog();
-                picker.dismiss();
-            }
-        });
-        picker.show();
-    }
-
-    private void qudialog() {
-        final SinglePicker<ProvinceBean> picker =new SinglePicker<ProvinceBean>(XinXiLuRuActivity.this,qulist);
-        picker.setCanceledOnTouchOutside(false);
-        picker.setSelectedIndex(1);
-        picker.setCycleDisable(false);
-        picker.setOnItemPickListener(new SinglePicker.OnItemPickListener<ProvinceBean>() {
-            @Override
-            public void onItemPicked(int index, ProvinceBean item) {
-
-                quming = item.getQuymc();
-                quid = item.getQuybm();
-                jielist = new ArrayList();
-                for (int i = 0; i < zonglist.size(); i++) {
-                    if (zonglist.get(i).getQuyfjbm()==quid){
-                        jielist.add(zonglist.get(i));
-                    }
-                }
-                jiedialog();
-                picker.dismiss();
-            }
-        });
-        picker.show();
-    }
     private void jiedialog() {
-        if(jielist.size()!=0){
-            final SinglePicker<ProvinceBean> picker =new SinglePicker<ProvinceBean>(XinXiLuRuActivity.this,jielist);
+        if(zonglist.size()!=0){
+            final SinglePicker<ProvinceBean> picker =new SinglePicker<ProvinceBean>(XinXiLuRuActivity.this,zonglist);
             Log.e("121212",String.valueOf(jielist));
 
             picker.setCanceledOnTouchOutside(false);
@@ -556,9 +491,8 @@ public class XinXiLuRuActivity extends BaseActivity {
                 public void onItemPicked(int index, ProvinceBean item) {
                     jieming = item.getQuymc();
                     jieid = item.getQuybm() + "";
-                    Log.e("jieidjieid", jieid +"===");
                     picker.dismiss();
-                    tvQuyuxuanze.setText(shengming+shiming+quming+jieming);
+                    tvJiedaoxuanze.setText(""+jieming);
                 }
             });
             picker.show();
@@ -567,36 +501,36 @@ public class XinXiLuRuActivity extends BaseActivity {
         }
     }
     //企业规模
-    private void getguimo() {
-            HttpManager.getInstance()
-                    .with(mContext)
-                    .setObservable(
-                            RetrofitManager
-                                    .getService()
-                                    .getqygm())
-                    .setDataListener(new HttpDataListener<List<QiYeGuiMoBean>>() {
-                        @Override
-                        public void onNext(List<QiYeGuiMoBean> data) {
-                            final SinglePicker<QiYeGuiMoBean> picker =new SinglePicker<QiYeGuiMoBean>(XinXiLuRuActivity.this,data);
-                            picker.setCanceledOnTouchOutside(false);
-                            picker.setSelectedIndex(1);
-                            picker.setCycleDisable(false);
-                            picker.setOnItemPickListener(new SinglePicker.OnItemPickListener<QiYeGuiMoBean>() {
-                                @Override
-                                public void onItemPicked(int index, QiYeGuiMoBean item) {
-
-                                    guimoname = item.getSon_name();
-                                    guimoid = item.getSon_number();
-                                    tvQiyeguimo.setText(guimoname);
-                                    Log.e("guimoname+guimoid",guimoname+"+"+guimoid);
-                                    picker.dismiss();
-                                }
-                            });
-                            picker.show();
-                            
-                        }
-                    });
-    }
+//    private void getguimo() {
+//            HttpManager.getInstance()
+//                    .with(mContext)
+//                    .setObservable(
+//                            RetrofitManager
+//                                    .getService()
+//                                    .getqygm())
+//                    .setDataListener(new HttpDataListener<List<QiYeGuiMoBean>>() {
+//                        @Override
+//                        public void onNext(List<QiYeGuiMoBean> data) {
+//                            final SinglePicker<QiYeGuiMoBean> picker =new SinglePicker<QiYeGuiMoBean>(XinXiLuRuActivity.this,data);
+//                            picker.setCanceledOnTouchOutside(false);
+//                            picker.setSelectedIndex(1);
+//                            picker.setCycleDisable(false);
+//                            picker.setOnItemPickListener(new SinglePicker.OnItemPickListener<QiYeGuiMoBean>() {
+//                                @Override
+//                                public void onItemPicked(int index, QiYeGuiMoBean item) {
+//
+//                                    guimoname = item.getSon_name();
+//                                    guimoid = item.getSon_number();
+//                                    etQiyeguimo.setText(guimoname);
+//                                    Log.e("guimoname+guimoid",guimoname+"+"+guimoid);
+//                                    picker.dismiss();
+//                                }
+//                            });
+//                            picker.show();
+//
+//                        }
+//                    });
+//    }
 
 //企业类别
     private void getleibie() {
@@ -859,7 +793,10 @@ public class XinXiLuRuActivity extends BaseActivity {
                         options2Items.get(options1).get(options2)+"-"+
                         options3Items.get(options1).get(options2).get(options3);
                 tvQuyuxuanze.setText(tx);
+                shengid = options1Items.get(options1).getQuybm();
+                shiid = options1Items.get(options1).getCitylist().get(options2).getQuybm();
                 city = options1Items.get(options1).getCitylist().get(options2).getQulist().get(options3).getQuybm();
+                quid = options1Items.get(options1).getCitylist().get(options2).getQulist().get(options3).getQuybm();
                 Log.e("我的区域编号",city+"");
             }
         })

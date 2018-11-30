@@ -125,7 +125,7 @@ public interface HttpService {
 
     //供货端获取省
     @POST("sysQuy/querychina.do")
-    Observable<ResultModel<List<ProvinceBean>>> getsheng();
+    Observable<ResultModel<List<ProvinceBean>>> getsheng(@Query("quybm") String quybm);
 
     //供货端获取市场列表
     @POST("sysQuy/queryMarket.do")
@@ -900,7 +900,7 @@ public interface HttpService {
                                                 @Query("shop_rowgu") String shop_rowgu);
 
     //查询我的所有评价
-    @POST("gyCommentReply/getGoodsXq.do")
+    @POST("gyCommentReply/getwdpj.do")
     Observable<ResultModel<List<XQPingJiaBean>>> getWodepingjia(@Query("user_token") String user_token,
                                                             @Query("pageNumber") String pageNumber);
 

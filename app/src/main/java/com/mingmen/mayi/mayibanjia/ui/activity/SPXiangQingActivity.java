@@ -273,6 +273,27 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
         xq = spxinxi.getXq();
         if (spxinxi.getEvaluate()!=null) {
             pingjia = spxinxi.getEvaluate();
+            if (pingjia.getPjList() != null&& pingjia.getPjList().size()!=0) {
+                tvPingjiaming.setText(pingjia.getPjCompanyName());
+//            tvPingjianeirong.setText(pingjia.getComment_text());
+                tvRiqi.setText(pingjia.getCreate_time() + "");
+                if (pingjia.getHeadPhoto() != null) {
+                    Glide.with(mContext).load(pingjia.getHeadPhoto()).into(civTouxiang);
+                }
+                String[] pingjiaarray = new String[pingjia.getPjList()==null?0:pingjia.getPjList().size()];
+                for (int i=0;i<pingjia.getPjList().size();i++){
+                    pingjiaarray[i] = pingjia.getPjList().get(i).getSon_name();
+                }
+
+                if (pingjiaarray.length>0){
+                    initShangpinChildViews(xcfPingjia,pingjiaarray);
+                }
+
+            }else{
+                tvWupingjia.setText("该商品暂无评价");
+            }
+        }else{
+            tvWupingjia.setText("该商品暂无评价");
         }
         tuijianlist = spxinxi.getGoodsRecommend();
         initBanner();
@@ -340,25 +361,7 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
 
         Log.e("dianpuid", xq.getCompany_id() + "----");
         //评价
-        if (pingjia.getPjList() != null&& pingjia.getPjList().size()!=0&&TextUtils.isEmpty(pingjia.getPjList()+"")) {
-            tvPingjiaming.setText(pingjia.getPjCompanyName());
-//            tvPingjianeirong.setText(pingjia.getComment_text());
-            tvRiqi.setText(pingjia.getCreate_time() + "");
-            if (pingjia.getHeadPhoto() != null) {
-                Glide.with(mContext).load(pingjia.getHeadPhoto()).into(civTouxiang);
-            }
-            String[] pingjiaarray = new String[pingjia.getPjList()==null?0:pingjia.getPjList().size()];
-            for (int i=0;i<pingjia.getPjList().size();i++){
-                pingjiaarray[i] = pingjia.getPjList().get(i).getSon_name();
-            }
 
-            if (pingjiaarray.length>0){
-                initShangpinChildViews(xcfPingjia,pingjiaarray);
-            }
-
-        }else{
-            tvWupingjia.setText("该商品暂无评价");
-        }
         if (spxinxi.getCollectId() == null || "".equals(spxinxi.getCollectId())) {
             Log.e("spxinxi.", "isShoucangfalse");
             isShoucang = false;

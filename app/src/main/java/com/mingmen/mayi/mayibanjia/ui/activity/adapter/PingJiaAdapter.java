@@ -40,7 +40,7 @@ public class PingJiaAdapter extends BaseQuickAdapter<XQPingJiaBean,BaseViewHolde
         helper.setText(R.id.tv_maijianame,item.getPjCompanyName());
         helper.setText(R.id.tv_dianming,item.getBpCompanyName());
         helper.setText(R.id.tv_pinglunshijian,item.getCreate_time());
-        if (item.getOrder_id()!=null||!TextUtils.isEmpty(item.getOrder_id())){
+        if (item.getOrder_id()!=null&&!TextUtils.isEmpty(item.getOrder_id())){
             helper.getView(R.id.tv_dingdan).setVisibility(View.VISIBLE);
             helper.getView(R.id.tv_dingdan).setOnClickListener(new View.OnClickListener() {
                 @Override

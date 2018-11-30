@@ -207,7 +207,7 @@ public class AddAddressActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getsheng())
+                                .getsheng(""))
                 .setDataListener(new HttpDataListener<List<ProvinceBean>>() {
                     @Override
                     public void onNext(final List<ProvinceBean> list) {

@@ -65,7 +65,8 @@ public class ShangPinListAdapter extends RecyclerView.Adapter<ShangPinListAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final ShangPinSouSuoBean.ZhengchangBean data = mList.get(position);
-        holder.tvSpming.setText(data.getCommodity_name());
+        //holder.tvSpming.setText(data.getCommodity_name());
+        holder.tvSpming.setText(data.getClassify_name());//商品名称现在改为三级分类名称
         holder.tvDianming.setText(data.getCompany_name());
         holder.tvJiage.setText(data.getPrice()+"");
         //holder.tvGuige.setText(data.getPackStandard()+"");
@@ -87,6 +88,8 @@ public class ShangPinListAdapter extends RecyclerView.Adapter<ShangPinListAdapte
                 zoushi.putExtra("market_name",data.getMarket_name());//市场名
                 zoushi.putExtra("classify_id",data.getType_tree_id());//三级分类名称
                 zoushi.putExtra("classify_name",data.getClassify_name());//三级分类名称
+                Log.e("classify_name",data.getClassify_name()+"=");
+                Log.e("classify_id",data.getType_tree_id()+"=");
                 mContext.startActivity(zoushi);
             }
         });

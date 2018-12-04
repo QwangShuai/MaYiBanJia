@@ -62,6 +62,15 @@ public class TuiJianBean {
         private String inventory;
         private String shopping_id;
         private String spec_describe;
+        private String classify_name;//三级分类名称
+
+    public String getClassify_name() {
+        return classify_name;
+    }
+
+    public void setClassify_name(String classify_name) {
+        this.classify_name = classify_name;
+    }
 
     public String getSpec_describe() {
         return spec_describe;

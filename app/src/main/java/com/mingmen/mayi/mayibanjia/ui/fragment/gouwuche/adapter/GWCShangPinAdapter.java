@@ -90,7 +90,8 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
     public void onBindViewHolder(final ViewHolder holder, final int position) {//购物车页面初始数据加载
         final GWCShangPinBean.ShoppingBean shoppingBean = mList.get(position);
         Log.e("shoppingBeanjson",new Gson().toJson(shoppingBean));
-        holder.tvName.setText(shoppingBean.getCommodity_name());
+        //holder.tvName.setText(shoppingBean.getCommodity_name());
+        holder.tvName.setText(shoppingBean.getClassify_name());//商品名称改为三级分类名称
         //holder.tvGuige.setText(shoppingBean.getPack_standard());
         holder.tvPrice.setText(shoppingBean.getPrice()+"");
         holder.tvNumber.setText(shoppingBean.getNumber()+"");
@@ -132,7 +133,6 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
                 zoushi.putExtra("market_name",shoppingBean.getMarket_name());//市场名
                 zoushi.putExtra("classify_id",shoppingBean.getType_tree_id());//三级分类id
                 zoushi.putExtra("classify_name",shoppingBean.getClassify_name());//三级分类名称
-                Log.e("classify_name",shoppingBean.getClassify_name()+"-");
                 mContext.startActivity(zoushi);
             }
         });
@@ -148,7 +148,6 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
                 }
             });
             final String qidingliang1 = shoppingBean.getRation_one();
-            Log.e("qidingdang",qidingliang1+"===");
             holder.tvNumber.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -166,7 +165,6 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
                                     .setDataListener(new HttpDataListener<String>() {
                                         @Override
                                         public void onNext(String data) {
-                                            Log.e("edit",data+"---");
                                             holder.tvNumber.setText(msg);
                                             mList.get(position).setNumber(Integer.parseInt(msg));
                                         }
@@ -184,7 +182,6 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
                         ToastUtil.showToast("不能再加啦");
                         return;
                     }else{
-                        Log.e("shoppingBean.getShopping_id()",shoppingBean.getShopping_id());
                         HttpManager.getInstance()
                                 .with(mContext)
                                 .setObservable(
@@ -194,7 +191,6 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
                                 .setDataListener(new HttpDataListener<String>() {
                                     @Override
                                     public void onNext(String data) {
-                                        Log.e("edit",data+"---");
                                         shuliang[0]++;
                                         holder.tvNumber.setText(shuliang[0]+"");
                                         mList.get(position).setNumber(shuliang[0]);
@@ -228,7 +224,6 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
                                 .setDataListener(new HttpDataListener<String>() {
                                     @Override
                                     public void onNext(String data) {
-                                        Log.e("edit",data+"---");
                                         shuliang[0]--;
                                         holder.tvNumber.setText(shuliang[0]+"");
                                         mList.get(position).setNumber(shuliang[0]);
@@ -300,14 +295,12 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
-                        Log.e("edit",data+"---");
 //                        ToastUtil.showToast("修改成功");
                     }
                 },false);
     }
 
     public List<GWCShangPinBean.ShoppingBean> getmList(){
-    Log.e("gson2",new Gson().toJson(mList)+"--");
     return mList;
 }
 public void setmList(List<GWCShangPinBean.ShoppingBean> list){

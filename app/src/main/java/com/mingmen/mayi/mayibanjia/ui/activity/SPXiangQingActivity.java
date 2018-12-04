@@ -300,7 +300,8 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
         dianhua = spxinxi.getTelePhone();
         tvDanjia.setText(xq.getPrice());
         tvKucun.setText("库存："+xq.getInventory());
-        tvShangpinming.setText(xq.getCommodity_name());
+        //tvShangpinming.setText(xq.getCommodity_name());
+        tvShangpinming.setText(xq.getClassify_name());
         tvDianming.setText(xq.getCompanyName());
         Glide.with(mContext).load(xq.getCompanyPhoto()).into(ivDiantu);
         tvDizhi.setText(xq.getCompanyAddress());
@@ -476,7 +477,6 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
 
     //查询商品详情
     private void getspxiangqing() {
-        Log.e("xiangqingkaishi", spid + "--");
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(

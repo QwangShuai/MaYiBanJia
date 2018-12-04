@@ -87,7 +87,6 @@ public class ShangPinListAdapter extends RecyclerView.Adapter<ShangPinListAdapte
                 zoushi.putExtra("market_name",data.getMarket_name());//市场名
                 zoushi.putExtra("classify_id",data.getType_tree_id());//三级分类名称
                 zoushi.putExtra("classify_name",data.getClassify_name());//三级分类名称
-                Log.e("classify_name",data.getClassify_name()+"=");
                 mContext.startActivity(zoushi);
             }
         });

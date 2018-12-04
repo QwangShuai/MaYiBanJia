@@ -625,7 +625,24 @@ public class DianPuZhanShiBean {
             private String quYMCc;
             private String ywyphone;
             private String remark;
+            private String type_tree_id;
+            private String classify_name;
 
+            public String getType_tree_id() {
+                return type_tree_id;
+            }
+
+            public void setType_tree_id(String type_tree_id) {
+                this.type_tree_id = type_tree_id;
+            }
+
+            public String getClassify_name() {
+                return classify_name;
+            }
+
+            public void setClassify_name(String classify_name) {
+                this.classify_name = classify_name;
+            }
 
             public String getType() {
                 return type;

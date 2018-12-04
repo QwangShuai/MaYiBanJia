@@ -34,7 +34,7 @@
                 android:text=""
                 android:textColor="#474747"
                 android:textSize="12sp"
-                android:hint="搜索商品名称  分类"
+                android:hint="搜索商品名称"
                 android:gravity="center_vertical"
                 android:textColorHint="#ff999999"
                 android:layout_marginLeft="10dp"

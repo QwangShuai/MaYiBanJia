@@ -196,6 +196,7 @@ public class TubiaoActivity extends FragmentActivity {
      */
     public void showLineChart(final List<ZouShiTuBean> dataList ) {
         List<Entry> entries = new ArrayList<>();
+        final String[] values = new String[dataList.size()];
         for (int i = 0; i < dataList.size(); i++) {
             ZouShiTuBean data = dataList.get(i);
             /**
@@ -356,10 +357,10 @@ public class TubiaoActivity extends FragmentActivity {
                     ToastUtil.showToast("开始时间不能大于结束时间");
                     return;
                 }
-                if (leixing==2){
+/*                if (leixing==2){
                     ToastUtil.showToast("时间间隔不得超过30天");
                     return;
-                }
+                }*/
                 if(!TextUtils.isEmpty(startDate) && !TextUtils.isEmpty(endDate)){
                     Date  startDateTwo = DateUtil.StringToDate(startDate, geshi);
                     Date  endDateTwo = DateUtil.StringToDate(endDate, geshi);

@@ -68,7 +68,6 @@ public class GouWuCheAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         switch (viewType) {
             case SHANGPIN:
                 View inflate;
-                Log.e("shangpindata.size()",shangpindata.size()+"-");
                 if (shangpindata.size()>0){
                      inflate = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_gouwuche_youshangpin, parent, false);
                     return new ShangPin(inflate);
@@ -187,8 +186,6 @@ public class GouWuCheAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     //为你推荐
     private void bindWeiNiTuiJian(WeiNiTuiJian holder, int position) {
 
-        Log.e("为你推荐","为你推荐");
-
         if (weinituijianadapter == null) {
             weinituijianadapter = new GWCWeiNiTuiJianAdapter(mContext, weinituijiandata);
         }
@@ -221,7 +218,6 @@ public class GouWuCheAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         jiarugouwuchedialog = new JiaRuGouWuCheDialog(mContext,
                                 mContext.getResources().getIdentifier("BottomDialog", "style", mContext.getPackageName()));
                         jiarugouwuchedialog.getWindow().setGravity(Gravity.BOTTOM | Gravity.LEFT | Gravity.RIGHT);
-                        Log.e("getInventory",data.getInventory()+"===");
                         jiarugouwuchedialog.showDialog(data.getInventory(),data.getCommodity_name(), data.getSpec_describe(),data.getRation_one()+"",data.getPice_one()+""
                                 ,data.getRation_two()+"",data.getPice_two()+"",data.getRation_three()+"",data.getPice_three()+"",data.getPicture_url()+"");
                         final String finalGuigeid = guigeid;
@@ -234,7 +230,6 @@ public class GouWuCheAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                                     }else{
                                         ToastUtil.showToast("不够起订量");
                                     }
-                                Log.e("jiarugouwuche", jiarugouwuchedialog.getEtShuliang().getText().toString().trim());
                                 jiarugouwuchedialog.getEtShuliang().setText("0");
                                 jiarugouwuchedialog.cancel();
 
@@ -249,7 +244,6 @@ public class GouWuCheAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
     //添加购物车
     private void addcar(final String spid, String shuliang, String dianpuid, String gouwucheid, String guigeid) {
-        Log.e("ctShoppingCart/save.do",spid+"---"+shuliang+"---"+dianpuid+"---"+gouwucheid+"---"+guigeid);
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
@@ -267,7 +261,6 @@ public class GouWuCheAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     //修改购物车数量
     private void editcar(String shoppingid,String shuliang) {
-        Log.e("ctShoppingCart/addnum.do","user_token="+PreferenceUtils.getString(MyApplication.mContext, "token","")+"&shoppingid="+shoppingid+"&type=1&number="+shuliang);
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
@@ -277,7 +270,6 @@ public class GouWuCheAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
-                        Log.e("edit",data+"---");
                         ToastUtil.showToast("修改成功");
                         gouWuCheFragment.setShuaxin();
                     }

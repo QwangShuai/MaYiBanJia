@@ -209,15 +209,16 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
             holder.tvJianhao.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (shuliang[0] ==1){
+                    if (shuliang[0] <=Integer.parseInt(qidingliang1)){
                         ToastUtil.showToast("不能再减啦");
                         return;
-                    }else{
-                        Log.e("shoppingBean.getShopping_id()",shoppingBean.getShopping_id());
+                    }
+                    else{
+/*                        Log.e("shoppingBean.getShopping_id()",shoppingBean.getShopping_id());
                         if (shuliang[0]==Integer.parseInt(qidingliang1)){
                             ToastUtil.showToast("不能再减啦");
                             return;
-                        }
+                        }*/
                         HttpManager.getInstance()
                                 .with(mContext)
                                 .setObservable(

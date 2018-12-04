@@ -110,7 +110,6 @@ public class GouWuCheFragment extends BaseFragment {
         }
         getGouWuChe(true);
         selectedId=new HashMap<>();
-        Log.e("selectedId","new");
         srlShuaxin.setColorSchemeResources(R.color.zangqing, R.color.zangqing,
                 R.color.zangqing, R.color.zangqing);
         srlShuaxin.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -179,12 +178,10 @@ public class GouWuCheFragment extends BaseFragment {
                         @Override
                         public void onNext(GWCShangPinBean gwcShangPinBean) {
                             gwcShangPinBeanlist=gwcShangPinBean;
-                            Log.e("gwcShangPinBean",(gwcShangPinBean.getDianpu()==null)+"");
                             gwcdianpushangpin = new ArrayList<GWCDianPuShangPinBean>();
                             if (gwcShangPinBean.getDianpu()==null){
                                 rlDibu.setVisibility(View.GONE);
                                 tvGuanli.setText("");
-                                Log.e("没有数据 ","没有数据");
                             }else{
                                 rlDibu.setVisibility(View.VISIBLE);
                                 tvGuanli.setText("管理");
@@ -228,7 +225,6 @@ public class GouWuCheFragment extends BaseFragment {
                 .setDataListener(new HttpDataListener<List<TuiJianBean>>() {
             @Override
             public void onNext(List<TuiJianBean> data) {
-                Log.e("getweinituijian",new Gson().toJson(data)+"---");
                 adapter = new GouWuCheAdapter(getActivity(), gwcdianpushangpin,data,GouWuCheFragment.this);
                 rvGouwuche.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
                 rvGouwuche.setAdapter(adapter);
@@ -294,8 +290,6 @@ public class GouWuCheFragment extends BaseFragment {
                 }
                 intent.putExtra("shopping_id", shooping_id);
                 intent.putExtra("company_id", company_id);
-                Log.e("company_id",company_id+"===");
-                Log.e("shooping_id",shooping_id+"===");
                 intent.putExtra("lujingtype", "1");
                 intent.putExtra("zongjia",zongjia);
                 startActivity(intent);
@@ -328,7 +322,6 @@ public class GouWuCheFragment extends BaseFragment {
                 }
             }
         }
-        Log.e("selectedId",new Gson().toJson(selectedId));
     }
 
     //全选
@@ -343,7 +336,6 @@ public class GouWuCheFragment extends BaseFragment {
             }
 
         }
-        Log.e("quanxuanlist",new Gson().toJson(selectedId));
 
     }
 
@@ -359,8 +351,6 @@ public class GouWuCheFragment extends BaseFragment {
             return;
         }
         id=id.substring(0 ,id.length()-1);
-        Log.e("id",id);
-        Log.e("token",PreferenceUtils.getString(MyApplication.mContext, "token",""));
         HttpManager.getInstance()
                     .with(mContext)
                     .setObservable(
@@ -370,7 +360,6 @@ public class GouWuCheFragment extends BaseFragment {
                     .setDataListener(new HttpDataListener<String>() {
                         @Override
                         public void onNext(String data) {
-                            Log.e("data",data+"(＾－＾)V");
                             zongjia = data;
                             tvZongjia.setText(data);
                             tvJiesuan.setEnabled(true);
@@ -392,7 +381,6 @@ public class GouWuCheFragment extends BaseFragment {
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
-                        Log.e("data",data+"(＾－＾)V");
                         setShuaxin();
                     }
                 },false);

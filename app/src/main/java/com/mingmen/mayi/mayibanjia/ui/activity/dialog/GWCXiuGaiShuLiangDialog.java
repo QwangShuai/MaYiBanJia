@@ -78,7 +78,7 @@ public class GWCXiuGaiShuLiangDialog extends BaseFragmentDialog {
         tvJianhao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (shuliang==1){
+                if (shuliang<=Integer.parseInt(qidingliang)){
                     ToastUtil.showToast("不能再减啦");
                     return;
                 }else{

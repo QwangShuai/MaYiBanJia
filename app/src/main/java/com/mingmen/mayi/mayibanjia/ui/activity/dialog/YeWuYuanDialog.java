@@ -40,7 +40,7 @@ public class YeWuYuanDialog extends BaseFragmentDialog implements View.OnClickLi
     protected void init() {
         getView().setPadding(0,top,0,0);
         setText(tvXuanxiang1,"我的");
-        setText(tvXuanxiang2,"企业列表");
+        setText(tvXuanxiang2,"全部企业列表");
         initEvent();
     }
 

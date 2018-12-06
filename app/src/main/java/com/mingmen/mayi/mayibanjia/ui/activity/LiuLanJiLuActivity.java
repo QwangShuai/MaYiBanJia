@@ -123,7 +123,7 @@ public class LiuLanJiLuActivity extends BaseActivity {
                         .setDataListener(new HttpDataListener<String>() {
                             @Override
                             public void onNext(String data) {
-                                ToastUtil.showToast("取消关注成功");
+                                ToastUtil.showToast("删除记录成功");
                                 mlist.remove(adapterPosition);
                                 adapter.notifyDataSetChanged();
                             }

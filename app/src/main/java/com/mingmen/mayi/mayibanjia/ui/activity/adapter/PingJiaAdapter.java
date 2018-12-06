@@ -66,7 +66,7 @@ public class PingJiaAdapter extends BaseQuickAdapter<XQPingJiaBean,BaseViewHolde
 //                rv_huifuneirong.setAdapter(huifuadapter);
 //                huifuadapter.setNewData(huifulist);
 //                new AutoLineFeedLayoutManager()
-                initShangpinChildViews(xcf_huifu,huifuarray);
+                initShangpinChildViews(xcf_huifu,huifuarray,"0");
             }
         }else{
             helper.getView(R.id.ll_shangjiahuifu).setVisibility(View.GONE);
@@ -83,12 +83,12 @@ public class PingJiaAdapter extends BaseQuickAdapter<XQPingJiaBean,BaseViewHolde
             }
 
             if (pingjiaarray.length>0){
-                initShangpinChildViews(xcf_pingjia,pingjiaarray);
+                initShangpinChildViews(xcf_pingjia,pingjiaarray,"1");
             }
 
         }
     }
-    private void initShangpinChildViews(XCFlowLayout xcfShangpinlishisousuo,String[] shangpinNamelist) {
+    private void initShangpinChildViews(XCFlowLayout xcfShangpinlishisousuo,String[] shangpinNamelist,String type) {
         xcfShangpinlishisousuo.removeAllViews();
         ArrayList tvs = new ArrayList();
         ViewGroup.MarginLayoutParams lp = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -101,8 +101,13 @@ public class PingJiaAdapter extends BaseQuickAdapter<XQPingJiaBean,BaseViewHolde
             view.setText(shangpinNamelist[i]);
             view.setTextColor(mContext.getResources().getColor(R.color.lishisousuo));
             view.setTextSize(12);
-            view.setPadding( AppUtil.dip2px(8), AppUtil.dip2px(12), AppUtil.dip2px(8), AppUtil.dip2px(12));
-            view.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_solid_e7e7e7_3));
+            view.setPadding( AppUtil.dip2px(12), AppUtil.dip2px(8), AppUtil.dip2px(12), AppUtil.dip2px(8));
+            if(type.equals("0")){
+                view.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_fafafa_14));
+            } else {
+                view.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_white_14));
+            }
+
             tvs.add(view);
             xcfShangpinlishisousuo.addView(view, lp);
         }

@@ -17,7 +17,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/cutoff"/>
+            android:background="@color/gray_e7e7e7"/>
         <TextView
             android:id="@+id/tv_xuanxiang2"
             android:layout_width="match_parent"
@@ -31,7 +31,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/cutoff"/>
+            android:background="@color/gray_e7e7e7"/>
         <TextView
             android:id="@+id/tv_xuanxiang3"
             android:layout_width="match_parent"
@@ -45,7 +45,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/cutoff"/>
+            android:background="@color/gray_e7e7e7"/>
         <TextView
             android:id="@+id/tv_xuanxiang4"
             android:layout_width="match_parent"

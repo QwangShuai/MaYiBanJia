@@ -232,35 +232,37 @@ public class SouSuoActivity extends BaseActivity {
                 // 该加载更多啦。
 
 //        ... // 请求数据，并更新数据源操作。
-                ye++;
-                Log.e("ye++++",ye+"--");
-                Log.e(TAG,yijipinleiid+"-"+erjipinleiid+"-"+sanjipinleiid+"-"+shichangid+"-"+zuigaojia+"-"+zuidijia+"-"+type+"-"+ye);
+
+                    ye++;
+                    Log.e("ye++++",ye+"--");
+                    Log.e(TAG,yijipinleiid+"-"+erjipinleiid+"-"+sanjipinleiid+"-"+shichangid+"-"+zuigaojia+"-"+zuidijia+"-"+type+"-"+ye);
 //                sousuoshangpin(sousuozi,type);
-                HttpManager.getInstance()
-                        .with(mContext)
-                        .setObservable(
-                                RetrofitManager
-                                        .getService()
-                                        .sousuoshangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""), sousuozi,"","",yijipinleiid,erjipinleiid,sanjipinleiid,shichangid,zuigaojia,zuidijia,type,ye))
-                        .setDataListener(new HttpDataListener<ShangPinSouSuoBean>() {
-                            @Override
-                            public void onNext(final ShangPinSouSuoBean shangpin) {
-                                if (shangpin.getZhengchang()!=null){
-                                    shangpinlist.addAll(shangpin.getZhengchang());
-                                    if (shangpin.getZhengchang().size()==5){
-                                        rvYouzi.loadMoreFinish(false, true);
-                                        Log.e("本次加载有数据,数据条数为","5条，后面有没有数据待定");
-                                    }else if (shangpin.getZhengchang().size()>0){
-                                        rvYouzi.loadMoreFinish(false, false);
-                                        Log.e("本次加载有数据,数据条数为",shangpin.getZhengchang().size()+"条，后面没有数据");
-                                    }else{
-                                        rvYouzi.loadMoreFinish(true, false);
-                                        Log.e("本次加载有数据,数据条数为","0条，后面没有数据");
+                    HttpManager.getInstance()
+                            .with(mContext)
+                            .setObservable(
+                                    RetrofitManager
+                                            .getService()
+                                            .sousuoshangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""), sousuozi,"","",yijipinleiid,erjipinleiid,sanjipinleiid,shichangid,zuigaojia,zuidijia,type,ye))
+                            .setDataListener(new HttpDataListener<ShangPinSouSuoBean>() {
+                                @Override
+                                public void onNext(final ShangPinSouSuoBean shangpin) {
+                                    if (shangpin.getZhengchang()!=null){
+                                        shangpinlist.addAll(shangpin.getZhengchang());
+                                        if (shangpin.getZhengchang().size()==5){
+                                            rvYouzi.loadMoreFinish(false, true);
+                                            Log.e("本次加载有数据,数据条数为","5条，后面有没有数据待定");
+                                        }else if (shangpin.getZhengchang().size()>0){
+                                            rvYouzi.loadMoreFinish(false, false);
+                                            Log.e("本次加载有数据,数据条数为",shangpin.getZhengchang().size()+"条，后面没有数据");
+                                        }else{
+                                            rvYouzi.loadMoreFinish(true, false);
+                                            Log.e("本次加载有数据,数据条数为","0条，后面没有数据");
+                                        }
                                     }
+                                    shangpinadapter.notifyDataSetChanged();
                                 }
-                                shangpinadapter.notifyDataSetChanged();
-                            }
-                        },false);
+                            },false);
+
             }
         };
 
@@ -275,7 +277,15 @@ public class SouSuoActivity extends BaseActivity {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                sousuoshangpin(type,sousuozi);
+            if(TextUtils.isEmpty(sousuozi)){
+                ToastUtil.showToast("无搜索字");
+            } else {
+                if(sousuofangxiang.equals("shichang")){
+                    sousuoshichang();
+                } else {
+                    sousuodianpu(sousuozi);
+                }
+            }
                 refreshLayout.setRefreshing(false);
             }
         });

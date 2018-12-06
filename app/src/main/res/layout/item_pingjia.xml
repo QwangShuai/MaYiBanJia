@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
@@ -73,7 +74,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="评价:"
+            android:text="商家:"
             android:textColor="#ff666666"
             android:textSize="13sp"
             />
@@ -119,24 +120,28 @@
             <!--android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>-->
     </LinearLayout>
     <LinearLayout
+        android:layout_marginLeft="50dp"
+        android:background="@color/gray_e7e7e7"
         android:id="@+id/ll_shangjiahuifu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <LinearLayout
+            android:paddingLeft="12dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="66dp"
             android:paddingRight="12dp"
             android:layout_marginTop="12dp">
+
             <TextView
+                android:id="@+id/textView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="商家回复"
                 android:textColor="#ff999999"
-                android:textSize="12sp"
-                android:layout_weight="1"
-                />
+                android:textSize="12sp" />
+
             <TextView
                 android:id="@+id/tv_huifushijian"
                 android:layout_width="wrap_content"

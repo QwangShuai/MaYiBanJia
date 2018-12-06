@@ -89,7 +89,6 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {//购物车页面初始数据加载
         final GWCShangPinBean.ShoppingBean shoppingBean = mList.get(position);
-        Log.e("shoppingBeanjson",new Gson().toJson(shoppingBean));
         //holder.tvName.setText(shoppingBean.getCommodity_name());
         holder.tvName.setText(shoppingBean.getClassify_name());//商品名称改为三级分类名称
         //holder.tvGuige.setText(shoppingBean.getPack_standard());
@@ -208,13 +207,11 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
                     if (shuliang[0] <=Integer.parseInt(qidingliang1)){
                         ToastUtil.showToast("不能再减啦");
                         return;
-                    }
-                    else{
-/*                        Log.e("shoppingBean.getShopping_id()",shoppingBean.getShopping_id());
+                    }else{
                         if (shuliang[0]==Integer.parseInt(qidingliang1)){
                             ToastUtil.showToast("不能再减啦");
                             return;
-                        }*/
+                        }
                         HttpManager.getInstance()
                                 .with(mContext)
                                 .setObservable(

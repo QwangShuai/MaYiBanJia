@@ -59,7 +59,7 @@ public class ShangPinGuanLiActivity extends BaseActivity {
     private ShangPinGuanLiAdapter shangpinguanliadapter;
     private String chaxunzi="";
     private int ye = 1;
-    private ArrayList<ShangPinGuanLiBean.GoodsListBean> mlist;
+    private ArrayList<ShangPinGuanLiBean.GoodsListBean> mlist = new ArrayList<>();
     private String type="0";
     private SanGeXuanXiangDialog titleDialog;
 
@@ -90,7 +90,7 @@ public class ShangPinGuanLiActivity extends BaseActivity {
                 @Override
                 public void onNext(ShangPinGuanLiBean data) {
                     if (ye == 1) {
-                        mlist = new ArrayList<>();
+                        mlist.clear();
                         rvShangpinguanli.loadMoreFinish(false, true);
                     }else{
                         if (data.getGoodsList().size()>0&&data.getGoodsList().size()<5){
@@ -211,5 +211,11 @@ public class ShangPinGuanLiActivity extends BaseActivity {
         type=s;
         ye = 1;
         getShangpinList(1);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        setType(type);
     }
 }

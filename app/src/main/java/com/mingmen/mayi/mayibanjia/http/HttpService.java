@@ -315,7 +315,8 @@ public interface HttpService {
     @POST("allCompany/selectType.do")
     Observable<ResultModel<List<QiYeLieBiaoBean>>> getqiyedaicanshu(@Query("user_token") String user_token,
                                                                     @Query("company_name") String company_name,
-                                                                    @Query("parent_number") String parent_number);
+                                                                    @Query("parent_number") String parent_number,
+                                                                    @Query("type") String type);
 
     //删除企业（业务员）
     @POST("allCompany/delete.do")

@@ -134,6 +134,7 @@ public class XinXiLuRuActivity extends BaseActivity {
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();//市
     private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();//区
     int city=0;
+    int[] pos= new int[3];
     @Override
     public int getLayoutId() {
         return R.layout.activity_xinxiluru;
@@ -241,7 +242,9 @@ public class XinXiLuRuActivity extends BaseActivity {
                     ToastUtil.showToast("企业规模不可以为空");
                 } else if(TextUtils.isEmpty(xiangxidizhi)){
                     ToastUtil.showToast("详细地址不可以为空");
-                } else {
+                } else if(TextUtils.isEmpty(jieid)){
+                    ToastUtil.showToast("街道地址不可以为空");
+                }else {
                     if ("add".equals(rukou)){
                         qiyeluru();
                     }else{
@@ -255,11 +258,11 @@ public class XinXiLuRuActivity extends BaseActivity {
                 if(city==0){
                     ToastUtil.showToast("请先选择区域");
                 } else {
-                    if (zonglist!=null){
-                        jiedialog();
-                    }else{
+//                    if (zonglist!=null){
+//                        jiedialog();
+//                    }else{
                         getsheng();
-                    }
+//                    }
                 }
 
                 break;
@@ -797,6 +800,14 @@ public class XinXiLuRuActivity extends BaseActivity {
                 shiid = options1Items.get(options1).getCitylist().get(options2).getQuybm();
                 city = options1Items.get(options1).getCitylist().get(options2).getQulist().get(options3).getQuybm();
                 quid = options1Items.get(options1).getCitylist().get(options2).getQulist().get(options3).getQuybm();
+
+                pos[0] = options1;
+                pos[1] = options2;
+                pos[2] = options3;
+
+                jieming = "";
+                jieid = "";
+                tvJiedaoxuanze.setText("");
                 Log.e("我的区域编号",city+"");
             }
         })
@@ -809,6 +820,7 @@ public class XinXiLuRuActivity extends BaseActivity {
         /*pvOptions.setPicker(options1Items);//一级选择器
         pvOptions.setPicker(options1Items, options2Items);//二级选择器*/
         pvOptions.setPicker(options1Items, options2Items,options3Items);//三级选择器
+        pvOptions.setSelectOptions(pos[0],pos[1],pos[2]);
         pvOptions.show();
     }
 }

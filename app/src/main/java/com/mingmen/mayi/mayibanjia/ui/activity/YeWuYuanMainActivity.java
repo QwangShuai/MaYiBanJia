@@ -134,7 +134,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getqiyedaicanshu(PreferenceUtils.getString(MyApplication.mContext, "token",""),trim,leibieid))
+                                .getqiyedaicanshu(PreferenceUtils.getString(MyApplication.mContext, "token",""),trim,leibieid,type))
                 .setDataListener(new HttpDataListener<List<QiYeLieBiaoBean>>() {
                     @Override
                     public void onNext(final List<QiYeLieBiaoBean> data) {

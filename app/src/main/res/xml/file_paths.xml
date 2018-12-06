@@ -14,5 +14,6 @@ Android/data/com.bugull.cameratakedemo/files/header/
         <external-path name="hm_file" path="Pictures/camerademo" />
         <external-path path="photo" name="camera_photos" />
         <external-path path="my_images" name="images" />
+        <root-path name="root_path" path="."/>
     </paths>
 </paths>

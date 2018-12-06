@@ -53,7 +53,8 @@ public class DdXqShangpinAdapter extends RecyclerView.Adapter<DdXqShangpinAdapte
     public void onBindViewHolder(ViewHolder holder, int position) {
         final DdxqListBean.MarketBean.DplistBean.ListspBean bean = mList.get(position);
         Glide.with(mContext).load(bean.getHostPicture()).into(holder.ivSptu);
-        holder.tvSpming.setText(bean.getCommodity_name());
+        //holder.tvSpming.setText(bean.getCommodity_name());
+        holder.tvSpming.setText(bean.getClassify_name());
         holder.tvGuige.setText(bean.getPackStandard());
         holder.tvJiage.setText(bean.getPrice());
         if(TextUtils.isEmpty(bean.getAppend_money()+"")||bean.getAppend_money()==null){

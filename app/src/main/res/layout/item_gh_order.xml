@@ -238,7 +238,34 @@
             android:layout_height="wrap_content" />
     </RelativeLayout>
     <RelativeLayout
-        android:layout_marginTop="14dp"
+        android:visibility="gone"
+        android:id="@+id/rl_fuJiaMoney"
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_fuJiaFei"
+            android:layout_toLeftOf="@+id/tv_fuJiaFeiMoney"
+            android:text="附加费:"
+            android:layout_marginRight="9dp"
+            android:textSize="12sp"
+            android:textColor="@color/mayihong"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginRight="12dp"
+            android:id="@+id/tv_fuJiaFeiMoney"
+            android:layout_alignParentRight="true"
+            android:textSize="18sp"
+            android:textColor="@color/mayihong"
+            android:text="￥:1035.9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_marginTop="9dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView

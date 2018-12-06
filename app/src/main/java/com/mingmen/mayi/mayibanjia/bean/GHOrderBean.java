@@ -62,6 +62,15 @@ public class GHOrderBean {
     private String company_name;
     private String telephone;
     private String refund;
+    private String append_money;
+
+    public String getAppend_money() {
+        return append_money;
+    }
+
+    public void setAppend_money(String append_money) {
+        this.append_money = append_money;
+    }
 
     public String getRefund() {
         return refund;

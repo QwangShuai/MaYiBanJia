@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.DaYinQrCodeActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.TuikuanDialog;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -67,9 +69,13 @@ public class GHOrderAdapter extends RecyclerView.Adapter<GHOrderAdapter.ViewHold
         final LinearLayoutManager manager = new LinearLayoutManager(mContext);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         holder.rv_shangpin.setLayoutManager(manager);
-        if(!TextUtils.isEmpty(bean.getRefund())){
+        if(StringUtil.isValid(bean.getRefund())){
             holder.rlTuikuan.setVisibility(View.VISIBLE);
             holder.tvTuikuanjine.setText(bean.getRefund());
+        }
+        if(StringUtil.isValid(bean.getAppend_money())){
+            holder.rlFuJiaMoney.setVisibility(View.VISIBLE);
+            holder.tvFuJiaFeiMoney.setText(bean.getAppend_money());
         }
         if (bean.getState_name().equals("待发货")) {
             holder.tv_state.setText("待发货");
@@ -241,6 +247,10 @@ public class GHOrderAdapter extends RecyclerView.Adapter<GHOrderAdapter.ViewHold
         RelativeLayout rlTuikuan;
         @BindView(R.id.tv_tuikuanjine)
         TextView tvTuikuanjine;
+        @BindView(R.id.rl_fuJiaMoney)//附加费layout
+        RelativeLayout rlFuJiaMoney;
+        @BindView(R.id.tv_fuJiaFeiMoney)
+        TextView tvFuJiaFeiMoney;
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);

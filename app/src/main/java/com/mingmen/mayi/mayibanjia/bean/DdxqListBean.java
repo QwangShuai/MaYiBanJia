@@ -1551,7 +1551,7 @@ public class DdxqListBean {
                 private Object pack_standard_tree_name;
                 private Object spec_describe;
                 private Object pack_id;
-                private Object classify_name;
+                private String classify_name;
                 private Object provName;
                 private Object citName;
                 private Object countName;
@@ -2329,11 +2329,11 @@ public class DdxqListBean {
                     this.pack_id = pack_id;
                 }
 
-                public Object getClassify_name() {
+                public String getClassify_name() {
                     return classify_name;
                 }
 
-                public void setClassify_name(Object classify_name) {
+                public void setClassify_name(String classify_name) {
                     this.classify_name = classify_name;
                 }
 

@@ -28,6 +28,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.CaiGouDanActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.DianPuGuanZhuActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.GongYingDuanSheZhiActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.GongYingDuanShouYeActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.LiuLanJiLuActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShouCangListActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShouHuoDiZhiActivity;
@@ -184,9 +185,7 @@ public class WoDeFragment extends BaseFragment {
             .setDataListener(new HttpDataListener<WoDeBean>() {
         @Override
         public void onNext(WoDeBean data) {
-            Log.e("data",new Gson().toJson(data)+"---");
             woDeBean=data;
-            Log.e("role", data.getRole()+"role: ----------------------");
             if(!data.getRole().isEmpty()){
                 if(data.getRole().equals("1")){
                     llQiehuan.setVisibility(View.GONE);//这一句即隐藏布局LinearLayout区域
@@ -258,7 +257,6 @@ public class WoDeFragment extends BaseFragment {
                 Jump_intent(ShouCangListActivity.class, new Bundle());
                 break;
             case R.id.iv_touxiang:
-                Log.e("touxiang", "dian touxiang");
                 Jump_intent(ZhangHuXinXiActivity.class, new Bundle());
                 break;
             case R.id.iv_mingpian:
@@ -351,7 +349,7 @@ public class WoDeFragment extends BaseFragment {
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String bean) {
-                        Intent it = new Intent(mContext, GongYingDuanSheZhiActivity.class);
+                        Intent it = new Intent(mContext, GongYingDuanShouYeActivity.class);
                         startActivity(it);
                         getActivity().finish();
                     }

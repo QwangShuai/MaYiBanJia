@@ -217,7 +217,6 @@ public class SouSuoActivity extends BaseActivity {
         setViewMoren();
         if (getIntent().getStringExtra("sousuofangxiang") != null) {
             sousuofangxiang = getIntent().getStringExtra("sousuofangxiang");
-            Log.e("sousuofangxiang", sousuofangxiang + "=1=1=");
             if ("shichang".equals(sousuofangxiang)) {
                 shichangxianshi();
             } else if ("dianpu".equals(sousuofangxiang)) {
@@ -234,7 +233,6 @@ public class SouSuoActivity extends BaseActivity {
 //        ... // 请求数据，并更新数据源操作。
 
                     ye++;
-                    Log.e("ye++++",ye+"--");
                     Log.e(TAG,yijipinleiid+"-"+erjipinleiid+"-"+sanjipinleiid+"-"+shichangid+"-"+zuigaojia+"-"+zuidijia+"-"+type+"-"+ye);
 //                sousuoshangpin(sousuozi,type);
                     HttpManager.getInstance()
@@ -400,8 +398,7 @@ public class SouSuoActivity extends BaseActivity {
         pop = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 //        int width = getWindowManager().getDefaultDisplay().getWidth();
         int height = getWindowManager().getDefaultDisplay().getHeight();
-
-        pop.setWidth(llXiala.getWidth());
+        pop.setWidth(llXiala.getWidth()+140);
         pop.setHeight(height * 2 / 9);
         pop.setOutsideTouchable(true);
         pop.setBackgroundDrawable(new BitmapDrawable());

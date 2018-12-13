@@ -280,7 +280,8 @@
         <activity android:name=".ui.activity.AddZiZhuangHuActivity" /> <!-- 添加子账户 -->
         <activity android:name=".ui.activity.JueSeGuanLiActivity" /> <!-- 角色管理 -->
         <activity android:name=".ui.activity.qiangdan.GongYingDuanQiangDanActivity" />
-        <activity android:name=".ui.activity.CaiGouListActivity"></activity>
+        <activity android:name=".ui.activity.CaiGouListActivity" />
+        <activity android:name=".ui.activity.DetailsZiZhangHuActivity"></activity>
     </application>
 
 </manifest>

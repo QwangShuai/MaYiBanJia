@@ -1,6 +1,7 @@
 package com.mingmen.mayi.mayibanjia.ui.activity.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,14 +67,7 @@ public class ZiZhangHuAdapter extends RecyclerView.Adapter<ZiZhangHuAdapter.View
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final JueSeDialog dialog = new JueSeDialog(mContext, new JueSeDialog.CallBack() {
-                    @Override
-                    public void confirm(String id, String name) {
-//                        addJuese(data.getSon_role_id(),id);
-//                        holder.tvQuanxian.setText(name);
-                    }
-                });
-                dialog.show();
+                Intent it = new Intent();
             }
         });
     }

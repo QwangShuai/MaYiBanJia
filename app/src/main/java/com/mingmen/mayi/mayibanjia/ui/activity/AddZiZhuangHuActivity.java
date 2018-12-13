@@ -98,7 +98,7 @@ public class AddZiZhuangHuActivity extends BaseActivity {
                 submitQuanxian();
                 break;
             case R.id.ll_quanxian:
-                JueSeDialog dialog = new JueSeDialog(mContext, new JueSeDialog.CallBack() {
+                JueSeDialog dialog = new JueSeDialog(mContext,"",son_role_id, new JueSeDialog.CallBack() {
                     @Override
                     public void confirm(String id, String name) {
                         son_role_id = id;

@@ -68,23 +68,23 @@ public class JueSeGuanLiActivity extends BaseActivity {
     }
 
     private void getmoren() {
-        HttpManager.getInstance()
-                .with(mContext)
-                .setObservable(
-                        RetrofitManager
-                                .getService()
-                                .getJueseList(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
-                .setDataListener(new HttpDataListener<List<JueSeBean>>() {
-                    @Override
-                    public void onNext(List<JueSeBean> data) {
-                        int mysize = data==null?0:data.size();
-                        if(mysize!=0){
-                            mList = data;
-                            adapter = new JueSeGuanLiAdapter(mContext,mList);
-                            rvList.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
-                            rvList.setAdapter(adapter);
-                        }
-                    }
-                },true);
+//        HttpManager.getInstance()
+//                .with(mContext)
+//                .setObservable(
+//                        RetrofitManager
+//                                .getService()
+//                                .getJueseList(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
+//                .setDataListener(new HttpDataListener<List<JueSeBean>>() {
+//                    @Override
+//                    public void onNext(List<JueSeBean> data) {
+//                        int mysize = data==null?0:data.size();
+//                        if(mysize!=0){
+//                            mList = data;
+//                            adapter = new JueSeGuanLiAdapter(mContext,mList);
+//                            rvList.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+//                            rvList.setAdapter(adapter);
+//                        }
+//                    }
+//                },true);
     }
 }

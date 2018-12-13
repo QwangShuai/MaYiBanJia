@@ -69,11 +69,11 @@ public class GHOrderAdapter extends RecyclerView.Adapter<GHOrderAdapter.ViewHold
         final LinearLayoutManager manager = new LinearLayoutManager(mContext);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         holder.rv_shangpin.setLayoutManager(manager);
-        if(StringUtil.isValid(bean.getRefund())){
+        if(StringUtil.isValid(bean.getRefund())&&!bean.getRefund().equals("0")){
             holder.rlTuikuan.setVisibility(View.VISIBLE);
             holder.tvTuikuanjine.setText(bean.getRefund());
         }
-        if(StringUtil.isValid(bean.getAppend_money())){
+        if(StringUtil.isValid(bean.getAppend_money())&&!bean.getAppend_money().equals("0")){
             holder.rlFuJiaMoney.setVisibility(View.VISIBLE);
             holder.tvFuJiaFeiMoney.setText(bean.getAppend_money());
         }

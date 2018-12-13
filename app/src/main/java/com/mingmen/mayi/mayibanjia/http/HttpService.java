@@ -940,11 +940,17 @@ public interface HttpService {
 
     //子账户角色权限
     @POST("appRoleRel/list.do")
-    Observable<ResultModel<List<RoleBean>>> getRoleList(@Query("user_token") String user_token);
+    Observable<ResultModel<RoleBean>> getRoleList(@Query("user_token") String user_token,
+                                                        @Query("son_role_id") String son_role_id);
 
     //子账户角色
     @POST("sonAccountRole/list.do")
     Observable<ResultModel<List<JueSeBean>>> getJueseList(@Query("user_token") String user_token);
+
+    //子账户未添加角色
+    @POST("sonAccountRole/kyList.do")
+    Observable<ResultModel<List<JueSeBean>>> getJuese(@Query("user_token") String user_token,
+                                                      @Query("account_id") String account_id);
 
     //添加角色权限
     @POST("appRoleRel/save.do")

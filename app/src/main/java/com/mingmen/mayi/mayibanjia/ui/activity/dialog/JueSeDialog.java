@@ -48,14 +48,19 @@ public class JueSeDialog extends Dialog {
     TextView tvCancel;
     private Context context;
     private CallBack callBack;
-    private String lableId;
-    private String name;
+    private String lableId="";
+    private String name="";
+    private String account_id="";
+    private String xzid="";
     private boolean[] isSelect;
     ArrayList<TextView> tvs;
+    String[] strList = new String[]{};
     private HashMap<String, JueSeBean> xuanzhong = new HashMap<>();
-    public JueSeDialog(@NonNull Context context, CallBack callBack) {
+    public JueSeDialog(@NonNull Context context,String account_id,String xzid, CallBack callBack) {
         super(context);
         this.context = context;
+        this.account_id = account_id;
+        this.xzid = xzid;
         this.callBack = callBack;
     }
 
@@ -98,6 +103,12 @@ public class JueSeDialog extends Dialog {
         DisplayMetrics d = context.getResources().getDisplayMetrics(); // 获取屏幕宽、高用
         lp.width = (int) (d.widthPixels * 0.8); // 高度设置为屏幕的0.6
         dialogWindow.setAttributes(lp);
+        if(StringUtil.isValid(xzid)){
+            strList = xzid.split(",");
+            for (int i=0;i<xzid.split(",").length;i++){
+                strList[i] = xzid.split(",")[i];
+            }
+        }
         getmoren();
     }
 
@@ -110,6 +121,18 @@ public class JueSeDialog extends Dialog {
         lp.topMargin = AppUtil.dip2px(12);
         lp.bottomMargin = 0;
         for (int i = 0; i < mList.size(); i++) {
+            if(mList.get(i).getIsSelected().equals("0")){
+                isSelect[i] = true;
+                addViewShow(mList.get(i));
+            }
+            if(strList!=null&&strList.length!=0){
+                for (int j=0;j<strList.length;j++){
+                    if(strList[j].equals(mList.get(i).getSon_role_id())){
+                        isSelect[i] = true;
+                        addViewShow(mList.get(i));
+                    }
+                }
+            }
             TextView view = new TextView(context);
             view.setText(mList.get(i).getPart());
             view.setTextColor(context.getResources().getColor(R.color.zangqing));
@@ -146,7 +169,7 @@ public class JueSeDialog extends Dialog {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getJueseList(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
+                                .getJuese(PreferenceUtils.getString(MyApplication.mContext, "token", ""),account_id))
                 .setDataListener(new HttpDataListener<List<JueSeBean>>() {
                     @Override
                     public void onNext(List<JueSeBean> data) {
@@ -172,7 +195,7 @@ public class JueSeDialog extends Dialog {
             if (value.getSon_role_id().isEmpty()) {//没选中的不拼   避免有多余的,
             } else {
                 lableId += key + ",";
-                name = value.getPart();
+                name += value.getPart()+",";
                 count++;
             }
         }

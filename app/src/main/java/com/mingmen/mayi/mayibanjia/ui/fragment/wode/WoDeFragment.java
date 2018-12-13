@@ -250,8 +250,8 @@ public class WoDeFragment extends BaseFragment {
 
     @OnClick({R.id.iv_tongzhi, R.id.iv_touxiang,R.id.ll_shoucang, R.id.iv_mingpian, R.id.rl_dingdan, R.id.rl_daifukuan,
             R.id.rl_daifahuo, R.id.rl_daishouhuo, R.id.rl_yishouhuo, R.id.rl_yiwancheng,R.id.rl_shouhuodizhi, R.id.rl_xuqiudan,R.id.rl_yijian,
-            R.id.rl_kefu,R.id.ll_guanzhu,R.id.ll_liulanjilu,R.id.rl_yinhang,R.id.tv_qiehuan,R.id.ll_myyue,R.id.ll_pingjia,R.id.rl_zizhanghu,
-            R.id.rl_jueseguanli})
+            R.id.rl_kefu,R.id.ll_guanzhu,R.id.ll_liulanjilu,R.id.rl_yinhang,R.id.tv_qiehuan,R.id.ll_myyue,R.id.ll_pingjia,R.id.rl_zizhanghu})
+//            ,R.id.rl_jueseguanli})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_tongzhi:
@@ -334,12 +334,12 @@ public class WoDeFragment extends BaseFragment {
                 zzh.putString("id",woDeBean.getCompany_id());
                 Jump_intent(ZiZhangHuActivity.class,zzh);
                 break;
-            case R.id.rl_jueseguanli:
-                Bundle jsgl  = new Bundle();
-                jsgl.putString("name",woDeBean.getCompany_name());
-                jsgl.putString("id",woDeBean.getCompany_id());
-                Jump_intent(JueSeGuanLiActivity.class,jsgl);
-                break;
+//            case R.id.rl_jueseguanli:
+//                Bundle jsgl  = new Bundle();
+//                jsgl.putString("name",woDeBean.getCompany_name());
+//                jsgl.putString("id",woDeBean.getCompany_id());
+//                Jump_intent(JueSeGuanLiActivity.class,jsgl);
+//                break;
         }
     }
     public void getPhone(){

@@ -14,11 +14,13 @@ import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.XuanZeDialog;
+import com.mingmen.mayi.mayibanjia.ui.view.XCFlowLayout;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -34,7 +36,7 @@ public class JueSeGuanLiAdapter extends RecyclerView.Adapter<JueSeGuanLiAdapter.
     private Context mContext;
     private List<JueSeBean> mList;
     private OnItemClickListener mOnItemClickListener;
-
+    private ArrayList<TextView> tvs;
     public JueSeGuanLiAdapter(Context mContext, List<JueSeBean> list) {
         this.mContext = mContext;
         this.mList = list;
@@ -66,7 +68,7 @@ public class JueSeGuanLiAdapter extends RecyclerView.Adapter<JueSeGuanLiAdapter.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final XuanZeDialog dialog = new XuanZeDialog(mContext, new XuanZeDialog.CallBack() {
+                final XuanZeDialog dialog = new XuanZeDialog(mContext,mList.get(position).getSon_role_id(), new XuanZeDialog.CallBack() {
                     @Override
                     public void confirm(String id, String name) {
                         addQuanxian(data.getSon_role_id(),id);
@@ -76,6 +78,9 @@ public class JueSeGuanLiAdapter extends RecyclerView.Adapter<JueSeGuanLiAdapter.
                 dialog.show();
             }
         });
+        if((data.getQxList()==null?0:data.getQxList().size())!=0){
+            initShangpinChildViews(holder.xcfQuanxian,data.getQxList());
+        }
     }
 
     @Override
@@ -88,6 +93,8 @@ public class JueSeGuanLiAdapter extends RecyclerView.Adapter<JueSeGuanLiAdapter.
         TextView tvJuese;
         @BindView(R.id.tv_quanxian)
         TextView tvQuanxian;
+        @BindView(R.id.xcf_quanxian)
+        XCFlowLayout xcfQuanxian;
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
@@ -104,5 +111,25 @@ public class JueSeGuanLiAdapter extends RecyclerView.Adapter<JueSeGuanLiAdapter.
                             ToastUtil.showToast("添加成功");
                         }
                     });
+    }
+
+    private void initShangpinChildViews(XCFlowLayout xcfShangpinlishisousuo, final List<JueSeBean.QxList> mList) {
+        xcfShangpinlishisousuo.removeAllViews();
+        tvs = new ArrayList();
+        ViewGroup.MarginLayoutParams lp = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp.leftMargin = AppUtil.dip2px(12);
+        lp.rightMargin = AppUtil.dip2px(0);
+        lp.topMargin = AppUtil.dip2px(12);
+        lp.bottomMargin = 0;
+        for (int i = 0; i < mList.size(); i++) {
+            TextView view = new TextView(mContext);
+            view.setText(mList.get(i).getRoleName());
+            view.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+            view.setTextSize(12);
+            view.setPadding(AppUtil.dip2px(12), AppUtil.dip2px(8), AppUtil.dip2px(12), AppUtil.dip2px(8));
+            view.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_solid_zangqing_3));
+            tvs.add(view);
+            xcfShangpinlishisousuo.addView(view, lp);
+        }
     }
 }

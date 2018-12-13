@@ -103,11 +103,20 @@ public class YunFeiJieSuanActivity extends BaseActivity {
                 if(size==0){
                     ToastUtil.showToast("数据为空");
                 } else {
-                    b = !b;
-                    selectAll();
-                    for(int i=0;i<list.size();i++){
-                        list.get(i).setXuanzhong(b);
-                        adapter.notifyDataSetChanged();
+                    if(b){
+                        b = false;
+                        for(int i=0;i<list.size();i++){
+                            list.get(i).setXuanzhong(b);
+                            delItem(list.get(i));
+                            adapter.notifyDataSetChanged();
+                        }
+                    } else {
+                        b = true;
+                        for(int i=0;i<list.size();i++){
+                            list.get(i).setXuanzhong(b);
+                            addItem(list.get(i));
+                            adapter.notifyDataSetChanged();
+                        }
                     }
                     ivQuanxuan.setSelected(b);
                 }
@@ -203,12 +212,12 @@ public class YunFeiJieSuanActivity extends BaseActivity {
         shuaxin();
     }
 
-    public void selectAll(){
-        for (int i=0;i<list.size();i++){
-            xuanzhong.put(list.get(i).getWl_cars_order_number(),list.get(i));
-        }
-        shuaxin();
-    }
+//    public void selectAll(){
+//        for (int i=0;i<list.size();i++){
+//            xuanzhong.put(list.get(i).getWl_cars_order_number(),list.get(i));
+//        }
+//        shuaxin();
+//    }
 
     public void shuaxin() {
         wl_cars_order_id = "";

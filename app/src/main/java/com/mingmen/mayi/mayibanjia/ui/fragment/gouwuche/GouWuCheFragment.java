@@ -200,14 +200,19 @@ public class GouWuCheFragment extends BaseFragment {
                                     gwcDianPuShangPinBean.setType(gwcShangPinBean.getDianpu().get(i).getType());
                                     gwcDianPuShangPinBean.setUser_token(gwcShangPinBean.getDianpu().get(i).getUser_token());
                                     gwcDianPuShangPinBean.setMarket_name(gwcShangPinBean.getDianpu().get(i).getMarket_name());
+//                                    gwcDianPuShangPinBean.setSon_number(gwcShangPinBean.getShopping().get(i).getSon_number());
+//                                    gwcDianPuShangPinBean.setType_tree_id(gwcShangPinBean.getShopping().get(i).getType_tree_id());
+
                                     List<GWCShangPinBean.ShoppingBean> shoppingBeenlist=new ArrayList<GWCShangPinBean.ShoppingBean>();
                                     for (int j = 0; j < gwcShangPinBean.getShopping().size(); j++) {
                                         if (gwcShangPinBean.getDianpu().get(i).getCompany_id().equals(gwcShangPinBean.getShopping().get(j).getCompany_id())) {
                                             shoppingBeenlist.add(gwcShangPinBean.getShopping().get(j));
+                                            Log.e("我的数据",new Gson().toJson(gwcShangPinBean.getShopping().get(j)));
                                         }
                                     }
                                     gwcDianPuShangPinBean.setShangPinBeen(shoppingBeenlist);
                                     gwcdianpushangpin.add(gwcDianPuShangPinBean);
+
                                 }
                             }
                             getweinituijian();

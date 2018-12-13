@@ -25,6 +25,24 @@ public class GWCDianPuShangPinBean {
     private List<GWCShangPinBean.ShoppingBean> shangPinBeen;
     private String market_name;
     private String market_id;
+    private String son_number;
+    private String type_tree_id;
+
+    public String getSon_number() {
+        return son_number;
+    }
+
+    public void setSon_number(String son_number) {
+        this.son_number = son_number;
+    }
+
+    public String getType_tree_id() {
+        return type_tree_id;
+    }
+
+    public void setType_tree_id(String type_tree_id) {
+        this.type_tree_id = type_tree_id;
+    }
 
     public String getMarket_name() {
         return market_name;

@@ -34,6 +34,7 @@ import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
+import com.qiniu.android.utils.Json;
 import com.qiniu.android.utils.StringUtils;
 
 import java.util.List;
@@ -132,6 +133,7 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
                 zoushi.putExtra("market_name",shoppingBean.getMarket_name());//市场名
                 zoushi.putExtra("classify_id",shoppingBean.getType_tree_id());//三级分类id
                 zoushi.putExtra("classify_name",shoppingBean.getClassify_name());//三级分类名称
+                Log.e("ceshi----------", shoppingBean.getSon_number()+shoppingBean.getMarket_name()+shoppingBean.getType_tree_id()+shoppingBean.getClassify_name()+"================================");
                 mContext.startActivity(zoushi);
             }
         });

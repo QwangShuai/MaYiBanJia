@@ -33,6 +33,15 @@ public class FbspCanShuBean {
     private String type_two_id="";
     private String type_tree_id="";
     private String spec_describe="";
+    private String price="";
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
 
     public String getSpec_describe() {
         return spec_describe;

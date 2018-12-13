@@ -65,6 +65,10 @@ public class FaBuShangPinQiDingLiangActivity extends BaseActivity {
     LinearLayout llTejia;
     @BindView(R.id.tv_tejia)
     TextView tvTejia;
+    @BindView(R.id.ll_showtejia)
+    LinearLayout llShowTejia;
+    @BindView(R.id.et_tejia)
+    EditText etTejia;
     private Context mContext;
     private FbspCanShuBean canshu;
     private LianggeXuanXiangDialog tejiadialog;
@@ -96,6 +100,9 @@ public class FaBuShangPinQiDingLiangActivity extends BaseActivity {
 //        etQidingliangdanjia3.setEnabled(false);
         ivQingkong.setVisibility(View.GONE);
         yemian = getIntent().getStringExtra("yemian");
+        if(canshu.getGoods().equals("1")){
+            llShowTejia.setVisibility(View.VISIBLE);
+        }
         if (yemian.equals("0")) {
             tvTitle.setText("新建商品");
             pipei = getIntent().getStringExtra("pipei");
@@ -322,10 +329,13 @@ public class FaBuShangPinQiDingLiangActivity extends BaseActivity {
 //        canshu.setPice_two(qidingliangdanjia2);
 //        canshu.setPice_three(qidingliangdanjia3);
 
-        if (tvTejia.getText().toString().equals("是")) {
-            canshu.setGoods("1");
-        } else {
-            canshu.setGoods("0");
+//        if (tvTejia.getText().toString().equals("是")) {
+//            canshu.setGoods("1");
+//        } else {
+//            canshu.setGoods("0");
+//        }
+        if(canshu.getGoods().equals("1")){
+            canshu.setPrice(etTejia.getText().toString().trim());
         }
         Log.e("传的啥玩意啊",canshu.getGoods());
         Intent intent = new Intent(mContext, FaBuShangPinXiangQingTuActivity.class);

@@ -275,7 +275,12 @@
         <activity android:name=".ui.activity.YunFeiJieSuanActivity" /> <!-- 运费结算 -->
         <activity android:name=".ui.activity.JieSuanJieGuoActivity" /> <!-- 结算结果 -->
         <activity android:name=".ui.activity.WoDePingJiaActivity" /> <!-- 我的评价 -->
-        <activity android:name=".ui.activity.JieSuanXiangQingActivity"></activity> <!-- 结算结果详情 -->
+        <activity android:name=".ui.activity.JieSuanXiangQingActivity" /> <!-- 结算结果详情 -->
+        <activity android:name=".ui.activity.ZiZhangHuActivity" /> <!-- 子账户 -->
+        <activity android:name=".ui.activity.AddZiZhuangHuActivity" /> <!-- 添加子账户 -->
+        <activity android:name=".ui.activity.JueSeGuanLiActivity" /> <!-- 角色管理 -->
+        <activity android:name=".ui.activity.qiangdan.GongYingDuanQiangDanActivity" />
+        <activity android:name=".ui.activity.CaiGouListActivity"></activity>
     </application>
 
 </manifest>

@@ -1,26 +1,14 @@
 package com.mingmen.mayi.mayibanjia.ui.activity.dialog;
 
-import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.R;
-import com.mingmen.mayi.mayibanjia.bean.ShangPinBean;
-import com.mingmen.mayi.mayibanjia.ui.activity.adapter.QiangDanShangPinAdapter;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 
-import java.util.List;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**

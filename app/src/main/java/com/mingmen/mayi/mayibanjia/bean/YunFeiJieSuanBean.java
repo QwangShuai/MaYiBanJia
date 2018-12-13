@@ -144,6 +144,15 @@ public class YunFeiJieSuanBean {
         private Object marketProvince;
         private Object wl_cars_id;
         private int freight_fee;
+        private boolean isXuanzhong;
+
+        public boolean isXuanzhong() {
+            return isXuanzhong;
+        }
+
+        public void setXuanzhong(boolean xuanzhong) {
+            isXuanzhong = xuanzhong;
+        }
 
         public String getDriverName() {
             return driverName;

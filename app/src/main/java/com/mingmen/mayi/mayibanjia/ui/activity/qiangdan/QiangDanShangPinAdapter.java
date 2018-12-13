@@ -1,4 +1,4 @@
-package com.mingmen.mayi.mayibanjia.ui.activity.adapter;
+package com.mingmen.mayi.mayibanjia.ui.activity.qiangdan;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;

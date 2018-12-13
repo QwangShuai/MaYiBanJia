@@ -14,11 +14,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.mingmen.mayi.mayibanjia.MainActivity;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.AddressListBean;
+import com.mingmen.mayi.mayibanjia.bean.AllMarket;
 import com.mingmen.mayi.mayibanjia.bean.GWCDianPuShangPinBean;
 import com.mingmen.mayi.mayibanjia.bean.QueRenDingDanShangPinBean;
 import com.mingmen.mayi.mayibanjia.bean.ReUserOrder;
@@ -117,6 +119,7 @@ public class QueRenDingDanActivity extends BaseActivity {
     private ConfirmDialog confirmDialog;
     //    private boolean shiyongyue=false;
     public static QueRenDingDanActivity instance = null;
+    private List<AllMarket> shichangList = new ArrayList<>();
 
     @Override
     public int getLayoutId() {
@@ -179,7 +182,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .tijiaodingdan(PreferenceUtils.getString(MyApplication.mContext, "token", ""), hejijine+"", "", yunfei+"", yue, dizhi.getAddress_id(), songdashijianid, shopping_id, remarke))
+                                .tijiaodingdan(PreferenceUtils.getString(MyApplication.mContext, "token", ""), hejijine+"", "", yunfei+"", yue, dizhi.getAddress_id(), songdashijianid, shopping_id, remarke,new Gson().toJson(shichangList)))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
@@ -206,13 +209,12 @@ public class QueRenDingDanActivity extends BaseActivity {
 
         }
         remarke = remarke.substring(0, remarke.length() - 1);
-        Log.e("canshucanshu", "user_token=" + PreferenceUtils.getString(MyApplication.mContext, "token", "") + "&total_price=" + hejijine + "&pay_type=&freight_fee=" + yunfei + "&balance_pice=" + yue + "&deliver_address=" + dizhi.getAddress_id() + "&arrival_time=" + songdashijianid + "&son_order_id=" + son_order_id + "&commodity_id=" + commodity_id + "&remarke=" + remarke);
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .caigoutijiaodingdan(PreferenceUtils.getString(MyApplication.mContext, "token", ""), hejijine+"", "", yunfei+"", yue, dizhi.getAddress_id(), songdashijianid, son_order_id, commodity_id, remarke))
+                                .caigoutijiaodingdan(PreferenceUtils.getString(MyApplication.mContext, "token", ""), hejijine+"", "", yunfei+"", yue, dizhi.getAddress_id(), songdashijianid, son_order_id, commodity_id, remarke,new Gson().toJson(shichangList)))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
@@ -230,7 +232,6 @@ public class QueRenDingDanActivity extends BaseActivity {
     }
 
     private void getsplist() {
-        Log.e("shuju", "user_token=111&son_order_id=" + son_order_id + "&commodity_id=" + commodity_id + "&type=" + lujingtype + "&shopping_id=" + shopping_id + "&company_id=" + company_id);
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
@@ -477,7 +478,6 @@ public class QueRenDingDanActivity extends BaseActivity {
         if(count==0){
             ToastUtil.showToast("请添加收货地址");
         } else {
-            Log.e("1122", spID + "爸爸求你了" + dizhi.getAddress_id() + "爸爸给你跪下了" + number);
             HttpManager.getInstance()
                     .with(mContext)
                     .setObservable(RetrofitManager.getService()
@@ -492,6 +492,11 @@ public class QueRenDingDanActivity extends BaseActivity {
                                 hejijine += o.get(i).getMoney();
                                 yunfei +=o.get(i).getMoney();
                                 zongzhong += o.get(i).getSumZL();
+                                AllMarket bean = new AllMarket();
+                                bean.setMarket_id(o.get(i).getMark_id());
+                                bean.setFreight_fee(o.get(i).getMoney());
+                                bean.setTotal_weight(o.get(i).getSumZL());
+                                shichangList.add(bean);
                             }
                             tvHejijine.setText(hejijine + "");
                             tvZhongliang.setText("￥"+zongzhong+")");

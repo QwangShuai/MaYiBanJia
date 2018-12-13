@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:gravity="center_vertical"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_centerVertical="true"
+        android:id="@+id/tv_shangpin"
+        android:text="哈密瓜"
+        android:textSize="16sp"
+        android:textColor="@color/lishisousuo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_teshu"
+        android:layout_marginLeft="5dp"
+        android:layout_centerVertical="true"
+        android:background="@color/mayihong"
+        android:layout_toRightOf="@+id/tv_shangpin"
+        android:layout_width="45dp"
+        android:layout_height="15dp"
+        android:gravity="center"
+        android:text="特殊商品"
+        android:textColor="#ffffffff"
+        android:textSize="9sp"
+        android:visibility="gone" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_alignParentRight="true"
+        android:gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_shanchu"
+            android:src="@mipmap/shouhuodizhi_shanchu"
+            android:layout_width="19dp"
+            android:layout_height="18dp" />
+        <ImageView
+            android:layout_marginLeft="30dp"
+            android:id="@+id/iv_xiugai"
+            android:src="@mipmap/shouhuodizhi_bianji"
+            android:layout_width="17dp"
+            android:layout_height="17dp" />
+    </LinearLayout>
+</RelativeLayout>

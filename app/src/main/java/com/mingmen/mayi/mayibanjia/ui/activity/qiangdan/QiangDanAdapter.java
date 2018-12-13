@@ -1,4 +1,4 @@
-package com.mingmen.mayi.mayibanjia.ui.activity.adapter;
+package com.mingmen.mayi.mayibanjia.ui.activity.qiangdan;
 
 import android.os.CountDownTimer;
 import android.support.annotation.LayoutRes;
@@ -30,8 +30,8 @@ import java.util.List;
  */
 
 public class QiangDanAdapter extends BaseQuickAdapter<QiangDanBean,BaseViewHolder> {
-    private QiangDanActivity activity;
-    public QiangDanAdapter(QiangDanActivity activity) {
+    private GongYingDuanQiangDanActivity activity;
+    public QiangDanAdapter(GongYingDuanQiangDanActivity activity) {
         super(R.layout.item_qiangdan);
         this.activity=activity;
 
@@ -73,9 +73,6 @@ public class QiangDanAdapter extends BaseQuickAdapter<QiangDanBean,BaseViewHolde
 
         final Button bt_qiangdan = helper.getView(R.id.bt_qiangdan);
         final TextView tv_dengdaiqueren = helper.getView(R.id.tv_dengdaiqueren);
-//        Log.e("item.getCreate_time()",item.getCreate_time()+"-----");
-//        Log.e("item.getSon_order_id()",item.getSon_order_id()+"-----");
-        Log.e("item.getState_type()",item.getState_type()+"-----");
         if ("0".equals(item.getState_type())){
             bt_qiangdan.setVisibility(View.GONE);
             tv_dengdaiqueren.setVisibility(View.VISIBLE);

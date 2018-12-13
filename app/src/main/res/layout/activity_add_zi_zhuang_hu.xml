@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_fafafa"
+    android:paddingLeft="12dp"
+    tools:context="com.mingmen.mayi.mayibanjia.ui.activity.AddZiZhuangHuActivity">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include layout="@layout/head_beijingse" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:textSize="15sp"
+                android:textColor="@color/zicolor"
+                android:layout_centerVertical="true"
+                android:text="店铺名称"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_marginRight="12dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/tv_dianpu"
+                    android:textSize="14sp"
+                    android:textColor="@color/hintcolor"
+                    android:text="haha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <View
+                android:layout_alignParentBottom="true"
+                android:background="@color/gray_e7e7e7"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:textSize="15sp"
+                android:textColor="@color/zicolor"
+                android:layout_centerVertical="true"
+                android:text="负  责  人"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_marginRight="12dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <EditText
+                    android:gravity="right"
+                    android:background="@color/white"
+                    android:id="@+id/et_juese"
+                    android:textSize="14sp"
+                    android:textColorHint="@color/hintcolor"
+                    android:textColor="@color/hintcolor"
+                    android:hint="请输入角色名称"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <View
+                android:layout_alignParentBottom="true"
+                android:background="@color/gray_e7e7e7"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:textSize="15sp"
+                android:textColor="@color/zicolor"
+                android:layout_centerVertical="true"
+                android:text="手  机  号"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_marginRight="12dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <EditText
+                    android:gravity="right"
+                    android:background="@color/white"
+                    android:id="@+id/et_phone"
+                    android:textSize="14sp"
+                    android:inputType="phone"
+                    android:maxLength="11"
+                    android:textColorHint="@color/hintcolor"
+                    android:textColor="@color/hintcolor"
+                    android:hint="请输入联系方式"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <View
+                android:layout_alignParentBottom="true"
+                android:background="@color/gray_e7e7e7"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:textSize="15sp"
+                android:textColor="@color/zicolor"
+                android:layout_centerVertical="true"
+                android:text="密        码"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_marginRight="12dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <EditText
+                    android:gravity="right"
+                    android:background="@color/white"
+                    android:id="@+id/et_pass"
+                    android:textSize="14sp"
+                    android:inputType="numberPassword"
+                    android:maxLength="16"
+                    android:textColorHint="@color/hintcolor"
+                    android:textColor="@color/hintcolor"
+                    android:hint="默认密码123456"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <View
+                android:layout_alignParentBottom="true"
+                android:background="@color/gray_e7e7e7"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/ll_quanxian"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:textSize="15sp"
+                android:textColor="@color/zicolor"
+                android:layout_centerVertical="true"
+                android:text="赋予角色"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:id="@+id/ll"
+                android:gravity="center_vertical"
+                android:layout_marginRight="12dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/tv_juese"
+                    android:layout_marginRight="12dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/hintcolor"
+                    android:text=""
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:src="@mipmap/jinru"
+                    android:layout_width="7dp"
+                    android:layout_height="12dp" />
+            </LinearLayout>
+            <View
+                android:layout_alignParentBottom="true"
+                android:background="@color/gray_e7e7e7"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:textSize="15sp"
+                android:textColor="@color/zicolor"
+                android:layout_centerVertical="true"
+                android:text="权        限"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_marginRight="12dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_marginRight="19dp"
+                    android:id="@+id/tv_quanxian"
+                    android:textSize="14sp"
+                    android:textColor="@color/hintcolor"
+                    android:text="财务"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <Button
+                android:id="@+id/btn_quanxian"
+                android:layout_marginRight="12dp"
+                android:textSize="12sp"
+                android:textColor="@color/zangqing"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:text="修改权限"
+                android:background="@drawable/fillet_hollow_zangqing_3"
+                android:layout_width="70dp"
+                android:layout_height="23dp" />
+            </RelativeLayout>
+    </LinearLayout>
+    <Button
+        android:id="@+id/btn_submit"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="12dp"
+        android:layout_alignParentBottom="true"
+        android:textSize="15sp"
+        android:textColor="@color/white"
+        android:background="@drawable/bg_bt"
+        android:text="确定"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+</RelativeLayout>

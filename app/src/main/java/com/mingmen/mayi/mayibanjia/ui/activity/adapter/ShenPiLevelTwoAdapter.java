@@ -48,9 +48,9 @@ public class ShenPiLevelTwoAdapter extends RecyclerView.Adapter<ShenPiLevelTwoAd
 
     private ShenPiActivity activity;
     private ViewHolder viewHolder;
-    private List<CaiGouDanBean.ListBean.CcListBeanLevel> mList;
+    private List<CaiGouDanBean.FllistBean.SonorderlistBean.CcListBeanLevel> mList;
 
-    public ShenPiLevelTwoAdapter(ShenPiActivity activity, List<CaiGouDanBean.ListBean.CcListBeanLevel> mList) {
+    public ShenPiLevelTwoAdapter(ShenPiActivity activity, List<CaiGouDanBean.FllistBean.SonorderlistBean.CcListBeanLevel> mList) {
         this.activity = activity;
         this.mList = mList;
     }
@@ -64,7 +64,7 @@ public class ShenPiLevelTwoAdapter extends RecyclerView.Adapter<ShenPiLevelTwoAd
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         Log.e("真是难受的一比", new Gson().toJson(mList));
-        final CaiGouDanBean.ListBean.CcListBeanLevel ccListBeanLevel = mList.get(position);
+        final CaiGouDanBean.FllistBean.SonorderlistBean.CcListBeanLevel ccListBeanLevel = mList.get(position);
         if (ccListBeanLevel.getCcListBean().getCommodity_id() != null) {
             holder.rlKuang.setVisibility(View.VISIBLE);
         } else {

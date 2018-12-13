@@ -169,7 +169,7 @@ public class CaiGouDanXiuGaiDailog extends BaseFragmentDialog{
     }
 
     public interface CallBack {
-        void confirm(CaiGouDanBean.ListBean msg);
+        void confirm(CaiGouDanBean.FllistBean.SonorderlistBean msg);
     }
     //获取用户填写的数据
     private void huoqushuju() {
@@ -236,9 +236,9 @@ public class CaiGouDanXiuGaiDailog extends BaseFragmentDialog{
                                 //user_token  是否是特殊商品不是0 是1    如果是特殊商品 填写要求   市场id  类别id  产品数量
                                 .editorXuqiudan(count,PreferenceUtils.getString(MyApplication.mContext, "token",""),son_order_id,
                                         yaoqiu,pack_standard_id))
-                .setDataListener(new HttpDataListener<CaiGouDanBean.ListBean>() {
+                .setDataListener(new HttpDataListener<CaiGouDanBean.FllistBean.SonorderlistBean>() {
                     @Override
-                    public void onNext(CaiGouDanBean.ListBean data) {
+                    public void onNext(CaiGouDanBean.FllistBean.SonorderlistBean data) {
                         dismiss();
                         mCallBack.confirm(data);
                     }

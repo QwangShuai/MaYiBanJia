@@ -104,9 +104,12 @@ public class YunFeiJieSuanActivity extends BaseActivity {
                     ToastUtil.showToast("数据为空");
                 } else {
                     b = !b;
-                    adapter.setSelect(b);
+                    selectAll();
+                    for(int i=0;i<list.size();i++){
+                        list.get(i).setXuanzhong(b);
+                        adapter.notifyDataSetChanged();
+                    }
                     ivQuanxuan.setSelected(b);
-                    adapter.notifyDataSetChanged();
                 }
 
                 break;
@@ -184,7 +187,6 @@ public class YunFeiJieSuanActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String bean) {
-                        adapter.setSelect(!b);
                         ivQuanxuan.setSelected(false);
                         getList(type);
                     }
@@ -198,6 +200,13 @@ public class YunFeiJieSuanActivity extends BaseActivity {
 
     public void delItem(YunFeiJieSuanBean.DdListBean bean) {
         xuanzhong.remove(bean.getWl_cars_order_number());
+        shuaxin();
+    }
+
+    public void selectAll(){
+        for (int i=0;i<list.size();i++){
+            xuanzhong.put(list.get(i).getWl_cars_order_number(),list.get(i));
+        }
         shuaxin();
     }
 

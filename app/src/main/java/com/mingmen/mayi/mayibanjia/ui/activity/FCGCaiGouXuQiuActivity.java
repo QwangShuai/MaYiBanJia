@@ -3,6 +3,7 @@ package com.mingmen.mayi.mayibanjia.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -35,6 +36,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.TiJiaoXuQiuDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -120,6 +122,7 @@ public class FCGCaiGouXuQiuActivity extends BaseActivity {
     protected void initData() {
         mContext = FCGCaiGouXuQiuActivity.this;
         tvTitle.setText("采购需求");
+        tvRight.setText("采购列表");
         bundle = getIntent().getExtras();
         shichangid = bundle.getString("shichang");
         purchase_name = bundle.getString("caigouming");
@@ -144,8 +147,6 @@ public class FCGCaiGouXuQiuActivity extends BaseActivity {
 
                     } else {
                         getfcgname(s.toString().trim());
-                        Log.e("s.toString().trim()", s.toString().trim() + "=");
-                        Log.e("sanjifenleiName", sanjifenleiName + "=");
                     }
                 }
 
@@ -188,7 +189,6 @@ public class FCGCaiGouXuQiuActivity extends BaseActivity {
                         if (guigeadapter != null) {
                             guigeadapter.setData(guigedatas);
                         }
-                        Log.e("data", data + "---");
 
                     }
                 }, false);
@@ -198,7 +198,6 @@ public class FCGCaiGouXuQiuActivity extends BaseActivity {
         if (name.equals(sanjifenleiName)) {
             return;
         }
-        Log.e("name", name + "---");
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
@@ -212,7 +211,6 @@ public class FCGCaiGouXuQiuActivity extends BaseActivity {
                         datas.addAll(data);
                         Log.e("data", data + "---");
                         if (mPopWindow != null) {
-                            Log.e("data", data + "111111111");
                             if (name.equals(sanjifenleiName)) {
                                 return;
                             }
@@ -287,7 +285,7 @@ public class FCGCaiGouXuQiuActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.iv_back, R.id.rl_guige, R.id.ll_teshu, R.id.bt_shanchu, R.id.bt_shangyige, R.id.bt_xiayige, R.id.bt_tianjia, R.id.bt_tijiao})
+    @OnClick({R.id.iv_back, R.id.rl_guige, R.id.ll_teshu, R.id.bt_shanchu, R.id.bt_shangyige, R.id.bt_xiayige, R.id.bt_tianjia, R.id.bt_tijiao,R.id.tv_right})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -321,24 +319,22 @@ public class FCGCaiGouXuQiuActivity extends BaseActivity {
                 etCaigouliang.setText("");
                 isTeshu = 0;
                 break;
-            case R.id.bt_shangyige:
-                if (mlist.size() == 0 | dijige == 0) {
-                    ToastUtil.showToast("前面没商品了");
-                } else {
-                    dijige--;
-                    Log.e("bt_shangyige.dijige", dijige + "=");
-                    fuxian(dijige);
-                }
-                break;
-            case R.id.bt_xiayige:
-                if (dijige >= mlist.size() - 1) {
-                    ToastUtil.showToast("后面没商品了");
-                } else {
-                    dijige++;
-                    Log.e("bt_xiayige.dijige", dijige + "=");
-                    fuxian(dijige);
-                }
-                break;
+//            case R.id.bt_shangyige:
+//                if (mlist.size() == 0 | dijige == 0) {
+//                    ToastUtil.showToast("前面没商品了");
+//                } else {
+//                    dijige--;
+//                    fuxian(dijige);
+//                }
+//                break;
+//            case R.id.bt_xiayige:
+//                if (dijige >= mlist.size() - 1) {
+//                    ToastUtil.showToast("后面没商品了");
+//                } else {
+//                    dijige++;
+//                    fuxian(dijige);
+//                }
+//                break;
             case R.id.bt_tianjia:
                 huoqushuju();
                 if (!"".equals(sanjifenleiId) & !"".equals(caigouliang)) {
@@ -397,13 +393,22 @@ public class FCGCaiGouXuQiuActivity extends BaseActivity {
                     }
                 }
                 break;
+            case R.id.tv_right:
+                if(StringUtil.isValid(purchase_id)){
+                    Bundle liebiao = new Bundle();
+                    liebiao.putString("id",purchase_id);
+                    Jump_intent(CaiGouListActivity.class,liebiao);
+                } else {
+                    ToastUtil.showToast("您还没有添加过采购商品");
+                }
+
+                break;
         }
     }
 
 
     //复现
     private void fuxian(int dijige) {
-        Log.e("复现第几个", dijige + "---");
         FCGShangPinbean muqianbean = mlist.get(dijige);
         pack_standard_id = muqianbean.getGuigeId();
         sanjifenleiName = muqianbean.getSpname();
@@ -456,7 +461,6 @@ public class FCGCaiGouXuQiuActivity extends BaseActivity {
         }
 
 
-        Log.e("保存第几个", dijige + "---");
 
         String son_order_id = "";
         String getTeshuyaoqiu = "";
@@ -467,9 +471,6 @@ public class FCGCaiGouXuQiuActivity extends BaseActivity {
         } else {
 
         }
-        Log.e("我的请求数据", PreferenceUtils.getString(MyApplication.mContext, "token", "") + "===" + purchase_id + "===" + shichangid + "===" + pack_standard_id + "===" + caigouliang);
-        Log.e("guigeid", pack_standard_id + "=" +
-                "==");
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
@@ -481,12 +482,9 @@ public class FCGCaiGouXuQiuActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<FCGSaveFanHuiBean>() {
                     @Override
                     public void onNext(FCGSaveFanHuiBean data) {
-                        Log.e("FCGCaiGouXuQiuActivity.this.dijige", FCGCaiGouXuQiuActivity.this.dijige + "---");
                         if (data != null) {
-                            Log.e("这是主表ID", data.getPurchase_id());
                             purchase_id = data.getPurchase_id();
                         }
-                        Log.e("FCGSaveFanHuiBean,data", gson.toJson(data));
                         baocunxintianjiade(dijige);
                         qingkongshuju();
                         if (leixing == 1) {

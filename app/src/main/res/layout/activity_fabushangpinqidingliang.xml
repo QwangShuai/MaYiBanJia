@@ -95,14 +95,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="元/斤"
-            android:textColor="#ff999999"
+            android:textColor="@color/hintcolor"
             android:textSize="12sp"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="起订量"
-            android:textColor="#ff666666"
+            android:textColor="@color/lishisousuo"
             android:textSize="15sp"
             android:layout_marginLeft="36dp"
             />
@@ -115,9 +115,45 @@
             android:paddingLeft="12dp"
             android:text=""
             android:inputType="number"
-            android:textColor="#ff474747"
+            android:textColor="@color/zicolor"
             android:maxLength="10"
             android:textSize="15sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/ll_showtejia"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="特价"
+            android:textColor="#ff666666"
+            android:textSize="15sp"
+            />
+        <EditText
+            android:id="@+id/et_tejia"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:text=""
+            android:textColor="@color/zicolor"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:inputType="numberDecimal"
+            android:maxLength="10"
+            android:layout_marginLeft="20dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="元/斤"
+            android:textColor="@color/hintcolor"
+            android:textSize="12sp"
+            />
+
     </LinearLayout>
     <!--<View-->
         <!--android:layout_width="match_parent"-->
@@ -243,6 +279,7 @@
         android:background="@color/cutoff"
         />
     <LinearLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:orientation="horizontal"
@@ -253,7 +290,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="是否特价"
-            android:textColor="#ff666666"
+            android:textColor="@color/lishisousuo"
             android:textSize="15sp"
             />
         <LinearLayout
@@ -284,7 +321,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="注：后续填写内容后续填写内容"
-        android:textColor="#ffff3300"
+        android:textColor="@color/mayihong"
         android:textSize="12sp"
         android:layout_marginLeft="12dp"
         android:layout_marginTop="20dp"

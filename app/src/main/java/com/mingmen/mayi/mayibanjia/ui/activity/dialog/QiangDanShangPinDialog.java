@@ -11,17 +11,9 @@ import android.widget.EditText;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.R;
-import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.ShangPinBean;
-import com.mingmen.mayi.mayibanjia.bean.XiTongTuiJianBean;
-import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
-import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
-import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
-import com.mingmen.mayi.mayibanjia.ui.activity.adapter.GengDuoShangJiaAdapter;
-import com.mingmen.mayi.mayibanjia.ui.activity.adapter.QiangDanShangPinAdapter;
+import com.mingmen.mayi.mayibanjia.ui.activity.qiangdan.QiangDanShangPinAdapter;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
-import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
-import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
 import java.util.List;
 

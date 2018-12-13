@@ -44,7 +44,7 @@ public class QueRenDingDanShangPinBean {
 
     private Object state;
     private Object region;
-    private int sumZL;
+    private Double sumZL;
     private Object gonglishu;
     private String mark_id;
     private Object user_token;
@@ -55,7 +55,7 @@ public class QueRenDingDanShangPinBean {
     private Object all_price;
     private Object list;
     private Object levelState;
-    private Object market_id;
+    private String market_id;
     private String market_name;
     private Object classify_id;
     private Object driver_phone;
@@ -65,7 +65,7 @@ public class QueRenDingDanShangPinBean {
     private Object update_time;
     private Object specific_address;
     private Object parent_number;
-    private Object freight_fee;
+    private BigDecimal freight_fee;
     private Object create_time;
     private Object update_by;
     private double money;
@@ -98,11 +98,11 @@ public class QueRenDingDanShangPinBean {
         this.region = region;
     }
 
-    public int getSumZL() {
+    public Double getSumZL() {
         return sumZL;
     }
 
-    public void setSumZL(int sumZL) {
+    public void setSumZL(Double sumZL) {
         this.sumZL = sumZL;
     }
 
@@ -186,11 +186,11 @@ public class QueRenDingDanShangPinBean {
         this.levelState = levelState;
     }
 
-    public Object getMarket_id() {
+    public String getMarket_id() {
         return market_id;
     }
 
-    public void setMarket_id(Object market_id) {
+    public void setMarket_id(String market_id) {
         this.market_id = market_id;
     }
 
@@ -266,11 +266,11 @@ public class QueRenDingDanShangPinBean {
         this.parent_number = parent_number;
     }
 
-    public Object getFreight_fee() {
+    public BigDecimal getFreight_fee() {
         return freight_fee;
     }
 
-    public void setFreight_fee(Object freight_fee) {
+    public void setFreight_fee(BigDecimal freight_fee) {
         this.freight_fee = freight_fee;
     }
 

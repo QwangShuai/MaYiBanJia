@@ -49,7 +49,7 @@ public class YueActivity extends BaseActivity {
     protected void initData() {
         mContext = YueActivity.this;
         tvTitle.setText("我的余额");
-        tvRight.setText("交易明细");
+//        tvRight.setText("交易明细");
         getYue();
     }
 
@@ -66,10 +66,11 @@ public class YueActivity extends BaseActivity {
             case R.id.iv_back:
                 finish();
                 break;
-            case R.id.tv_right:
-                Jump_intent(JiaoYiMingXiActivity.class, new Bundle());
-                break;
+//            case R.id.tv_right:
+//                Jump_intent(JiaoYiMingXiActivity.class, new Bundle());
+//                break;
             case R.id.rl_chongzhi:
+                Jump_intent(JiaoYiMingXiActivity.class, new Bundle());
                 break;
             case R.id.rl_tixian:
                 Bundle bundle = new Bundle();

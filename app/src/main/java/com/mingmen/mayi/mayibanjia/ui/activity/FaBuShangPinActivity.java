@@ -154,6 +154,7 @@ public class FaBuShangPinActivity extends BaseActivity {
     public static FaBuShangPinActivity instance = null;
     public String yemian = "0";
     public String pipei = "0";
+    public String goods = "0";
     private PopupWindow mPopWindow;
     private ArrayList<ShangPinSousuoMohuBean> datas=new ArrayList<>();
     private XinJianSpMohuAdapter mohuAdapter;
@@ -167,6 +168,7 @@ public class FaBuShangPinActivity extends BaseActivity {
     protected void initData() {
         mContext = this;
         instance = this;
+        goods = getIntent().getStringExtra("goods");
         if ("0".equals(getIntent().getStringExtra("state"))) {
             tvTitle.setText("新建商品");
             etSpming.addTextChangedListener(new TextWatcher() {
@@ -311,6 +313,7 @@ public class FaBuShangPinActivity extends BaseActivity {
         canShuBean.setType_tree_id(sanjiid);
         canShuBean.setHostPicture(shangpintu);
         canShuBean.setCommodity_state("0");
+        canShuBean.setGoods(goods);
         canShuBean.setSpec_describe(etMiaoshu.getText().toString().trim());
         Intent intent = new Intent(mContext, FaBuShangPinQiDingLiangActivity.class);
         intent.putExtra("canshu", gson.toJson(canShuBean));

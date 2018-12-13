@@ -28,6 +28,7 @@ public class GHDOrderActivity extends BaseActivity {
     ViewPager vpDingdan;
     private GHAdapter adapter;
     private PrintfManager printfManager;
+    private int ye = 0;
     @Override
     public int getLayoutId() {
         return R.layout.activity_ghdorder;
@@ -39,7 +40,8 @@ public class GHDOrderActivity extends BaseActivity {
         vpDingdan.setAdapter(adapter);
         tabsDingdan.setViewPager(vpDingdan);
         vpDingdan.setOffscreenPageLimit(0);
-        vpDingdan.setCurrentItem(0);
+        ye = getIntent().getIntExtra("ye",0);
+        vpDingdan.setCurrentItem(ye);
         printfManager = PrintfManager.getInstance(this);
         printfManager.defaultConnection();
     }

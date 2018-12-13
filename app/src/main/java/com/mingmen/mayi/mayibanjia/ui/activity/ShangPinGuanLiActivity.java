@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
@@ -46,6 +47,8 @@ import static android.widget.ListPopupWindow.MATCH_PARENT;
 public class ShangPinGuanLiActivity extends BaseActivity {
     @BindView(R.id.ll_title)
     LinearLayout llTitle;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
     @BindView(R.id.iv_back)
     ImageView ivBack;
     @BindView(R.id.iv_sousuo)
@@ -61,6 +64,7 @@ public class ShangPinGuanLiActivity extends BaseActivity {
     private int ye = 1;
     private ArrayList<ShangPinGuanLiBean.GoodsListBean> mlist = new ArrayList<>();
     private String type="0";
+    private String goods= "0";
     private SanGeXuanXiangDialog titleDialog;
 
     @Override
@@ -74,6 +78,10 @@ public class ShangPinGuanLiActivity extends BaseActivity {
         titleDialog = new SanGeXuanXiangDialog()
                 .setActivity(this)
                 .setTop(AppUtil.dip2px(44));
+        goods = getIntent().getStringExtra("goods");
+        if(goods.equals("1")){
+            tvTitle.setText("特价商品管理");
+        }
         initRecycleView();
         getShangpinList(1);
     }
@@ -85,7 +93,7 @@ public class ShangPinGuanLiActivity extends BaseActivity {
                         .setObservable(
                     RetrofitManager
                             .getService()
-                            .getshangpinguanli(PreferenceUtils.getString(MyApplication.mContext, "token",""), chaxunzi,"0",type,ye))
+                            .getshangpinguanli(PreferenceUtils.getString(MyApplication.mContext, "token",""), chaxunzi,goods,type,ye))
                     .setDataListener(new HttpDataListener<ShangPinGuanLiBean>() {
                 @Override
                 public void onNext(ShangPinGuanLiBean data) {
@@ -172,7 +180,7 @@ public class ShangPinGuanLiActivity extends BaseActivity {
         // 菜单点击监听。
         rvShangpinguanli.setSwipeMenuItemClickListener(mMenuItemClickListener);
         rvShangpinguanli.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
-        shangpinguanliadapter=new ShangPinGuanLiAdapter(ShangPinGuanLiActivity.this);
+        shangpinguanliadapter=new ShangPinGuanLiAdapter(ShangPinGuanLiActivity.this,goods);
         rvShangpinguanli.setAdapter(shangpinguanliadapter);
     }
 
@@ -202,6 +210,7 @@ public class ShangPinGuanLiActivity extends BaseActivity {
                 //添加商品
                 Intent intent=new Intent(mContext,FaBuShangPinActivity.class);
                 intent.putExtra("state","0");
+                intent.putExtra("goods",goods);
                 startActivity(intent);
                 break;
         }

@@ -185,7 +185,7 @@ public class CaiGouDanTianJiaDailog extends BaseFragmentDialog{
     }
 
     public interface CallBack {
-        void confirm(CaiGouDanBean.ListBean msg);
+        void confirm( CaiGouDanBean.FllistBean.SonorderlistBean msg);
     }
 
     //PopupWindow
@@ -287,9 +287,9 @@ public class CaiGouDanTianJiaDailog extends BaseFragmentDialog{
                                 //user_token  是否是特殊商品不是0 是1    如果是特殊商品 填写要求   市场id  类别id  产品数量
                                 .addfcg(PreferenceUtils.getString(MyApplication.mContext, "token",""),"".equals(teshuyaoqiu)?teshuyaoqiu:teshuyaoqiu,
                                         market_id,sanjifenleiId,initStr,"",pack_standard_id,"",caigouliang+""))
-                .setDataListener(new HttpDataListener<CaiGouDanBean.ListBean>() {
+                .setDataListener(new HttpDataListener<CaiGouDanBean.FllistBean.SonorderlistBean>() {
                     @Override
-                    public void onNext(CaiGouDanBean.ListBean data) {
+                    public void onNext(CaiGouDanBean.FllistBean.SonorderlistBean data) {
                         dismiss();
                         mCallBack.confirm(data);
                     }

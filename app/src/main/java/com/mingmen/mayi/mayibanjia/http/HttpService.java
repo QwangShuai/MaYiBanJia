@@ -2,6 +2,7 @@ package com.mingmen.mayi.mayibanjia.http;
 
 
 import com.mingmen.mayi.mayibanjia.bean.AddressListBean;
+import com.mingmen.mayi.mayibanjia.bean.AllMarket;
 import com.mingmen.mayi.mayibanjia.bean.AllShiChangBean;
 import com.mingmen.mayi.mayibanjia.bean.CaiGouDanBean;
 import com.mingmen.mayi.mayibanjia.bean.CarsTypeBean;
@@ -21,10 +22,12 @@ import com.mingmen.mayi.mayibanjia.bean.FenLeiBean;
 import com.mingmen.mayi.mayibanjia.bean.FenLeiMingChengBean;
 import com.mingmen.mayi.mayibanjia.bean.GHOrderBean;
 import com.mingmen.mayi.mayibanjia.bean.GWCShangPinBean;
+import com.mingmen.mayi.mayibanjia.bean.GetAllMarketBean;
 import com.mingmen.mayi.mayibanjia.bean.GetZiZhiBean;
 import com.mingmen.mayi.mayibanjia.bean.JYMXBean;
 import com.mingmen.mayi.mayibanjia.bean.JYMXItemBean;
 import com.mingmen.mayi.mayibanjia.bean.JieSuanJirGuoBean;
+import com.mingmen.mayi.mayibanjia.bean.JueSeBean;
 import com.mingmen.mayi.mayibanjia.bean.LiShiJiLuBean;
 import com.mingmen.mayi.mayibanjia.bean.LiuLanJiLuBean;
 import com.mingmen.mayi.mayibanjia.bean.PhoneBean;
@@ -35,6 +38,7 @@ import com.mingmen.mayi.mayibanjia.bean.QiYeLeiBieBean;
 import com.mingmen.mayi.mayibanjia.bean.QiYeLieBiaoBean;
 import com.mingmen.mayi.mayibanjia.bean.QiangDanBean;
 import com.mingmen.mayi.mayibanjia.bean.QueRenDingDanShangPinBean;
+import com.mingmen.mayi.mayibanjia.bean.RoleBean;
 import com.mingmen.mayi.mayibanjia.bean.SPXiangQingBean;
 import com.mingmen.mayi.mayibanjia.bean.ShangPinBean;
 import com.mingmen.mayi.mayibanjia.bean.ShangPinGuanLiBean;
@@ -63,15 +67,18 @@ import com.mingmen.mayi.mayibanjia.bean.YunFeiBean;
 import com.mingmen.mayi.mayibanjia.bean.YunFeiJieSuanBean;
 import com.mingmen.mayi.mayibanjia.bean.ZhangHuRenZhengBean;
 import com.mingmen.mayi.mayibanjia.bean.ZhuCeChengGongBean;
+import com.mingmen.mayi.mayibanjia.bean.ZiZhangHuBean;
 import com.mingmen.mayi.mayibanjia.bean.ZouShiTuBean;
 import com.mingmen.mayi.mayibanjia.http.result.ResultModel;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 public interface HttpService {
     //首页分类数据
@@ -259,7 +266,7 @@ public interface HttpService {
 
     //添加采购商品
     @POST("ctBuyHostorder/save.do")
-    Observable<ResultModel<CaiGouDanBean.ListBean>> addfcg(@Query("user_token") String user_token,
+    Observable<ResultModel<CaiGouDanBean.FllistBean.SonorderlistBean>> addfcg(@Query("user_token") String user_token,
                                                            @Query("special_commodity") String special_commodity,
                                                            @Query("market_id") String market_id,
                                                            @Query("sort_id") String sort_id,
@@ -362,7 +369,8 @@ public interface HttpService {
     //采购单列表
     @POST("ctBuyHostorder/queryByHost.do")
     Observable<ResultModel<List<CaiGouDanBean>>> getcaigoudanlist(@Query("user_token") String user_token,
-                                                                  @Query("order_audit_state") String order_audit_state);
+                                                                  @Query("order_audit_state") String order_audit_state,
+                                                                  @Query("purchase_id") String purchase_id);
 
     //推荐商品
     @POST("gyCommodity/queryCommend.do")
@@ -403,8 +411,8 @@ public interface HttpService {
                                                  @Query("type_two_id") String type_two_id,
                                                  @Query("type_tree_id") String type_tree_id,
                                                  @Query("hostPicture") String hostPicture,
-                                                 @Query("spec_describe") String spec_describe
-    );
+                                                 @Query("spec_describe") String spec_describe,
+                                                 @Query("price") String price);
 
     //编辑商品
     @POST("gyCommodity/update.do")
@@ -428,8 +436,8 @@ public interface HttpService {
                                                    @Query("type_two_id") String type_two_id,
                                                    @Query("type_tree_id") String type_tree_id,
                                                    @Query("hostPicture") String hostPicture,
-                                                   @Query("spec_describe") String spec_describe
-    );
+                                                   @Query("spec_describe") String spec_describe,
+                                                   @Query("price") String price);
 
     //添加购物车
     @POST("ctShoppingCart/save.do")
@@ -462,7 +470,8 @@ public interface HttpService {
                                                   @Query("deliver_address") String deliver_address,//地址id
                                                   @Query("arrival_time") String arrival_time,//到货时间
                                                   @Query("shopping_id") String shopping_id,//shopping_id
-                                                  @Query("remarke") String remarke);//留言
+                                                  @Query("remarke") String remarke,//留言
+                                                  @Query("feelist") String list);//市场数组
 
     //提交订单
     @POST("Ordermain/saveUserOrder.do")
@@ -474,8 +483,9 @@ public interface HttpService {
                                                         @Query("deliver_address") String deliver_address,//地址id
                                                         @Query("arrival_time") String arrival_time,//到货时间
                                                         @Query("son_order_id") String son_order_id,//son_order_id
-                                                        @Query("commodity_id") String commodity_id,//son_order_id
-                                                        @Query("remarke") String remarke);//留言
+                                                        @Query("commodity_id") String commodity_id,//commodity_id
+                                                        @Query("remarke") String remarke,//留言
+                                                        @Query("feelist") String list);//市场数组
 
     //查询余额
     @POST("payHistory/getBalance.do")
@@ -484,7 +494,7 @@ public interface HttpService {
     // 获取采购单选择的商品的列表
     @POST("ctBuyHostorder/updatebyboss.do")
     Observable<ResultModel<ShenPiQuanXuanBean>> shenpitongguo(@Query("user_token") String user_token,
-                                                              @Query("market_id") String market_id,
+                                                              @Query("list") String list,
                                                               @Query("purchase_id") String purchase_id,
                                                               @Query("type") String type
     );
@@ -538,7 +548,8 @@ public interface HttpService {
 
     //抢单列表
     @POST("ctBuyHostorder/userCompany.do")
-    Observable<ResultModel<List<QiangDanBean>>> qiangdanlist(@Query("user_token") String user_token);
+    Observable<ResultModel<List<QiangDanBean>>> qiangdanlist(@Query("user_token") String user_token,
+                                                             @Query("state_type") String state_type);
 
     //抢单
     @POST("ctBuyHostorder/getcompanyid.do")
@@ -744,12 +755,12 @@ public interface HttpService {
 
     //修改需求单商品
     @POST("ctBuySonorder/updateBySonorder.do")
-    Observable<ResultModel<CaiGouDanBean.ListBean>> editorXuqiudan(@Query("count") String count, @Query("user_token") String user_token, @Query("son_order_id") String son_order_id,
-                                                                   @Query("special_commodity") String special_commodity, @Query("pack_standard_id") String pack_standard_id);
+    Observable<ResultModel<CaiGouDanBean.FllistBean.SonorderlistBean>> editorXuqiudan(@Query("count") String count, @Query("user_token") String user_token, @Query("son_order_id") String son_order_id,
+                                                                                      @Query("special_commodity") String special_commodity, @Query("pack_standard_id") String pack_standard_id);
 
     //获取审批单条数据
     @POST("ctBuyHostorder/queryByPurchase_id.do")
-    Observable<ResultModel<List<CaiGouDanBean.ListBean>>> getShenpiItem(@Query("purchase_id") String purchase_id);
+    Observable<ResultModel<List<CaiGouDanBean.FllistBean>>> getShenpiItem(@Query("purchase_id") String purchase_id);
 
     //我的银行卡列表
     @POST("qyBankCard/getaccount_person.do")
@@ -909,4 +920,39 @@ public interface HttpService {
     @POST("wlSettlement/dataList.do")
     Observable<ResultModel<List<JieSuanJirGuoBean>>> getJiesuanjieguoList(@Query("user_token") String user_token,
                                                                           @Query("pageNumber") String pageNumber);
+
+    //采购单背景
+    @POST("ctBuyHostorder/querycgurl.do")
+    Observable<ResultModel<String>> getBg();
+
+    //供应端个人中心
+    @POST("allCompanyAccount/queryToken.do")
+    Observable<ResultModel<WoDeBean>> getGydShouye(@Query("user_token") String user_token);
+
+    //添加子账户
+    @POST("allCompanyAccount/adds.do")
+    Observable<ResultModel<String>> addZizhanghu(@Query("user_token") String user_token,
+                                                   @Query("company_id") String company_id,
+                                                   @Query("principal") String principal,
+                                                   @Query("telephone") String telephone,
+                                                   @Query("son_role_id") String son_role_id,
+                                                   @Query("password") String password);
+
+    //子账户角色权限
+    @POST("appRoleRel/list.do")
+    Observable<ResultModel<List<RoleBean>>> getRoleList(@Query("user_token") String user_token);
+
+    //子账户角色
+    @POST("sonAccountRole/list.do")
+    Observable<ResultModel<List<JueSeBean>>> getJueseList(@Query("user_token") String user_token);
+
+    //添加角色权限
+    @POST("appRoleRel/save.do")
+    Observable<ResultModel<String>> addJueseQuanxian(@Query("user_token") String user_token,
+                                                          @Query("son_role_id") String son_role_id,
+                                                          @Query("role_id") String role_id);
+
+    //子账户列表
+    @POST("allCompanyAccount/sonList.do")
+    Observable<ResultModel<List<ZiZhangHuBean>>> getZizhanghuList(@Query("user_token") String user_token);
 }

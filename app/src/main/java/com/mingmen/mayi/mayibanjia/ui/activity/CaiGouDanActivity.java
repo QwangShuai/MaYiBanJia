@@ -112,60 +112,6 @@ public class CaiGouDanActivity extends BaseActivity{
                             finish();
 //                        }
                         break;
-                    case R.id.bt_tongguo:
-                        if(item.getOrder_audit_state().equals("902")) {
-                            if (!isCanClick(item)) {
-                                return;
-                            }
-                            if (item.getType() == 0) {
-                                ToastUtil.showToast("请选择商品。。。。。");
-                                return;
-                            }
-                            //提交订单
-                            confirmDialog.showDialog("确认审批通过即发布商品成功");
-                            confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    if (item.getZongjia() == null || item.getZongjia().isEmpty()) {
-                                        ToastUtil.showToast("未选择相应商品，不能提交");
-                                    } else {
-                                        Intent intent = new Intent(mContext, QueRenDingDanActivity.class);
-                                        intent.putExtra("son_order_id", item.getSon_order_id());
-                                        intent.putExtra("commodity_id", item.getCommodity_id());
-                                        intent.putExtra("lujingtype", "2");
-                                        intent.putExtra("company_id", item.getCompany_id());
-                                        intent.putExtra("zongjia", item.getZongjia());
-                                        startActivity(intent);
-                                        confirmDialog.dismiss();
-                                    }
-                                    Log.e("getPurchase_id", item.getPurchase_id() + "==");
-                                }
-                            });
-                            confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    confirmDialog.cancel();
-                                }
-                            });
-                        }
-                        break;
-                    case R.id.bt_shibai:
-                        if(item.getOrder_audit_state().equals("902")) {
-                            if (!isCanClick(item)) {
-                                return;
-                            }
-                            //审批失败
-                            new ShenPiShiBaiDailog()
-                                    .setInitStr(shibaiyuanyin)
-                                    .setCallBack(new ShenPiShiBaiDailog.CallBack() {
-                                        @Override
-                                        public void confirm(String msg) {
-                                            shibaiyuanyin = msg;
-                                            setShenPiShiBai(shibaiyuanyin, item.getPurchase_id());
-                                        }
-                                    }).show(getSupportFragmentManager());
-                        }
-                        break;
 
                 }
             }
@@ -279,7 +225,7 @@ public class CaiGouDanActivity extends BaseActivity{
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getcaigoudanlist(PreferenceUtils.getString(MyApplication.mContext, "token",""),status ))
+                                .getcaigoudanlist(PreferenceUtils.getString(MyApplication.mContext, "token",""),status ,""))
                 .setDataListener(new HttpDataListener<List<CaiGouDanBean>>() {
                     @Override
                     public void onNext(List<CaiGouDanBean> list) {
@@ -307,16 +253,13 @@ public class CaiGouDanActivity extends BaseActivity{
 
     public static boolean isCanClick(CaiGouDanBean item) {
         Date dangqianTime = new Date();
-            for (int i1 = 0; i1 < item.getList().size(); i1++) {
-                if (item.getList().get(i1).isSpecial()){
-//                    Log.e("1122",String.valueOf(item.getList().get(i1).getCreate_time()));
+            for (int i1 = 0; i1 < item.getFllist().size(); i1++) {
                     Date createTime = DateUtil.StrToDate(item.getCreate_time(), "yyyy-MM-dd HH:mm:ss");
-
                     long fen = DateUtil.dqsj(createTime, dangqianTime, "3");
-                    if (fen<5){
-                        ToastUtil.showToast("商家正在抢单中，请抢单结束后再点击。距离抢单结束还有"+(5-fen)+"分钟。");
-                        return false;
-                    }else{
+//                    if (fen<5){
+//                        ToastUtil.showToast("商家正在抢单中，请抢单结束后再点击。距离抢单结束还有"+(5-fen)+"分钟。");
+//                        return false;
+//                    }else{
                         if (!TextUtils.isEmpty(String.valueOf(item.getQdTime()))){
                             createTime = DateUtil.StrToDate(item.getQdTime(), "yyyy-MM-dd HH:mm:ss");
                             fen = DateUtil.dqsj(createTime, dangqianTime, "3");
@@ -331,10 +274,8 @@ public class CaiGouDanActivity extends BaseActivity{
                         }
 
 
-                    }
+//                    }
                 }
-            }
-
         return true;
     }
 }

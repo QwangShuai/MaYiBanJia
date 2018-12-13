@@ -283,7 +283,7 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                                 canshu.getPack_standard_two(),canshu.getPack_standard_tree(),
                                 canshu.getRation_one(),canshu.getPice_one(),canshu.getInventory(),canshu.getOrigin(),canshu.getLevel(),
                                 canshu.getApply(),canshu.getProportion(),canshu.getType_one_id(),canshu.getGoods(),canshu.getCommodity_state(),canshu.getCommodity_name(),
-                                canshu.getType_two_id(),canshu.getType_tree_id(),canshu.getHostPicture(),canshu.getSpec_describe()))
+                                canshu.getType_two_id(),canshu.getType_tree_id(),canshu.getHostPicture(),canshu.getSpec_describe(),canshu.getPrice()))
                 .setDataListener(new HttpDataListener<String>() {
             @Override
             public void onNext(String data) {
@@ -306,7 +306,7 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                                         canshu.getPack_standard_two(),canshu.getPack_standard_tree(),
                                         canshu.getRation_one(),canshu.getPice_one(),canshu.getInventory(),canshu.getOrigin(),canshu.getLevel(),
                                         canshu.getApply(),canshu.getProportion(),canshu.getType_one_id(),canshu.getGoods(),canshu.getCommodity_state(),canshu.getCommodity_name(),
-                                        canshu.getType_two_id(),canshu.getType_tree_id(),canshu.getHostPicture(),canshu.getSpec_describe()))
+                                        canshu.getType_two_id(),canshu.getType_tree_id(),canshu.getHostPicture(),canshu.getSpec_describe(),canshu.getPrice()))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {

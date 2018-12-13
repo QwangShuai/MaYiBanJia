@@ -1,22 +1,19 @@
 package com.mingmen.mayi.mayibanjia.ui.activity;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.QiangDanBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
-import com.mingmen.mayi.mayibanjia.ui.activity.adapter.QiangDanAdapter;
+import com.mingmen.mayi.mayibanjia.ui.activity.qiangdan.QiangDanAdapter;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 
@@ -24,10 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static com.mingmen.mayi.mayibanjia.app.MyApplication.mContext;
 
 /**
  * Created by Administrator on 2018/8/30.
@@ -55,10 +49,10 @@ public class QiangDanActivity extends BaseActivity {
         mContext=QiangDanActivity.this;
         tvTitle.setText("抢单");
 
-        adapter=new QiangDanAdapter(this);
-        rvQiangdan.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
-        rvQiangdan.setAdapter(adapter);
-        getQiangDanList();
+//        adapter=new QiangDanAdapter(this);
+//        rvQiangdan.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+//        rvQiangdan.setAdapter(adapter);
+//        getQiangDanList();
     }
     private void getQiangDanList(){
         HttpManager.getInstance()
@@ -66,14 +60,14 @@ public class QiangDanActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .qiangdanlist(PreferenceUtils.getString(MyApplication.mContext,"token","")))
+                                .qiangdanlist(PreferenceUtils.getString(MyApplication.mContext,"token",""),""))
                 .setDataListener(new HttpDataListener<List<QiangDanBean>>() {
                     @Override
                     public void onNext(List<QiangDanBean> data) {
-                        Log.e("data",data+"---");
-                        qiangdanData=new ArrayList<>();
-                        qiangdanData.addAll(data);
-                        adapter.setNewData(data);
+//                        Log.e("data",data+"---");
+//                        qiangdanData=new ArrayList<>();
+//                        qiangdanData.addAll(data);
+//                        adapter.setNewData(data);
                     }
                 },false);
     }

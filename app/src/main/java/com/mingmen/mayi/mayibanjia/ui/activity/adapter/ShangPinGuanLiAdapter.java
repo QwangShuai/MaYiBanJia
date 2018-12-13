@@ -32,9 +32,11 @@ import java.util.List;
 public class ShangPinGuanLiAdapter extends BaseQuickAdapter<ShangPinGuanLiBean.GoodsListBean,BaseViewHolder> {
     private ShangPinGuanLiActivity activity;
     private ConfirmDialog confirmDialog;
-    public ShangPinGuanLiAdapter(ShangPinGuanLiActivity activity) {
+    private String goods = "0";
+    public ShangPinGuanLiAdapter(ShangPinGuanLiActivity activity,String goods) {
         super(R.layout.item_shangpinguanli);
         this.activity = activity;
+        this.goods = goods;
     }
 
     @Override
@@ -54,6 +56,7 @@ public class ShangPinGuanLiAdapter extends BaseQuickAdapter<ShangPinGuanLiBean.G
                 } else {
                     Intent it = new Intent(mContext, FaBuShangPinActivity.class);
                     it.putExtra("state","1");
+                    it.putExtra("goods",goods);
                     it.putExtra("bean",item.getCommodity_id());
                     mContext.startActivity(it);
                 }

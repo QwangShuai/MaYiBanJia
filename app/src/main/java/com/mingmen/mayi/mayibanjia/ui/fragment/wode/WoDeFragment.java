@@ -25,10 +25,11 @@ import com.mingmen.mayi.mayibanjia.bean.WoDeBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
+import com.mingmen.mayi.mayibanjia.ui.activity.AddZiZhuangHuActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.CaiGouDanActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.DianPuGuanZhuActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.GongYingDuanSheZhiActivity;
-import com.mingmen.mayi.mayibanjia.ui.activity.GongYingDuanShouYeActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.JueSeGuanLiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.LiuLanJiLuActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShouCangListActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShouHuoDiZhiActivity;
@@ -37,6 +38,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.YiJianFanKuiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.YinHangKaActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.YueActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ZhangHuXinXiActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.ZiZhangHuActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.PhoneDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dingdan.DingDanActivity;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseFragment;
@@ -201,38 +203,38 @@ public class WoDeFragment extends BaseFragment {
     private void initView() {
         Glide.with(getActivity()).load(woDeBean.getPhoto()).into(ivTouxiang);
         tvYue.setText(woDeBean.getMoney());
-        tvShoucangshu.setText(woDeBean.getSc());
-        tvDianpuguanzhu.setText(woDeBean.getGuanzhu());
-        tvLiulanjilu.setText(woDeBean.getLiulan());
-        if (Integer.parseInt(woDeBean.getStay_payment())==0){
+        tvShoucangshu.setText(woDeBean.getSc()+"");
+        tvDianpuguanzhu.setText(woDeBean.getGuanzhu()+"");
+        tvLiulanjilu.setText(woDeBean.getLiulan()+"");
+        if (woDeBean.getStay_payment()==0){
             tvDaifukuan.setVisibility(View.GONE);
         }else{
             tvDaifukuan.setVisibility(View.VISIBLE);
-            tvDaifukuan.setText(woDeBean.getStay_payment());
+            tvDaifukuan.setText(woDeBean.getStay_payment()+"");
         }
-        if (Integer.parseInt(woDeBean.getStay_delivery())==0){
+        if (woDeBean.getStay_delivery()==0){
             tvDaifahuo.setVisibility(View.GONE);
         }else{
             tvDaifahuo.setVisibility(View.VISIBLE);
-            tvDaifahuo.setText(woDeBean.getStay_delivery());
+            tvDaifahuo.setText(woDeBean.getStay_delivery()+"");
         }
-        if (Integer.parseInt(woDeBean.getStay_ecipient())==0){
+        if (woDeBean.getStay_ecipient()==0){
             tvDaishouhuo.setVisibility(View.GONE);
         }else{
             tvDaishouhuo.setVisibility(View.VISIBLE);
-            tvDaishouhuo.setText(woDeBean.getStay_ecipient());
+            tvDaishouhuo.setText(woDeBean.getStay_ecipient()+"");
         }
-        if (Integer.parseInt(woDeBean.getAlready_ecipient())==0){
+        if (woDeBean.getAlready_ecipient()==0){
             tvYishouhuo.setVisibility(View.GONE);
         }else{
             tvYishouhuo.setVisibility(View.VISIBLE);
-            tvYishouhuo.setText(woDeBean.getAlready_ecipient());
+            tvYishouhuo.setText(woDeBean.getAlready_ecipient()+"");
         }
-        if (Integer.parseInt(woDeBean.getAlready_complete())==0){
+        if (woDeBean.getAlready_complete()==0){
             tvYiwancheng.setVisibility(View.GONE);
         }else{
             tvYiwancheng.setVisibility(View.VISIBLE);
-            tvYiwancheng.setText(woDeBean.getAlready_complete());
+            tvYiwancheng.setText(woDeBean.getAlready_complete()+"");
         }
 
         tvMingzi.setText(woDeBean.getCompany_name());
@@ -248,7 +250,8 @@ public class WoDeFragment extends BaseFragment {
 
     @OnClick({R.id.iv_tongzhi, R.id.iv_touxiang,R.id.ll_shoucang, R.id.iv_mingpian, R.id.rl_dingdan, R.id.rl_daifukuan,
             R.id.rl_daifahuo, R.id.rl_daishouhuo, R.id.rl_yishouhuo, R.id.rl_yiwancheng,R.id.rl_shouhuodizhi, R.id.rl_xuqiudan,R.id.rl_yijian,
-            R.id.rl_kefu,R.id.ll_guanzhu,R.id.ll_liulanjilu,R.id.rl_yinhang,R.id.tv_qiehuan,R.id.ll_myyue,R.id.ll_pingjia})
+            R.id.rl_kefu,R.id.ll_guanzhu,R.id.ll_liulanjilu,R.id.rl_yinhang,R.id.tv_qiehuan,R.id.ll_myyue,R.id.ll_pingjia,R.id.rl_zizhanghu,
+            R.id.rl_jueseguanli})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_tongzhi:
@@ -257,6 +260,7 @@ public class WoDeFragment extends BaseFragment {
                 Jump_intent(ShouCangListActivity.class, new Bundle());
                 break;
             case R.id.iv_touxiang:
+                Log.e("touxiang", "dian touxiang");
                 Jump_intent(ZhangHuXinXiActivity.class, new Bundle());
                 break;
             case R.id.iv_mingpian:
@@ -324,6 +328,18 @@ public class WoDeFragment extends BaseFragment {
             case R.id.ll_pingjia:
                 Jump_intent(WoDePingJiaActivity.class, new Bundle());
                 break;
+            case R.id.rl_zizhanghu:
+                Bundle zzh  = new Bundle();
+                zzh.putString("name",woDeBean.getCompany_name());
+                zzh.putString("id",woDeBean.getCompany_id());
+                Jump_intent(ZiZhangHuActivity.class,zzh);
+                break;
+            case R.id.rl_jueseguanli:
+                Bundle jsgl  = new Bundle();
+                jsgl.putString("name",woDeBean.getCompany_name());
+                jsgl.putString("id",woDeBean.getCompany_id());
+                Jump_intent(JueSeGuanLiActivity.class,jsgl);
+                break;
         }
     }
     public void getPhone(){
@@ -349,7 +365,7 @@ public class WoDeFragment extends BaseFragment {
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String bean) {
-                        Intent it = new Intent(mContext, GongYingDuanShouYeActivity.class);
+                        Intent it = new Intent(mContext, GongYingDuanSheZhiActivity.class);
                         startActivity(it);
                         getActivity().finish();
                     }
@@ -362,7 +378,7 @@ public class WoDeFragment extends BaseFragment {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getcaigoudanlist(PreferenceUtils.getString(MyApplication.mContext, "token",""),"902" ))
+                                .getcaigoudanlist(PreferenceUtils.getString(MyApplication.mContext, "token",""),"902",""))
                 .setDataListener(new HttpDataListener<List<CaiGouDanBean>>() {
                     @Override
                     public void onNext(List<CaiGouDanBean> list) {

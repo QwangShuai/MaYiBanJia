@@ -38,7 +38,6 @@ public class YunFeiAdapter extends RecyclerView.Adapter<YunFeiAdapter.ViewHolder
     private Context mContext;
     private List<YunFeiJieSuanBean.DdListBean> mList;
     private YunFeiJieSuanActivity activity;
-    private boolean[] isSelect;
 
     public YunFeiAdapter(Context context, List<YunFeiJieSuanBean.DdListBean> list, YunFeiJieSuanActivity activity) {
         this.mContext = context;
@@ -49,12 +48,12 @@ public class YunFeiAdapter extends RecyclerView.Adapter<YunFeiAdapter.ViewHolder
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         viewHolder = new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_yunfei, parent, false));
-        isSelect = new boolean[mList==null?0:mList.size()];
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
+//        holder.setIsRecyclable(false);
         final YunFeiJieSuanBean.DdListBean bean = mList.get(position);
         if(bean.getSettle_accounts_state().equals("0")){
             holder.btJiesuan.setText("结算");
@@ -66,12 +65,12 @@ public class YunFeiAdapter extends RecyclerView.Adapter<YunFeiAdapter.ViewHolder
             holder.btJiesuan.setText("已完成");
             holder.ivDanxuan.setVisibility(View.GONE);
         }
-        if (isSelect[position]){
+        if (bean.isXuanzhong()){
             activity.addItem(mList.get(position));
         } else {
             activity.delItem(mList.get(position));
         }
-        holder.ivDanxuan.setSelected(isSelect[position]);
+        holder.ivDanxuan.setSelected(bean.isXuanzhong());
         holder.tvOrderNumber.setText(bean.getWl_cars_order_number());
         holder.tvJine.setText(bean.getFreight_fee()+"");
         holder.tvEndTime.setText(bean.getChange_time());
@@ -94,8 +93,8 @@ public class YunFeiAdapter extends RecyclerView.Adapter<YunFeiAdapter.ViewHolder
         holder.ivDanxuan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isSelect[position] = !isSelect[position];
-                holder.ivDanxuan.setSelected(isSelect[position]);
+                mList.get(position).setXuanzhong(!bean.isXuanzhong());
+                holder.ivDanxuan.setSelected( mList.get(position).isXuanzhong());
                 notifyDataSetChanged();
             }
         });
@@ -127,14 +126,14 @@ public class YunFeiAdapter extends RecyclerView.Adapter<YunFeiAdapter.ViewHolder
         }
     }
 
-    public void setSelect(boolean b){
-        if(isSelect.length!=0){
-            for(int i=0;i<isSelect.length;i++){
-                isSelect[i] = b;
-                notifyDataSetChanged();
-            }
-        }
-    }
+//    public void setSelect(boolean b){
+//        if(mList.size()!=0){
+//            for(int i=0;i<mList.size();i++){
+//                mList.get(i).setXuanzhong(b);
+//                notifyDataSetChanged();
+//            }
+//        }
+//    }
 
     public void jiesuan(final YunFeiJieSuanBean.DdListBean bean,final int pos, String id, String yf, String sjyf){
         HttpManager.getInstance()
@@ -144,7 +143,7 @@ public class YunFeiAdapter extends RecyclerView.Adapter<YunFeiAdapter.ViewHolder
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
-                        isSelect[pos] = false;
+                        mList.get(pos).setXuanzhong(false);
                         activity.delItem(bean);
                         activity.getList("0");
                     }

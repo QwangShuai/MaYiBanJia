@@ -7,32 +7,28 @@ package com.mingmen.mayi.mayibanjia.bean;
 public class WoDeBean {
     private String telephone;
     private String company_name;
+    private String company_id;
     private String photo;
     private String money;
-    private String guanzhu;
-    private String liulan;
-    private String sc;
-    private String stay_payment;
-    private String stay_delivery;
-    private String stay_ecipient;
-    private String already_ecipient;
-    private String already_complete;
-    private String role;
+    private int guanzhu;
+    private int liulan;
+    private int sc;
+    private int stay_payment;
+    private int stay_delivery;
+    private int stay_ecipient;
+    private int already_ecipient;
+    private int already_complete;
+    private int already_delivery;//已发货
+    private int qiangdan;//抢单
+    private String role;//角色
+    private String business_state;//营业状态
 
-    public String getAlready_complete() {
-        return already_complete;
+    public String getCompany_id() {
+        return company_id;
     }
 
-    public void setAlready_complete(String already_complete) {
-        this.already_complete = already_complete;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
+    public void setCompany_id(String company_id) {
+        this.company_id = company_id;
     }
 
     public String getTelephone() {
@@ -67,59 +63,99 @@ public class WoDeBean {
         this.money = money;
     }
 
-    public String getGuanzhu() {
+    public int getGuanzhu() {
         return guanzhu;
     }
 
-    public void setGuanzhu(String guanzhu) {
+    public void setGuanzhu(int guanzhu) {
         this.guanzhu = guanzhu;
     }
 
-    public String getLiulan() {
+    public int getLiulan() {
         return liulan;
     }
 
-    public void setLiulan(String liulan) {
+    public void setLiulan(int liulan) {
         this.liulan = liulan;
     }
 
-    public String getSc() {
+    public int getSc() {
         return sc;
     }
 
-    public void setSc(String sc) {
+    public void setSc(int sc) {
         this.sc = sc;
     }
 
-    public String getStay_payment() {
+    public int getStay_payment() {
         return stay_payment;
     }
 
-    public void setStay_payment(String stay_payment) {
+    public void setStay_payment(int stay_payment) {
         this.stay_payment = stay_payment;
     }
 
-    public String getStay_delivery() {
+    public int getStay_delivery() {
         return stay_delivery;
     }
 
-    public void setStay_delivery(String stay_delivery) {
+    public void setStay_delivery(int stay_delivery) {
         this.stay_delivery = stay_delivery;
     }
 
-    public String getStay_ecipient() {
+    public int getStay_ecipient() {
         return stay_ecipient;
     }
 
-    public void setStay_ecipient(String stay_ecipient) {
+    public void setStay_ecipient(int stay_ecipient) {
         this.stay_ecipient = stay_ecipient;
     }
 
-    public String getAlready_ecipient() {
+    public int getAlready_ecipient() {
         return already_ecipient;
     }
 
-    public void setAlready_ecipient(String already_ecipient) {
+    public void setAlready_ecipient(int already_ecipient) {
         this.already_ecipient = already_ecipient;
+    }
+
+    public int getAlready_complete() {
+        return already_complete;
+    }
+
+    public void setAlready_complete(int already_complete) {
+        this.already_complete = already_complete;
+    }
+
+    public int getAlready_delivery() {
+        return already_delivery;
+    }
+
+    public void setAlready_delivery(int already_delivery) {
+        this.already_delivery = already_delivery;
+    }
+
+    public int getQiangdan() {
+        return qiangdan;
+    }
+
+    public void setQiangdan(int qiangdan) {
+        this.qiangdan = qiangdan;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getBusiness_state() {
+        return business_state;
+    }
+
+    public void setBusiness_state(String business_state) {
+        this.business_state = business_state;
     }
 }

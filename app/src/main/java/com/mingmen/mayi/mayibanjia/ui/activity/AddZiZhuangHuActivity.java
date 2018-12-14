@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
+import com.mingmen.mayi.mayibanjia.bean.JueSeBean;
+import com.mingmen.mayi.mayibanjia.bean.RoleBean;
 import com.mingmen.mayi.mayibanjia.bean.WuLiuBean;
 import com.mingmen.mayi.mayibanjia.bean.WuLiuObjBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
@@ -21,10 +24,14 @@ import com.mingmen.mayi.mayibanjia.ui.activity.adapter.WuLiuFenPeiAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.JueSeDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.XuanZeDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
+import com.mingmen.mayi.mayibanjia.ui.view.XCFlowLayout;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,6 +61,12 @@ public class AddZiZhuangHuActivity extends BaseActivity {
     Button btnQuanxian;
     @BindView(R.id.btn_submit)
     Button btnSubmit;
+    @BindView(R.id.xcf_juese)
+    XCFlowLayout xcfJuese;
+    @BindView(R.id.xcf_quanxian)
+    XCFlowLayout xcfQuanxian;
+
+
 
     private Context mContext;
     private String company_id="";
@@ -103,6 +116,8 @@ public class AddZiZhuangHuActivity extends BaseActivity {
                     public void confirm(String id, String name) {
                         son_role_id = id;
                         tvJuese.setText(name);
+                        initShangpinChildViews(mContext,xcfJuese,name.split(","));
+                        getQuanxian();
                     }
                 });
                 dialog.show();
@@ -135,5 +150,30 @@ public class AddZiZhuangHuActivity extends BaseActivity {
                         }
                     });
         }
+    }
+
+
+
+    public void getQuanxian(){
+
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .getRoleTwoList(PreferenceUtils.getString(MyApplication.mContext, "token", ""),son_role_id))
+                .setDataListener(new HttpDataListener<List<RoleBean>>() {
+                    @Override
+                    public void onNext(List<RoleBean> data) {
+                        int mysize = data==null?0:data.size();
+                        String[] quanxianList = new String[mysize];
+                        if(mysize!=0){
+                            for (int i=0;i<mysize;i++){
+                                quanxianList[i]=data.get(i).getRoleName();
+                            }
+                            initShangpinChildViews(mContext,xcfQuanxian,quanxianList);
+                        }
+                    }
+                },false);
     }
 }

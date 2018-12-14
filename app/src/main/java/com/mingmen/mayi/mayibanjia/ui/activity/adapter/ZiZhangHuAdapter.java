@@ -15,6 +15,7 @@ import com.mingmen.mayi.mayibanjia.bean.ZiZhangHuBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
+import com.mingmen.mayi.mayibanjia.ui.activity.DetailsZiZhangHuActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.JueSeDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.XuanZeDialog;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
@@ -29,7 +30,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2018/7/13/013.
  */
 
-public class ZiZhangHuAdapter extends RecyclerView.Adapter<ZiZhangHuAdapter.ViewHolder> {
+public class  ZiZhangHuAdapter extends RecyclerView.Adapter<ZiZhangHuAdapter.ViewHolder> {
 
     private ViewHolder viewHolder;
     private Context mContext;
@@ -64,10 +65,13 @@ public class ZiZhangHuAdapter extends RecyclerView.Adapter<ZiZhangHuAdapter.View
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final ZiZhangHuBean data = mList.get(position);
         holder.tvJuese.setText(data.getPrincipal()+"");
+        holder.tvQuanxian.setText(data.getTelephone()+"");
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent it = new Intent();
+                Intent it = new Intent(mContext, DetailsZiZhangHuActivity.class);
+                it.putExtra("id",data.getAccount_id());
+                mContext.startActivity(it);
             }
         });
     }

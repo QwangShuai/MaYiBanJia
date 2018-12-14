@@ -55,7 +55,7 @@ public class XuanZeDialog extends Dialog {
     private String son_role_id;
     private boolean[] isSelect;
     ArrayList<TextView> tvs;
-    private HashMap<String, RoleBean.QxList> xuanzhong = new HashMap<>();
+    private HashMap<String, RoleBean> xuanzhong = new HashMap<>();
     public XuanZeDialog(@NonNull Context context,String son_role_id, CallBack callBack) {
         super(context);
         this.context = context;
@@ -105,7 +105,7 @@ public class XuanZeDialog extends Dialog {
         getmoren();
     }
 
-    private void initShangpinChildViews(XCFlowLayout xcfShangpinlishisousuo, final List<RoleBean.QxList> mList,final List<RoleBean.QxList> mylist) {
+    private void initShangpinChildViews(XCFlowLayout xcfShangpinlishisousuo, final List<RoleBean> mList,final List<RoleBean> mylist) {
         xcfShangpinlishisousuo.removeAllViews();
         tvs = new ArrayList();
         ViewGroup.MarginLayoutParams lp = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -116,18 +116,18 @@ public class XuanZeDialog extends Dialog {
         for (int i = 0; i < mList.size(); i++) {
             isSelect[i] = true;
             TextView view = new TextView(context);
-            view.setText(mList.get(i).getRoleName());
+//            view.setText(mList.get(i).getRoleName());
             view.setTextColor(context.getResources().getColor(R.color.zangqing));
             view.setTextSize(12);
             view.setPadding(AppUtil.dip2px(12), AppUtil.dip2px(8), AppUtil.dip2px(12), AppUtil.dip2px(8));
             view.setBackground(context.getResources().getDrawable(R.drawable.fillet_hollow_zangqing_3));
-            xuanzhong.put(mList.get(i).getRole_id(),mList.get(i));
+//            xuanzhong.put(mList.get(i).getRole_id(),mList.get(i));
             tvs.add(view);
             xcfShangpinlishisousuo.addView(view, lp);
         }
         for (int i = 0; i < mylist.size(); i++) {
             TextView view = new TextView(context);
-            view.setText(mList.get(i).getRoleName());
+//            view.setText(mList.get(i).getRoleName());
             view.setTextColor(context.getResources().getColor(R.color.zangqing));
             view.setTextSize(12);
             view.setPadding(AppUtil.dip2px(12), AppUtil.dip2px(8), AppUtil.dip2px(12), AppUtil.dip2px(8));
@@ -142,12 +142,12 @@ public class XuanZeDialog extends Dialog {
                 public void onClick(View v) {
                     if(!isSelect[finalI]){
                         isSelect[finalI] = true;
-                        addViewShow(mList.get(finalI));
+//                        addViewShow(mList.get(finalI));
                         tvs.get(finalI).setTextColor(context.getResources().getColor(R.color.white));
                         tvs.get(finalI).setBackground(context.getResources().getDrawable(R.drawable.fillet_solid_zangqing_3));
                     } else {
                         isSelect[finalI] = false;
-                        delViewShow(mList.get(finalI));
+//                        delViewShow(mList.get(finalI));
                         tvs.get(finalI).setTextColor(context.getResources().getColor(R.color.zangqing));
                         tvs.get(finalI).setBackground(context.getResources().getDrawable(R.drawable.fillet_hollow_zangqing_3));
                     }
@@ -157,36 +157,36 @@ public class XuanZeDialog extends Dialog {
         }
     }
     private void getmoren() {
-        HttpManager.getInstance()
-                .with(context)
-                .setObservable(
-                        RetrofitManager
-                                .getService()
-                                .getRoleList(PreferenceUtils.getString(MyApplication.mContext, "token", ""),son_role_id))
-                .setDataListener(new HttpDataListener<RoleBean>() {
-                    @Override
-                    public void onNext(RoleBean data) {
-                        int mysize = data==null?0:data.getQxList().size();
-                        int mysize2 = data==null?0:data.getMayList().size();
-                        isSelect = new boolean[mysize+mysize2];
-
-                        initShangpinChildViews(xcfXuanze,data.getQxList(),data.getMayList());
-                    }
-                },false);
+//        HttpManager.getInstance()
+//                .with(context)
+//                .setObservable(
+//                        RetrofitManager
+//                                .getService()
+//                                .getRoleList(PreferenceUtils.getString(MyApplication.mContext, "token", ""),son_role_id))
+//                .setDataListener(new HttpDataListener<RoleBean>() {
+//                    @Override
+//                    public void onNext(RoleBean data) {
+//                        int mysize = data==null?0:data.getQxList().size();
+//                        int mysize2 = data==null?0:data.getMayList().size();
+//                        isSelect = new boolean[mysize+mysize2];
+//
+//                        initShangpinChildViews(xcfXuanze,data.getQxList(),data.getMayList());
+//                    }
+//                },false);
     }
-    public void delViewShow(RoleBean.QxList item) {//删除item
-        xuanzhong.remove(item.getRole_id());
-    }
-    public void addViewShow(RoleBean.QxList item) {//存储点击item
-        xuanzhong.put(item.getRole_id(),item);
-    }
+//    public void delViewShow(RoleBean.QxList item) {//删除item
+//        xuanzhong.remove(item.getRole_id());
+//    }
+//    public void addViewShow(RoleBean.QxList item) {//存储点击item
+//        xuanzhong.put(item.getRole_id(),item);
+//    }
 
     private void getLableId(){
         lableId = "";
         int count = 0;
         Set<String> mapkey = xuanzhong.keySet();
         for (String key : mapkey) {
-            RoleBean.QxList value = xuanzhong.get(key);
+            RoleBean value = xuanzhong.get(key);
             if (value.getRole_id().isEmpty()) {//没选中的不拼   避免有多余的,
             } else {
                 lableId += key + ",";

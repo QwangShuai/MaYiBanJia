@@ -9,6 +9,16 @@ import java.util.List;
 public class ZiZhangHuBean {
     private String principal;
     private String account_id;
+    private String telephone;
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
     private List<AppRoleList> list;
 
     public String getPrincipal() {

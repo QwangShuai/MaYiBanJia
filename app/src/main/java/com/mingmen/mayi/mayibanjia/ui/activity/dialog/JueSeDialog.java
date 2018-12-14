@@ -121,6 +121,7 @@ public class JueSeDialog extends Dialog {
         lp.topMargin = AppUtil.dip2px(12);
         lp.bottomMargin = 0;
         for (int i = 0; i < mList.size(); i++) {
+
             if(mList.get(i).getIsSelected().equals("0")){
                 isSelect[i] = true;
                 addViewShow(mList.get(i));
@@ -135,10 +136,11 @@ public class JueSeDialog extends Dialog {
             }
             TextView view = new TextView(context);
             view.setText(mList.get(i).getPart());
-            view.setTextColor(context.getResources().getColor(R.color.zangqing));
+            view.setTextColor(isSelect[i]?context.getResources().getColor(R.color.white):context.getResources().getColor(R.color.zangqing));
             view.setTextSize(12);
             view.setPadding(AppUtil.dip2px(12), AppUtil.dip2px(8), AppUtil.dip2px(12), AppUtil.dip2px(8));
-            view.setBackground(context.getResources().getDrawable(R.drawable.fillet_hollow_zangqing_3));
+            view.setBackground(isSelect[i]?context.getResources().getDrawable(R.drawable.fillet_solid_zangqing_3):
+                    context.getResources().getDrawable(R.drawable.fillet_hollow_zangqing_3));
             tvs.add(view);
             xcfShangpinlishisousuo.addView(view, lp);
         }

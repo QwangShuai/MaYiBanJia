@@ -7,44 +7,23 @@ import java.util.List;
  */
 
 public class RoleBean {
-    private List<QxList> qxList;
-    private List<QxList> mayList;
+    private String role_id;
 
-    public List<QxList> getQxList() {
-        return qxList;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setQxList(List<QxList> qxList) {
-        this.qxList = qxList;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
-    public List<QxList> getMayList() {
-        return mayList;
+    private String roleName;
+
+    public String getRole_id() {
+        return role_id;
     }
 
-    public void setMayList(List<QxList> mayList) {
-        this.mayList = mayList;
-    }
-
-    public static class QxList{
-        private String role_id;
-
-        public String getRoleName() {
-            return roleName;
-        }
-
-        public void setRoleName(String roleName) {
-            this.roleName = roleName;
-        }
-
-        private String roleName;
-
-        public String getRole_id() {
-            return role_id;
-        }
-
-        public void setRole_id(String role_id) {
-            this.role_id = role_id;
-        }
+    public void setRole_id(String role_id) {
+        this.role_id = role_id;
     }
 }

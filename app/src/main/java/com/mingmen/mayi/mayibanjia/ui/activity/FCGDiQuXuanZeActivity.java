@@ -37,6 +37,7 @@ import com.mingmen.mayi.mayibanjia.ui.view.AutoLineFeedLayoutManager;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -133,6 +134,11 @@ public class FCGDiQuXuanZeActivity extends BaseActivity {
 
             }
         });
+
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        String date=sdf.format(new java.util.Date());
+        et_caigouming.setText(date);
+
         getBg();
     }
 

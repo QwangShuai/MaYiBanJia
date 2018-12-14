@@ -129,6 +129,7 @@ public class CaiGouListLevelOneAdapter extends RecyclerView.Adapter<CaiGouListLe
                                                                     mList.remove(position);
                                                                     delLength();
                                                                 }
+                                                                activity.getlist();
                                                                 notifyDataSetChanged();
                                                                 adapter.notifyDataSetChanged();
                                                                 break;
@@ -154,6 +155,7 @@ public class CaiGouListLevelOneAdapter extends RecyclerView.Adapter<CaiGouListLe
                                             @Override
                                             public void confirm(CaiGouDanBean.FllistBean.SonorderlistBean msg) {
                                                 ToastUtil.showToast("修改成功");
+                                                activity.getlist();
                                                 adapter.notifyDataSetChanged();
                                             }
                                         }).show(activity.getSupportFragmentManager());

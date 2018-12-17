@@ -29,6 +29,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.AddZiZhuangHuActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.CaiGouDanActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.DianPuGuanZhuActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.GongYingDuanSheZhiActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.GongYingDuanShouYeActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.JueSeGuanLiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.LiuLanJiLuActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShouCangListActivity;
@@ -365,7 +366,7 @@ public class WoDeFragment extends BaseFragment {
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String bean) {
-                        Intent it = new Intent(mContext, GongYingDuanSheZhiActivity.class);
+                        Intent it = new Intent(mContext, GongYingDuanShouYeActivity.class);
                         startActivity(it);
                         getActivity().finish();
                     }

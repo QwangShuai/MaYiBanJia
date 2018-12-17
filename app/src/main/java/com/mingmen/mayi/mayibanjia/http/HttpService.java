@@ -984,4 +984,9 @@ public interface HttpService {
     @POST("appRoleRel/delete.do")
     Observable<ResultModel<String>> delJuese(@Query("user_token") String user_token,
                                              @Query("account_id") String account_id);
+
+    //更改营业状态
+    @POST("allCompany/update.do")
+    Observable<ResultModel<String>> changeYingyeState(@Query("user_token") String user_token,
+                                             @Query("business_state") String business_state);
 }

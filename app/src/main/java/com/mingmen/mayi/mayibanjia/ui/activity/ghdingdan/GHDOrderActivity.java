@@ -29,6 +29,16 @@ public class GHDOrderActivity extends BaseActivity {
     private GHAdapter adapter;
     private PrintfManager printfManager;
     private int ye = 0;
+    private String token="";
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_ghdorder;
@@ -41,6 +51,7 @@ public class GHDOrderActivity extends BaseActivity {
         tabsDingdan.setViewPager(vpDingdan);
         vpDingdan.setOffscreenPageLimit(0);
         ye = getIntent().getIntExtra("ye",0);
+        setToken(getIntent().getStringExtra("token"));
         vpDingdan.setCurrentItem(ye);
         printfManager = PrintfManager.getInstance(this);
         printfManager.defaultConnection();

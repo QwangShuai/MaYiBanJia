@@ -58,11 +58,13 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
     private ShenPiLevelZeroAdapter zeroAdapter;
     private int zeroPos;
     private CountDownTimer downTimer;
+    private long time = 300 * 1000;
     public boolean isClick() {
         return isClick;
     }
 
     private boolean isClick = true;
+    private String message = "审核通过，不可更改";
     HashMap<String, ShangpinidAndDianpuidBean> map;
     public void setShow(int pos) {
         mList.get(pos).setSelect(true);
@@ -99,7 +101,7 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
         } else {
             holder.rvDplist.setVisibility(View.GONE);
         }
-        long time = PreferenceUtils.getLong(activity,mList.get(position).getSon_order_id(),300 *1000);
+        time = PreferenceUtils.getLong(activity,mList.get(position).getSon_order_id(),300 *1000);
 //        if(time==0){
 //            time = 300 * 1000;
 //        }
@@ -110,25 +112,23 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
                 public void onTick(long l) {
                     zeroAdapter.setPosClick(zeroPos,true);
                     holder.tvXitongtuijian.setText((l / 1000) + "秒后抢单结束");
-                    if(l>0&&l<300 * 1000){
-                        PreferenceUtils.putLong(activity,mList.get(position).getSon_order_id(),l);
-                    } else {
-                        PreferenceUtils.remove(activity,mList.get(position).getSon_order_id());
-                    }
-
+                    PreferenceUtils.putLong(activity,mList.get(position).getSon_order_id(),l);
                     holder.tvXitongtuijian.setTextColor(activity.getResources().getColor(R.color.mayihong));
                     holder.tvXitongtuijian.setEnabled(false);
                     isClick = false;
+                    message = "等待特殊商品抢单。。。";
 //                notifyDataSetChanged();
                 }
 
                 @Override
                 public void onFinish() {
                     zeroAdapter.setPosClick(zeroPos,false);
+                    Log.e("结束了","删除了");
+                    PreferenceUtils.remove(activity,mList.get(position).getSon_order_id());
                     isClick = true;
                     runningThree[0] = true;
                     holder.tvXitongtuijian.setText("重发抢单");
-                    getshenpi(listBean, position, activity);
+//                    getshenpi(listBean, position, activity);
                     holder.tvXitongtuijian.setEnabled(true);
                     holder.tvXitongtuijian.setTextColor(activity.getResources().getColor(R.color.lishisousuo));
 //                notifyDataSetChanged();
@@ -215,7 +215,8 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
                                             mList.get(position).setSelect(false);
                                             Log.e("data", data + "---");
                                             ToastUtil.showToast("发送抢单信息成功");
-                                            PreferenceUtils.putLong(activity,mList.get(position).getSon_order_id(),300 * 1000);
+                                            time = 300 *1000;
+//                                            PreferenceUtils.putLong(activity,mList.get(position).getSon_order_id(),300 * 1000);
                                             downTimer.start();
                                             runningThree[0] = false;
 
@@ -278,7 +279,7 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
                 }
             });
         } else {
-            ToastUtil.showToast("等待特殊商品抢单。。。");
+            ToastUtil.showToast(message);
         }
 
     }

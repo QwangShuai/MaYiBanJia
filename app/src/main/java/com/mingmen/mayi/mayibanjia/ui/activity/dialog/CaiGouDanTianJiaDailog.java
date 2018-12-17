@@ -234,7 +234,10 @@ public class CaiGouDanTianJiaDailog extends BaseFragmentDialog{
                         if (guigeadapter!=null){
                             guigeadapter.setData(guigedatas);
                         }
-                        Log.e("data",data+"---");
+                        if(guigedatas!=null&&guigedatas.size()!=0){
+                            tvGuige.setText(guigedatas.get(0).getSpec_name());
+                            pack_standard_id = guigedatas.get(0).getSpec_id();
+                        }
 
                     }
                 },false);

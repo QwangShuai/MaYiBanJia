@@ -212,6 +212,8 @@ public class ChangeWuLiuDialog extends Dialog {
             public void onClick(View view, int position) {
                 chepai = datas.get(position).getNew_plate_number()+"";
                 et_xinchepaihao.setText(datas.get(position).getNew_plate_number()+"");
+                et_xinlianxifangshi.setText(datas.get(position).getDriver_phone()+"");
+                et_xinxingming.setText(datas.get(position).getDriver_name()+"");
                 mPopWindow.dismiss();
             }
         });

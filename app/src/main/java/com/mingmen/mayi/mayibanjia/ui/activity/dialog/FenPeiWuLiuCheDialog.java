@@ -200,6 +200,8 @@ public class FenPeiWuLiuCheDialog extends Dialog {
             public void onClick(View view, int position) {
                 chepai = datas.get(position).getNew_plate_number()+"";
                 et_chepaihao.setText(datas.get(position).getNew_plate_number()+"");
+                et_lianxifangshi.setText(datas.get(position).getDriver_phone()+"");
+                et_xingming.setText(datas.get(position).getDriver_name()+"");
                 mPopWindow.dismiss();
             }
         });

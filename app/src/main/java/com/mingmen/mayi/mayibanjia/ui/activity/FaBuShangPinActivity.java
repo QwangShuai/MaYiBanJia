@@ -499,6 +499,8 @@ public class FaBuShangPinActivity extends BaseActivity {
                             sanjikexuan = false;
                         } else {
                             sanjikexuan = true;
+                            tvSanji.setText(data.get(0).getSpec_name());
+                            sanjiguigeid = data.get(0).getSpec_id();
                         }
 
                     }

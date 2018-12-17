@@ -7,6 +7,10 @@
     <string name="jiagezuidi"><u>价格最低</u></string>
     <string name="pingfenzuigao"><u>评分最高</u></string>
     <string name="dingdanxiangqing"><u>订单详情</u></string>
+    <string name="gyd_order"><u>供应端订单</u></string>
+    <string name="ctd_order"><u>餐厅端订单</u></string>
+    <string name="check_goods"><u>普通商品</u></string>
+    <string name="check_out_goods"><u>特价商品</u></string>
     <string name="only_input">qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM1234567890</string>
 
     <string name="no_connect_blue_tooth">未连接蓝牙</string>

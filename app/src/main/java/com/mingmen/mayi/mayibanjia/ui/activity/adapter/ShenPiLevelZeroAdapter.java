@@ -80,6 +80,7 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         adapter = new ShenPiLevelOneAdapter(activity, mList.get(position).getSonorderlist(),ShenPiLevelZeroAdapter.this,position);
+        adapter.setClick(isClick);
         holder.rvList.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         holder.rvList.setAdapter(adapter);
         holder.rvList.setFocusable(false);
@@ -117,23 +118,21 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
                         }
                     }
                 });
-
-
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(bean.isShow()){
-                        bean.setShow(false);
-                        holder.rvList.setVisibility(View.GONE);
-                        holder.ivJinru.setImageResource(R.mipmap.jinru);
-                    } else {
-                        bean.setShow(true);
-                        holder.rvList.setVisibility(View.VISIBLE);
-                        holder.ivJinru.setImageResource(R.mipmap.xia_kongxin_hui);
-                    }
-                }
-            });
         }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(bean.isShow()){
+                    bean.setShow(false);
+                    holder.rvList.setVisibility(View.GONE);
+                    holder.ivJinru.setImageResource(R.mipmap.jinru);
+                } else {
+                    bean.setShow(true);
+                    holder.rvList.setVisibility(View.VISIBLE);
+                    holder.ivJinru.setImageResource(R.mipmap.xia_kongxin_hui);
+                }
+            }
+        });
 
 //        if(mList.get(position).getOrder_audit_state().equals("903")){
 //            isClick = false;
@@ -213,6 +212,7 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
                                                 bean.setDanjia("");
 //                                            adapter.setZongjia("");
                                                 activity.setAdapterXuanzhong( mList.get(position).getSonorderlist().get(pos).getSon_order_id(),bean);
+                                                notifyDataSetChanged();
                                                 adapter.notifyDataSetChanged();
                                             }
                                         }).show(activity.getSupportFragmentManager());
@@ -306,7 +306,6 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
     }
     public void setClick(boolean b){
         isClick = b;
-        adapter.setClick(b);
     }
     //获取子采购单的系统推荐数据   2级---
     public void getshenpi(final CaiGouDanBean.FllistBean.SonorderlistBean listBean, final int pos, final boolean isgangkaishi) {

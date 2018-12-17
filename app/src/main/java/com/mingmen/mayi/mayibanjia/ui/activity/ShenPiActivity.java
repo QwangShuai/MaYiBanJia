@@ -129,7 +129,7 @@ public class ShenPiActivity extends BaseActivity {
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         adapter = new ShenPiLevelZeroAdapter(ShenPiActivity.this, caigoudan,mContext);
-        if(gson.fromJson(purchase_id, CaiGouDanBean.class).getOrder_audit_state().equals("903")){
+        if(gson.fromJson(purchase_id, CaiGouDanBean.class).getOrder_audit_state().equals("903")||gson.fromJson(purchase_id, CaiGouDanBean.class).getOrder_audit_state().equals("901")){
             isClick = false;
             adapter.setClick(isClick);
         }

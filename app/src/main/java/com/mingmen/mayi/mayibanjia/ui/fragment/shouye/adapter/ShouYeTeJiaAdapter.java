@@ -48,7 +48,9 @@ public class ShouYeTeJiaAdapter extends RecyclerView.Adapter<ShouYeTeJiaAdapter.
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final ShouYeTeJiaBean data = mList.get(position);
         holder.tvSpming.setText(data.getCommodity_name());
-        holder.tvDanjia.setText(data.getPrice()+"");
+        holder.tvDanjia.setText(data.getPice()+"");
+        holder.tvYuandanjia.setText("￥ "+ data.getPrice());
+        holder.tvYuandanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         Glide.with(mContext).load("" + data.getPicture_url()).transform(new GlideRoundTransform(mContext,10))
                 .into(holder.ivSptu);
 
@@ -74,7 +76,8 @@ public class ShouYeTeJiaAdapter extends RecyclerView.Adapter<ShouYeTeJiaAdapter.
         TextView tvSpming;
         @BindView(R.id.tv_danjia)
         TextView tvDanjia;
-
+        @BindView(R.id.tv_yuandanjia)
+        TextView tvYuandanjia;
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);

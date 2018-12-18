@@ -248,7 +248,15 @@ public class XiTongTuiJianBean {
         private String creat_time;
         private String end_time;
         private BigDecimal append_money;//附加费
+        private String classify_name;
 
+        public String getClassify_name() {
+            return classify_name;
+        }
+
+        public void setClassify_name(String classify_name) {
+            this.classify_name = classify_name;
+        }
         public BigDecimal getAppend_money() {
             return append_money;
         }

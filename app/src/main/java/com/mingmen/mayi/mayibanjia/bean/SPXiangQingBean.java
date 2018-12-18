@@ -200,6 +200,15 @@ public class SPXiangQingBean {
             private String city;
             private String market_name;
             private String spec_describe;
+            private String tjprice;
+
+            public String getTjprice() {
+                return tjprice;
+            }
+
+            public void setTjprice(String tjprice) {
+                this.tjprice = tjprice;
+            }
 
             public String getSpec_describe() {
                 return spec_describe;

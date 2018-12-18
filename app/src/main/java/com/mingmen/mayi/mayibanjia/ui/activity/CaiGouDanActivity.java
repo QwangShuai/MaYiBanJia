@@ -278,4 +278,10 @@ public class CaiGouDanActivity extends BaseActivity{
                 }
         return true;
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getlist("");
+    }
 }

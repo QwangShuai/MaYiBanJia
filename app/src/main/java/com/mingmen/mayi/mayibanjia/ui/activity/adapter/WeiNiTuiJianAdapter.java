@@ -45,7 +45,7 @@ public class WeiNiTuiJianAdapter extends RecyclerView.Adapter<WeiNiTuiJianAdapte
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        viewHolder = new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_spxiangqing_weinituijian, parent, false));
+        viewHolder = new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_spxiangqing_tj, parent, false));
         return viewHolder;
     }
 

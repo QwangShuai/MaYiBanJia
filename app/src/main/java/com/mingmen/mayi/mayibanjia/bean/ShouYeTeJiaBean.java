@@ -58,8 +58,17 @@ public class ShouYeTeJiaBean {
         private int pice_two;
         private int pice_three;
         private Object market_id;
+    private String pice;
     private String price;
     private String pack_standard;
+
+    public String getPice() {
+        return pice;
+    }
+
+    public void setPice(String pice) {
+        this.pice = pice;
+    }
 
     public String getPrice() {
         return price;

@@ -1,5 +1,6 @@
 package com.mingmen.mayi.mayibanjia.ui.activity.adapter;
 
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -92,11 +93,10 @@ public class ShenPiLevelTwoAdapter extends RecyclerView.Adapter<ShenPiLevelTwoAd
             holder.tvFujiafei.setText("附加费：￥" + ccListBeanLevel.getCcListBean().getAppend_money());
         else
             holder.tvFujiafei.setVisibility(View.GONE);
-        holder.tvSpming.setText(ccListBeanLevel.getCcListBean().getCommodity_name() + "");
+        holder.tvSpming.setText(ccListBeanLevel.getCcListBean().getClassify_name() + "");
         holder.tvDianming.setText(ccListBeanLevel.getCcListBean().getCompany_name() + "");
         holder.tvGuige.setText(ccListBeanLevel.getCcListBean().getPack_standard() + "");
         holder.tvDanjia.setText(ccListBeanLevel.getCcListBean().getPrice() + "");
-        holder.tvSpming.setText(ccListBeanLevel.getCcListBean().getCommodity_name()+"");
         if (ccListBeanLevel.getCcListBean().isxianshi())
             holder.biaoqian.setVisibility(View.VISIBLE);
         else
@@ -163,7 +163,6 @@ public class ShenPiLevelTwoAdapter extends RecyclerView.Adapter<ShenPiLevelTwoAd
         Button btShangjia;
         @BindView(R.id.rl_kuang)
         RelativeLayout rlKuang;
-
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);

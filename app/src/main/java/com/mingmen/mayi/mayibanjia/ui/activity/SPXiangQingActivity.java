@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -158,6 +159,10 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
 //    LinearLayout llQidingliang2;
     @BindView(R.id.xcf_pingjia)
     XCFlowLayout xcfPingjia;
+    @BindView(R.id.tv_tejia)
+    TextView tvTejia;
+    @BindView(R.id.ll_tejia)
+    LinearLayout llTejia;
 //    @BindView(R.id.ll_qidingliang3)
 //    LinearLayout llQidingliang3;
     private boolean isNeedScrollTo = true;
@@ -298,13 +303,19 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
         tuijianlist = spxinxi.getGoodsRecommend();
         initBanner();
         dianhua = spxinxi.getTelePhone();
-        tvDanjia.setText(xq.getPrice());
         tvKucun.setText("库存："+xq.getInventory());
         //tvShangpinming.setText(xq.getCommodity_name());
         tvShangpinming.setText(xq.getClassify_name());
         tvDianming.setText(xq.getCompanyName());
         Glide.with(mContext).load(xq.getCompanyPhoto()).into(ivDiantu);
         tvDizhi.setText(xq.getCompanyAddress());
+        if(xq.getGoods().equals("1")){
+            llTejia.setVisibility(View.VISIBLE);
+            tvTejia.setText("￥ " + xq.getTjprice());
+            tvTejia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        }
+        tvDanjia.setText(xq.getPrice());
+
         if(TextUtils.isEmpty(xq.getSpec_describe())){
             tvGuige.setVisibility(View.GONE);
         }else{

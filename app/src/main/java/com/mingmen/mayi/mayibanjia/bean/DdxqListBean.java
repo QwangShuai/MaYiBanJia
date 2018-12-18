@@ -638,7 +638,15 @@ public class DdxqListBean {
             private String total;
             private String ct_state;
             private String pjstate;
+            private double refund;
 
+            public double getRefund() {
+                return refund;
+            }
+
+            public void setRefund(double refund) {
+                this.refund = refund;
+            }
 
             public String getPjstate() {
                 return pjstate;

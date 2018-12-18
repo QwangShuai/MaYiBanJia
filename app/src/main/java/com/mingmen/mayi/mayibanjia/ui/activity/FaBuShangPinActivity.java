@@ -570,18 +570,14 @@ public class FaBuShangPinActivity extends BaseActivity {
                                         //res包含hash、key等信息，具体字段取决于上传策略的设置
                                         if (info.isOK()) {
 //                                            getImageAbsolutePath(CTDWanShanXinXiActivity.this,outputUri)
-                                            Log.e("qiniu", "Upload Success");
                                             try {
                                                 shangpintu = res.getString("key");
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
                                             }
-                                            Log.e("keykey", shangpintu);
                                         } else {
-                                            Log.e("qiniu", "Upload Fail");
                                             //如果失败，这里可以把info信息上报自己的服务器，便于后面分析上传错误原因
                                         }
-                                        Log.e("qiniu", key + ",\r\n " + info + ",\r\n " + res);
                                     }
                                 }, null);
                         ivSptu.setImageBitmap(bitmap);

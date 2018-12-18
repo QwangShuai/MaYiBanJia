@@ -459,4 +459,10 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
     public void setClick(boolean b){
         this.isClick = b;
     }
+
+    public void timeCancel(){
+        for (int i=0;i<mList.size();i++){
+            PreferenceUtils.remove(activity,mList.get(i).getSon_order_id());
+        }
+    }
 }

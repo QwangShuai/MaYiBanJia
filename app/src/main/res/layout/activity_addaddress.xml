@@ -122,6 +122,37 @@
         android:layout_marginLeft="12dp"/>
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingLeft="12dp">
+        <TextView
+            android:id="@+id/tv_suozaijiedao"
+            android:background="@null"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text=""
+            android:textColor="#474747"
+            android:textSize="15sp"
+            android:layout_marginLeft="12dp"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:textColorHint="#999999"
+            android:hint="所在街道"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/jinru"
+            android:layout_marginRight="12dp"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/cutoff"
+        android:layout_marginLeft="12dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="69dp"
         android:orientation="horizontal"
         android:gravity="center_vertical"

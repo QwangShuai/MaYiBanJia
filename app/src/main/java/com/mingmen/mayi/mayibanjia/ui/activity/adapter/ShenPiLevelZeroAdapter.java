@@ -391,4 +391,8 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
     public void delLength(){
         itemIsClick = new boolean[itemIsClick.length-1];
     }
+
+    public void stopTime(){
+        adapter.timeCancel();
+    }
 }

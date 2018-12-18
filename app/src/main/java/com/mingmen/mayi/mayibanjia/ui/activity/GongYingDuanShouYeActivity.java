@@ -3,6 +3,7 @@ package com.mingmen.mayi.mayibanjia.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -118,7 +119,7 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
             case R.id.ll_yonghupingjia:
                 break;
             case R.id.ll_shezhi://抢单结果
-                ToastUtil.showToast("你瞎瞅啥");
+//                ToastUtil.showToast("你瞎瞅啥");
                 break;
             case R.id.ll_tejiashangpin:
                 Intent tejia = new Intent(mContext, ShangPinGuanLiActivity.class);
@@ -311,9 +312,11 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String bean) {
-                        type = state;
-                        tvState.setText(type.equals("0")?"营业中":"休息中");
+                        Log.e("我的数据",bean);
+                        tvState.setText(bean.equals("0")?"营业中":"休息中");
+                        type = bean;
                     }
                 });
     }
+
 }

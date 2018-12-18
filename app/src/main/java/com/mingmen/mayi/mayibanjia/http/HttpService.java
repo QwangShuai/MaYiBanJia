@@ -487,7 +487,8 @@ public interface HttpService {
                                                         @Query("son_order_id") String son_order_id,//son_order_id
                                                         @Query("commodity_id") String commodity_id,//commodity_id
                                                         @Query("remarke") String remarke,//留言
-                                                        @Query("feelist") String list);//市场数组
+                                                        @Query("feelist") String list,//市场数组
+                                                        @Query("special_commodity") String special_commodity);//特殊要求
 
     //查询余额
     @POST("payHistory/getBalance.do")
@@ -777,7 +778,7 @@ public interface HttpService {
     Observable<ResultModel<String>> getZiZhi(@Query("user_token") String user_token);
 
     //添加银行卡
-    @POST("allCompany/zizhi.do")
+    @POST("qyBankCard/save.do")
     Observable<ResultModel<String>> addBankCard(@Query("user_token") String user_token,
                                                 @Query("bank_account") String bank_account,
                                                 @Query("account_person") String account_person,

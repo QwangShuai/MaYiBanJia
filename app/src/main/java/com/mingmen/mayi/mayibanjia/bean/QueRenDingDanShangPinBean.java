@@ -1349,7 +1349,7 @@ public class QueRenDingDanShangPinBean {
             private Object purchase_id;
             private Object append_money;
             private Object shopping_id;
-            private Object special_commodity;
+            private String special_commodity;
             private String commodity_name;
             private Object create_time;
             private Object pice;
@@ -1580,11 +1580,11 @@ public class QueRenDingDanShangPinBean {
                 this.shopping_id = shopping_id;
             }
 
-            public Object getSpecial_commodity() {
+            public String getSpecial_commodity() {
                 return special_commodity;
             }
 
-            public void setSpecial_commodity(Object special_commodity) {
+            public void setSpecial_commodity(String special_commodity) {
                 this.special_commodity = special_commodity;
             }
 

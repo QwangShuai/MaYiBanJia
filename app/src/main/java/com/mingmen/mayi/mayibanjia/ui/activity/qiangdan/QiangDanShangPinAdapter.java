@@ -27,7 +27,7 @@ public class QiangDanShangPinAdapter extends BaseQuickAdapter<ShangPinBean,BaseV
         }else{
             helper.setBackgroundColor(R.id.ll_kuang,mContext.getResources().getColor(R.color.white));
         }
-        helper.setText(R.id.tv_spming,item.getCommodity_name());
+        helper.setText(R.id.tv_spming,item.getClassify_name());
         helper.setText(R.id.tv_danjia,item.getPrice());
         helper.addOnClickListener(R.id.ll_kuang);
     }

@@ -40,7 +40,7 @@ public class ShouCangAdapter extends BaseQuickAdapter<ShouCangBean,BaseViewHolde
 
     @Override
     protected void convert(final BaseViewHolder helper, final ShouCangBean item) {
-        helper.setText(R.id.tv_spming,item.getCommodity_name());
+        helper.setText(R.id.tv_spming,item.getClassify_name());
         helper.setText(R.id.tv_guige,item.getPackStandard());
         helper.setText(R.id.tv_dianming,item.getCompany_name());
         helper.setText(R.id.tv_danjia,item.getPrice());
@@ -60,8 +60,8 @@ public class ShouCangAdapter extends BaseQuickAdapter<ShouCangBean,BaseViewHolde
         final JiaRuGouWuCheDialog jiarugouwuchedialog = new JiaRuGouWuCheDialog(mContext,
                 mContext.getResources().getIdentifier("BottomDialog", "style", mContext.getPackageName()));
         jiarugouwuchedialog.getWindow().setGravity(Gravity.BOTTOM | Gravity.LEFT | Gravity.RIGHT);
-        jiarugouwuchedialog.showDialog(item.getInventory(), item.getCommodity_name(), item.getSpec_describe(), item.getRation_one() + "", item.getPice_one() + ""
-                , item.getRation_two() + "", item.getPice_two() + "", item.getRation_three() + "", item.getPice_three() + "", item.getPicture_url());
+        jiarugouwuchedialog.showDialog(item.getInventory(), item.getClassify_name(), item.getSpec_describe(), item.getRation_one() + "", item.getPrice() + ""
+                , item.getPicture_url());
 
         String guigeid = "";
         if (item.getChoose_specifications() != 0) {

@@ -346,8 +346,8 @@ public class QuanBuCaiPinFragment extends BaseFragment {
 //                                                break;
 //                                        }
 
-                                        jiarugouwuchedialog.showDialog(data.getInventory(),data.getCommodity_name(), data.getPackStandard(), data.getRation_one() + "", data.getPice_one() + ""
-                                                , data.getRation_two() + "", data.getPice_two() + "", data.getRation_three() + "", data.getPice_three() + "", data.getHostPath());
+                                        jiarugouwuchedialog.showDialog(data.getInventory(),data.getClassify_name(), data.getPackStandard(), data.getRation_one() + "", data.getPrice() + ""
+                                                , data.getHostPath());
                                         final String finalSpguige = spguige;
                                         jiarugouwuchedialog.getBtQueding().setOnClickListener(new View.OnClickListener() {
                                             @Override
@@ -392,7 +392,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                         sousuoadapter.setOnItemClickListener(new ShangPinMohuAdapter.OnItemClickListener() {
                             @Override
                             public void onClick(View view, int position) {
-                                etSousuozi.setText(data.getZhengchang().get(position).getCommodity_name());
+                                etSousuozi.setText(data.getZhengchang().get(position).getClassify_name());
                                 sousuo = etSousuozi.getText().toString();
                                 sousuoshangpin(sousuo,"0");
                                 xianshi("shangpin");
@@ -1007,8 +1007,8 @@ public class QuanBuCaiPinFragment extends BaseFragment {
 //                                                spguige = data.getPack_standard_tree();
 //                                                break;
 //                                        }
-                                        jiarugouwuchedialog.showDialog(data.getInventory(),data.getCommodity_name(), data.getSpec_describe(), data.getRation_one() + "", data.getPice_one() + ""
-                                                , data.getRation_two() + "", data.getPice_two() + "", data.getRation_three() + "", data.getPice_three() + "", data.getPicture_url());
+                                        jiarugouwuchedialog.showDialog(data.getInventory(),data.getClassify_name(), data.getSpec_describe(), data.getRation_one() + "", data.getPrice() + ""
+                                                , data.getPicture_url());
                                         final String finalSpguige = spguige;
                                         jiarugouwuchedialog.getBtQueding().setOnClickListener(new View.OnClickListener() {
                                             @Override

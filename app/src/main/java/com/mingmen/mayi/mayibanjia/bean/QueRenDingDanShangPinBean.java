@@ -1376,7 +1376,6 @@ public class QueRenDingDanShangPinBean {
             private Object spec_name;
             private Object market_id;
             private Object market_name;
-            private Object classify_name;
             private int commodity_state;
             private Object specThreeNum;
             private Object companyName;
@@ -1443,6 +1442,7 @@ public class QueRenDingDanShangPinBean {
             private Object pack_standard_two;
             private Object hostPicture;
             private Object total_weight;
+            private String classify_name;
 
             public Object getType() {
                 return type;
@@ -1796,11 +1796,11 @@ public class QueRenDingDanShangPinBean {
                 this.market_name = market_name;
             }
 
-            public Object getClassify_name() {
+            public String getClassify_name() {
                 return classify_name;
             }
 
-            public void setClassify_name(Object classify_name) {
+            public void setClassify_name(String classify_name) {
                 this.classify_name = classify_name;
             }
 

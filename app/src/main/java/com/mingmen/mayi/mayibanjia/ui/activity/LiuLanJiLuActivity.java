@@ -142,8 +142,8 @@ public class LiuLanJiLuActivity extends BaseActivity {
                     case R.id.iv_addcar:
                         final LiuLanJiLuBean data = mlist.get(position);
                         String spguige = "";
-                        jiarugouwuchedialog.showDialog(data.getInventory(),data.getGoodsName(), data.getPackStandard(), data.getRation_one() + "", data.getPice_one() + ""
-                                , data.getRation_two() + "", data.getPice_two() + "", data.getRation_three() + "", data.getPice_three() + "", data.getGoodsPicture());
+                        jiarugouwuchedialog.showDialog(data.getInventory(),data.getClassify_name(), data.getPackStandard(), data.getRation_one() + "", data.getPrice() + ""
+                                , data.getGoodsPicture());
                         final String finalSpguige = spguige;
                         jiarugouwuchedialog.getBtQueding().setOnClickListener(new View.OnClickListener() {
                             @Override

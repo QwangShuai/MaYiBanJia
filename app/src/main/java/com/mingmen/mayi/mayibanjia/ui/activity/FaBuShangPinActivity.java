@@ -704,7 +704,7 @@ public class FaBuShangPinActivity extends BaseActivity {
         pipei = "1";
 //        bean = (ShangPinGuanLiBean.GoodsListBean) getIntent().getSerializableExtra("bean");
 //        Glide.with(FaBuShangPinActivity.this).load(bean.getPicture_url()).into(ivSptu);
-//        etSpming.setText(bean.getCommodity_name());
+//        etSpming.setText(bean.getClassify_name());
 //        tvFenleimingcheng.setText(bean.getClassify_name());
         HttpManager.getInstance()
                 .with(mContext)
@@ -721,7 +721,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                         }
                         etMiaoshu.setText(bean.getSpec_describe());
                         tvTishi.setText(bean.getSpec_describe().length()+"/50");
-                        etSpming.setText(bean.getCommodity_name());
+                        etSpming.setText(bean.getClassify_name());
                         tvFenleimingcheng.setText(bean.getClassify_name());
 //                        switch (bean.getChoose_specifications()) {
 //                            case 1:

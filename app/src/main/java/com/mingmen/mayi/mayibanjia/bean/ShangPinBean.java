@@ -148,6 +148,15 @@ public class ShangPinBean {
     private String son_number;
     private String city;
     private String market_name;
+    private String classify_name;
+
+    public String getClassify_name() {
+        return classify_name;
+    }
+
+    public void setClassify_name(String classify_name) {
+        this.classify_name = classify_name;
+    }
 
     public String getSon_number() {
         return son_number;

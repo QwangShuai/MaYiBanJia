@@ -45,7 +45,7 @@ public class GHShangPinAdapter extends RecyclerView.Adapter<GHShangPinAdapter.Vi
             holder.tv_teshushangpin.setVisibility(View.GONE);
             holder.tv_shangpinbeizhu.setVisibility(View.GONE);
         }
-        holder.tv_shangpinming.setText(bean.getCommodity_name());
+        holder.tv_shangpinming.setText(bean.getClassify_name());
         holder.tv_jiliang.setText(bean.getAcount_spec());
         holder.tv_jiage.setText("￥:"+String.valueOf(bean.getAll_price())+"元");
         holder.tv_danjia.setText(bean.getPrice()+"元/"+bean.getSpec_name());

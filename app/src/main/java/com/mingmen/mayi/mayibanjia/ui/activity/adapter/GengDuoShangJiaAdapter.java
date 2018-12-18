@@ -29,7 +29,7 @@ public class GengDuoShangJiaAdapter extends BaseQuickAdapter<XiTongTuiJianBean.C
 
     @Override
     protected void convert(final BaseViewHolder helper, final XiTongTuiJianBean.CcListBean item) {
-        helper.setText(R.id.tv_spming, item.getCommodity_name());
+        helper.setText(R.id.tv_spming, item.getClassify_name());
         helper.setText(R.id.tv_dianming, item.getCompany_name());
         helper.setText(R.id.tv_guige, item.getPack_standard());
         helper.setText(R.id.tv_danjia,item.getPrice());

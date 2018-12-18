@@ -59,7 +59,7 @@ public class DianPuZhanShiAdapter extends RecyclerView.Adapter<DianPuZhanShiAdap
         final DianPuZhanShiBean.CompanyListBean data = mList.get(position);
         Log.e("pic",data.getHostphoto());
         Glide.with(mContext).load(data.getHostphoto()).into(holder.ivSptu);
-        holder.tvSpming.setText(data.getCommodity_name());
+        holder.tvSpming.setText(data.getClassify_name());
         holder.tvJiage.setText(data.getPice_one());
 //        holder.tvDianpuming.setText(data.getCompany_name());
         holder.tvGuige.setText("");

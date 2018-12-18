@@ -53,7 +53,7 @@ public class LiShiGouMaiAdapter extends RecyclerView.Adapter<LiShiGouMaiAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         XiTongTuiJianBean.CcListBean data = mList.get(position);
-        holder.tvSpming.setText(data.getCommodity_name());
+        holder.tvSpming.setText(data.getClassify_name());
         holder.tvGuige.setText(data.getPack_standard());
 //        holder.tvRenminbi.setText(data.getPrice());
         holder.tvJiage.setText(data.getPrice());

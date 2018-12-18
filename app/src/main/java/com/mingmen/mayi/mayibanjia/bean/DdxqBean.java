@@ -1477,7 +1477,7 @@ public class DdxqBean {
                 private Object deputyphoto;
                 private Object market_name;
                 private Object pack_standard_tree_name;
-                private Object classify_name;
+                private String classify_name;
                 private Object delivery_time;
                 private Object recommended_categories;
                 private Object whether_ration;
@@ -2030,11 +2030,11 @@ public class DdxqBean {
                     this.pack_standard_tree_name = pack_standard_tree_name;
                 }
 
-                public Object getClassify_name() {
+                public String getClassify_name() {
                     return classify_name;
                 }
 
-                public void setClassify_name(Object classify_name) {
+                public void setClassify_name(String classify_name) {
                     this.classify_name = classify_name;
                 }
 

@@ -216,7 +216,6 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
     };
 
     private void initData() {
-        Log.e("sss", "sss");
         Rect rectangle = new Rect();
         getWindow().getDecorView().getWindowVisibleDisplayFrame(rectangle);
         ideaScrollView.setViewPager(viewPager, getMeasureHeight(headerParent) - rectangle.top);
@@ -304,7 +303,7 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
         initBanner();
         dianhua = spxinxi.getTelePhone();
         tvKucun.setText("库存："+xq.getInventory());
-        //tvShangpinming.setText(xq.getCommodity_name());
+        //tvShangpinming.setText(xq.getClassify_name());
         tvShangpinming.setText(xq.getClassify_name());
         tvDianming.setText(xq.getCompanyName());
         Glide.with(mContext).load(xq.getCompanyPhoto()).into(ivDiantu);
@@ -636,8 +635,8 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
             case R.id.bt_addcar:
                 //添加购物车
 
-                    jiarugouwuchedialog.showDialog(xq.getInventory(), xq.getCommodity_name(), xq.getPackStandard(), xq.getRation_one() + "", xq.getPice_one() + ""
-                            , xq.getRation_two() + "", xq.getPice_two() + "", xq.getRation_three() + "", xq.getPice_three() + "", xq.getHostPicture());
+                    jiarugouwuchedialog.showDialog(xq.getInventory(), xq.getClassify_name(), xq.getPackStandard(), xq.getRation_one() + "", xq.getPrice() + ""
+                            ,  xq.getHostPicture());
 
                 jiarugouwuchedialog.getBtQueding().setOnClickListener(new View.OnClickListener() {
                     @Override

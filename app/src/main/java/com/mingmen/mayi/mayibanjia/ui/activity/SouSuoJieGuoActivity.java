@@ -750,8 +750,8 @@ public class SouSuoJieGuoActivity extends BaseActivity {
                                                 spguige = data.getPack_standard_tree();
                                                 break;
                                         }
-                                        jiarugouwuchedialog.showDialog(data.getInventory(),data.getCommodity_name(), spguige, data.getRation_one() + "", data.getPice_one() + ""
-                                                , data.getRation_two() + "", data.getPice_two() + "", data.getRation_three() + "", data.getPice_three() + "", "");
+                                        jiarugouwuchedialog.showDialog(data.getInventory(),data.getClassify_name(), spguige, data.getRation_one() + "", data.getPrice() + ""
+                                                , "");
                                         jiarugouwuchedialog.getBtQueding().setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View v) {

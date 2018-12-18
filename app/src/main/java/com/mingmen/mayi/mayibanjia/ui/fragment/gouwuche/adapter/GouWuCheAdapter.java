@@ -218,8 +218,8 @@ public class GouWuCheAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         jiarugouwuchedialog = new JiaRuGouWuCheDialog(mContext,
                                 mContext.getResources().getIdentifier("BottomDialog", "style", mContext.getPackageName()));
                         jiarugouwuchedialog.getWindow().setGravity(Gravity.BOTTOM | Gravity.LEFT | Gravity.RIGHT);
-                        jiarugouwuchedialog.showDialog(data.getInventory(),data.getClassify_name(), data.getSpec_describe(),data.getRation_one()+"",data.getPice_one()+""
-                                ,data.getRation_two()+"",data.getPice_two()+"",data.getRation_three()+"",data.getPice_three()+"",data.getPicture_url()+"");
+                        jiarugouwuchedialog.showDialog(data.getInventory(),data.getClassify_name(), data.getSpec_describe(),data.getRation_one()+"",data.getPrice()+""
+                                ,data.getPicture_url()+"");
                         final String finalGuigeid = guigeid;
                         jiarugouwuchedialog.getBtQueding().setOnClickListener(new View.OnClickListener() {
                             @Override

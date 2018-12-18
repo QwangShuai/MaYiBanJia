@@ -476,13 +476,13 @@ public class SouSuoActivity extends BaseActivity {
                         shangpinadapter.setOnItemClickListener(new ShangPinMohuAdapter.OnItemClickListener() {
                             @Override
                             public void onClick(View view, int position) {
-                                etSousuo.setText(shangPinBean.getZhengchang().get(position).getCommodity_name());
-                                sousuo(shangPinBean.getZhengchang().get(position).getCommodity_name(),false);
-                                if (recordsDao.shangpinIsHas(shangPinBean.getZhengchang().get(position).getCommodity_name())) {
-                                    recordsDao.deleteOneShangpin(shangPinBean.getZhengchang().get(position).getCommodity_name());
+                                etSousuo.setText(shangPinBean.getZhengchang().get(position).getClassify_name());
+                                sousuo(shangPinBean.getZhengchang().get(position).getClassify_name(),false);
+                                if (recordsDao.shangpinIsHas(shangPinBean.getZhengchang().get(position).getClassify_name())) {
+                                    recordsDao.deleteOneShangpin(shangPinBean.getZhengchang().get(position).getClassify_name());
                                 }
-                                PreferenceUtils.putString(MyApplication.mContext, "keyword", shangPinBean.getZhengchang().get(position).getCommodity_name());
-                                recordsDao.addShangpin(shangPinBean.getZhengchang().get(position).getCommodity_name());
+                                PreferenceUtils.putString(MyApplication.mContext, "keyword", shangPinBean.getZhengchang().get(position).getClassify_name());
+                                recordsDao.addShangpin(shangPinBean.getZhengchang().get(position).getClassify_name());
                             }
                         });
 
@@ -880,8 +880,8 @@ public class SouSuoActivity extends BaseActivity {
 //                                                spguige = data.getPack_standard_tree();
 //                                                break;
 //                                        }
-                                        jiarugouwuchedialog.showDialog(data.getInventory(),data.getCommodity_name(), spguige, data.getRation_one() + "", data.getPice_one() + ""
-                                                , data.getRation_two() + "", data.getPice_two() + "", data.getRation_three() + "", data.getPice_three() + "", "");
+                                        jiarugouwuchedialog.showDialog(data.getInventory(),data.getClassify_name(), spguige, data.getRation_one() + "", data.getPrice() + ""
+                                                , "");
                                         jiarugouwuchedialog.getBtQueding().setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View v) {

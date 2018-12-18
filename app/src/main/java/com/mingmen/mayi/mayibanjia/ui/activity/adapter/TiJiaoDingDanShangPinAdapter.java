@@ -70,7 +70,7 @@ public class TiJiaoDingDanShangPinAdapter extends RecyclerView.Adapter<TiJiaoDin
             holder.tvFujiafei.setText("(附加费："+shoppingBean.getAppend_money()+"元)");
             holder.tvFujiafei.setVisibility(View.VISIBLE);
         }
-        holder.tvName.setText(shoppingBean.getCommodity_name());
+        holder.tvName.setText(shoppingBean.getClassify_name());
         holder.tvGuige.setText(shoppingBean.getPack_standard());
         holder.tvDanjia.setText(shoppingBean.getPrice() + "");
         holder.tvShuliang.setText(shoppingBean.getCount() + "");

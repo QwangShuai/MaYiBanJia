@@ -781,6 +781,15 @@ public class SPXiangQingBean {
             private String commodity_id;
             private int pice;
             private String price;
+            private String classify_name;
+
+            public String getClassify_name() {
+                return classify_name;
+            }
+
+            public void setClassify_name(String classify_name) {
+                this.classify_name = classify_name;
+            }
 
             public String getPrice() {
                 return price;

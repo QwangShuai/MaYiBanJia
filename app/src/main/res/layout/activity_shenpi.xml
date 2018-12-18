@@ -142,6 +142,16 @@
                     />
             </LinearLayout>
             <TextView
+                android:layout_toLeftOf="@+id/tv_tijiao"
+                android:id="@+id/tv_shibai"
+                android:layout_width="110dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_bt_left_hollow"
+                android:text="审批失败"
+                android:textColor="@color/zangqing"
+                android:textSize="15sp"
+                android:gravity="center"/>
+            <TextView
                 android:id="@+id/tv_tijiao"
                 android:layout_width="110dp"
                 android:layout_height="match_parent"

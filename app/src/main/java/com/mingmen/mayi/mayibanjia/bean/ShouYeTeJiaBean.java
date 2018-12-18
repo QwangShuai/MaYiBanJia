@@ -58,9 +58,18 @@ public class ShouYeTeJiaBean {
         private int pice_two;
         private int pice_three;
         private Object market_id;
+        private String classify_name;
     private String pice;
     private String price;
     private String pack_standard;
+
+    public String getClassify_name() {
+        return classify_name;
+    }
+
+    public void setClassify_name(String classify_name) {
+        this.classify_name = classify_name;
+    }
 
     public String getPice() {
         return pice;

@@ -47,7 +47,7 @@ public class ShouYeTeJiaAdapter extends RecyclerView.Adapter<ShouYeTeJiaAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final ShouYeTeJiaBean data = mList.get(position);
-        holder.tvSpming.setText(data.getCommodity_name());
+        holder.tvSpming.setText(data.getClassify_name());
         holder.tvDanjia.setText(data.getPice()+"");
         holder.tvYuandanjia.setText("￥ "+ data.getPrice());
         holder.tvYuandanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);

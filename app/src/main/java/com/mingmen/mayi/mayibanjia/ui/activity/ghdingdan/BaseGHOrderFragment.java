@@ -81,6 +81,7 @@ public abstract class BaseGHOrderFragment extends BaseFragment {
     @Override
     public void onStart() {
         super.onStart();
+        initview();
         getData();
     }
 
@@ -93,7 +94,6 @@ public abstract class BaseGHOrderFragment extends BaseFragment {
         } else {
             token = PreferenceUtils.getString(MyApplication.mContext, "token", "");
         }
-        Log.e("110", getZhuangTai());
         HttpManager.getInstance()
                 .with(getActivity())
                 .setObservable(
@@ -103,8 +103,6 @@ public abstract class BaseGHOrderFragment extends BaseFragment {
                 .setDataListener(new HttpDataListener<List<GHOrderBean>>() {
                     @Override
                     public void onNext(List<GHOrderBean> data) {
-                        Log.e("data1", data + "---");
-                        mlist = new ArrayList<GHOrderBean>();
                         if (data.size() == 5) {
                             rvDingdan.loadMoreFinish(false, true);
                         } else if (data.size() > 0) {
@@ -113,7 +111,7 @@ public abstract class BaseGHOrderFragment extends BaseFragment {
                             rvDingdan.loadMoreFinish(true, false);
                         }
                         mlist.addAll(data);
-                        initview();
+                        adapter.notifyDataSetChanged();
                         ye++;
                     }
                 });
@@ -163,7 +161,6 @@ public abstract class BaseGHOrderFragment extends BaseFragment {
     //数据
     public void shuaxinData() {
         ye = 1;
-        Log.e("110", getZhuangTai());
         HttpManager.getInstance()
                 .with(getActivity())
                 .setObservable(

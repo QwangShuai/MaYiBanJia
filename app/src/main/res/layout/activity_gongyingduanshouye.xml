@@ -445,18 +445,19 @@
                                 android:layout_marginTop="12dp"
                                 android:layout_width="41dp"
                                 android:layout_height="wrap_content">
+
                                 <TextView
-                                    android:layout_alignParentRight="true"
                                     android:id="@+id/tv_dingdan"
                                     android:layout_width="15dp"
                                     android:layout_height="15dp"
+                                    android:layout_alignParentRight="true"
                                     android:layout_marginLeft="13dp"
                                     android:background="@drawable/fillet_hollow_ff3300_10"
                                     android:gravity="center"
                                     android:text="1"
                                     android:textColor="@color/mayihong"
                                     android:textSize="10sp"
-                                    android:visibility="visible" />
+                                    android:visibility="gone" />
                             </RelativeLayout>
                             <View
                                 android:layout_width="1dp"

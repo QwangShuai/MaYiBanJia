@@ -348,6 +348,15 @@ public class GHOrderBean {
         private String gy_order_detal_id;
         private String acount_spec;
         private Object order_details_id;
+        private String classify_name;
+
+        public String getClassify_name() {
+            return classify_name;
+        }
+
+        public void setClassify_name(String classify_name) {
+            this.classify_name = classify_name;
+        }
 
         public String getRemarke() {
             return remarke;

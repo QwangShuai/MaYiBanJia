@@ -46,8 +46,8 @@ public class ShangPinMohuAdapter extends  RecyclerView.Adapter<ShangPinMohuAdapt
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         ShangPinSouSuoBean.ZhengchangBean shangPinBean = mList.get(position);
-        Log.e("Log" ,shangPinBean.getCommodity_name());
-        holder.tv_ming.setText(shangPinBean.getCommodity_name());
+        Log.e("Log" ,shangPinBean.getClassify_name());
+        holder.tv_ming.setText(shangPinBean.getClassify_name());
 
         if (mOnItemClickListener!=null){
             holder.tv_ming.setOnClickListener(new View.OnClickListener() {

@@ -55,7 +55,7 @@ public class GWCWeiNiTuiJianAdapter extends RecyclerView.Adapter<GWCWeiNiTuiJian
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final TuiJianBean data = mList.get(position);
-        //holder.tvSpming.setText(data.getCommodity_name());
+        //holder.tvSpming.setText(data.getClassify_name());
         holder.tvSpming.setText(data.getClassify_name());//商品名称改为三级分类
         holder.tvDanjia.setText(data.getPrice()+"");
         //holder.tvGuige.setText(data.getPack_standard()+"");

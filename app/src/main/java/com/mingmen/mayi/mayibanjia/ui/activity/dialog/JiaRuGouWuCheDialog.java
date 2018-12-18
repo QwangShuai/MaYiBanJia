@@ -112,7 +112,7 @@ public class JiaRuGouWuCheDialog extends Dialog {
     /**
      * 显示确认信息弹窗
      */
-    public void showDialog(String kucun,String spming,String spguige,String qidingliang1,String qidingliangjiage1,String qidingliang2,String qidingliangjiage2,String qidingliang3,String qidingliangjiage3,String sptu) {
+    public void showDialog(String kucun,String spming,String spguige,String qidingliang1,String qidingliangjiage1,String sptu) {
         qidingliang1XZ= Integer.parseInt(qidingliang1); ;//做验证的时候需要此变量的值
         tvSpming.setText(spming);
         tvSpguige.setText(spguige);

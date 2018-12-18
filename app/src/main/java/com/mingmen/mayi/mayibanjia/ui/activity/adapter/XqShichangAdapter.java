@@ -145,7 +145,7 @@ public class XqShichangAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity
                 case TYPE_LEVEL_2:
                     final DdxqBean.MarketBean.DplistBean.ListspBean item2 = (DdxqBean.MarketBean.DplistBean.ListspBean) item;
                     Glide.with(mContext).load(item2.getHostPicture()).into((ImageView) helper.getView(R.id.iv_sptu));
-                    helper.setText(R.id.tv_spming, item2.getCommodity_name());
+                    helper.setText(R.id.tv_spming, item2.getClassify_name());
                     helper.setText(R.id.tv_guige, item2.getPackStandard());
                     helper.setText(R.id.tv_jiage, item2.getPrice());
                     if(TextUtils.isEmpty(item2.getAppend_money()+"")||item2.getAppend_money()==null){

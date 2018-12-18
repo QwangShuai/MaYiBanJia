@@ -90,7 +90,7 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {//购物车页面初始数据加载
         final GWCShangPinBean.ShoppingBean shoppingBean = mList.get(position);
-        //holder.tvName.setText(shoppingBean.getCommodity_name());
+        //holder.tvName.setText(shoppingBean.getClassify_name());
         holder.tvName.setText(shoppingBean.getClassify_name());//商品名称改为三级分类名称
         //holder.tvGuige.setText(shoppingBean.getPack_standard());
         holder.tvPrice.setText(shoppingBean.getPrice()+"");

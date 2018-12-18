@@ -52,7 +52,7 @@ public class WeiNiTuiJianAdapter extends RecyclerView.Adapter<WeiNiTuiJianAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final SPXiangQingBean.GoodsRecommendBean data = mList.get(position);
-        holder.tvSpming.setText(data.getCommodity_name());
+        holder.tvSpming.setText(data.getClassify_name());
         holder.tvDanjia.setText(data.getPrice());
         Glide.with(mContext).load(data.getPicture_url()).into(holder.ivSptu);
         holder.itemView.setOnClickListener(new View.OnClickListener() {

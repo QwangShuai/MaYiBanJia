@@ -33,6 +33,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.dialog.CaiGouDanTianJiaDailog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.CaiGouDanXiuGaiDailog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.LiShiJiLuDialog;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ShenPiShiBaiDailog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
@@ -99,6 +100,8 @@ public class ShenPiActivity extends BaseActivity {
     TextView tvPingfenzuigao;
     @BindView(R.id.tv_jiagezuidi)
     TextView tvJiagezuidi;
+    @BindView(R.id.tv_shibai)
+    TextView tvShibai;
     private Context mContext;
     private List<CaiGouDanBean.FllistBean> caigoudan = new ArrayList<>();
     private ConfirmDialog confirmDialog;
@@ -251,7 +254,7 @@ public class ShenPiActivity extends BaseActivity {
 
 
     @OnClick({R.id.iv_back, R.id.tv_tijiao, R.id.tv_right, R.id.ll_select, R.id.ll_quanxuan, R.id.tv_biaoqian,
-            R.id.tv_pingfenzuigao, R.id.tv_jiagezuidi})
+            R.id.tv_pingfenzuigao, R.id.tv_jiagezuidi,R.id.tv_shibai})
     public void onViewClicked(View view) {
         CaiGouDanBean.FllistBean listBean = caigoudan.get(0);
         if (view.getId()==R.id.iv_back){
@@ -351,6 +354,15 @@ public class ShenPiActivity extends BaseActivity {
                     setShowColor();
                     setquanxuan(myBean.getPurchase_id(), CaiGouDanBean.TYPE_ONE + "");
                     tvJiagezuidi.setTextColor(getResources().getColor(R.color.zangqing));
+                    break;
+                case R.id.tv_shibai:
+                    new ShenPiShiBaiDailog()
+                            .setCallBack(new ShenPiShiBaiDailog.CallBack() {
+                                @Override
+                                public void confirm(String msg) {
+                                    setShenPiShiBai(msg,myBean.getPurchase_id());
+                                }
+                            }).show(getSupportFragmentManager());
                     break;
             }
         } else {
@@ -540,5 +552,20 @@ public class ShenPiActivity extends BaseActivity {
 
     public void setItemMarket_id(int pos,String id){
         caigoudan.get(pos).setMarket_id(id);
+    }
+    private void setShenPiShiBai(String yuanyin,String purchase_id) {
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .shenpishibai(PreferenceUtils.getString(MyApplication.mContext, "token",""),yuanyin,purchase_id))
+                .setDataListener(new HttpDataListener<String>() {
+                    @Override
+                    public void onNext(String data) {
+                        ToastUtil.showToast("成功");
+                        finish();
+                    }
+                });
     }
 }

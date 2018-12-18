@@ -44,7 +44,7 @@ public class ShangPinGuanLiAdapter extends BaseQuickAdapter<ShangPinGuanLiBean.G
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         Glide.with(mContext).load(item.getPicture_url()).into((ImageView) helper.getView(R.id.iv_sptu));
-        helper.setText(R.id.tv_spming,item.getCommodity_name());
+        helper.setText(R.id.tv_spming,item.getClassify_name());
         helper.setText(R.id.tv_xiaoliang,"已售"+item.getSumGoodsSales());
         helper.setText(R.id.tv_kucun,"库存"+item.getInventory());
         helper.setText(R.id.tv_danjia,"¥ "+item.getPrice());

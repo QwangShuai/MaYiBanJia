@@ -72,11 +72,16 @@ public class GHOrderAdapter extends RecyclerView.Adapter<GHOrderAdapter.ViewHold
         if(StringUtil.isValid(bean.getRefund())&&!bean.getRefund().equals("0")){
             holder.rlTuikuan.setVisibility(View.VISIBLE);
             holder.tvTuikuanjine.setText(bean.getRefund());
+        } else {
+            holder.rlTuikuan.setVisibility(View.GONE);
         }
         if(StringUtil.isValid(bean.getAppend_money())&&!bean.getAppend_money().equals("0")){
             holder.rlFuJiaMoney.setVisibility(View.VISIBLE);
             holder.tvFuJiaFeiMoney.setText(bean.getAppend_money());
+        } else {
+            holder.rlFuJiaMoney.setVisibility(View.GONE);
         }
+
         if (bean.getState_name().equals("待发货")) {
             holder.tv_state.setText("待发货");
             holder.rl_wancheng.setVisibility(View.GONE);

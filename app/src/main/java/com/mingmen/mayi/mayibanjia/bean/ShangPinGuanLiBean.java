@@ -140,8 +140,7 @@ public class ShangPinGuanLiBean {
             private String specTwoNum;
             private String specThreeNum;
             private String price;
-            private int choose_specifications;
-            private int pice_one;
+            private double pice_one;
             private String company_id;
             private String son_order_id;
             private String shopping_id;
@@ -367,19 +366,12 @@ public class ShangPinGuanLiBean {
                 this.price = price;
             }
 
-            public int getChoose_specifications() {
-                return choose_specifications;
-            }
 
-            public void setChoose_specifications(int choose_specifications) {
-                this.choose_specifications = choose_specifications;
-            }
-
-            public int getPice_one() {
+            public double getPice_one() {
                 return pice_one;
             }
 
-            public void setPice_one(int pice_one) {
+            public void setPice_one(double pice_one) {
                 this.pice_one = pice_one;
             }
 

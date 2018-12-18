@@ -106,6 +106,7 @@ public class QueRenDingDanActivity extends BaseActivity {
     private Double hejijine = 0.00;
     private String shopping_id = "";
     private String remarke = "";
+    private String tsyq = "";
     private String yue = "";
     private String[] selectedId;
     private String company_id = "";
@@ -186,7 +187,6 @@ public class QueRenDingDanActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
-                        Log.e("tijiaodingdan", gson.toJson(data) + "---");
                         Intent intent = new Intent(mContext, XuanZeZhiFuFangShiActivity.class);
                         intent.putExtra("dingdanid", data);
                         intent.putExtra("dingdanleixing", "2");
@@ -214,7 +214,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .caigoutijiaodingdan(PreferenceUtils.getString(MyApplication.mContext, "token", ""), hejijine+"", "", yunfei+"", yue, dizhi.getAddress_id(), songdashijianid, son_order_id, commodity_id, remarke,new Gson().toJson(shichangList)))
+                                .caigoutijiaodingdan(PreferenceUtils.getString(MyApplication.mContext, "token", ""), hejijine+"", "", yunfei+"", yue, dizhi.getAddress_id(), songdashijianid, son_order_id, commodity_id, remarke,new Gson().toJson(shichangList),tsyq))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {

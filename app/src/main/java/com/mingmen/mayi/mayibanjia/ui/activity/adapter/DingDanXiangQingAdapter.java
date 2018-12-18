@@ -23,6 +23,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.DingDanXiangQingActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dingdan.DingDanActivity;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
 import java.util.List;
@@ -88,7 +89,12 @@ public class DingDanXiangQingAdapter extends RecyclerView.Adapter<DingDanXiangQi
         holder.rvShangpinliebiao.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         holder.rvShangpinliebiao.setAdapter(shangpinadapter);
         holder.rvShangpinliebiao.setFocusable(false);
-        holder.tvShijian.setText("创建时间："+dingdan.getCreate_time());
+        if(StringUtil.isValid(dingdan.getCreate_time())){
+            holder.tvShijian.setText("创建时间："+dingdan.getCreate_time());
+        } else {
+            holder.tvShijian.setVisibility(View.GONE);
+        }
+
         if (mOnItemClickListener != null) {
             holder.btFukuan.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -484,8 +484,6 @@ public class XinXiLuRuActivity extends BaseActivity {
     private void jiedialog() {
         if(zonglist.size()!=0){
             final SinglePicker<ProvinceBean> picker =new SinglePicker<ProvinceBean>(XinXiLuRuActivity.this,zonglist);
-            Log.e("121212",String.valueOf(jielist));
-
             picker.setCanceledOnTouchOutside(false);
             picker.setSelectedIndex(1);
             picker.setCycleDisable(false);

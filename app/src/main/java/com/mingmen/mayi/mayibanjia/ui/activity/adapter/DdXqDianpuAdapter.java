@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mingmen.mayi.mayibanjia.R;
@@ -20,6 +21,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.DingDanXiangQingActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.FaBiaoPingJiaActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 
 import java.util.List;
 
@@ -72,6 +74,10 @@ public class DdXqDianpuAdapter extends RecyclerView.Adapter<DdXqDianpuAdapter.Vi
                 CallPhone(dplistBean.getTelephone());
             }
         });
+        if(StringUtil.isValid(dplistBean.getRefund()+"")&&dplistBean.getRefund()!=0){
+            holder.rlTuikuan.setVisibility(View.VISIBLE);
+            holder.tvTuikuan.setText("退款："+dplistBean.getRefund()+"元");
+        }
         if (dplistBean.getCt_state().equals("406")){
             if(dplistBean.getState().equals("404")){
                 holder.llTongji.setVisibility(View.VISIBLE);
@@ -142,6 +148,10 @@ public class DdXqDianpuAdapter extends RecyclerView.Adapter<DdXqDianpuAdapter.Vi
         LinearLayout llTongji;
         @BindView(R.id.btn_pingjia)
         Button btnPingjia;
+        @BindView(R.id.rl_tuikuan)
+        RelativeLayout rlTuikuan;
+        @BindView(R.id.tv_tuikuan)
+        TextView tvTuikuan;
 
         ViewHolder(View view) {
             super(view);

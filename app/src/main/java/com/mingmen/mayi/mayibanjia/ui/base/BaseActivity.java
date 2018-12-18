@@ -11,14 +11,21 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.R;
+import com.mingmen.mayi.mayibanjia.ui.view.XCFlowLayout;
 import com.mingmen.mayi.mayibanjia.utils.AppManager;
+import com.mingmen.mayi.mayibanjia.utils.AppUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import qiu.niorgai.StatusBarCompat;
@@ -95,6 +102,25 @@ public abstract class BaseActivity extends AppCompatActivity {
             intent.putExtras(bundle);
         }
         startActivity(intent);
+    }
+    public void initShangpinChildViews(Context mContext,XCFlowLayout xcfShangpinlishisousuo, String[] mList) {
+        xcfShangpinlishisousuo.removeAllViews();
+        List<TextView> tvs = new ArrayList();
+        ViewGroup.MarginLayoutParams lp = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp.leftMargin = AppUtil.dip2px(12);
+        lp.rightMargin = AppUtil.dip2px(0);
+        lp.topMargin = AppUtil.dip2px(12);
+        lp.bottomMargin = 0;
+        for (int i = 0; i < mList.length; i++) {
+            TextView view = new TextView(mContext);
+            view.setText(mList[i]);
+            view.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+            view.setTextSize(12);
+            view.setPadding(AppUtil.dip2px(12), AppUtil.dip2px(6), AppUtil.dip2px(12), AppUtil.dip2px(6));
+            view.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_zangqing_3));
+            tvs.add(view);
+            xcfShangpinlishisousuo.addView(view, lp);
+        }
     }
 }
 

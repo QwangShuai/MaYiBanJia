@@ -189,7 +189,10 @@ public class FCGCaiGouXuQiuActivity extends BaseActivity {
                         if (guigeadapter != null) {
                             guigeadapter.setData(guigedatas);
                         }
-
+                        if(guigedatas!=null&&guigedatas.size()!=0){
+                            tvGuige.setText(guigedatas.get(0).getSpec_name());
+                            pack_standard_id = guigedatas.get(0).getSpec_id();
+                        }
                     }
                 }, false);
     }
@@ -572,7 +575,8 @@ public class FCGCaiGouXuQiuActivity extends BaseActivity {
         datas = new ArrayList<>();
         mohuAdapter.setData(datas);
         guigedatas = new ArrayList<>();
-        guigeadapter.setData(guigedatas);
+        if(guigeadapter!=null)
+            guigeadapter.setData(guigedatas);
         etShangpinMing.setFocusable(true);
         etShangpinMing.setFocusableInTouchMode(true);
         etShangpinMing.requestFocus();

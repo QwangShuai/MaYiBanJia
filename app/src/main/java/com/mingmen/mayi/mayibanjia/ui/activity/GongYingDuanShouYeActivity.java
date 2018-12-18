@@ -3,23 +3,28 @@ package com.mingmen.mayi.mayibanjia.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.mingmen.mayi.mayibanjia.MainActivity;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.WoDeBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.ghdingdan.GHDOrderActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.qiangdan.GongYingDuanQiangDanActivity;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.PollingService;
 import com.mingmen.mayi.mayibanjia.utils.PollingUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,12 +35,6 @@ import butterknife.OnClick;
  */
 
 public class GongYingDuanShouYeActivity extends BaseActivity {
-    @BindView(R.id.tv_title)
-    TextView tvTitle;
-    @BindView(R.id.iv_back)
-    ImageView ivBack;
-    @BindView(R.id.tv_right)
-    TextView tvRight;
     @BindView(R.id.tv_yue)
     TextView tvYue;
     @BindView(R.id.ll_qiangdan)
@@ -46,14 +45,10 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
     LinearLayout llShangpinguanli;
     @BindView(R.id.ll_yonghupingjia)
     LinearLayout llYonghupingjia;
-    @BindView(R.id.ll_caiwuduizhang)
-    LinearLayout llCaiwuduizhang;
     @BindView(R.id.ll_shezhi)
     LinearLayout llShezhi;
     @BindView(R.id.ll_tejiashangpin)
     LinearLayout llTejiashangpin;
-    @BindView(R.id.tv_tianjiashangpin)
-    TextView tvTianjiashangpin;
     @BindView(R.id.tv_dingdan)
     TextView tvDingdan;
     @BindView(R.id.tv_spll)
@@ -68,8 +63,18 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
     TextView tvDfh;
     @BindView(R.id.tv_ywc)
     TextView tvYwc;
+    @BindView(R.id.iv_touxiang)
+    ImageView ivTouxiang;
+    @BindView(R.id.tv_dianming)
+    TextView tvDianming;
+    @BindView(R.id.tv_state)
+    TextView tvState;
+    @BindView(R.id.ll_qiehuan)
+    LinearLayout llQiehuan;
     private Context mContext;
     private WoDeBean woDeBean;
+    private ConfirmDialog confirmDialog;
+    private String type = "0";
     public static GongYingDuanShouYeActivity instance = null;
 
     @Override
@@ -80,19 +85,20 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
     @Override
     protected void initData() {
         mContext = GongYingDuanShouYeActivity.this;
-        ivBack.setVisibility(View.GONE);
-        tvTitle.setText("店铺运营");
         if (!PollingUtils.isOpen) {
             PollingUtils.startPollingService(mContext, 1, PollingService.class, PollingService.ACTION);
         }
         instance = this;
+        confirmDialog = new ConfirmDialog(mContext,
+                mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         getwode();
 //        getData();
     }
 
 
-    @OnClick({R.id.ll_qiangdan, R.id.ll_dingdan, R.id.ll_shangpinguanli, R.id.ll_yonghupingjia, R.id.ll_caiwuduizhang, R.id.ll_shezhi, R.id.ll_tejiashangpin,
-            R.id.tv_tianjiashangpin, R.id.ll_yue,R.id.ll_daifahuo, R.id.ll_yishouhuo, R.id.ll_yiwancheng})
+    @OnClick({R.id.ll_qiangdan, R.id.ll_dingdan, R.id.ll_shangpinguanli, R.id.ll_yonghupingjia, R.id.ll_shezhi, R.id.ll_tejiashangpin,
+            R.id.ll_yue, R.id.ll_daifahuo, R.id.ll_yishouhuo, R.id.ll_yiwancheng,R.id.ll_qiehuan,R.id.iv_touxiang,R.id.tv_dianming,
+    R.id.ll_state_qiehuan})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_qiangdan:
@@ -102,7 +108,7 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
                 break;
             case R.id.ll_dingdan://订单入口
                 Intent gonghuodingdan = new Intent(mContext, GHDOrderActivity.class);
-                gonghuodingdan.putExtra("ye",0);
+                gonghuodingdan.putExtra("ye", 0);
                 startActivity(gonghuodingdan);
                 break;
             case R.id.ll_shangpinguanli:
@@ -112,40 +118,60 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
                 break;
             case R.id.ll_yonghupingjia:
                 break;
-            case R.id.ll_caiwuduizhang:
-                break;
-            case R.id.ll_shezhi:
-                Intent shezhi = new Intent(mContext, GongYingDuanSheZhiActivity.class);
-                startActivity(shezhi);
-                finish();
+            case R.id.ll_shezhi://抢单结果
+//                ToastUtil.showToast("你瞎瞅啥");
                 break;
             case R.id.ll_tejiashangpin:
                 Intent tejia = new Intent(mContext, ShangPinGuanLiActivity.class);
                 tejia.putExtra("goods", "1");
                 startActivity(tejia);
                 break;
-            case R.id.tv_tianjiashangpin:
-                Intent caigouintent = new Intent(mContext, FaBuShangPinActivity.class);
-                caigouintent.putExtra("state", "0");
-                startActivity(caigouintent);
-                break;
             case R.id.ll_yue://余额
                 Jump_intent(YueActivity.class, new Bundle());
                 break;
             case R.id.ll_daifahuo:
                 Intent daifahuo = new Intent(mContext, GHDOrderActivity.class);
-                daifahuo.putExtra("ye",1);
+                daifahuo.putExtra("ye", 1);
                 startActivity(daifahuo);
                 break;
             case R.id.ll_yishouhuo:
                 Intent yishouhuo = new Intent(mContext, GHDOrderActivity.class);
-                yishouhuo.putExtra("ye",2);
+                yishouhuo.putExtra("ye", 2);
                 startActivity(yishouhuo);
                 break;
             case R.id.ll_yiwancheng:
                 Intent yiwancheng = new Intent(mContext, GHDOrderActivity.class);
-                yiwancheng.putExtra("ye",3);
+                yiwancheng.putExtra("ye", 3);
                 startActivity(yiwancheng);
+                break;
+            case R.id.ll_qiehuan:
+                qiehuan();
+                break;
+            case R.id.iv_touxiang:
+                Intent shezhi = new Intent(mContext, GongYingDuanSheZhiActivity.class);
+                startActivity(shezhi);
+                finish();
+                break;
+            case R.id.tv_dianming:
+                Intent shezhi2 = new Intent(mContext, GongYingDuanSheZhiActivity.class);
+                startActivity(shezhi2);
+                finish();
+                break;
+            case R.id.ll_state_qiehuan:
+                confirmDialog.showDialog("是否切换营业状态");
+                confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        confirmDialog.dismiss();
+                        qiehuanState();
+                    }
+                });
+                confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        confirmDialog.dismiss();
+                    }
+                });
                 break;
         }
     }
@@ -196,7 +222,10 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
     }
 
     private void initView() {
-//        Glide.with(mContext).load(woDeBean.getPhoto()).into(ivTouxiang);
+        Glide.with(mContext).load(woDeBean.getPhoto()).into(ivTouxiang);
+        tvDianming.setText(woDeBean.getCompany_name()+"");
+        type = woDeBean.getBusiness_state()+"";
+        tvState.setText(type.equals("0")?"营业中":"休息中");
         tvYue.setText(woDeBean.getMoney() + "");
         tvDfh.setVisibility(woDeBean.getStay_delivery() == 0 ? View.GONE : View.VISIBLE);
         tvDfh.setText(woDeBean.getStay_delivery() + "");
@@ -250,6 +279,44 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getwode();
+    }
+
+    private void qiehuan(){
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(RetrofitManager.getService()
+                        .qiehuan(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
+                .setDataListener(new HttpDataListener<String>() {
+                    @Override
+                    public void onNext(String bean) {
+                        Intent it = new Intent(mContext, MainActivity.class);
+                        it.putExtra("tosome",3);
+                        startActivity(it);
+                        finish();
+                    }
+                });
+    }
+
+    private void qiehuanState(){
+        final String state = type.equals("0")?"1":"0";
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(RetrofitManager.getService()
+                        .changeYingyeState(PreferenceUtils.getString(MyApplication.mContext, "token", ""),state))
+                .setDataListener(new HttpDataListener<String>() {
+                    @Override
+                    public void onNext(String bean) {
+                        Log.e("我的数据",bean);
+                        tvState.setText(bean.equals("0")?"营业中":"休息中");
+                        type = bean;
+                    }
+                });
     }
 
 }

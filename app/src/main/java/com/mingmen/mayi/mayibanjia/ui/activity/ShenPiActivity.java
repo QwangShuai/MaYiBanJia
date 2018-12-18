@@ -129,7 +129,7 @@ public class ShenPiActivity extends BaseActivity {
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         adapter = new ShenPiLevelZeroAdapter(ShenPiActivity.this, caigoudan,mContext);
-        if(gson.fromJson(purchase_id, CaiGouDanBean.class).getOrder_audit_state().equals("903")){
+        if(gson.fromJson(purchase_id, CaiGouDanBean.class).getOrder_audit_state().equals("903")||gson.fromJson(purchase_id, CaiGouDanBean.class).getOrder_audit_state().equals("901")){
             isClick = false;
             adapter.setClick(isClick);
         }
@@ -361,8 +361,6 @@ public class ShenPiActivity extends BaseActivity {
 
     //更新抢单信息接口
     private void gengxinqiangdan(String special_son_order_id, String special_commodity_id) {
-        Log.e("special_son_order_id", special_son_order_id + "==");
-        Log.e("special_commodity_id", special_commodity_id + "==");
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
@@ -372,7 +370,6 @@ public class ShenPiActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
-                        Log.e("data", data + "---");
                     }
                 }, false);
     }
@@ -399,6 +396,7 @@ public class ShenPiActivity extends BaseActivity {
     }
 
     public void myBack() {
+        adapter.stopTime();
         Intent intent = new Intent(ShenPiActivity.this, CaiGouDanActivity.class);
         startActivity(intent);
         finish();

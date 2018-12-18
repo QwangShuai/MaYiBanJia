@@ -82,6 +82,15 @@ public class QiYeLieBiaoBean {
     private String duty_paragraph;
     private String salesman_time;
     private String file_path;
+    private String role;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 
     public String getFile_path() {
         return file_path;

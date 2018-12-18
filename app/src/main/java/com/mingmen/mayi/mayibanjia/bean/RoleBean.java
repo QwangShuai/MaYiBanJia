@@ -1,5 +1,7 @@
 package com.mingmen.mayi.mayibanjia.bean;
 
+import java.util.List;
+
 /**
  * Created by Administrator on 2018/12/11.
  */
@@ -24,5 +26,4 @@ public class RoleBean {
     public void setRole_id(String role_id) {
         this.role_id = role_id;
     }
-
 }

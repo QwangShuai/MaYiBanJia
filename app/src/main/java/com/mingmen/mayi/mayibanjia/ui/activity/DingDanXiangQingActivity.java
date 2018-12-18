@@ -28,6 +28,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.adapter.XqShichangAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 import com.mingmen.mayi.mayibanjia.utils.qrCode.CaptureActivity;
 
@@ -150,6 +151,7 @@ public class DingDanXiangQingActivity extends BaseActivity {
                         } else if (data.getState().equals("406")) {
                             ivState.setImageResource(R.mipmap.yiwancheng);
                             tvState.setText("买家已收货");
+                            btnQuerenShouhuo.setVisibility(View.GONE);
                         } else {
                             ivState.setImageResource(R.mipmap.yiwancheng);
                             btnShanchuDingdan.setVisibility(View.VISIBLE);

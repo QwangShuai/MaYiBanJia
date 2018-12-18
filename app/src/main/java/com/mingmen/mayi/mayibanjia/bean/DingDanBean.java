@@ -50,7 +50,7 @@ public class DingDanBean {
     private Object company_name;
     private String commodity_id;
     private String deliver_address;
-    private Object create_time;
+    private String create_time;
     private Object commodity_name;
     private String end_time;
     private Object spec_name;
@@ -202,11 +202,11 @@ public class DingDanBean {
         this.deliver_address = deliver_address;
     }
 
-    public Object getCreate_time() {
+    public String getCreate_time() {
         return create_time;
     }
 
-    public void setCreate_time(Object create_time) {
+    public void setCreate_time(String create_time) {
         this.create_time = create_time;
     }
 

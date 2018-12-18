@@ -50,7 +50,7 @@ public class CaiGouListActivity extends BaseActivity {
     private Context mContext;
     private String purchase_id;
     private CaiGouListLevelOneAdapter adapter;
-    private List<CaiGouDanBean> mList = new ArrayList<>();
+    private List<CaiGouDanBean.FllistBean> mList = new ArrayList<>();
     private TiJiaoXuQiuDialog tijiaoxuqiuDialog;
 
 
@@ -66,6 +66,12 @@ public class CaiGouListActivity extends BaseActivity {
         purchase_id = getIntent().getStringExtra("id");
         tijiaoxuqiuDialog = new TiJiaoXuQiuDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
+        adapter = new CaiGouListLevelOneAdapter(CaiGouListActivity.this,mList,mContext);
+        rvList.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+        rvList.setAdapter(adapter);
+        rvList.setFocusable(false);
+        rvList.setNestedScrollingEnabled(false);
+        adapter.notifyDataSetChanged();
         getlist();
     }
 
@@ -142,14 +148,10 @@ public class CaiGouListActivity extends BaseActivity {
                     @Override
                     public void onNext(List<CaiGouDanBean> list) {
                         mList.clear();
-                        mList.addAll(list);
-                        adapter = new CaiGouListLevelOneAdapter(CaiGouListActivity.this,mList.get(0).getFllist(),mContext);
-                        rvList.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
-                        rvList.setAdapter(adapter);
-                        rvList.setFocusable(false);
-                        rvList.setNestedScrollingEnabled(false);
+                        mList.addAll(list.get(0).getFllist());
                         adapter.notifyDataSetChanged();
                     }
                 });
     }
+
 }

@@ -65,7 +65,8 @@ public class ShangPinListAdapter extends RecyclerView.Adapter<ShangPinListAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final ShangPinSouSuoBean.ZhengchangBean data = mList.get(position);
-        holder.tvSpming.setText(data.getCommodity_name());
+        //holder.tvSpming.setText(data.getCommodity_name());
+        holder.tvSpming.setText(data.getClassify_name());
         holder.tvDianming.setText(data.getCompany_name());
         holder.tvJiage.setText(data.getPrice()+"");
         //holder.tvGuige.setText(data.getPackStandard()+"");

@@ -38,10 +38,7 @@ public class ShiChangAdapter extends BaseQuickAdapter<AllShiChangBean.Bean,BaseV
     @Override
     protected void convert(final BaseViewHolder helper,final AllShiChangBean.Bean item) {
         TextView tv_shichangming = helper.getView(R.id.tv_shichangming);
-        Log.e("xuanzhongid",xuanzhongid+"---");
-        Log.e("item.getMark_id()",item.getMark_id()+"---");
         if (xuanzhongid.equals(item.getMark_id())){
-
             tv_shichangming.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_zangqing_3));
         }else{
             tv_shichangming.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_999999_3));

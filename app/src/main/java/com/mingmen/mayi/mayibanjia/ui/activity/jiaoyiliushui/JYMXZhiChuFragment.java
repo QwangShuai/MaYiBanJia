@@ -8,6 +8,6 @@ public class JYMXZhiChuFragment extends BaseJYMXFragment {
     @Override
     public String getZhuangTai() {
         //支出
-        return "0";
+        return "1";
     }
 }

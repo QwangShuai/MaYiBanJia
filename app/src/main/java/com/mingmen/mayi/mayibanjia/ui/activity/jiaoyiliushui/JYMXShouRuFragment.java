@@ -8,6 +8,6 @@ public class JYMXShouRuFragment extends BaseJYMXFragment {
     @Override
     public String getZhuangTai() {
         //收入
-        return "1";
+        return "0";
     }
 }

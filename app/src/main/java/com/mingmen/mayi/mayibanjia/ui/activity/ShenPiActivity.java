@@ -116,6 +116,7 @@ public class ShenPiActivity extends BaseActivity {
     private CaiGouDanBean myBean;
     List<GetAllMarketBean> market_id = new ArrayList<>();
     private boolean isClick = true;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_shenpi;
@@ -131,14 +132,14 @@ public class ShenPiActivity extends BaseActivity {
         caigoudan = myBean.getFllist();//采购单一级数据
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
-        adapter = new ShenPiLevelZeroAdapter(ShenPiActivity.this, caigoudan,mContext);
-        if(gson.fromJson(purchase_id, CaiGouDanBean.class).getOrder_audit_state().equals("903")||gson.fromJson(purchase_id, CaiGouDanBean.class).getOrder_audit_state().equals("901")){
+        adapter = new ShenPiLevelZeroAdapter(ShenPiActivity.this, caigoudan, mContext);
+        if (gson.fromJson(purchase_id, CaiGouDanBean.class).getOrder_audit_state().equals("903") || gson.fromJson(purchase_id, CaiGouDanBean.class).getOrder_audit_state().equals("901")) {
             isClick = false;
             adapter.setClick(isClick);
         }
         xuanzhong = new HashMap();
         for (int i = 0; i < caigoudan.size(); i++) {
-            for (int j=0;j<caigoudan.get(i).getSonorderlist().size();j++){
+            for (int j = 0; j < caigoudan.get(i).getSonorderlist().size(); j++) {
                 ShangpinidAndDianpuidBean bean = new ShangpinidAndDianpuidBean();
                 bean.setCommodity_id("");
                 bean.setCompany_id("");
@@ -175,17 +176,17 @@ public class ShenPiActivity extends BaseActivity {
     }
 
     //全选接口   返回的是全选后选择商品list
-    private void setquanxuan( String purchase_id, final String type) {
+    private void setquanxuan(String purchase_id, final String type) {
         market_id.clear();
-        for(int i = 0;i<caigoudan.size();i++){
-            for (int j=0;j<caigoudan.get(i).getSonorderlist().size();j++){
+        for (int i = 0; i < caigoudan.size(); i++) {
+            for (int j = 0; j < caigoudan.get(i).getSonorderlist().size(); j++) {
                 GetAllMarketBean bean = new GetAllMarketBean();
                 bean.setMarket_id(caigoudan.get(i).getMarket_id());
                 bean.setSon_order_id(caigoudan.get(i).getSonorderlist().get(j).getSon_order_id());
                 market_id.add(bean);
             }
         }
-        Log.e("我的数据集合",new Gson().toJson(market_id));
+        Log.e("我的数据集合", new Gson().toJson(market_id));
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
@@ -195,12 +196,12 @@ public class ShenPiActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<ShenPiQuanXuanBean>() {
                     @Override
                     public void onNext(ShenPiQuanXuanBean data) {
-                        Log.e("我要的data",new Gson().toJson(caigoudan));
+                        Log.e("我要的data", new Gson().toJson(caigoudan));
                         //通过选中的商品list中的getSon_order_id和采购单的getSon_order_id 对比  把选中的商品存到map中
                         List<ShenPiQuanXuanBean.ListBean> datalist = data.getList();
                         for (int i = 0; i < caigoudan.size(); i++) {
                             for (int j = 0; j < caigoudan.get(i).getSonorderlist().size(); j++) {
-                                for(int k=0;k<datalist.size();k++){
+                                for (int k = 0; k < datalist.size(); k++) {
                                     if (caigoudan.get(i).getSonorderlist().get(j).getSon_order_id().equals(datalist.get(k).getSon_order_id())) {
                                         Log.e("getCommodity_id", datalist.get(k).getCommodity_id() + "---");
                                         ShangpinidAndDianpuidBean bean = new ShangpinidAndDianpuidBean();
@@ -231,7 +232,6 @@ public class ShenPiActivity extends BaseActivity {
                         Log.e("son_order_id", son_order_id + "---");
                         zongjia(son_order_id, commodity_id, tvZongjia);
                         adapter.notifyDataSetChanged();
-                        Log.e("xuanzhong-activity", gson.toJson(xuanzhong));
                     }
                 });
     }
@@ -252,14 +252,13 @@ public class ShenPiActivity extends BaseActivity {
     }
 
 
-
     @OnClick({R.id.iv_back, R.id.tv_tijiao, R.id.tv_right, R.id.ll_select, R.id.ll_quanxuan, R.id.tv_biaoqian,
-            R.id.tv_pingfenzuigao, R.id.tv_jiagezuidi,R.id.tv_shibai})
+            R.id.tv_pingfenzuigao, R.id.tv_jiagezuidi, R.id.tv_shibai})
     public void onViewClicked(View view) {
         CaiGouDanBean.FllistBean listBean = caigoudan.get(0);
-        if (view.getId()==R.id.iv_back){
-                myBack();
-        } else if(isClick){
+        if (view.getId() == R.id.iv_back) {
+            myBack();
+        } else if (isClick) {
             switch (view.getId()) {
                 case R.id.tv_right:
                     //添加商品
@@ -298,7 +297,7 @@ public class ShenPiActivity extends BaseActivity {
                                     company_id += value.getCompany_id() + ",";
 //
                                     for (int i = 0; i < caigoudan.size(); i++) {
-                                        for(int j=0;j<caigoudan.get(i).getSonorderlist().size();j++){
+                                        for (int j = 0; j < caigoudan.get(i).getSonorderlist().size(); j++) {
                                             if (caigoudan.get(i).getSonorderlist().get(j).getSon_order_id().equals(key)) {
                                                 if (StringUtil.isValid(caigoudan.get(i).getSonorderlist().get(j).getSpecial_commodity())) {
                                                     special_son_order_id += key + ",";
@@ -341,26 +340,41 @@ public class ShenPiActivity extends BaseActivity {
                 case R.id.ll_quanxuan://点击全选按钮
                     break;
                 case R.id.tv_biaoqian:
-                    setShowColor();
-                    setquanxuan(myBean.getPurchase_id(), CaiGouDanBean.TYPE_TWO + "");
-                    tvBiaoqian.setTextColor(getResources().getColor(R.color.zangqing));
+                    if (isQuanxuanClick()) {
+                        setShowColor();
+                        setquanxuan(myBean.getPurchase_id(), CaiGouDanBean.TYPE_TWO + "");
+                        tvBiaoqian.setTextColor(getResources().getColor(R.color.zangqing));
+                    } else {
+                        ToastUtil.showToast("请确认市场是否全部选择");
+                    }
+
                     break;
                 case R.id.tv_pingfenzuigao:
-                    setShowColor();
-                    setquanxuan(myBean.getPurchase_id(), CaiGouDanBean.TYPE_THREE + "");
-                    tvPingfenzuigao.setTextColor(getResources().getColor(R.color.zangqing));
+                    if (isQuanxuanClick()) {
+                        setShowColor();
+                        setquanxuan(myBean.getPurchase_id(), CaiGouDanBean.TYPE_THREE + "");
+                        tvPingfenzuigao.setTextColor(getResources().getColor(R.color.zangqing));
+                    } else {
+                        ToastUtil.showToast("请确认市场是否全部选择");
+                    }
+
                     break;
                 case R.id.tv_jiagezuidi:
-                    setShowColor();
-                    setquanxuan(myBean.getPurchase_id(), CaiGouDanBean.TYPE_ONE + "");
-                    tvJiagezuidi.setTextColor(getResources().getColor(R.color.zangqing));
-                    break;
+                    if (isQuanxuanClick()) {
+                        setShowColor();
+                        setquanxuan(myBean.getPurchase_id(), CaiGouDanBean.TYPE_ONE + "");
+                        tvJiagezuidi.setTextColor(getResources().getColor(R.color.zangqing));
+                        break;
+                    } else {
+                        ToastUtil.showToast("请确认市场是否全部选择");
+                    }
+
                 case R.id.tv_shibai:
                     new ShenPiShiBaiDailog()
                             .setCallBack(new ShenPiShiBaiDailog.CallBack() {
                                 @Override
                                 public void confirm(String msg) {
-                                    setShenPiShiBai(msg,myBean.getPurchase_id());
+                                    setShenPiShiBai(msg, myBean.getPurchase_id());
                                 }
                             }).show(getSupportFragmentManager());
                     break;
@@ -510,26 +524,41 @@ public class ShenPiActivity extends BaseActivity {
         tvJiagezuidi.setTextColor(getResources().getColor(R.color.zicolor));
     }
 
-    public void setAdapterXuanzhong(String id,ShangpinidAndDianpuidBean bean){//设置选中
+    public void setAdapterXuanzhong(String id, ShangpinidAndDianpuidBean bean) {//设置选中
         xuanzhong.put(id, bean);
     }
-    public void setAdapterDelXuanzhong(String key){//取消选中
+
+    public void setAdapterDelXuanzhong(String key) {//取消选中
         xuanzhong.remove(key);
     }
 
-    public void selectPinlei(CaiGouDanBean.FllistBean.SonorderlistBean bean){//选择品类
-        for (int i=0;i<caigoudan.size();i++){
-            if(bean.getOne_classify_name().equals(caigoudan.get(i).getClassify_name())){
-                bean.setMarket_id(caigoudan.get(i).getSonorderlist().get(caigoudan.get(i).getSonorderlist().size()-1).getMarket_id());
-                caigoudan.get(i).getSonorderlist().add(bean);
-                ShangpinidAndDianpuidBean sdbean = new ShangpinidAndDianpuidBean();
-                sdbean.setCommodity_id("");
-                sdbean.setCompany_id("");
-                sdbean.setDanjia("");
-                xuanzhong.put(caigoudan.get(i).getSonorderlist().get(caigoudan.get(i).getSonorderlist().size()-1).getSon_order_id(), sdbean);
-//                adapter.notifyDataSetChanged();
+    public void selectPinlei(CaiGouDanBean.FllistBean.SonorderlistBean bean) {//选择品类
+        for (int i = 0; i < caigoudan.size(); i++) {
+            if (bean.getOne_classify_name().equals(caigoudan.get(i).getClassify_name())) {
+                for (int j=0;j<caigoudan.get(i).getSonorderlist().size();j++){
+                    if(bean.getSort_id().equals(caigoudan.get(i).getSonorderlist().get(j).getSort_id())){
+//                        int count = caigoudan.get(i).getSonorderlist().get(j).getCount() + bean.getCount();
+//                        bean.setCount(count);
+                        bean.setClassify_name(caigoudan.get(i).getSonorderlist().get(j).getClassify_name());
+                        caigoudan.get(i).getSonorderlist().set(j,bean);
+                        ShangpinidAndDianpuidBean sdbean = new ShangpinidAndDianpuidBean();
+                        sdbean.setCommodity_id("");
+                        sdbean.setCompany_id("");
+                        sdbean.setDanjia("");
+                        xuanzhong.put(caigoudan.get(i).getSonorderlist().get(caigoudan.get(i).getSonorderlist().size() - 1).getSon_order_id(), sdbean);
+                    }else if(j==caigoudan.get(i).getSonorderlist().size()-1){
+                        bean.setMarket_id(caigoudan.get(i).getSonorderlist().get(caigoudan.get(i).getSonorderlist().size() - 1).getMarket_id());
+                        caigoudan.get(i).getSonorderlist().add(bean);
+                        ShangpinidAndDianpuidBean sdbean = new ShangpinidAndDianpuidBean();
+                        sdbean.setCommodity_id("");
+                        sdbean.setCompany_id("");
+                        sdbean.setDanjia("");
+                        xuanzhong.put(caigoudan.get(i).getSonorderlist().get(caigoudan.get(i).getSonorderlist().size() - 1).getSon_order_id(), sdbean);
+                    }
+                }
+                adapter.notifyDataSetChanged();
                 break;
-            } else if(i==caigoudan.size()-1) {
+            } else if (i == caigoudan.size() - 1) {
                 CaiGouDanBean.FllistBean myBean = new CaiGouDanBean.FllistBean();
                 List<CaiGouDanBean.FllistBean.SonorderlistBean> myList = new ArrayList<>();
                 myBean.setClassify_id(bean.getClassify_id());
@@ -541,7 +570,7 @@ public class ShenPiActivity extends BaseActivity {
                 sdbean.setCommodity_id("");
                 sdbean.setCompany_id("");
                 sdbean.setDanjia("");
-                xuanzhong.put(caigoudan.get(i+1).getSonorderlist().get(caigoudan.get(i+1).getSonorderlist().size()-1).getSon_order_id(), sdbean);
+                xuanzhong.put(caigoudan.get(i + 1).getSonorderlist().get(caigoudan.get(i + 1).getSonorderlist().size() - 1).getSon_order_id(), sdbean);
                 adapter.addLength();
                 adapter.notifyDataSetChanged();
                 break;
@@ -550,22 +579,34 @@ public class ShenPiActivity extends BaseActivity {
 
     }
 
-    public void setItemMarket_id(int pos,String id){
+    public void setItemMarket_id(int pos, String id,String name) {
         caigoudan.get(pos).setMarket_id(id);
+        caigoudan.get(pos).setMarket_name(name);
     }
-    private void setShenPiShiBai(String yuanyin,String purchase_id) {
+
+    private void setShenPiShiBai(String yuanyin, String purchase_id) {
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .shenpishibai(PreferenceUtils.getString(MyApplication.mContext, "token",""),yuanyin,purchase_id))
+                                .shenpishibai(PreferenceUtils.getString(MyApplication.mContext, "token", ""), yuanyin, purchase_id))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
                         ToastUtil.showToast("成功");
-                        finish();
+                        myBack();
                     }
                 });
+    }
+
+    public boolean isQuanxuanClick() {
+        boolean myClick = true;
+        for (int i = 0; i < caigoudan.size(); i++) {
+            if (!StringUtil.isValid(caigoudan.get(i).getMarket_id())) {
+                myClick = false;
+            }
+        }
+        return myClick;
     }
 }

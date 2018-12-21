@@ -39,6 +39,7 @@ import com.mingmen.mayi.mayibanjia.bean.QiYeLieBiaoBean;
 import com.mingmen.mayi.mayibanjia.bean.QiangDanBean;
 import com.mingmen.mayi.mayibanjia.bean.QueRenDingDanShangPinBean;
 import com.mingmen.mayi.mayibanjia.bean.RoleBean;
+import com.mingmen.mayi.mayibanjia.bean.SPTGBean;
 import com.mingmen.mayi.mayibanjia.bean.SPXiangQingBean;
 import com.mingmen.mayi.mayibanjia.bean.ShangPinBean;
 import com.mingmen.mayi.mayibanjia.bean.ShangPinGuanLiBean;
@@ -105,6 +106,10 @@ public interface HttpService {
     //发送验证码
     @POST("allCompanyAccount/get_verification_code.do")
     Observable<ResultModel<String>> getcode(@Query("yzmType") String yzmType, @Query("telephone") String telephone);
+
+    //确认验证码输入是否正确
+    @POST("allCompanyAccount/updateByTelephone.do")
+    Observable<ResultModel<String>> changePhone( @Query("user_token") String user_token, @Query("telephone") String telephone);
 
     //确认验证码输入是否正确
     @POST("allCompanyAccount/code.do")
@@ -989,5 +994,23 @@ public interface HttpService {
     //更改营业状态
     @POST("allCompany/update.do")
     Observable<ResultModel<String>> changeYingyeState(@Query("user_token") String user_token,
-                                             @Query("business_state") String business_state);
+                                                      @Query("business_state") String business_state);
+
+    //审核成功页面
+    @POST("ctBuySonorder/queryByState.do")
+    Observable<ResultModel<SPTGBean>> getShenhechenggong(@Query("user_token") String user_token,
+                                                         @Query("purchase_id") String purchase_id);
+
+    //修改密码
+    @POST("allCompanyAccount/update_user.do")
+    Observable<ResultModel<String>> changePwd(@Query("telephone") String telephone,
+                                              @Query("password") String password,
+                                              @Query("type") String type,
+                                              @Query("new_password") String new_password,
+                                              @Query("yzm") String yzm);
+
+    //验证采购单是否重复
+    @POST("ctBuyHostorder/queryonleName.do")
+    Observable<ResultModel<String>> yanzhengCgd(@Query("user_token") String user_token,
+                                              @Query("purchase_name") String purchase_name);
 }

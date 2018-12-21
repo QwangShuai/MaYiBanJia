@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.mingmen.mayi.mayibanjia.ui.activity.ChangePwdActivity">
+    <include layout="@layout/head_zangqing"></include>
+    <LinearLayout
+        android:paddingLeft="12dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:textColor="@color/zicolor"
+            android:textSize="15sp"
+            android:text="原  密  码:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/et_ypwd"
+            android:maxLength="16"
+            android:textSize="12sp"
+            android:inputType="textPassword"
+            android:textColorHint="@color/hintcolor"
+            android:paddingLeft="12dp"
+            android:hint="请输入原密码（最少6位）"
+            android:background="@null"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <include layout="@layout/view_cutoff_e7e7e7"></include>
+    <LinearLayout
+        android:paddingLeft="12dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:textColor="@color/zicolor"
+            android:textSize="15sp"
+            android:text="新  密  码:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/et_npwd"
+            android:maxLength="16"
+            android:textSize="12sp"
+            android:inputType="textPassword"
+            android:textColorHint="@color/hintcolor"
+            android:paddingLeft="12dp"
+            android:hint="请输入新密码（最少6位）"
+            android:background="@null"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <include layout="@layout/view_cutoff_e7e7e7"></include>
+    <LinearLayout
+        android:paddingLeft="12dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:textColor="@color/zicolor"
+            android:textSize="15sp"
+            android:text="确认密码:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/et_cpwd"
+            android:maxLength="16"
+            android:textSize="12sp"
+            android:inputType="textPassword"
+            android:textColorHint="@color/hintcolor"
+            android:paddingLeft="12dp"
+            android:hint="请确认新密码（最少6位）"
+            android:background="@null"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_submit"
+        android:background="@drawable/bg_click_false"
+        android:layout_marginTop="45dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginLeft="12dp"
+        android:textSize="15sp"
+        android:text="确定"
+        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="45dp" />
+
+</LinearLayout>

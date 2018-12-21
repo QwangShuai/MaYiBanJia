@@ -499,7 +499,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                                 shichangList.add(bean);
                             }
                             tvHejijine.setText(hejijine + "");
-                            tvZhongliang.setText("￥"+zongzhong+")");
+                            tvZhongliang.setText(+zongzhong+"斤)");
                             tvYunfei.setText(yunfei+"");
                         }
                     });

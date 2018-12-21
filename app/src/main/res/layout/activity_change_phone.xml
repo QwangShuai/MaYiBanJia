@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.mingmen.mayi.mayibanjia.ui.activity.ChangePhoneActivity">
+    <include layout="@layout/head_zangqing"></include>
+    <TextView
+        android:id="@+id/tv_phone"
+        android:textColor="@color/lishisousuo"
+        android:textSize="15sp"
+        android:text="也许吧"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btn_change_phone"
+        android:textSize="18sp"
+        android:textColor="@color/wheat"
+        android:text="更换手机号"
+        android:layout_marginTop="70dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginLeft="12dp"
+        android:background="@drawable/bg_bt"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+</LinearLayout>

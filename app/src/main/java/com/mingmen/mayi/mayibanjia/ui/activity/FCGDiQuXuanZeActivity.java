@@ -97,10 +97,8 @@ public class FCGDiQuXuanZeActivity extends BaseActivity {
                         ToastUtil.showToast("请填写采购单名称");
                         return;
                     }
-                    Intent intent=new Intent(mContext,FCGCaiGouXuQiuActivity.class);
-                    bundle.putString("caigouming",et_caigouming.getText().toString().trim());
-                    intent.putExtras(bundle);
-                    startActivity(intent);
+                    yanzheng();
+
                 break;
         }
     }
@@ -204,5 +202,21 @@ public class FCGDiQuXuanZeActivity extends BaseActivity {
                         Glide.with(mContext).load(data).into(ivBg);
                     }
                 },false);
+    }
+
+    private void yanzheng(){
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(RetrofitManager.getService()
+                        .yanzhengCgd(PreferenceUtils.getString(MyApplication.mContext, "token", ""),et_caigouming.getText().toString().trim()))
+                .setDataListener(new HttpDataListener<String>() {
+                    @Override
+                    public void onNext(String data) {
+                        Intent intent=new Intent(mContext,FCGCaiGouXuQiuActivity.class);
+                        bundle.putString("caigouming",et_caigouming.getText().toString().trim());
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                },true);
     }
 }

@@ -18,6 +18,15 @@ public class ErJiFenLeiAdapter extends BaseQuickAdapter<FenLeiBean,BaseViewHolde
         super(R.layout.item_erjifenlei);
     }
     private CallBack mCallBack;
+
+    public String getXuanzhongid() {
+        return xuanzhongid;
+    }
+
+    public void setXuanzhongid(String xuanzhongid) {
+        this.xuanzhongid = xuanzhongid;
+    }
+
     private String xuanzhongid="";
     public ErJiFenLeiAdapter setCallBack(CallBack mCallBack){
         this.mCallBack=mCallBack;
@@ -33,7 +42,7 @@ public class ErJiFenLeiAdapter extends BaseQuickAdapter<FenLeiBean,BaseViewHolde
     protected void convert(final BaseViewHolder helper,final FenLeiBean item) {
         TextView tv_erjifenlei = helper.getView(R.id.tv_erjifenlei);
         View view_xuanzhong = helper.getView(R.id.view_xuanzhong);
-        if (xuanzhongid.equals(item.getClassify_id())){
+        if (!xuanzhongid.equals(item.getClassify_id())){
             tv_erjifenlei.setTextColor(mContext.getResources().getColor(R.color.zicolor));
             view_xuanzhong.setVisibility(View.GONE);
         }else{
@@ -52,4 +61,5 @@ public class ErJiFenLeiAdapter extends BaseQuickAdapter<FenLeiBean,BaseViewHolde
             }
         });
     }
+
 }

@@ -50,7 +50,7 @@ import static android.widget.ListPopupWindow.MATCH_PARENT;
  * Created by Administrator on 2018/8/1/001.
  */
 
-public class CaiGouDanActivity extends BaseActivity{
+public class CaiGouDanActivity extends BaseActivity {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.ll_title)
@@ -73,7 +73,8 @@ public class CaiGouDanActivity extends BaseActivity{
     private String commodity_id;
     private boolean canClick;
     private String TAG = "CaiGouDanActivity";
-//    private Date dangqianTime;
+
+    //    private Date dangqianTime;
     @Override
     public int getLayoutId() {
         return R.layout.activity_wodecaigoudan;
@@ -88,7 +89,7 @@ public class CaiGouDanActivity extends BaseActivity{
 
     }
 
-    private void initAdapter(){
+    private void initAdapter() {
 
         adapter = new CaiGouDanAdapter(getResources());
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
@@ -98,18 +99,22 @@ public class CaiGouDanActivity extends BaseActivity{
                 switch (view.getId()) {
                     case R.id.bt_xiangqing:
 //                        if(item.getOrder_audit_state().equals("902")){
-                            if (!isCanClick(item)) {
-                                return;
-                            }
-                            //审批页
-                            Intent intent = new Intent(CaiGouDanActivity.this, ShenPiActivity.class);
-                            String data1 = gson.toJson(item);
-//                            String data1 = ((CaiGouDanBean) adapter.getItem(position)).getPurchase_id();
-//                            String data1 = item.getPurchase_id();
-                            Log.e(TAG+"1",data1);
-                            intent.putExtra("data", data1);
-                            startActivity(intent);
-                            finish();
+                        if (!isCanClick(item)) {
+                            return;
+                        }
+                        //审批页
+                        Intent intent = new Intent(CaiGouDanActivity.this, ShenPiActivity.class);
+                        if (item.getOrder_audit_state().equals("901")) {
+                            intent.setClass(CaiGouDanActivity.this, ShenPiChengGongActivity.class);
+                            intent.putExtra("id",item.getPurchase_id());
+                        } else if(item.getOrder_audit_state().equals("903")){
+                            intent.setClass(CaiGouDanActivity.this, ShenPiShiBaiActivity.class);
+                            intent.putExtra("id",item.getPurchase_id());
+                        }
+                        String data1 = gson.toJson(item);
+                        intent.putExtra("data", data1);
+                        startActivity(intent);
+                        finish();
 //                        }
                         break;
 
@@ -150,7 +155,7 @@ public class CaiGouDanActivity extends BaseActivity{
                         .setObservable(
                                 RetrofitManager
                                         .getService()
-                                        .delxuqiudan(PreferenceUtils.getString(MyApplication.mContext, "token",""),item.getPurchase_id()))
+                                        .delxuqiudan(PreferenceUtils.getString(MyApplication.mContext, "token", ""), item.getPurchase_id()))
                         .setDataListener(new HttpDataListener<String>() {
                             @Override
                             public void onNext(String data) {
@@ -189,13 +194,13 @@ public class CaiGouDanActivity extends BaseActivity{
         rvCaigoudan.setAdapter(adapter);
     }
 
-    private void setShenPiShiBai(String yuanyin,String purchase_id) {
+    private void setShenPiShiBai(String yuanyin, String purchase_id) {
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .shenpishibai(PreferenceUtils.getString(MyApplication.mContext, "token",""),yuanyin,purchase_id))
+                                .shenpishibai(PreferenceUtils.getString(MyApplication.mContext, "token", ""), yuanyin, purchase_id))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
@@ -206,9 +211,7 @@ public class CaiGouDanActivity extends BaseActivity{
     }
 
 
-
-
-    private void initdialog(){
+    private void initdialog() {
         titleDialog = new SiGeXuanXiangDialog().init("全部采购单", "审核通过", "审核不通过", "待审核")
                 .setActivity(this)
                 .setTop(AppUtil.dip2px(44));
@@ -217,20 +220,21 @@ public class CaiGouDanActivity extends BaseActivity{
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
 
     }
+
     //采购单列表
-    public  void getlist(String status) {
-        Log.e("status",status);
+    public void getlist(String status) {
+        Log.e("status", status);
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getcaigoudanlist(PreferenceUtils.getString(MyApplication.mContext, "token",""),status ,""))
+                                .getcaigoudanlist(PreferenceUtils.getString(MyApplication.mContext, "token", ""), status, ""))
                 .setDataListener(new HttpDataListener<List<CaiGouDanBean>>() {
                     @Override
                     public void onNext(List<CaiGouDanBean> list) {
                         String data = gson.toJson(list);
-                        Log.e(TAG,data);
+                        Log.e(TAG, data);
                         adapter.setNewData(list);
                         adapter.notifyDataSetChanged();
                     }
@@ -253,29 +257,29 @@ public class CaiGouDanActivity extends BaseActivity{
 
     public static boolean isCanClick(CaiGouDanBean item) {
         Date dangqianTime = new Date();
-            for (int i1 = 0; i1 < item.getFllist().size(); i1++) {
-                    Date createTime = DateUtil.StrToDate(item.getCreate_time(), "yyyy-MM-dd HH:mm:ss");
-                    long fen = DateUtil.dqsj(createTime, dangqianTime, "3");
+        for (int i1 = 0; i1 < item.getFllist().size(); i1++) {
+            Date createTime = DateUtil.StrToDate(item.getCreate_time(), "yyyy-MM-dd HH:mm:ss");
+            long fen = DateUtil.dqsj(createTime, dangqianTime, "3");
 //                    if (fen<5){
 //                        ToastUtil.showToast("商家正在抢单中，请抢单结束后再点击。距离抢单结束还有"+(5-fen)+"分钟。");
 //                        return false;
 //                    }else{
-                        if (!TextUtils.isEmpty(String.valueOf(item.getQdTime()))){
-                            createTime = DateUtil.StrToDate(item.getQdTime(), "yyyy-MM-dd HH:mm:ss");
-                            fen = DateUtil.dqsj(createTime, dangqianTime, "3");
-                            if (fen<5){
-                                ToastUtil.showToastLong("商家正在抢单中，请抢单结束后再点击。距离抢单结束还有"+(5-fen)+"分钟。");
-                                return false;
-                            }else{
-                                return true;
-                            }
-                        }else{
-                            return true;
-                        }
+            if (!TextUtils.isEmpty(String.valueOf(item.getQdTime()))) {
+                createTime = DateUtil.StrToDate(item.getQdTime(), "yyyy-MM-dd HH:mm:ss");
+                fen = DateUtil.dqsj(createTime, dangqianTime, "3");
+                if (fen < 5) {
+                    ToastUtil.showToastLong("商家正在抢单中，请抢单结束后再点击。距离抢单结束还有" + (5 - fen) + "分钟。");
+                    return false;
+                } else {
+                    return true;
+                }
+            } else {
+                return true;
+            }
 
 
 //                    }
-                }
+        }
         return true;
     }
 

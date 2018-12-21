@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:padding="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/teshu"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/ll_teshu"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_teshu"
+                    android:layout_width="45dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="1dp"
+                    android:background="@color/mayihong"
+                    android:gravity="center"
+                    android:text="特殊商品"
+                    android:textColor="#ffffffff"
+                    android:textSize="9sp"
+                    android:visibility="visible" />
+                <ImageView
+                    android:id="@+id/iv_wenhao"
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/wenhao_zangqing"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_sptu"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@color/account_sex_grany" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_toRightOf="@+id/teshu"
+            android:orientation="vertical"
+            android:layout_marginTop="27dp"
+            android:layout_marginLeft="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_shangpin"
+                android:text=""
+                android:textColor="@color/zicolor"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_marginTop="13dp"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:background="@color/zangqing"
+                    android:textSize="9sp"
+                    android:text="店"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp" />
+                <TextView
+                    android:id="@+id/tv_dianming"
+                    android:layout_marginLeft="5dp"
+                    android:text=""
+                    android:textSize="12sp"
+                    android:textColor="@color/hintcolor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginTop="27dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:visibility="gone"
+                    android:textColor="@color/zicolor"
+                    android:textSize="15sp"
+                    android:text="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tv_guige"
+                    android:text="元/斤"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tv_shuliang"
+                    android:layout_marginLeft="80dp"
+                    android:text="x 7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tv_jine"
+                android:gravity="right"
+                android:textSize="15sp"
+                android:text="1222元"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <View
+        android:layout_alignParentBottom="true"
+        android:background="@color/gray_e7e7e7"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"></View>
+</RelativeLayout>

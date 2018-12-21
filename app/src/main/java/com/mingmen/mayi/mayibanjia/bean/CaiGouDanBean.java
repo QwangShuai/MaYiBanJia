@@ -55,6 +55,15 @@ public class CaiGouDanBean {
     private String qdTime;
     private BigDecimal zongjia;
     private String order_audit_state;
+    private String audit_ps;
+
+    public String getAudit_ps() {
+        return audit_ps;
+    }
+
+    public void setAudit_ps(String audit_ps) {
+        this.audit_ps = audit_ps;
+    }
 
     public String getOrder_audit_state() {
         return order_audit_state;
@@ -167,8 +176,17 @@ public class CaiGouDanBean {
         private String picture_url;
         private String order_audit_state;
         private String market_id;
+        private String market_name;
         private boolean isShow;
         private List<SonorderlistBean> sonorderlist;
+
+        public String getMarket_name() {
+            return market_name;
+        }
+
+        public void setMarket_name(String market_name) {
+            this.market_name = market_name;
+        }
 
         public boolean isShow() {
             return isShow;

@@ -141,7 +141,6 @@ public class LoginActivity extends BaseActivity {
             case R.id.bt_login:
                 pass = etPass.getText().toString().trim();
                 phone = etPhone.getText().toString().trim();
-                Log.e("passandphone", phone + "===" + pass);
                 if (AppUtil.isMobile(phone)) {
                     login();
                 } else {
@@ -172,7 +171,7 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     public void onNext(ZhuCeChengGongBean bean) {
                         Log.e("token", bean.getToken() + "===");
-
+                        PreferenceUtils.putString(MyApplication.mContext,"phone",bean.getTelephone());
                         PreferenceUtils.putBoolean(MyApplication.mContext, "isLogin", true);
                         PreferenceUtils.putString(MyApplication.mContext, "token", bean.getToken());
                         PreferenceUtils.putString(MyApplication.mContext, "juese", bean.getRole());

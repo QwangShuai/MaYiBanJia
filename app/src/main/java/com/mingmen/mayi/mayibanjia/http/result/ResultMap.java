@@ -23,7 +23,7 @@ public class ResultMap<T> implements Function<ResultModel<T>, T> {
       Log.e("codecode", httpResult.getStatus());
       Log.e("message", httpResult.getMsg());
       Log.e("object", httpResult.getData() + "---");
-      ToastUtil.showToast(httpResult.getMsg().toString());
+      ToastUtil.showToastLong(httpResult.getMsg().toString());
 
       throw new RuntimeException("请求失败(code=" + httpResult.getStatus() + ",message=" + httpResult.getMsg() + ")");
 //      return httpResult.getData();

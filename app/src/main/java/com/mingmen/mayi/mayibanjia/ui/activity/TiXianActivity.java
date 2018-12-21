@@ -28,6 +28,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.adapter.WuLiuFenPeiAdapter;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.CircleImageView;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
 import butterknife.BindView;
@@ -126,14 +127,16 @@ public class TiXianActivity extends BaseActivity {
                 etJine.setText(yue);
                 break;
             case R.id.btn_tixian:
-                if(TextUtils.isEmpty(cardID)){
-                    ToastUtil.showToast("请选择银行卡");
-                } else if(TextUtils.isEmpty(etJine.getText().toString())){
-                    ToastUtil.showToast("请输入正确的提现金额");
-                } else if(Double.valueOf(yue)< Double.valueOf(etJine.getText().toString())){
-                    ToastUtil.showToast("最大金额不可以超过余额");
-                } else {
-                    tixian();
+                if(isClick){
+                    if(TextUtils.isEmpty(cardID)){
+                        ToastUtil.showToast("请选择银行卡");
+                    } else if(TextUtils.isEmpty(etJine.getText().toString())){
+                        ToastUtil.showToast("请输入正确的提现金额");
+                    } else if(Double.valueOf(yue)< Double.valueOf(etJine.getText().toString())){
+                        ToastUtil.showToast("最大金额不可以超过余额");
+                    } else {
+                        tixian();
+                    }
                 }
                 break;
         }
@@ -147,14 +150,16 @@ public class TiXianActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode==REQUESTCODE){
-            YinHangKaBean bean = (YinHangKaBean) data.getSerializableExtra("bean");
-            Glide.with(mContext).load(bean.getLog_url()).into(ivTubiao);
-            Glide.with(mContext).load(bean.getReverse_url()).into(ivBg);
-            tvBankCardName.setText(bean.getBank_name());
-            tvBankCardNumber.setText(bean.getBank_account());
-            tvBankCardType.setText(bean.getBank_branch());
-            cardID = bean.getBank_id();
-            rlYinhangka.setVisibility(View.VISIBLE);
+            if(StringUtil.isValid(String.valueOf(data.getSerializableExtra("bean")))){
+                YinHangKaBean bean = (YinHangKaBean) data.getSerializableExtra("bean");
+                Glide.with(mContext).load(bean.getLog_url()).into(ivTubiao);
+                Glide.with(mContext).load(bean.getReverse_url()).into(ivBg);
+                tvBankCardName.setText(bean.getBank_name());
+                tvBankCardNumber.setText(bean.getBank_account());
+                tvBankCardType.setText(bean.getBank_branch());
+                cardID = bean.getBank_id();
+                rlYinhangka.setVisibility(View.VISIBLE);
+            }
         }
     }
 

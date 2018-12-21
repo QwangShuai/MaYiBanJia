@@ -1,6 +1,7 @@
 package com.mingmen.mayi.mayibanjia.ui.activity.adapter;
 
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -20,11 +21,14 @@ import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.CaiGouListActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.ShenPiShiBaiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.CaiGouDanXiuGaiDailog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
+
+import org.greenrobot.eventbus.util.ErrorDialogManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +57,8 @@ public class CaiGouListLevelOneAdapter extends RecyclerView.Adapter<CaiGouListLe
     private CaiGouListLevelTwoAdapter adapter;
     private ConfirmDialog confirmDialog;
     private CaiGouListActivity activity;
+    private ShenPiShiBaiActivity shibai_activity;
+    private String type="0";
 
     public CaiGouListLevelOneAdapter(CaiGouListActivity activity,List<CaiGouDanBean.FllistBean> mList, Context mContext) {
         this.activity = activity;
@@ -60,7 +66,13 @@ public class CaiGouListLevelOneAdapter extends RecyclerView.Adapter<CaiGouListLe
         this.mContext = mContext;
         itemIsClick = new boolean[mList.size()];
     }
-
+    public CaiGouListLevelOneAdapter(ShenPiShiBaiActivity shibai_activity,List<CaiGouDanBean.FllistBean> mList, Context mContext) {
+        this.shibai_activity = shibai_activity;
+        this.mList = mList;
+        this.mContext = mContext;
+        this.type = "1";
+        itemIsClick = new boolean[mList.size()];
+    }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         viewHolder = new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_caigou_pinlei, null, false));
@@ -127,9 +139,14 @@ public class CaiGouListLevelOneAdapter extends RecyclerView.Adapter<CaiGouListLe
                                                                 mList.get(position).getSonorderlist().remove(i);
                                                                 if (mList.get(position).getSonorderlist().size()==0){
                                                                     mList.remove(position);
-                                                                    delLength();
+//                                                                    delLength();
                                                                 }
-                                                                activity.getlist();
+                                                                if(type.equals("0")){
+                                                                    activity.getlist();
+                                                                } else {
+                                                                    shibai_activity.getlist();
+                                                                }
+
                                                                 notifyDataSetChanged();
                                                                 adapter.notifyDataSetChanged();
                                                                 break;
@@ -148,6 +165,12 @@ public class CaiGouListLevelOneAdapter extends RecyclerView.Adapter<CaiGouListLe
                                 break;
                             case R.id.iv_xiugai:
                                 //修改
+                                FragmentManager mFragmentManager ;
+                                if(type.equals("0")){
+                                    mFragmentManager = activity.getSupportFragmentManager();
+                                } else {
+                                    mFragmentManager = shibai_activity.getSupportFragmentManager();
+                                }
                                 CaiGouDanXiuGaiDailog danXiuGaiDailog = new CaiGouDanXiuGaiDailog();
                                 danXiuGaiDailog.setInitStr(mList.get(position).getSonorderlist().get(pos).getClassify_name(), mList.get(position).getSonorderlist().get(pos).getPack_standard_name(), mList.get(position).getSonorderlist().get(pos).getPack_standard_id(),
                                         mList.get(position).getSonorderlist().get(pos).getSpecial_commodity(), String.valueOf(mList.get(position).getSonorderlist().get(pos).getCount()), mList.get(position).getSonorderlist().get(pos).getSon_order_id(), mList.get(position).getSonorderlist().get(pos).getSort_id())
@@ -155,10 +178,14 @@ public class CaiGouListLevelOneAdapter extends RecyclerView.Adapter<CaiGouListLe
                                             @Override
                                             public void confirm(CaiGouDanBean.FllistBean.SonorderlistBean msg) {
                                                 ToastUtil.showToast("修改成功");
-                                                activity.getlist();
+                                                if(type.equals("0")){
+                                                    activity.getlist();
+                                                } else {
+                                                    shibai_activity.getlist();
+                                                }
                                                 adapter.notifyDataSetChanged();
                                             }
-                                        }).show(activity.getSupportFragmentManager());
+                                        }).show(mFragmentManager);
                                 break;
                         }
             }
@@ -192,9 +219,5 @@ public class CaiGouListLevelOneAdapter extends RecyclerView.Adapter<CaiGouListLe
             super(view);
             ButterKnife.bind(this, view);
         }
-    }
-
-    public void delLength() {
-        itemIsClick = new boolean[itemIsClick.length - 1];
     }
 }

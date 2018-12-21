@@ -239,7 +239,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         adapter = new YiJiFenLeiAdapter();
         if(!TextUtils.isEmpty(activity.getType())){//是否是首页传参过来的
             tvPinlei.setText(activity.getType());
-            tvPinlei.setTextColor(getResources().getColor(R.color.zangqing));
+//            tvPinlei.setTextColor(getResources().getColor(R.color.zangqing));
             yijipinleiid = activity.getSp_id();
             getOneList();
         } else {
@@ -456,7 +456,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 zuidijia=et_jiagedi.getText().toString().trim();
                 zuigaojia=et_jiagegao.getText().toString().trim();
                 tvShaixuan.setText(StringUtil.isEmpty(shichangname)?"不限":shichangname);
-                tvShaixuan.setTextColor(StringUtil.isEmpty(shichangname)?getResources().getColor(R.color.zicolor):getResources().getColor(R.color.zangqing));
+//                tvShaixuan.setTextColor(StringUtil.isEmpty(shichangname)?getResources().getColor(R.color.zicolor):getResources().getColor(R.color.zangqing));
                 sousuoshangpin(sousuo,"0");
                 shaixuanpop.dismiss();
             }
@@ -475,7 +475,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 erjiadapter.notifyDataSetChanged();
                 sanjiadapter.notifyDataSetChanged();
                 tvShaixuan.setText("不限");
-                tvShaixuan.setTextColor(getResources().getColor(R.color.zicolor));
+//                tvShaixuan.setTextColor(getResources().getColor(R.color.white_80));
             }
         });
 
@@ -491,7 +491,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                         shichangname = msg.getMarket_name();
                         shichangid = msg.getMark_id();
                         tvShaixuan.setText(shichangname);
-                        tvShaixuan.setTextColor(getResources().getColor(R.color.zangqing));
+//                        tvShaixuan.setTextColor(getResources().getColor(R.color.zangqing));
                         yijiadapter.setXuanZhongId(shichangid);
                         erjiadapter.setXuanZhongId(shichangid);
                         sanjiadapter.setXuanZhongId(shichangid);
@@ -680,9 +680,9 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 sanjipinleiid="";
 
                 if (yijipinleiid.equals("")){
-                    tvPinlei.setTextColor(getResources().getColor(R.color.zicolor));
+//                    tvPinlei.setTextColor(getResources().getColor(R.color.white_80));
                 }else{
-                    tvPinlei.setTextColor(getResources().getColor(R.color.zangqing));
+//                    tvPinlei.setTextColor(getResources().getColor(R.color.zangqing));
                     dangqianerji = new ArrayList<>();
                     for (int i = 0; i < erjiFenLei.size(); i++) {
                         if (yijipinleiid.equals(erjiFenLei.get(i).getParent_id())){
@@ -716,7 +716,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
 
         yijipop.setWidth(width);
         yijipop.setHeight(height-AppUtil.dip2px(165));
-        ErJiFenLeiAdapter erjiadapter = new ErJiFenLeiAdapter();
+        final ErJiFenLeiAdapter erjiadapter = new ErJiFenLeiAdapter();
         rv_erjifenlei.setLayoutManager(new AutoLineFeedLayoutManager());
         rv_erjifenlei.setAdapter(erjiadapter);
 
@@ -728,7 +728,8 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         if (dangqianerji.size()>0){
             erjipinleiid= dangqianerji.get(0).getClassify_id();
             erjipinleiname= dangqianerji.get(0).getClassify_name();
-
+            erjiadapter.setXuanzhongid(dangqianerji.get(0).getClassify_id());
+            erjiadapter.notifyDataSetChanged();
             erjiadapter.setCallBack(new ErJiFenLeiAdapter.CallBack() {
                 @Override
                 public void xuanzhong(FenLeiBean msg) {
@@ -736,7 +737,8 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                     tvPinlei.setText(msg.getClassify_name());
                     erjipinleiid = msg.getClassify_id();
                     erjipinleiname = msg.getClassify_name();
-                    tvPinlei.setTextColor(getResources().getColor(R.color.zangqing));
+                    erjiadapter.notifyDataSetChanged();
+//                    tvPinlei.setTextColor(getResources().getColor(R.color.zangqing));
                     sousuoshangpin(sousuo,"0");
                     dangqiansanji.clear();
                     for (int i = 0; i < sanjiFenLei.size(); i++) {
@@ -750,7 +752,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                         public void xuanzhong(FenLeiBean msg) {
                             Log.e("item",new Gson().toJson(msg));
                             sanjipinleiid = msg.getClassify_id();
-                            tvPinlei.setTextColor(getResources().getColor(R.color.zangqing));
+//                            tvPinlei.setTextColor(getResources().getColor(R.color.zangqing));
                             if (sanjipinleiid.equals("0")){
                                 tvPinlei.setText(erjipinleiname);
 
@@ -778,7 +780,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 public void xuanzhong(FenLeiBean msg) {
                     Log.e("item",new Gson().toJson(msg));
                     sanjipinleiid = msg.getClassify_id();
-                    tvPinlei.setTextColor(getResources().getColor(R.color.zangqing));
+//                    tvPinlei.setTextColor(getResources().getColor(R.color.zangqing));
                     if (sanjipinleiid.equals("0")){
                         tvPinlei.setText(erjipinleiname);
 
@@ -928,12 +930,12 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         etSousuozi.clearFocus();
         if(!TextUtils.isEmpty(activity.getType())){//是否是首页传参过来的
             tvPinlei.setText(activity.getType());
-            tvPinlei.setTextColor(getResources().getColor(R.color.zangqing));
+//            tvPinlei.setTextColor(getResources().getColor(R.color.zangqing));
             yijipinleiid = activity.getSp_id();
         } else {
             type = "0";
             tvPinlei.setText("全部");
-            tvPinlei.setTextColor(getResources().getColor(R.color.zicolor));
+//            tvPinlei.setTextColor(getResources().getColor(R.color.white_80));
             yijipinleiid = "";
             erjipinleiid = "";
             sanjipinleiid = "";
@@ -944,7 +946,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         }
         shichangname = "";
         tvShaixuan.setText("不限");
-        tvShaixuan.setTextColor(getResources().getColor(R.color.zicolor));
+//        tvShaixuan.setTextColor(getResources().getColor(R.color.white_80));
         sousuo = "";
         getOneList();
     }

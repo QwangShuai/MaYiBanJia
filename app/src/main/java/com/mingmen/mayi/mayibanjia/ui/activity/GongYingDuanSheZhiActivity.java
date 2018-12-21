@@ -56,7 +56,7 @@ public class GongYingDuanSheZhiActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.iv_back, R.id.tv_tuichu,R.id.tv_qiehuan})
+    @OnClick({R.id.iv_back, R.id.tv_tuichu,R.id.ll_zhanghu})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -84,27 +84,31 @@ public class GongYingDuanSheZhiActivity extends BaseActivity {
                 });
 
                 break;
-            case R.id.tv_qiehuan:
-                qiehuan();
+//            case R.id.tv_qiehuan:
+//                qiehuan();
+//                break;
+            case R.id.ll_zhanghu:
+                Intent it = new Intent(mContext,WoDeZhangHuActivity.class);
+                startActivity(it);
                 break;
         }
     }
 
-    private void qiehuan(){
-            HttpManager.getInstance()
-                    .with(mContext)
-                    .setObservable(RetrofitManager.getService()
-                            .qiehuan(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
-                    .setDataListener(new HttpDataListener<String>() {
-                        @Override
-                        public void onNext(String bean) {
-                            Intent it = new Intent(mContext, MainActivity.class);
-                            it.putExtra("tosome",3);
-                            startActivity(it);
-                            finish();
-                        }
-                    });
-    }
+//    private void qiehuan(){
+//            HttpManager.getInstance()
+//                    .with(mContext)
+//                    .setObservable(RetrofitManager.getService()
+//                            .qiehuan(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
+//                    .setDataListener(new HttpDataListener<String>() {
+//                        @Override
+//                        public void onNext(String bean) {
+//                            Intent it = new Intent(mContext, MainActivity.class);
+//                            it.putExtra("tosome",3);
+//                            startActivity(it);
+//                            finish();
+//                        }
+//                    });
+//    }
 
     @Override
     public void onBackPressed() {

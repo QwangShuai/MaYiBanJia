@@ -159,7 +159,7 @@ public class SouSuoActivity extends BaseActivity {
     private List<String> dianpuNamelist;
     private ArrayList<TextView> tvs;
     private ConfirmDialog confirmDialog;
-    private String sousuofangxiang;
+    private String sousuofangxiang = "shichang";
     private FaCaiGouMohuAdapter mohuAdapter;
     private String fenleiid="";
     private String fenleiname="";
@@ -213,7 +213,7 @@ public class SouSuoActivity extends BaseActivity {
         xuanze.add("市场");
         xuanze.add("店铺");
         xuanze.add("商品");
-        sousuofangxiang = "shichang";
+//        sousuofangxiang = "shichang";
         setViewMoren();
         if (getIntent().getStringExtra("sousuofangxiang") != null) {
             sousuofangxiang = getIntent().getStringExtra("sousuofangxiang");
@@ -295,26 +295,26 @@ public class SouSuoActivity extends BaseActivity {
         etSousuo.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                if ("".equals(etSousuo.getText().toString().trim()) || etSousuo.getText().toString().trim() == null) {
-                    if(sousuo_state==0){
-                        if(!TextUtils.isEmpty(tvPipei.getText().toString().trim())){
-                            getmohuchaxun(tvPipei.getText().toString().trim());
-                        }
-                    } else {
-                        llWuzi.setVisibility(View.VISIBLE);
-                        rvYouzi.setVisibility(View.GONE);
-                    }
-                }
-                if(s.length()>0){
-                    sousuozi=s.toString().trim();
-                }
+//                if ("".equals(etSousuo.getText().toString().trim()) || etSousuo.getText().toString().trim() == null) {
+//                    if(sousuo_state==0){
+//                        if(!TextUtils.isEmpty(tvPipei.getText().toString().trim())){
+//                            getmohuchaxun(tvPipei.getText().toString().trim());
+//                        }
+//                    } else {
+//                        llWuzi.setVisibility(View.VISIBLE);
+//                        rvYouzi.setVisibility(View.GONE);
+//                    }
+//                }
+//                if(s.length()>0){
+//                    sousuozi=s.toString().trim();
+//                }
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (etSousuo.getText().toString().trim().length() == 0) {
                     if(sousuo_state==0){
                         if(!TextUtils.isEmpty(tvPipei.getText().toString().trim())){
-                            getmohuchaxun(tvPipei.getText().toString().trim());
+//                            getmohuchaxun(tvPipei.getText().toString().trim());
                         }
                     } else {
                         llWuzi.setVisibility(View.VISIBLE);
@@ -344,14 +344,14 @@ public class SouSuoActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.length()>0){
-                    sousuozi=s.toString().trim();
-                }
-                if(sousuo_state==2){
-                    sousuo(sousuozi,true);
-//                    llShangpin.setVisibility(View.VISIBLE);
-                }
-
+//                if(s.length()>0){
+//                    sousuozi=s.toString().trim();
+//                }
+//                if(sousuo_state==2){
+//                    sousuo(sousuozi,true);
+////                    llShangpin.setVisibility(View.VISIBLE);
+//                }
+//
             }
         });
         etSousuo.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -544,10 +544,10 @@ public class SouSuoActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
-                finish();
+                myBack();
                 break;
             case R.id.tv_quxiao:
-                finish();
+                myBack();
                 break;
 //            case R.id.rl_shichang:
 //                shichangxianshi();
@@ -1319,4 +1319,14 @@ public class SouSuoActivity extends BaseActivity {
 //                    }
 //                }, false);
 //    }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        myBack();
+    }
+
+    public void myBack(){
+        finish();
+    }
 }

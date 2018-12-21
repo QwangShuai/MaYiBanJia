@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/beijing">
+    android:background="@color/zangqing">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="59dp"
@@ -89,13 +89,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="地区"
-                        android:textColor="#ff999999"
+                        android:textColor="@color/white_80"
                         android:textSize="12sp"
                         />
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/xialajiantou"
+                        android:src="@mipmap/xiangxia_bai"
                         />
                 </LinearLayout>
                 <TextView
@@ -104,7 +104,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="哈尔滨"
-                    android:textColor="#474747"
+                    android:textColor="@color/white_80"
                     android:textSize="15sp"
                     android:layout_marginTop="8dp"
                     />
@@ -126,13 +126,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="筛选"
-                        android:textColor="#ff999999"
+                        android:textColor="@color/white_80"
                         android:textSize="12sp"
                         />
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/xialajiantou"
+                        android:src="@mipmap/xiangxia_bai"
                         />
                 </LinearLayout>
                 <TextView
@@ -141,7 +141,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="不限"
-                    android:textColor="#474747"
+                    android:textColor="@color/white_80"
                     android:textSize="15sp"
                     android:layout_marginTop="8dp"
                     />
@@ -162,13 +162,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="品类"
-                        android:textColor="#ff999999"
+                        android:textColor="@color/white_80"
                         android:textSize="12sp"
                         />
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/xialajiantou"
+                        android:src="@mipmap/xiangxia_bai"
                         />
                 </LinearLayout>
                 <TextView
@@ -177,7 +177,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="全部"
-                    android:textColor="@color/zicolor"
+                    android:textColor="@color/white_80"
                     android:textSize="15sp"
                     android:layout_marginTop="8dp"
 
@@ -189,63 +189,67 @@
             android:layout_height="1dp"
             android:background="@color/cutoff"/>
         <LinearLayout
+            android:background="@drawable/fillet_solid_white_10_top_zy"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="28dp"
-            android:orientation="horizontal"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp">
-            <TextView
-                android:id="@+id/tv_xiaoliang"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="销量"
-                android:textColor="@color/lishisousuo"
-                android:textSize="12sp"
-                android:layout_weight="1"/>
+            android:layout_height="match_parent">
             <LinearLayout
-                android:id="@+id/ll_jiage"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="28dp"
                 android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_weight="1">
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp">
                 <TextView
-                    android:id="@+id/tv_jiage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="价格"
+                    android:id="@+id/tv_xiaoliang"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="销量"
+                    android:textColor="@color/lishisousuo"
+                    android:textSize="12sp"
+                    android:layout_weight="1"/>
+                <LinearLayout
+                    android:id="@+id/ll_jiage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_weight="1">
+                    <TextView
+                        android:id="@+id/tv_jiage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="价格"
+                        android:textColor="#666666"
+                        android:textSize="12sp"
+                        />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/jiagepaixu"/>
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_pingfenzuigao"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="评分最高"
                     android:textColor="#666666"
                     android:textSize="12sp"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     />
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/jiagepaixu"/>
             </LinearLayout>
-            <TextView
-                android:id="@+id/tv_pingfenzuigao"
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/refresh_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="评分最高"
-                android:textColor="#666666"
-                android:textSize="12sp"
-                android:layout_weight="1"
-                android:gravity="center"
-                />
+                android:layout_height="wrap_content">
+                <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
+                    android:id="@+id/rv_shangpin"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"></com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView>
+            </android.support.v4.widget.SwipeRefreshLayout>
         </LinearLayout>
-
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/refresh_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
-                android:id="@+id/rv_shangpin"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"></com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView>
-        </android.support.v4.widget.SwipeRefreshLayout>
-
     </LinearLayout>
-
 </LinearLayout>

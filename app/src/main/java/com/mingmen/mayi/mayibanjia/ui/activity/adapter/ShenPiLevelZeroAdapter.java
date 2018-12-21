@@ -77,6 +77,9 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final CaiGouDanBean.FllistBean bean = mList.get(position);
         holder.tvPinlei.setText(bean.getClassify_name());
+        if(StringUtil.isValid(bean.getMarket_id())){
+            holder.tvShichang.setText(bean.getMarket_name());
+        }
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         adapter = new ShenPiLevelOneAdapter(activity, mList.get(position).getSonorderlist(),ShenPiLevelZeroAdapter.this,position);
@@ -96,7 +99,7 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
                                 holder.tvShichang.setText(name);
                                 market_id = id;
                                 mList.get(position).setMarket_id(id);
-                                activity.setItemMarket_id(position,id);
+                                activity.setItemMarket_id(position,id,name);
                                 for (int i=0;i<mList.get(position).getSonorderlist().size();i++){
                                     mList.get(position).getSonorderlist().get(i).setMarket_id(id);
                                     mList.get(position).getSonorderlist().get(i).setNeedLoad(true);
@@ -107,7 +110,6 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
                                     bean.setDanjia("");
                                     activity.setAdapterXuanzhong( mList.get(position).getSonorderlist().get(i).getSon_order_id(),bean);
 //                            adapter.setZongjia("");
-//                            activity.cleViewShow();
                                     notifyDataSetChanged();
                                 }
                             }
@@ -257,7 +259,8 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
                                                                     adapter.setShow(pos);
                                                                 } else {
                                                                 }
-                                                                adapter.notifyDataSetChanged();
+//                                                                adapter.notifyDataSetChanged();
+                                                                notifyDataSetChanged();
                                                             }
                                                         }).show(activity.getSupportFragmentManager());
                                             }

@@ -94,9 +94,6 @@ public class CaiGouListActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.bt_tijiao:
-//                if (mList.size() == 0) {
-//                    ToastUtil.showToast("请先添加至少一个商品再提交");
-//                } else {
                     HttpManager.getInstance()
                             .with(mContext)
                             .setObservable(
@@ -107,31 +104,30 @@ public class CaiGouListActivity extends BaseActivity {
                             .setDataListener(new HttpDataListener<String>() {
                                 @Override
                                 public void onNext(String data) {
-                                    ToastUtil.showToast("data");
+                                    tijiaoxuqiuDialog.showDialog();
+                                    tijiaoxuqiuDialog.getTvCaigoudan().setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            Intent intent = new Intent(mContext, CaiGouDanActivity.class);
+                                            startActivity(intent);
+                                            FCGDiQuXuanZeActivity.instance.finish();
+                                            tijiaoxuqiuDialog.dismiss();
+                                            finish();
+                                        }
+                                    });
+                                    tijiaoxuqiuDialog.getTvShouye().setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            Intent intent = new Intent(mContext, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            startActivity(intent);
+                                            tijiaoxuqiuDialog.dismiss();
+                                            finish();
+                                        }
+                                    });
                                 }
 
                             }, false);
-                    //dialog
-                    tijiaoxuqiuDialog.showDialog();
-                    tijiaoxuqiuDialog.getTvCaigoudan().setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(mContext, CaiGouDanActivity.class);
-                            startActivity(intent);
-                            FCGDiQuXuanZeActivity.instance.finish();
-                            tijiaoxuqiuDialog.dismiss();
-                            finish();
-                        }
-                    });
-                    tijiaoxuqiuDialog.getTvShouye().setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(mContext, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
-                            tijiaoxuqiuDialog.dismiss();
-                            finish();
-                        }
-                    });
+
 //                }
                 break;
         }

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.mingmen.mayi.mayibanjia.ui.activity.MenDianXinXiActivity">
+    <include layout="@layout/head_zangqing"></include>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:padding="12dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="12sp"
+                android:textColor="@color/hintcolor"
+                android:text="基本信息"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp">
+                <TextView
+                    android:textSize="15sp"
+                    android:textColor="@color/zicolor"
+                    android:gravity="center"
+                    android:text="店铺头像"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <ImageView
+                    android:layout_centerVertical="true"
+                    android:id="@+id/iv_touxiang"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:textSize="15sp"
+                    android:textColor="@color/zicolor"
+                    android:gravity="center"
+                    android:text="店铺名称"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:textSize="14sp"
+                    android:textColor="@color/hintcolor"
+                    android:text=""
+                    android:gravity="center"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:textSize="15sp"
+                    android:textColor="@color/zicolor"
+                    android:gravity="center"
+                    android:text="地址"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:textSize="14sp"
+                    android:textColor="@color/hintcolor"
+                    android:text=""
+                    android:gravity="center"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:textSize="15sp"
+                    android:textColor="@color/zicolor"
+                    android:gravity="center"
+                    android:text="市场"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:textSize="14sp"
+                    android:textColor="@color/hintcolor"
+                    android:text=""
+                    android:gravity="center"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+            </RelativeLayout>
+            <TextView
+                android:textSize="12sp"
+                android:textColor="@color/hintcolor"
+                android:text="认证中心"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:textSize="15sp"
+                    android:textColor="@color/zicolor"
+                    android:gravity="center"
+                    android:text="资质认证"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <LinearLayout
+                    android:id="@+id/ll_zizhi"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/tv_zizhi_state"
+                        android:textSize="14sp"
+                        android:textColor="@color/hintcolor"
+                        android:text=""
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+                    <ImageView
+                        android:layout_marginLeft="13dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@mipmap/jinru"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:textSize="15sp"
+                    android:textColor="@color/zicolor"
+                    android:gravity="center"
+                    android:text="银行卡认证"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <LinearLayout
+                    android:id="@+id/ll_yinhangka"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/tv_yinhangka_state"
+                        android:textSize="14sp"
+                        android:textColor="@color/hintcolor"
+                        android:text=""
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+                    <ImageView
+                        android:layout_marginLeft="13dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@mipmap/jinru"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

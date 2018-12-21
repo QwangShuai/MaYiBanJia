@@ -279,9 +279,17 @@
         <activity android:name=".ui.activity.ZiZhangHuActivity" /> <!-- 子账户 -->
         <activity android:name=".ui.activity.AddZiZhuangHuActivity" /> <!-- 添加子账户 -->
         <activity android:name=".ui.activity.JueSeGuanLiActivity" /> <!-- 角色管理 -->
-        <activity android:name=".ui.activity.qiangdan.GongYingDuanQiangDanActivity" />
-        <activity android:name=".ui.activity.CaiGouListActivity" />
-        <activity android:name=".ui.activity.DetailsZiZhangHuActivity"></activity>
+        <activity android:name=".ui.activity.qiangdan.GongYingDuanQiangDanActivity" /> <!-- 供应端抢单 -->
+        <activity android:name=".ui.activity.CaiGouListActivity" /> <!-- 采购单列表 -->
+        <activity android:name=".ui.activity.DetailsZiZhangHuActivity" /> <!-- 子账户详情 -->
+        <activity android:name=".ui.activity.ShenPiChengGongActivity" /> <!-- 审批成功 -->
+        <activity android:name=".ui.activity.ShenPiShiBaiActivity" /> <!-- 审批失败 -->
+        <activity android:name=".ui.activity.WoDeZhangHuActivity" /> <!-- 我的账户 -->
+        <activity android:name=".ui.activity.ChangePwdActivity" /> <!-- 修改密码 -->
+        <activity android:name=".ui.activity.ChangePhoneActivity" />
+        <activity android:name=".ui.activity.YanZhengPhoneActivity" />
+        <activity android:name=".ui.activity.ChangePhoneBindActivity" />
+        <activity android:name=".ui.activity.MenDianXinXiActivity"></activity>
     </application>
 
 </manifest>

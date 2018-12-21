@@ -103,16 +103,19 @@ public abstract class BaseGHOrderFragment extends BaseFragment {
                 .setDataListener(new HttpDataListener<List<GHOrderBean>>() {
                     @Override
                     public void onNext(List<GHOrderBean> data) {
-                        if (data.size() == 5) {
-                            rvDingdan.loadMoreFinish(false, true);
-                        } else if (data.size() > 0) {
-                            rvDingdan.loadMoreFinish(false, false);
-                        } else {
-                            rvDingdan.loadMoreFinish(true, false);
+                        if (!"null".equals(String.valueOf(data))) {
+                            mlist.clear();
+                            mlist.addAll(data);
+                            if (data.size() == 5) {
+                                rvDingdan.loadMoreFinish(false, true);
+                            } else if (data.size() > 0) {
+                                rvDingdan.loadMoreFinish(false, false);
+                            } else {
+                                rvDingdan.loadMoreFinish(true, false);
+                            }
+                            adapter.notifyDataSetChanged();
+                            ye++;
                         }
-                        mlist.addAll(data);
-                        adapter.notifyDataSetChanged();
-                        ye++;
                     }
                 });
     }
@@ -155,6 +158,7 @@ public abstract class BaseGHOrderFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         ye = 1;
+        mlist.clear();
         getData();
     }
 
@@ -170,8 +174,8 @@ public abstract class BaseGHOrderFragment extends BaseFragment {
                 .setDataListener(new HttpDataListener<List<GHOrderBean>>() {
                     @Override
                     public void onNext(List<GHOrderBean> data) {
-                        Log.e("data1", data + "---");
                         mlist.clear();
+                        mlist.addAll(data);
                         if (data.size() == 5) {
                             rvDingdan.loadMoreFinish(false, true);
                         } else if (data.size() > 0) {
@@ -179,7 +183,6 @@ public abstract class BaseGHOrderFragment extends BaseFragment {
                         } else {
                             rvDingdan.loadMoreFinish(true, false);
                         }
-                        mlist.addAll(data);
                         adapter.notifyDataSetChanged();
                         ye++;
                     }

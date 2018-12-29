@@ -21,6 +21,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.ghdingdan.GHDOrderActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.qiangdan.GongYingDuanQiangDanActivity;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
+import com.mingmen.mayi.mayibanjia.ui.view.CircleImageView;
 import com.mingmen.mayi.mayibanjia.utils.PollingService;
 import com.mingmen.mayi.mayibanjia.utils.PollingUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
@@ -64,7 +65,7 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
     @BindView(R.id.tv_ywc)
     TextView tvYwc;
     @BindView(R.id.iv_touxiang)
-    ImageView ivTouxiang;
+    CircleImageView ivTouxiang;
     @BindView(R.id.tv_dianming)
     TextView tvDianming;
     @BindView(R.id.tv_state)

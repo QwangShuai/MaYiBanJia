@@ -50,7 +50,7 @@ public class ShouYeLeiAdapter extends RecyclerView.Adapter<ShouYeLeiAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final List<ShouYeLeiBean> data = mList.get(position);
-        if (data.get(0) != null) {
+        if (data.size()>0&&data.get(0) != null) {
             Glide.with(mContext).load(data.get(0).getPicture_url()).into(holder.iv1);
             holder.tv1.setText(data.get(0).getClassify_name());
             holder.ll1.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +60,7 @@ public class ShouYeLeiAdapter extends RecyclerView.Adapter<ShouYeLeiAdapter.View
                 }
             });
         }
-        if (data.get(1) != null) {
+        if (data.size()>1&&data.get(1) != null) {
             Glide.with(mContext).load(data.get(1).getPicture_url()).into(holder.iv2);
             holder.tv2.setText(data.get(1).getClassify_name());
             holder.ll2.setOnClickListener(new View.OnClickListener() {
@@ -70,7 +70,7 @@ public class ShouYeLeiAdapter extends RecyclerView.Adapter<ShouYeLeiAdapter.View
                 }
             });
         }
-        if (data.get(2) != null) {
+        if (data.size()>2&&data.get(2) != null) {
             Glide.with(mContext).load(data.get(2).getPicture_url()).into(holder.iv3);
             holder.tv3.setText(data.get(2).getClassify_name());
             holder.ll3.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +80,7 @@ public class ShouYeLeiAdapter extends RecyclerView.Adapter<ShouYeLeiAdapter.View
                 }
             });
         }
-        if (data.get(3) != null) {
+        if (data.size()>3&&data.get(3) != null) {
             Glide.with(mContext).load(data.get(3).getPicture_url()).into(holder.iv4);
             holder.tv4.setText(data.get(3).getClassify_name());
             holder.ll4.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +90,7 @@ public class ShouYeLeiAdapter extends RecyclerView.Adapter<ShouYeLeiAdapter.View
                 }
             });
         }
-        if (data.get(4) != null) {
+        if (data.size()>4&&data.get(4) != null) {
             Glide.with(mContext).load(data.get(4).getPicture_url()).into(holder.iv5);
             holder.tv5.setText(data.get(4).getClassify_name());
             holder.ll5.setOnClickListener(new View.OnClickListener() {
@@ -100,7 +100,7 @@ public class ShouYeLeiAdapter extends RecyclerView.Adapter<ShouYeLeiAdapter.View
                 }
             });
         }
-        if (data.get(5) != null) {
+        if (data.size()>5&&data.get(5) != null) {
             Glide.with(mContext).load(data.get(5).getPicture_url()).into(holder.iv6);
             holder.tv6.setText(data.get(5).getClassify_name());
             holder.ll6.setOnClickListener(new View.OnClickListener() {
@@ -110,7 +110,7 @@ public class ShouYeLeiAdapter extends RecyclerView.Adapter<ShouYeLeiAdapter.View
                 }
             });
         }
-        if (data.get(6) != null) {
+        if (data.size()>6&&data.get(6) != null) {
             Glide.with(mContext).load(data.get(6).getPicture_url()).into(holder.iv7);
             holder.tv7.setText(data.get(6).getClassify_name());
             holder.ll7.setOnClickListener(new View.OnClickListener() {
@@ -120,7 +120,7 @@ public class ShouYeLeiAdapter extends RecyclerView.Adapter<ShouYeLeiAdapter.View
                 }
             });
         }
-        if (data.get(7) != null) {
+        if (data.size()>7&&data.get(7) != null) {
             Glide.with(mContext).load(data.get(7).getPicture_url()).into(holder.iv8);
             holder.tv8.setText(data.get(7).getClassify_name());
             holder.ll8.setOnClickListener(new View.OnClickListener() {

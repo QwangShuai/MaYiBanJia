@@ -30,6 +30,8 @@
             android:gravity="center"/>
     </RelativeLayout>
     <ScrollView
+        android:layout_marginBottom="60dp"
+        android:id="@+id/sl"
         android:layout_below="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -172,6 +174,7 @@
                             <!--android:paddingRight="4dp"/>-->
                     </RelativeLayout>
                 </LinearLayout>
+
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -208,7 +211,45 @@
                         android:layout_marginTop="20dp"/>
                 </LinearLayout>
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:orientation="horizontal"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp">
 
+                <TextView
+                    android:id="@+id/text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="联系方式"
+                    android:textColor="#ff474747"
+                    android:textSize="14sp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <EditText
+                        android:maxLines="1"
+                        android:maxLength="13"
+                        android:id="@+id/et_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text=""
+                        android:textColor="@color/zicolor"
+                        android:textSize="12sp"
+                        android:inputType="phone"
+                        android:hint="请输入联系方式"
+                        android:textColorHint="@color/hintcolor"
+                        android:gravity="center_vertical"
+                        android:layout_marginLeft="36dp"
+                        android:background="@drawable/fillet_hollow_999999_3"
+                        android:paddingLeft="5dp"
+                        />
+
+                </RelativeLayout>
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="170dp"

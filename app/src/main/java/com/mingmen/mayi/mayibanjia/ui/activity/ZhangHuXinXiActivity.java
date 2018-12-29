@@ -18,6 +18,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
+import com.mingmen.mayi.mayibanjia.ui.view.CircleImageView;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 
 import butterknife.BindView;
@@ -43,18 +44,19 @@ public class ZhangHuXinXiActivity extends BaseActivity {
     ImageView ivAnquanJinru;
     @BindView(R.id.ll_zizhirenzheng)
     LinearLayout llZizhirenzheng;
-    @BindView(R.id.ll_farenrenzheng)
-    LinearLayout llFarenrenzheng;
+//    @BindView(R.id.ll_farenrenzheng)
+//    LinearLayout llFarenrenzheng;
     @BindView(R.id.iv_touxiang)
-    ImageView ivTouxiang;
+    CircleImageView ivTouxiang;
     @BindView(R.id.tv_zz_shenhe)
     TextView tvZzShenhe;
-    @BindView(R.id.tv_fr_shenhe)
-    TextView tvFrShenhe;
+//    @BindView(R.id.tv_fr_shenhe)
+//    TextView tvFrShenhe;
     @BindView(R.id.tv_dianming)
     TextView tvDianming;
     private Context mContext;
     private ConfirmDialog confirmDialog;
+    private String sh_state="待审核";
 
     @Override
     public int getLayoutId() {
@@ -63,6 +65,7 @@ public class ZhangHuXinXiActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        tvTitle.setText("账户信息");
         mContext = ZhangHuXinXiActivity.this;
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
@@ -70,7 +73,7 @@ public class ZhangHuXinXiActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.iv_back, R.id.tv_tuichu, R.id.ll_touxiang, R.id.iv_anquan_jinru, R.id.ll_zizhirenzheng, R.id.ll_farenrenzheng})
+    @OnClick({R.id.iv_back, R.id.tv_tuichu, R.id.ll_touxiang, R.id.iv_anquan_jinru, R.id.ll_zizhirenzheng})
     public void onViewClicked(View view) {
         Intent it;
         switch (view.getId()) {
@@ -104,10 +107,12 @@ public class ZhangHuXinXiActivity extends BaseActivity {
             case R.id.ll_zizhirenzheng://资质认证
                 it = new Intent(mContext, ZiZhiRenZhengActivity.class);
                 it.putExtra("id", "");
+                it.putExtra("state",sh_state);
+                it.putExtra("yemian","0");
                 startActivity(it);
                 break;
-            case R.id.ll_farenrenzheng:
-                break;
+//            case R.id.ll_farenrenzheng:
+//                break;
         }
     }
 
@@ -130,7 +135,8 @@ public class ZhangHuXinXiActivity extends BaseActivity {
                         Glide.with(mContext).load(bean.getFile_path()).into(ivTouxiang);
                         tvDianming.setText(bean.getCompany_name());
                         tvZzShenhe.setText(bean.getZz().toString());
-                        tvFrShenhe.setText(bean.getFr().toString());
+                        sh_state = bean.getZz().toString();
+//                        tvFrShenhe.setText(bean.getFr().toString());
                     }
                 });
     }

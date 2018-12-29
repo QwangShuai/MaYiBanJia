@@ -40,7 +40,14 @@ public class DingDanActivity extends BaseActivity {
     ViewPager vpDingdan;
     private OrderAdapter adapter;
     private Context mContext;
+    private String token="";
+    public String getToken() {
+        return token;
+    }
 
+    public void setToken(String token) {
+        this.token = token;
+    }
     @Override
     public int getLayoutId() {
         return R.layout.activity_dingdan;
@@ -52,6 +59,7 @@ public class DingDanActivity extends BaseActivity {
         adapter = new OrderAdapter(getSupportFragmentManager(), DingDanActivity.this);
         vpDingdan.setAdapter(adapter);
         tabsDingdan.setViewPager(vpDingdan);
+        setToken(getIntent().getStringExtra("token"));
         vpDingdan.setOffscreenPageLimit(0);
         /**
          * 跳转传过来的页面，到哪个

@@ -177,7 +177,7 @@ public class QueRenDingDanActivity extends BaseActivity {
 //        }else if (fangshi==3){
 //            //yue
 //        }
-        Log.e("shopping_id,shopping_id", shopping_id + "---" + remarke);
+        Log.e("我的",new Gson().toJson(shichangList));
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(

@@ -41,6 +41,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.PhotoDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.ShowViewCity;
+import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
@@ -89,6 +90,8 @@ public class XinXiLuRuActivity extends BaseActivity {
     TextView tvJiedaoxuanze;
     @BindView(R.id.et_xiangxidizhi)
     EditText etXiangxidizhi;
+    @BindView(R.id.et_phone)
+    EditText etPhone;
     @BindView(R.id.bt_queding)
     TextView btQueding;
     private Uri imageUri;//原图保存地址
@@ -244,6 +247,8 @@ public class XinXiLuRuActivity extends BaseActivity {
                     ToastUtil.showToast("详细地址不可以为空");
                 } else if(TextUtils.isEmpty(jieid)){
                     ToastUtil.showToast("街道地址不可以为空");
+                } else if(!AppUtil.isMobile(etPhone.getText().toString().trim())&&!AppUtil.isPhone(etPhone.getText().toString().trim())){
+                    ToastUtil.showToast("请输入正确的联系方式");
                 }else {
                     if ("add".equals(rukou)){
                         qiyeluru();
@@ -275,7 +280,7 @@ public class XinXiLuRuActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .qiyexiugai(PreferenceUtils.getString(MyApplication.mContext, "token",""),qiyeid,qiyemingcheng,shengid+"",shiid+"",quid+"",jieid+"", xiangxidizhi,shidizhaopian,leibieid,guimoname))
+                                .qiyexiugai(PreferenceUtils.getString(MyApplication.mContext, "token",""),qiyeid,qiyemingcheng,shengid+"",shiid+"",quid+"",jieid+"", xiangxidizhi,shidizhaopian,leibieid,guimoname,etPhone.getText().toString().trim()))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
@@ -293,7 +298,7 @@ public class XinXiLuRuActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .qiyeluru(PreferenceUtils.getString(MyApplication.mContext, "token",""),qiyemingcheng,shengid+"",shiid+"",quid+"",jieid+"", xiangxidizhi,yewuyuanweizhi,shidizhaopian,leibieid,guimoname))
+                                .qiyeluru(PreferenceUtils.getString(MyApplication.mContext, "token",""),qiyemingcheng,shengid+"",shiid+"",quid+"",jieid+"", xiangxidizhi,yewuyuanweizhi,shidizhaopian,leibieid,guimoname,etPhone.getText().toString().trim()))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {

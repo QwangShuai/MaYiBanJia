@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     >
 
 
@@ -33,10 +34,10 @@
             />
     </RelativeLayout>
     <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_weight="1"
         android:id="@+id/srl_shuaxin"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="68dp">
+        android:layout_height="match_parent">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_gouwuche"
         android:layout_width="match_parent"
@@ -164,4 +165,4 @@
 
     </RelativeLayout>
 
-</RelativeLayout>
+</LinearLayout>

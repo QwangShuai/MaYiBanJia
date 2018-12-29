@@ -123,6 +123,7 @@ public class FCGCaiGouXuQiuActivity extends BaseActivity {
         mContext = FCGCaiGouXuQiuActivity.this;
         tvTitle.setText("采购需求");
         tvRight.setText("采购列表");
+        tvRight.setTextColor(mContext.getResources().getColor(R.color.zangqing));
         bundle = getIntent().getExtras();
         shichangid = bundle.getString("shichang");
         purchase_name = bundle.getString("caigouming");

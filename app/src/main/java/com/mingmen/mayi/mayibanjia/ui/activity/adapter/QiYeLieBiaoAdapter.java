@@ -2,6 +2,7 @@ package com.mingmen.mayi.mayibanjia.ui.activity.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.QiYeLieBiaoBean;
+import com.mingmen.mayi.mayibanjia.ui.activity.ShangPinGuanLiActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.dingdan.DingDanActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ghdingdan.GHDOrderActivity;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
@@ -33,7 +36,7 @@ public class QiYeLieBiaoAdapter extends RecyclerView.Adapter<QiYeLieBiaoAdapter.
     private Context mContext;
     private List<QiYeLieBiaoBean> mList;
     private OnItemClickListener mOnItemClickListener;
-
+    private Intent it;
     public QiYeLieBiaoAdapter(Context mContext, List<QiYeLieBiaoBean> list) {
         this.mContext = mContext;
         this.mList = list;
@@ -89,6 +92,7 @@ public class QiYeLieBiaoAdapter extends RecyclerView.Adapter<QiYeLieBiaoAdapter.
         }
 
         if (mOnItemClickListener != null) {
+
             holder.llBianji.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -98,30 +102,47 @@ public class QiYeLieBiaoAdapter extends RecyclerView.Adapter<QiYeLieBiaoAdapter.
             holder.tvDingdanGyd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent it = new Intent(mContext, GHDOrderActivity.class);
+                    it= new Intent(mContext, GHDOrderActivity.class);
                     it.putExtra("token",data.getUser_token());
+                    it.putExtra("isClick",1);
                     mContext.startActivity(it);
                 }
             });
             holder.tvShangpinPt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ToastUtil.showToast("普通");
+                    it= new Intent(mContext, ShangPinGuanLiActivity.class);
+                    it.putExtra("token",data.getUser_token());
+                    it.putExtra("goods","0");
+                    it.putExtra("isClick",1);
+                    mContext.startActivity(it);
                 }
             });
             holder.tvDingdanCtd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ToastUtil.showToast("餐厅端");
+                    it= new Intent(mContext, DingDanActivity.class);
+                    it.putExtra("token",data.getUser_token());
+                    it.putExtra("isClick",1);
+                    mContext.startActivity(it);
                 }
             });
             holder.tvShangpinTj.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ToastUtil.showToast("特价");
+                    it= new Intent(mContext, ShangPinGuanLiActivity.class);
+                    it.putExtra("token",data.getUser_token());
+                    it.putExtra("goods","1");
+                    it.putExtra("isClick",1);
+                    mContext.startActivity(it);
                 }
             });
-
+            holder.llPhone.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CallPhone(data.getTelephone()+"");
+                }
+            });
         }
     }
 
@@ -154,9 +175,17 @@ public class QiYeLieBiaoAdapter extends RecyclerView.Adapter<QiYeLieBiaoAdapter.
         TextView tvShangpinPt;
         @BindView(R.id.tv_shangpin_tj)
         TextView tvShangpinTj;
+        @BindView(R.id.ll_phone)
+        LinearLayout llPhone;
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
+    }
+    public void CallPhone(String phone) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        Uri data = Uri.parse("tel:" + phone);
+        intent.setData(data);
+        mContext.startActivity(intent);
     }
 }

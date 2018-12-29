@@ -2,12 +2,10 @@ package com.mingmen.mayi.mayibanjia.http;
 
 
 import com.mingmen.mayi.mayibanjia.bean.AddressListBean;
-import com.mingmen.mayi.mayibanjia.bean.AllMarket;
 import com.mingmen.mayi.mayibanjia.bean.AllShiChangBean;
 import com.mingmen.mayi.mayibanjia.bean.CaiGouDanBean;
 import com.mingmen.mayi.mayibanjia.bean.CarsTypeBean;
 import com.mingmen.mayi.mayibanjia.bean.ChePaiBean;
-import com.mingmen.mayi.mayibanjia.bean.DdxqBean;
 import com.mingmen.mayi.mayibanjia.bean.DdxqListBean;
 import com.mingmen.mayi.mayibanjia.bean.DianMingChaXunBean;
 import com.mingmen.mayi.mayibanjia.bean.DianPuBean;
@@ -22,7 +20,7 @@ import com.mingmen.mayi.mayibanjia.bean.FenLeiBean;
 import com.mingmen.mayi.mayibanjia.bean.FenLeiMingChengBean;
 import com.mingmen.mayi.mayibanjia.bean.GHOrderBean;
 import com.mingmen.mayi.mayibanjia.bean.GWCShangPinBean;
-import com.mingmen.mayi.mayibanjia.bean.GetAllMarketBean;
+import com.mingmen.mayi.mayibanjia.bean.GetMenDianBean;
 import com.mingmen.mayi.mayibanjia.bean.GetZiZhiBean;
 import com.mingmen.mayi.mayibanjia.bean.JYMXBean;
 import com.mingmen.mayi.mayibanjia.bean.JYMXItemBean;
@@ -32,6 +30,7 @@ import com.mingmen.mayi.mayibanjia.bean.LiShiJiLuBean;
 import com.mingmen.mayi.mayibanjia.bean.LiuLanJiLuBean;
 import com.mingmen.mayi.mayibanjia.bean.PhoneBean;
 import com.mingmen.mayi.mayibanjia.bean.PingJiaLableBean;
+import com.mingmen.mayi.mayibanjia.bean.PingJiaTypeListBean;
 import com.mingmen.mayi.mayibanjia.bean.ProvinceBean;
 import com.mingmen.mayi.mayibanjia.bean.QiYeGuiMoBean;
 import com.mingmen.mayi.mayibanjia.bean.QiYeLeiBieBean;
@@ -56,6 +55,7 @@ import com.mingmen.mayi.mayibanjia.bean.ShouYeTeJiaBean;
 import com.mingmen.mayi.mayibanjia.bean.SiJiWLXQBean;
 import com.mingmen.mayi.mayibanjia.bean.SongDaShiJianBean;
 import com.mingmen.mayi.mayibanjia.bean.TuiJianBean;
+import com.mingmen.mayi.mayibanjia.bean.WXPayBean;
 import com.mingmen.mayi.mayibanjia.bean.WeiYiQrCodeBean;
 import com.mingmen.mayi.mayibanjia.bean.WoDeBean;
 import com.mingmen.mayi.mayibanjia.bean.WuLiuBean;
@@ -73,14 +73,11 @@ import com.mingmen.mayi.mayibanjia.bean.ZiZhangHuDetailsBean;
 import com.mingmen.mayi.mayibanjia.bean.ZouShiTuBean;
 import com.mingmen.mayi.mayibanjia.http.result.ResultModel;
 
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
 
 import io.reactivex.Observable;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
-import retrofit2.http.QueryMap;
 
 public interface HttpService {
     //首页分类数据
@@ -109,7 +106,7 @@ public interface HttpService {
 
     //确认验证码输入是否正确
     @POST("allCompanyAccount/updateByTelephone.do")
-    Observable<ResultModel<String>> changePhone( @Query("user_token") String user_token, @Query("telephone") String telephone);
+    Observable<ResultModel<String>> changePhone(@Query("user_token") String user_token, @Query("telephone") String telephone);
 
     //确认验证码输入是否正确
     @POST("allCompanyAccount/code.do")
@@ -303,7 +300,8 @@ public interface HttpService {
                                              @Query("salesman_duty") String salesman_duty,
                                              @Query("photo") String photo,
                                              @Query("parent_number") String parent_number,
-                                             @Query("scale") String scale);
+                                             @Query("scale") String scale,
+                                             @Query("telephone") String telephone);
 
     //企业修改(业务员)
     @POST("allCompany/updateCompany.do")
@@ -317,7 +315,8 @@ public interface HttpService {
                                                @Query("specific_address") String specific_address,
                                                @Query("photo") String photo,
                                                @Query("parent_number") String parent_number,
-                                               @Query("scale") String scale);
+                                               @Query("scale") String scale,
+                                               @Query("telephone") String telephone);
 
     //查询企业列表（业务员）
     @POST("allCompany/queryAll.do")
@@ -387,7 +386,9 @@ public interface HttpService {
     //店铺展示
     @POST("allCompany/selectdpsy.do")
     Observable<ResultModel<DianPuZhanShiBean>> getdianpuzhanshi(@Query("user_token") String user_token,
-                                                                @Query("company_id") String company_id);
+                                                                @Query("company_id") String company_id,
+                                                                @Query("pageNumber") String pageNumber,
+                                                                @Query("sortOrder") String sortOrder);
 
     //分类名称
     @POST("ctObserver/chooseType.do")
@@ -625,11 +626,12 @@ public interface HttpService {
     @POST("allMarket/markeList.do")
     Observable<ResultModel<List<ShiChangBean>>> getShiChangByCity(@Query("user_token") String user_token, @Query("city") String city);
 
-    //查询我的所有评价
+    //查询店铺所有评价
     @POST("gyCommentReply/getGoodsXq.do")
     Observable<ResultModel<List<XQPingJiaBean>>> getpingjia(@Query("user_token") String user_token,
                                                             @Query("company_id") String company_id,
-                                                            @Query("pageNumber") String pageNumber);
+                                                            @Query("pageNumber") String pageNumber,
+                                                            @Query("sortOrder") String sortOrder);
 
     //供货端商品列表
     @POST("gyCommodity/queryGysGoods.do")
@@ -1012,5 +1014,30 @@ public interface HttpService {
     //验证采购单是否重复
     @POST("ctBuyHostorder/queryonleName.do")
     Observable<ResultModel<String>> yanzhengCgd(@Query("user_token") String user_token,
-                                              @Query("purchase_name") String purchase_name);
+                                                @Query("purchase_name") String purchase_name);
+
+    //门店信息
+    @POST("allCompanyAccount/queryBymd.do")
+    Observable<ResultModel<GetMenDianBean>> mendianShow(@Query("user_token") String user_token);
+
+    //门店商品列表
+    @POST("allCompany/queryGoods.do")
+    Observable<ResultModel<List<DianPuZhanShiBean.CompanyListBean>>> getDpspList(@Query("user_token") String user_token,
+                                                                                 @Query("company_id") String company_id,
+                                                                                 @Query("pageNumber") String pageNumber,
+                                                                                 @Query("sortOrder") String sortOrder);
+
+    //门店商品搜索列表
+    @POST("allCompany/selectCt.do")
+    Observable<ResultModel<List<DianPuZhanShiBean.CompanyListBean>>> getDpspListSearch(@Query("classify_name") String classify_name,
+                                                                                       @Query("company_id") String company_id);
+
+    //微信支付
+    @POST("pay/getWXPay.do")
+    Observable<ResultModel<WXPayBean>> getWXPay(@Query("order_id") String order_id,
+                                                @Query("total_fee") String total_fee);
+
+    //评价分类列表
+    @POST("gyCommentReply/replyCount.do")
+    Observable<ResultModel<PingJiaTypeListBean>> getPingjiaTypeNumber(@Query("company_id") String company_id);
 }

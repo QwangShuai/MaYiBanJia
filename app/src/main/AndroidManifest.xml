@@ -286,10 +286,22 @@
         <activity android:name=".ui.activity.ShenPiShiBaiActivity" /> <!-- 审批失败 -->
         <activity android:name=".ui.activity.WoDeZhangHuActivity" /> <!-- 我的账户 -->
         <activity android:name=".ui.activity.ChangePwdActivity" /> <!-- 修改密码 -->
-        <activity android:name=".ui.activity.ChangePhoneActivity" />
-        <activity android:name=".ui.activity.YanZhengPhoneActivity" />
-        <activity android:name=".ui.activity.ChangePhoneBindActivity" />
-        <activity android:name=".ui.activity.MenDianXinXiActivity"></activity>
+        <activity android:name=".ui.activity.ChangePhoneActivity" /> <!-- 选择修改手机绑定 -->
+        <activity android:name=".ui.activity.YanZhengPhoneActivity" /> <!-- 验证手机 -->
+        <activity android:name=".ui.activity.ChangePhoneBindActivity" /> <!-- 修改手机绑定 -->
+        <activity android:name=".ui.activity.MenDianXinXiActivity" /> <!-- 门店信息 -->
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="wx77762a8eab365cf1" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

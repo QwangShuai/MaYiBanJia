@@ -57,7 +57,6 @@ public class DianPuZhanShiAdapter extends RecyclerView.Adapter<DianPuZhanShiAdap
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {//店铺商品列表
         final DianPuZhanShiBean.CompanyListBean data = mList.get(position);
-        Log.e("pic",data.getHostphoto());
         Glide.with(mContext).load(data.getHostphoto()).into(holder.ivSptu);
         holder.tvSpming.setText(data.getClassify_name());
         holder.tvJiage.setText(data.getPice_one());
@@ -74,18 +73,24 @@ public class DianPuZhanShiAdapter extends RecyclerView.Adapter<DianPuZhanShiAdap
             }
         });
         if (mOnItemClickListener != null) {
-//            holder.btZaimai.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    mOnItemClickListener.onClick(v, position);
-//                }
-//            });
+            holder.ivAddcar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mOnItemClickListener.onClick(v, position);
+                }
+            });
+            holder.ivZoushitu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mOnItemClickListener.onClick(v, position);
+                }
+            });
         }
     }
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return mList==null?0:mList.size();
     }
 
 
@@ -104,6 +109,8 @@ public class DianPuZhanShiAdapter extends RecyclerView.Adapter<DianPuZhanShiAdap
         TextView tvSpxiaoliang;
         @BindView(R.id.iv_addcar)
         ImageView ivAddcar;
+        @BindView(R.id.iv_zoushitu)
+        ImageView ivZoushitu;
 
         ViewHolder(View view) {
             super(view);

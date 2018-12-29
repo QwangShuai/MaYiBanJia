@@ -43,6 +43,17 @@ public class DingDanXiangQingAdapter extends RecyclerView.Adapter<DingDanXiangQi
     private List<DingDanBean> mList;
     private OnItemClickListener mOnItemClickListener;
     private ConfirmDialog dialog;
+
+    public boolean isClick() {
+        return isClick;
+    }
+
+    public void setClick(boolean click) {
+        isClick = click;
+    }
+
+    private boolean isClick = true;
+
     public DingDanXiangQingAdapter(Context mContext, List<DingDanBean> list) {
         this.mContext = mContext;
         this.mList = list;
@@ -89,83 +100,87 @@ public class DingDanXiangQingAdapter extends RecyclerView.Adapter<DingDanXiangQi
         holder.rvShangpinliebiao.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         holder.rvShangpinliebiao.setAdapter(shangpinadapter);
         holder.rvShangpinliebiao.setFocusable(false);
-        if(StringUtil.isValid(dingdan.getCreate_time())){
-            holder.tvShijian.setText("创建时间："+dingdan.getCreate_time());
+        if (StringUtil.isValid(dingdan.getCreate_time())) {
+            holder.tvShijian.setText("创建时间：" + dingdan.getCreate_time());
         } else {
             holder.tvShijian.setVisibility(View.GONE);
         }
 
         if (mOnItemClickListener != null) {
-            holder.btFukuan.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mOnItemClickListener.onClick(v, position);
-                }
-            });
-            holder.btPingjia.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mOnItemClickListener.onClick(v, position);
-                }
-            });
-            holder.btQuxiao.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mOnItemClickListener.onClick(v, position);
-                }
-            });
-            holder.btShouhuo.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mOnItemClickListener.onClick(v, position);
-                }
-            });
-            holder.btZaimai.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mOnItemClickListener.onClick(v, position);
-                }
-            });
-            holder.ll_saoma.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mOnItemClickListener.onClick(v, position);
-                }
-            });
-            holder.ll_rongqi.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mOnItemClickListener.onClick(v, position);
-                }
-            });
-            holder.tv_quhuoma.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mOnItemClickListener.onClick(v, position);
-                }
-            });
-            holder.ivShanchu.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog = new ConfirmDialog(mContext,
-                                    mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
-                            dialog.showDialog("是否确认删除订单");
-                            dialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    dialog.dismiss();
-                                    delOrder(dingdan.getOrder_id(),position);
-                                }
-                            });
-                            dialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    dialog.cancel();
-                                }
-                            });
-                        }
+            if (isClick) {
+                holder.btFukuan.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mOnItemClickListener.onClick(v, position);
                     }
-            );
+                });
+                holder.btPingjia.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mOnItemClickListener.onClick(v, position);
+                    }
+                });
+                holder.btQuxiao.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mOnItemClickListener.onClick(v, position);
+                    }
+                });
+                holder.btShouhuo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mOnItemClickListener.onClick(v, position);
+                    }
+                });
+                holder.btZaimai.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mOnItemClickListener.onClick(v, position);
+                    }
+                });
+                holder.ll_saoma.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mOnItemClickListener.onClick(v, position);
+                    }
+                });
+                holder.ll_rongqi.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mOnItemClickListener.onClick(v, position);
+                    }
+                });
+                holder.tv_quhuoma.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mOnItemClickListener.onClick(v, position);
+                    }
+                });
+                holder.ivShanchu.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+                                                            dialog = new ConfirmDialog(mContext,
+                                                                    mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
+                                                            dialog.showDialog("是否确认删除订单");
+                                                            dialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(View v) {
+                                                                    dialog.dismiss();
+                                                                    delOrder(dingdan.getOrder_id(), position);
+                                                                }
+                                                            });
+                                                            dialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(View v) {
+                                                                    dialog.cancel();
+                                                                }
+                                                            });
+                                                        }
+                                                    }
+                );
+            } else {
+                ToastUtil.showToastLong("注意，您只有阅览权限");
+            }
             holder.btnMore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -181,6 +196,7 @@ public class DingDanXiangQingAdapter extends RecyclerView.Adapter<DingDanXiangQi
                 }
             });
         }
+
     }
 
     private String zhuangtai(ViewHolder holder, int zhuantai) {
@@ -230,7 +246,7 @@ public class DingDanXiangQingAdapter extends RecyclerView.Adapter<DingDanXiangQi
 
     @Override
     public int getItemCount() {
-        return mList==null ? 0:mList.size();
+        return mList == null ? 0 : mList.size();
     }
 
     public interface OnItemClickListener {
@@ -290,6 +306,7 @@ public class DingDanXiangQingAdapter extends RecyclerView.Adapter<DingDanXiangQi
             ButterKnife.bind(this, view);
         }
     }
+
     private void delOrder(String order_id, final int pos) {
         HttpManager.getInstance()
                 .with(mContext)

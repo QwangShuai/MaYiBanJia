@@ -163,7 +163,6 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<List<DianMingChaXunBean>>() {
                     @Override
                     public void onNext(final List<DianMingChaXunBean> data) {
-                        Log.e("chenggong",data+"---");
                         if (chaxun.equals(dianpuming)){
                             rvDianpu.setVisibility(View.GONE);
                             llXia.setVisibility(View.VISIBLE);
@@ -182,8 +181,6 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
                                 etDianpuming.setText(data.get(position).getCompany_name());
                                 dianpuming=data.get(position).getCompany_name();
                                 dianpuid=data.get(position).getCompany_id();
-                                Log.e("dianpuming",data.get(position).getCompany_name());
-                                Log.e("dianpuid",dianpuid);
                                 rvDianpu.setVisibility(View.GONE);
                                 llXia.setVisibility(View.VISIBLE);
                             }
@@ -205,7 +202,6 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<ZhuCeChengGongBean>() {
                     @Override
                     public void onNext(ZhuCeChengGongBean list) {
-                        Log.e("token",list.getToken()+"===");
                         PreferenceUtils.putString(MyApplication.mContext,"token",list.getToken());
                         PreferenceUtils.putString(MyApplication.mContext,"juese",list.getRole());
                         PreferenceUtils.putBoolean(MyApplication.mContext,"isLogin",true);
@@ -217,7 +213,6 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
                 });
     }
     private void qiniushangchuan() {
-        Log.e("fenleifenlei","-------");
 
         HttpManager.getInstance()
                 .with(mContext)
@@ -228,7 +223,6 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String list) {
-                        Log.e("fenleifenlei",list+"---");
                         String qiniudata = qiNiuPhoto.getImageAbsolutePath(CTDWanShanXinXiActivity.this, imageUri);
                         String key = null;
                         String token =list ;
@@ -239,18 +233,14 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
                                         //res包含hash、key等信息，具体字段取决于上传策略的设置
                                         if(info.isOK()) {
 //                                            getImageAbsolutePath(CTDWanShanXinXiActivity.this,outputUri)
-                                            Log.e("qiniu", "Upload Success");
                                             try {
                                                 yingyezhizhao = res.getString("key");
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
                                             }
-                                            Log.e("keykey",yingyezhizhao);
                                         } else {
-                                            Log.e("qiniu", "Upload Fail");
                                             //如果失败，这里可以把info信息上报自己的服务器，便于后面分析上传错误原因
                                         }
-                                        Log.e("qiniu", key + ",\r\n " + info + ",\r\n " + res);
                                     }
                                 }, null);
                         ivYingyezhizhao.setImageBitmap(bitmap);

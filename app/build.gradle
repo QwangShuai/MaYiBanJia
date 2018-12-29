@@ -36,7 +36,7 @@ dependencies {
     //走势图
 
     /**
-     *       网络请求框架
+     *        网络请求框架
      */
     compile files('libs/AMap_Location_V3.6.1_20171012.jar')
     //高德定位
@@ -75,8 +75,10 @@ dependencies {
     compile 'com.android.support:design:27.+'
     compile 'com.google.zxing:core:3.3.3'
     compile 'com.android.support:multidex:1.0.0'
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile files('libs/umeng-common-1.5.3.jar')
 }
 configurations.all {
     resolutionStrategy.eachDependency { DependencyResolveDetails details ->

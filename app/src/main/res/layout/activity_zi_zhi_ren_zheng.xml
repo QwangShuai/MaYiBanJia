@@ -7,7 +7,9 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
         <include layout="@layout/head_zangqing" />
         <ScrollView
             android:layout_marginBottom="75dp"
@@ -38,6 +40,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="35dp">
                         <EditText
+                            android:textColor="@color/zicolor"
                             android:digits="@string/only_input"
                             android:inputType="numberDecimal"
                             android:textColorHint="@color/hintcolor"
@@ -126,6 +129,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="35dp">
                         <EditText
+                            android:textColor="@color/zicolor"
                             android:inputType="textPersonName"
                             android:textColorHint="@color/hintcolor"
                             android:textSize="12sp"
@@ -157,6 +161,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="35dp">
                         <EditText
+                            android:textColor="@color/zicolor"
                             android:digits="@string/only_input"
                             android:textColorHint="@color/hintcolor"
                             android:textSize="12sp"

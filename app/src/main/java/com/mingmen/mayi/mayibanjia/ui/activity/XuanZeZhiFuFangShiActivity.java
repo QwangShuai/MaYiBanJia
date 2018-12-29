@@ -15,8 +15,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
+import com.mingmen.mayi.mayibanjia.MainActivity;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
+import com.mingmen.mayi.mayibanjia.app.UMConfig;
+import com.mingmen.mayi.mayibanjia.bean.WXPayBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
@@ -26,6 +29,9 @@ import com.mingmen.mayi.mayibanjia.utils.ClickUtil;
 import com.mingmen.mayi.mayibanjia.utils.PayResult;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.util.Map;
 
@@ -52,7 +58,7 @@ public class XuanZeZhiFuFangShiActivity extends BaseActivity {
     TextView tvXuzhifujine;
     @BindView(R.id.tv_yuezhifujine)
     TextView tvYuezhifujine;
-//    @BindView(R.id.ll_yuezhifu)
+    //    @BindView(R.id.ll_yuezhifu)
 //    LinearLayout llYuezhifu;
     @BindView(R.id.iv_zhifubao)
     ImageView ivZhifubao;
@@ -73,8 +79,8 @@ public class XuanZeZhiFuFangShiActivity extends BaseActivity {
     private String yue;
     private String zongjia;
     private String zhifujine;
-
-
+    private IWXAPI api;
+    public static XuanZeZhiFuFangShiActivity instance = null;
     @Override
     public int getLayoutId() {
         return R.layout.activity_xuanzezhifufangshi;
@@ -84,20 +90,18 @@ public class XuanZeZhiFuFangShiActivity extends BaseActivity {
     protected void initData() {
 
         tvTitle.setText("在线支付");
+        api = WXAPIFactory.createWXAPI(this, null);
         dingdanid = getIntent().getStringExtra("dingdanid");
         zongjia = getIntent().getStringExtra("zongjia");
         dingdanleixing = getIntent().getStringExtra("dingdanleixing");
         yue = getIntent().getStringExtra("yue");
+        instance = this;
 //        yuezhifu = getIntent().getBooleanExtra("yuezhifu", false);
 //        dingdanid="cf99cbc265c84dcfa26b4dc3d444cc2c";
 //        dingdanleixing="2";
 //        zongjia="0.01";
 //        yue="0.01";
 //        yuezhifu=false;
-
-        Log.e("zhifufangshi", zhifufangshi + "=");
-        Log.e("dingdanid", dingdanid + "=");
-        Log.e("dingdanleixing", dingdanleixing + "=");
 
 //        if (yuezhifu) {
 //            if (Double.parseDouble(yue)>Double.parseDouble(zongjia)){
@@ -113,7 +117,7 @@ public class XuanZeZhiFuFangShiActivity extends BaseActivity {
 //        } else {
 //
 //            llYuezhifu.setVisibility(View.GONE);
-        zhifujine = zongjia;
+        zhifujine = Double.valueOf(zongjia)*100+"";
         tvXuzhifujine.setText(zhifujine);
 //        }
 
@@ -133,7 +137,7 @@ public class XuanZeZhiFuFangShiActivity extends BaseActivity {
 //                if (yuezhifu) {
 //                    zhifufangshi = 4;
 //                } else {
-                    zhifufangshi = 3;
+                zhifufangshi = 3;
 //                }
                 break;
             case R.id.ll_weixin:
@@ -144,7 +148,7 @@ public class XuanZeZhiFuFangShiActivity extends BaseActivity {
 //                if (yuezhifu) {
 //                    zhifufangshi = 5;
 //                } else {
-                    zhifufangshi = 2;
+                zhifufangshi = 2;
 //                }
                 break;
             case R.id.ll_yue:
@@ -159,7 +163,7 @@ public class XuanZeZhiFuFangShiActivity extends BaseActivity {
 //                }
                 break;
             case R.id.tv_lijizhifu:
-                if(!ClickUtil.isFastDoubleClick()){
+                if (!ClickUtil.isFastDoubleClick()) {
                     if (zhifufangshi == 0) {
                         ToastUtil.showToast("请选择支付方式");
                     } else {
@@ -171,38 +175,23 @@ public class XuanZeZhiFuFangShiActivity extends BaseActivity {
     }
 
     private void tijiaozhifu() {
-            Log.e("zhifufangshi",zhifufangshi+"");
-            Log.e("dingdanid",dingdanid+"");
-            Log.e("dingdanleixing",dingdanleixing+"");
+        Log.e("瞎几把请求",dingdanid+"==="+zhifujine);
+        if (zhifufangshi == 2) {
             HttpManager.getInstance()
                     .with(mContext)
                     .setObservable(
                             RetrofitManager
                                     .getService()//支付方式  1余额支付 2微信支付 3支付宝支付
-                                    .tijiaozhifu(PreferenceUtils.getString(MyApplication.mContext, "token", ""), zhifufangshi + "", dingdanid, dingdanleixing))
-                    .setDataListener(new HttpDataListener<String>() {
+                                    .getWXPay(dingdanid, zhifujine))
+                    .setDataListener(new HttpDataListener<WXPayBean>() {
                         @Override
-                        public void onNext(String data) {
-                           switch (zhifufangshi){
-                               case 1:
-                                   if (Double.parseDouble(yue)>Double.parseDouble(zongjia)){
-                                       ToastUtil.showToast("支付成功");
-                                       Intent intent=new Intent(mContext, DingDanActivity.class);
-                                       intent.putExtra("to_shop",0);
-                                       startActivity(intent);
-                                       finish();
-//                                       QueRenDingDanActivity.instance.finish();
-                                   }
-                                   break;
-                               case 3:
-                                   zhifubaozhifu(data);
-                                   break;
-                           }
-
-
+                        public void onNext(WXPayBean data) {
+                            wxPay(data);
                         }
                     }, false);
-
+        } else {
+            updateZhifu();
+        }
     }
 
 
@@ -227,7 +216,7 @@ public class XuanZeZhiFuFangShiActivity extends BaseActivity {
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
                         Toast.makeText(XuanZeZhiFuFangShiActivity.this, "支付失败", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(XuanZeZhiFuFangShiActivity.this,DingDanActivity.class));
+                        startActivity(new Intent(XuanZeZhiFuFangShiActivity.this, DingDanActivity.class));
                         finish();
                     }
                     break;
@@ -255,5 +244,54 @@ public class XuanZeZhiFuFangShiActivity extends BaseActivity {
         };
         Thread payThread = new Thread(payRunnable);
         payThread.start();
+    }
+
+    public void wxPay(WXPayBean model) {
+        api.registerApp(UMConfig.WECHAT_APPID);
+        PayReq req = new PayReq();
+        req.appId = model.getAppid();
+        req.partnerId = model.getPartnerid();
+        req.prepayId = model.getPrepayid();
+        req.nonceStr = model.getNoncestr();
+        req.timeStamp = model.getTimestamp() + "";
+        req.packageValue = model.getPackageX();
+        req.sign = model.getSign();
+        req.extData = "app data";
+        api.sendReq(req);
+//        finish();
+    }
+
+    public void updateZhifu(){
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()//支付方式  1余额支付 2微信支付 3支付宝支付
+                                .tijiaozhifu(PreferenceUtils.getString(MyApplication.mContext, "token", ""), zhifufangshi + "", dingdanid, dingdanleixing))
+                .setDataListener(new HttpDataListener<String>() {
+                    @Override
+                    public void onNext(String data) {
+                        switch (zhifufangshi) {
+                            case 1:
+                                if (Double.parseDouble(yue) > Double.parseDouble(zongjia)) {
+                                    ToastUtil.showToast("支付成功");
+                                    Intent intent = new Intent(mContext, DingDanActivity.class);
+                                    intent.putExtra("to_shop", 0);
+                                    startActivity(intent);
+                                    finish();
+//                                       QueRenDingDanActivity.instance.finish();
+                                }
+                                break;
+                            case 2:
+                                finish();
+                                break;
+                            case 3:
+                                zhifubaozhifu(data);
+                                break;
+                        }
+
+
+                    }
+                }, false);
     }
 }

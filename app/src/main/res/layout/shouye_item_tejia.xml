@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_marginTop="12dp"
-    android:paddingBottom="45dp"
+    android:layout_marginBottom="45dp"
     android:background="@color/white"
     android:id="@+id/ll_kuang">
     <LinearLayout
@@ -13,12 +13,11 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:layout_marginTop="15dp">
-        <ImageView
+        <View
+            android:layout_marginLeft="6dp"
             android:layout_width="3dp"
             android:layout_height="14dp"
-            android:src="@mipmap/tejiabiao"
-            android:layout_marginLeft="6dp"
-            />
+            android:background="@color/zangqing"></View>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

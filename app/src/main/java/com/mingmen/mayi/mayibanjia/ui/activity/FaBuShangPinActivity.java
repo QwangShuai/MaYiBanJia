@@ -48,6 +48,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.adapter.XinJianSpMohuAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.PhotoDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 import com.mingmen.mayi.mayibanjia.utils.photo.FileStorage;
 import com.mingmen.mayi.mayibanjia.utils.photo.QiNiuPhoto;
@@ -114,6 +115,11 @@ public class FaBuShangPinActivity extends BaseActivity {
     TextView tvSanji;
     @BindView(R.id.bt_xiayibu)
     Button btXiayibu;
+    @BindView(R.id.iv_teshu)
+    ImageView ivTeshu;
+    @BindView(R.id.ll_shangpin)
+    LinearLayout llShangpin;
+
     private Context mContext;
     private ArrayList<FenLeiMingChengBean> zonglist;
     private String yijiming = "";
@@ -159,6 +165,8 @@ public class FaBuShangPinActivity extends BaseActivity {
     private ArrayList<ShangPinSousuoMohuBean> datas=new ArrayList<>();
     private XinJianSpMohuAdapter mohuAdapter;
     private RecyclerView rv_mohu;
+    private String ming = "";
+//    private boolean isSelect = false;
     @Override
     public int getLayoutId() {
         return R.layout.activity_fabushangpin;
@@ -179,7 +187,12 @@ public class FaBuShangPinActivity extends BaseActivity {
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    getfcgname(s.toString().trim());
+                    if(!ming.equals(s.toString().trim())){
+                        canShuBean.setType_tree_id("");
+                        sanjiid = "";
+                        getfcgname(s.toString().trim());
+                    }
+
                 }
 
                 @Override
@@ -219,7 +232,7 @@ public class FaBuShangPinActivity extends BaseActivity {
 
 
 //    @OnClick({R.id.iv_back, R.id.iv_sptu, R.id.iv_yiji, R.id.iv_erji, R.id.iv_sanji, R.id.ll_fenleimingcheng, R.id.ll_yijiguige, R.id.ll_erjiguige, R.id.ll_sanjiguige, R.id.bt_xiayibu})
-    @OnClick({R.id.iv_back, R.id.iv_sptu, R.id.ll_fenleimingcheng, R.id.ll_sanjiguige, R.id.bt_xiayibu})
+    @OnClick({R.id.iv_back, R.id.iv_sptu, R.id.ll_fenleimingcheng, R.id.ll_sanjiguige, R.id.bt_xiayibu,R.id.iv_teshu})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -299,6 +312,11 @@ public class FaBuShangPinActivity extends BaseActivity {
                             tiaozhuan();
                         }
                 break;
+//            case R.id.iv_teshu:
+//                isSelect = !isSelect;
+//                ivTeshu.setSelected(isSelect);
+//                llShangpin.setVisibility(isSelect?View.VISIBLE:View.GONE);
+//                break;
         }
     }
 
@@ -307,14 +325,17 @@ public class FaBuShangPinActivity extends BaseActivity {
 //        canShuBean.setChoose_specifications(xuanzeguige + "");
 //        canShuBean.setPack_standard_one(yijiguigeid);
 //        canShuBean.setPack_standard_two(erjiguigeid);
-        canShuBean.setPack_standard_tree(sanjiguigeid);
         canShuBean.setType_one_id(yijiid);
         canShuBean.setType_two_id(erjiid);
-        canShuBean.setType_tree_id(sanjiid);
+
         canShuBean.setHostPicture(shangpintu);
         canShuBean.setCommodity_state("0");
+        canShuBean.setPack_standard_tree(sanjiguigeid);
         canShuBean.setGoods(goods);
         canShuBean.setSpec_describe(etMiaoshu.getText().toString().trim());
+        if(!ming.equals(etSpming.getText().toString().trim())){
+            canShuBean.setType_tree_id("");
+        }
         Intent intent = new Intent(mContext, FaBuShangPinQiDingLiangActivity.class);
         intent.putExtra("canshu", gson.toJson(canShuBean));
         intent.putExtra("yemian",yemian);
@@ -391,11 +412,11 @@ public class FaBuShangPinActivity extends BaseActivity {
                         sanjilist.add(zonglist.get(i));
                     }
                 }
-                if (sanjilist.size() == 0) {
+//                if (sanjilist.size() == 0) {
                     tvFenleimingcheng.setText(yijiming + "-" + erjiname);
-                } else {
-                    sanjidialog();
-                }
+//                } else {
+//                    sanjidialog();
+//                }
 
                 picker.dismiss();
             }
@@ -715,7 +736,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                     public void onNext(EditorShangPinBean data) {
                         EditorShangPinBean.XqBean bean = data.getXq();
                         PreferenceUtils.setEditorShangPinBean(MyApplication.mContext, data);
-                        if (!TextUtils.isEmpty(bean.getHostPicture())) {
+                        if (StringUtil.isValid(bean.getHostPicture())) {
                             Glide.with(FaBuShangPinActivity.this).load(bean.getHostPicture()).into(ivSptu);
                             shangpintu = bean.getHostPicture();
                         }
@@ -800,9 +821,13 @@ public class FaBuShangPinActivity extends BaseActivity {
         mohuAdapter.setOnItemClickListener(new XinJianSpMohuAdapter.OnItemClickListener() {
             @Override
             public void onClick(View view, int position) {
-                etSpming.setText(""+datas.get(position).getCommodity_name());
+                etSpming.setText(""+datas.get(position).getClassify_name());
+                ming = ""+datas.get(position).getClassify_name();
+                sanjiid = datas.get(position).getClassify_id();
+                canShuBean.setType_tree_id(datas.get(position).getClassify_id());
                 mPopWindow.dismiss();
-                setDataView(datas.get(position).getCommodity_id());
+                getguige();
+//                setDataView(datas.get(position).getCommodity_id()+"");
             }
         });
     }

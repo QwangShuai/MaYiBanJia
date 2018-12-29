@@ -26,6 +26,7 @@ import com.mingmen.mayi.mayibanjia.bean.ShouYeLeiBean;
 import com.mingmen.mayi.mayibanjia.bean.ShouYeShangChangBean;
 import com.mingmen.mayi.mayibanjia.bean.ShouYeTeJiaBean;
 import com.mingmen.mayi.mayibanjia.ui.view.GlideImageLoader;
+import com.mingmen.mayi.mayibanjia.ui.view.GlideImageYuanLoader;
 import com.mingmen.mayi.mayibanjia.ui.view.PageIndicatorView;
 import com.mingmen.mayi.mayibanjia.ui.view.ZiXunPagingScrollHelper;
 import com.youth.banner.Banner;
@@ -146,7 +147,7 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         holder.banner_home_lunbo.setBannerStyle(6);
         //设置图片集合
         holder.banner_home_lunbo.setImages(imgs);
-        holder.banner_home_lunbo.setImageLoader(new GlideImageLoader());
+        holder.banner_home_lunbo.setImageLoader(new GlideImageYuanLoader());
         //设置banner动画效果
         holder.banner_home_lunbo.setBannerAnimation(Transformer.Default);
         //设置自动轮播，默认为true
@@ -174,13 +175,29 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         List<List<ShouYeLeiBean>> datas = new ArrayList<>();
 //        datas.addAll(leiBean);
         int count=0;
-        for (int i = 0; i < leiBean.size()/8; i++) {
+        int mysize = 0;
+        int minsize = 0;
+        mysize = leiBean.size()/8;
+        minsize = leiBean.size()%8;
+        if(minsize!=0){
+            mysize++;
+        }
+        for (int i = 0; i < mysize; i++) {
             List<ShouYeLeiBean> list=new ArrayList<>();
-            for (int j = 0; j < 8; j++) {
-                list.add(leiBean.get(count));
-                count++;
+            if(i<mysize-1){
+                for (int j = 0; j < 8; j++) {
+                    list.add(leiBean.get(count));
+                    count++;
+                }
+            } else {
+                for (int j = 0; j < minsize; j++) {
+                    list.add(leiBean.get(count));
+                    count++;
+                }
             }
+
             datas.add(list);
+            Log.e("长度",datas.size()+"");
         }
 
         final int horizontal = LinearLayoutManager.HORIZONTAL;

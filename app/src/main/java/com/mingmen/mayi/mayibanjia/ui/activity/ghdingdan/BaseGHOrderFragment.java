@@ -42,7 +42,6 @@ public abstract class BaseGHOrderFragment extends BaseFragment {
     private GHOrderAdapter adapter;
     private SwipeMenuRecyclerView.LoadMoreListener mLoadMoreListener;
     private int ye = 1;
-    private boolean b = true;
     protected boolean isCreate = false;
     private String token = "";
 
@@ -90,10 +89,11 @@ public abstract class BaseGHOrderFragment extends BaseFragment {
         GHDOrderActivity activity = (GHDOrderActivity) getActivity();
         token = activity.getToken();
         if (StringUtil.isValid(token)) {
-            b = false;
+            adapter.setClick(false);
         } else {
             token = PreferenceUtils.getString(MyApplication.mContext, "token", "");
         }
+
         HttpManager.getInstance()
                 .with(getActivity())
                 .setObservable(
@@ -119,7 +119,37 @@ public abstract class BaseGHOrderFragment extends BaseFragment {
                     }
                 });
     }
+    //数据
+    private void updateList(final boolean b_clear) {
 
+        HttpManager.getInstance()
+                .with(getActivity())
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .getGHOrderList(token, getZhuangTai(), ye))
+                .setDataListener(new HttpDataListener<List<GHOrderBean>>() {
+                    @Override
+                    public void onNext(List<GHOrderBean> data) {
+                        if (!"null".equals(String.valueOf(data))) {
+                            if (data.size() == 5) {
+                                rvDingdan.loadMoreFinish(false, true);
+                            } else if (data.size() > 0) {
+                                rvDingdan.loadMoreFinish(false, false);
+                            } else {
+                                rvDingdan.loadMoreFinish(true, false);
+                            }
+                            if (b_clear) {//刷新清空当前页面数据
+                                mlist.clear();
+                            }
+                            mlist.addAll(data);
+                            adapter.notifyDataSetChanged();
+
+                        }
+                    }
+                });
+        ye++;
+    }
     private void initview() {
         rvDingdan.setLayoutManager(new LinearLayoutManager(rvDingdan.getContext(), LinearLayoutManager.VERTICAL, false));
         adapter = new GHOrderAdapter(getActivity(), mlist, getActivity(), this);
@@ -127,7 +157,7 @@ public abstract class BaseGHOrderFragment extends BaseFragment {
             @Override
             public void onLoadMore() {
                 // 该加载更多啦。
-                getData();
+                updateList(false);
             }
         };
 
@@ -137,7 +167,8 @@ public abstract class BaseGHOrderFragment extends BaseFragment {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                shuaxinData();
+                ye = 1 ;
+                updateList(true);
                 refreshLayout.setRefreshing(false);
             }
         });
@@ -158,8 +189,8 @@ public abstract class BaseGHOrderFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         ye = 1;
-        mlist.clear();
         getData();
+        adapter.notifyDataSetChanged();
     }
 
     //数据
@@ -170,7 +201,7 @@ public abstract class BaseGHOrderFragment extends BaseFragment {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getGHOrderList(PreferenceUtils.getString(MyApplication.mContext, "token", ""), getZhuangTai(), ye))
+                                .getGHOrderList(token, getZhuangTai(), ye))
                 .setDataListener(new HttpDataListener<List<GHOrderBean>>() {
                     @Override
                     public void onNext(List<GHOrderBean> data) {

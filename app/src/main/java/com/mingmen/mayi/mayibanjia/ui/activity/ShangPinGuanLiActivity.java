@@ -24,6 +24,8 @@ import com.mingmen.mayi.mayibanjia.ui.activity.dialog.SouSuoDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
+import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenu;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuBridge;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuCreator;
@@ -66,7 +68,15 @@ public class ShangPinGuanLiActivity extends BaseActivity {
     private String type="0";
     private String goods= "0";
     private SanGeXuanXiangDialog titleDialog;
+    private boolean isClick = true;
+    private String token = "";
+    public String getToken() {
+        return token;
+    }
 
+    public void setToken(String token) {
+        this.token = token;
+    }
     @Override
     public int getLayoutId() {
         return R.layout.activity_shangpinguanli;
@@ -79,8 +89,14 @@ public class ShangPinGuanLiActivity extends BaseActivity {
                 .setActivity(this)
                 .setTop(AppUtil.dip2px(44));
         goods = getIntent().getStringExtra("goods");
+        setToken(getIntent().getStringExtra("token"));
         if(goods.equals("1")){
             tvTitle.setText("特价商品管理");
+        }
+        if(StringUtil.isValid(token)){
+            isClick = false;
+        } else {
+            token =PreferenceUtils.getString(MyApplication.mContext,"token","");
         }
         initRecycleView();
         getShangpinList(1);
@@ -93,7 +109,7 @@ public class ShangPinGuanLiActivity extends BaseActivity {
                         .setObservable(
                     RetrofitManager
                             .getService()
-                            .getshangpinguanli(PreferenceUtils.getString(MyApplication.mContext, "token",""), chaxunzi,goods,type,ye))
+                            .getshangpinguanli(token, chaxunzi,goods,type,ye))
                     .setDataListener(new HttpDataListener<ShangPinGuanLiBean>() {
                 @Override
                 public void onNext(ShangPinGuanLiBean data) {
@@ -119,68 +135,72 @@ public class ShangPinGuanLiActivity extends BaseActivity {
     }
 
     private void initRecycleView() {
-// 创建菜单：
-        SwipeMenuCreator mSwipeMenuCreator = new SwipeMenuCreator() {
-            @Override
-            public void onCreateMenu(SwipeMenu rightMenuleftMenu, SwipeMenu rightMenu, int viewType) {
-                SwipeMenuItem deleteItem = new SwipeMenuItem(mContext); // 各种文字和图标属性设置。
-                deleteItem.setText("删除");
-                deleteItem.setTextColor(mContext.getResources().getColor(R.color.white));
-                deleteItem.setTextSize(15);
-                deleteItem.setHeight(MATCH_PARENT);
-                deleteItem.setWidth(200);
-                deleteItem.setBackground(R.color.mayihong);
-                rightMenu.addMenuItem(deleteItem); // 在Item右侧添加一个菜单。
-            }
-        };
-
-        SwipeMenuItemClickListener mMenuItemClickListener = new SwipeMenuItemClickListener() {
-            @Override
-            public void onItemClick(SwipeMenuBridge menuBridge) {
-                // 任何操作必须先关闭菜单，否则可能出现Item菜单打开状态错乱。
-                menuBridge.closeMenu();
-                int direction = menuBridge.getDirection(); // 左侧还是右侧菜单。
-                final int adapterPosition = menuBridge.getAdapterPosition(); // RecyclerView的Item的position。
-                int menuPosition = menuBridge.getPosition(); // 菜单在RecyclerView的Item中的Position。
-
-
-                //左滑删除
-                HttpManager.getInstance()
-                        .with(mContext)
-                        .setObservable(
-                                RetrofitManager
-                                        .getService()
-                                        . ghdspdel(PreferenceUtils.getString(MyApplication.mContext, "token",""), mlist.get(adapterPosition).getCommodity_id(),"3"))
-                        .setDataListener(new HttpDataListener<String>() {
-                            @Override
-                            public void onNext(String data) {
-                                mlist.remove(adapterPosition);
-                                shangpinguanliadapter.setNewData(mlist);
-                                shangpinguanliadapter.notifyDataSetChanged();
-                            }
-                        },false);
+        if(StringUtil.isValid(token)){
+            // 创建菜单：
+            SwipeMenuCreator mSwipeMenuCreator = new SwipeMenuCreator() {
+                @Override
+                public void onCreateMenu(SwipeMenu rightMenuleftMenu, SwipeMenu rightMenu, int viewType) {
+                    SwipeMenuItem deleteItem = new SwipeMenuItem(mContext); // 各种文字和图标属性设置。
+                    deleteItem.setText("删除");
+                    deleteItem.setTextColor(mContext.getResources().getColor(R.color.white));
+                    deleteItem.setTextSize(15);
+                    deleteItem.setHeight(MATCH_PARENT);
+                    deleteItem.setWidth(200);
+                    deleteItem.setBackground(R.color.mayihong);
+                    rightMenu.addMenuItem(deleteItem); // 在Item右侧添加一个菜单。
+                }
+            };
+            SwipeMenuItemClickListener mMenuItemClickListener = new SwipeMenuItemClickListener() {
+                @Override
+                public void onItemClick(SwipeMenuBridge menuBridge) {
+                    // 任何操作必须先关闭菜单，否则可能出现Item菜单打开状态错乱。
+                    menuBridge.closeMenu();
+                    int direction = menuBridge.getDirection(); // 左侧还是右侧菜单。
+                    final int adapterPosition = menuBridge.getAdapterPosition(); // RecyclerView的Item的position。
+                    int menuPosition = menuBridge.getPosition(); // 菜单在RecyclerView的Item中的Position。
 
 
-            }
-        };
+                    //左滑删除
+                    HttpManager.getInstance()
+                            .with(mContext)
+                            .setObservable(
+                                    RetrofitManager
+                                            .getService()
+                                            . ghdspdel(token, mlist.get(adapterPosition).getCommodity_id(),"3"))
+                            .setDataListener(new HttpDataListener<String>() {
+                                @Override
+                                public void onNext(String data) {
+                                    mlist.remove(adapterPosition);
+                                    shangpinguanliadapter.setNewData(mlist);
+                                    shangpinguanliadapter.notifyDataSetChanged();
+                                }
+                            },false);
+
+
+                }
+            };
+            // 设置监听器。
+            rvShangpinguanli.setSwipeMenuCreator(mSwipeMenuCreator);
+            // 菜单点击监听。
+            rvShangpinguanli.setSwipeMenuItemClickListener(mMenuItemClickListener);
+        }
+
+
         SwipeMenuRecyclerView.LoadMoreListener mLoadMoreListener = new SwipeMenuRecyclerView.LoadMoreListener() {
             @Override
             public void onLoadMore() {
                 ye++;
-                Log.e("ye++++", ye + "--");
                 getShangpinList(ye);
             }
         };
+
         rvShangpinguanli.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL, false));
         rvShangpinguanli.useDefaultLoadMore(); // 使用默认的加载更多的View。
         rvShangpinguanli.setLoadMoreListener(mLoadMoreListener); // 加载更多的监听。
         rvShangpinguanli.loadMoreFinish(false, true);
-        // 设置监听器。
-        rvShangpinguanli.setSwipeMenuCreator(mSwipeMenuCreator);
-        // 菜单点击监听。
-        rvShangpinguanli.setSwipeMenuItemClickListener(mMenuItemClickListener);
         rvShangpinguanli.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         shangpinguanliadapter=new ShangPinGuanLiAdapter(ShangPinGuanLiActivity.this,goods);
+        shangpinguanliadapter.setClick(isClick);
         rvShangpinguanli.setAdapter(shangpinguanliadapter);
     }
 
@@ -194,24 +214,33 @@ public class ShangPinGuanLiActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.iv_sousuo:
-                //搜索
-                new SouSuoDialog()
-                        .setData(chaxunzi)
-                        .setCallBack(new SouSuoDialog.CallBack() {
-                            @Override
-                            public void sousuozi(String msg) {
-                                Log.e("msg",msg+"==");
-                                chaxunzi=msg;
-                                getShangpinList(1);
-                            }
-                        }).show(getSupportFragmentManager());
+                if(isClick){
+                    //搜索
+                    new SouSuoDialog()
+                            .setData(chaxunzi)
+                            .setCallBack(new SouSuoDialog.CallBack() {
+                                @Override
+                                public void sousuozi(String msg) {
+                                    Log.e("msg",msg+"==");
+                                    chaxunzi=msg;
+                                    getShangpinList(1);
+                                }
+                            }).show(getSupportFragmentManager());
+                } else {
+                    ToastUtil.showToastLong("请注意，您只有阅览权限");
+                }
+
                 break;
             case R.id.ll_xinjianshangpin:
-                //添加商品
-                Intent intent=new Intent(mContext,FaBuShangPinActivity.class);
-                intent.putExtra("state","0");
-                intent.putExtra("goods",goods);
-                startActivity(intent);
+                if(isClick) {
+                    //添加商品
+                    Intent intent = new Intent(mContext, FaBuShangPinActivity.class);
+                    intent.putExtra("state", "0");
+                    intent.putExtra("goods", goods);
+                    startActivity(intent);
+                } else {
+                    ToastUtil.showToastLong("请注意，您只有阅览权限");
+                }
                 break;
         }
     }

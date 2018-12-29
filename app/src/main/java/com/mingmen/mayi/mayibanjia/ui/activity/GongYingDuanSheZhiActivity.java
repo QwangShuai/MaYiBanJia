@@ -50,13 +50,14 @@ public class GongYingDuanSheZhiActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        tvTitle.setText("账户信息");
         mContext=GongYingDuanSheZhiActivity.this;
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
     }
 
 
-    @OnClick({R.id.iv_back, R.id.tv_tuichu,R.id.ll_zhanghu})
+    @OnClick({R.id.iv_back, R.id.tv_tuichu,R.id.ll_zhanghu,R.id.ll_mendian})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -90,6 +91,10 @@ public class GongYingDuanSheZhiActivity extends BaseActivity {
             case R.id.ll_zhanghu:
                 Intent it = new Intent(mContext,WoDeZhangHuActivity.class);
                 startActivity(it);
+                break;
+            case R.id.ll_mendian:
+                Intent it_mendian = new Intent(mContext,MenDianXinXiActivity.class);
+                startActivity(it_mendian);
                 break;
         }
     }

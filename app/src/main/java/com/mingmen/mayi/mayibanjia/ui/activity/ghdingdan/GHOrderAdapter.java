@@ -45,6 +45,16 @@ public class GHOrderAdapter extends RecyclerView.Adapter<GHOrderAdapter.ViewHold
     private List<GHOrderBean> mList;
     private Activity activity;
     private BaseGHOrderFragment fragment;
+
+    public boolean isClick() {
+        return isClick;
+    }
+
+    public void setClick(boolean click) {
+        isClick = click;
+    }
+
+    private boolean isClick = true;
     public GHOrderAdapter(Context mContext, List<GHOrderBean> list, Activity activity,BaseGHOrderFragment fragment) {
         this.mContext = mContext;
         this.mList = list;
@@ -127,34 +137,6 @@ public class GHOrderAdapter extends RecyclerView.Adapter<GHOrderAdapter.ViewHold
         holder.tv_zongjia.setText("￥:" + bean.getTotal_price());
         holder.tv_order_number.setText("订单编号:" + bean.getGy_order_number());
         holder.tv_order_time.setText("下单时间:" + bean.getCreate_time());
-        holder.ivDianpuDianhua.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CallPhone(bean.getTelephone());
-            }
-        });
-        holder.tvTuikuan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new TuikuanDialog(mContext,bean.getGy_order_id(),bean.getGy_order_number(),fragment).show();
-            }
-        });
-        holder.iv_del.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                HttpManager.getInstance()
-                        .with(mContext)
-                        .setObservable(RetrofitManager.getService()
-                                .delGHOrder(PreferenceUtils.getString(MyApplication.mContext, "token", ""), bean.getGy_order_id()))
-                        .setDataListener(new HttpDataListener<String>() {
-                            @Override
-                            public void onNext(String o) {
-                                mList.remove(position);
-                                notifyDataSetChanged();
-                            }
-                        });
-            }
-        });
         holder.btn_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -170,10 +152,40 @@ public class GHOrderAdapter extends RecyclerView.Adapter<GHOrderAdapter.ViewHold
                 holder.rv_shangpin.setAdapter(adapter);
             }
         });
-        holder.tv_dayin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //if (!TextUtils.isEmpty(String.valueOf(bean.getDriver_name()))) {
+        if(isClick){
+            holder.ivDianpuDianhua.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CallPhone(bean.getTelephone());
+                }
+            });
+            holder.tvTuikuan.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new TuikuanDialog(mContext,bean.getGy_order_id(),bean.getGy_order_number(),fragment).show();
+                }
+            });
+            holder.iv_del.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    HttpManager.getInstance()
+                            .with(mContext)
+                            .setObservable(RetrofitManager.getService()
+                                    .delGHOrder(PreferenceUtils.getString(MyApplication.mContext, "token", ""), bean.getGy_order_id()))
+                            .setDataListener(new HttpDataListener<String>() {
+                                @Override
+                                public void onNext(String o) {
+                                    mList.remove(position);
+                                    notifyDataSetChanged();
+                                }
+                            });
+                }
+            });
+
+            holder.tv_dayin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //if (!TextUtils.isEmpty(String.valueOf(bean.getDriver_name()))) {
                     ToastUtil.showToast("打印功能待更新");
                     Intent it = new Intent(mContext, DaYinQrCodeActivity.class);
                     it.putExtra("id", bean.getGy_order_id());
@@ -181,11 +193,15 @@ public class GHOrderAdapter extends RecyclerView.Adapter<GHOrderAdapter.ViewHold
 //                    GHDOrderActivity activity = new GHDOrderActivity();
 //                    Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.qr_code);
 //                    activity.dayinQrCode(bitmap);
-               // } else {
-                //    ToastUtil.showToast("此状态不能打印");
-                //}
-            }
-        });
+                    // } else {
+                    //    ToastUtil.showToast("此状态不能打印");
+                    //}
+                }
+            });
+        } else {
+            ToastUtil.showToastLong("注意，您只有阅览权限");
+        }
+
 
     }
 

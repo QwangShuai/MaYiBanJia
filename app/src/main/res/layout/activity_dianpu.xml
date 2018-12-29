@@ -38,7 +38,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:background="@drawable/fillet_solid_white_3"
+                        android:background="@drawable/fillet_solid_white_100"
                         android:layout_marginLeft="8dp"
                         android:layout_marginRight="8dp"
                         android:gravity="center_vertical"
@@ -49,6 +49,8 @@
                             android:layout_marginLeft="12dp"
                             android:src="@mipmap/sousuo"/>
                         <EditText
+                            android:imeOptions="actionSearch"
+                            android:singleLine="true"
                             android:id="@+id/et_sousuo"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -77,6 +79,7 @@
                     android:layout_marginTop="20dp"
                     >
                     <ImageView
+                        android:scaleType="fitXY"
                         android:id="@+id/iv_diantu"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
@@ -141,16 +144,18 @@
                         android:gravity="center"
                         android:layout_marginRight="12dp">
                         <ImageView
+                            android:id="@+id/iv_focus"
+                            android:layout_marginRight="8dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@mipmap/jiahao_bai"/>
                         <TextView
+                            android:id="@+id/tv_focus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="关注"
                             android:textColor="#ffffffff"
                             android:textSize="12sp"
-                            android:layout_marginLeft="8dp"
                             />
                     </LinearLayout>
                 </LinearLayout>
@@ -166,7 +171,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="销量"
-                android:textColor="@color/zangqing"
+                android:textColor="@color/lishisousuo"
                 android:textSize="12sp"
                 android:layout_weight="1"
                 android:gravity="center"/>
@@ -178,10 +183,11 @@
                 android:gravity="center"
                 android:layout_weight="1">
                 <TextView
+                    android:id="@+id/tv_jiage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="价格"
-                    android:textColor="@color/zangqing"
+                    android:textColor="@color/lishisousuo"
                     android:textSize="12sp"
                     android:gravity="center"/>
                 <ImageView
@@ -196,10 +202,15 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/cutoff"/>
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
             android:id="@+id/rv_splist"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView>
+            android:layout_height="wrap_content"></com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView>
+        </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>
     <View
         android:layout_width="match_parent"
@@ -260,6 +271,7 @@
         </LinearLayout>
     </LinearLayout>
     <ImageView
+        android:visibility="gone"
         android:id="@+id/iv_fanhuidingbu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -269,6 +281,7 @@
         android:layout_marginRight="12dp"
         android:layout_marginBottom="110dp"/>
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/ll_weizhi"
         android:layout_width="44dp"
         android:layout_height="44dp"

@@ -21,6 +21,7 @@ import com.mingmen.mayi.mayibanjia.ui.view.AutoLineFeedLayoutManager;
 import com.mingmen.mayi.mayibanjia.ui.view.XCFlowLayout;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,7 +39,12 @@ public class PingJiaAdapter extends BaseQuickAdapter<XQPingJiaBean,BaseViewHolde
     @Override
     protected void convert(BaseViewHolder helper, final XQPingJiaBean item) {
         helper.setText(R.id.tv_maijianame,item.getPjCompanyName());
-        helper.setText(R.id.tv_dianming,item.getBpCompanyName());
+        if(StringUtil.isValid(item.getBpCompanyName())){
+            helper.setText(R.id.tv_dianming,item.getBpCompanyName());
+        } else {
+            helper.setGone(R.id.ll_dianpu,false);
+        }
+
         helper.setText(R.id.tv_pinglunshijian,item.getCreate_time());
         if (item.getOrder_id()!=null&&!TextUtils.isEmpty(item.getOrder_id())){
             helper.getView(R.id.tv_dingdan).setVisibility(View.VISIBLE);
@@ -105,7 +111,7 @@ public class PingJiaAdapter extends BaseQuickAdapter<XQPingJiaBean,BaseViewHolde
             if(type.equals("0")){
                 view.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_fafafa_14));
             } else {
-                view.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_white_14));
+                view.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_solid_fafafa_100));
             }
 
             tvs.add(view);

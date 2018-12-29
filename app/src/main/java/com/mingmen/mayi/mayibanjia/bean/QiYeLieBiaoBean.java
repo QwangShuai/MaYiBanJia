@@ -83,6 +83,15 @@ public class QiYeLieBiaoBean {
     private String salesman_time;
     private String file_path;
     private String role;
+    private String telephone;
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
 
     public String getRole() {
         return role;

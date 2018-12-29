@@ -34,6 +34,43 @@
             android:paddingRight="12dp"
             />
     </LinearLayout>
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="75dp">
+        <Button
+            android:id="@+id/btn_all"
+            android:paddingLeft="17dp"
+            android:paddingRight="17dp"
+            android:background="@drawable/fillet_solid_zangqing_40"
+            android:textColor="@color/white"
+            android:text="全部"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp" />
+        <Button
+            android:id="@+id/btn_good"
+            android:layout_marginLeft="12dp"
+            android:paddingLeft="17dp"
+            android:paddingRight="17dp"
+            android:background="@drawable/fillet_solid_f5f5f5_20"
+            android:textColor="@color/lishisousuo"
+            android:text="好评"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp" />
+        <Button
+            android:id="@+id/btn_bad"
+            android:layout_marginLeft="12dp"
+            android:paddingLeft="17dp"
+            android:paddingRight="17dp"
+            android:background="@drawable/fillet_solid_f5f5f5_20"
+            android:textColor="@color/lishisousuo"
+            android:text="差评"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp" />
+    </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

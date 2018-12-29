@@ -17,8 +17,10 @@ import com.mingmen.mayi.mayibanjia.ui.activity.DingDanXiangQingActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.FaBiaoPingJiaActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.WeiYiQrCodeActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.DingDanXiangQingAdapter;
+import com.mingmen.mayi.mayibanjia.ui.activity.ghdingdan.GHDOrderActivity;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseFragment;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.qrCode.CaptureActivity;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
@@ -46,6 +48,7 @@ public abstract class BaseDingDanFragment extends BaseFragment {
     private int ye = 1;
     private boolean b = false;
     protected boolean isCreate = false;
+    private String token = "";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -88,12 +91,19 @@ public abstract class BaseDingDanFragment extends BaseFragment {
 
     //数据
     private void getData() {
+        DingDanActivity activity = (DingDanActivity) getActivity();
+        token = activity.getToken();
+        if (StringUtil.isValid(token)) {
+            adapter.setClick(false);
+        } else {
+            token = PreferenceUtils.getString(MyApplication.mContext, "token", "");
+        }
         HttpManager.getInstance()
                 .with(getActivity())
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getdingdan(PreferenceUtils.getString(MyApplication.mContext, "token", ""), getZhuangTai(), ye))
+                                .getdingdan(token, getZhuangTai(), ye))
                 .setDataListener(new HttpDataListener<List<DingDanBean>>() {
                     @Override
                     public void onNext(List<DingDanBean> list) {
@@ -198,7 +208,7 @@ public abstract class BaseDingDanFragment extends BaseFragment {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .updateQrCode(PreferenceUtils.getString(MyApplication.mContext, "token", ""), id, "", "1", ""))
+                                .updateQrCode(token, id, "", "1", ""))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
@@ -214,7 +224,7 @@ public abstract class BaseDingDanFragment extends BaseFragment {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getdingdan(PreferenceUtils.getString(MyApplication.mContext, "token", ""), getZhuangTai(), ye))
+                                .getdingdan(token, getZhuangTai(), ye))
                 .setDataListener(new HttpDataListener<List<DingDanBean>>() {
                     @Override
                     public void onNext(final List<DingDanBean> list) {

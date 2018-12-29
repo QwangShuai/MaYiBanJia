@@ -50,7 +50,7 @@ public class XinJianSpMohuAdapter extends  RecyclerView.Adapter<XinJianSpMohuAda
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         ShangPinSousuoMohuBean data = mList.get(position);
-        holder.tv_ming.setText(data.getCommodity_name()+"");
+        holder.tv_ming.setText(data.getClassify_name()+"");
         if (mOnItemClickListener!=null){
             holder.tv_ming.setOnClickListener(new View.OnClickListener() {
                 @Override

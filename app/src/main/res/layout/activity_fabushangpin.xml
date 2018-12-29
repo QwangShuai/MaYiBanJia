@@ -39,34 +39,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="商品名称"
-            android:textColor="#ff666666"
-            android:textSize="15sp"
-            />
-        <EditText
-            android:id="@+id/et_spming"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text=""
-            android:textColor="@color/zicolor"
-            android:textSize="12sp"
-            android:layout_marginLeft="40dp"
-            android:paddingLeft="10dp"
-            android:background="@null"
-            android:hint="请填写"
-            android:textColorHint="@color/hintcolor"
-            android:maxLength="20"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:orientation="horizontal"
-        android:paddingLeft="12dp"
-        android:gravity="center_vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="分类名称"
             android:textColor="#ff666666"
             android:textSize="15sp"
@@ -102,7 +74,57 @@
         </LinearLayout>
 
     </LinearLayout>
-
+    <LinearLayout
+        android:visibility="gone"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="13dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_teshu"
+            android:src="@drawable/selectr_fcg_teshu"
+            android:layout_width="15dp"
+            android:layout_height="15dp" />
+        <TextView
+            android:text="是否手动填写分类名称"
+            android:textSize="12sp"
+            android:textColor="@color/hintcolor"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="13dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <LinearLayout
+        android:visibility="visible"
+        android:id="@+id/ll_shangpin"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:orientation="horizontal"
+        android:paddingLeft="12dp"
+        android:gravity="center_vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="商品名称"
+            android:textColor="#ff666666"
+            android:textSize="15sp"
+            />
+        <EditText
+            android:id="@+id/et_spming"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:text=""
+            android:textColor="@color/zicolor"
+            android:textSize="12sp"
+            android:layout_marginRight="12dp"
+            android:layout_marginLeft="50dp"
+            android:paddingLeft="10dp"
+            android:background="@drawable/fillet_hollow_999999_3"
+            android:hint="请填写"
+            android:textColorHint="@color/hintcolor"
+            android:maxLength="20"
+            />
+    </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

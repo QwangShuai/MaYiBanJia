@@ -10,12 +10,11 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:layout_marginTop="15dp">
-        <ImageView
+        <View
+            android:layout_marginLeft="6dp"
             android:layout_width="3dp"
             android:layout_height="14dp"
-            android:src="@mipmap/tejiabiao"
-            android:layout_marginLeft="6dp"
-            />
+            android:background="@color/zangqing"></View>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -40,13 +39,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"/>
         </LinearLayout>
+
         <com.mingmen.mayi.mayibanjia.ui.view.PageIndicatorView
             android:id="@+id/indicator"
             android:layout_width="match_parent"
             android:layout_height="6dp"
             android:layout_centerHorizontal="true"
             android:layout_alignBottom="@id/ll_rv"
-
            />
     </RelativeLayout>
 </LinearLayout>

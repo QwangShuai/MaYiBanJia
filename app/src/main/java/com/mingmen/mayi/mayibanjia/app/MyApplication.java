@@ -12,6 +12,9 @@ import android.support.multidex.MultiDexApplication;
 import com.qiniu.android.common.FixedZone;
 import com.qiniu.android.storage.Configuration;
 import com.qiniu.android.storage.UploadManager;
+import com.umeng.commonsdk.UMConfigure;
+import com.umeng.socialize.PlatformConfig;
+import com.umeng.socialize.UMShareAPI;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -66,7 +69,13 @@ public class MyApplication extends MultiDexApplication {
                 .build();
 // 重用uploadManager。一般地，只需要创建一个uploadManager对象
         uploadManager = new UploadManager(config);
-
+        UMShareAPI.get(this);
+        UMConfigure.setLogEnabled(true);
+        UMConfigure.init(this, "5b5579fbb27b0a608200000d"
+                , "umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
+        {
+            PlatformConfig.setWeixin(UMConfig.WECHAT_APPID, UMConfig.WECHAT_APPSECRET);
+        }
         doInit();
 //        registerToWX();
     }

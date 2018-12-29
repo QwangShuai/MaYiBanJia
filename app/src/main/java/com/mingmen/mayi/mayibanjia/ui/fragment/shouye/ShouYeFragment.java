@@ -16,6 +16,7 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.MainActivity;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
@@ -282,7 +283,7 @@ public class ShouYeFragment extends BaseFragment {
                     public void onNext(List<ShouYeLeiBean> list) {
                         leiBean=new ArrayList<ShouYeLeiBean>();
                         leiBean.addAll(list);
-                        Log.e("fenleifenlei", leiBean.size() + "---");
+                        Log.e("fenleifenlei", new Gson().toJson(leiBean));
 //                        getShouyeTeJia();
                     }
                 },false);

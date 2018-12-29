@@ -65,7 +65,10 @@ public class ZiZhiRenZhengActivity extends BaseActivity {
         tvTitle.setText("资质认证");
         mContext = ZiZhiRenZhengActivity.this;
         yemian = getIntent().getStringExtra("yemian");
-        getZizhiShow();
+        if("审核通过".equals(getIntent().getStringExtra("state"))||"审核中".equals(getIntent().getStringExtra("state"))){
+            getZizhiShow();
+        }
+
     }
 
     @Override
@@ -104,6 +107,13 @@ public class ZiZhiRenZhengActivity extends BaseActivity {
                         }
                         Glide.with(mContext).load(bean.getBusiness_license()).into(ivYingyezhizhao);
                         tvFuzeren.setText(bean.getPrincipal());
+                        etName.setText(bean.getLegal_person());
+                        etName.setEnabled(false);
+                        etXinyongma.setText(bean.getDuty_paragraph());
+                        etXinyongma.setEnabled(false);
+                        etShenfenzheng.setText(bean.getId_number());
+                        etShenfenzheng.setEnabled(false);
+                        btnSubmit.setVisibility(View.GONE);
                     }
                 });
     }

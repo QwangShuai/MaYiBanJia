@@ -479,7 +479,7 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
             view.setTextColor(mContext.getResources().getColor(R.color.lishisousuo));
             view.setTextSize(12);
             view.setPadding( AppUtil.dip2px(8), AppUtil.dip2px(12), AppUtil.dip2px(8), AppUtil.dip2px(12));
-            view.setBackground(getResources().getDrawable(R.drawable.fillet_solid_e7e7e7_3));
+            view.setBackground(getResources().getDrawable(R.drawable.fillet_solid_fafafa_100));
             tvs.add(view);
             xcfShangpinlishisousuo.addView(view, lp);
         }

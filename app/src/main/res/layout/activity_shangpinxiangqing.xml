@@ -334,7 +334,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="进店逛逛"
-                                    android:textColor="#ff3c92a3"
+                                    android:textColor="@color/zangqing"
                                     android:textSize="12sp"
                                     android:layout_marginRight="12dp"
                                     />
@@ -440,7 +440,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="查看全部"
-                                android:textColor="#ff3c92a3"
+                                android:textColor="@color/zangqing"
                                 android:textSize="12sp"
                                 />
                             <ImageView
@@ -456,7 +456,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginLeft="12dp"
-                        android:background="@color/cutoff"/>
+                        android:background="@color/gray_e7e7e7"/>
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -538,7 +538,7 @@
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
-                                android:background="@color/cutoff"
+                                android:background="@color/gray_e7e7e7"
                                 android:layout_weight="1"/>
                             <TextView
                                 android:layout_width="wrap_content"
@@ -552,7 +552,7 @@
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
-                                android:background="@color/cutoff"
+                                android:background="@color/gray_e7e7e7"
                                 android:layout_weight="1"/>
                         </LinearLayout>
                         <TextView

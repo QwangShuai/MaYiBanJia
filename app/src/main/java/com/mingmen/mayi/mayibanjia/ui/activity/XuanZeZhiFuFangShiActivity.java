@@ -78,7 +78,7 @@ public class XuanZeZhiFuFangShiActivity extends BaseActivity {
     private String dingdanid;
     private String yue;
     private String zongjia;
-    private String zhifujine;
+//    private String zhifujine;
     private IWXAPI api;
     public static XuanZeZhiFuFangShiActivity instance = null;
     @Override
@@ -117,8 +117,8 @@ public class XuanZeZhiFuFangShiActivity extends BaseActivity {
 //        } else {
 //
 //            llYuezhifu.setVisibility(View.GONE);
-        zhifujine = Double.valueOf(zongjia)*100+"";
-        tvXuzhifujine.setText(zhifujine);
+//        zhifujine = Double.valueOf(zongjia)*100+"";
+        tvXuzhifujine.setText(zongjia);
 //        }
 
     }
@@ -175,14 +175,13 @@ public class XuanZeZhiFuFangShiActivity extends BaseActivity {
     }
 
     private void tijiaozhifu() {
-        Log.e("瞎几把请求",dingdanid+"==="+zhifujine);
         if (zhifufangshi == 2) {
             HttpManager.getInstance()
                     .with(mContext)
                     .setObservable(
                             RetrofitManager
                                     .getService()//支付方式  1余额支付 2微信支付 3支付宝支付
-                                    .getWXPay(dingdanid, zhifujine))
+                                    .getWXPay(dingdanid, Double.valueOf(zongjia)*100+""))
                     .setDataListener(new HttpDataListener<WXPayBean>() {
                         @Override
                         public void onNext(WXPayBean data) {

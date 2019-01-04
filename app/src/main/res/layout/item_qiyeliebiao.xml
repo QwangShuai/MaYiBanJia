@@ -110,7 +110,7 @@
                     android:layout_height="wrap_content">
                     <TextView
                         android:id="@+id/tv_dingdan_gyd"
-                        android:layout_marginRight="20dp"
+                        android:layout_marginRight="12dp"
                         android:textSize="12sp"
                         android:textColor="@color/zicolor"
                         android:text="@string/gyd_order"
@@ -118,7 +118,7 @@
                         android:layout_height="wrap_content" />
                     <TextView
                         android:id="@+id/tv_dingdan_ctd"
-                        android:layout_marginRight="20dp"
+                        android:layout_marginRight="12dp"
                         android:textSize="12sp"
                         android:textColor="@color/zicolor"
                         android:text="@string/ctd_order"
@@ -126,7 +126,7 @@
                         android:layout_height="wrap_content" />
                     <TextView
                         android:id="@+id/tv_shangpin_pt"
-                        android:layout_marginRight="20dp"
+                        android:layout_marginRight="12dp"
                         android:textSize="12sp"
                         android:textColor="@color/zicolor"
                         android:text="@string/check_goods"
@@ -134,7 +134,7 @@
                         android:layout_height="wrap_content" />
                     <TextView
                         android:id="@+id/tv_shangpin_tj"
-                        android:layout_marginRight="20dp"
+                        android:layout_marginRight="12dp"
                         android:textSize="12sp"
                         android:textColor="@color/zicolor"
                         android:text="@string/check_out_goods"

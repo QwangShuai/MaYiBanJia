@@ -1,5 +1,6 @@
 package com.mingmen.mayi.mayibanjia.bean;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -141,7 +142,7 @@ public class ShangPinSouSuoBean  {
             private String order_id;
             private String inventory;
             private int pice_two;
-            private int pice_one;
+            private BigDecimal pice_one;
             private String evaluate;
             private String ration_two;
             private int pice_three;
@@ -474,11 +475,11 @@ public class ShangPinSouSuoBean  {
                 this.pice_two = pice_two;
             }
 
-            public int getPice_one() {
+            public BigDecimal getPice_one() {
                 return pice_one;
             }
 
-            public void setPice_one(int pice_one) {
+            public void setPice_one(BigDecimal pice_one) {
                 this.pice_one = pice_one;
             }
 

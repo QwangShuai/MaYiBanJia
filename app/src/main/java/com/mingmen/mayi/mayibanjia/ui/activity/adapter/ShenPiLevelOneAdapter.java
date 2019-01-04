@@ -130,6 +130,7 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
                 PreferenceUtils.putLong(activity, mList.get(position).getSon_order_id(), l);
                 holder.tvXitongtuijian.setTextColor(activity.getResources().getColor(R.color.mayihong));
                 holder.tvXitongtuijian.setEnabled(false);
+                message = "特殊商品抢单中，请耐心等待抢单完成";
                 isClick = false;
             }
 

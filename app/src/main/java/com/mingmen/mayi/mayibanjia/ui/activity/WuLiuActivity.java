@@ -47,6 +47,9 @@ public class WuLiuActivity extends BaseActivity {
     private int count = 1;
     private PopupWindow tuichupop;
     private ConfirmDialog confirmDialog;
+    private SwipeMenuRecyclerView.LoadMoreListener mLoadMoreListener;
+
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_wu_liu;
@@ -57,7 +60,7 @@ public class WuLiuActivity extends BaseActivity {
         mContext=WuLiuActivity.this;
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
-        getWuLiu("");
+        getWuLiu("",true);
     }
     @OnClick({R.id.ll_title,R.id.iv_sangedian})
     public void OnClick(View v){
@@ -70,7 +73,7 @@ public class WuLiuActivity extends BaseActivity {
                 break;
         }
     }
-    public void getWuLiu(final String type){
+    public void getWuLiu(final String type,final boolean b){
         Log.e("2222","看不到请求网络");
         HttpManager.getInstance()
                 .with(mContext)
@@ -94,9 +97,24 @@ public class WuLiuActivity extends BaseActivity {
                                 }
                             }
                         }
-                        adapter = new WuLiuFenPeiAdapter(mContext,mList,WuLiuActivity.this,type);
-                        rvFenpeiwuliu.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
-                        rvFenpeiwuliu.setAdapter(adapter);
+                        if(b){
+                            mLoadMoreListener = new SwipeMenuRecyclerView.LoadMoreListener() {
+                                @Override
+                                public void onLoadMore() {
+                                    getWuLiu(type,false);
+                                }
+                            };
+
+                            adapter = new WuLiuFenPeiAdapter(mContext,mList,WuLiuActivity.this,type);
+                            rvFenpeiwuliu.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+                            rvFenpeiwuliu.useDefaultLoadMore(); // 使用默认的加载更多的View。
+                            rvFenpeiwuliu.setLoadMoreListener(mLoadMoreListener); // 加载更多的监听。
+                            rvFenpeiwuliu.loadMoreFinish(false, true);
+                            rvFenpeiwuliu.setAdapter(adapter);
+                        } else {
+                            adapter.notifyDataSetChanged();
+                        }
+
                         count++;
                         showTongji(bean.getCount()+"",bean.getCount0()+"",bean.getCount1()+"",bean.getCount2()+"");
                     }

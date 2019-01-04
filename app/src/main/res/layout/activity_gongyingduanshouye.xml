@@ -519,25 +519,34 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:id="@+id/ll_shezhi"
+                            android:id="@+id/ll_tejiashangpin"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center"
                             android:orientation="vertical">
 
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@mipmap/qdjg_gy" />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="12dp"
-                                android:text="抢单结果"
-                                android:textColor="#ff666666"
-                                android:textSize="12sp" />
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@mipmap/tejiashangpin" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="特价商品"
+                                    android:textColor="#ff666666"
+                                    android:textSize="12sp" />
+                            </LinearLayout>
+
                         </LinearLayout>
 
                         <LinearLayout
@@ -590,37 +599,16 @@
                                 android:textSize="12sp" />
                         </LinearLayout>
 
+
+
                         <LinearLayout
-                            android:id="@+id/ll_tejiashangpin"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center"
                             android:orientation="vertical">
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:orientation="vertical">
-
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@mipmap/tejiashangpin" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="12dp"
-                                    android:text="特价商品"
-                                    android:textColor="#ff666666"
-                                    android:textSize="12sp" />
-                            </LinearLayout>
-
                         </LinearLayout>
-
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"

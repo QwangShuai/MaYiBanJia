@@ -282,6 +282,9 @@ public class XuanZeZhiFuFangShiActivity extends BaseActivity {
                                 }
                                 break;
                             case 2:
+                                Intent intent = new Intent(mContext, DingDanActivity.class);
+                                intent.putExtra("to_shop", 0);
+                                startActivity(intent);
                                 finish();
                                 break;
                             case 3:

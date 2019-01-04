@@ -103,6 +103,8 @@ public class ZhangHuXinXiActivity extends BaseActivity {
             case R.id.ll_touxiang:
                 break;
             case R.id.iv_anquan_jinru:
+                it = new Intent(mContext,WoDeZhangHuActivity.class);
+                startActivity(it);
                 break;
             case R.id.ll_zizhirenzheng://资质认证
                 it = new Intent(mContext, ZiZhiRenZhengActivity.class);

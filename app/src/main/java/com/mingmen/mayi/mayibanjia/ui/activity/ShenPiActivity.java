@@ -116,7 +116,7 @@ public class ShenPiActivity extends BaseActivity {
     private CaiGouDanBean myBean;
     List<GetAllMarketBean> market_id = new ArrayList<>();
     private boolean isClick = true;
-
+    public static ShenPiActivity instance = null;
     @Override
     public int getLayoutId() {
         return R.layout.activity_shenpi;
@@ -127,6 +127,7 @@ public class ShenPiActivity extends BaseActivity {
         mContext = ShenPiActivity.this;
         tvTitle.setText("审批");
         tvRight.setText("添加商品");
+        instance = this;
         purchase_id = getIntent().getStringExtra("data");
         myBean = gson.fromJson(purchase_id, CaiGouDanBean.class);
         caigoudan = myBean.getFllist();//采购单一级数据
@@ -536,7 +537,9 @@ public class ShenPiActivity extends BaseActivity {
         for (int i = 0; i < caigoudan.size(); i++) {
             if (bean.getOne_classify_name().equals(caigoudan.get(i).getClassify_name())) {
                 for (int j=0;j<caigoudan.get(i).getSonorderlist().size();j++){
-                    if(bean.getSort_id().equals(caigoudan.get(i).getSonorderlist().get(j).getSort_id())){
+                    if(bean.getSort_id().equals(caigoudan.get(i).getSonorderlist().get(j).getSort_id())&&
+                            !StringUtil.isValid(bean.getSpecial_commodity())&&
+                            !StringUtil.isValid(caigoudan.get(i).getSonorderlist().get(j).getSpecial_commodity())){
 //                        int count = caigoudan.get(i).getSonorderlist().get(j).getCount() + bean.getCount();
 //                        bean.setCount(count);
                         bean.setClassify_name(caigoudan.get(i).getSonorderlist().get(j).getClassify_name());

@@ -213,7 +213,6 @@ public class FCGCaiGouXuQiuActivity extends BaseActivity {
                     public void onNext(List<FCGName> data) {
                         datas = new ArrayList<FCGName>();
                         datas.addAll(data);
-                        Log.e("data", data + "---");
                         if (mPopWindow != null) {
                             if (name.equals(sanjifenleiName)) {
                                 return;
@@ -247,7 +246,6 @@ public class FCGCaiGouXuQiuActivity extends BaseActivity {
             @Override
             public void onClick(View view, int position) {
                 leibieid = datas.get(position).getClassify_id();
-                Log.e("leibieid", leibieid + "--");
                 etShangpinMing.setText("" + datas.get(position).getClassify_name());
                 sanjifenleiName = datas.get(position).getClassify_name();
                 sanjifenleiId = datas.get(position).getClassify_id();
@@ -369,12 +367,11 @@ public class FCGCaiGouXuQiuActivity extends BaseActivity {
                                 .setDataListener(new HttpDataListener<String>() {
                                     @Override
                                     public void onNext(String data) {
-                                        ToastUtil.showToast("data");
                                     }
 
                                 }, false);
                         //dialog
-                        tijiaoxuqiuDialog.showDialog();
+                        tijiaoxuqiuDialog .showDialog();
                         tijiaoxuqiuDialog.getTvCaigoudan().setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -513,7 +510,6 @@ public class FCGCaiGouXuQiuActivity extends BaseActivity {
                                                 .setDataListener(new HttpDataListener<String>() {
                                                     @Override
                                                     public void onNext(String data) {
-                                                        ToastUtil.showToast("主表真是好使啊");
                                                     }
 
                                                 }, false);

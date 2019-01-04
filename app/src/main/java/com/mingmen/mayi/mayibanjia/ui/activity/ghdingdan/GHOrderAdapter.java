@@ -186,7 +186,6 @@ public class GHOrderAdapter extends RecyclerView.Adapter<GHOrderAdapter.ViewHold
                 @Override
                 public void onClick(View v) {
                     //if (!TextUtils.isEmpty(String.valueOf(bean.getDriver_name()))) {
-                    ToastUtil.showToast("打印功能待更新");
                     Intent it = new Intent(mContext, DaYinQrCodeActivity.class);
                     it.putExtra("id", bean.getGy_order_id());
                     mContext.startActivity(it);

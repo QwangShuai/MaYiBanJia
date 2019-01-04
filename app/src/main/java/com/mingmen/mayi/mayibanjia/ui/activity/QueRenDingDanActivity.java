@@ -155,6 +155,10 @@ public class QueRenDingDanActivity extends BaseActivity {
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         tvSpjine.setText(zongjia);
+        adapter = new TiJiaoDingDanShichangAdapter(mContext, shichangdata);
+        rvTijiaodingdan.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+        rvTijiaodingdan.setNestedScrollingEnabled(false);
+        rvTijiaodingdan.setAdapter(adapter);
         getaddressList();
         getsplist();
         getyue();
@@ -225,7 +229,9 @@ public class QueRenDingDanActivity extends BaseActivity {
 //                    intent.putExtra("yuezhifu",shiyongyue);
                         intent.putExtra("zongjia", hejijine+"");
                         intent.putExtra("yue", yue);
+                        ShenPiActivity.instance.finish();
                         startActivity(intent);
+                        finish();
                     }
                 });
 //
@@ -242,12 +248,9 @@ public class QueRenDingDanActivity extends BaseActivity {
                     @Override
                     public void onNext(List<QueRenDingDanShangPinBean> data) {
                         Log.e("getsplist", gson.toJson(data));
-                        shichangdata = new ArrayList<QueRenDingDanShangPinBean>();
+//                        shichangdata = new ArrayList<QueRenDingDanShangPinBean>();
+                        shichangdata.clear();
                         shichangdata.addAll(data);
-                        adapter = new TiJiaoDingDanShichangAdapter(mContext, shichangdata);
-                        rvTijiaodingdan.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
-                        rvTijiaodingdan.setNestedScrollingEnabled(false);
-                        rvTijiaodingdan.setAdapter(adapter);
                         shichangCount = data==null?0:data.size();
                         for (int k=0;k<data.size();k++){
                             for (int i = 0; i < data.get(k).getDplist().size(); i++) {//i是店铺
@@ -307,9 +310,13 @@ public class QueRenDingDanActivity extends BaseActivity {
                                 if ("0".equals(data.get(i).getDefault_address())) {
                                     dizhi = data.get(i);
                                     initdizhi();
+                                    Log.e("执行中"+i+"==",data.get(i).getAddress_id());
+                                    break;
                                 } else if(i==data.size()-1){
                                     dizhi = data.get(0);
                                     initdizhi();
+                                    Log.e("执行结束",data.get(i).getAddress_id());
+                                    break;
                                 }
                             }
                         } else {
@@ -449,10 +456,13 @@ public class QueRenDingDanActivity extends BaseActivity {
         switch (requestCode) {
             case 1:
                 if (resultCode == 1 & data != null) {
+                    number = "";
                     String dizhijson = data.getStringExtra("dizhi");
                     Log.e("dizhijson", dizhijson);
                     dizhi = gson.fromJson(dizhijson, AddressListBean.class);
                     initdizhi();
+                    getsplist();
+                    adapter.notifyDataSetChanged();
                 }
                 break;
         }
@@ -464,10 +474,10 @@ public class QueRenDingDanActivity extends BaseActivity {
         tvShouhuorendianhua.setText(dizhi.getContact_type());
         if (Integer.parseInt(dizhi.getDefault_address()) != 0) {
             tvMoren.setVisibility(View.GONE);
-            tvDizhi.setText(dizhi.getProvince_name() + dizhi.getCity_name() + dizhi.getRegion_name() + dizhi.getSpecific_address());
+            tvDizhi.setText(dizhi.getProvince_name() + dizhi.getCity_name() + dizhi.getRegion_name()+ dizhi.getStreet_name() + dizhi.getSpecific_address());
         } else {
             tvMoren.setVisibility(View.VISIBLE);
-            SpannableStringBuilder span = new SpannableStringBuilder("黑龙江省" + dizhi.getProvince_name() + dizhi.getCity_name() + dizhi.getRegion_name() + dizhi.getSpecific_address());
+            SpannableStringBuilder span = new SpannableStringBuilder("黑龙江省" + dizhi.getProvince_name() + dizhi.getCity_name() + dizhi.getRegion_name()+ dizhi.getStreet_name() + dizhi.getSpecific_address());
             span.setSpan(new ForegroundColorSpan(Color.TRANSPARENT), 0, 4,
                     Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
             tvDizhi.setText(span);

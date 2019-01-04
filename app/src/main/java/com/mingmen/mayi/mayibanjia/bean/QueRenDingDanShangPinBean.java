@@ -419,7 +419,6 @@ public class QueRenDingDanShangPinBean {
         private Object type;
         private String region;
         private String principal;
-        private Object pice_one;
         private String street;
         private Object end_hour;
         private Object user_token;
@@ -535,14 +534,6 @@ public class QueRenDingDanShangPinBean {
 
         public void setPrincipal(String principal) {
             this.principal = principal;
-        }
-
-        public Object getPice_one() {
-            return pice_one;
-        }
-
-        public void setPice_one(Object pice_one) {
-            this.pice_one = pice_one;
         }
 
         public String getStreet() {
@@ -1335,7 +1326,7 @@ public class QueRenDingDanShangPinBean {
             private Object type;
             private int number;
             private int count;
-            private int pice_one;
+            private BigDecimal pice_one;
             private Object user_token;
             private Object account_id;
             private String company_id;
@@ -1468,11 +1459,11 @@ public class QueRenDingDanShangPinBean {
                 this.count = count;
             }
 
-            public int getPice_one() {
+            public BigDecimal getPice_one() {
                 return pice_one;
             }
 
-            public void setPice_one(int pice_one) {
+            public void setPice_one(BigDecimal pice_one) {
                 this.pice_one = pice_one;
             }
 

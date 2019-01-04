@@ -168,6 +168,7 @@ public class XinXiLuRuActivity extends BaseActivity {
             shengid= Integer.parseInt(qiyexinxi.getProvince());
             shiid= Integer.parseInt(qiyexinxi.getCity());
             quid= Integer.parseInt(qiyexinxi.getRegion());
+            city= Integer.parseInt(qiyexinxi.getRegion());
             jieid=qiyexinxi.getStreet();
             shengming=qiyexinxi.getQuYMC();
             shiming=qiyexinxi.getQuYMCa();

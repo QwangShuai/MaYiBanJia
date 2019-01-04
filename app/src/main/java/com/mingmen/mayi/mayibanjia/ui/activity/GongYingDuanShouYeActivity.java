@@ -46,8 +46,6 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
     LinearLayout llShangpinguanli;
     @BindView(R.id.ll_yonghupingjia)
     LinearLayout llYonghupingjia;
-    @BindView(R.id.ll_shezhi)
-    LinearLayout llShezhi;
     @BindView(R.id.ll_tejiashangpin)
     LinearLayout llTejiashangpin;
     @BindView(R.id.tv_dingdan)
@@ -97,7 +95,7 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.ll_qiangdan, R.id.ll_dingdan, R.id.ll_shangpinguanli, R.id.ll_yonghupingjia, R.id.ll_shezhi, R.id.ll_tejiashangpin,
+    @OnClick({R.id.ll_qiangdan, R.id.ll_dingdan, R.id.ll_shangpinguanli, R.id.ll_yonghupingjia, R.id.ll_tejiashangpin,
             R.id.ll_yue, R.id.ll_daifahuo, R.id.ll_yishouhuo, R.id.ll_yiwancheng,R.id.ll_qiehuan,R.id.iv_touxiang,R.id.tv_dianming,
     R.id.ll_state_qiehuan})
     public void onViewClicked(View view) {
@@ -118,9 +116,6 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
                 startActivity(sp);
                 break;
             case R.id.ll_yonghupingjia:
-                break;
-            case R.id.ll_shezhi://抢单结果
-//                ToastUtil.showToast("你瞎瞅啥");
                 break;
             case R.id.ll_tejiashangpin:
                 Intent tejia = new Intent(mContext, ShangPinGuanLiActivity.class);

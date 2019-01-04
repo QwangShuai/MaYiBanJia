@@ -184,7 +184,6 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 // 该加载更多啦。
 
 //        ... // 请求数据，并更新数据源操作。
-                ye++;
 //                sousuoshangpin(sousuozi,type);
                 HttpManager.getInstance()
                         .with(mContext)
@@ -208,7 +207,9 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                                         Log.e("本次加载有数据,数据条数为","0条，后面没有数据");
                                     }
                                 }
+                                Log.e("当前位置",ye+"---");
                                 shangpinadapter.notifyDataSetChanged();
+                                ye++;
                             }
                         },false);
             }
@@ -249,13 +250,13 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         etSousuozi.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                if (s.length()>0){
-                    sousuo=s.toString().trim();
-                    sousuomoren(sousuo);
-                    xianshi("sousuo");
-                }else{
-                    xianshi("shangpin");
-                }
+//                if (s.length()>0){
+//                    sousuo=s.toString().trim();
+//                    sousuomoren(sousuo);
+//                    xianshi("sousuo");
+//                }else{
+//                    xianshi("shangpin");
+//                }
             }
 
             @Override
@@ -271,13 +272,13 @@ public class QuanBuCaiPinFragment extends BaseFragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.length()>0){
-                    sousuo=s.toString().trim();
-                    sousuomoren(sousuo);
-                    xianshi("sousuo");
-                }else{
-                    xianshi("shangpin");
-                }
+//                if (s.length()>0){
+//                    sousuo=s.toString().trim();
+//                    sousuomoren(sousuo);
+//                    xianshi("sousuo");
+//                }else{
+//                    xianshi("shangpin");
+//                }
             }
         });
         //
@@ -964,7 +965,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .sousuoshangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""), "","","",yijipinleiid,"","","","","",type,1))
+                        .sousuoshangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""), sousuo,"","",yijipinleiid,erjipinleiid,sanjipinleiid,shichangid,zuigaojia,zuidijia,type,1))
                 .setDataListener(new HttpDataListener<ShangPinSouSuoBean>() {
                     @Override
                     public void onNext(final ShangPinSouSuoBean shangpin) {

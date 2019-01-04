@@ -257,7 +257,7 @@ public class SouSuoActivity extends BaseActivity {
                                             Log.e("本次加载有数据,数据条数为","0条，后面没有数据");
                                         }
                                     }
-                                    shangpinadapter.notifyDataSetChanged();
+//                                    shangpinadapter.notifyDataSetChanged();
                                 }
                             },false);
 

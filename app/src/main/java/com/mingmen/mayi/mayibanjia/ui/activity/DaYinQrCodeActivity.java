@@ -25,6 +25,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.QrCodeAdapter;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 import com.mingmen.mayi.mayibanjia.utils.dayinji.PrintfManager;
 
@@ -128,6 +129,10 @@ public class DaYinQrCodeActivity extends BaseActivity {
 
                     @Override
                     public void onNext(GHOrderBean data) {
+                        if(StringUtil.isValid(data.getIs_true())&&data.getIs_true().equals("0")){
+                            llAdd.setVisibility(View.GONE);
+                            btAddQrCode.setVisibility(View.GONE);
+                        }
 //                        Log.e("12333",data.getList().size()+"");
                         count = data.getList().size();
                         adapter = new QrCodeAdapter(DaYinQrCodeActivity.this, data.getList(), DaYinQrCodeActivity.this);

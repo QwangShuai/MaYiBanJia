@@ -324,6 +324,19 @@ public interface HttpService {
                                                                   @Query("type") String type,
                                                                   @Query("pageNumber") String pageNumber);
 
+    //商家模糊查询
+    @POST("allCompany/queryAll.do")
+    Observable<ResultModel<List<QiYeLieBiaoBean>>> getShangjiaList(@Query("user_token") String user_token,
+                                                                  @Query("type") String type,
+                                                                  @Query("province") String province,
+                                                                  @Query("city") String city,
+                                                                  @Query("region") String region,
+                                                                  @Query("street") String street,
+                                                                  @Query("role") String role,
+                                                                  @Query("parent_number") String parent_number,
+                                                                  @Query("company_name") String company_name,
+                                                                  @Query("pageNumber") String pageNumber);
+
     //查询。。企业列表（业务员）
     @POST("allCompany/selectType.do")
     Observable<ResultModel<List<QiYeLieBiaoBean>>> getqiyedaicanshu(@Query("user_token") String user_token,
@@ -893,7 +906,7 @@ public interface HttpService {
     @POST("ctBuyHostorder/saveTime.do")
     Observable<ResultModel<String>> postCaigoudan(@Query("purchase_id") String purchase_id);
 
-    //提交采购单
+    //获取订单号
     @POST("gyOreder/account.do")
     Observable<ResultModel<String>> getOrderNumber(@Query("user_token") String user_token);
 

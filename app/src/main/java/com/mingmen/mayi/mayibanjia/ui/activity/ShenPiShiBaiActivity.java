@@ -119,7 +119,7 @@ public class ShenPiShiBaiActivity extends BaseActivity {
                                     public void onClick(View v) {
                                         Intent intent = new Intent(mContext, CaiGouDanActivity.class);
                                         startActivity(intent);
-                                        FCGDiQuXuanZeActivity.instance.finish();
+//                                        FCGDiQuXuanZeActivity.instance.finish();
                                         tijiaoxuqiuDialog.dismiss();
                                         finish();
                                     }

@@ -64,14 +64,12 @@ public class ShenPiLevelTwoAdapter extends RecyclerView.Adapter<ShenPiLevelTwoAd
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        Log.e("真是难受的一比", new Gson().toJson(mList));
         final CaiGouDanBean.FllistBean.SonorderlistBean.CcListBeanLevel ccListBeanLevel = mList.get(position);
         if (ccListBeanLevel.getCcListBean().getCommodity_id() != null) {
             holder.rlKuang.setVisibility(View.VISIBLE);
         } else {
             holder.rlKuang.setVisibility(View.GONE);
         }
-        Log.e("是否选中了呢",ccListBeanLevel.isXuanzhong()+"---");
         if (ccListBeanLevel.isXuanzhong()){
             holder.rlKuang.setBackgroundColor(activity.getResources().getColor(R.color.hei20));
         } else {
@@ -88,7 +86,6 @@ public class ShenPiLevelTwoAdapter extends RecyclerView.Adapter<ShenPiLevelTwoAd
                 activity.setViewShow(mList.get(position));
             }
         });
-        Log.e("这是我的附加费", "" + ccListBeanLevel.getCcListBean().getAppend_money());
         if (ccListBeanLevel.getCcListBean().getAppend_money() != null && !TextUtils.isEmpty(ccListBeanLevel.getCcListBean().getAppend_money() + ""))
             holder.tvFujiafei.setText("附加费：￥" + ccListBeanLevel.getCcListBean().getAppend_money());
         else

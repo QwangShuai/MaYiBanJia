@@ -173,6 +173,7 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
         phone = bundle.getString("phone");
         pass = bundle.getString("pass1");
         yanzhengma = bundle.getString("yanzhengma");
+        initJsonData();
     }
     private void getsheng() {
         HttpManager.getInstance()

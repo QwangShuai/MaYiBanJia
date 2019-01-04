@@ -69,6 +69,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
+            android:inputType="textPassword"
             android:id="@+id/et_pass1"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -89,6 +90,7 @@
             android:layout_marginRight="12dp"
             />
         <EditText
+            android:inputType="textPassword"
             android:id="@+id/et_pass2"
             android:layout_width="match_parent"
             android:layout_height="50dp"

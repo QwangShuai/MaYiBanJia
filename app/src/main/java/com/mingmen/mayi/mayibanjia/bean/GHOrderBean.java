@@ -63,6 +63,15 @@ public class GHOrderBean {
     private String telephone;
     private String refund;
     private String append_money;
+    private String is_true;
+
+    public String getIs_true() {
+        return is_true;
+    }
+
+    public void setIs_true(String is_true) {
+        this.is_true = is_true;
+    }
 
     public String getAppend_money() {
         return append_money;

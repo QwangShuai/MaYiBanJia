@@ -54,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="已售2045"
-        android:textColor="#ff666666"
+        android:textColor="@color/hintcolor"
         android:textSize="12sp"
         app:layout_constraintLeft_toRightOf="@id/tv_pingfen"
         app:layout_constraintBottom_toBottomOf="@id/tv_pingfen"
@@ -71,6 +71,7 @@
         app:layout_constraintLeft_toLeftOf="@id/tv_dianming"
         />
     <LinearLayout
+        android:gravity="center"
         android:id="@+id/ll_didian"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

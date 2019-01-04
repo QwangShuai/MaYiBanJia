@@ -268,9 +268,9 @@ public class FaBuShangPinActivity extends BaseActivity {
                 getfenlei();
                 break;
             case R.id.ll_sanjiguige:
-                if ("".equals(sanjiid)) {
-                    ToastUtil.showToast("请先选择分类名称");
-                } else {
+//                if ("".equals(sanjiid)) {
+//                    ToastUtil.showToast("请先选择分类名称");
+//                } else {
                     if (sanjiguige.size() > 0) {
                         final SinglePicker<FbspGuiGeBean> picker = new SinglePicker<FbspGuiGeBean>(FaBuShangPinActivity.this, sanjiguige);
                         picker.setCanceledOnTouchOutside(false);
@@ -291,7 +291,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                         ToastUtil.showToast("该商品没有三级规格");
                     }
 
-                }
+//                }
                 break;
             case R.id.bt_xiayibu:
                     if ("".equals(etSpming.getText().toString().trim())) {
@@ -417,7 +417,7 @@ public class FaBuShangPinActivity extends BaseActivity {
 //                } else {
 //                    sanjidialog();
 //                }
-
+                getguige();
                 picker.dismiss();
             }
         });

@@ -280,7 +280,11 @@ public class FaBuShangPinQiDingLiangActivity extends BaseActivity {
                     return;
                 }
                 if (("".equals(qidingliang1) || "".equals(qidingliangdanjia1))) {
-                    ToastUtil.showToast("请填写第一个起订量");
+                    ToastUtil.showToast("请填写起订量");
+                    return;
+                }
+                if(Double.valueOf(etQidingliangdanjia1.getText().toString().trim())<=Double.valueOf(etTejia.getText().toString().trim())){
+                    ToastUtil.showToast("特价必须小于原价");
                     return;
                 }
                 tiaoye();

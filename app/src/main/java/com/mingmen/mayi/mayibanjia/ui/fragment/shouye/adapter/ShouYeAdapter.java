@@ -2,6 +2,7 @@ package com.mingmen.mayi.mayibanjia.ui.fragment.shouye.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.widget.GridLayoutManager;
@@ -25,10 +26,12 @@ import com.mingmen.mayi.mayibanjia.bean.ShouYeBannerBean;
 import com.mingmen.mayi.mayibanjia.bean.ShouYeLeiBean;
 import com.mingmen.mayi.mayibanjia.bean.ShouYeShangChangBean;
 import com.mingmen.mayi.mayibanjia.bean.ShouYeTeJiaBean;
+import com.mingmen.mayi.mayibanjia.ui.activity.ShangJiaActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.GlideImageLoader;
 import com.mingmen.mayi.mayibanjia.ui.view.GlideImageYuanLoader;
 import com.mingmen.mayi.mayibanjia.ui.view.PageIndicatorView;
 import com.mingmen.mayi.mayibanjia.ui.view.ZiXunPagingScrollHelper;
+import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -221,6 +224,25 @@ private void bindShangjia(final ShangJia holder, int position) {
     holder.tvGys.setText(shangJiaBean.get(0).getCompany_gy_sum()+"");
     holder.tvCt.setText(shangJiaBean.get(0).getCompany_ct_sum()+"");
     holder.tvSc.setText(shangJiaBean.get(0).getMarket_count()+"");
+
+    holder.llGys.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            JumpUtil.Jump_intent(mContext, ShangJiaActivity.class,new Bundle());
+        }
+    });
+    holder.llSc.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            JumpUtil.Jump_intent(mContext, ShangJiaActivity.class,new Bundle());
+        }
+    });
+    holder.llCt.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            JumpUtil.Jump_intent(mContext, ShangJiaActivity.class,new Bundle());
+        }
+    });
 //    holder.btnCaigou.setOnClickListener(new View.OnClickListener() {
 //        @Override
 //        public void onClick(View v) {
@@ -280,6 +302,9 @@ public class ShangJia extends RecyclerView.ViewHolder{
     private TextView tvGys;
     private TextView tvCt;
     private TextView tvSc;
+    private LinearLayout llSc;
+    private LinearLayout llCt;
+    private LinearLayout llGys;
 //    private Button btnCaigou;
 
     public ShangJia(View itemView) {
@@ -287,6 +312,9 @@ public class ShangJia extends RecyclerView.ViewHolder{
         tvGys=(TextView)itemView.findViewById(R.id.tv_gys);
         tvCt=(TextView)itemView.findViewById(R.id.tv_ct);
         tvSc=(TextView)itemView.findViewById(R.id.tv_sc);
+        llSc=(LinearLayout)itemView.findViewById(R.id.ll_sc);
+        llCt=(LinearLayout)itemView.findViewById(R.id.ll_ct);
+        llGys=(LinearLayout)itemView.findViewById(R.id.ll_gys);
 //        btnCaigou=(Button) itemView.findViewById(R.id.btn_caigou);
 
     }

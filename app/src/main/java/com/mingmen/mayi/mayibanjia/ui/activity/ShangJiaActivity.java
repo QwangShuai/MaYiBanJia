@@ -3,6 +3,9 @@ package com.mingmen.mayi.mayibanjia.ui.activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -17,10 +20,13 @@ import com.mingmen.mayi.mayibanjia.bean.QiYeLieBiaoBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
+import com.mingmen.mayi.mayibanjia.ui.activity.adapter.QiYeLieBiaoAdapter;
+import com.mingmen.mayi.mayibanjia.ui.activity.adapter.ZhuceShangjiaAdapter;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -62,6 +68,9 @@ public class ShangJiaActivity extends BaseActivity {
     private String parent_number = "";
     private String name = "";
     private int ye = 1;
+    private ZhuceShangjiaAdapter adapter;
+    private ArrayList<QiYeLieBiaoBean> mlist = new ArrayList<>();
+    private SwipeMenuRecyclerView.LoadMoreListener mLoadMoreListener;
 
     @Override
     public int getLayoutId() {
@@ -77,6 +86,8 @@ public class ShangJiaActivity extends BaseActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 
                 if (actionId == EditorInfo.IME_ACTION_SEARCH){
+                    mlist.clear();
+                    ye = 1;
                     getQiyeLiebiao();
                     return true;
                 }
@@ -84,6 +95,47 @@ public class ShangJiaActivity extends BaseActivity {
 
             }
         });
+        etSousuo.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int i, int i1, int i2) {
+                if(!s.toString().trim().equals(" ")){
+                    name = s.toString().trim();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        mLoadMoreListener = new SwipeMenuRecyclerView.LoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                // 该加载更多啦。
+                getQiyeLiebiao();
+            }
+        };
+        rvList.setLoadMoreListener(mLoadMoreListener);
+        refreshLayout.setColorSchemeResources(R.color.zangqing, R.color.zangqing,
+                R.color.zangqing, R.color.zangqing);
+
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                ye = 1;
+                mlist.clear();
+                getQiyeLiebiao();
+                refreshLayout.setRefreshing(false);
+            }
+        });
+        adapter = new ZhuceShangjiaAdapter(mContext, mlist);
+        rvList.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+        rvList.setAdapter(adapter);
     }
 
     @Override
@@ -121,8 +173,20 @@ public class ShangJiaActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<List<QiYeLieBiaoBean>>() {
                     @Override
                     public void onNext(final List<QiYeLieBiaoBean> data) {
-                        ye++;
-//                        initadapter(data);
+                        if (!"null".equals(String.valueOf(data))) {
+                            if (data.size() == 5) {
+                                rvList.loadMoreFinish(false, true);
+                            } else if (data.size() > 0) {
+                                rvList.loadMoreFinish(false, false);
+                            } else {
+                                rvList.loadMoreFinish(true, false);
+                            }
+                            mlist.addAll(data);
+                            adapter.notifyDataSetChanged();
+                            ye++;
+                        }
+
+
                     }
                 });
 

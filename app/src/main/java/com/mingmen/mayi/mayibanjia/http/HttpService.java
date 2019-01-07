@@ -36,6 +36,7 @@ import com.mingmen.mayi.mayibanjia.bean.QiYeGuiMoBean;
 import com.mingmen.mayi.mayibanjia.bean.QiYeLeiBieBean;
 import com.mingmen.mayi.mayibanjia.bean.QiYeLieBiaoBean;
 import com.mingmen.mayi.mayibanjia.bean.QiangDanBean;
+import com.mingmen.mayi.mayibanjia.bean.QuanBuShiChangBean;
 import com.mingmen.mayi.mayibanjia.bean.QueRenDingDanShangPinBean;
 import com.mingmen.mayi.mayibanjia.bean.RoleBean;
 import com.mingmen.mayi.mayibanjia.bean.SPTGBean;
@@ -1053,4 +1054,18 @@ public interface HttpService {
     //评价分类列表
     @POST("gyCommentReply/replyCount.do")
     Observable<ResultModel<PingJiaTypeListBean>> getPingjiaTypeNumber(@Query("company_id") String company_id);
+
+    //合并采购单
+    @POST("ctBuyHostorder/AddSingle.do")
+    Observable<ResultModel<String>> hebingCaigoudan(@Query("user_token") String user_token,
+                                                    @Query("purchase_id") String purchase_id,
+                                                    @Query("purchase_name") String purchase_name);
+
+    //获取全部市场
+    @POST("sy/getRegisterMarket.do")
+    Observable<ResultModel<List<QuanBuShiChangBean>>> getShichangList(@Query("province") String province,
+                                                                      @Query("city") String city,
+                                                                      @Query("region") String region,
+                                                                      @Query("market_name") String market_name,
+                                                                      @Query("pageNumber") String pageNumber);
 }

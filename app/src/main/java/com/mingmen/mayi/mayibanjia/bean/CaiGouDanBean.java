@@ -56,6 +56,15 @@ public class CaiGouDanBean {
     private BigDecimal zongjia;
     private String order_audit_state;
     private String audit_ps;
+    private boolean isSelect;
+
+    public boolean isSelect() {
+        return isSelect;
+    }
+
+    public void setSelect(boolean select) {
+        isSelect = select;
+    }
 
     public String getAudit_ps() {
         return audit_ps;

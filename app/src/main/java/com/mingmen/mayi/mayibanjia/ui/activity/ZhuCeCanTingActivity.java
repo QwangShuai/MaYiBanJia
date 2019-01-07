@@ -1,8 +1,9 @@
 package com.mingmen.mayi.mayibanjia.ui.activity;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,7 +21,6 @@ import com.mingmen.mayi.mayibanjia.bean.QiYeLieBiaoBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
-import com.mingmen.mayi.mayibanjia.ui.activity.adapter.QiYeLieBiaoAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.ZhuceShangjiaAdapter;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
@@ -33,8 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ShangJiaActivity extends BaseActivity {
-
+public class ZhuCeCanTingActivity extends BaseActivity {
     @BindView(R.id.iv_back)
     ImageView ivBack;
     @BindView(R.id.tv_pipei)
@@ -74,7 +73,7 @@ public class ShangJiaActivity extends BaseActivity {
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_shang_jia;
+        return R.layout.activity_zhu_ce_can_ting;
     }
 
     @Override
@@ -170,7 +169,7 @@ public class ShangJiaActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getShangjiaList(PreferenceUtils.getString(MyApplication.mContext, "token",""),"2",province,city,region,street,"2",parent_number,name,ye+""))
+                                .getShangjiaList(PreferenceUtils.getString(MyApplication.mContext, "token",""),"2",province,city,region,street,"1",parent_number,name,ye+""))
                 .setDataListener(new HttpDataListener<List<QiYeLieBiaoBean>>() {
                     @Override
                     public void onNext(final List<QiYeLieBiaoBean> data) {

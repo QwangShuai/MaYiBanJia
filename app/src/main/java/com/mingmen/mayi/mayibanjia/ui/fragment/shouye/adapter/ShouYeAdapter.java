@@ -26,7 +26,9 @@ import com.mingmen.mayi.mayibanjia.bean.ShouYeBannerBean;
 import com.mingmen.mayi.mayibanjia.bean.ShouYeLeiBean;
 import com.mingmen.mayi.mayibanjia.bean.ShouYeShangChangBean;
 import com.mingmen.mayi.mayibanjia.bean.ShouYeTeJiaBean;
+import com.mingmen.mayi.mayibanjia.ui.activity.QuanBuShiChangActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShangJiaActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.ZhuCeCanTingActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.GlideImageLoader;
 import com.mingmen.mayi.mayibanjia.ui.view.GlideImageYuanLoader;
 import com.mingmen.mayi.mayibanjia.ui.view.PageIndicatorView;
@@ -64,14 +66,18 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private  List<ShouYeTeJiaBean> teJiaBean;
     private  List<ShouYeShangChangBean> shangJiaBean;
     private MainActivity activity;
+    private String dingwei = "";
+    private String province = "";
 //    public ShouYeAdapter(Context context, List<ShouYeBannerBean> bannerBean,List<ShouYeLeiBean> leiBean,List<ShouYeTeJiaBean> teJiaBean,MainActivity activity) {
-    public ShouYeAdapter(Context context, List<ShouYeBannerBean> bannerBean,List<ShouYeShangChangBean> shangJiaBean,List<ShouYeLeiBean> leiBean,List<ShouYeTeJiaBean> teJiaBean,MainActivity activity) {
+    public ShouYeAdapter(Context context, List<ShouYeBannerBean> bannerBean,List<ShouYeShangChangBean> shangJiaBean,List<ShouYeLeiBean> leiBean,List<ShouYeTeJiaBean> teJiaBean,MainActivity activity,String dingwei,String province) {
         this.mContext = context;
         this.bannerBean = bannerBean;
         this.leiBean = leiBean;
         this.shangJiaBean = shangJiaBean;
         this.teJiaBean = teJiaBean;
         this.activity = activity;
+        this.dingwei = dingwei;
+        this.province = province;
         shijilist=new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             shijilist.add(i + "");
@@ -224,23 +230,25 @@ private void bindShangjia(final ShangJia holder, int position) {
     holder.tvGys.setText(shangJiaBean.get(0).getCompany_gy_sum()+"");
     holder.tvCt.setText(shangJiaBean.get(0).getCompany_ct_sum()+"");
     holder.tvSc.setText(shangJiaBean.get(0).getMarket_count()+"");
-
+    final Bundle bundle = new Bundle();
+    bundle.putString("province",province);
+    bundle.putString("city",dingwei);
     holder.llGys.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            JumpUtil.Jump_intent(mContext, ShangJiaActivity.class,new Bundle());
+            JumpUtil.Jump_intent(mContext, ShangJiaActivity.class,bundle);
         }
     });
     holder.llSc.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            JumpUtil.Jump_intent(mContext, ShangJiaActivity.class,new Bundle());
+            JumpUtil.Jump_intent(mContext, QuanBuShiChangActivity.class,bundle);
         }
     });
     holder.llCt.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            JumpUtil.Jump_intent(mContext, ShangJiaActivity.class,new Bundle());
+            JumpUtil.Jump_intent(mContext, ZhuCeCanTingActivity.class,bundle);
         }
     });
 //    holder.btnCaigou.setOnClickListener(new View.OnClickListener() {

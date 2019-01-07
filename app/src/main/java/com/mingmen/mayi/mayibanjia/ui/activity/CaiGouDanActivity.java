@@ -2,28 +2,26 @@ package com.mingmen.mayi.mayibanjia.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.CaiGouDanBean;
-import com.mingmen.mayi.mayibanjia.bean.QueRenDingDanShangPinBean;
-import com.mingmen.mayi.mayibanjia.bean.ShenPiQuanXuanBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.CaiGouDanAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
-import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ShenPiShiBaiDailog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.SiGeXuanXiangDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
@@ -37,11 +35,13 @@ import com.yanzhenjie.recyclerview.swipe.SwipeMenuItem;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuItemClickListener;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
-import java.lang.annotation.Annotation;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static android.widget.ListPopupWindow.MATCH_PARENT;
@@ -61,6 +61,21 @@ public class CaiGouDanActivity extends BaseActivity {
     ImageView ivBack;
     @BindView(R.id.rv_caigoudan)
     SwipeMenuRecyclerView rvCaigoudan;
+    @BindView(R.id.tv_right)
+    TextView tvRight;
+    @BindView(R.id.bt_hedan)
+    Button btHedan;
+    @BindView(R.id.rl_hedan)
+    RelativeLayout rlHedan;
+    @BindView(R.id.iv_quanxuan)
+    ImageView ivQuanxuan;
+    @BindView(R.id.tv_tijiao)
+    TextView tvTijiao;
+    @BindView(R.id.rl)
+    RelativeLayout rl;
+    @BindView(R.id.ll)
+    LinearLayout ll;
+
     private Context mContext;
     private CaiGouDanAdapter adapter;
     private SiGeXuanXiangDialog titleDialog;
@@ -73,6 +88,10 @@ public class CaiGouDanActivity extends BaseActivity {
     private String commodity_id;
     private boolean canClick;
     private String TAG = "CaiGouDanActivity";
+    private HashMap<String, CaiGouDanBean> xuanzhong = new HashMap<>();
+    private boolean isBack;
+    private boolean[] isSelect;
+    private List<CaiGouDanBean> mList = new ArrayList<>();
 
     //    private Date dangqianTime;
     @Override
@@ -83,6 +102,9 @@ public class CaiGouDanActivity extends BaseActivity {
     @Override
     protected void initData() {
         mContext = CaiGouDanActivity.this;
+        tvRight.setText("取消");
+        tvRight.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+        tvRight.setVisibility(View.GONE);
         initAdapter();
         initdialog();
         getlist("");
@@ -106,16 +128,20 @@ public class CaiGouDanActivity extends BaseActivity {
                         Intent intent = new Intent(CaiGouDanActivity.this, ShenPiActivity.class);
                         if (item.getOrder_audit_state().equals("901")) {
                             intent.setClass(CaiGouDanActivity.this, ShenPiChengGongActivity.class);
-                            intent.putExtra("id",item.getPurchase_id());
-                        } else if(item.getOrder_audit_state().equals("903")){
+                            intent.putExtra("id", item.getPurchase_id());
+                        } else if (item.getOrder_audit_state().equals("903")) {
                             intent.setClass(CaiGouDanActivity.this, ShenPiShiBaiActivity.class);
-                            intent.putExtra("id",item.getPurchase_id());
+                            intent.putExtra("id", item.getPurchase_id());
                         }
                         String data1 = gson.toJson(item);
                         intent.putExtra("data", data1);
                         startActivity(intent);
                         finish();
 //                        }
+                        break;
+                    case R.id.iv_xuanzhong://是否选中
+                        mList.get(position).setSelect(!mList.get(position).isSelect());
+                        adapter.refreshNotifyItemChanged(position);
                         break;
 
                 }
@@ -223,7 +249,18 @@ public class CaiGouDanActivity extends BaseActivity {
 
     //采购单列表
     public void getlist(String status) {
+        rl.setVisibility(View.GONE);
         Log.e("status", status);
+        if(status.equals("902")){
+            tvTitle.setText("待审核");
+            rl.setVisibility(View.VISIBLE);
+        } else if(status.equals("901")){
+            tvTitle.setText("审核通过");
+        } else if(status.equals("903")){
+            tvTitle.setText("审核失败");
+        } else {
+            tvTitle.setText("我的采购单");
+        }
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
@@ -235,6 +272,8 @@ public class CaiGouDanActivity extends BaseActivity {
                     public void onNext(List<CaiGouDanBean> list) {
                         String data = gson.toJson(list);
                         Log.e(TAG, data);
+                        mList.clear();
+                        mList.addAll(list);
                         adapter.setNewData(list);
                         adapter.notifyDataSetChanged();
                     }
@@ -242,14 +281,37 @@ public class CaiGouDanActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.ll_title, R.id.iv_back})
+    @OnClick({R.id.ll_title, R.id.iv_back, R.id.tv_right, R.id.bt_hedan, R.id.bt_chaifen,R.id.iv_quanxuan, R.id.tv_tijiao})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_title:
                 titleDialog.show(getSupportFragmentManager());
                 break;
             case R.id.iv_back:
-                finish();
+                myBack();
+                break;
+            case R.id.tv_right:
+                tvRight.setVisibility(View.GONE);
+                rlHedan.setVisibility(View.GONE);
+                ll.setVisibility(View.VISIBLE);
+                break;
+            case R.id.bt_hedan:
+                isBack = true;
+                tvTijiao.setText("合单");
+                ll.setVisibility(View.GONE);
+                rlHedan.setVisibility(View.VISIBLE);
+                tvRight.setVisibility(View.VISIBLE);
+                break;
+            case R.id.bt_chaifen:
+                isBack = true;
+                tvTijiao.setText("拆分");
+                ll.setVisibility(View.GONE);
+                rlHedan.setVisibility(View.VISIBLE);
+                tvRight.setVisibility(View.VISIBLE);
+                break;
+            case R.id.iv_quanxuan:
+                break;
+            case R.id.tv_tijiao:
                 break;
         }
     }
@@ -288,4 +350,36 @@ public class CaiGouDanActivity extends BaseActivity {
         super.onResume();
         getlist("");
     }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        myBack();
+    }
+
+    private void myBack() {
+        if (isBack) {
+            isBack = false;
+            btHedan.setVisibility(View.VISIBLE);
+            rlHedan.setVisibility(View.GONE);
+        } else {
+            finish();
+        }
+    }
+
+    public void addItem(CaiGouDanBean bean) {
+        xuanzhong.put(bean.getPurchase_id(), bean);
+    }
+
+    public void delItem(CaiGouDanBean bean) {
+        xuanzhong.remove(bean.getPurchase_id());
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
 }

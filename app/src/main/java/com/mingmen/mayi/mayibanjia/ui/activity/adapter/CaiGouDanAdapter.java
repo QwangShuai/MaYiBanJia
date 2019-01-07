@@ -63,6 +63,7 @@ public class CaiGouDanAdapter extends BaseQuickAdapter<CaiGouDanBean, BaseViewHo
         tv_zongjia = helper.getView(R.id.tv_zongjia);
         ll = helper.getView(R.id.ll_rongqi);
         helper.addOnClickListener(R.id.bt_xiangqing);
+        helper.addOnClickListener(R.id.iv_xuanzhong);
 
         helper.setText(R.id.tv_shijian, item.getCreate_time());
         switch (Integer.parseInt(item.getOrder_audit_state())) {
@@ -71,6 +72,7 @@ public class CaiGouDanAdapter extends BaseQuickAdapter<CaiGouDanBean, BaseViewHo
                 break;
             case 902://待审核
                 helper.setText(R.id.tv_zhuangtai, "待审核");
+                helper.setVisible(R.id.iv_xuanzhong,true);
                 break;
             case 903://不通过
                 helper.setText(R.id.tv_zhuangtai, "不通过");

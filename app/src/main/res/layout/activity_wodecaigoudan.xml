@@ -46,12 +46,101 @@
                 android:paddingRight="12dp"
                 android:layout_centerVertical="true"/>
 
-
+            <TextView
+                android:id="@+id/tv_right"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingRight="12dp"
+                android:text=""
+                android:textColor="#999999"
+                android:textSize="15sp"
+                android:layout_alignParentRight="true"
+                android:gravity="center"/>
         </RelativeLayout>
     </LinearLayout>
 
     <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
+        android:layout_weight="1"
         android:id="@+id/rv_caigoudan"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView>
+    
+
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="51dp">
+        <LinearLayout
+            android:id="@+id/ll"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <Button
+                android:layout_weight="1"
+                android:visibility="visible"
+                android:id="@+id/bt_hedan"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/fillet_solid_zangqing_0"
+                android:text="合单"
+                android:textColor="#ffff3300"
+                android:textSize="15sp"
+                />
+            <Button
+                android:layout_weight="1"
+                android:visibility="visible"
+                android:id="@+id/bt_chaifen"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/fillet_solid_zangqing_0"
+                android:text="拆分"
+                android:textColor="#ffff3300"
+                android:textSize="15sp"
+                />
+        </LinearLayout>
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/rl_hedan"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/beijing"
+            android:layout_marginTop="1dp"
+            >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="12dp"
+                android:gravity="bottom"
+                android:layout_centerVertical="true"
+                >
+                <ImageView
+                    android:id="@+id/iv_quanxuan"
+                    android:layout_marginRight="8dp"
+                    android:src="@drawable/selectr_gouwuche_danxuan"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="全选"
+                    android:textColor="@color/zicolor"
+                    android:textSize="15sp"
+                    />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_tijiao"
+                android:layout_width="110dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:background="@color/zangqing"
+                android:text="提交"
+                android:textColor="#ffffffff"
+                android:textSize="15sp"
+                android:gravity="center"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
 </LinearLayout>

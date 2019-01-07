@@ -302,7 +302,9 @@
                 <data android:scheme="wx77762a8eab365cf1" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.ShangJiaActivity"></activity>
+        <activity android:name=".ui.activity.ShangJiaActivity" />
+        <activity android:name=".ui.activity.QuanBuShiChangActivity" />
+        <activity android:name=".ui.activity.ZhuCeCanTingActivity"></activity>
     </application>
 
 </manifest>

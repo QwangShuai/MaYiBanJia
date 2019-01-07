@@ -134,7 +134,7 @@ public class ShouYeFragment extends BaseFragment {
                         teJiaBean.addAll(list);
                         Log.e("tejiatejia",teJiaBean.size()+"---");
 //                        adapter = new ShouYeAdapter(getActivity(), bannerBean, leiBean, teJiaBean,(MainActivity) getActivity());
-                        adapter = new ShouYeAdapter(getActivity(), bannerBean, shangJiaBean,leiBean, teJiaBean,(MainActivity) getActivity());
+                        adapter = new ShouYeAdapter(getActivity(), bannerBean, shangJiaBean,leiBean, teJiaBean,(MainActivity) getActivity(),city,sheng);
                         rvShouye.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
                         rvShouye.setAdapter(adapter);
                         rvShouye.setFocusable(false);

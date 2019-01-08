@@ -1,35 +1,16 @@
 package com.mingmen.mayi.mayibanjia.ui.activity.adapter;
 
-import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Paint;
-import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.R;
-import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.CaiGouDanBean;
-import com.mingmen.mayi.mayibanjia.bean.ShenPiQuanXuanBean;
-import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
-import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
-import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
-import com.mingmen.mayi.mayibanjia.ui.activity.CaiGouDanActivity;
-import com.mingmen.mayi.mayibanjia.ui.activity.QueRenDingDanActivity;
-import com.mingmen.mayi.mayibanjia.utils.DateUtil;
-import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
-import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
-
-import java.util.Date;
-import java.util.List;
 
 import butterknife.BindView;
 
@@ -42,9 +23,14 @@ public class CaiGouDanAdapter extends BaseQuickAdapter<CaiGouDanBean, BaseViewHo
     int defaultC;//默认的颜色
     @BindView(R.id.tv_zongjia)
     TextView tv_zongjia;
+    @BindView(R.id.iv_xuanzhong)
+    ImageView ivXuanzhong;
+    @BindView(R.id.ll_kuang)
+    LinearLayout llKuang;
 
     private LinearLayout ll;
     private BaseViewHolder helper;
+    private boolean isShow;
 
     public CaiGouDanAdapter(Resources resources) {
         super(R.layout.item_caigoudan);
@@ -61,6 +47,7 @@ public class CaiGouDanAdapter extends BaseQuickAdapter<CaiGouDanBean, BaseViewHo
     protected void convert(final BaseViewHolder helper, final CaiGouDanBean item) {
         this.helper = helper;
         tv_zongjia = helper.getView(R.id.tv_zongjia);
+        ivXuanzhong = helper.getView(R.id.iv_xuanzhong);
         ll = helper.getView(R.id.ll_rongqi);
         helper.addOnClickListener(R.id.bt_xiangqing);
         helper.addOnClickListener(R.id.iv_xuanzhong);
@@ -72,21 +59,37 @@ public class CaiGouDanAdapter extends BaseQuickAdapter<CaiGouDanBean, BaseViewHo
                 break;
             case 902://待审核
                 helper.setText(R.id.tv_zhuangtai, "待审核");
-                helper.setVisible(R.id.iv_xuanzhong,true);
+                if(isShow){
+                    helper.setVisible(R.id.iv_xuanzhong, true);
+                } else {
+                    helper.setGone(R.id.iv_xuanzhong,false);
+                }
+                if(StringUtil.isValid(item.getCt_buy_final_id())){
+                    helper.setVisible(R.id.tv_hedan,true);
+                } else {
+                    helper.setGone(R.id.tv_hedan,false);
+                }
                 break;
             case 903://不通过
                 helper.setText(R.id.tv_zhuangtai, "不通过");
                 break;
             case 904://重新发送
-                helper.setText(R.id.tv_zhuangtai, "待审核");
+                helper.setText(R.id.tv_zhuangtai, "待提交");
                 break;
             default:
                 helper.setText(R.id.tv_zhuangtai, "待审核");
                 break;
         }
 
+        ivXuanzhong.setSelected(item.isSelect());
 
         helper.setText(R.id.tv_zongjia, item.getZongjia() == null ? "" : "¥" + item.getZongjia());
         helper.setText(R.id.tv_caigoudanming, item.getPurchase_name() != null ? item.getPurchase_name() : "");
+    }
+
+    public void setShow(boolean b){
+//        ivXuanzhong.setVisibility(b?View.VISIBLE:View.GONE);
+        isShow = b;
+        notifyDataSetChanged();
     }
 }

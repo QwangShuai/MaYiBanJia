@@ -4,6 +4,7 @@ package com.mingmen.mayi.mayibanjia.http;
 import com.mingmen.mayi.mayibanjia.bean.AddressListBean;
 import com.mingmen.mayi.mayibanjia.bean.AllShiChangBean;
 import com.mingmen.mayi.mayibanjia.bean.CaiGouDanBean;
+import com.mingmen.mayi.mayibanjia.bean.CaiGouMingChengBean;
 import com.mingmen.mayi.mayibanjia.bean.CarsTypeBean;
 import com.mingmen.mayi.mayibanjia.bean.ChePaiBean;
 import com.mingmen.mayi.mayibanjia.bean.DdxqListBean;
@@ -519,6 +520,7 @@ public interface HttpService {
     Observable<ResultModel<ShenPiQuanXuanBean>> shenpitongguo(@Query("user_token") String user_token,
                                                               @Query("list") String list,
                                                               @Query("purchase_id") String purchase_id,
+                                                              @Query("ct_buy_final_id") String ct_buy_final_id,
                                                               @Query("type") String type
     );
 
@@ -1068,4 +1070,33 @@ public interface HttpService {
                                                                       @Query("region") String region,
                                                                       @Query("market_name") String market_name,
                                                                       @Query("pageNumber") String pageNumber);
+    //获取采购单合单列表
+    @POST("ctBuyHostorder/queryBySonorderlist.do")
+    Observable<ResultModel<List<CaiGouDanBean>>> getHedanList(@Query("user_token") String user_token,
+                                                              @Query("type") String type);
+
+    //获取采购单合单列表
+    @POST("ctBuyHostorder/AddSingle.do")
+    Observable<ResultModel<String>> caigouHedan(@Query("user_token") String user_token,
+                                                @Query("purchase_id") String purchase_id,
+                                                @Query("purchase_name") String purchase_name);
+
+    //获取采购单拆合单列表
+    @POST("ctBuyHostorder/DeteteSingle.do")
+    Observable<ResultModel<String>> caigouChaidan(@Query("user_token") String user_token,
+                                                @Query("ct_buy_final_id") String ct_buy_final_id);
+
+    //获取审批详情4级
+    @POST("ctBuyHostorder/queryhdlistsDetial.do")
+    Observable<ResultModel<CaiGouDanBean>> getShenpiFour(@Query("user_token") String user_token,
+                                                @Query("ct_buy_final_id") String ct_buy_final_id);
+
+    //获取审批详情3级
+    @POST("ctBuyHostorder/queryListXQ_XCX")
+    Observable<ResultModel<CaiGouDanBean>> getShenpiThree(@Query("user_token") String user_token,
+                                                @Query("purchase_id") String purchase_id);
+
+    //获取采购单名称
+    @POST("ctBuyHostorder/queryBySonorderName")
+    Observable<ResultModel<List<CaiGouMingChengBean>>> getCgmc(@Query("ct_buy_final_id") String ct_buy_final_id);
 }

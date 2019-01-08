@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,15 +21,17 @@ import android.widget.TextView;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.CaiGouDanBean;
+import com.mingmen.mayi.mayibanjia.bean.CaiGouMingChengBean;
 import com.mingmen.mayi.mayibanjia.bean.FCGGuige;
 import com.mingmen.mayi.mayibanjia.bean.FCGName;
-import com.mingmen.mayi.mayibanjia.bean.FCGSaveFanHuiBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
+import com.mingmen.mayi.mayibanjia.ui.activity.adapter.CaiGouMingChengAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.FaCaiGouGuiGeAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.FaCaiGouMohuAdapter;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ import butterknife.Unbinder;
  * Created by Administrator on 2018/8/15.
  */
 
-public class CaiGouDanTianJiaDailog extends BaseFragmentDialog{
+public class CaiGouDanTianJiaDailog extends BaseFragmentDialog {
     @BindView(R.id.et_shangpin_ming)
     EditText etShangpinMing;
     @BindView(R.id.et_caigouliang)
@@ -73,28 +74,42 @@ public class CaiGouDanTianJiaDailog extends BaseFragmentDialog{
     @BindView(R.id.bt_queren)
     Button btQueren;
     Unbinder unbinder;
+    @BindView(R.id.tv_cgmc)
+    TextView tvCgmc;
+    @BindView(R.id.rl_cgmc)
+    RelativeLayout rlCgmc;
+    @BindView(R.id.ll_cgmc)
+    LinearLayout llCgmc;
+    Unbinder unbinder1;
     private String initStr;
     private String market_id;
     private CallBack mCallBack;
     private FaCaiGouMohuAdapter mohuAdapter;
+    private CaiGouMingChengAdapter cgmcAdapter;
     private RecyclerView rv_mohu;
+    private RecyclerView rv_cgmc;
     private PopupWindow mPopWindow;
-    private ArrayList<FCGName> datas=new ArrayList<>();
+    private PopupWindow cgmcPop;
+    private ArrayList<FCGName> datas = new ArrayList<>();
+    private ArrayList<CaiGouMingChengBean> list = new ArrayList<>();
     private String leibieid;
-    private String sanjifenleiId="";
+    private String sanjifenleiId = "";
     private ArrayList<FCGGuige> guigedatas;
     private FaCaiGouGuiGeAdapter guigeadapter;
-    private String pack_standard_id="";
+    private String pack_standard_id = "";
     private String sanjifenleiName;
-    private String teshuyaoqiu="";
-    private String caigouliang="";
+    private String teshuyaoqiu = "";
+    private String caigouliang = "";
+    private String id = "";
     private String guige;
     private PopupWindow guigePop;
     private RecyclerView rvguige;
+
     public CaiGouDanTianJiaDailog() {
     }
 
-    public CaiGouDanTianJiaDailog setInitStr(String initStr,String market_id) {
+    public CaiGouDanTianJiaDailog setInitStr(String id, String initStr, String market_id) {
+        this.id = id;
         this.initStr = initStr;
         this.market_id = market_id;
         return this;
@@ -142,8 +157,8 @@ public class CaiGouDanTianJiaDailog extends BaseFragmentDialog{
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                tishi.setText(s.toString().trim().length()+"/50");
-                if(s.toString().trim().length()>0){
+                tishi.setText(s.toString().trim().length() + "/50");
+                if (s.toString().trim().length() > 0) {
                     ivTeshu.setSelected(true);
                 } else {
                     ivTeshu.setSelected(false);
@@ -160,11 +175,15 @@ public class CaiGouDanTianJiaDailog extends BaseFragmentDialog{
 //                }
             }
         });
+        Log.e("我的啊",id);
+        if (StringUtil.isValid(id)) {
+            llCgmc.setVisibility(View.VISIBLE);
+        }
     }
 
-    @OnClick({R.id.bt_queren,R.id.bt_quxiao,R.id.iv_shanchuwenzi,R.id.rl_guige})
-    public void OnClick(View v){
-        switch (v.getId()){
+    @OnClick({R.id.bt_queren, R.id.bt_quxiao, R.id.iv_shanchuwenzi, R.id.rl_guige,R.id.rl_cgmc})
+    public void OnClick(View v) {
+        switch (v.getId()) {
             case R.id.bt_queren:
                 addXuQiu();
                 break;
@@ -175,17 +194,34 @@ public class CaiGouDanTianJiaDailog extends BaseFragmentDialog{
                 etTeshu.setText("");
                 break;
             case R.id.rl_guige:
-                if (guigedatas!=null&&guigedatas.size()>0){
+                if (guigedatas != null && guigedatas.size() > 0) {
                     showGuigePopupWindow();
-                }else{
+                } else {
                     ToastUtil.showToast("请输入商品名，并选择相应的分类");
                 }
+                break;
+            case R.id.rl_cgmc:
+                getCgmc();
                 break;
         }
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder1 = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder1.unbind();
+    }
+
     public interface CallBack {
-        void confirm( CaiGouDanBean.FllistBean.SonorderlistBean msg);
+        void confirm(CaiGouDanBean.FllistBean.SonorderlistBean msg);
     }
 
     //PopupWindow
@@ -207,12 +243,36 @@ public class CaiGouDanTianJiaDailog extends BaseFragmentDialog{
             @Override
             public void onClick(View view, int position) {
                 leibieid = datas.get(position).getClassify_id();
-                Log.e("leibieid",leibieid+"--");
-                etShangpinMing.setText(""+datas.get(position).getClassify_name());
-                sanjifenleiName=datas.get(position).getClassify_name();
-                sanjifenleiId=datas.get(position).getClassify_id();
+                Log.e("leibieid", leibieid + "--");
+                etShangpinMing.setText("" + datas.get(position).getClassify_name());
+                sanjifenleiName = datas.get(position).getClassify_name();
+                sanjifenleiId = datas.get(position).getClassify_id();
                 getfcgguige(sanjifenleiId);
                 mPopWindow.dismiss();
+            }
+        });
+    }
+    //PopupWindow
+    private void showCgmcPopupWindow() {
+        View view = View.inflate(getActivity(), R.layout.pp_textview_recycleview, null);
+        cgmcPop = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        int width = getActivity().getWindowManager().getDefaultDisplay().getWidth();
+        int height = getActivity().getWindowManager().getDefaultDisplay().getHeight();
+        cgmcPop.setWidth(width * 2 / 6);
+        cgmcPop.setHeight(height * 2 / 9);
+        cgmcPop.setOutsideTouchable(true);
+        cgmcPop.setBackgroundDrawable(new BitmapDrawable());
+        cgmcPop.showAsDropDown(rlCgmc);
+        rv_cgmc = (RecyclerView) view.findViewById(R.id.rv_list);
+        cgmcAdapter = new CaiGouMingChengAdapter(getActivity(), list);
+        rv_cgmc.setAdapter(cgmcAdapter);
+        rv_cgmc.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        cgmcAdapter.setOnItemClickListener(new CaiGouMingChengAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                initStr = list.get(position).getPurchase_id();
+                tvCgmc.setText(list.get(position).getPurchase_name());
+                cgmcPop.dismiss();
             }
         });
     }
@@ -230,57 +290,58 @@ public class CaiGouDanTianJiaDailog extends BaseFragmentDialog{
                         guigedatas = new ArrayList<>();
                         guigedatas.addAll(data);
                         tvGuige.setText("");
-                        pack_standard_id="";
-                        if (guigeadapter!=null){
+                        pack_standard_id = "";
+                        if (guigeadapter != null) {
                             guigeadapter.setData(guigedatas);
                         }
-                        if(guigedatas!=null&&guigedatas.size()!=0){
+                        if (guigedatas != null && guigedatas.size() != 0) {
                             tvGuige.setText(guigedatas.get(0).getSpec_name());
                             pack_standard_id = guigedatas.get(0).getSpec_id();
                         }
 
                     }
-                },false);
+                }, false);
     }
+
     private void getfcgname(final String name) {
-        if (name.equals(sanjifenleiName)){
+        if (name.equals(sanjifenleiName)) {
             return;
         }
-        Log.e("name",name+"---");
+        Log.e("name", name + "---");
         HttpManager.getInstance()
                 .with(getActivity())
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getfcgname(PreferenceUtils.getString(MyApplication.mContext, "token",""),name))
+                                .getfcgname(PreferenceUtils.getString(MyApplication.mContext, "token", ""), name))
                 .setDataListener(new HttpDataListener<List<FCGName>>() {
                     @Override
                     public void onNext(List<FCGName> data) {
-                        datas=new ArrayList<FCGName>();
+                        datas = new ArrayList<FCGName>();
                         datas.addAll(data);
-                        Log.e("data",data+"---");
-                        if (mPopWindow!=null){
-                            Log.e("data",data+"111111111");
-                            if (name.equals(sanjifenleiName)){
+                        if (mPopWindow != null) {
+                            if (name.equals(sanjifenleiName)) {
                                 return;
                             }
                             mPopWindow.showAsDropDown(etShangpinMing);
                             mohuAdapter.setData(datas);
-                        }else{
+                        } else {
                             showPopupWindow();
                         }
 
                     }
-                },false);
+                }, false);
     }
+
     //获取用户填写的数据
     private void huoqushuju() {
-        sanjifenleiName=etShangpinMing.getText().toString().trim();
+        sanjifenleiName = etShangpinMing.getText().toString().trim();
         caigouliang = etCaigouliang.getText().toString().trim();
         teshuyaoqiu = etTeshu.getText().toString().trim();
         guige = tvGuige.getText().toString().trim();
     }
-    private void addXuQiu(){
+
+    private void addXuQiu() {
         huoqushuju();
         HttpManager.getInstance()
                 .with(getActivity())
@@ -288,8 +349,8 @@ public class CaiGouDanTianJiaDailog extends BaseFragmentDialog{
                         RetrofitManager
                                 .getService()
                                 //user_token  是否是特殊商品不是0 是1    如果是特殊商品 填写要求   市场id  类别id  产品数量
-                                .addfcg(PreferenceUtils.getString(MyApplication.mContext, "token",""),"".equals(teshuyaoqiu)?teshuyaoqiu:teshuyaoqiu,
-                                        market_id,sanjifenleiId,initStr,"",pack_standard_id,"",caigouliang+""))
+                                .addfcg(PreferenceUtils.getString(MyApplication.mContext, "token", ""), "".equals(teshuyaoqiu) ? teshuyaoqiu : teshuyaoqiu,
+                                        market_id, sanjifenleiId, initStr, "", pack_standard_id, "", caigouliang + ""))
                 .setDataListener(new HttpDataListener<CaiGouDanBean.FllistBean.SonorderlistBean>() {
                     @Override
                     public void onNext(CaiGouDanBean.FllistBean.SonorderlistBean data) {
@@ -298,6 +359,7 @@ public class CaiGouDanTianJiaDailog extends BaseFragmentDialog{
                     }
                 });
     }
+
     private void showGuigePopupWindow() {
         View view = View.inflate(getActivity(), R.layout.pp_textview_recycleview, null);
         guigePop = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -328,5 +390,28 @@ public class CaiGouDanTianJiaDailog extends BaseFragmentDialog{
                 guigePop.dismiss();
             }
         });
+    }
+
+    private void getCgmc() {
+        HttpManager.getInstance()
+                .with(getActivity())
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .getCgmc(id))
+                .setDataListener(new HttpDataListener<List<CaiGouMingChengBean>>() {
+                    @Override
+                    public void onNext(List<CaiGouMingChengBean> data) {
+                        list.clear();
+                        list.addAll(data);
+                        if (cgmcPop != null) {
+                            cgmcPop.showAsDropDown(rlCgmc);
+                            cgmcAdapter.setData(list);
+                        } else {
+                            showCgmcPopupWindow();
+                        }
+
+                    }
+                }, false);
     }
 }

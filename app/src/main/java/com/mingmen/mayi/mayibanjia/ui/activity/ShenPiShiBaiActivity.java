@@ -91,7 +91,7 @@ public class ShenPiShiBaiActivity extends BaseActivity {
                 break;
             case R.id.tv_right:
                 CaiGouDanTianJiaDailog dailog = new CaiGouDanTianJiaDailog();
-                dailog.setInitStr(purchase_id, "")
+                dailog.setInitStr("",purchase_id, "")
                         .setCallBack(new CaiGouDanTianJiaDailog.CallBack() {
                             @Override
                             public void confirm(CaiGouDanBean.FllistBean.SonorderlistBean msg) {

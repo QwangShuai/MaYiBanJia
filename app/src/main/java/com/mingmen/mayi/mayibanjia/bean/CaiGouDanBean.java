@@ -57,6 +57,24 @@ public class CaiGouDanBean {
     private String order_audit_state;
     private String audit_ps;
     private boolean isSelect;
+    private String ct_buy_final_id;
+    private String ct_buy_final_name;
+
+    public String getCt_buy_final_name() {
+        return ct_buy_final_name;
+    }
+
+    public void setCt_buy_final_name(String ct_buy_final_name) {
+        this.ct_buy_final_name = ct_buy_final_name;
+    }
+
+    public String getCt_buy_final_id() {
+        return ct_buy_final_id;
+    }
+
+    public void setCt_buy_final_id(String ct_buy_final_id) {
+        this.ct_buy_final_id = ct_buy_final_id;
+    }
 
     public boolean isSelect() {
         return isSelect;
@@ -287,6 +305,7 @@ public class CaiGouDanBean {
             private int count;
             private String pack_standard_name;
             private String purchase_id;
+            private String purchase_name;
             private String picture_url;
             private String classify_name;
             private String create_time;
@@ -300,6 +319,14 @@ public class CaiGouDanBean {
             private List<CcListBeanLevel> levels;
             private boolean needLoad = true;
             private boolean isSelect;
+
+            public String getPurchase_name() {
+                return purchase_name;
+            }
+
+            public void setPurchase_name(String purchase_name) {
+                this.purchase_name = purchase_name;
+            }
 
             public boolean isSelect() {
                 return isSelect;

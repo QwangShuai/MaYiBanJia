@@ -17,16 +17,19 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.CaiGouDanBean;
+import com.mingmen.mayi.mayibanjia.bean.ShangpinidAndDianpuidBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.CaiGouDanAdapter;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.CaiGouDanHeDanDailog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.SiGeXuanXiangDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.DateUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenu;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuBridge;
@@ -39,6 +42,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -90,9 +94,12 @@ public class CaiGouDanActivity extends BaseActivity {
     private String TAG = "CaiGouDanActivity";
     private HashMap<String, CaiGouDanBean> xuanzhong = new HashMap<>();
     private boolean isBack;
-    private boolean[] isSelect;
+    private boolean isSelect;
     private List<CaiGouDanBean> mList = new ArrayList<>();
-
+    private String hedanName = "";
+    private String purchase_id = "";
+    private String ct_buy_final_id = "";
+    private int mytype = 0;
     //    private Date dangqianTime;
     @Override
     public int getLayoutId() {
@@ -107,7 +114,7 @@ public class CaiGouDanActivity extends BaseActivity {
         tvRight.setVisibility(View.GONE);
         initAdapter();
         initdialog();
-        getlist("");
+        getHedanList("0");
 
     }
 
@@ -134,12 +141,22 @@ public class CaiGouDanActivity extends BaseActivity {
                             intent.putExtra("id", item.getPurchase_id());
                         }
                         String data1 = gson.toJson(item);
+                        if(StringUtil.isValid(item.getCt_buy_final_id())){
+                            intent.putExtra("ct_buy_final_id",item.getCt_buy_final_id());
+                        } else {
+                            intent.putExtra("purchase_id",item.getPurchase_id());
+                        }
                         intent.putExtra("data", data1);
                         startActivity(intent);
                         finish();
 //                        }
                         break;
                     case R.id.iv_xuanzhong://是否选中
+                        if(mList.get(position).isSelect()){
+                            delItem(mList.get(position));
+                        } else {
+                            addItem(mList.get(position));
+                        }
                         mList.get(position).setSelect(!mList.get(position).isSelect());
                         adapter.refreshNotifyItemChanged(position);
                         break;
@@ -230,7 +247,7 @@ public class CaiGouDanActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
-                        getlist("");
+                        getlist("902");
 //                        Log.e("data",data+"---");
                     }
                 });
@@ -254,6 +271,8 @@ public class CaiGouDanActivity extends BaseActivity {
         if(status.equals("902")){
             tvTitle.setText("待审核");
             rl.setVisibility(View.VISIBLE);
+            getHedanList("0");
+            return;
         } else if(status.equals("901")){
             tvTitle.setText("审核通过");
         } else if(status.equals("903")){
@@ -288,30 +307,64 @@ public class CaiGouDanActivity extends BaseActivity {
                 titleDialog.show(getSupportFragmentManager());
                 break;
             case R.id.iv_back:
-                myBack();
+//                myBack();
+                finish();
                 break;
             case R.id.tv_right:
                 tvRight.setVisibility(View.GONE);
                 rlHedan.setVisibility(View.GONE);
                 ll.setVisibility(View.VISIBLE);
+                adapter.setShow(false);
+                isSelect = false;
+                ivQuanxuan.setSelected(isSelect);
+                for(int i=0;i<mList.size();i++){
+                    mList.get(i).setSelect(false);
+                    adapter.refreshNotifyItemChanged(i);
+                }
+                getlist("902");
                 break;
             case R.id.bt_hedan:
                 isBack = true;
+                mytype =0;
+                xuanzhong.clear();
                 tvTijiao.setText("合单");
+                getHedanList("2");
                 ll.setVisibility(View.GONE);
                 rlHedan.setVisibility(View.VISIBLE);
                 tvRight.setVisibility(View.VISIBLE);
                 break;
             case R.id.bt_chaifen:
                 isBack = true;
+                mytype =1;
+                xuanzhong.clear();
                 tvTijiao.setText("拆分");
+                getHedanList("1");
                 ll.setVisibility(View.GONE);
                 rlHedan.setVisibility(View.VISIBLE);
                 tvRight.setVisibility(View.VISIBLE);
                 break;
             case R.id.iv_quanxuan:
+                if(isSelect){
+                        for(int i=0;i<mList.size();i++){
+                            delItem(mList.get(i));
+                            mList.get(i).setSelect(false);
+                            adapter.refreshNotifyItemChanged(i);
+                        }
+                } else {
+                    for(int i=0;i<mList.size();i++){
+                        addItem(mList.get(i));
+                        mList.get(i).setSelect(true);
+                        adapter.refreshNotifyItemChanged(i);
+                    }
+                }
+                if(mytype==0){
+
+                }
+                isSelect = !isSelect;
+                ivQuanxuan.setSelected(isSelect);
                 break;
             case R.id.tv_tijiao:
+                getPurchase();
                 break;
         }
     }
@@ -319,7 +372,8 @@ public class CaiGouDanActivity extends BaseActivity {
 
     public static boolean isCanClick(CaiGouDanBean item) {
         Date dangqianTime = new Date();
-        for (int i1 = 0; i1 < item.getFllist().size(); i1++) {
+        int size = item.getFllist()==null?0:item.getFllist().size();
+        for (int i1 = 0; i1 < size; i1++) {
             Date createTime = DateUtil.StrToDate(item.getCreate_time(), "yyyy-MM-dd HH:mm:ss");
             long fen = DateUtil.dqsj(createTime, dangqianTime, "3");
 //                    if (fen<5){
@@ -348,31 +402,43 @@ public class CaiGouDanActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        getlist("");
+        tvTitle.setText("待审核");
+        getHedanList("0");
     }
 
     @Override
     public void onBackPressed() {
 //        super.onBackPressed();
-        myBack();
+//        myBack();
+        finish();
     }
 
-    private void myBack() {
-        if (isBack) {
-            isBack = false;
-            btHedan.setVisibility(View.VISIBLE);
-            rlHedan.setVisibility(View.GONE);
+//    private void myBack() {
+//        if (isBack) {
+//            isBack = false;
+//            btHedan.setVisibility(View.VISIBLE);
+//            rlHedan.setVisibility(View.GONE);
+//        } else {
+//            finish();
+//        }
+//    }
+
+    public void addItem(CaiGouDanBean id) {
+        if(mytype==0){
+            xuanzhong.put(id.getPurchase_id(), id);
         } else {
-            finish();
+            xuanzhong.put(id.getCt_buy_final_id(), id);
         }
+
     }
 
-    public void addItem(CaiGouDanBean bean) {
-        xuanzhong.put(bean.getPurchase_id(), bean);
-    }
+    public void delItem(CaiGouDanBean id) {
+        if(mytype==0){
+            xuanzhong.remove(id.getPurchase_id());
+        } else {
+            xuanzhong.remove(id.getCt_buy_final_id());
+        }
 
-    public void delItem(CaiGouDanBean bean) {
-        xuanzhong.remove(bean.getPurchase_id());
     }
 
     @Override
@@ -381,5 +447,133 @@ public class CaiGouDanActivity extends BaseActivity {
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
+    public void getHedanList(final String status) {
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .getHedanList(PreferenceUtils.getString(MyApplication.mContext, "token", ""), status))
+                .setDataListener(new HttpDataListener<List<CaiGouDanBean>>() {
+                    @Override
+                    public void onNext(List<CaiGouDanBean> list) {
+                        String data = gson.toJson(list);
+                        Log.e(TAG, data);
+                        mList.clear();
+                        mList.addAll(list);
+                        adapter.setNewData(list);
+                        adapter.notifyDataSetChanged();
+                        if(status.equals("0")){
+                            xuanzhong.clear();
+                            ll.setVisibility(View.VISIBLE);
+                            rlHedan.setVisibility(View.GONE);
+                            adapter.setShow(false);
+                            tvRight.setVisibility(View.GONE);
+                            isSelect = false;
+                            ivQuanxuan.setSelected(false);
+                        } else {
+                            adapter.setShow(true);
+                        }
+                    }
+                });
+    }
 
+    public void getPurchase() {//存储点击item,计算总价
+        int count = 0;
+        Set<String> mapkey = xuanzhong.keySet();
+        if(mytype==0){
+            for (String key : mapkey) {
+                CaiGouDanBean value = xuanzhong.get(key);
+                if (value.getPurchase_id().isEmpty()) {//没选中的不拼   避免有多余的,
+                } else {
+                    purchase_id += key + ",";
+                    count++;
+                    Log.e("我的主表ID"+count,purchase_id);
+                }
+            }
+        } else {
+            for (String key : mapkey) {
+                CaiGouDanBean value = xuanzhong.get(key);
+                if (value.getCt_buy_final_id().isEmpty()) {//没选中的不拼   避免有多余的,
+                } else {
+                    ct_buy_final_id += key + ",";
+                    count++;
+                }
+            }
+        }
+
+        if(mytype==0){
+            if (count >1) {
+                purchase_id = purchase_id.substring(0, purchase_id.length() - 1);
+                Log.e("我的主表ID",purchase_id);
+                CaiGouDanHeDanDailog dialog = new CaiGouDanHeDanDailog(mContext, new CaiGouDanHeDanDailog.CallBack() {
+                    @Override
+                    public void confirm(String msg) {
+                        hedanName = msg;
+                        caigouHedan(msg);
+                    }
+                });
+                dialog.show();
+
+                //调用接口合单
+            } else {
+                ToastUtil.showToast("请至少选择2项合单");
+
+            }
+        } else {
+            if(count!=0){
+                ct_buy_final_id = ct_buy_final_id.substring(0, ct_buy_final_id.length() - 1);
+                //调用接口拆分
+                caigouChaidan();
+            } else {
+                ToastUtil.showToast("请至少选择1项拆分");
+
+            }
+        }
+    }
+
+    public void caigouHedan(String name) {
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .caigouHedan(PreferenceUtils.getString(MyApplication.mContext, "token", ""),purchase_id,name))
+                .setDataListener(new HttpDataListener<String>() {
+                    @Override
+                    public void onNext(String data) {
+                        purchase_id = "";
+                        ToastUtil.showToast("合单成功");
+                        getHedanList("0");
+//                        setShow();
+                    }
+                });
+    }
+
+    public void caigouChaidan() {
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .caigouChaidan(PreferenceUtils.getString(MyApplication.mContext, "token", ""),ct_buy_final_id))
+                .setDataListener(new HttpDataListener<String>() {
+                    @Override
+                    public void onNext(String data) {
+                        ct_buy_final_id = "";
+                        ToastUtil.showToast("拆单成功");
+                        getHedanList("0");
+//                        setShow();
+                    }
+                });
+    }
+
+    private void setShow(){
+        xuanzhong.clear();
+        ll.setVisibility(View.VISIBLE);
+        rlHedan.setVisibility(View.GONE);
+        adapter.setShow(false);
+        isSelect = false;
+        ivQuanxuan.setSelected(false);
+    }
 }

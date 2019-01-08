@@ -74,6 +74,16 @@
                     android:textSize="18sp"
                     />
             </LinearLayout>
+            <TextView
+                android:id="@+id/tv_hedan"
+                android:visibility="gone"
+                android:gravity="center"
+                android:textSize="10sp"
+                android:textColor="@color/white"
+                android:text="已合单"
+                android:background="@color/yellow_fbb03b"
+                android:layout_width="50dp"
+                android:layout_height="18dp" />
     </LinearLayout>
 
 

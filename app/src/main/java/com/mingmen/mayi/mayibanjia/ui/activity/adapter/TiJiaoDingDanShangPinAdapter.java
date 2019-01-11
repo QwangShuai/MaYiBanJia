@@ -29,7 +29,7 @@ public class TiJiaoDingDanShangPinAdapter extends RecyclerView.Adapter<TiJiaoDin
 
     private ViewHolder viewHolder;
     private Context mContext;
-    private List<QueRenDingDanShangPinBean.DplistBean.ListBean> mList;
+    private List<QueRenDingDanShangPinBean.MarketlistBean.DplistBean.ListBean> mList;
     private boolean isSelected;
     private OnItemClickListener mOnItemClickListener;
 
@@ -39,7 +39,7 @@ public class TiJiaoDingDanShangPinAdapter extends RecyclerView.Adapter<TiJiaoDin
 
 
     public interface OnItemClickListener {
-        void onClick(View view, int position, List<QueRenDingDanShangPinBean.DplistBean.ListBean> mList);
+        void onClick(View view, int position, List<QueRenDingDanShangPinBean.MarketlistBean.DplistBean.ListBean> mList);
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -50,7 +50,7 @@ public class TiJiaoDingDanShangPinAdapter extends RecyclerView.Adapter<TiJiaoDin
         isSelected = selected;
     }
 
-    public TiJiaoDingDanShangPinAdapter(Context mContext, List<QueRenDingDanShangPinBean.DplistBean.ListBean> list) {
+    public TiJiaoDingDanShangPinAdapter(Context mContext, List<QueRenDingDanShangPinBean.MarketlistBean.DplistBean.ListBean> list) {
         this.mContext = mContext;
         this.mList = list;
     }
@@ -63,7 +63,7 @@ public class TiJiaoDingDanShangPinAdapter extends RecyclerView.Adapter<TiJiaoDin
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        final QueRenDingDanShangPinBean.DplistBean.ListBean shoppingBean = mList.get(position);
+        final QueRenDingDanShangPinBean.MarketlistBean.DplistBean.ListBean shoppingBean = mList.get(position);
         if(TextUtils.isEmpty(shoppingBean.getAppend_money()+"")||shoppingBean.getAppend_money()==null){
             holder.tvFujiafei.setVisibility(View.GONE);
         } else {
@@ -77,12 +77,12 @@ public class TiJiaoDingDanShangPinAdapter extends RecyclerView.Adapter<TiJiaoDin
         Glide.with(mContext).load(shoppingBean.getUrl()).into(holder.ivSptu);
     }
 
-    public List<QueRenDingDanShangPinBean.DplistBean.ListBean> getmList() {
+    public List<QueRenDingDanShangPinBean.MarketlistBean.DplistBean.ListBean> getmList() {
         Log.e("gson2", new Gson().toJson(mList) + "--");
         return mList;
     }
 
-    public void setmList(List<QueRenDingDanShangPinBean.DplistBean.ListBean> list) {
+    public void setmList(List<QueRenDingDanShangPinBean.MarketlistBean.DplistBean.ListBean> list) {
         mList = list;
         notifyDataSetChanged();
     }

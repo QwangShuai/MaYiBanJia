@@ -112,7 +112,6 @@ public class FCGCaiGouXuQiuActivity extends BaseActivity {
     private ArrayList<FCGGuige> guigedatas;
     private ConfirmDialog confirmDialog;
 
-
     @Override
     public int getLayoutId() {
         return R.layout.activity_facaigou_fabucaigou;
@@ -592,5 +591,8 @@ public class FCGCaiGouXuQiuActivity extends BaseActivity {
         caigouliang = etCaigouliang.getText().toString().trim();
         teshuyaoqiu = etTeshu.getText().toString().trim();
         guige = tvGuige.getText().toString().trim();
+        if(isTeshu==0){
+            teshuyaoqiu = "";
+        }
     }
 }

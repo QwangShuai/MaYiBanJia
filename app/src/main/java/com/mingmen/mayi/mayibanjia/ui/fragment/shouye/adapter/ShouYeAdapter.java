@@ -142,7 +142,7 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemCount() {
-        return shijilist.size();
+        return shijilist==null?0:shijilist.size();
     }
 
 

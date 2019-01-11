@@ -87,7 +87,7 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
         holder.rvList.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         holder.rvList.setAdapter(adapter);
         holder.rvList.setFocusable(false);
-        holder.rvList.setNestedScrollingEnabled(false);
+//        holder.rvList.setNestedScrollingEnabled(false);
         if(isClick){
                 holder.rlShichang.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -110,7 +110,9 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
                                     bean.setDanjia("");
                                     activity.setAdapterXuanzhong( mList.get(position).getSonorderlist().get(i).getSon_order_id(),bean);
 //                            adapter.setZongjia("");
+//                                    adapter.setClick();
                                     notifyDataSetChanged();
+                                    adapter.notifyDataSetChanged();
                                 }
                             }
                         });
@@ -180,7 +182,6 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
                                                                 notifyDataSetChanged();
                                                                 adapter.notifyDataSetChanged();
                                                                 activity.delViewShow();
-                                                                break;
                                                             }
                                                         }
                                                     }

@@ -34,6 +34,7 @@ import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,7 +60,8 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
     private ShenPiLevelZeroAdapter zeroAdapter;
     private int zeroPos;
     private long time = 300 * 1000;
-
+    private  boolean youtuijian = false;
+//    private HashMap<String,String> myMap = new HashMap<>();
     public boolean isClick() {
         return isClick;
     }
@@ -109,15 +111,21 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
         holder.rvDplist.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
         holder.rvDplist.setAdapter(adapter);
         holder.rvDplist.setFocusable(false);
-        holder.rvDplist.setNestedScrollingEnabled(false);
+//        holder.rvDplist.setNestedScrollingEnabled(false);
 //        adapter.notifyDataSetChanged();
         if (listBean.isSelect()) {
             holder.rvDplist.setVisibility(View.VISIBLE);
         } else {
             holder.rvDplist.setVisibility(View.GONE);
         }
-        time = PreferenceUtils.getLong(activity, mList.get(position).getSon_order_id(), 300 * 1000);
-        boolean youtuijian = false;
+        if(StringUtil.isValid(listBean.getPurchase_name())){
+            holder.tvCgmc.setText(listBean.getPurchase_name());
+        }
+//        if(StringUtil.isValid(myMap.get(mList.get(position).getSon_order_id()))){
+//            time = Long.valueOf(myMap.get(mList.get(position).getSon_order_id()));
+//        }
+        time = PreferenceUtils.getLong(activity,mList.get(position).getSon_order_id(),300*1000);
+
         if (holder.downTimer != null) {
             holder.downTimer.cancel();
         }
@@ -127,23 +135,30 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
             public void onTick(long l) {
                 zeroAdapter.setPosClick(zeroPos, true);
                 holder.tvXitongtuijian.setText((l / 1000) + "秒后抢单结束");
+//                myMap.put(mList.get(position).getSon_order_id(),l+"");
                 PreferenceUtils.putLong(activity, mList.get(position).getSon_order_id(), l);
                 holder.tvXitongtuijian.setTextColor(activity.getResources().getColor(R.color.mayihong));
-                holder.tvXitongtuijian.setEnabled(false);
+//                holder.tvXitongtuijian.setEnabled(false);
                 message = "特殊商品抢单中，请耐心等待抢单完成";
                 isClick = false;
+                activity.setClick(isClick);
             }
 
             @Override
             public void onFinish() {
                 zeroAdapter.setPosClick(zeroPos, false);
                 PreferenceUtils.remove(activity, mList.get(position).getSon_order_id());
-                isClick = true;
+//                myMap.remove(mList.get(position).getSon_order_id());
+                activity.setClick(isClick);
                 runningThree[0] = true;
-                holder.tvXitongtuijian.setText("重发抢单");
-                getshenpi(listBean, position, activity);
-                holder.tvXitongtuijian.setEnabled(true);
+                holder.tvXitongtuijian.setVisibility(View.GONE);
+                holder.tvXitongtuijian.setText("发送抢单");
+//                holder.tvXitongtuijian.setTextColor(activity.getResources().getColor(R.color.zicolor));
+//                holder.tvXitongtuijian.setEnabled(true);
+                isClick = true;
                 holder.tvXitongtuijian.setTextColor(activity.getResources().getColor(R.color.lishisousuo));
+                notifyDataSetChanged();
+                getshenpi(listBean, position, activity);
             }
         };
 
@@ -179,23 +194,20 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
 
         holder.tvXitongtuijian.setText("系统推荐");
         if (StringUtil.isValid(listBean.getSpecial_commodity())) {
+            holder.tvXitongtuijian.setText("发送抢单");//特殊商品没有系统推荐  发送抢单
             if (listBean.getLevels() == null) {
-                holder.tvXitongtuijian.setText("重新抢单");//特殊商品没有系统推荐  重新抢单
                 youtuijian = false;
-            } else {
-                holder.tvXitongtuijian.setText("重新抢单");//特殊商品  有推荐  点系统推荐
-                youtuijian = true;
             }
         }
         if (holder.tvXitongtuijian.getText().equals("系统推荐")) {
             holder.tvXitongtuijian.setVisibility(View.GONE);
         }
+
         if (isClick) {
-            final boolean finalYoutuijian = youtuijian;
             holder.tvXitongtuijian.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (finalYoutuijian) {//有推荐
+                    if (youtuijian) {//有推荐
                         if (listBean.isSelect()) {//判断展开还是关闭
                             mList.get(position).setSelect(false);
                             holder.rvDplist.setVisibility(View.VISIBLE);
@@ -208,7 +220,6 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
                             ToastUtil.showToast("暂无匹配商家");
                             return;
                         }
-                        Log.e("listBean.getMarket_id()", listBean.getMarket_id() + "==");
                         if(listBean.getMarket_id()!=null){
                             if (runningThree[0] == true) {//是否在进行倒计时    不在倒计时就调取接口
                                 HttpManager.getInstance()
@@ -224,11 +235,12 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
                                                 if (mList.get(position).getLevels() != null) {
                                                     mList.get(position).getLevels().clear();
                                                 }
-//                                            notifyDataSetChanged();
+//                                                notifyDataSetChanged();
                                                 mList.get(position).setSelect(false);
                                                 ToastUtil.showToast("发送抢单信息成功");
                                                 time = 300 * 1000;
                                                 PreferenceUtils.remove(activity, mList.get(position).getSon_order_id());
+//                                                myMap.remove(mList.get(position).getSon_order_id());
                                                 holder.downTimer.start();
                                                 runningThree[0] = false;
                                                 countDownMap.put(holder.tvXitongtuijian.hashCode(), holder.downTimer);
@@ -242,7 +254,6 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
 
                 }
             });
-
 
             //特殊商品的pop
             holder.tvTeshu.setOnClickListener(new View.OnClickListener() {
@@ -341,6 +352,9 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
         LinearLayout llKuang;
         @BindView(R.id.rv_dplist)
         RecyclerView rvDplist;
+        @BindView(R.id.tv_cgmc)
+        TextView tvCgmc;
+
         private CountDownTimer downTimer;
 
         ViewHolder(View view) {
@@ -399,6 +413,7 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
                             List<XiTongTuiJianBean.CcListBean> pflist = list.getPflist();   //评分
                             //避免空选项和收藏记录购买记录没有位置放  以及找不到位置放  提前new出来  add进去
                             if (pflist != null && pflist.size() > 0) {
+                                youtuijian = true;
                                 XiTongTuiJianBean.CcListBean pingfen = list.getPflist().get(0);
                                 pingfen.setBiaoqian("评分最高");
                                 listBeanLevel.add(new CaiGouDanBean.FllistBean.SonorderlistBean.CcListBeanLevel(TYPE_THREE, pingfen));
@@ -436,11 +451,15 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
                                 mList.get(pos).setSelect(true);
                                 notifyDataSetChanged();
                             } else {
+                                youtuijian = false;
+                                mList.get(pos).setNeedLoad(true);
                                 if (StringUtil.isValid(listBean.getSpecial_commodity())) {//特殊商品 特殊处理
                                     ToastUtil.showToast("没有商家推送商品");
                                 } else {
                                     ToastUtil.showToast("该市场目前没有此商品");
                                 }
+//                                listBean.setNeedLoad(true);
+                                notifyDataSetChanged();
                             }
                         }
                     }, "正在获取数据...");
@@ -481,9 +500,10 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
     public void timeCancel() {
         for (int i = 0; i < mList.size(); i++) {
             PreferenceUtils.remove(activity, mList.get(i).getSon_order_id());
-            Log.e("已经删除的ID", mList.get(i).getSon_order_id());
         }
+//        myMap.clear();
         if (countDownMap == null) {
+            Log.e("确实是空","对的");
             return;
         }
         Log.e("TAG", "size :  " + countDownMap.size());
@@ -494,4 +514,8 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
             }
         }
     }
+
+//    public void setClick(){
+//        viewHolder.tvXitongtuijian.setEnabled(true);
+//    }
 }

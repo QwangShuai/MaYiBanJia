@@ -102,6 +102,8 @@ public class ShenPiActivity extends BaseActivity {
     TextView tvJiagezuidi;
     @BindView(R.id.tv_shibai)
     TextView tvShibai;
+    @BindView(R.id.tv_hdmc)
+    TextView tvHdmc;
 
     private Context mContext;
     private List<CaiGouDanBean.FllistBean> caigoudan = new ArrayList<>();
@@ -118,6 +120,15 @@ public class ShenPiActivity extends BaseActivity {
     private CaiGouDanBean myBean = new CaiGouDanBean();
     List<GetAllMarketBean> market_id = new ArrayList<>();
     private boolean isClick = true;
+
+    public boolean isClick() {
+        return isClick;
+    }
+
+    public void setClick(boolean click) {
+        isClick = click;
+    }
+
     public static ShenPiActivity instance = null;
     @Override
     public int getLayoutId() {
@@ -164,7 +175,7 @@ public class ShenPiActivity extends BaseActivity {
         rvShenpi.setLayoutManager(manager);
         rvShenpi.setFocusable(true);
         rvShenpi.setFocusableInTouchMode(true);
-        rvShenpi.setNestedScrollingEnabled(false);
+//        rvShenpi.setNestedScrollingEnabled(false);
         rvShenpi.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
@@ -180,7 +191,6 @@ public class ShenPiActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
-                        Log.e("data", data + "---");
                         tv.setText(data);
                     }
                 });
@@ -197,7 +207,6 @@ public class ShenPiActivity extends BaseActivity {
                 market_id.add(bean);
             }
         }
-        Log.e("我的数据集合", new Gson().toJson(market_id));
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
@@ -207,14 +216,12 @@ public class ShenPiActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<ShenPiQuanXuanBean>() {
                     @Override
                     public void onNext(ShenPiQuanXuanBean data) {
-                        Log.e("我要的data", new Gson().toJson(caigoudan));
                         //通过选中的商品list中的getSon_order_id和采购单的getSon_order_id 对比  把选中的商品存到map中
                         List<ShenPiQuanXuanBean.ListBean> datalist = data.getList();
                         for (int i = 0; i < caigoudan.size(); i++) {
                             for (int j = 0; j < caigoudan.get(i).getSonorderlist().size(); j++) {
                                 for (int k = 0; k < datalist.size(); k++) {
                                     if (caigoudan.get(i).getSonorderlist().get(j).getSon_order_id().equals(datalist.get(k).getSon_order_id())) {
-                                        Log.e("getCommodity_id", datalist.get(k).getCommodity_id() + "---");
                                         ShangpinidAndDianpuidBean bean = new ShangpinidAndDianpuidBean();
                                         bean.setCommodity_id(datalist.get(k).getCommodity_id());
                                         bean.setCompany_id(datalist.get(k).getCompany_id());
@@ -239,8 +246,6 @@ public class ShenPiActivity extends BaseActivity {
                         }
                         son_order_id = son_order_id.substring(0, son_order_id.length() - 1);
                         commodity_id = commodity_id.substring(0, commodity_id.length() - 1);
-                        Log.e("commodity_id", commodity_id + "---");
-                        Log.e("son_order_id", son_order_id + "---");
                         zongjia(son_order_id, commodity_id, tvZongjia);
                         adapter.notifyDataSetChanged();
                     }
@@ -329,6 +334,7 @@ public class ShenPiActivity extends BaseActivity {
                                 intent.putExtra("son_order_id", son_order_id);
                                 intent.putExtra("commodity_id", commodity_id);
                                 intent.putExtra("lujingtype", "2");
+                                intent.putExtra("ct_buy_final_id", ct_buy_final_id);
                                 intent.putExtra("company_id", company_id);
                                 intent.putExtra("zongjia", tvZongjia.getText().toString());
                                 startActivity(intent);
@@ -375,11 +381,11 @@ public class ShenPiActivity extends BaseActivity {
                         setShowColor();
                         setquanxuan(purchase_id, CaiGouDanBean.TYPE_ONE + "");
                         tvJiagezuidi.setTextColor(getResources().getColor(R.color.zangqing));
-                        break;
+
                     } else {
                         ToastUtil.showToast("请确认市场是否全部选择");
                     }
-
+                    break;
                 case R.id.tv_shibai:
                     new ShenPiShiBaiDailog()
                             .setCallBack(new ShenPiShiBaiDailog.CallBack() {
@@ -450,7 +456,6 @@ public class ShenPiActivity extends BaseActivity {
         Set<String> keys = xuanzhong.keySet();
         //存储选中的商品信息  更新adapter
         for (String key : keys) {
-            Log.e("我的key", key);
             if (key.equals(item.getCcListBean().getSon_order_id())) {
                 ShangpinidAndDianpuidBean bean = new ShangpinidAndDianpuidBean();
                 bean.setCommodity_id(item.getCcListBean().getCommodity_id());
@@ -474,8 +479,6 @@ public class ShenPiActivity extends BaseActivity {
         if (count != 0) {
             son_order_id = son_order_id.substring(0, son_order_id.length() - 1);
             commodity_id = commodity_id.substring(0, commodity_id.length() - 1);
-            Log.e("commodity_id", commodity_id + "---");
-            Log.e("son_order_id", son_order_id + "---");
             //调用接口获取总价
             zongjia(son_order_id, commodity_id, tvZongjia);
         } else {
@@ -501,8 +504,6 @@ public class ShenPiActivity extends BaseActivity {
         if (count != 0) {
             son_order_id = son_order_id.substring(0, son_order_id.length() - 1);
             commodity_id = commodity_id.substring(0, commodity_id.length() - 1);
-            Log.e("commodity_id", commodity_id + "---");
-            Log.e("son_order_id", son_order_id + "---");
             //调用接口获取总价
             zongjia(son_order_id, commodity_id, tvZongjia);
         } else {
@@ -639,6 +640,8 @@ public class ShenPiActivity extends BaseActivity {
 //                            myBean = data;
                             caigoudan.addAll(data.getFllist()) ;
 //                            adapter.notifyDataSetChanged();
+                            tvHdmc.setVisibility(View.VISIBLE);
+                            tvHdmc.setText(data.getCt_buy_final_name());
                             initView();
 
                         }

@@ -319,6 +319,24 @@ public class CaiGouDanBean {
             private List<CcListBeanLevel> levels;
             private boolean needLoad = true;
             private boolean isSelect;
+            private String ct_buy_final_id;
+            private String ct_buy_final_name;
+
+            public String getCt_buy_final_id() {
+                return ct_buy_final_id;
+            }
+
+            public void setCt_buy_final_id(String ct_buy_final_id) {
+                this.ct_buy_final_id = ct_buy_final_id;
+            }
+
+            public String getCt_buy_final_name() {
+                return ct_buy_final_name;
+            }
+
+            public void setCt_buy_final_name(String ct_buy_final_name) {
+                this.ct_buy_final_name = ct_buy_final_name;
+            }
 
             public String getPurchase_name() {
                 return purchase_name;

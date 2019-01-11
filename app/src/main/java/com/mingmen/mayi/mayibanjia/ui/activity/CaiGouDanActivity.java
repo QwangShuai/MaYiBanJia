@@ -114,7 +114,7 @@ public class CaiGouDanActivity extends BaseActivity {
         tvRight.setVisibility(View.GONE);
         initAdapter();
         initdialog();
-        getHedanList("0");
+        getHedanList("0","902");
 
     }
 
@@ -128,9 +128,12 @@ public class CaiGouDanActivity extends BaseActivity {
                 switch (view.getId()) {
                     case R.id.bt_xiangqing:
 //                        if(item.getOrder_audit_state().equals("902")){
-                        if (!isCanClick(item)) {
-                            return;
+                        if(StringUtil.isValid(item.getQdTime())){
+                            if (!isCanClick(item)) {
+                                return;
+                            }
                         }
+
                         //审批页
                         Intent intent = new Intent(CaiGouDanActivity.this, ShenPiActivity.class);
                         if (item.getOrder_audit_state().equals("901")) {
@@ -159,6 +162,7 @@ public class CaiGouDanActivity extends BaseActivity {
                         }
                         mList.get(position).setSelect(!mList.get(position).isSelect());
                         adapter.refreshNotifyItemChanged(position);
+                        ivQuanxuan.setSelected(setXuanzhong());
                         break;
 
                 }
@@ -237,21 +241,20 @@ public class CaiGouDanActivity extends BaseActivity {
         rvCaigoudan.setAdapter(adapter);
     }
 
-    private void setShenPiShiBai(String yuanyin, String purchase_id) {
-        HttpManager.getInstance()
-                .with(mContext)
-                .setObservable(
-                        RetrofitManager
-                                .getService()
-                                .shenpishibai(PreferenceUtils.getString(MyApplication.mContext, "token", ""), yuanyin, purchase_id))
-                .setDataListener(new HttpDataListener<String>() {
-                    @Override
-                    public void onNext(String data) {
-                        getlist("902");
-//                        Log.e("data",data+"---");
-                    }
-                });
-    }
+//    private void setShenPiShiBai(String yuanyin, String purchase_id) {
+//        HttpManager.getInstance()
+//                .with(mContext)
+//                .setObservable(
+//                        RetrofitManager
+//                                .getService()
+//                                .shenpishibai(PreferenceUtils.getString(MyApplication.mContext, "token", ""), yuanyin, purchase_id))
+//                .setDataListener(new HttpDataListener<String>() {
+//                    @Override
+//                    public void onNext(String data) {
+//                        getHedanList("0","902");
+//                    }
+//                });
+//    }
 
 
     private void initdialog() {
@@ -262,41 +265,6 @@ public class CaiGouDanActivity extends BaseActivity {
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
 
-    }
-
-    //采购单列表
-    public void getlist(String status) {
-        rl.setVisibility(View.GONE);
-        Log.e("status", status);
-        if(status.equals("902")){
-            tvTitle.setText("待审核");
-            rl.setVisibility(View.VISIBLE);
-            getHedanList("0");
-            return;
-        } else if(status.equals("901")){
-            tvTitle.setText("审核通过");
-        } else if(status.equals("903")){
-            tvTitle.setText("审核失败");
-        } else {
-            tvTitle.setText("我的采购单");
-        }
-        HttpManager.getInstance()
-                .with(mContext)
-                .setObservable(
-                        RetrofitManager
-                                .getService()
-                                .getcaigoudanlist(PreferenceUtils.getString(MyApplication.mContext, "token", ""), status, ""))
-                .setDataListener(new HttpDataListener<List<CaiGouDanBean>>() {
-                    @Override
-                    public void onNext(List<CaiGouDanBean> list) {
-                        String data = gson.toJson(list);
-                        Log.e(TAG, data);
-                        mList.clear();
-                        mList.addAll(list);
-                        adapter.setNewData(list);
-                        adapter.notifyDataSetChanged();
-                    }
-                });
     }
 
 
@@ -321,14 +289,14 @@ public class CaiGouDanActivity extends BaseActivity {
                     mList.get(i).setSelect(false);
                     adapter.refreshNotifyItemChanged(i);
                 }
-                getlist("902");
+                getHedanList("2","902");
                 break;
             case R.id.bt_hedan:
                 isBack = true;
                 mytype =0;
                 xuanzhong.clear();
                 tvTijiao.setText("合单");
-                getHedanList("2");
+                getHedanList("2","902");
                 ll.setVisibility(View.GONE);
                 rlHedan.setVisibility(View.VISIBLE);
                 tvRight.setVisibility(View.VISIBLE);
@@ -338,7 +306,7 @@ public class CaiGouDanActivity extends BaseActivity {
                 mytype =1;
                 xuanzhong.clear();
                 tvTijiao.setText("拆分");
-                getHedanList("1");
+                getHedanList("1","902");
                 ll.setVisibility(View.GONE);
                 rlHedan.setVisibility(View.VISIBLE);
                 tvRight.setVisibility(View.VISIBLE);
@@ -373,7 +341,7 @@ public class CaiGouDanActivity extends BaseActivity {
     public static boolean isCanClick(CaiGouDanBean item) {
         Date dangqianTime = new Date();
         int size = item.getFllist()==null?0:item.getFllist().size();
-        for (int i1 = 0; i1 < size; i1++) {
+//        for (int i1 = 0; i1 < size; i1++) {
             Date createTime = DateUtil.StrToDate(item.getCreate_time(), "yyyy-MM-dd HH:mm:ss");
             long fen = DateUtil.dqsj(createTime, dangqianTime, "3");
 //                    if (fen<5){
@@ -395,15 +363,15 @@ public class CaiGouDanActivity extends BaseActivity {
 
 
 //                    }
-        }
-        return true;
+//        }
+//        return true;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         tvTitle.setText("待审核");
-        getHedanList("0");
+        getHedanList("0","902");
     }
 
     @Override
@@ -447,13 +415,24 @@ public class CaiGouDanActivity extends BaseActivity {
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
-    public void getHedanList(final String status) {
+    public void getHedanList(final String status,final String isState) {
+        rl.setVisibility(View.GONE);
+        if(isState.equals("902")){
+            tvTitle.setText("待审核");
+            rl.setVisibility(View.VISIBLE);
+        } else if(isState.equals("901")){
+            tvTitle.setText("审核通过");
+        } else if(isState.equals("903")){
+            tvTitle.setText("审核失败");
+        } else {
+            tvTitle.setText("我的采购单");
+        }
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getHedanList(PreferenceUtils.getString(MyApplication.mContext, "token", ""), status))
+                                .getHedanList(PreferenceUtils.getString(MyApplication.mContext, "token", ""), status,isState))
                 .setDataListener(new HttpDataListener<List<CaiGouDanBean>>() {
                     @Override
                     public void onNext(List<CaiGouDanBean> list) {
@@ -544,7 +523,7 @@ public class CaiGouDanActivity extends BaseActivity {
                     public void onNext(String data) {
                         purchase_id = "";
                         ToastUtil.showToast("合单成功");
-                        getHedanList("0");
+                        getHedanList("0","902");
 //                        setShow();
                     }
                 });
@@ -562,12 +541,21 @@ public class CaiGouDanActivity extends BaseActivity {
                     public void onNext(String data) {
                         ct_buy_final_id = "";
                         ToastUtil.showToast("拆单成功");
-                        getHedanList("0");
+                        getHedanList("0","902");
 //                        setShow();
                     }
                 });
     }
-
+    private boolean setXuanzhong(){
+        for(int i=0;i<mList.size();i++){
+            if(!mList.get(i).isSelect()){
+                isSelect = false;
+                return false;
+            }
+        }
+        isSelect = true;
+        return true;
+    }
     private void setShow(){
         xuanzhong.clear();
         ll.setVisibility(View.VISIBLE);

@@ -84,6 +84,15 @@ public class QiYeLieBiaoBean {
     private String file_path;
     private String role;
     private String telephone;
+    private String principal;
+
+    public String getPrincipal() {
+        return principal;
+    }
+
+    public void setPrincipal(String principal) {
+        this.principal = principal;
+    }
 
     public String getTelephone() {
         return telephone;

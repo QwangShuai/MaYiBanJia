@@ -31,12 +31,14 @@ import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 
 
+import com.mingmen.mayi.mayibanjia.ui.activity.adapter.HeDanShiChangAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.TiJiaoDingDanDianPuAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.TiJiaoDingDanShichangAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.MyMath;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
 import java.math.BigDecimal;
@@ -89,14 +91,18 @@ public class QueRenDingDanActivity extends BaseActivity {
     TextView tvHejijine;
     @BindView(R.id.tv_tijiaodingdan)
     TextView tvTijiaodingdan;
+    @BindView(R.id.tv_hdmc)
+    TextView tvHdmc;
     //    @BindView(R.id.tv_yue)
 //    TextView tvYue;
 //    @BindView(R.id.iv_xuanzeyue)
 //    ImageView ivXuanzeyue;
     private Context mContext;
-    private List<QueRenDingDanShangPinBean> shichangdata = new ArrayList<>();
+    private List<QueRenDingDanShangPinBean.MarketlistBean> shichangdata = new ArrayList<>();
+    private List<QueRenDingDanShangPinBean.MarketlistBean> hedandata = new ArrayList<>();
     private String zongjia;
     private TiJiaoDingDanShichangAdapter adapter;
+//    private HeDanShiChangAdapter adapter;
     private AddressListBean dizhi;
     private ArrayList<SongDaShiJianBean> songdashijianlist;
     private String songdashijianname;
@@ -113,6 +119,7 @@ public class QueRenDingDanActivity extends BaseActivity {
     private String commodity_id = "";
     private String son_order_id = "";
     private String lujingtype = "";
+    private String ct_buy_final_id = "";
     private String spID = "";
     private String number = "";
     private int count = 0;
@@ -121,6 +128,8 @@ public class QueRenDingDanActivity extends BaseActivity {
     //    private boolean shiyongyue=false;
     public static QueRenDingDanActivity instance = null;
     private List<AllMarket> shichangList = new ArrayList<>();
+    private List<String> commodity_id_list = new ArrayList<>();
+    private List<String> son_order_id_list = new ArrayList<>();
 
     @Override
     public int getLayoutId() {
@@ -134,7 +143,7 @@ public class QueRenDingDanActivity extends BaseActivity {
         lujingtype = getIntent().getStringExtra("lujingtype");
         instance = QueRenDingDanActivity.this;
 
-
+        ct_buy_final_id = getIntent().getStringExtra("ct_buy_final_id");
         company_id = getIntent().getStringExtra("company_id");
         company_id = company_id.substring(0, company_id.length() - 1);
 
@@ -155,7 +164,12 @@ public class QueRenDingDanActivity extends BaseActivity {
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         tvSpjine.setText(zongjia);
-        adapter = new TiJiaoDingDanShichangAdapter(mContext, shichangdata);
+        if(StringUtil.isValid(ct_buy_final_id)){
+            adapter = new TiJiaoDingDanShichangAdapter(mContext, hedandata,1);
+        } else {
+            adapter = new TiJiaoDingDanShichangAdapter(mContext, shichangdata,0);
+        }
+
         rvTijiaodingdan.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         rvTijiaodingdan.setNestedScrollingEnabled(false);
         rvTijiaodingdan.setAdapter(adapter);
@@ -165,7 +179,7 @@ public class QueRenDingDanActivity extends BaseActivity {
     }
 
     private void tijiaodingdan() {
-        List<QueRenDingDanShangPinBean> list = shichangdata;
+        List<QueRenDingDanShangPinBean.MarketlistBean> list = shichangdata;
         for (int i = 0; i < list.size(); i++) {
             for (int j=0;j<list.get(i).getDplist().size();j++){
                 remarke += list.get(i).getDplist().get(j).getRemark() + ",";
@@ -205,20 +219,22 @@ public class QueRenDingDanActivity extends BaseActivity {
     }
 
     private void caigoutijiaodingdan() {
-        List<QueRenDingDanShangPinBean> list = shichangdata;
-        for (int i = 0; i < list.size(); i++) {
-            for (int j=0;j<list.get(i).getDplist().size();j++){
-                remarke += list.get(i).getDplist().get(j).getRemark() + ",";
+        if(!StringUtil.isValid(ct_buy_final_id)){
+            List<QueRenDingDanShangPinBean.MarketlistBean> list = shichangdata;
+            for (int i = 0; i < list.size(); i++) {
+                for (int j=0;j<list.get(i).getDplist().size();j++){
+                    remarke += list.get(i).getDplist().get(j).getRemark() + ",";
+                }
             }
-
+            remarke = remarke.substring(0, remarke.length() - 1);
         }
-        remarke = remarke.substring(0, remarke.length() - 1);
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .caigoutijiaodingdan(PreferenceUtils.getString(MyApplication.mContext, "token", ""), hejijine+"", "", yunfei+"", yue, dizhi.getAddress_id(), songdashijianid, son_order_id, commodity_id, remarke,new Gson().toJson(shichangList),tsyq))
+                                .caigoutijiaodingdan(PreferenceUtils.getString(MyApplication.mContext, "token", ""), hejijine+"", "", yunfei+"", yue, dizhi.getAddress_id(), songdashijianid,
+                                        son_order_id, commodity_id, remarke,new Gson().toJson(shichangList),tsyq,ct_buy_final_id))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
@@ -243,33 +259,57 @@ public class QueRenDingDanActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getsplist(PreferenceUtils.getString(MyApplication.mContext, "token", ""), son_order_id, commodity_id, lujingtype, shopping_id, company_id))
-                .setDataListener(new HttpDataListener<List<QueRenDingDanShangPinBean>>() {
+                                .getsplist(PreferenceUtils.getString(MyApplication.mContext, "token", ""), son_order_id, commodity_id, lujingtype, shopping_id, company_id,ct_buy_final_id))
+                .setDataListener(new HttpDataListener<QueRenDingDanShangPinBean>() {
                     @Override
-                    public void onNext(List<QueRenDingDanShangPinBean> data) {
-                        Log.e("getsplist", gson.toJson(data));
-//                        shichangdata = new ArrayList<QueRenDingDanShangPinBean>();
-                        shichangdata.clear();
-                        shichangdata.addAll(data);
-                        shichangCount = data==null?0:data.size();
-                        for (int k=0;k<data.size();k++){
-                            for (int i = 0; i < data.get(k).getDplist().size(); i++) {//i是店铺
-                                for (int j = 0; j < data.get(k).getDplist().get(i).getList().size(); j++) {
-                                    if (k==0&&i==0&&j == 0) {//j是商品
-                                        spID += data.get(k).getDplist().get(i).getList().get(j).getCommodity_id();
-                                        number += data.get(k).getDplist().get(i).getList().get(j).getCount();
-                                    } else {
-                                        spID += "," + data.get(k).getDplist().get(i).getList().get(j).getCommodity_id();
-                                        number += "," + data.get(k).getDplist().get(i).getList().get(j).getCount();
-                                    }
-                                    if (k == data.size() - 1 && i == data.get(k).getDplist().size() - 1&&j==data.get(k).getDplist().get(i).getList().size()-1) {
-                                        getYunFei();
+                    public void onNext(QueRenDingDanShangPinBean data) {
+                        shichangCount = data==null?0:data.getMarketlist().size();
+                        spID = "";
+                        number = "";
+                        if(StringUtil.isValid(ct_buy_final_id)){
+                            tvHdmc.setText(data.getCt_buy_final_name());
+                            tvHdmc.setVisibility(View.VISIBLE);
+                            for(int i=0;i<data.getMarketlist().size();i++){
+                                for (int j=0;j < data.getMarketlist().get(i).getCgzhulist().size();j++){
+                                    for(int m = 0;m<data.getMarketlist().get(i).getCgzhulist().get(j).getCgzilist().size();m++){
+                                        if(i==0&&j==0&&m==0){
+                                            spID +=  data.getMarketlist().get(i).getCgzhulist().get(j).getCgzilist().get(m).getCommodity_id();
+                                            number +=  data.getMarketlist().get(i).getCgzhulist().get(j).getCgzilist().get(m).getCount();
+                                        } else {
+                                            spID += ","+  data.getMarketlist().get(i).getCgzhulist().get(j).getCgzilist().get(m).getCommodity_id();
+                                            number += ","+  data.getMarketlist().get(i).getCgzhulist().get(j).getCgzilist().get(m).getCount();
+                                        }
+
+                                        if (i == data.getMarketlist().size() - 1 && j == data.getMarketlist().get(i).getCgzhulist().size() - 1&&m==data.getMarketlist().get(i).getCgzhulist().get(j).getCgzilist().size()-1) {
+                                            getYunFei();
+                                        }
                                     }
                                 }
                             }
+                            hedandata.clear();
+                            hedandata.addAll(data.getMarketlist());
+                            adapter.notifyDataSetChanged();
+                        } else {
+                            for (int k=0;k<data.getMarketlist().size();k++){
+                                for (int i = 0; i < data.getMarketlist().get(k).getDplist().size(); i++) {//i是店铺
+                                    for (int j = 0; j < data.getMarketlist().get(k).getDplist().get(i).getList().size(); j++) {
+                                        if (k==0&&i==0&&j == 0) {//j是商品
+                                            spID += data.getMarketlist().get(k).getDplist().get(i).getList().get(j).getCommodity_id();
+                                            number += data.getMarketlist().get(k).getDplist().get(i).getList().get(j).getCount();
+                                        } else {
+                                            spID += "," + data.getMarketlist().get(k).getDplist().get(i).getList().get(j).getCommodity_id();
+                                            number += "," + data.getMarketlist().get(k).getDplist().get(i).getList().get(j).getCount();
+                                        }
+                                        if (k == data.getMarketlist().size() - 1 && i == data.getMarketlist().get(k).getDplist().size() - 1&&j==data.getMarketlist().get(k).getDplist().get(i).getList().size()-1) {
+                                            getYunFei();
+                                        }
+                                    }
+                                }
+                            }
+                            shichangdata.clear();
+                            shichangdata.addAll(data.getMarketlist());
+                            adapter.notifyDataSetChanged();
                         }
-
-
                     }
                 });
     }
@@ -491,7 +531,7 @@ public class QueRenDingDanActivity extends BaseActivity {
             HttpManager.getInstance()
                     .with(mContext)
                     .setObservable(RetrofitManager.getService()
-                            .getYunFei(spID, dizhi.getAddress_id(), number))
+                            .getYunFei(spID, dizhi.getAddress_id(), number,Integer.parseInt(lujingtype)))
                     .setDataListener(new HttpDataListener<List<YunFeiBean>>() {
                         @Override
                         public void onNext(List<YunFeiBean> o) {
@@ -514,6 +554,13 @@ public class QueRenDingDanActivity extends BaseActivity {
                         }
                     });
         }
+    }
 
+    public String getJson(String data){
+        List<String> list = new ArrayList<>();
+        for (int i = 0;i<data.split(",").length;i++){
+            list.add(i,data.split(",")[i]);
+        }
+        return new Gson().toJson(list);
     }
 }

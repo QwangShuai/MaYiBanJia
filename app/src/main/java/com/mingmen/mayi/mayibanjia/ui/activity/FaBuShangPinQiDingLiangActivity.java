@@ -23,6 +23,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.dialog.LianggeXuanXiangDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.PhotoDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
 import butterknife.BindView;
@@ -102,6 +103,7 @@ public class FaBuShangPinQiDingLiangActivity extends BaseActivity {
         yemian = getIntent().getStringExtra("yemian");
         if(canshu.getGoods().equals("1")){
             llShowTejia.setVisibility(View.VISIBLE);
+            istejia = true;
         }
         if (yemian.equals("0")) {
             tvTitle.setText("新建商品");
@@ -283,10 +285,17 @@ public class FaBuShangPinQiDingLiangActivity extends BaseActivity {
                     ToastUtil.showToast("请填写起订量");
                     return;
                 }
-                if(Double.valueOf(etQidingliangdanjia1.getText().toString().trim())<=Double.valueOf(etTejia.getText().toString().trim())){
-                    ToastUtil.showToast("特价必须小于原价");
-                    return;
+                if(istejia){
+                    if(StringUtil.isValid(etTejia.getText().toString().trim())){
+                        if(Double.valueOf(qidingliangdanjia1)<=Double.valueOf(etTejia.getText().toString().trim())){
+                            ToastUtil.showToast("特价必须小于原价");
+                            return;
+                        }
+                    } else {
+                        ToastUtil.showToastLong("特价不可以为空");
+                    }
                 }
+
                 tiaoye();
 
 //                if ("".equals(qidingliang2) & "".equals(qidingliangdanjia2)) {

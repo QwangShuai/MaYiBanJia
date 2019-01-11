@@ -82,6 +82,7 @@ public class LoginActivity extends BaseActivity {
             permissionItems.add(new PermissionItem(Manifest.permission.WRITE_EXTERNAL_STORAGE, "写入SD卡", R.drawable.permission_ic_storage));
             permissionItems.add(new PermissionItem(Manifest.permission.READ_EXTERNAL_STORAGE, "读取SD卡", R.drawable.permission_ic_storage));
             permissionItems.add(new PermissionItem(Manifest.permission.ACCESS_COARSE_LOCATION, "网络定位", R.drawable.permission_ic_location));
+            permissionItems.add(new PermissionItem(Manifest.permission.SEND_SMS, "短信权限", R.drawable.permission_ic_sms));
             //
             HiPermission.create(LoginActivity.this)
                     .permissions(permissionItems)

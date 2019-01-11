@@ -42,6 +42,7 @@ import com.mingmen.mayi.mayibanjia.bean.QueRenDingDanShangPinBean;
 import com.mingmen.mayi.mayibanjia.bean.RoleBean;
 import com.mingmen.mayi.mayibanjia.bean.SPTGBean;
 import com.mingmen.mayi.mayibanjia.bean.SPXiangQingBean;
+import com.mingmen.mayi.mayibanjia.bean.ShangJiaPhoneBean;
 import com.mingmen.mayi.mayibanjia.bean.ShangPinBean;
 import com.mingmen.mayi.mayibanjia.bean.ShangPinGuanLiBean;
 import com.mingmen.mayi.mayibanjia.bean.ShangPinSouSuoBean;
@@ -509,7 +510,8 @@ public interface HttpService {
                                                         @Query("commodity_id") String commodity_id,//commodity_id
                                                         @Query("remarke") String remarke,//留言
                                                         @Query("feelist") String list,//市场数组
-                                                        @Query("special_commodity") String special_commodity);//特殊要求
+                                                        @Query("special_commodity") String special_commodity,//特殊要求
+                                                        @Query("ct_buy_final_id") String ct_buy_final_id);
 
     //查询余额
     @POST("payHistory/getBalance.do")
@@ -540,13 +542,14 @@ public interface HttpService {
 
     /// /获取订单商品信息
     @POST("ctBuyHostorder/order.do")
-    Observable<ResultModel<List<QueRenDingDanShangPinBean>>> getsplist(@Query("user_token") String user_token,
+    Observable<ResultModel<QueRenDingDanShangPinBean>> getsplist(@Query("user_token") String user_token,
                                                                        @Query("son_order_id") String son_order_id,
                                                                        @Query("commodity_id") String commodity_id,
                                                                        @Query("type") String type,
                                                                        @Query("shopping_id") String shopping_id,
-                                                                       @Query("company_id") String company_id
-    );
+                                                                       @Query("company_id") String company_id,
+                                                                       @Query("ct_buy_final_id") String ct_buy_final_id);
+
 
     /// /采购单价格
     @POST("ctBuyHostorder/queryMoney.do")
@@ -711,7 +714,8 @@ public interface HttpService {
     @POST("Ordermain/qyeryByFreightFee.do")
     Observable<ResultModel<List<YunFeiBean>>> getYunFei(@Query("commodity_id") String commodity_id,
                                                         @Query("deliver_address") String deliver_address,
-                                                        @Query("number") String number);
+                                                        @Query("number") String number,
+                                                        @Query("type") int type);
 
     //获取司机物流详情列表
     @POST("wl/wlByOrderNumber.do")
@@ -1073,7 +1077,8 @@ public interface HttpService {
     //获取采购单合单列表
     @POST("ctBuyHostorder/queryBySonorderlist.do")
     Observable<ResultModel<List<CaiGouDanBean>>> getHedanList(@Query("user_token") String user_token,
-                                                              @Query("type") String type);
+                                                              @Query("type") String type,
+                                                              @Query("order_audit_state") String order_audit_state);
 
     //获取采购单合单列表
     @POST("ctBuyHostorder/AddSingle.do")
@@ -1099,4 +1104,8 @@ public interface HttpService {
     //获取采购单名称
     @POST("ctBuyHostorder/queryBySonorderName")
     Observable<ResultModel<List<CaiGouMingChengBean>>> getCgmc(@Query("ct_buy_final_id") String ct_buy_final_id);
+
+    //获取商家手机号
+    @POST("wl/queryByCompany.do")
+    Observable<ResultModel<List<ShangJiaPhoneBean>>> getShangJiaPhoneList(@Query("user_token") String user_token);
 }

@@ -48,8 +48,8 @@ import static com.mingmen.mayi.mayibanjia.R.id.rv_yijifenlei;
 public class YeWuYuanMainActivity extends BaseActivity {
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.iv_back)
-    ImageView ivBack;
+    @BindView(R.id.tv_shaixuan)
+    TextView tvShaixuan;
     @BindView(R.id.iv_sangedian)
     ImageView ivSangedian;
     @BindView(R.id.tv_right)
@@ -81,7 +81,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
     protected void initData() {
         tvTitle.setText("我的");
         ivSangedian.setVisibility(View.VISIBLE);
-        ivBack.setImageResource(R.mipmap.sousuo_bai);
+//        ivBack.setImageResource(R.mipmap.sousuo_bai);
         mContext=YeWuYuanMainActivity.this;
         getQiyeLiebiao(type);
         confirmDialog = new ConfirmDialog(mContext,
@@ -241,10 +241,10 @@ public class YeWuYuanMainActivity extends BaseActivity {
         startActivity(intent);
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_right,R.id.iv_sangedian,R.id.tv_title})
+    @OnClick({R.id.tv_shaixuan, R.id.tv_right,R.id.iv_sangedian,R.id.tv_title})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.iv_back:
+            case R.id.tv_shaixuan:
                 //搜索弹出框
 //dialog
                 sousuodialog = new QiYeSouSUoDialog(mContext,

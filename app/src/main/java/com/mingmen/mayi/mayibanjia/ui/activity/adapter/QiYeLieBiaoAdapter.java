@@ -72,8 +72,8 @@ public class QiYeLieBiaoAdapter extends RecyclerView.Adapter<QiYeLieBiaoAdapter.
         holder.tvMingzi.setText(data.getCompany_name());
         holder.tvLeibie.setText(data.getLeiBieName());
         holder.tvGuimo.setText(data.getGuiMoId());
+        holder.tvYewuyuan.setText("业务员:"+data.getPrincipal());
         Glide.with(mContext).load(data.getPhoto()).into(holder.ivTouxiang);
-        Log.e("data.getsss", data.getCompany_id() + "-");
         if (data.getSpecific_address() != null) {
             holder.tvDizhi.setText(data.getQuYMC() + data.getQuYMCa() + data.getQuYMCb() + data.getQuYMCc() + data.getSpecific_address());
         } else {
@@ -177,6 +177,8 @@ public class QiYeLieBiaoAdapter extends RecyclerView.Adapter<QiYeLieBiaoAdapter.
         TextView tvShangpinTj;
         @BindView(R.id.ll_phone)
         LinearLayout llPhone;
+        @BindView(R.id.tv_yewuyuan)
+        TextView tvYewuyuan;
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);

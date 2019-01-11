@@ -29,17 +29,17 @@ public class TiJiaoDingDanDianPuAdapter extends RecyclerView.Adapter<TiJiaoDingD
 
     private ViewHolder viewHolder;
     private Context mContext;
-    private List<QueRenDingDanShangPinBean.DplistBean> dianpulist;
+    private List<QueRenDingDanShangPinBean.MarketlistBean.DplistBean> dianpulist;
     private OnItemClickListener mOnItemClickListener1;
     private boolean isSelected;
-    private List<QueRenDingDanShangPinBean.DplistBean.ListBean> shangpinlist;
+    private List<QueRenDingDanShangPinBean.MarketlistBean.DplistBean.ListBean> shangpinlist;
 
 
     public void setSelected(boolean selected) {
         isSelected = selected;
     }
 
-    public TiJiaoDingDanDianPuAdapter(Context mContext, List<QueRenDingDanShangPinBean.DplistBean> list) {
+    public TiJiaoDingDanDianPuAdapter(Context mContext, List<QueRenDingDanShangPinBean.MarketlistBean.DplistBean> list) {
         this.mContext = mContext;
         this.dianpulist = list;
     }
@@ -61,7 +61,7 @@ public class TiJiaoDingDanDianPuAdapter extends RecyclerView.Adapter<TiJiaoDingD
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        final QueRenDingDanShangPinBean.DplistBean datas = dianpulist.get(position);
+        final QueRenDingDanShangPinBean.MarketlistBean.DplistBean datas = dianpulist.get(position);
         shangpinlist = datas.getList();
         holder.tvDianming.setText(datas.getCompany_name());
         final TiJiaoDingDanShangPinAdapter shangpinadapter = new TiJiaoDingDanShangPinAdapter(mContext, shangpinlist);
@@ -86,7 +86,7 @@ public class TiJiaoDingDanDianPuAdapter extends RecyclerView.Adapter<TiJiaoDingD
         });
     }
 
-    public List<QueRenDingDanShangPinBean.DplistBean> getDianpulist(){
+    public List<QueRenDingDanShangPinBean.MarketlistBean.DplistBean> getDianpulist(){
         return dianpulist;
     }
     @Override

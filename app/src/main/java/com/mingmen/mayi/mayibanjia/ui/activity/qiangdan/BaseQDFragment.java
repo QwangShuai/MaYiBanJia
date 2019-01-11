@@ -2,6 +2,7 @@ package com.mingmen.mayi.mayibanjia.ui.activity.qiangdan;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
@@ -32,6 +33,8 @@ import butterknife.ButterKnife;
 public abstract class BaseQDFragment extends BaseFragment {
     @BindView(R.id.rv_dingdan)
     SwipeMenuRecyclerView rvDingdan;
+    @BindView(R.id.refresh_layout)
+    SwipeRefreshLayout refreshLayout;
     private ArrayList<QiangDanBean> mlist = new ArrayList<QiangDanBean>();
     private QiangDanAdapter adapter;
     private SwipeMenuRecyclerView.LoadMoreListener mLoadMoreListener;
@@ -102,6 +105,17 @@ public abstract class BaseQDFragment extends BaseFragment {
         };
         rvDingdan.setLayoutManager(new LinearLayoutManager(rvDingdan.getContext(), LinearLayoutManager.VERTICAL, false));
         adapter = new QiangDanAdapter((GongYingDuanQiangDanActivity) getActivity());
+        refreshLayout.setColorSchemeResources(R.color.zangqing, R.color.zangqing,
+                R.color.zangqing, R.color.zangqing);
+
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                ye = 1;
+                getData(true);
+                refreshLayout.setRefreshing(false);
+            }
+        });
         rvDingdan.setAdapter(adapter);
     }
     public abstract String getZhuangTai();

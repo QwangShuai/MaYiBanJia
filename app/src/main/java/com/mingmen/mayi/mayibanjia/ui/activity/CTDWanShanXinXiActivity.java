@@ -202,6 +202,7 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<ZhuCeChengGongBean>() {
                     @Override
                     public void onNext(ZhuCeChengGongBean list) {
+                        ToastUtil.showToastLong("注册成功");
                         PreferenceUtils.putString(MyApplication.mContext,"token",list.getToken());
                         PreferenceUtils.putString(MyApplication.mContext,"juese",list.getRole());
                         PreferenceUtils.putBoolean(MyApplication.mContext,"isLogin",true);

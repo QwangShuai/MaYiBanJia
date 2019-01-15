@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
+import com.mingmen.mayi.mayibanjia.bean.YinHangKaRzBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
@@ -89,7 +90,7 @@ public class YinHangKaTianJiaActivity extends BaseActivity {
                 break;
             case R.id.btn_next:
                 if (isAddBankCard()) {
-                    addBankCard();
+                    getRz();
                 }
                 break;
         }
@@ -138,6 +139,23 @@ public class YinHangKaTianJiaActivity extends BaseActivity {
                     public void onNext(String data) {
                         ToastUtil.showToast("成功");
                         finish();
+                    }
+                });
+    }
+    public void getRz() {//添加银行卡
+        HttpManager.getInstance().with(mContext)
+                .setObservable(RetrofitManager.getService()
+                        .getYinhangZzrz( bank_account, principal,
+                                id_number, phone))
+                .setDataListener(new HttpDataListener<YinHangKaRzBean>() {
+                    @Override
+                    public void onNext(YinHangKaRzBean data) {
+                        if(data.getRespCode().equals("0000")){
+                            addBankCard();
+                        } else {
+                            ToastUtil.showToastLong(data.getRespMessage());
+                        }
+
                     }
                 });
     }

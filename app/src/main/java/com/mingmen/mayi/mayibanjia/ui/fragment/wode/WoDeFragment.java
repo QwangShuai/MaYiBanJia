@@ -379,7 +379,7 @@ public class WoDeFragment extends BaseFragment {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getcaigoudanlist(PreferenceUtils.getString(MyApplication.mContext, "token",""),"902",""))
+                                .getHedanList(PreferenceUtils.getString(MyApplication.mContext, "token",""),"0","902"))
                 .setDataListener(new HttpDataListener<List<CaiGouDanBean>>() {
                     @Override
                     public void onNext(List<CaiGouDanBean> list) {

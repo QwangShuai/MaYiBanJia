@@ -3,6 +3,7 @@ package com.mingmen.mayi.mayibanjia.ui.activity.jiaoyiliushui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
@@ -32,11 +33,12 @@ import butterknife.ButterKnife;
 public abstract class BaseJYMXFragment extends BaseFragment {
     @BindView(R.id.rv_dingdan)
     SwipeMenuRecyclerView rvDingdan;
+    @BindView(R.id.refresh_layout)
+    SwipeRefreshLayout refreshLayout;
     private ArrayList<JYMXBean> mlist = new ArrayList<JYMXBean>();
     private JiaoYiMingXiAdapter adapter;
     private SwipeMenuRecyclerView.LoadMoreListener mLoadMoreListener;
-    private int ye =1;
-    private boolean b = false;
+    private int ye=1;
     protected boolean isCreate = false;
     @Override
     protected View getSuccessView() {
@@ -61,7 +63,6 @@ public abstract class BaseJYMXFragment extends BaseFragment {
     }
     //数据
     private void getData(final boolean b) {
-        Log.e("110",getZhuangTai());
         HttpManager.getInstance()
                 .with(getActivity())
                 .setObservable(
@@ -71,12 +72,10 @@ public abstract class BaseJYMXFragment extends BaseFragment {
                 .setDataListener(new HttpDataListener<List<JYMXBean>>() {
                     @Override
                     public void onNext(List<JYMXBean> data) {
-                        Log.e("data1",data+"---");
                         if(!"null".equals(String.valueOf(data))){
                             if(b){
                                 mlist.clear();
                             }
-
                             mlist.addAll(data);
                             if(data.size()==10){
                                 rvDingdan.loadMoreFinish(false, true);
@@ -87,10 +86,9 @@ public abstract class BaseJYMXFragment extends BaseFragment {
                             }
                             adapter.notifyDataSetChanged();
                         }
-
-                        ye++;
                     }
                 });
+        ye++;
     }
     private void initview() {
         mLoadMoreListener = new SwipeMenuRecyclerView.LoadMoreListener() {
@@ -101,6 +99,18 @@ public abstract class BaseJYMXFragment extends BaseFragment {
             }
         };
         rvDingdan.setLayoutManager(new LinearLayoutManager(rvDingdan.getContext(), LinearLayoutManager.VERTICAL, false));
+        rvDingdan.setLoadMoreListener(mLoadMoreListener); // 加载更多的监听。
+        refreshLayout.setColorSchemeResources(R.color.zangqing, R.color.zangqing,
+                R.color.zangqing, R.color.zangqing);
+
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                ye = 1;
+                getData(true);
+                refreshLayout.setRefreshing(false);
+            }
+        });
         adapter = new JiaoYiMingXiAdapter(getActivity(), mlist);
         rvDingdan.setAdapter(adapter);
     }

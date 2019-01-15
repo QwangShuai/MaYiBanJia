@@ -235,7 +235,7 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
 
         <!-- //轮询服务 -->
-        <service android:name=".utils.PollingService" />
+        <service android:exported="true" android:name=".utils.PollingService" />
 
         <activity
             android:name=".ui.activity.WuLiuActivity"
@@ -303,10 +303,10 @@
 
                 <data android:scheme="wx77762a8eab365cf1" />
             </intent-filter>
-        </activity>
-        <activity android:name=".ui.activity.ShangJiaActivity" />
-        <activity android:name=".ui.activity.QuanBuShiChangActivity" />
-        <activity android:name=".ui.activity.ZhuCeCanTingActivity"></activity>
+        </activity><!-- 微信回调 -->
+        <activity android:name=".ui.activity.ShangJiaActivity" /><!-- 注册商家 -->
+        <activity android:name=".ui.activity.QuanBuShiChangActivity" /><!-- 注册市场 -->
+        <activity android:name=".ui.activity.ZhuCeCanTingActivity"></activity><!-- 注册餐厅 -->
     </application>
 
 </manifest>

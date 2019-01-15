@@ -30,6 +30,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.dialog.YeWuYuanDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,13 +56,13 @@ public class YeWuYuanMainActivity extends BaseActivity {
     @BindView(R.id.tv_right)
     TextView tvRight;
     @BindView(R.id.rv_qiyeliebiao)
-    RecyclerView rvQiyeliebiao;
+    SwipeMenuRecyclerView rvQiyeliebiao;
     @BindView(R.id.srl_shuaxin)
     SwipeRefreshLayout srlShuaxin;
     private Context mContext;
     private QiYeLieBiaoAdapter adapter;
     private QiYeLieBiaoDialog bianjidialog;
-    private ArrayList<QiYeLieBiaoBean> mlist;
+    private ArrayList<QiYeLieBiaoBean> mlist = new ArrayList<>();
     private QiYeSouSUoDialog sousuodialog;
     private SinglePicker<QiYeLeiBieBean> leibiepicker;
     private String leibiename;
@@ -71,6 +72,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
     private int ye = 1;
     private YeWuYuanDialog dialog;
     private String type = "1";
+    private SwipeMenuRecyclerView.LoadMoreListener mLoadMoreListener;
 
     @Override
     public int getLayoutId() {
@@ -84,6 +86,13 @@ public class YeWuYuanMainActivity extends BaseActivity {
 //        ivBack.setImageResource(R.mipmap.sousuo_bai);
         mContext=YeWuYuanMainActivity.this;
         getQiyeLiebiao(type);
+        mLoadMoreListener = new SwipeMenuRecyclerView.LoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                // 该加载更多啦。
+                getQiyeLiebiao(type);
+            }
+        };
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         srlShuaxin.setColorSchemeResources(R.color.zangqing, R.color.zangqing,
@@ -95,84 +104,14 @@ public class YeWuYuanMainActivity extends BaseActivity {
                 srlShuaxin.setRefreshing(true);
                 // 重置adapter的数据源为空
                 ye = 1;
+                mlist.clear();
                 getQiyeLiebiao(type);
                 srlShuaxin.setRefreshing(false);
             }
         });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        ye = 1;
-        getQiyeLiebiao(type);
-    }
-
-    //查询企业列表
-    public void getQiyeLiebiao(String type) {
-        HttpManager.getInstance()
-                .with(mContext)
-                .setObservable(
-                        RetrofitManager
-                                .getService()
-                                .getqiyeliebiao(PreferenceUtils.getString(MyApplication.mContext, "token",""),type,ye+""))
-                .setDataListener(new HttpDataListener<List<QiYeLieBiaoBean>>() {
-                    @Override
-                    public void onNext(final List<QiYeLieBiaoBean> data) {
-                        ye++;
-                        initadapter(data);
-                    }
-                });
-
-    }
-
-    //查询企业列表..带参数
-    private void getQiyeLiebiaodaicanshu(String trim, String leibieid) {
-        Log.e("getQiyeLiebiaodaicanshu",trim+"--"+leibieid);
-        HttpManager.getInstance()
-                .with(mContext)
-                .setObservable(
-                        RetrofitManager
-                                .getService()
-                                .getqiyedaicanshu(PreferenceUtils.getString(MyApplication.mContext, "token",""),trim,leibieid,type))
-                .setDataListener(new HttpDataListener<List<QiYeLieBiaoBean>>() {
-                    @Override
-                    public void onNext(final List<QiYeLieBiaoBean> data) {
-                        initadapter(data);
-                    }
-                });
-
-    }
-    //查询企业列表..带参数
-    public void shuaxinList(String type) {
-        ye = 1;
-        this.type = type;
-        if(type.equals("1")){
-            tvTitle.setText("我的");
-        } else {
-            tvTitle.setText("企业列表");
-        }
-        HttpManager.getInstance()
-                .with(mContext)
-                .setObservable(
-                        RetrofitManager
-                                .getService()
-                                .getqiyeliebiao(PreferenceUtils.getString(MyApplication.mContext, "token",""),type,ye+""))
-                .setDataListener(new HttpDataListener<List<QiYeLieBiaoBean>>() {
-                    @Override
-                    public void onNext(final List<QiYeLieBiaoBean> data) {
-                        ye++;
-                        initadapter(data);
-                    }
-                });
-
-    }
-    private void initadapter(List<QiYeLieBiaoBean> data) {
-        mlist = new ArrayList<>();
-        mlist.addAll(data);
-        Log.e("data","--"+gson.toJson(data));
         adapter = new QiYeLieBiaoAdapter(mContext, mlist);
         rvQiyeliebiao.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+        rvQiyeliebiao.setLoadMoreListener(mLoadMoreListener);
         rvQiyeliebiao.setAdapter(adapter);
         adapter.setOnItemClickListener(new QiYeLieBiaoAdapter.OnItemClickListener() {
             @Override
@@ -209,6 +148,106 @@ public class YeWuYuanMainActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ye = 1;
+        getQiyeLiebiao(type);
+    }
+
+    //查询企业列表
+    public void getQiyeLiebiao(String type) {
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .getqiyeliebiao(PreferenceUtils.getString(MyApplication.mContext, "token",""),type,ye+""))
+                .setDataListener(new HttpDataListener<List<QiYeLieBiaoBean>>() {
+                    @Override
+                    public void onNext(final List<QiYeLieBiaoBean> data) {
+                        ye++;
+                        int size = data==null?0:data.size();
+                        if(size!=0){
+                            mlist.addAll(data);
+                            if(data.size()==10){
+                                rvQiyeliebiao.loadMoreFinish(false, true);
+                            }else if(data.size()>0){
+                                rvQiyeliebiao.loadMoreFinish(false, false);
+                            } else {
+                                rvQiyeliebiao.loadMoreFinish(true, false);
+                            }
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                });
+
+    }
+
+    //查询企业列表..带参数
+    private void getQiyeLiebiaodaicanshu(String trim, String leibieid) {
+        Log.e("getQiyeLiebiaodaicanshu",trim+"--"+leibieid);
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .getqiyedaicanshu(PreferenceUtils.getString(MyApplication.mContext, "token",""),trim,leibieid,type))
+                .setDataListener(new HttpDataListener<List<QiYeLieBiaoBean>>() {
+                    @Override
+                    public void onNext(final List<QiYeLieBiaoBean> data) {
+                        int size = data==null?0:data.size();
+                        if(size!=0){
+                            mlist.addAll(data);
+                            if(data.size()==10){
+                                rvQiyeliebiao.loadMoreFinish(false, true);
+                            }else if(data.size()>0){
+                                rvQiyeliebiao.loadMoreFinish(false, false);
+                            } else {
+                                rvQiyeliebiao.loadMoreFinish(true, false);
+                            }
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                });
+
+    }
+    //查询企业列表..带参数
+    public void shuaxinList(String type) {
+        ye = 1;
+        this.type = type;
+        if(type.equals("1")){
+            tvTitle.setText("我的");
+        } else {
+            tvTitle.setText("企业列表");
+        }
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .getqiyeliebiao(PreferenceUtils.getString(MyApplication.mContext, "token",""),type,ye+""))
+                .setDataListener(new HttpDataListener<List<QiYeLieBiaoBean>>() {
+                    @Override
+                    public void onNext(final List<QiYeLieBiaoBean> data) {
+                        ye++;
+                        int size = data==null?0:data.size();
+                        if(size!=0){
+                            mlist.addAll(data);
+                            if(data.size()==10){
+                                rvQiyeliebiao.loadMoreFinish(false, true);
+                            }else if(data.size()>0){
+                                rvQiyeliebiao.loadMoreFinish(false, false);
+                            } else {
+                                rvQiyeliebiao.loadMoreFinish(true, false);
+                            }
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                });
+
     }
 
     //删除

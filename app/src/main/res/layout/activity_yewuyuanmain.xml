@@ -63,11 +63,11 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         >
-    <android.support.v7.widget.RecyclerView
+    <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
         android:id="@+id/rv_qiyeliebiao"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        ></android.support.v7.widget.RecyclerView>
+        ></com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView>
     </android.support.v4.widget.SwipeRefreshLayout>
     <TextView
         android:id="@+id/tv_right"

@@ -78,8 +78,10 @@ public class YinHangKaActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_fanhui:
-                finish();
+//                finish();
+                myBack();
                 break;
+
             case R.id.btn_add_card:
                 getZiZhi();
                 break;
@@ -116,5 +118,18 @@ public class YinHangKaActivity extends BaseActivity {
     protected void onRestart() {
         super.onRestart();
         getBankCardList();
+    }
+
+    private void myBack(){
+        Intent it = new Intent();
+        it.putExtra("bean","");
+        setResult(1,it);
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        myBack();
     }
 }

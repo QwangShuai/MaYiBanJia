@@ -205,13 +205,10 @@ public class ShouYeFragment extends BaseFragment {
                     cityCode = location.getCityCode();
                     xingQuDian = location.getPoiName();
 //                    ToastUtil.showToast(city+"---"+cityCode);
-                } else {
-                    ToastUtil.showToast("定位失败,请检查是否开启定位功能");
-                    Log.e("错误描述", "错误描述:" + location.getLocationDetail());
-                    Log.e("错误码", "错误码是:" + location.getErrorCode());
-
-                    Log.e("错误信息", "错误信息:" + location.getErrorInfo() + "\n");
                 }
+//                else {
+//                    ToastUtil.showToast("定位失败,请检查是否开启定位功能");
+//                }
                 stopLocation();
                 Log.e("xingQuDian", xingQuDian);
                 Log.e("xiangxi", sheng + "-" + city + "-" + qu + "-" + xiangxi);
@@ -337,8 +334,10 @@ public class ShouYeFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_sousuo:
-                Intent intent=new Intent(getActivity(),SouSuoActivity.class);
-                startActivity(intent);
+                MainActivity activity = (MainActivity) getActivity();
+                activity.changeView("","");
+//                Intent intent=new Intent(getActivity(),SouSuoActivity.class);
+//                startActivity(intent);
                 break;
 //            case R.id.iv_facaigou:
 //                Intent caigouintent=new Intent(getActivity(),FCGDiQuXuanZeActivity.class);

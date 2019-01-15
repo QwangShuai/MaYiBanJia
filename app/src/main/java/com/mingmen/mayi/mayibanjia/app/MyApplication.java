@@ -9,6 +9,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.support.multidex.MultiDexApplication;
 
+import com.mingmen.mayi.mayibanjia.utils.CrashHandler;
 import com.qiniu.android.common.FixedZone;
 import com.qiniu.android.storage.Configuration;
 import com.qiniu.android.storage.UploadManager;
@@ -76,6 +77,8 @@ public class MyApplication extends MultiDexApplication {
         {
             PlatformConfig.setWeixin(UMConfig.WECHAT_APPID, UMConfig.WECHAT_APPSECRET);
         }
+//        CrashHandler crashHandler = CrashHandler.getInstance();
+//        crashHandler.init(getApplicationContext());
         doInit();
 //        registerToWX();
     }

@@ -399,11 +399,7 @@ public class XinXiLuRuActivity extends BaseActivity {
 //                    sb.append("定位失败");
 //                    sb.append("错误信息:" + location.getErrorInfo() + "\n");
 //                    sb.append("错误描述:" + location.getLocationDetail() + "\n");
-                    ToastUtil.showToast("定位失败,请检查是否开启定位功能");
-                    Log.e("错误描述", "错误描述:" + location.getLocationDetail());
-                    Log.e("错误码", "错误码是:" + location.getErrorCode());
-
-                    Log.e("错误信息", "错误信息:" + location.getErrorInfo() + "\n");
+//                    ToastUtil.showToast("定位失败,请检查是否开启定位功能");
                 }
 //                sb.append("***定位质量报告***").append("\n");
 //                sb.append("* WIFI开关：").append(location.getLocationQualityReport().isWifiAble() ? "开启":"关闭").append("\n");

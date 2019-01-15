@@ -530,8 +530,8 @@ public interface HttpService {
     @POST("ctBuyHostorder/updateByPurchaseId.do")
     Observable<ResultModel<String>> shenpishibai(@Query("user_token") String user_token,
                                                  @Query("audit_ps") String audit_ps,
-                                                 @Query("purchase_id") String purchase_id
-    );
+                                                 @Query("purchase_id") String purchase_id,
+                                                 @Query("ct_buy_final_id") String ct_buy_final_id);
 
     /// /获取更多商家
     @POST("ctBuyHostorder/queryByCompany.do")
@@ -1108,4 +1108,11 @@ public interface HttpService {
     //获取商家手机号
     @POST("wl/queryByCompany.do")
     Observable<ResultModel<List<ShangJiaPhoneBean>>> getShangJiaPhoneList(@Query("user_token") String user_token);
+
+    //银行卡验证
+    @POST("qyBankCard/fourYz.do")
+    Observable<ResultModel<String>> getYinhangZzrz(@Query("bank_account") String bank_account,
+                                                   @Query("account_person") String account_person,
+                                                   @Query("id_number") String id_number,
+                                                   @Query("phone") String phone);
 }

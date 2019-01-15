@@ -83,7 +83,7 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
     HashMap<String, ShangpinidAndDianpuidBean> map;
 
     public void setShow(int pos) {
-        mList.get(pos).setSelect(true);
+//        mList.get(pos).setSelect(true);
     }
 
     public CallBack callBack;
@@ -269,16 +269,17 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
                     if (listBean.isNeedLoad()) {//是否需要加载数据
                         getshenpi(listBean, position, activity);
                     } else {
+                        Log.e("当前展开状态获取",listBean.isSelect()+"???");
                         //不需要加载数据时
 //                    展开二级列表
                         if (listBean.isSelect()) {
                             mList.get(position).setSelect(false);
                             holder.rvDplist.setVisibility(View.GONE);
-//                        adapter.notifyDataSetChanged();
+                        notifyDataSetChanged();
                         } else {
                             mList.get(position).setSelect(true);
                             holder.rvDplist.setVisibility(View.VISIBLE);
-//                        adapter.notifyDataSetChanged();
+                        notifyDataSetChanged();
                         }
                     }
                 }

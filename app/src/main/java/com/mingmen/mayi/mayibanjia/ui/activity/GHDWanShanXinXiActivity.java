@@ -379,7 +379,6 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         openCamera();
-
                         isClickCamera = true;
                         photoDialog.cancel();
                     }
@@ -657,10 +656,11 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
     public void openCamera() {
         File file = new FileStorage().createIconFile();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            imageUri = FileProvider.getUriForFile(this, "com.mingmen.mayi.mayibanjia", file);//通过FileProvider创建一个content类型的Uri
+            imageUri = FileProvider.getUriForFile(this, "com.mingmen.mayi.mayibanjia.fileProvider", file);//通过FileProvider创建一个content类型的Uri
         } else {
             imageUri = Uri.fromFile(file);
         }
+        Log.e("我的图片路径",imageUri.getPath());
         Intent intent = new Intent();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); //添加这一句表示对目标应用临时授权该Uri所代表的文件

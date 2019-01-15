@@ -604,7 +604,7 @@ public class ShenPiActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .shenpishibai(PreferenceUtils.getString(MyApplication.mContext, "token", ""), yuanyin, purchase_id))
+                                .shenpishibai(PreferenceUtils.getString(MyApplication.mContext, "token", ""), yuanyin, purchase_id,ct_buy_final_id))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {

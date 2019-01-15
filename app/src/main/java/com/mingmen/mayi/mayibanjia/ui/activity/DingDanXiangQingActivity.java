@@ -167,7 +167,7 @@ public class DingDanXiangQingActivity extends BaseActivity {
                         zongjia = data.getTotal()+"";
                         setJiaGeShowView(tvZong0, tvZong1, data.getTotal_price() + "");
                         setJiaGeShowView(tvYunfei0, tvYunfei1, data.getFreight_fee() + "");
-                        if (TextUtils.isEmpty(data.getAppend_money()+"") || data.getAppend_money() == null) {
+                        if (TextUtils.isEmpty(data.getAppend_money()+"") || Integer.valueOf(data.getAppend_money()) == 0) {
                             rlFujiafei.setVisibility(View.GONE);
                         } else {
                             setJiaGeShowView(tvFujiafei, tvFujiafei1, data.getAppend_money() + "");

@@ -79,6 +79,9 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
         holder.tvPinlei.setText(bean.getClassify_name());
         if(StringUtil.isValid(bean.getMarket_id())){
             holder.tvShichang.setText(bean.getMarket_name());
+            for (int i=0;i<mList.get(position).getSonorderlist().size();i++) {
+                mList.get(position).getSonorderlist().get(i).setMarket_id(bean.getMarket_id());
+            }
         }
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
@@ -221,51 +224,62 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
                                         }).show(activity.getSupportFragmentManager());
                                 break;
                             case R.id.ll_lishi://打开历史记录   从历史记录中选择商品换到当前位置
-                                final List<CaiGouDanBean.FllistBean.SonorderlistBean.CcListBeanLevel> level = new ArrayList<>();
-                                if (mList.get(position).getSonorderlist().get(pos).isNeedLoad()) {
-                                    ToastUtil.showToast("正在匹配商家...");
-                                    getshenpi(mList.get(position).getSonorderlist().get(pos), position, false);
-                                    return;
+                                if(StringUtil.isValid(mList.get(position).getSonorderlist().get(pos).getMarket_id())){
+                                    market_id = mList.get(position).getSonorderlist().get(pos).getMarket_id();
                                 }
-                                for (int i = 0; i < 5; i++) {
-                                    CaiGouDanBean.FllistBean.SonorderlistBean.CcListBeanLevel subitem = mList.get(position).getSonorderlist().get(pos).getLevels().get(i);
-                                    level.add(subitem);
-                                }
-                                HttpManager.getInstance()
-                                        .with(mContext)
-                                        .setObservable(
-                                                RetrofitManager
-                                                        .getService()
-                                                        .getlishi(PreferenceUtils.getString(MyApplication.mContext, "token", ""), mList.get(position).getMarket_id(), mList.get(position).getSonorderlist().get(pos).getSon_order_id()))
-                                        .setDataListener(new HttpDataListener<LiShiJiLuBean>() {
-                                            @Override
-                                            public void onNext(LiShiJiLuBean data) {
-                                                new LiShiJiLuDialog()
-                                                        .setSon_order_id(data.getOreder_buy(), data.getCsList())
-                                                        .setCallBack(new LiShiJiLuDialog.CallBack() {
-                                                            @Override
-                                                            public void xuanzhong(String lujing, XiTongTuiJianBean.CcListBean msg) {
-                                                                msg.setIsxianshi(true);
-                                                                msg.setSon_order_id(mList.get(position).getSonorderlist().get(pos).getSon_order_id());
-                                                                //通过选择记录的类型  放入固定位置
-                                                                if ("goumai".equals(lujing)) {
-                                                                    msg.setBiaoqian("已购店铺");
-                                                                    level.get(3).setCcListBean(msg);
-                                                                } else if ("shoucang".equals(lujing)) {
-                                                                    msg.setBiaoqian("收藏店铺");
-                                                                    level.get(4).setCcListBean(msg);
-                                                                }
-                                                                mList.get(position).getSonorderlist().get(pos).setLevels(level);
-                                                                if (mList.get(position).getSonorderlist().get(pos).getLevels().size() != 0) {
-                                                                    adapter.setShow(pos);
-                                                                } else {
-                                                                }
+                                if(StringUtil.isValid(market_id)){
+                                    final List<CaiGouDanBean.FllistBean.SonorderlistBean.CcListBeanLevel> level = new ArrayList<>();
+                                    if (mList.get(position).getSonorderlist().get(pos).isNeedLoad()) {
+                                        ToastUtil.showToast("正在匹配商家...");
+                                        getshenpi(mList.get(position).getSonorderlist().get(pos), position, false);
+                                        return;
+                                    }
+                                    for (int i = 0; i < 5; i++) {
+                                        CaiGouDanBean.FllistBean.SonorderlistBean.CcListBeanLevel subitem = mList.get(position).getSonorderlist().get(pos).getLevels().get(i);
+                                        level.add(subitem);
+                                    }
+                                    HttpManager.getInstance()
+                                            .with(mContext)
+                                            .setObservable(
+                                                    RetrofitManager
+                                                            .getService()
+                                                            .getlishi(PreferenceUtils.getString(MyApplication.mContext, "token", ""), mList.get(position).getMarket_id(), mList.get(position).getSonorderlist().get(pos).getSon_order_id()))
+                                            .setDataListener(new HttpDataListener<LiShiJiLuBean>() {
+                                                @Override
+                                                public void onNext(LiShiJiLuBean data) {
+                                                    new LiShiJiLuDialog()
+                                                            .setSon_order_id(data.getOreder_buy(), data.getCsList())
+                                                            .setCallBack(new LiShiJiLuDialog.CallBack() {
+                                                                @Override
+                                                                public void xuanzhong(String lujing, XiTongTuiJianBean.CcListBean msg) {
+                                                                    msg.setIsxianshi(true);
+                                                                    msg.setSon_order_id(mList.get(position).getSonorderlist().get(pos).getSon_order_id());
+                                                                    //通过选择记录的类型  放入固定位置
+                                                                    if ("goumai".equals(lujing)) {
+                                                                        msg.setBiaoqian("已购店铺");
+                                                                        level.get(3).setCcListBean(msg);
+                                                                    } else if ("shoucang".equals(lujing)) {
+                                                                        msg.setBiaoqian("收藏店铺");
+                                                                        level.get(4).setCcListBean(msg);
+                                                                    }
+                                                                    mList.get(position).getSonorderlist().get(pos).setLevels(level);
+                                                                    if (mList.get(position).getSonorderlist().get(pos).getLevels().size() != 0) {
+                                                                        Log.e("dd",pos+"---");
+                                                                        mList.get(position).getSonorderlist().get(pos).setSelect(false);
+                                                                        adapter.notifyDataSetChanged();
+//                                                                        adapter.setShow(pos);
+                                                                    } else {
+                                                                    }
 //                                                                adapter.notifyDataSetChanged();
-                                                                notifyDataSetChanged();
-                                                            }
-                                                        }).show(activity.getSupportFragmentManager());
-                                            }
-                                        });
+                                                                    notifyDataSetChanged();
+                                                                }
+                                                            }).show(activity.getSupportFragmentManager());
+                                                }
+                                            });
+                                } else {
+                                    ToastUtil.showToastLong("请先选择市场");
+                                }
+
                                 break;
                         }
                     } else {
@@ -358,6 +372,7 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
                         //获取之后  改成不需要加载状态
                         listBean.setNeedLoad(false);
                         if (listBean.getLevels().size() != 0) {
+                            viewHolder.rvList.setVisibility(View.VISIBLE);
 //                            shangpinadapter.expand(pos);
 //                            shangpinadapter.notifyDataSetChanged();
                         }

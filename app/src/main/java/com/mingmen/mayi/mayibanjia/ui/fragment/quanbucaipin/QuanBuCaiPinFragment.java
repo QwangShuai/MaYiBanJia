@@ -32,13 +32,16 @@ import com.mingmen.mayi.mayibanjia.MainActivity;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.AllShiChangBean;
+import com.mingmen.mayi.mayibanjia.bean.FCGName;
 import com.mingmen.mayi.mayibanjia.bean.FenLeiBean;
 import com.mingmen.mayi.mayibanjia.bean.ShangPinSouSuoBean;
 import com.mingmen.mayi.mayibanjia.bean.SouSuoJieGuoShangPinBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
+import com.mingmen.mayi.mayibanjia.ui.activity.adapter.CaiGouMingChengAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.ErJiFenLeiAdapter;
+import com.mingmen.mayi.mayibanjia.ui.activity.adapter.FaCaiGouMohuAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.SanJiFenLeiAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.ShangPinListAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.ShangPinMohuAdapter;
@@ -138,6 +141,11 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     private String TAG = "QuanBuCaiPinFragment";
     public String type="0";
     private PopupWindow yijipop;
+    private FaCaiGouMohuAdapter mohuAdapter;
+//    private PopupWindow mPopWindow;
+//    private RecyclerView rv_mohu;
+    private ArrayList<FCGName> datas = new ArrayList<>();
+
     @Override
     protected View getSuccessView() {
         viewSPYXFragment = View.inflate(MyApplication.mContext, R.layout.fragment_quanbucaipin, null);
@@ -165,6 +173,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
             }
         }
         xianshi("shangpin");
+        showPopupWindow();
         etSousuozi.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -264,6 +273,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 if (s.length()>0){
                     sousuo=s.toString().trim();
                     sousuomoren(sousuo);
+//                    sousuoshangpin(sousuo,type);
                     xianshi("sousuo");
                 }else{
                     xianshi("shangpin");
@@ -282,6 +292,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
             }
         });
         //
+
     }
 
     private void xianshi(String sousuo){
@@ -308,7 +319,6 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                     @Override
                     public void onNext(final ShangPinSouSuoBean shangpin) {
 //                        rvShangpin.removeAllViews();
-                        ye=1;
                         rvShangpin.loadMoreFinish(false, true);
                         if ("3".equals(type)){
                             isdi=true;
@@ -370,6 +380,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                         });
                     }
                 },rvShangpin.getVisibility()==View.VISIBLE?true:false);
+        ye++;
     }
     //商品搜索
     private void sousuomoren(String sousuozi) {
@@ -378,30 +389,43 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .sousuomoren(PreferenceUtils.getString(MyApplication.mContext, "token", ""), sousuozi,"0"))
-                .setDataListener(new HttpDataListener<ShangPinSouSuoBean>() {
+                                .getfcgname(PreferenceUtils.getString(MyApplication.mContext, "token", ""), sousuozi))
+                .setDataListener(new HttpDataListener<List<FCGName>>() {
                     @Override
-                    public void onNext(final ShangPinSouSuoBean data) {
-                        Log.e("sousuoshangpin", "sousuoshangpin");
-                        shangpinlist.clear();
-                        shangpinadapter.notifyDataSetChanged();
-                        shangpinlist.addAll(data.getZhengchang());
-                        sousuoadapter = new ShangPinMohuAdapter(mContext, data.getZhengchang());
-                        rvSousuo.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
-                        rvSousuo.setAdapter(sousuoadapter);
-                        sousuoadapter.notifyDataSetChanged();
-                        sousuoadapter.setOnItemClickListener(new ShangPinMohuAdapter.OnItemClickListener() {
-                            @Override
-                            public void onClick(View view, int position) {
-                                etSousuozi.setText(data.getZhengchang().get(position).getClassify_name());
-                                sousuo = etSousuozi.getText().toString();
-                                sousuoshangpin(sousuo,"0");
-                                xianshi("shangpin");
-
-                            }
-                        });
+                    public void onNext(final List<FCGName> data) {
+                        datas.clear();
+                        Log.e("我的数据",new Gson().toJson(data));
+                        datas.addAll(data);
+//                        mohuAdapter.setData(datas);
+                        mohuAdapter.notifyDataSetChanged();
+                        ToastUtil.showToast("++++"+datas.size());
+//                        if (mPopWindow != null) {
+//                            if(sousuo.equals(etSousuozi.getText().toString().trim()))
+//                                return;
+//                            mPopWindow.showAsDropDown(etSousuozi);
+//                            mohuAdapter.setData(datas);
+//                        } else {
+//                            showPopupWindow();
+//                        }
+//                        Log.e("sousuoshangpin", "sousuoshangpin");
+//                        shangpinlist.clear();
+//                        shangpinadapter.notifyDataSetChanged();
+//                        shangpinlist.addAll(data.getZhengchang());
+//                        sousuoadapter = new ShangPinMohuAdapter(mContext, data.getZhengchang());
+//                        rvSousuo.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+//                        rvSousuo.setAdapter(sousuoadapter);
+//                        sousuoadapter.notifyDataSetChanged();
+//                        sousuoadapter.setOnItemClickListener(new ShangPinMohuAdapter.OnItemClickListener() {
+//                            @Override
+//                            public void onClick(View view, int position) {
+//                                etSousuozi.setText(data.getZhengchang().get(position).getClassify_name());
+//                                sousuo = etSousuozi.getText().toString();
+//                                sousuoshangpin(sousuo,"0");
+//                                xianshi("shangpin");
+//                            }
+//                        });
                     }
-                },rvShangpin.getVisibility()==View.VISIBLE?true:false);
+                });
     }
 
     private void showShaiXuanPop() {
@@ -1032,5 +1056,21 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                         });
                     }
                 },rvShangpin.getVisibility()==View.VISIBLE?true:false);
+    }
+    //PopupWindow
+    private void showPopupWindow() {
+        mohuAdapter = new FaCaiGouMohuAdapter(getActivity(), datas);
+        rvSousuo.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        mohuAdapter.setOnItemClickListener(new FaCaiGouMohuAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                etSousuozi.setText("" + datas.get(position).getClassify_name());
+                sousuo=datas.get(position).getClassify_name();
+                sanjipinleiid = datas.get(position).getClassify_id();
+                sousuoshangpin(sousuo,"0");
+                xianshi("shangpin");
+            }
+        });
+        rvSousuo.setAdapter(mohuAdapter);
     }
 }

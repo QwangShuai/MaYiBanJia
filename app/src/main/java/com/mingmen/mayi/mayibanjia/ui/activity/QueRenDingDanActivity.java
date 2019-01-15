@@ -497,6 +497,8 @@ public class QueRenDingDanActivity extends BaseActivity {
             case 1:
                 if (resultCode == 1 & data != null) {
                     number = "";
+                    yunfei = 0.0;
+                    zongzhong = 0.0;
                     String dizhijson = data.getStringExtra("dizhi");
                     Log.e("dizhijson", dizhijson);
                     dizhi = gson.fromJson(dizhijson, AddressListBean.class);

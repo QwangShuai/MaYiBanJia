@@ -13,6 +13,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.ContactsContract;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
@@ -310,7 +311,7 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
                         Log.e("imageUri",imageUri+"---");
 
 //                        String qiniudata = getRealPathFromUri(GHDWanShanXinXiActivity.this, imageUri);
-                        String qiniudata = getRealFilePath(GHDWanShanXinXiActivity.this, imageUri);
+                        String qiniudata = getRealFilePath(GHDWanShanXinXiActivity.this, outputUri);
 //
 //                        File file=new File(imageUri.getPath());
                         String key = null;
@@ -504,38 +505,31 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
                 }
                 break;
             case REQUEST_CAPTURE://拍照
-//                if (requestCode == REQUEST_CAPTURE && resultCode == RESULT_OK) {
-//                    List<Uri> mSelected = Matisse.obtainResult(data);
-//                    Log.d("Matisse", "mSelected: " + mSelected);
-//                }
-
-//
                 Log.e("拍照","拍照");
                 if (resultCode == RESULT_OK) {
-//                    cropPhoto();
-//                    data.getStringExtra("");imageUri
-                    xianshi();
+                    cropPhoto();
+//                    xianshi();
                 }
                 break;
             case REQUEST_PICTURE_CUT://裁剪完成
 //
-//                if (data!=null) {
-//                    Log.e("裁剪完成","裁剪完成");
-//                    try {
-//                        if (isClickCamera) {
-//                            Log.e("裁剪完成","裁剪完成111");
-//                            bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(outputUri));
-//                        } else {
-//                            Log.e("裁剪完成","裁剪完成222");
-//                            bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(outputUri));
-////                            bitmap = BitmapFactory.decodeFile(imagePath);
-//                        }
-//                        qiniushangchuan();
-//
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                }
+                if (data!=null) {
+                    Log.e("裁剪完成","裁剪完成");
+                    try {
+                        if (isClickCamera) {
+                            Log.e("裁剪完成","裁剪完成111");
+                            bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(outputUri));
+                        } else {
+                            Log.e("裁剪完成","裁剪完成222");
+                            bitmap = BitmapFactory.decodeFile(imagePath);
+//                            bitmap = BitmapFactory.decodeFile(imagePath);
+                        }
+                        qiniushangchuan();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
                 break;
         }
     }
@@ -656,11 +650,10 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
     public void openCamera() {
         File file = new FileStorage().createIconFile();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            imageUri = FileProvider.getUriForFile(this, "com.mingmen.mayi.mayibanjia.fileProvider", file);//通过FileProvider创建一个content类型的Uri
+            imageUri = FileProvider.getUriForFile(this, mContext.getApplicationContext().getPackageName()+".fileProvider", file);//通过FileProvider创建一个content类型的Uri
         } else {
             imageUri = Uri.fromFile(file);
         }
-        Log.e("我的图片路径",imageUri.getPath());
         Intent intent = new Intent();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); //添加这一句表示对目标应用临时授权该Uri所代表的文件
@@ -696,8 +689,8 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
         bitmap = null;
         try {
             if (isClickCamera) {
+                bitmap = BitmapFactory.decodeFile(imagePath);
                 Log.e("裁剪完成","裁剪完成111");
-                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
             } else {
                 Log.e("裁剪完成","裁剪完成222");
                 bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
@@ -730,16 +723,16 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
             //如果是file类型的Uri,直接获取图片路径即可
             imagePath = imageUri.getPath();
         }
-        xianshi();
-//        cropPhoto();
+//        xianshi();
+        cropPhoto();
         return imagePath;
     }
 
     public String handleImageBeforeKitKat(Intent intent) {
         imageUri = intent.getData();
         imagePath = qiNiuPhoto.getImagePath(imageUri, null);
-//        cropPhoto();
-        xianshi();
+        cropPhoto();
+//        xianshi();
         return imagePath;
     }
 

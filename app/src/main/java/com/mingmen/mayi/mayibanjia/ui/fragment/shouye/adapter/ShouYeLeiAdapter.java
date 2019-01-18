@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.mingmen.mayi.mayibanjia.MainActivity;
 import com.mingmen.mayi.mayibanjia.R;
+import com.mingmen.mayi.mayibanjia.bean.FCGName;
 import com.mingmen.mayi.mayibanjia.bean.ShouYeLeiBean;
 import com.mingmen.mayi.mayibanjia.ui.activity.SPXiangQingActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.myinterface.MainCallBack;
@@ -32,10 +33,10 @@ import butterknife.ButterKnife;
 public class ShouYeLeiAdapter extends RecyclerView.Adapter<ShouYeLeiAdapter.ViewHolder> {
     private ViewHolder viewHolder;
     private Context mContext;
-    private List<List<ShouYeLeiBean>> mList;
+    private List<List<FCGName>> mList;
     private MainActivity activity;
 
-    public ShouYeLeiAdapter(Context mContext, List<List<ShouYeLeiBean>> list, MainActivity activity) {
+    public ShouYeLeiAdapter(Context mContext, List<List<FCGName>> list, MainActivity activity) {
         this.mContext = mContext;
         this.mList = list;
         this.activity = activity;
@@ -49,7 +50,7 @@ public class ShouYeLeiAdapter extends RecyclerView.Adapter<ShouYeLeiAdapter.View
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        final List<ShouYeLeiBean> data = mList.get(position);
+        final List<FCGName> data = mList.get(position);
         if (data.size()>0&&data.get(0) != null) {
             Glide.with(mContext).load(data.get(0).getPicture_url()).into(holder.iv1);
             holder.tv1.setText(data.get(0).getClassify_name());

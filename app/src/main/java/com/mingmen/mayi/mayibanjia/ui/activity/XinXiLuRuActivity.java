@@ -596,8 +596,8 @@ public class XinXiLuRuActivity extends BaseActivity {
                             bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(outputUri));
                         } else {
                             Log.e("裁剪完成","裁剪完成222");
-                            bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(outputUri));
-//                            bitmap = BitmapFactory.decodeFile(imagePath);
+//                            bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(outputUri));
+                            bitmap = BitmapFactory.decodeFile(imagePath);
                         }
                         qiniushangchuan();
 

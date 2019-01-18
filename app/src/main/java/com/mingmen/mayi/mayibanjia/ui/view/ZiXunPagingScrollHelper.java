@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.mingmen.mayi.mayibanjia.ui.fragment.quanbucaipin.adapter.QuanBuCaiPinLeiAdapter;
 import com.mingmen.mayi.mayibanjia.ui.fragment.shouye.adapter.ShouYeLeiAdapter;
 
 
@@ -20,6 +21,7 @@ public class ZiXunPagingScrollHelper {
     RecyclerView mRecyclerView = null;
 
     private ShouYeLeiAdapter myAdapter = null;
+    private QuanBuCaiPinLeiAdapter adapter = null;
 
     private MyOnScrollListener mOnScrollListener = new MyOnScrollListener();
 
@@ -259,9 +261,16 @@ public class ZiXunPagingScrollHelper {
         this.mIndicatorView = indicatorView;
     }
 
-    public void setAdapter(RecyclerView.Adapter adapter) {
-        this.myAdapter = (ShouYeLeiAdapter)adapter;
-        update();
+    public void setAdapter(RecyclerView.Adapter adapter,int type) {
+        if(type==0){
+            this.myAdapter = (ShouYeLeiAdapter)adapter;
+            update();
+        } else {
+            this.adapter = (QuanBuCaiPinLeiAdapter) adapter;
+            update2();
+        }
+
+
     }
 
 
@@ -278,6 +287,17 @@ public class ZiXunPagingScrollHelper {
             totalPage = temp;
         }
     }
-
+    // 更新页码指示器和相关数据
+    private void update2() {
+        int temp = adapter.getItemCount();
+        if (temp != totalPage) {
+            mIndicatorView.initIndicator(temp);
+            if (temp < totalPage && index == totalPage) {
+                index = temp;
+            }
+            mIndicatorView.setSelectedPage(index);
+            totalPage = temp;
+        }
+    }
 
 }

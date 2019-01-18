@@ -20,6 +20,8 @@ import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.MainActivity;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
+import com.mingmen.mayi.mayibanjia.app.UMConfig;
+import com.mingmen.mayi.mayibanjia.bean.FCGName;
 import com.mingmen.mayi.mayibanjia.bean.ShouYeBannerBean;
 import com.mingmen.mayi.mayibanjia.bean.ShouYeLeiBean;
 import com.mingmen.mayi.mayibanjia.bean.ShouYeShangChangBean;
@@ -63,7 +65,7 @@ public class ShouYeFragment extends BaseFragment {
     private View viewSPYXFragment;
     private ShouYeAdapter adapter;
     private List<ShouYeBannerBean> bannerBean = new ArrayList<>();
-    private List<ShouYeLeiBean> leiBean = new ArrayList<>();
+    private List<FCGName> leiBean = new ArrayList<>();
     private List<ShouYeTeJiaBean> teJiaBean = new ArrayList<>();
     private List<ShouYeShangChangBean> shangJiaBean = new ArrayList<>();
     private AMapLocationClient locationClient = null;
@@ -273,14 +275,13 @@ public class ShouYeFragment extends BaseFragment {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getShouYeFenLei(PreferenceUtils.getString(MyApplication.mContext, "token","")))
-                .setDataListener(new HttpDataListener<List<ShouYeLeiBean>>() {
+                                .getFeiLei(UMConfig.YCL_ID,"2"))
+                .setDataListener(new HttpDataListener<List<FCGName>>() {
 
                     @Override
-                    public void onNext(List<ShouYeLeiBean> list) {
-                        leiBean=new ArrayList<ShouYeLeiBean>();
+                    public void onNext(List<FCGName> list) {
+                        leiBean=new ArrayList<FCGName>();
                         leiBean.addAll(list);
-                        Log.e("fenleifenlei", new Gson().toJson(leiBean));
 //                        getShouyeTeJia();
                     }
                 },false);
@@ -317,7 +318,6 @@ public class ShouYeFragment extends BaseFragment {
                     public void onNext(List<ShouYeBannerBean> list) {
                         bannerBean=new ArrayList<ShouYeBannerBean>();
                         bannerBean.addAll(list);
-                        Log.e("fenleifenlei1", bannerBean.size() + "---");
                         getShouyeShangJia();
                     }
                 },false);

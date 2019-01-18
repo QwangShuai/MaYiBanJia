@@ -211,6 +211,10 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
+    public void setType(String type){
+        this.sp_type = type;
+    }
+
     public String getType(){
         return sp_type;
     }

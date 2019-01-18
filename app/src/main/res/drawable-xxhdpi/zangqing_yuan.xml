@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval"
+    android:useLevel="false">
+    <!--内部-->
+    <solid android:color="@color/zangqing" />
+    <!--边框-->
+    <stroke android:width="0dp" android:color="#c0c0c0" />
+
+</shape>

@@ -224,7 +224,7 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String list) {
-                        String qiniudata = qiNiuPhoto.getImageAbsolutePath(CTDWanShanXinXiActivity.this, imageUri);
+                        String qiniudata = qiNiuPhoto.getImageAbsolutePath(CTDWanShanXinXiActivity.this, outputUri);
                         String key = null;
                         String token =list ;
                         MyApplication.uploadManager.put(qiniudata, key, token,
@@ -324,31 +324,23 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
             case REQUEST_CAPTURE://拍照
                 Log.e("拍照","拍照");
                 if (resultCode == RESULT_OK) {
-                    xianshi();
-//                    cropPhoto();
+//                    xianshi();
+                    cropPhoto();
                 }
                 break;
             case REQUEST_PICTURE_CUT://裁剪完成
-//                if (data!=null) {
-//                    Log.e("裁剪完成","裁剪完成");
-//                    try {
-//                        if (isClickCamera) {
-//                            Log.e("裁剪完成","裁剪完成111");
-//                            bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(outputUri));
-//                        } else {
-//                            Log.e("裁剪完成","裁剪完成222");
-//                            Log.e("outputUri", "=====");
-//                            bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(outputUri));
-////                            bitmap = BitmapFactory.decodeFile(imagePath);
-//                            Log.e("outputUri", String.valueOf(outputUri));
-//                        }
-//
-//                        qiniushangchuan();
-//
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                }
+                if (data!=null) {
+                    try {
+                        if (isClickCamera) {
+                            bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(outputUri));
+                        } else {
+                            bitmap = BitmapFactory.decodeFile(imagePath);
+                        }
+                        qiniushangchuan();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
                 break;
         }
     }
@@ -385,7 +377,7 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
     public void openCamera() {
         File file = new FileStorage().createIconFile();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            imageUri = FileProvider.getUriForFile(this, "com.mingmen.mayi.mayibanjia", file);//通过FileProvider创建一个content类型的Uri
+            imageUri = FileProvider.getUriForFile(this, mContext.getApplicationContext().getPackageName()+".fileProvider", file);//通过FileProvider创建一个content类型的Uri
         } else {
             imageUri = Uri.fromFile(file);
         }
@@ -444,8 +436,8 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
             //如果是file类型的Uri,直接获取图片路径即可
             imagePath = imageUri.getPath();
         }
-//        cropPhoto();
-        xianshi();
+        cropPhoto();
+//        xianshi();
         return imagePath;
     }
 

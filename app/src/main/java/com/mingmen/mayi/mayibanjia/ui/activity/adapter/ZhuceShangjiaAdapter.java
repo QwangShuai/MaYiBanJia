@@ -63,7 +63,7 @@ public class ZhuceShangjiaAdapter extends RecyclerView.Adapter<ZhuceShangjiaAdap
         final QiYeLieBiaoBean data = mList.get(position);
         holder.tvMingzi.setText(data.getCompany_name());
         holder.tvLeibie.setText(data.getLeiBieName());
-        holder.tvGuimo.setText(data.getGuiMoId()+"/平米");
+        holder.tvGuimo.setText(data.getGuiMoId()+"平米");
         if(StringUtil.isValid(data.getPhoto())){
             Glide.with(mContext).load(data.getPhoto()).into(holder.ivTouxiang);
         }

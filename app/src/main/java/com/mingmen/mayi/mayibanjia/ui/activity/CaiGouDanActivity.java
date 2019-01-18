@@ -341,13 +341,13 @@ public class CaiGouDanActivity extends BaseActivity {
     public static boolean isCanClick(CaiGouDanBean item) {
         Date dangqianTime = new Date();
         int size = item.getFllist()==null?0:item.getFllist().size();
-//        for (int i1 = 0; i1 < size; i1++) {
+        for (int i1 = 0; i1 < size; i1++) {
             Date createTime = DateUtil.StrToDate(item.getCreate_time(), "yyyy-MM-dd HH:mm:ss");
             long fen = DateUtil.dqsj(createTime, dangqianTime, "3");
-//                    if (fen<5){
-//                        ToastUtil.showToast("商家正在抢单中，请抢单结束后再点击。距离抢单结束还有"+(5-fen)+"分钟。");
-//                        return false;
-//                    }else{
+                    if (fen<5){
+                        ToastUtil.showToast("商家正在抢单中，请抢单结束后再点击。距离抢单结束还有"+(5-fen)+"分钟。");
+                        return false;
+                    }else{
             if (!TextUtils.isEmpty(String.valueOf(item.getQdTime()))) {
                 createTime = DateUtil.StrToDate(item.getQdTime(), "yyyy-MM-dd HH:mm:ss");
                 fen = DateUtil.dqsj(createTime, dangqianTime, "3");
@@ -362,9 +362,9 @@ public class CaiGouDanActivity extends BaseActivity {
             }
 
 
-//                    }
-//        }
-//        return true;
+                    }
+        }
+        return true;
     }
 
     @Override

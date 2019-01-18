@@ -29,6 +29,7 @@ import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.MainActivity;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
+import com.mingmen.mayi.mayibanjia.app.UMConfig;
 import com.mingmen.mayi.mayibanjia.bean.AllShiChangBean;
 import com.mingmen.mayi.mayibanjia.bean.DianPuBean;
 import com.mingmen.mayi.mayibanjia.bean.FCGName;
@@ -240,7 +241,7 @@ public class SouSuoActivity extends BaseActivity {
                             .setObservable(
                                     RetrofitManager
                                             .getService()
-                                            .sousuoshangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""), sousuozi,"","",yijipinleiid,erjipinleiid,sanjipinleiid,shichangid,zuigaojia,zuidijia,type,ye))
+                                            .sousuoshangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""), sousuozi,"","",UMConfig.YCL_ID,yijipinleiid,erjipinleiid,sanjipinleiid,shichangid,zuigaojia,zuidijia,type,ye))
                             .setDataListener(new HttpDataListener<ShangPinSouSuoBean>() {
                                 @Override
                                 public void onNext(final ShangPinSouSuoBean shangpin) {
@@ -433,7 +434,7 @@ public class SouSuoActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getfcgname(PreferenceUtils.getString(MyApplication.mContext, "token", ""), name))
+                                .searchSpList(PreferenceUtils.getString(MyApplication.mContext, "token", ""), name))
                 .setDataListener(new HttpDataListener<List<FCGName>>() {
                     @Override
                     public void onNext(List<FCGName> data) {
@@ -446,12 +447,26 @@ public class SouSuoActivity extends BaseActivity {
                         mohuAdapter.setOnItemClickListener(new FaCaiGouMohuAdapter.OnItemClickListener() {//下拉弹出点击事件
                             @Override
                             public void onClick(View view, int position) {
-                                fenleiid = datas.get(position).getClassify_id();
-                                fenleiname = datas.get(position).getClassify_name();
-                                tvPipei.setText(fenleiname);
-                                llPipei.setVisibility(View.VISIBLE);
-                                etSousuo.setText("");
-                                sousuo("",false);
+                                Intent it = new Intent();
+                                if(datas.get(position).getClassify_grade().equals("3")){
+                                    it.putExtra("three_id",datas.get(position).getClassify_id());
+                                    it.putExtra("three_name",datas.get(position).getClassify_name());
+                                    setResult(2,it);
+                                    finish();
+                                } else {
+                                    it.putExtra("three_id",datas.get(position).getParent_id());
+                                    it.putExtra("four_id",datas.get(position).getClassify_id());
+                                    it.putExtra("four_name",datas.get(position).getClassify_name());
+                                    setResult(2,it);
+                                    finish();
+                                }
+
+//                                fenleiid = datas.get(position).getClassify_id();
+//                                fenleiname = datas.get(position).getClassify_name();
+//                                tvPipei.setText(fenleiname);
+//                                llPipei.setVisibility(View.VISIBLE);
+//                                etSousuo.setText("");
+//                                sousuo("",false);
                             }
                         });
                     }
@@ -841,7 +856,7 @@ public class SouSuoActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .sousuoshangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""), sousuo,"","",yijipinleiid,erjipinleiid,sanjipinleiid,shichangid,zuigaojia,zuidijia,type,1))
+                                .sousuoshangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""), sousuo,"","", UMConfig.YCL_ID,yijipinleiid,erjipinleiid,sanjipinleiid,shichangid,zuigaojia,zuidijia,type,1))
                 .setDataListener(new HttpDataListener<ShangPinSouSuoBean>() {
                     @Override
                     public void onNext(final ShangPinSouSuoBean shangpin) {

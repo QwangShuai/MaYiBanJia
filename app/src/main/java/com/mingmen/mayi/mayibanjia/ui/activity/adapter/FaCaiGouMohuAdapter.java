@@ -64,7 +64,7 @@ public class FaCaiGouMohuAdapter extends  RecyclerView.Adapter<FaCaiGouMohuAdapt
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return mList==null?0:mList.size();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

@@ -160,7 +160,7 @@ public interface HttpService {
 
     //市场搜索商品
     @POST("sy/csave.do")
-    Observable<ResultModel<List<ShiChangSouSuoShangPinBean>>> shichangsousuoshangpin(@Query("type_tree_id") String type_tree_id);
+    Observable<ResultModel<List<ShiChangSouSuoShangPinBean>>> shichangsousuoshangpin(@Query("type_four_id") String type_tree_id);
 
     //店铺搜索
     @POST("sy/queryDp.do")
@@ -176,6 +176,7 @@ public interface HttpService {
                                                                @Query("type_one_id") String type_one_id,
                                                                @Query("type_two_id") String type_two_id,
                                                                @Query("type_tree_id") String type_tree_id,
+                                                               @Query("type_four_id") String type_four_id,
                                                                @Query("market_id") String market_id,
                                                                @Query("big") String big,
                                                                @Query("small") String small,
@@ -190,7 +191,7 @@ public interface HttpService {
 
     //全部菜品默认list，搜索也调用此方法
     @POST("gyCommodity/queryByCommodity_name.do")
-    Observable<ResultModel<ShangPinSouSuoBean>> shichangsousuoshangpin(@Query("type_tree_id") String type_tree_id,
+    Observable<ResultModel<ShangPinSouSuoBean>> shichangsousuoshangpin(@Query("type_four_id") String type_tree_id,
                                                                        @Query("son_number") String son_number,
                                                                        @Query("sortOrder") String sortOrder);
 
@@ -837,6 +838,7 @@ public interface HttpService {
     //新建商品模糊查询
     @POST("gyCommodity/queryCommodityname.do")
     Observable<ResultModel<List<ShangPinSousuoMohuBean>>> searchSpname(@Query("user_token") String user_token,
+                                                                       @Query("type_two_id") String type_two_id,
                                                                        @Query("commodity_name") String commodity_name);
 
     //供应端退款
@@ -1115,4 +1117,17 @@ public interface HttpService {
                                                    @Query("account_person") String account_person,
                                                    @Query("id_number") String id_number,
                                                    @Query("phone") String phone);
+
+
+
+    //原材料ID：92bd917674ee41f392a25674445e76f9
+    //获取采购单名称
+    @POST("ctObserver/selectByNumerAndClassify_id")
+    Observable<ResultModel<List<FCGName>>> getFeiLei(@Query("parent_id") String parent_id,
+                                                         @Query("classify_grade") String classify_grade);
+
+    //获取三四级名称
+    @POST("gyCommodity/queryByClassify_name")
+    Observable<ResultModel<List<FCGName>>> searchSpList(@Query("user_token") String user_token,
+                                                           @Query("commodity_name") String commodity_name);
 }

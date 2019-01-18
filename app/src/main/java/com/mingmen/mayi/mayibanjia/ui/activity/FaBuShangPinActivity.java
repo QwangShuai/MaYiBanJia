@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -179,6 +180,7 @@ public class FaBuShangPinActivity extends BaseActivity {
         goods = getIntent().getStringExtra("goods");
         if ("0".equals(getIntent().getStringExtra("state"))) {
             tvTitle.setText("新建商品");
+            etSpming.setEnabled(false);
             etSpming.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -188,6 +190,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     if(!ming.equals(s.toString().trim())){
+                        Log.e("我的输入",s.toString().trim()+"这是原来的名字"+ming);
                         canShuBean.setType_tree_id("");
                         sanjiid = "";
                         getfcgname(s.toString().trim());
@@ -271,7 +274,8 @@ public class FaBuShangPinActivity extends BaseActivity {
 //                if ("".equals(sanjiid)) {
 //                    ToastUtil.showToast("请先选择分类名称");
 //                } else {
-                    if (sanjiguige.size() > 0) {
+                    int sanjisize = sanjiguige==null?0:sanjiguige.size();
+                    if (sanjisize > 0) {
                         final SinglePicker<FbspGuiGeBean> picker = new SinglePicker<FbspGuiGeBean>(FaBuShangPinActivity.this, sanjiguige);
                         picker.setCanceledOnTouchOutside(false);
                         picker.setSelectedIndex(1);
@@ -405,6 +409,7 @@ public class FaBuShangPinActivity extends BaseActivity {
             public void onItemPicked(int index, FenLeiMingChengBean item) {
                 erjiname = item.getClassify_name();
                 erjiid = item.getClassify_id() + "";
+                etSpming.setEnabled(true);
                 Log.e("erjinameerjiid", erjiname + "===" + erjiid);
                 sanjilist = new ArrayList();
                 for (int i = 0; i < zonglist.size(); i++) {
@@ -635,7 +640,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                 e.printStackTrace();
             }
             if (imageFile != null) {
-                imageUri = FileProvider.getUriForFile(this, "com.mingmen.mayi.mayibanjia.fileProvider", new File(imageFile.getAbsolutePath()));
+                imageUri = FileProvider.getUriForFile(this, mContext.getApplicationContext().getPackageName()+".fileProvider", new File(imageFile.getAbsolutePath()));
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                 startActivityForResult(takePictureIntent, REQUEST_CAPTURE);
             }
@@ -742,7 +747,8 @@ public class FaBuShangPinActivity extends BaseActivity {
                         }
                         etMiaoshu.setText(bean.getSpec_describe());
                         tvTishi.setText(bean.getSpec_describe().length()+"/50");
-                        etSpming.setText(bean.getClassify_name());
+                        ming = bean.getClassify_name()+"";
+                        etSpming.setText(bean.getClassify_name()+"");
                         tvFenleimingcheng.setText(bean.getClassify_name());
 //                        switch (bean.getChoose_specifications()) {
 //                            case 1:
@@ -771,6 +777,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                         yijiid = bean.getType_one_id();
                         erjiid = bean.getType_two_id();
                         sanjiid = bean.getType_tree_id();
+                        etSpming.setEnabled(true);
                         getguige();
 //                        tvYijiguige.setText(bean.getPackOneName());
 //                        tvErjiguige.setText(bean.getPackTwoName());
@@ -780,13 +787,12 @@ public class FaBuShangPinActivity extends BaseActivity {
                 });
     }
     private void getfcgname(final String name) {
-        Log.e("name",name+"---");
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .searchSpname(PreferenceUtils.getString(MyApplication.mContext, "token",""),name))
+                                .searchSpname(PreferenceUtils.getString(MyApplication.mContext, "token",""),erjiid,name))
                 .setDataListener(new HttpDataListener<List<ShangPinSousuoMohuBean>>() {
                     @Override
                     public void onNext(List<ShangPinSousuoMohuBean> data) {
@@ -813,6 +819,9 @@ public class FaBuShangPinActivity extends BaseActivity {
         mPopWindow.setHeight(height * 2 / 9);
         mPopWindow.setOutsideTouchable(true);
         mPopWindow.setBackgroundDrawable(new BitmapDrawable());
+        mPopWindow.setFocusable(true);
+//        mPopWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+//        mPopWindow.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
         mPopWindow.showAsDropDown(etSpming);
         rv_mohu = (RecyclerView) view.findViewById(R.id.rv_list);
         mohuAdapter = new XinJianSpMohuAdapter(mContext, datas);
@@ -821,8 +830,8 @@ public class FaBuShangPinActivity extends BaseActivity {
         mohuAdapter.setOnItemClickListener(new XinJianSpMohuAdapter.OnItemClickListener() {
             @Override
             public void onClick(View view, int position) {
-                etSpming.setText(""+datas.get(position).getClassify_name());
                 ming = ""+datas.get(position).getClassify_name();
+                etSpming.setText(""+datas.get(position).getClassify_name());
                 sanjiid = datas.get(position).getClassify_id();
                 canShuBean.setType_tree_id(datas.get(position).getClassify_id());
                 mPopWindow.dismiss();

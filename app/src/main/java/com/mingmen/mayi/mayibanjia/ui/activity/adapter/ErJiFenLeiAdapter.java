@@ -7,12 +7,13 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.FenLeiBean;
+import com.mingmen.mayi.mayibanjia.bean.ShouYeLeiBean;
 
 /**
  * Created by Administrator on 2018/8/30.
  */
 
-public class ErJiFenLeiAdapter extends BaseQuickAdapter<FenLeiBean,BaseViewHolder> {
+public class ErJiFenLeiAdapter extends BaseQuickAdapter<ShouYeLeiBean,BaseViewHolder> {
 
     public ErJiFenLeiAdapter() {
         super(R.layout.item_erjifenlei);
@@ -33,13 +34,13 @@ public class ErJiFenLeiAdapter extends BaseQuickAdapter<FenLeiBean,BaseViewHolde
         return  this;
     };
     public interface CallBack{
-        void xuanzhong(FenLeiBean msg);
+        void xuanzhong(ShouYeLeiBean msg);
     }
     public interface OnItemClickListener {
         void onClick(View view, int position);
     }
     @Override
-    protected void convert(final BaseViewHolder helper,final FenLeiBean item) {
+    protected void convert(final BaseViewHolder helper,final ShouYeLeiBean item) {
         TextView tv_erjifenlei = helper.getView(R.id.tv_erjifenlei);
         View view_xuanzhong = helper.getView(R.id.view_xuanzhong);
         if (!xuanzhongid.equals(item.getClassify_id())){

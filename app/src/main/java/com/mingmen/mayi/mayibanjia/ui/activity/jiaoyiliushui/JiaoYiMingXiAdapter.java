@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.JYMXBean;
 import com.mingmen.mayi.mayibanjia.ui.activity.JiaoYiXiangQingActivity;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 
 import java.util.List;
 
@@ -61,7 +62,12 @@ public class JiaoYiMingXiAdapter extends RecyclerView.Adapter<JiaoYiMingXiAdapte
             case "3":
                 holder.tvTitle.setText("退款");
                 holder.tvMoney.setTextColor(mContext.getResources().getColor(R.color.zicolor));
-                holder.tvMoney.setText("+"+bean.getCollect_money());
+                if(StringUtil.isValid(bean.getCollect_money())){
+                    holder.tvMoney.setText("+"+bean.getCollect_money());
+                } else {
+                    holder.tvMoney.setText("-"+bean.getPay_money());
+                }
+
                 break;
         }
         holder.tvTime.setText(bean.getCreate_time());

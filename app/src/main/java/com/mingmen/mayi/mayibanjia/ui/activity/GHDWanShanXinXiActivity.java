@@ -182,7 +182,7 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getsheng(""))
+                                .getsheng(""+qu))
                 .setDataListener(new HttpDataListener<List<ProvinceBean>>() {
                     @Override
                     public void onNext(final List<ProvinceBean> list) {
@@ -274,7 +274,7 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getshichang("230103"))
+                                .getshichang(qu+""))
                 .setDataListener(new HttpDataListener<List<ShiChangBean>>() {
                     @Override
                     public void onNext(List<ShiChangBean> list) {
@@ -457,7 +457,11 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
                 showCityPicker();
                 break;
             case R.id.tv_shichang:
-                getshichang();
+                if (city == 0) {
+                    ToastUtil.showToast("请先选择区域");
+                } else {
+                    getshichang();
+                }
                 break;
             case R.id.tv_jie:
                 if (city == 0) {
@@ -470,7 +474,7 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
     }
 
     private void zhuce() {
-        Log.e("hshshshs",fuzeren+phone+pass+yingyezhizhao+xukezheng+dianpuming+"2"+ yaoqingma+sheng+"sheng"+shi+"shi"+qu+"qu"+shichang+"shichang"+tanweihao+yanzhengma);
+        Log.e("hshshshs",fuzeren+phone+pass+yingyezhizhao+xukezheng+dianpuming+"2"+ yaoqingma+sheng+"省"+shi+"市"+qu+"区"+shichang+"shichang"+tanweihao+yanzhengma);
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
@@ -485,7 +489,8 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
                         PreferenceUtils.putString(MyApplication.mContext,"juese",list.getRole());
                         PreferenceUtils.putBoolean(MyApplication.mContext,"isLogin",true);
                         //注册成功后  跳转
-                        Intent intent = new Intent(mContext, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);  ;
+//                        Intent intent = new Intent(mContext, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        Intent intent = new Intent(mContext, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                        
                     }
@@ -669,6 +674,7 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
         File file = new FileStorage().createCropFile();
         //缩略图保存地址
         outputUri = Uri.fromFile(file);
+        Log.e("我的图片地址",outputUri+"");
         Intent intent = new Intent("com.android.camera.action.CROP");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -832,7 +838,7 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
 
                 jieming = "";
                 jie = 0;
-                tvSheng.setText("");
+//                tvSheng.setText("");
                 Log.e("我的区域编号", city + "");
             }
         })

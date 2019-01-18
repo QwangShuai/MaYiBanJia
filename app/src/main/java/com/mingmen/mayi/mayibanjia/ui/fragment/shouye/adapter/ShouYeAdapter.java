@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.MainActivity;
 import com.mingmen.mayi.mayibanjia.R;
+import com.mingmen.mayi.mayibanjia.bean.FCGName;
 import com.mingmen.mayi.mayibanjia.bean.ShouYeBannerBean;
 import com.mingmen.mayi.mayibanjia.bean.ShouYeLeiBean;
 import com.mingmen.mayi.mayibanjia.bean.ShouYeShangChangBean;
@@ -62,14 +63,14 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private ShouYeTeJiaAdapter shiJiBiaoQianAdapter;
     private List<String> imgs = new ArrayList<>();
     private  List<ShouYeBannerBean> bannerBean;
-    private  List<ShouYeLeiBean> leiBean;
+    private  List<FCGName> leiBean;
     private  List<ShouYeTeJiaBean> teJiaBean;
     private  List<ShouYeShangChangBean> shangJiaBean;
     private MainActivity activity;
     private String dingwei = "";
     private String province = "";
 //    public ShouYeAdapter(Context context, List<ShouYeBannerBean> bannerBean,List<ShouYeLeiBean> leiBean,List<ShouYeTeJiaBean> teJiaBean,MainActivity activity) {
-    public ShouYeAdapter(Context context, List<ShouYeBannerBean> bannerBean,List<ShouYeShangChangBean> shangJiaBean,List<ShouYeLeiBean> leiBean,List<ShouYeTeJiaBean> teJiaBean,MainActivity activity,String dingwei,String province) {
+    public ShouYeAdapter(Context context, List<ShouYeBannerBean> bannerBean,List<ShouYeShangChangBean> shangJiaBean,List<FCGName> leiBean,List<ShouYeTeJiaBean> teJiaBean,MainActivity activity,String dingwei,String province) {
         this.mContext = context;
         this.bannerBean = bannerBean;
         this.leiBean = leiBean;
@@ -181,7 +182,7 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         Log.e("sssss","zixun");
 //        if(shiJiBean.getZixun().size()!=0){
         //滑动卡片
-        List<List<ShouYeLeiBean>> datas = new ArrayList<>();
+        List<List<FCGName>> datas = new ArrayList<>();
 //        datas.addAll(leiBean);
         int count=0;
         int mysize = 0;
@@ -192,7 +193,7 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             mysize++;
         }
         for (int i = 0; i < mysize; i++) {
-            List<ShouYeLeiBean> list=new ArrayList<>();
+            List<FCGName> list=new ArrayList<>();
             if(i<mysize-1){
                 for (int j = 0; j < 8; j++) {
                     list.add(leiBean.get(count));
@@ -217,7 +218,7 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         ZiXunPagingScrollHelper rp = new ZiXunPagingScrollHelper();
         rp.setIndicator(holder.indicator);
         rp.setUpRecycleView(holder.recycler_view);
-        rp.setAdapter(adapter);
+        rp.setAdapter(adapter,0);
         rp.setOnPageChangeListener(new ZiXunPagingScrollHelper.onPageChangeListener() {
             @Override
             public void onPageChange(int index) {

@@ -228,7 +228,7 @@ public class ZhuCeActivity extends BaseActivity {
                 break;
             case R.id.bt_xiayibu:
                 //下一步
-                btXiayibu.setEnabled(false);
+//                btXiayibu.setEnabled(false);
                 if(yemian.equals("1")){
                     querenYanzhengma();
                 } else {
@@ -298,7 +298,7 @@ public class ZhuCeActivity extends BaseActivity {
                                 }
                             }
                         }
-                    },false);
+                    },true);
 
 
     }
@@ -343,7 +343,7 @@ public class ZhuCeActivity extends BaseActivity {
 
 
                     }
-                });
+                },true);
     }
 
     private void tiaozhuan(String juese,int random_id) {

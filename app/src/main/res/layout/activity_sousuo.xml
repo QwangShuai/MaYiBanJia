@@ -76,6 +76,7 @@
                     android:imeOptions="actionSearch"
                     android:singleLine="true"/>
                 <LinearLayout
+                    android:visibility="gone"
                     android:gravity="center_vertical"
                     android:id="@+id/ll_xiala"
                     android:layout_marginRight="12dp"

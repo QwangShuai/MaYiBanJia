@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -173,11 +174,23 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     private TextView tvPinzhongPop;
     private TextView tvShichangLablePop;
     private TextView tvShichangPop;
+    private TextView tvYiji;
+    private TextView tvErji;
+    private TextView tvSanji;
     private LinearLayout llPinleiPop;
     private LinearLayout llPinzhongPop;
     private LinearLayout llShichangPop;
     private LinearLayout llShichangjiaPop;
     private LinearLayout llSousuoPop;
+    private ScrollView svShichang;
+    private RecyclerView rvYiji;
+    private RecyclerView rvErji;
+    private RecyclerView rvSanji;
+    private RecyclerView rv_yijifenlei;
+
+    private ShiChangAdapter yijiAdapter = new ShiChangAdapter();
+    private ShiChangAdapter erjiAdapter = new ShiChangAdapter();
+    private ShiChangAdapter sanjiAdapter = new ShiChangAdapter();
 
     @Override
     protected View getSuccessView() {
@@ -205,6 +218,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 window.setStatusBarColor(getResources().getColor(R.color.white));
             }
         }
+
         bindPop();
         getShouyeFenLei(yclId, "2");
         leiAdapter = new QuanBuCaiPinLeiAdapter(mContext, lei_datas, this);
@@ -359,7 +373,6 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                     @Override
                     public void onNext(final List<FCGName> data) {
                         datas.clear();
-                        Log.e("我的数据", new Gson().toJson(data));
                         datas.addAll(data);
                         ToastUtil.showToast("++++" + datas.size());
                     }
@@ -564,6 +577,8 @@ public class QuanBuCaiPinFragment extends BaseFragment {
             showYiji();
         } else if(state==2){
             showErji();
+        } else if(state==3){
+            showShichang();
         }
         llPinleiPop.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -580,7 +595,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         llShichangPop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                showShichang();
             }
         });
         ivBackPop.setOnClickListener(new View.OnClickListener() {
@@ -673,7 +688,58 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                     @Override
                     public void onNext(AllShiChangBean data) {
                         shiChangBean = data;
-                        showShaiXuanPop();
+                        if (shiChangBean.getOneList() != null) {
+                            yijiAdapter.setNewData(shiChangBean.getOneList());
+                        } else {
+                            tvYiji.setVisibility(View.GONE);
+                        }
+                        yijiAdapter.setXuanZhongId(shichangid)
+                                .setCallBack(new ShiChangAdapter.CallBack() {
+                                    @Override
+                                    public void xuanzhong(AllShiChangBean.Bean msg) {
+                                        shuaxinAdapter(msg);
+                                        sousuoshangpin(sousuo, "0");
+                                    }
+                                });
+                        rvYiji.setLayoutManager(new GridLayoutManager(mContext, 2));
+                        rvYiji.setAdapter(yijiAdapter);
+
+                        if (shiChangBean.getTwoList() != null) {
+                            erjiAdapter.setNewData(shiChangBean.getTwoList());
+                            Log.e("erji", "erji");
+                        } else {
+                            tvErji.setVisibility(View.GONE);
+                        }
+                        erjiAdapter
+                                .setXuanZhongId(shichangid)
+                                .setCallBack(new ShiChangAdapter.CallBack() {
+                                    @Override
+                                    public void xuanzhong(AllShiChangBean.Bean msg) {
+                                        shuaxinAdapter(msg);
+                                        sousuoshangpin(sousuo, "0");
+                                    }
+                                });
+                        rvErji.setLayoutManager(new GridLayoutManager(mContext, 2));
+                        rvErji.setAdapter(erjiAdapter);
+
+
+                        if (shiChangBean.getThreeList() != null) {
+                            Log.e("sanji", "sanji");
+                            sanjiAdapter.setNewData(shiChangBean.getThreeList());
+                        } else {
+                            tvSanji.setVisibility(View.GONE);
+                        }
+                        sanjiAdapter
+                                .setXuanZhongId(shichangid)
+                                .setCallBack(new ShiChangAdapter.CallBack() {
+                                    @Override
+                                    public void xuanzhong(AllShiChangBean.Bean msg) {
+                                        shuaxinAdapter(msg);
+                                        sousuoshangpin(sousuo, "0");
+                                    }
+                                });
+                        rvSanji.setLayoutManager(new GridLayoutManager(mContext, 2));
+                        rvSanji.setAdapter(sanjiAdapter);
                     }
                 }, false);
     }
@@ -745,7 +811,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 startActivityForResult(new Intent(mContext, SouSuoActivity.class),REQUEST_CODE);
                 break;
             case R.id.ll_shichang:
-                getshichang();
+                showYiJiPop(3);
                 break;
             case R.id.ll_pinzhong:
                 //品类
@@ -1041,7 +1107,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 });
     }
 
-    private void bindPop(){
+    private void bindPop() {
         view = View.inflate(mContext, R.layout.pop_pinlei, null);
         yijipop = new PopupWindow(view);
         ivBackPop = (ImageView) view.findViewById(R.id.iv_back_pop);
@@ -1056,10 +1122,22 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         tvPinzhongPop = (TextView) view.findViewById(R.id.tv_pinzhong_pop);
         tvShichangLablePop = (TextView) view.findViewById(R.id.tv_shichang_lable_pop);
         tvShichangPop = (TextView) view.findViewById(R.id.tv_shichang_pop);
+        svShichang = (ScrollView) view.findViewById(R.id.sv_shichang);
+        rvYiji = (RecyclerView) view.findViewById(R.id.rv_yijishichang);
+        rvErji = (RecyclerView) view.findViewById(R.id.rv_erjishichang);
+        rvSanji = (RecyclerView) view.findViewById(R.id.rv_sanjishichang);
+        tvYiji = (TextView) view.findViewById(R.id.tv_yiji);
+        tvErji = (TextView) view.findViewById(R.id.tv_yiji);
+        tvErji = (TextView) view.findViewById(R.id.tv_yiji);
+        rv_yijifenlei = view.findViewById(R.id.rv_yijifenlei);
+        getshichang();
+
     }
 
     private void showYiji(){
         tvLablePop.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+        rv_yijifenlei.setVisibility(View.VISIBLE);
+        svShichang.setVisibility(View.GONE);
         if(StringUtil.isValid(erjipinleiname)){
             tvPinleiPop.setText(erjipinleiname);
             tvPinleiPop.setTextColor(mContext.getResources().getColor(R.color.zangqing));
@@ -1067,7 +1145,6 @@ public class QuanBuCaiPinFragment extends BaseFragment {
             tvPinleiPop.setText("全部");
             tvPinleiPop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
         }
-        RecyclerView rv_yijifenlei = view.findViewById(R.id.rv_yijifenlei);
         rv_yijifenlei.setLayoutManager(manager);
         rv_yijifenlei.setAdapter(adapter);
         adapter.setNewData(yijiFenLei);
@@ -1093,6 +1170,8 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     }
 
     private void showErji(){
+        rv_yijifenlei.setVisibility(View.VISIBLE);
+        svShichang.setVisibility(View.GONE);
         tvPinzhongLablePop.setTextColor(mContext.getResources().getColor(R.color.zangqing));
         if(StringUtil.isValid(sanjipinleiname)){
             tvPinzhongPop.setText(sanjipinleiname);
@@ -1101,9 +1180,8 @@ public class QuanBuCaiPinFragment extends BaseFragment {
             tvPinzhongPop.setText("全部");
             tvPinzhongPop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
         }
-        RecyclerView rv_erjifenlei = view.findViewById(R.id.rv_yijifenlei);
-        rv_erjifenlei.setLayoutManager(manager);
-        rv_erjifenlei.setAdapter(erjiadapter);
+        rv_yijifenlei.setLayoutManager(manager);
+        rv_yijifenlei.setAdapter(erjiadapter);
         erjiadapter.setNewData(erjiFenLei);
 //            erjiadapter.notifyDataSetChanged();
         erjiadapter.setCallBack(new YiJiFenLeiAdapter.CallBack() {
@@ -1124,5 +1202,32 @@ public class QuanBuCaiPinFragment extends BaseFragment {
 
             }
         });
+    }
+    private void showShichang(){
+        rv_yijifenlei.setVisibility(View.GONE);
+        svShichang.setVisibility(View.VISIBLE);
+        tvShichangLablePop.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+        if(StringUtil.isValid(shichangname)){
+            tvShichangPop.setText(shichangname);
+            tvShichangPop.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+        } else {
+            tvShichangPop.setText("全部");
+            tvShichangPop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
+        }
+
+    }
+    private void shuaxinAdapter(AllShiChangBean.Bean msg){
+        yijipop.dismiss();
+        Log.e("item", new Gson().toJson(msg));
+        shichangname = msg.getMarket_name();
+        shichangid = msg.getMark_id();
+        tvShichang.setText(shichangname);
+        tvShichang.setTextColor(getResources().getColor(R.color.zangqing));
+        yijiAdapter.setXuanZhongId(shichangid);
+        erjiAdapter.setXuanZhongId(shichangid);
+        sanjiAdapter.setXuanZhongId(shichangid);
+        yijiAdapter.notifyDataSetChanged();
+        erjiAdapter.notifyDataSetChanged();
+        sanjiAdapter.notifyDataSetChanged();
     }
 }

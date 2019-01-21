@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.PagerSlidingTabStrip;
-import com.mingmen.mayi.mayibanjia.utils.dayinji.PrintfManager;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -27,7 +26,6 @@ public class GHDOrderActivity extends BaseActivity {
     @BindView(R.id.vp_dingdan)
     ViewPager vpDingdan;
     private GHAdapter adapter;
-    private PrintfManager printfManager;
     private int ye = 0;
     private String token="";
 
@@ -53,8 +51,6 @@ public class GHDOrderActivity extends BaseActivity {
         ye = getIntent().getIntExtra("ye",0);
         setToken(getIntent().getStringExtra("token"));
         vpDingdan.setCurrentItem(ye);
-        printfManager = PrintfManager.getInstance(this);
-        printfManager.defaultConnection();
     }
     @OnClick({R.id.iv_fanhui, R.id.iv_sousuo})
     public void onViewClicked(View view) {
@@ -69,6 +65,5 @@ public class GHDOrderActivity extends BaseActivity {
     }
 
     public void dayinQrCode(Bitmap bitmap){
-        printfManager.printf(48,50,bitmap,this);
     }
 }

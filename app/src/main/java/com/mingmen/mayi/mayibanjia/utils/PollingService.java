@@ -20,6 +20,7 @@ import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.MainActivity;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
@@ -55,14 +56,12 @@ public class PollingService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.e("result", "轮询服务被创建onCreate");
         Timer timer = new Timer();
         if (PollingUtils.isOpen) {
             TimerTask task = new TimerTask() {
                 @Override
                 public void run() {
                     try {
-                        Log.e("--------------", "New message!...");
                         qiangdan();
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -78,9 +77,8 @@ public class PollingService extends Service {
     }
 
     private void qiangdan() {
-        Log.e("PreferenceUtils.getString(MyApplicat)", PreferenceUtils.getString(MyApplication.mContext, "token", ""));
         HttpManager.getInstance()
-                .with(mContext)
+                .with(MyApplication.mContext)
                 .setObservable(
                         RetrofitManager
                                 .getService()
@@ -88,8 +86,9 @@ public class PollingService extends Service {
                 .setDataListener(new HttpDataListener<List<QiangDanBean>>() {
                     @Override
                     public void onNext(List<QiangDanBean> data) {
-                        Log.e("data", data.size() + "---");
-                        if (data.size() == 0) {
+                        Log.e("我的数据",new Gson().toJson(data));
+                        int size = data==null?0:data.size();
+                        if (size == 0) {
                             return;
                         }
                         showNotification(mContext, data.size());
@@ -100,7 +99,6 @@ public class PollingService extends Service {
     @Override
     public void onStart(Intent intent, int startId) {
         super.onStart(intent, startId);
-        Log.i("result", "onStart");
     }
 
     /**
@@ -129,12 +127,10 @@ public class PollingService extends Service {
         PendingIntent intentPend = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         builder.setContentIntent(intentPend);
         manager.notify((int) (Math.random() * 100), builder.build());
-        Log.e("华为测试","您有" + size + "条新的订单");
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.i("result", "轮询服务销毁了");
     }
 }

@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -119,6 +120,8 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     LinearLayout llShichangjia;
     @BindView(R.id.view_zhanwei)
     View viewZhanwei;
+    @BindView(R.id.rl_lei)
+    RelativeLayout rlLei;
 
     private ShiChangSouSuoShangPinListAdapter shichangadapter;
     private ArrayList<ShiChangSouSuoShangPinBean> shichanglist = new ArrayList<>();
@@ -192,6 +195,8 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     private ShiChangAdapter erjiAdapter = new ShiChangAdapter();
     private ShiChangAdapter sanjiAdapter = new ShiChangAdapter();
 
+    private int viewHeight;
+    private int mystate = 0;
     @Override
     protected View getSuccessView() {
         viewSPYXFragment = View.inflate(MyApplication.mContext, R.layout.fragment_quanbucaipin, null);
@@ -258,12 +263,42 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                         }, false);
             }
         };
-
+        viewHeight = rlLei.getHeight();
         rvShangpin.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         rvShangpin.useDefaultLoadMore(); // 使用默认的加载更多的View。
         rvShangpin.setLoadMoreListener(mLoadMoreListener); // 加载更多的监听。
         rvShangpin.loadMoreFinish(false, true);
+        rvShangpin.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
 
+                if(newState==RecyclerView.SCROLL_STATE_IDLE){
+                    if(mystate==1){
+                        if(rlLei.getVisibility()==View.VISIBLE?false:true){
+                            rlLei.setVisibility(View.VISIBLE);
+                        }
+                        mystate = 0;
+                    } else if(mystate==2){
+                        if(rlLei.getVisibility()==View.VISIBLE?true:false){
+                            rlLei.setVisibility(View.GONE);
+                        }
+                        mystate = 0;
+                    }
+                }
+            }
+
+            @Override
+            public void onScrolled(RecyclerView r, int dx, int dy) {
+                super.onScrolled(r, dx, dy);
+
+                if (dy+viewHeight < 0) {
+                    mystate =1;
+                } else if (dy-viewHeight > 0) {
+                    mystate = 2;
+                }
+            }
+        });
         refreshLayout.setColorSchemeResources(R.color.zangqing, R.color.zangqing,
                 R.color.zangqing, R.color.zangqing);
 
@@ -379,197 +414,6 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 });
     }
 
-    private void showShaiXuanPop() {
-        View view = View.inflate(mContext, R.layout.pop_shaixuan, null);
-        shaixuanpop = new PopupWindow(view);
-        view.setFocusable(false);
-        shaixuanpop.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
-        shaixuanpop.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-
-        //设置可以获取焦点，否则弹出菜单中的EditText是无法获取输入的
-        shaixuanpop.setFocusable(true);
-        //这句是为了防止弹出菜单获取焦点之后，点击activity的其他组件没有响应
-        shaixuanpop.setBackgroundDrawable(new BitmapDrawable());
-        //防止虚拟软键盘被弹出菜单遮住
-        shaixuanpop.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-//        //在底部显示
-//        shaixuanpop.showAtLocation(this,Gravity.BOTTOM, 0, 0);
-        WindowManager wm1 = getActivity().getWindowManager();
-        int width = wm1.getDefaultDisplay().getWidth();
-        int height = wm1.getDefaultDisplay().getHeight();
-
-        final RecyclerView rv_yijishichang = view.findViewById(R.id.rv_yijishichang);
-        final RecyclerView rv_erjishichang = view.findViewById(R.id.rv_erjishichang);
-        final RecyclerView rv_sanjishichang = view.findViewById(R.id.rv_sanjishichang);
-
-        LinearLayout ll_yijishichang = view.findViewById(R.id.ll_yijishichang);
-        LinearLayout ll_erjishichang = view.findViewById(R.id.ll_erjishichang);
-        LinearLayout ll_sanjishichang = view.findViewById(R.id.ll_sanjishichang);
-        TextView tv_queding = view.findViewById(R.id.tv_queding);
-        TextView tv_chongzhi = view.findViewById(R.id.tv_chongzhi);
-        final EditText et_jiagedi = view.findViewById(R.id.et_jiagedi);
-        final EditText et_jiagegao = view.findViewById(R.id.et_jiagegao);
-
-//        et_jiagedi.setFocusable(true);
-//        et_jiagegao.setFocusable(true);
-        final ImageView iv_yiji = view.findViewById(R.id.iv_yiji);
-        final ImageView iv_erji = view.findViewById(R.id.iv_erji);
-        final ImageView iv_sanji = view.findViewById(R.id.iv_sanji);
-
-        final ShiChangAdapter yijiadapter = new ShiChangAdapter();
-        final ShiChangAdapter erjiadapter = new ShiChangAdapter();
-        final ShiChangAdapter sanjiadapter = new ShiChangAdapter();
-
-        shaixuanpop.setWidth(width);
-        shaixuanpop.setHeight(height - AppUtil.dip2px(165));
-
-        et_jiagedi.setText(zuidijia);
-        et_jiagegao.setText(zuigaojia);
-
-        tv_queding.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                zuidijia = et_jiagedi.getText().toString().trim();
-                zuigaojia = et_jiagegao.getText().toString().trim();
-                tvShichang.setText(StringUtil.isEmpty(shichangname) ? "不限" : shichangname);
-                tvShichang.setTextColor(StringUtil.isEmpty(shichangname) ? getResources().getColor(R.color.zicolor) : getResources().getColor(R.color.zangqing));
-                sousuoshangpin(sousuo, "0");
-                shaixuanpop.dismiss();
-            }
-        });
-        tv_chongzhi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                et_jiagedi.setText("");
-                et_jiagegao.setText("");
-                shichangid = "";
-                shichangname = "";
-                yijiadapter.setXuanZhongId(shichangid);
-                erjiadapter.setXuanZhongId(shichangid);
-                sanjiadapter.setXuanZhongId(shichangid);
-                yijiadapter.notifyDataSetChanged();
-                erjiadapter.notifyDataSetChanged();
-                sanjiadapter.notifyDataSetChanged();
-            }
-        });
-
-
-        if (shiChangBean.getOneList() != null) {
-            yijiadapter.setNewData(shiChangBean.getOneList());
-        }
-        yijiadapter.setXuanZhongId(shichangid)
-                .setCallBack(new ShiChangAdapter.CallBack() {
-                    @Override
-                    public void xuanzhong(AllShiChangBean.Bean msg) {
-                        Log.e("item", new Gson().toJson(msg));
-                        shichangname = msg.getMarket_name();
-                        shichangid = msg.getMark_id();
-                        tvShichang.setText(shichangname);
-                        tvShichang.setTextColor(getResources().getColor(R.color.zangqing));
-                        yijiadapter.setXuanZhongId(shichangid);
-                        erjiadapter.setXuanZhongId(shichangid);
-                        sanjiadapter.setXuanZhongId(shichangid);
-                        yijiadapter.notifyDataSetChanged();
-                        erjiadapter.notifyDataSetChanged();
-                        sanjiadapter.notifyDataSetChanged();
-                    }
-                });
-        rv_yijishichang.setLayoutManager(new GridLayoutManager(mContext, 2));
-        rv_yijishichang.setAdapter(yijiadapter);
-
-        if (shiChangBean.getTwoList() != null) {
-            erjiadapter.setNewData(shiChangBean.getTwoList());
-            Log.e("erji", "erji");
-        }
-        erjiadapter
-                .setXuanZhongId(shichangid)
-                .setCallBack(new ShiChangAdapter.CallBack() {
-                    @Override
-                    public void xuanzhong(AllShiChangBean.Bean msg) {
-                        Log.e("item", new Gson().toJson(msg));
-                        shichangname = msg.getMarket_name();
-                        shichangid = msg.getMark_id();
-                        yijiadapter.setXuanZhongId(shichangid);
-                        erjiadapter.setXuanZhongId(shichangid);
-                        sanjiadapter.setXuanZhongId(shichangid);
-                        yijiadapter.notifyDataSetChanged();
-                        erjiadapter.notifyDataSetChanged();
-                        sanjiadapter.notifyDataSetChanged();
-                    }
-                });
-        rv_erjishichang.setLayoutManager(new GridLayoutManager(mContext, 2));
-        rv_erjishichang.setAdapter(erjiadapter);
-
-
-        if (shiChangBean.getThreeList() != null) {
-            Log.e("sanji", "sanji");
-            sanjiadapter.setNewData(shiChangBean.getThreeList());
-        }
-        sanjiadapter
-                .setXuanZhongId(shichangid)
-                .setCallBack(new ShiChangAdapter.CallBack() {
-                    @Override
-                    public void xuanzhong(AllShiChangBean.Bean msg) {
-                        Log.e("item", new Gson().toJson(msg));
-                        shichangname = msg.getMarket_name();
-                        shichangid = msg.getMark_id();
-
-                        yijiadapter.setXuanZhongId(shichangid);
-                        erjiadapter.setXuanZhongId(shichangid);
-                        sanjiadapter.setXuanZhongId(shichangid);
-                        yijiadapter.notifyDataSetChanged();
-                        erjiadapter.notifyDataSetChanged();
-                        sanjiadapter.notifyDataSetChanged();
-                    }
-                });
-        rv_sanjishichang.setLayoutManager(new GridLayoutManager(mContext, 2));
-        rv_sanjishichang.setAdapter(sanjiadapter);
-
-
-        ll_yijishichang.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (rv_yijishichang.getVisibility() == 0) {
-                    rv_yijishichang.setVisibility(View.GONE);
-                    Log.e("rv_yijishichang", "一级关");
-                    iv_yiji.setImageResource(R.mipmap.jinru);
-                } else {
-                    rv_yijishichang.setVisibility(View.VISIBLE);
-                    Log.e("rv_yijishichang", "一级kai ");
-                    iv_yiji.setImageResource(R.mipmap.xia_kongxin_hui);
-
-                }
-
-            }
-        });
-        ll_erjishichang.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (rv_erjishichang.getVisibility() == 0) {
-                    rv_erjishichang.setVisibility(View.GONE);
-                    iv_erji.setImageResource(R.mipmap.jinru);
-                } else {
-                    rv_erjishichang.setVisibility(View.VISIBLE);
-                    iv_erji.setImageResource(R.mipmap.xia_kongxin_hui);
-                }
-            }
-        });
-        ll_sanjishichang.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (rv_sanjishichang.getVisibility() == 0) {
-                    rv_sanjishichang.setVisibility(View.GONE);
-                    iv_sanji.setImageResource(R.mipmap.jinru);
-                } else {
-                    rv_sanjishichang.setVisibility(View.VISIBLE);
-                    iv_sanji.setImageResource(R.mipmap.xia_kongxin_hui);
-                }
-            }
-        });
-        shaixuanpop.setOutsideTouchable(true);
-        shaixuanpop.setBackgroundDrawable(new BitmapDrawable());
-        shaixuanpop.showAsDropDown(llTitle);
-    }
 
 
     private void showYiJiPop(int state) {
@@ -580,59 +424,11 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         } else if(state==3){
             showShichang();
         }
-        llPinleiPop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showYiji();
-            }
-        });
-        llPinzhongPop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showErji();
-            }
-        });
-        llShichangPop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showShichang();
-            }
-        });
-        ivBackPop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                yijipop.dismiss();
-            }
-        });
-        llSousuoPop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                yijipop.dismiss();
-                startActivityForResult(new Intent(mContext, SouSuoActivity.class),REQUEST_CODE);
-            }
-        });
-        llShichangjiaPop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                yijipop.dismiss();
-                if(StringUtil.isValid(sanjipinleiid)){
-                    if(rvShichangjia.getVisibility()==View.VISIBLE?true:false){
-                        shichanglist.clear();
-                        rvShichangjia.setVisibility(View.GONE);
-                    } else {
-                        sousuoshichang();
-                    }
-                } else {
-                    ToastUtil.showToastLong("您还没有选择商品的品种");
-                }
-            }
-        });
-        WindowManager wm1 = getActivity().getWindowManager();
-        int width = wm1.getDefaultDisplay().getWidth();
-        int height = wm1.getDefaultDisplay().getHeight();
-        yijipop.setWidth(width);
-        yijipop.setHeight(height);
-        yijipop.setClippingEnabled(false);
+//        recyclerView.setVisibility(View.GONE);
+        yijipop.showAsDropDown(viewZhanwei);
+    }
+
+    private void setMyManager(){
         manager = new GridLayoutManager(mContext, 3);
 
         manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -645,12 +441,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 }
             }
         });
-        yijipop.setOutsideTouchable(true);
-        yijipop.setBackgroundDrawable(new BitmapDrawable());
-//        recyclerView.setVisibility(View.GONE);
-        yijipop.showAsDropDown(viewZhanwei);
     }
-
 
     //添加购物车
     private void addcar(final String spid, String shuliang, String dianpuid, String gouwucheid, String guigeid) {
@@ -752,24 +543,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
 //                //地区
 //                break;
             case R.id.ll_pinlei:
-                if(StringUtil.isValid(yijipinleiid)){
-                    //品类
-                    if (isLodeFenLei) {
-                        Log.e("是否展示了", yijipop.isShowing() + "");
-                        yijipop.setFocusable(true);
-                        if (yijipop.isShowing()) {
-                            yijipop.dismiss();
-                        } else {
-//                        yijipop.showAsDropDown(llShichang);
-                            showYiJiPop(1);
-                        }
-                    } else {
-                        getShouyeFenLei(xzId, "3");
-                    }
-                } else {
-                    ToastUtil.showToastLong("请先选择商品的一级分类");
-                }
-
+                showPopOne();
                 break;
             case R.id.tv_xiaoliang:
                 ye = 1;
@@ -814,23 +588,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 showYiJiPop(3);
                 break;
             case R.id.ll_pinzhong:
-                //品类
-                if(StringUtil.isValid(erjipinleiid)){
-                    if (isLodeFenLei) {
-                        yijipop.setFocusable(true);
-                        if (yijipop.isShowing()) {
-                            yijipop.dismiss();
-                        } else {
-//                        yijipop.showAsDropDown(llShichang);
-                            showYiJiPop(2);
-                        }
-                    } else {
-                        getShouyeFenLei(xzId_2, "4");
-                    }
-                } else {
-                    ToastUtil.showToastLong("请先选择商品的二级分类");
-                }
-
+                showPopTwo();
                 break;
             case R.id.ll_shichangjia:
                 if(StringUtil.isValid(sanjipinleiid)){
@@ -1031,6 +789,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         leiAdapter.setXuanzhongId(id);
         leiAdapter.notifyDataSetChanged();
         setState();
+        sousuoshangpin("",type);
     }
 
     private void setState(){
@@ -1048,6 +807,10 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode==2){
             if(requestCode==REQUEST_CODE){
+                yijipinleiid = "";
+                leiAdapter.setXuanzhongId(yijipinleiid);
+                leiAdapter.notifyDataSetChanged();
+                setState();
                 erjipinleiid =data.getStringExtra("three_id");
                 if(StringUtil.isValid(data.getStringExtra("four_id"))){
                     sanjipinleiid = data.getStringExtra("four_id");
@@ -1132,9 +895,67 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         rv_yijifenlei = view.findViewById(R.id.rv_yijifenlei);
         getshichang();
 
+        llPinleiPop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               showPopOne();
+            }
+        });
+        llPinzhongPop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopTwo();
+            }
+        });
+        llShichangPop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showShichang();
+            }
+        });
+        ivBackPop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                yijipop.dismiss();
+            }
+        });
+        llSousuoPop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                yijipop.dismiss();
+                startActivityForResult(new Intent(mContext, SouSuoActivity.class),REQUEST_CODE);
+            }
+        });
+        llShichangjiaPop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                yijipop.dismiss();
+                if(StringUtil.isValid(sanjipinleiid)){
+                    if(rvShichangjia.getVisibility()==View.VISIBLE?true:false){
+                        shichanglist.clear();
+                        rvShichangjia.setVisibility(View.GONE);
+                    } else {
+                        sousuoshichang();
+                    }
+                } else {
+                    ToastUtil.showToastLong("您还没有选择商品的品种");
+                }
+            }
+        });
+
+        WindowManager wm1 = getActivity().getWindowManager();
+        int width = wm1.getDefaultDisplay().getWidth();
+        int height = wm1.getDefaultDisplay().getHeight();
+        yijipop.setWidth(width);
+        yijipop.setHeight(height);
+        yijipop.setClippingEnabled(false);
+
+        yijipop.setOutsideTouchable(true);
+        yijipop.setBackgroundDrawable(new BitmapDrawable());
     }
 
     private void showYiji(){
+        setPopColor();
         tvLablePop.setTextColor(mContext.getResources().getColor(R.color.zangqing));
         rv_yijifenlei.setVisibility(View.VISIBLE);
         svShichang.setVisibility(View.GONE);
@@ -1167,9 +988,11 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 sousuoshangpin(sousuo, "0");
             }
         });
+        setMyManager();
     }
 
     private void showErji(){
+        setPopColor();
         rv_yijifenlei.setVisibility(View.VISIBLE);
         svShichang.setVisibility(View.GONE);
         tvPinzhongLablePop.setTextColor(mContext.getResources().getColor(R.color.zangqing));
@@ -1183,7 +1006,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         rv_yijifenlei.setLayoutManager(manager);
         rv_yijifenlei.setAdapter(erjiadapter);
         erjiadapter.setNewData(erjiFenLei);
-//            erjiadapter.notifyDataSetChanged();
+            erjiadapter.notifyDataSetChanged();
         erjiadapter.setCallBack(new YiJiFenLeiAdapter.CallBack() {
             @Override
             public void xuanzhong(FCGName msg) {
@@ -1202,8 +1025,10 @@ public class QuanBuCaiPinFragment extends BaseFragment {
 
             }
         });
+        setMyManager();
     }
     private void showShichang(){
+        setPopColor();
         rv_yijifenlei.setVisibility(View.GONE);
         svShichang.setVisibility(View.VISIBLE);
         tvShichangLablePop.setTextColor(mContext.getResources().getColor(R.color.zangqing));
@@ -1229,5 +1054,53 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         yijiAdapter.notifyDataSetChanged();
         erjiAdapter.notifyDataSetChanged();
         sanjiAdapter.notifyDataSetChanged();
+    }
+    private void setPopColor(){
+        shichangid = "";
+        shichangname = "全部";
+        tvShichangPop.setText(shichangname);
+        tvLablePop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
+        tvPinzhongLablePop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
+        tvShichangLablePop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
+    }
+
+    private void showPopOne(){
+        if(StringUtil.isValid(yijipinleiid)){
+            //品类
+            if (isLodeFenLei) {
+                Log.e("是否展示了", yijipop.isShowing() + "");
+                yijipop.setFocusable(true);
+                if (yijipop.isShowing()) {
+                    yijipop.dismiss();
+                } else {
+//                        yijipop.showAsDropDown(llShichang);
+                    showYiJiPop(1);
+                }
+            } else {
+                getShouyeFenLei(xzId, "3");
+            }
+        } else {
+            ToastUtil.showToastLong("请先选择商品的一级分类");
+        }
+    }
+
+    private void showPopTwo(){
+        //品类
+        if(StringUtil.isValid(erjipinleiid)){
+            if (isLodeFenLei) {
+                yijipop.setFocusable(true);
+                if (yijipop.isShowing()) {
+                    yijipop.dismiss();
+                } else {
+//                        yijipop.showAsDropDown(llShichang);
+                    showYiJiPop(2);
+                }
+            } else {
+                getShouyeFenLei(xzId_2, "4");
+            }
+        } else {
+            ToastUtil.showToastLong("请先选择商品的二级分类");
+        }
+
     }
 }

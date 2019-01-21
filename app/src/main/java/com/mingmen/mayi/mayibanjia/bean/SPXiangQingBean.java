@@ -773,7 +773,7 @@ public class SPXiangQingBean {
             private String picture_url;
             private String ration_one;
             private String ration_two;
-            private int pice_one;
+            private double pice_one;
             private int pice_two;
             private int pice_three;
             private String company_id;
@@ -863,11 +863,11 @@ public class SPXiangQingBean {
                 this.ration_two = ration_two;
             }
 
-            public int getPice_one() {
+            public double getPice_one() {
                 return pice_one;
             }
 
-            public void setPice_one(int pice_one) {
+            public void setPice_one(double pice_one) {
                 this.pice_one = pice_one;
             }
 

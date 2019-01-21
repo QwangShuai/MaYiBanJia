@@ -20,7 +20,6 @@ import com.mingmen.mayi.mayibanjia.ui.activity.adapter.YinHangKaAdapter;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
-import com.mingmen.mayi.mayibanjia.utils.dayinji.PermissionUtil;
 
 import java.util.ArrayList;
 import java.util.List;

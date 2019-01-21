@@ -123,13 +123,7 @@ public interface HttpService {
                                                       @Query("business_license") String business_license,//营业执照
                                                       @Query("circulation_permit") String circulation_permit,//食品流通许可证
                                                       @Query("company_id") String company_id,//企业id
-                                                      @Query("role") String role,//1餐厅端,2供应端
                                                       @Query("salesman_code") String salesman_code,//邀请码
-                                                      @Query("province") String province,//省 供应角色时为必填项
-                                                      @Query("city") String city,//市供 应角色时为必填项
-                                                      @Query("district") String district,//区供 应角色时为必填项
-                                                      @Query("son_number") String son_number,//市场 供应角色时为必填项
-                                                      @Query("booth_number") String booth_number,//摊位号 供应角色时为必填项
                                                       @Query("yzm") String yzm//验证码
     );
 

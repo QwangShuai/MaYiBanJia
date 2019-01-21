@@ -175,6 +175,7 @@ public class LoginActivity extends BaseActivity {
                         PreferenceUtils.putString(MyApplication.mContext,"phone",bean.getTelephone());
                         PreferenceUtils.putBoolean(MyApplication.mContext, "isLogin", true);
                         PreferenceUtils.putString(MyApplication.mContext, "token", bean.getToken());
+                        Log.e("role","onNext: "+bean.getRole() );
                         PreferenceUtils.putString(MyApplication.mContext, "juese", bean.getRole());
                         PreferenceUtils.putInt(MyApplication.mContext,"random_id",bean.getRandom_id());
                         tiaozhuan(bean.getRole(),bean.getRandom_id());
@@ -199,12 +200,12 @@ public class LoginActivity extends BaseActivity {
             startActivity(intent);
             finish();
         } else if ("2".equals(juese)) {//供应端
-            if(random_id==0){
-                Intent intent = new Intent(mContext, GongYingDuanShouYeActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            if(random_id==1){
+                Intent intent = new Intent(mContext, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
             } else {
-                Intent intent = new Intent(mContext, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                Intent intent = new Intent(mContext, GongYingDuanShouYeActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
             }

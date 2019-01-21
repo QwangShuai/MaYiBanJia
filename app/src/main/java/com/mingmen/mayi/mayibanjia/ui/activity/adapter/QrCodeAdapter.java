@@ -1,6 +1,9 @@
 package com.mingmen.mayi.mayibanjia.ui.activity.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -20,6 +23,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.DaYinQrCodeActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ghdingdan.GHOrderAdapter;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.dayinji.DaYinJiActivity;
 
 import java.util.List;
 
@@ -80,7 +84,10 @@ public class QrCodeAdapter extends RecyclerView.Adapter<QrCodeAdapter.ViewHolder
         holder.tv_dayin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.dayinQrCode(holder.rl_dayin);
+                Intent it = new Intent(mContext, DaYinJiActivity.class);
+                it.putExtra("iv",bean.getTwocode());
+                mContext.startActivity(it);
+//                activity.dayinQrCode(holder.rl_dayin);
             }
         });
     }

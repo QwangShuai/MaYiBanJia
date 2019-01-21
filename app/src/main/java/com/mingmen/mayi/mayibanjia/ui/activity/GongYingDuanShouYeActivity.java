@@ -87,6 +87,9 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
         if (!PollingUtils.isOpen) {
             PollingUtils.startPollingService(mContext, 1, PollingService.class, PollingService.ACTION);
         }
+        if(PreferenceUtils.getString(mContext,"random_id","").equals("3")){
+            llQiehuan.setVisibility(View.GONE);
+        }
         instance = this;
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));

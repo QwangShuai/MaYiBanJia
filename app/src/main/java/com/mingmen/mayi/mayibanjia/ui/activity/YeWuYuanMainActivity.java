@@ -223,6 +223,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
         } else {
             tvTitle.setText("企业列表");
         }
+        mlist.clear();
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(

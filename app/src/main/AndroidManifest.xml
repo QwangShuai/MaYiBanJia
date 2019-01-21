@@ -230,7 +230,9 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
 
         <!-- //轮询服务 -->
-        <service android:exported="true" android:name=".utils.PollingService" />
+        <service
+            android:name=".utils.PollingService"
+            android:exported="true" />
 
         <activity
             android:name=".ui.activity.WuLiuActivity"
@@ -238,22 +240,8 @@
             android:theme="@style/NoTitle" /> <!-- 物流 -->
         <activity android:name=".ui.activity.ghdingdan.GHDOrderActivity" /> <!-- 供货订单 -->
         <activity android:name=".ui.activity.DaYinQrCodeActivity" /> <!-- 打印二维码 -->
-        <activity
-            android:name=".utils.dayinji.PrintfBlueListActivity"
-            android:label="@string/title_activity_printf_blue_list"
-            android:theme="@style/NoTitle" /> <!-- 连接蓝牙 -->
         <activity android:name=".ui.activity.SiJiActivity" /> <!-- 司机配送 -->
         <activity android:name=".ui.activity.PeiSongXiangQingActivity" /> <!-- 司机配送详情 -->
-
-        <receiver
-            android:name=".utils.dayinji.NameOfBroadcastReceiverClass"
-            android:enabled="true">
-            <intent-filter>
-                <action android:name="android.bluetooth.adapter.action.STATE_CHANGED" /> <!-- 蓝牙适配器状态改变 -->
-                <action android:name="android.bluetooth.device.action.ACL_DISCONNECTED" /> <!-- 连接已经断开 -->
-            </intent-filter>
-        </receiver>
-
         <activity android:name=".utils.qrCode.CaptureActivity" /> <!-- 扫码页面 -->
         <activity android:name=".ui.activity.YiJianFanKuiActivity" /> <!-- 意见反馈 -->
         <activity android:name=".ui.activity.DianPuGuanZhuActivity" /> <!-- 店铺关注 -->
@@ -298,10 +286,11 @@
 
                 <data android:scheme="wx77762a8eab365cf1" />
             </intent-filter>
-        </activity><!-- 微信回调 -->
-        <activity android:name=".ui.activity.ShangJiaActivity" /><!-- 注册商家 -->
-        <activity android:name=".ui.activity.QuanBuShiChangActivity" /><!-- 注册市场 -->
-        <activity android:name=".ui.activity.ZhuCeCanTingActivity"></activity><!-- 注册餐厅 -->
+        </activity> <!-- 微信回调 -->
+        <activity android:name=".ui.activity.ShangJiaActivity" /> <!-- 注册商家 -->
+        <activity android:name=".ui.activity.QuanBuShiChangActivity" /> <!-- 注册市场 -->
+        <activity android:name=".ui.activity.ZhuCeCanTingActivity" /> <!-- 注册餐厅 -->
+        <activity android:name=".utils.dayinji.DaYinJiActivity"></activity>
     </application>
 
 </manifest>

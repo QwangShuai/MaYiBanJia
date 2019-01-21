@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.PagerSlidingTabStrip;
-import com.mingmen.mayi.mayibanjia.utils.dayinji.PrintfManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,7 +28,6 @@ public class GongYingDuanQiangDanActivity extends BaseActivity {
     ViewPager vpQiangdan;
 
     private QDFragmentAdapter adapter;
-    private PrintfManager printfManager;
     private int ye = 0;
 
     @Override
@@ -45,8 +43,6 @@ public class GongYingDuanQiangDanActivity extends BaseActivity {
         tabsJiaoyi.setViewPager(vpQiangdan);
         vpQiangdan.setOffscreenPageLimit(0);
         vpQiangdan.setCurrentItem(0);
-        printfManager = PrintfManager.getInstance(this);
-        printfManager.defaultConnection();
     }
 
     @Override

@@ -38,6 +38,7 @@ public class DianMingChaXunBean {
          */
 
         private String company_name;
+        private String role;
         private Object circulation_permit;
         private Object booth_number;
         private Object business_license;
@@ -65,7 +66,15 @@ public class DianMingChaXunBean {
         private Object remark;
         private Object id_number;
 
-        public String getCompany_name() {
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getCompany_name() {
             return company_name;
         }
 

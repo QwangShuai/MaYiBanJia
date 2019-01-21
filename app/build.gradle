@@ -36,7 +36,7 @@ dependencies {
     //走势图
 
     /**
-     *        网络请求框架
+     *         网络请求框架
      */
     compile files('libs/AMap_Location_V3.6.1_20171012.jar')
     //高德定位
@@ -52,6 +52,7 @@ dependencies {
     compile files('libs/AndroidPrinterSDK3.1.jar')
     //    compile 'liji.library.dev:citypickerview:0.7.0'
     compile files('libs/umeng-common-1.5.3.jar')
+    compile files('libs/jingchen.jar')
     compile 'com.android.support:appcompat-v7:27.0.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:recyclerview-v7:27.0.1'

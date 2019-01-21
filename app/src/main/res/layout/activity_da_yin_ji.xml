@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".utils.dayinji.DaYinJiActivity">
+    <include layout="@layout/head_beijingse"></include>
+    <ImageView
+        android:id="@+id/iv_zs"
+        android:layout_width="match_parent"
+        android:layout_height="80dp" />
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btn_print"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/print"
+        android:textSize="16sp" />
+
+</LinearLayout>

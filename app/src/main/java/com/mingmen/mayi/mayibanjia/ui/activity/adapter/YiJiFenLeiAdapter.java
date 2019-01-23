@@ -36,6 +36,15 @@ public class YiJiFenLeiAdapter extends BaseQuickAdapter<FCGName,BaseViewHolder> 
     }
     private CallBack mCallBack;
     private String xuanzhongid="";
+
+    public String getXuanzhongid() {
+        return xuanzhongid;
+    }
+
+    public void setXuanzhongid(String xuanzhongid) {
+        this.xuanzhongid = xuanzhongid;
+    }
+
     public YiJiFenLeiAdapter setCallBack(CallBack mCallBack){
         this.mCallBack=mCallBack;
         return  this;

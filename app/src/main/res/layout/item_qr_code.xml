@@ -18,10 +18,10 @@
         android:layout_marginLeft="20dp"
         android:layout_toRightOf="@+id/tv_suoyin"
         android:id="@+id/iv_qr_code"
-        android:layout_width="100dp"
-        android:layout_height="100dp" />
+        android:layout_width="108dp"
+        android:layout_height="108dp" />
     <TextView
-        android:id="@+id/tv_weiyima"
+        android:visibility="gone"
         android:layout_marginTop="4dp"
         android:layout_below="@+id/iv_qr_code"
         android:layout_marginLeft="20dp"
@@ -76,6 +76,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <ImageView
+                android:src="@mipmap/wym"
+                android:layout_width="16dp"
+                android:layout_height="15dp" />
+            <TextView
+                android:textSize="15sp"
+                android:textColor="@color/lishisousuo"
+                android:id="@+id/tv_weiyima"
+                android:layout_marginLeft="9dp"
+                android:text="ABCDEFG110"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
                 android:src="@mipmap/dianpu_gray"
                 android:layout_width="16dp"
                 android:layout_height="15dp" />
@@ -85,6 +104,25 @@
                 android:id="@+id/tv_dianpu"
                 android:layout_marginLeft="9dp"
                 android:text="华竹饭店"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@mipmap/che"
+                android:layout_width="16dp"
+                android:layout_height="15dp" />
+            <TextView
+                android:textSize="15sp"
+                android:textColor="@color/lishisousuo"
+                android:id="@+id/tv_chepaihao"
+                android:layout_marginLeft="9dp"
+                android:text="黑A88888888"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>

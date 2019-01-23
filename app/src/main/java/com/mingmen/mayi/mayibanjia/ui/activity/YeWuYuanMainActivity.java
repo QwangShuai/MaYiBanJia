@@ -373,10 +373,22 @@ public class YeWuYuanMainActivity extends BaseActivity {
                                 addDialog.dismiss();
                                 Intent intent = new Intent(mContext, XinXiLuRuGHDActivity.class);
                                 bundle.putString("rukou","add");
+                                bundle.putString("random_id","1");
                                 intent.putExtras(bundle);
                                 startActivity(intent);
                             }
                         });
+                addDialog.getLlHebing().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        addDialog.dismiss();
+                        Intent intent = new Intent(mContext, XinXiLuRuGHDActivity.class);
+                        bundle.putString("rukou","add");
+                        bundle.putString("random_id","2");
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                });
                 addDialog.getIvGuanbi().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

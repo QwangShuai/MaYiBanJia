@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 import com.mingmen.mayi.mayibanjia.utils.dayinji.adapter.BluetoothDeviceAdapter;
 import com.mingmen.mayi.mayibanjia.utils.dayinji.bean.BluetoothDevice;
@@ -54,6 +55,7 @@ public class DaYinJiActivity extends BaseActivity {
      * 创建接口对象
      */
     private zpBluetoothPrinter mZpAPI;
+    private boolean isTrue;
     /**
      * 存储蓝牙设备列表
      */
@@ -81,6 +83,16 @@ public class DaYinJiActivity extends BaseActivity {
         //实例化列表适配器
         bluetoothDeviceAdapter = new BluetoothDeviceAdapter(mBluetoothDeviceList, getActivity());
         listView.setAdapter(bluetoothDeviceAdapter);
+//        if(StringUtil.isValid(mZpAPI.getConnectedPrinterName())){
+//            isTrue = true;
+//            btnPrint.setEnabled(true);
+//            btnPrint.setBackground(getResources().getDrawable(R.drawable.fillet_solid_zangqing_5));
+//        } else {
+//            btnPrint.setEnabled(false);
+            btnPrint.setBackground(getResources().getDrawable(R.drawable.fillet_solid_buliang_5));
+//        }
+
+
         //给列表设置适配器
         init();
 //        Glide.with(this).load(getIntent().getStringExtra("iv")).into(ivZs);
@@ -95,12 +107,17 @@ public class DaYinJiActivity extends BaseActivity {
                     //开启打印机,传入打印机MAC地址
                     if (mZpAPI.openPrinterSync(mBluetoothDeviceList.get(position).getPrinterAddress())) {
 //                        提示连接成功
-                        ToastUtil.showToastLong(R.string.connect_success+"");
+                        isTrue = true;
+//                        btnPrint.setEnabled(true);
+                        btnPrint.setBackground(getResources().getDrawable(R.drawable.fillet_solid_zangqing_5));
                     } else {
                         //提示连接失败
-                        ToastUtil.showToastLong(R.string.connect_fail+"");
+                        isTrue =  false;
+//                        btnPrint.setEnabled(false);
+                        btnPrint.setBackground(getResources().getDrawable(R.drawable.fillet_solid_buliang_5));
                     }
-
+                } else {
+                    ToastUtil.showToastLong("打印机是已连接状态");
                 }
             }
         });
@@ -119,14 +136,19 @@ public class DaYinJiActivity extends BaseActivity {
             case R.id.iv_back:
                 break;
             case R.id.btn_print:
-                //打印
-                if (printLabel()) {
-                    //提示打印成功
-                    ToastUtil.showToastLong(R.string.print_success+"");
+                if(isTrue){
+                    //打印
+                    if (printLabel()) {
+                        //提示打印成功
+                        ToastUtil.showToastLong(R.string.print_success+"");
+                    } else {
+                        //提示打印失败
+                        ToastUtil.showToastLong(R.string.print_fail+"");
+                    }
                 } else {
-                    //提示打印失败
-                    ToastUtil.showToastLong(R.string.print_fail+"");
+                    ToastUtil.showToastLong("打印机暂未链接");
                 }
+
                 break;
         }
     }

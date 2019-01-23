@@ -197,6 +197,8 @@ public class QuanBuCaiPinFragment extends BaseFragment {
 
     private int viewHeight;
     private int mystate = 0;
+    private boolean isResult;
+
     @Override
     protected View getSuccessView() {
         viewSPYXFragment = View.inflate(MyApplication.mContext, R.layout.fragment_quanbucaipin, null);
@@ -409,7 +411,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                     public void onNext(final List<FCGName> data) {
                         datas.clear();
                         datas.addAll(data);
-                        ToastUtil.showToast("++++" + datas.size());
+//                        adapter.notifyDataSetChanged();
                     }
                 });
     }
@@ -582,7 +584,9 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 setXuanXiangColor(tvPingfenzuigao);
                 break;
             case R.id.ll_sousuo:
-                startActivityForResult(new Intent(mContext, SouSuoActivity.class),REQUEST_CODE);
+                Intent it = new Intent(mContext, SouSuoActivity.class);
+                it.putExtra("sousuo",sousuo);
+                startActivityForResult(it,REQUEST_CODE);
                 break;
             case R.id.ll_shichang:
                 showYiJiPop(3);
@@ -624,9 +628,18 @@ public class QuanBuCaiPinFragment extends BaseFragment {
             getOneList();
             activity.setType("");
         }
-//        else {
-//            setState();
-//        }
+        else {
+            if(!isResult){
+                Log.e(TAG, "onResume: "+"清空了吗" );
+                xzId = "";
+                yijipinleiid = "";
+                leiAdapter.setXuanzhongId("");
+                leiAdapter.notifyDataSetChanged();
+                setState();
+                clearPopXuanzhong();
+                sousuoshangpin("","0");
+            }
+        }
     }
 
     private void setXuanXiangColor(TextView bianseview) {
@@ -806,11 +819,13 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode==2){
+            isResult = true;
             if(requestCode==REQUEST_CODE){
                 yijipinleiid = "";
                 leiAdapter.setXuanzhongId(yijipinleiid);
                 leiAdapter.notifyDataSetChanged();
                 setState();
+                clearPopXuanzhong();
                 erjipinleiid =data.getStringExtra("three_id");
                 if(StringUtil.isValid(data.getStringExtra("four_id"))){
                     sanjipinleiid = data.getStringExtra("four_id");
@@ -827,7 +842,22 @@ public class QuanBuCaiPinFragment extends BaseFragment {
 
             }
         }
-
+        if(resultCode==3) {
+            isResult = true;
+            if (requestCode == REQUEST_CODE) {
+                boolean b = data.getBooleanExtra("clearType",false);
+                sousuo = b?"":sousuo;
+                if(b){
+                    clearPopXuanzhong();
+                    setState();
+                    yijipinleiid = "";
+                    leiAdapter.setXuanzhongId(yijipinleiid);
+                    leiAdapter.notifyDataSetChanged();
+                    tvSousuozi.setText(sousuo);
+                    sousuoshangpin(sousuo,type);
+                }
+            }
+        }
     }
     //市场搜索
     private void sousuoshichang() {
@@ -1102,5 +1132,22 @@ public class QuanBuCaiPinFragment extends BaseFragment {
             ToastUtil.showToastLong("请先选择商品的二级分类");
         }
 
+    }
+    private void clearPopXuanzhong(){
+        erjipinleiname = "全部";
+        tvPinleiPop.setText("全部");
+        tvPinleiPop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
+        adapter.setXuanzhongid("");
+        adapter.notifyDataSetChanged();
+        tvPinzhongPop.setText("全部");
+        tvPinzhongPop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
+        erjiadapter.setXuanzhongid("");
+        erjiadapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        isResult = false;
     }
 }

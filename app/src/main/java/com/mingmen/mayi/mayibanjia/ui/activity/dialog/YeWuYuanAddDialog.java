@@ -24,6 +24,9 @@ public class YeWuYuanAddDialog extends Dialog {
     LinearLayout llBianji;
     @BindView(R.id.iv_guanbi)
     ImageView ivGuanbi;
+    @BindView(R.id.ll_hebing)
+    LinearLayout llHebing;
+
     private Context c;
 
 
@@ -39,6 +42,7 @@ public class YeWuYuanAddDialog extends Dialog {
         this.c = context;
         llShanchu = (LinearLayout) findViewById(R.id.ll_shanchu);
         llBianji = (LinearLayout) findViewById(R.id.ll_bianji);
+        llHebing = (LinearLayout) findViewById(R.id.ll_hebing);
         ivGuanbi = (ImageView) findViewById(R.id.iv_guanbi);
     }
 
@@ -95,5 +99,12 @@ public class YeWuYuanAddDialog extends Dialog {
 
     public void setIvGuanbi(ImageView ivGuanbi) {
         this.ivGuanbi = ivGuanbi;
+    }
+    public LinearLayout getLlHebing() {
+        return llHebing;
+    }
+
+    public void setLlHebing(LinearLayout llHebing) {
+        this.llHebing = llHebing;
     }
 }

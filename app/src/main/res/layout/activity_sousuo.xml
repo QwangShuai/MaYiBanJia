@@ -59,6 +59,7 @@
                     android:paddingRight="6dp"/>
             </LinearLayout>
             <RelativeLayout
+                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <EditText
@@ -75,15 +76,7 @@
                     android:textColorHint="#999999"
                     android:imeOptions="actionSearch"
                     android:singleLine="true"/>
-                <ImageView
-                    android:id="@+id/iv_clear"
-                    android:visibility="gone"
-                    android:src="@mipmap/shanchux"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="12dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+
                 <LinearLayout
                     android:visibility="gone"
                     android:gravity="center_vertical"
@@ -107,7 +100,14 @@
                         android:layout_height="4dp" />
                 </LinearLayout>
             </RelativeLayout>
-
+            <ImageView
+                android:layout_gravity="center_vertical"
+                android:id="@+id/iv_clear"
+                android:visibility="gone"
+                android:src="@mipmap/shanchux"
+                android:layout_marginRight="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
         </LinearLayout>
         <TextView
             android:id="@+id/tv_quxiao"

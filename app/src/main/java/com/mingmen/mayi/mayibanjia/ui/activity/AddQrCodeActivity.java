@@ -61,7 +61,7 @@ public class AddQrCodeActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        tvTitle.setText("待打包商品");
+        tvTitle.setText("未打包");
         mContext = AddQrCodeActivity.this;
         gy_order_id = getIntent().getStringExtra("id");
         dialog = new ThreeDialog();
@@ -141,6 +141,13 @@ public class AddQrCodeActivity extends BaseActivity {
     }
     //查询商品列表
     public void updateSpList(String type) {
+        if(type.equals("0")){
+            tvTitle.setText("已打包");
+        }else if(type.equals("1")){
+            tvTitle.setText("待确认");
+        } else {
+            tvTitle.setText("待打包");
+        }
         ye = 1;
         mlist.clear();
         HttpManager.getInstance()

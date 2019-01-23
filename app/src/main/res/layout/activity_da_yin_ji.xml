@@ -143,9 +143,12 @@
         android:layout_height="wrap_content" />
 
     <Button
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:background="@drawable/fillet_solid_buliang_5"
         android:id="@+id/btn_print"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:text="@string/print"
         android:textSize="16sp" />
 

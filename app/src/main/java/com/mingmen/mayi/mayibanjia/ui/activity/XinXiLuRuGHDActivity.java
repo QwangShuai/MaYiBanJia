@@ -144,7 +144,8 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
         rukou = bundle.getString("rukou");
 
         if ("add".equals(rukou)){
-            tvQiehuan.setText("否");
+//            tvQiehuan.setText("否");
+            random_id = getIntent().getStringExtra("random_id");
         }else{
             String xinxi = bundle.getString("xinxi");
             Log.e("xinxi",xinxi);
@@ -218,9 +219,9 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
                     }
                 });
                 break;
-            case R.id.tv_qiehuan:
-                showQiehuan();
-                break;
+//            case R.id.tv_qiehuan:
+//                showQiehuan();
+//                break;
             case R.id.tv_quyuxuanze:
                 showCityPicker();
                 break;
@@ -568,22 +569,22 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
                 });
     }
 
-    private void showQiehuan(){
-        final String[] items = {"是", "否"};
-
-        final SinglePicker<String> picker =new SinglePicker<String>(XinXiLuRuGHDActivity.this,items);
-        picker.setCanceledOnTouchOutside(false);
-        picker.setSelectedIndex(1);
-        picker.setCycleDisable(false);
-        picker.setOnItemPickListener(new SinglePicker.OnItemPickListener<String>() {
-            @Override
-            public void onItemPicked(int index, String item) {
-                tvQiehuan.setText(item);
-                random_id = item.equals("是")?"1":"2";
-                picker.dismiss();
-            }
-        });
-
-        picker.show();
-    }
+//    private void showQiehuan(){
+//        final String[] items = {"是", "否"};
+//
+//        final SinglePicker<String> picker =new SinglePicker<String>(XinXiLuRuGHDActivity.this,items);
+//        picker.setCanceledOnTouchOutside(false);
+//        picker.setSelectedIndex(1);
+//        picker.setCycleDisable(false);
+//        picker.setOnItemPickListener(new SinglePicker.OnItemPickListener<String>() {
+//            @Override
+//            public void onItemPicked(int index, String item) {
+//                tvQiehuan.setText(item);
+//                random_id = item.equals("是")?"1":"2";
+//                picker.dismiss();
+//            }
+//        });
+//
+//        picker.show();
+//    }
 }

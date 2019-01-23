@@ -63,6 +63,7 @@ public class QrCodeAdapter extends RecyclerView.Adapter<QrCodeAdapter.ViewHolder
 //        holder.tv_dizhi.setText(bean.getCompanyAddress());
         holder.tv_phone.setText(bean.getDriverPhone());
         holder.tv_weiyima.setText(bean.getOnlyCode());
+        holder.tv_chepaihao.setText(bean.getPlateNumber());
 //        holder.tv_dianming.setText(bean.getGy_company_name()+"(卖家店铺)");
         holder.tv_zuofei.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,6 +122,8 @@ public class QrCodeAdapter extends RecyclerView.Adapter<QrCodeAdapter.ViewHolder
                 TextView tv_weiyima;
         @BindView(R.id.tv_dianming)
                 TextView tv_dianming;
+        @BindView(R.id.tv_chepaihao)
+                TextView tv_chepaihao;
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);

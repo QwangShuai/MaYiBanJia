@@ -165,6 +165,7 @@ public class SouSuoActivity extends BaseActivity {
     private String sousuofangxiang = "shichang";
     private FaCaiGouMohuAdapter mohuAdapter;
     private String fenleiid="";
+    private boolean clearText;
     private String fenleiname="";
     private String TAG = "SouSuoActivity";
     private int sousuo_state = 0;
@@ -315,6 +316,7 @@ public class SouSuoActivity extends BaseActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (etSousuo.getText().toString().trim().length() == 0) {
+                    ivClear.setVisibility(View.GONE);
                     if(sousuo_state==0){
                         Log.e(TAG, "onTextChanged: "+"走到这了啊" );
                         if(!TextUtils.isEmpty(tvPipei.getText().toString().trim())){
@@ -325,7 +327,6 @@ public class SouSuoActivity extends BaseActivity {
                         llWuzi.setVisibility(View.VISIBLE);
                         rvYouzi.setVisibility(View.GONE);
                     }
-                    ivClear.setVisibility(View.GONE);
                 } else {
                     ivClear.setVisibility(View.VISIBLE);
                     if(s.length()>0){
@@ -385,6 +386,10 @@ public class SouSuoActivity extends BaseActivity {
                 return false;
             }
         });
+        if(StringUtil.isValid(getIntent().getStringExtra("sousuo"))){
+            sousuozi = getIntent().getStringExtra("sousuo");
+            etSousuo.setText(sousuozi);
+        }
         jiarugouwuchedialog = new JiaRuGouWuCheDialog(mContext,
                 mContext.getResources().getIdentifier("BottomDialog", "style", mContext.getPackageName()));
         jiarugouwuchedialog.getWindow().setGravity(Gravity.BOTTOM | Gravity.LEFT | Gravity.RIGHT);
@@ -561,7 +566,7 @@ public class SouSuoActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.iv_back,R.id.tv_quxiao, R.id.iv_pipei, R.id.iv_lishishanchu, R.id.ll_xiala})
+    @OnClick({R.id.iv_back,R.id.tv_quxiao, R.id.iv_pipei, R.id.iv_lishishanchu, R.id.ll_xiala,R.id.iv_clear})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -662,7 +667,10 @@ public class SouSuoActivity extends BaseActivity {
                 break;
             case R.id.iv_clear:
                 sousuozi = "";
+                clearText = true;
                 etSousuo.setText(sousuozi);
+                llWuzi.setVisibility(View.VISIBLE);
+                rvYouzi.setVisibility(View.GONE);
                 break;
         }
     }
@@ -1352,6 +1360,10 @@ public class SouSuoActivity extends BaseActivity {
     }
 
     public void myBack(){
+        Intent it = new Intent();
+        it.putExtra("clearType",clearText);
+        Log.e("clearType",clearText+"");
+        setResult(3,it);
         finish();
     }
 }

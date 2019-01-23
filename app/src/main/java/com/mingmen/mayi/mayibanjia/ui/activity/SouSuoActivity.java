@@ -107,6 +107,8 @@ public class SouSuoActivity extends BaseActivity {
 //    RelativeLayout rlShangpin;
     @BindView(R.id.iv_lishishanchu)
     ImageView ivLishishanchu;
+    @BindView(R.id.iv_clear)
+    ImageView ivClear;
     @BindView(R.id.rl_lishisousuo)
     RelativeLayout rlLishisousuo;
     @BindView(R.id.xcf_lishisousuo)
@@ -314,14 +316,18 @@ public class SouSuoActivity extends BaseActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (etSousuo.getText().toString().trim().length() == 0) {
                     if(sousuo_state==0){
+                        Log.e(TAG, "onTextChanged: "+"走到这了啊" );
                         if(!TextUtils.isEmpty(tvPipei.getText().toString().trim())){
+//                            etSousuo.setText("");
 //                            getmohuchaxun(tvPipei.getText().toString().trim());
                         }
                     } else {
                         llWuzi.setVisibility(View.VISIBLE);
                         rvYouzi.setVisibility(View.GONE);
                     }
+                    ivClear.setVisibility(View.GONE);
                 } else {
+                    ivClear.setVisibility(View.VISIBLE);
                     if(s.length()>0){
                         sousuozi=s.toString().trim();
                     }
@@ -653,6 +659,10 @@ public class SouSuoActivity extends BaseActivity {
 //                } else {
                     showXialaPopupWindow();
 //                }
+                break;
+            case R.id.iv_clear:
+                sousuozi = "";
+                etSousuo.setText(sousuozi);
                 break;
         }
     }

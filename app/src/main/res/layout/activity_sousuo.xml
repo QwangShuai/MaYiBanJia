@@ -75,6 +75,15 @@
                     android:textColorHint="#999999"
                     android:imeOptions="actionSearch"
                     android:singleLine="true"/>
+                <ImageView
+                    android:id="@+id/iv_clear"
+                    android:visibility="gone"
+                    android:src="@mipmap/shanchux"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="12dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
                 <LinearLayout
                     android:visibility="gone"
                     android:gravity="center_vertical"

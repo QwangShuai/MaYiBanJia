@@ -1,12 +1,14 @@
 package com.mingmen.mayi.mayibanjia.http;
 
 
+import com.mingmen.mayi.mayibanjia.bean.AddQrCodeBean;
 import com.mingmen.mayi.mayibanjia.bean.AddressListBean;
 import com.mingmen.mayi.mayibanjia.bean.AllShiChangBean;
 import com.mingmen.mayi.mayibanjia.bean.CaiGouDanBean;
 import com.mingmen.mayi.mayibanjia.bean.CaiGouMingChengBean;
 import com.mingmen.mayi.mayibanjia.bean.CarsTypeBean;
 import com.mingmen.mayi.mayibanjia.bean.ChePaiBean;
+import com.mingmen.mayi.mayibanjia.bean.DaYinQrCodeBean;
 import com.mingmen.mayi.mayibanjia.bean.DdxqListBean;
 import com.mingmen.mayi.mayibanjia.bean.DianMingChaXunBean;
 import com.mingmen.mayi.mayibanjia.bean.DianPuBean;
@@ -299,6 +301,10 @@ public interface HttpService {
                                              @Query("photo") String photo,
                                              @Query("parent_number") String parent_number,
                                              @Query("scale") String scale,
+                                             @Query("random_id") String random_id,
+                                             @Query("role") String role,
+                                             @Query("booth_number") String booth_number,
+                                             @Query("son_number") String son_number,
                                              @Query("telephone") String telephone);
 
     //企业修改(业务员)
@@ -320,7 +326,8 @@ public interface HttpService {
     @POST("allCompany/queryAll.do")
     Observable<ResultModel<List<QiYeLieBiaoBean>>> getqiyeliebiao(@Query("user_token") String user_token,
                                                                   @Query("type") String type,
-                                                                  @Query("pageNumber") String pageNumber);
+                                                                  @Query("pageNumber") String pageNumber,
+                                                                  @Query("role") String role);
 
     //商家模糊查询
     @POST("allCompany/queryAll.do")
@@ -719,17 +726,20 @@ public interface HttpService {
 
     //获取二维码列表
     @POST("twocode/list.do")
-    Observable<ResultModel<GHOrderBean>> getQrCodeList(@Query("gy_order_id") String gy_order_id);
+    Observable<ResultModel<List<DaYinQrCodeBean>>> getQrCodeList(@Query("gy_order_id") String gy_order_id,
+                                                           @Query("commodity_id") String commodity_id);
 
     //生成二维码
     @POST("twocode/save.do")
     Observable<ResultModel<String>> createQrCode(@Query("user_token") String user_token,
-                                                 @Query("gy_order_id") String gy_order_id);
+                                                 @Query("gy_order_id") String gy_order_id,
+                                                 @Query("commodity_id") String commodity_id);
 
     //打包完成
     @POST("twocode/isTrue.do")
     Observable<ResultModel<String>> packageEnd(@Query("user_token") String user_token,
-                                               @Query("gy_order_id") String gy_order_id);
+                                               @Query("gy_order_id") String gy_order_id,
+                                               @Query("commodity_id") String commodity_id);
 
     //二维码作废
     @POST("twocode/delete.do")
@@ -1124,4 +1134,10 @@ public interface HttpService {
     @POST("gyCommodity/queryByClassify_name")
     Observable<ResultModel<List<FCGName>>> searchSpList(@Query("user_token") String user_token,
                                                            @Query("commodity_name") String commodity_name);
+
+    //获取订单所包含商品列表
+    @POST("gyOreder/queryBydetail.do")
+    Observable<ResultModel<List<AddQrCodeBean>>> getQrCodeSp(@Query("gy_order_id") String gy_order_id,
+                                                              @Query("type") String type,
+                                                              @Query("pageNumber") String pageNumber);
 }

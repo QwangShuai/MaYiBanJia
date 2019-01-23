@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -42,8 +43,10 @@ public class DaYinJiActivity extends BaseActivity {
     ListView listView;
     @BindView(R.id.btn_print)
     Button btnPrint;
-    @BindView(R.id.iv_zs)
-    ImageView ivZs;
+//    @BindView(R.id.iv_zs)
+//    ImageView ivZs;
+    @BindView(R.id.rl_dayin)
+    RelativeLayout rlDayin;
 
     private Bitmap bitmap;
     private BluetoothDeviceAdapter bluetoothDeviceAdapter;
@@ -77,15 +80,10 @@ public class DaYinJiActivity extends BaseActivity {
         //初始化打印机控件
         //实例化列表适配器
         bluetoothDeviceAdapter = new BluetoothDeviceAdapter(mBluetoothDeviceList, getActivity());
-        //给列表设置适配器
         listView.setAdapter(bluetoothDeviceAdapter);
+        //给列表设置适配器
         init();
-        //获取已配对打印机，遍历添加到打印机列表中
-        //获取图片
-        bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.qr_code);
-        Glide.with(this).load(getIntent().getStringExtra("iv")).into(ivZs);
-
-
+//        Glide.with(this).load(getIntent().getStringExtra("iv")).into(ivZs);
         //点击列表监听
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -96,16 +94,17 @@ public class DaYinJiActivity extends BaseActivity {
                 if (isSupported(mBluetoothDeviceList.get(position).getPrinterName())) {
                     //开启打印机,传入打印机MAC地址
                     if (mZpAPI.openPrinterSync(mBluetoothDeviceList.get(position).getPrinterAddress())) {
-                        //提示连接成功
-                        ToastUtil.showToastLong(R.string.connect_success + "");
+//                        提示连接成功
+                        ToastUtil.showToastLong(R.string.connect_success+"");
                     } else {
                         //提示连接失败
-                        ToastUtil.showToastLong(R.string.connect_fail + "");
+                        ToastUtil.showToastLong(R.string.connect_fail+"");
                     }
 
                 }
             }
         });
+//        bitmap = convertViewToBitmap(rlDayin);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,7 +156,12 @@ public class DaYinJiActivity extends BaseActivity {
         return Pattern.compile("^B3" + "_\\d{4}[L]?$").matcher(printerName).matches();
     }
 
+    public static Bitmap convertViewToBitmap(View view) {
+        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+        view.draw(new Canvas(bitmap));
 
+        return bitmap;
+    }
 
 
     /**
@@ -166,7 +170,8 @@ public class DaYinJiActivity extends BaseActivity {
      * @return 打印是否成功
      */
     private boolean printLabel() {
-
+        Bitmap bitmap = Bitmap.createBitmap(rlDayin.getWidth(), rlDayin.getHeight(), Bitmap.Config.ARGB_8888);
+        rlDayin.draw(new Canvas(bitmap));
         /*
          *打印标签方法
          * 1.bitmap 需要打印的图像
@@ -177,7 +182,7 @@ public class DaYinJiActivity extends BaseActivity {
          * 6.Rotate 旋转角度（0,90,180,270）
          * 7.gotopaper 标签类型定位类型 0连续纸,1间隙纸,2 左侧黑标定位,3右侧黑标定位,4孔定位,5背部黑标定位
          */
-        return mZpAPI.drawBitmap(bitmap, 50, 50, 200, 200, 0, 1);
+        return mZpAPI.drawBitmap(bitmap, 50, 50, 600, 280, 0, 1);
     }
 
 

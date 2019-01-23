@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
+import com.mingmen.mayi.mayibanjia.bean.DaYinQrCodeBean;
 import com.mingmen.mayi.mayibanjia.bean.QrCodeBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
@@ -37,9 +38,9 @@ import butterknife.ButterKnife;
 public class QrCodeAdapter extends RecyclerView.Adapter<QrCodeAdapter.ViewHolder>  {
     private ViewHolder viewHolder;
     private Context mContext;
-    private List<QrCodeBean> mList;
+    private List<DaYinQrCodeBean> mList;
     private DaYinQrCodeActivity activity;
-    public QrCodeAdapter(Context mContext, List<QrCodeBean> list,DaYinQrCodeActivity activity) {
+    public QrCodeAdapter(Context mContext, List<DaYinQrCodeBean> list, DaYinQrCodeActivity activity) {
         this.mContext = mContext;
         this.mList = list;
         this.activity = activity;
@@ -53,16 +54,16 @@ public class QrCodeAdapter extends RecyclerView.Adapter<QrCodeAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        final QrCodeBean bean = mList.get(position);
-        holder.tv_suoyin.setText(bean.getSerial());
+        final DaYinQrCodeBean bean = mList.get(position);
+//        holder.tv_suoyin.setText(bean.getSerial());
         if(!TextUtils.isEmpty(bean.getTwocode()))
             Glide.with(mContext).load(bean.getTwocode()).into(holder.iv_qr_code);
-        holder.tv_biaoshi.setText(bean.getIdentifying());
+//        holder.tv_biaoshi.setText(bean.getIdentifying());
         holder.tv_dianpu.setText(bean.getCompany_name()+"(餐厅端)");
-        holder.tv_dizhi.setText(bean.getCompanyAddress());
-        holder.tv_phone.setText(bean.getTelephone());
+//        holder.tv_dizhi.setText(bean.getCompanyAddress());
+        holder.tv_phone.setText(bean.getDriverPhone());
         holder.tv_weiyima.setText(bean.getOnlyCode());
-        holder.tv_dianming.setText(bean.getGy_company_name()+"(卖家店铺)");
+//        holder.tv_dianming.setText(bean.getGy_company_name()+"(卖家店铺)");
         holder.tv_zuofei.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

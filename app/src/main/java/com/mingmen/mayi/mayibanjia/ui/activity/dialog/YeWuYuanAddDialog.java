@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.mingmen.mayi.mayibanjia.R;
 
@@ -17,7 +16,7 @@ import butterknife.BindView;
  */
 
 
-public class QiYeLieBiaoDialog extends Dialog {
+public class YeWuYuanAddDialog extends Dialog {
     public View view;
     @BindView(R.id.ll_shanchu)
     LinearLayout llShanchu;
@@ -33,9 +32,9 @@ public class QiYeLieBiaoDialog extends Dialog {
      *
      * @param context 上下文
      */
-    public QiYeLieBiaoDialog(Context context, int theme) {
+    public YeWuYuanAddDialog(Context context, int theme) {
         super(context, theme);
-        view = View.inflate(context, R.layout.dialog_qiyeliebiao, null);
+        view = View.inflate(context, R.layout.dialog_add_ywy, null);
         this.setContentView(view);
         this.c = context;
         llShanchu = (LinearLayout) findViewById(R.id.ll_shanchu);
@@ -73,9 +72,6 @@ public class QiYeLieBiaoDialog extends Dialog {
     public void setView(View view) {
         this.view = view;
         this.setContentView(view);
-    }
-    public void setShow(){
-        this.getLlShanchu().setVisibility(View.VISIBLE);
     }
     public LinearLayout getLlShanchu() {
         return llShanchu;

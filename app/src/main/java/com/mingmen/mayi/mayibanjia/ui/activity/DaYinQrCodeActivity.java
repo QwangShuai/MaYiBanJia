@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
+import com.mingmen.mayi.mayibanjia.bean.DaYinQrCodeBean;
 import com.mingmen.mayi.mayibanjia.bean.GHOrderBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
@@ -52,6 +53,8 @@ public class DaYinQrCodeActivity extends BaseActivity {
     Button btAddQrCode;
     private Context mContext;
     private String id = "";
+    private String sp_id = "";
+    private String type = "2";
     private QrCodeAdapter adapter;
     private int count = 0;
 
@@ -65,6 +68,12 @@ public class DaYinQrCodeActivity extends BaseActivity {
     protected void initData() {
         mContext = DaYinQrCodeActivity.this;
         id = getIntent().getStringExtra("id");
+        sp_id = getIntent().getStringExtra("sp_id");
+        type = getIntent().getStringExtra("type");
+        if(type.equals("0")){
+            llAdd.setVisibility(View.GONE);
+            btAddQrCode.setVisibility(View.GONE);
+        }
         getQrCodeList();
     }
 
@@ -93,7 +102,7 @@ public class DaYinQrCodeActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .createQrCode(PreferenceUtils.getString(MyApplication.mContext, "token", ""), id))
+                                .createQrCode(PreferenceUtils.getString(MyApplication.mContext, "token", ""), id,sp_id))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
@@ -108,7 +117,7 @@ public class DaYinQrCodeActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .packageEnd(PreferenceUtils.getString(MyApplication.mContext, "token", ""), id))
+                                .packageEnd(PreferenceUtils.getString(MyApplication.mContext, "token", ""), id,sp_id))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
@@ -127,18 +136,20 @@ public class DaYinQrCodeActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getQrCodeList(id))
-                .setDataListener(new HttpDataListener<GHOrderBean>() {
+                                .getQrCodeList(id,sp_id))
+                .setDataListener(new HttpDataListener<List<DaYinQrCodeBean>>() {
 
                     @Override
-                    public void onNext(GHOrderBean data) {
-                        if(StringUtil.isValid(data.getIs_true())&&data.getIs_true().equals("0")){
-                            llAdd.setVisibility(View.GONE);
-                            btAddQrCode.setVisibility(View.GONE);
-                        }
+                    public void onNext(List<DaYinQrCodeBean> data) {
+                        count = data==null?0:data.size();
+                        if(count==0)
+                            return;
+//                        if(StringUtil.isValid(data.getIs_true())&&data.getIs_true().equals("0")){
+//                            llAdd.setVisibility(View.GONE);
+//                            btAddQrCode.setVisibility(View.GONE);
+//                        }
 //                        Log.e("12333",data.getList().size()+"");
-                        count = data.getList().size();
-                        adapter = new QrCodeAdapter(DaYinQrCodeActivity.this, data.getList(), DaYinQrCodeActivity.this);
+                        adapter = new QrCodeAdapter(DaYinQrCodeActivity.this, data, DaYinQrCodeActivity.this);
                         rv_qr_code.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
                         rv_qr_code.setAdapter(adapter);
                     }

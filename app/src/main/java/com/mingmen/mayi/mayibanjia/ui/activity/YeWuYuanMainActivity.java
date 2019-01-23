@@ -26,10 +26,12 @@ import com.mingmen.mayi.mayibanjia.ui.activity.adapter.QiYeLieBiaoAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.QiYeLieBiaoDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.QiYeSouSUoDialog;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.YeWuYuanAddDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.YeWuYuanDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import java.util.ArrayList;
@@ -62,6 +64,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
     private Context mContext;
     private QiYeLieBiaoAdapter adapter;
     private QiYeLieBiaoDialog bianjidialog;
+    private YeWuYuanAddDialog addDialog;
     private ArrayList<QiYeLieBiaoBean> mlist = new ArrayList<>();
     private QiYeSouSUoDialog sousuodialog;
     private SinglePicker<QiYeLeiBieBean> leibiepicker;
@@ -72,6 +75,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
     private int ye = 1;
     private YeWuYuanDialog dialog;
     private String type = "1";
+    private String role = "2";
     private SwipeMenuRecyclerView.LoadMoreListener mLoadMoreListener;
 
     @Override
@@ -81,16 +85,17 @@ public class YeWuYuanMainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        tvTitle.setText("我的");
+        tvTitle.setText("全部餐厅");
         ivSangedian.setVisibility(View.VISIBLE);
 //        ivBack.setImageResource(R.mipmap.sousuo_bai);
         mContext=YeWuYuanMainActivity.this;
-        getQiyeLiebiao(type);
+        mlist.clear();
+        getQiyeLiebiao(type,role);
         mLoadMoreListener = new SwipeMenuRecyclerView.LoadMoreListener() {
             @Override
             public void onLoadMore() {
                 // 该加载更多啦。
-                getQiyeLiebiao(type);
+                getQiyeLiebiao(type,role);
             }
         };
         confirmDialog = new ConfirmDialog(mContext,
@@ -105,7 +110,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
                 // 重置adapter的数据源为空
                 ye = 1;
                 mlist.clear();
-                getQiyeLiebiao(type);
+                getQiyeLiebiao(type,role);
                 srlShuaxin.setRefreshing(false);
             }
         });
@@ -154,17 +159,18 @@ public class YeWuYuanMainActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         ye = 1;
-        getQiyeLiebiao(type);
+        mlist.clear();
+        getQiyeLiebiao(type,role);
     }
 
     //查询企业列表
-    public void getQiyeLiebiao(String type) {
+    public void getQiyeLiebiao(String type,String role) {
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getqiyeliebiao(PreferenceUtils.getString(MyApplication.mContext, "token",""),type,ye+""))
+                                .getqiyeliebiao(PreferenceUtils.getString(MyApplication.mContext, "token",""),type,ye+"",role))
                 .setDataListener(new HttpDataListener<List<QiYeLieBiaoBean>>() {
                     @Override
                     public void onNext(final List<QiYeLieBiaoBean> data) {
@@ -215,13 +221,18 @@ public class YeWuYuanMainActivity extends BaseActivity {
 
     }
     //查询企业列表..带参数
-    public void shuaxinList(String type) {
+    public void shuaxinList(String type,String role) {
         ye = 1;
         this.type = type;
-        if(type.equals("1")){
-            tvTitle.setText("我的");
-        } else {
-            tvTitle.setText("企业列表");
+        this.role = role;
+        if(type.equals("1")&&role.equals("1")){
+            tvTitle.setText("我的餐厅");
+        } else if(type.equals("1")&&role.equals("2")) {
+            tvTitle.setText("我的商家");
+        }  else if(type.equals("2")&&role.equals("1")) {
+            tvTitle.setText("全部餐厅");
+        }  else if(type.equals("2")&&role.equals("2")) {
+            tvTitle.setText("全部商家");
         }
         mlist.clear();
         HttpManager.getInstance()
@@ -229,7 +240,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getqiyeliebiao(PreferenceUtils.getString(MyApplication.mContext, "token",""),type,ye+""))
+                                .getqiyeliebiao(PreferenceUtils.getString(MyApplication.mContext, "token",""),type,ye+"",role))
                 .setDataListener(new HttpDataListener<List<QiYeLieBiaoBean>>() {
                     @Override
                     public void onNext(final List<QiYeLieBiaoBean> data) {
@@ -342,11 +353,37 @@ public class YeWuYuanMainActivity extends BaseActivity {
                 });
                 break;
             case R.id.tv_right:
-                //添加企业
-                Intent intent = new Intent(mContext, XinXiLuRuActivity.class);
-                bundle.putString("rukou","add");
-                intent.putExtras(bundle);
-                startActivity(intent);
+                addDialog = new YeWuYuanAddDialog(mContext,
+                        mContext.getResources().getIdentifier("TouMingDialog", "style", mContext.getPackageName()));
+                addDialog.showDialog();
+                addDialog.getLlBianji().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        addDialog.dismiss();
+                        //添加企业
+                        Intent intent = new Intent(mContext, XinXiLuRuActivity.class);
+                        bundle.putString("rukou","add");
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                });
+                addDialog.getLlShanchu().setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                addDialog.dismiss();
+                                Intent intent = new Intent(mContext, XinXiLuRuGHDActivity.class);
+                                bundle.putString("rukou","add");
+                                intent.putExtras(bundle);
+                                startActivity(intent);
+                            }
+                        });
+                addDialog.getIvGuanbi().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        addDialog.cancel();
+                    }
+                });
+
                 break;
             case R.id.iv_sangedian:
                 showTuiChuPop();

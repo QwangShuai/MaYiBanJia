@@ -1,6 +1,8 @@
 package com.mingmen.mayi.mayibanjia.ui.activity.ghdingdan;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -10,6 +12,8 @@ import android.widget.TextView;
 
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.GHOrderBean;
+import com.mingmen.mayi.mayibanjia.ui.activity.AddQrCodeActivity;
+import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 
 import java.util.List;
 

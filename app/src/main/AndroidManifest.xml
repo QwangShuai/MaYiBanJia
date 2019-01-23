@@ -290,7 +290,9 @@
         <activity android:name=".ui.activity.ShangJiaActivity" /> <!-- 注册商家 -->
         <activity android:name=".ui.activity.QuanBuShiChangActivity" /> <!-- 注册市场 -->
         <activity android:name=".ui.activity.ZhuCeCanTingActivity" /> <!-- 注册餐厅 -->
-        <activity android:name=".utils.dayinji.DaYinJiActivity"></activity>
+        <activity android:name=".utils.dayinji.DaYinJiActivity" />
+        <activity android:name=".ui.activity.XinXiLuRuGHDActivity" />
+        <activity android:name=".ui.activity.AddQrCodeActivity"></activity>
     </application>
 
 </manifest>

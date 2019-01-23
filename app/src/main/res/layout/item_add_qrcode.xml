@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp"
+    android:layout_marginTop="20dp">
+
+    <ImageView
+        android:layout_gravity="center_vertical"
+        android:id="@+id/iv_touxiang"
+        android:layout_width="60dp"
+        android:layout_height="60dp" />
+    <LinearLayout
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="13dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginTop="8dp"
+            android:text="甜橙"
+            android:textSize="13sp"
+            android:textColor="@color/zicolor"
+            android:id="@+id/tv_spming"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginTop="8dp"
+            android:text="数量："
+            android:textSize="12sp"
+            android:textColor="@color/lishisousuo"
+            android:id="@+id/tv_spnumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <!--<View-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"></View>-->
+        <TextView
+            android:layout_marginTop="8dp"
+            android:text="包装个数："
+            android:textSize="12sp"
+            android:textColor="@color/lishisousuo"
+            android:id="@+id/tv_spbaozhuang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <Button
+        android:visibility="visible"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/fillet_hollow_999999_3"
+        android:text="已打包"
+        android:textColor="@color/hintcolor"
+        android:textSize="15sp"
+        android:id="@+id/btn_state"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ll_ydb"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@mipmap/ydb"
+                android:layout_width="76dp"
+                android:layout_height="60dp" />
+            <Button
+                android:textColor="@color/lishisousuo"
+                android:text="查看详情"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/fillet_hollow_e7e7e7_tuoyuan"
+                android:layout_width="80dp"
+                android:layout_height="28dp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

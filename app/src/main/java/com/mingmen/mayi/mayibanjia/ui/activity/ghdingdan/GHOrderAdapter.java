@@ -23,6 +23,7 @@ import com.mingmen.mayi.mayibanjia.bean.GHOrderBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
+import com.mingmen.mayi.mayibanjia.ui.activity.AddQrCodeActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.DaYinQrCodeActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.TuikuanDialog;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
@@ -186,7 +187,7 @@ public class GHOrderAdapter extends RecyclerView.Adapter<GHOrderAdapter.ViewHold
                 @Override
                 public void onClick(View v) {
                     //if (!TextUtils.isEmpty(String.valueOf(bean.getDriver_name()))) {
-                    Intent it = new Intent(mContext, DaYinQrCodeActivity.class);
+                    Intent it = new Intent(mContext, AddQrCodeActivity.class);
                     it.putExtra("id", bean.getGy_order_id());
                     mContext.startActivity(it);
 //                    GHDOrderActivity activity = new GHDOrderActivity();

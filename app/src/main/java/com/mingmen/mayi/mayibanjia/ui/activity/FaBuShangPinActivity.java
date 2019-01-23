@@ -796,7 +796,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<List<ShangPinSousuoMohuBean>>() {
                     @Override
                     public void onNext(List<ShangPinSousuoMohuBean> data) {
-                        datas=new ArrayList<ShangPinSousuoMohuBean>();
+                        datas.clear();
                         datas.addAll(data);
                         if (mPopWindow!=null){
                             Log.e("data",data+"111111111");
@@ -819,7 +819,7 @@ public class FaBuShangPinActivity extends BaseActivity {
         mPopWindow.setHeight(height * 2 / 9);
         mPopWindow.setOutsideTouchable(true);
         mPopWindow.setBackgroundDrawable(new BitmapDrawable());
-        mPopWindow.setFocusable(true);
+//        mPopWindow.setFocusable(true);
 //        mPopWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 //        mPopWindow.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
         mPopWindow.showAsDropDown(etSpming);

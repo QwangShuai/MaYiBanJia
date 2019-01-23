@@ -79,16 +79,22 @@ public class QiYeLieBiaoAdapter extends RecyclerView.Adapter<QiYeLieBiaoAdapter.
         } else {
             holder.tvDizhi.setText(data.getQuYMC() + data.getQuYMCa() + data.getQuYMCb() + data.getQuYMCc());
         }
-
+        Log.e( "onBindViewHolder: ", data.getRole()+"---");
         if(!StringUtil.isValid(data.getRole())){
             holder.tvDingdanCtd.setVisibility(View.GONE);
             holder.tvDingdanGyd.setVisibility(View.GONE);
             holder.tvShangpinPt.setVisibility(View.GONE);
             holder.tvShangpinTj.setVisibility(View.GONE);
         } else if(data.getRole().equals("1")){
+            holder.tvDingdanCtd.setVisibility(View.VISIBLE);
             holder.tvDingdanGyd.setVisibility(View.GONE);
             holder.tvShangpinPt.setVisibility(View.GONE);
             holder.tvShangpinTj.setVisibility(View.GONE);
+        } else {
+            holder.tvDingdanCtd.setVisibility(View.VISIBLE);
+            holder.tvDingdanGyd.setVisibility(View.VISIBLE);
+            holder.tvShangpinPt.setVisibility(View.VISIBLE);
+            holder.tvShangpinTj.setVisibility(View.VISIBLE);
         }
 
         if (mOnItemClickListener != null) {

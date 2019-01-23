@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.mingmen.mayi.mayibanjia.ui.activity.AddQrCodeActivity">
+    <include layout="@layout/head_zangqing_select"></include>
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/srl_shuaxin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
+            android:id="@+id/rv_qrcode"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"></com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>

@@ -5,7 +5,7 @@ package com.mingmen.mayi.mayibanjia.http;
  */
 
 public class URL {
-    public static String url = "http://192.168.3.16:8080/ant/"; //李岩
+//    public static String url = "http://192.168.3.16:8080/ant/"; //李岩
 //    public static String url = "http://192.168.3.16:8080/ant/"; //李岩
 //    public static String url = "http://192.168.3.16:8080/"; //李岩
 //    public static String url = "http://192.168.3.8:8080/ant/"; //毕森
@@ -14,6 +14,6 @@ public class URL {
 //    public static String url = "http://192.168.1.151:8080/ant/"; //刘哥
 //    public static String url = "http://192.168.1.128:8080/ant/"; //李岩
 //  public static String url = "http://www.canchengxiang.com/";//服务器
-//  public static String url = "https://www.canchengxiang.com/";//服务器
+  public static String url = "https://www.canchengxiang.com/";//服务器
 //  public static String url = "http://ceshi.canchengxiang.com/";//测试服务器
 }

@@ -27,6 +27,7 @@ import com.amap.api.location.AMapLocationListener;
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
@@ -181,6 +182,9 @@ public class XinXiLuRuActivity extends BaseActivity {
             tvJiedaoxuanze.setText(qiyexinxi.getQuYMCc());
             etQiyeguimo.setText(qiyexinxi.getGuiMoId());
             etXiangxidizhi.setText(qiyexinxi.getSpecific_address());
+            tvQiyeleibie.setText(leibiename);
+            Glide.with(mContext).load(shidizhaopian).into(ivTu);
+            etPhone.setText(qiyexinxi.getTelephone());
         }
         photoDialog = new PhotoDialog(mContext,
                 mContext.getResources().getIdentifier("BottomDialog", "style", mContext.getPackageName()));
@@ -281,8 +285,8 @@ public class XinXiLuRuActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .qiyexiugai(PreferenceUtils.getString(MyApplication.mContext, "token",""),qiyeid,qiyemingcheng,shengid+"",shiid+"",quid+"",jieid+"", xiangxidizhi,shidizhaopian,leibieid,guimoname,etPhone.getText().toString().trim()))
-                .setDataListener(new HttpDataListener<String>() {
+                                .qiyexiugai(PreferenceUtils.getString(MyApplication.mContext,"token",""),qiyemingcheng,shengid+"",shiid+"",quid+"",jieid+"", xiangxidizhi,yewuyuanweizhi,shidizhaopian,leibieid,guimoname,etPhone.getText().toString().trim(),"","1","",""))
+        .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
                         Log.e("data",data+"---");
@@ -293,7 +297,6 @@ public class XinXiLuRuActivity extends BaseActivity {
     }
     //企业录入
     private void qiyeluru() {
-        Log.e("xinxixinxi",PreferenceUtils.getString(MyApplication.mContext, "token","")+"-"+qiyemingcheng+"-"+shengid+"-"+shiid+"-"+quid+"-"+jieid+"-"+ xiangxidizhi+"-"+yewuyuanweizhi+"-"+shidizhaopian+"-"+leibieid+"-"+guimoid);
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(

@@ -338,4 +338,9 @@ public class FCGName {
                 this.indexs = indexs;
             }
         }
+    @Override
+    public String toString() {
+        //重写该方法，作为选择器显示的名称
+        return classify_name;
+    }
 }

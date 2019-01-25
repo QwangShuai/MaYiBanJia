@@ -85,7 +85,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        tvTitle.setText("全部餐厅");
+        tvTitle.setText("我的商家");
         ivSangedian.setVisibility(View.VISIBLE);
 //        ivBack.setImageResource(R.mipmap.sousuo_bai);
         mContext=YeWuYuanMainActivity.this;
@@ -130,7 +130,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
                         bianjidialog.getLlBianji().setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                bianji(position);
+                                bianji(position,mlist.get(position).getRole());
                                 Log.e("bianji","bianji"+position);
                                 bianjidialog.cancel();
                             }
@@ -284,8 +284,14 @@ public class YeWuYuanMainActivity extends BaseActivity {
                 });
     }
     //编辑
-    private void bianji(int position) {
-        Intent intent = new Intent(mContext, XinXiLuRuActivity.class);
+    private void bianji(int position,String type) {
+        Intent intent = new Intent();
+        if(type.equals("1")){
+            intent.setClass(mContext, XinXiLuRuActivity.class);
+        } else {
+            intent.setClass(mContext, XinXiLuRuGHDActivity.class);
+        }
+
         bundle.putString("rukou","edit");
         bundle.putString("xinxi",gson.toJson(mlist.get(position)));
         intent.putExtras(bundle);
@@ -384,7 +390,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
                         addDialog.dismiss();
                         Intent intent = new Intent(mContext, XinXiLuRuGHDActivity.class);
                         bundle.putString("rukou","add");
-                        bundle.putString("random_id","2");
+                        bundle.putString("random_id","0");
                         intent.putExtras(bundle);
                         startActivity(intent);
                     }

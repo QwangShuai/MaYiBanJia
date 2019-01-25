@@ -103,6 +103,7 @@ public class ShangPinBean {
         private String packStandard;
         private String son_order_id;
         private String type_tree_id;
+        private String type_four_id;
         private String hostPicture;
         private String deputyPicture;
         private String type_one_id;
@@ -149,6 +150,14 @@ public class ShangPinBean {
     private String city;
     private String market_name;
     private String classify_name;
+
+    public String getType_four_id() {
+        return type_four_id;
+    }
+
+    public void setType_four_id(String type_four_id) {
+        this.type_four_id = type_four_id;
+    }
 
     public String getClassify_name() {
         return classify_name;

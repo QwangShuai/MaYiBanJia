@@ -32,8 +32,17 @@ public class FbspCanShuBean {
     private String goods="";
     private String type_two_id="";
     private String type_tree_id="";
+    private String type_four_id="";
     private String spec_describe="";
     private String price="";
+
+    public String getType_four_id() {
+        return type_four_id;
+    }
+
+    public void setType_four_id(String type_four_id) {
+        this.type_four_id = type_four_id;
+    }
 
     public String getPrice() {
         return price;

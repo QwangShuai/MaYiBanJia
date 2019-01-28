@@ -200,6 +200,16 @@ public class ShouCangBean {
         private String sortOrder;
         private String pageNumber;
         private String collect_id;
+        private String type_four_id;
+
+    public String getType_four_id() {
+        return type_four_id;
+    }
+
+    public void setType_four_id(String type_four_id) {
+        this.type_four_id = type_four_id;
+    }
+
     private String classify_name;//三级分类名称
        private String spec_describe;
 

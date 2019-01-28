@@ -64,6 +64,15 @@ public class LiuLanJiLuBean {
     private String pice_one;//价格一
     private String pice_two;//价格二
     private String pice_three;//价格三
+    private String type_four_id;//四级分类id
+
+    public String getType_four_id() {
+        return type_four_id;
+    }
+
+    public void setType_four_id(String type_four_id) {
+        this.type_four_id = type_four_id;
+    }
 
     public String getGoodsPicture() {
         return goodsPicture;

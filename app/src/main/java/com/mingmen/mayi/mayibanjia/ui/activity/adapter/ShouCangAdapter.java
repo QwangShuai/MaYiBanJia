@@ -82,13 +82,11 @@ public class ShouCangAdapter extends BaseQuickAdapter<ShouCangBean,BaseViewHolde
             @Override
             public void onClick(View v) {
                 String shuliang = jiarugouwuchedialog.getEtShuliang().getText().toString().trim();
-                Log.e("data.getShopping_id()", item.getShopping_id() + "---");
                     if (Integer.parseInt(shuliang) >= Integer.parseInt(item.getRation_one())) {
                         addcar(item.getCommodity_id(), shuliang, item.getCompany_id(), "", finalGuigeid);
                     } else {
                         ToastUtil.showToast("不够起订量");
                     }
-                Log.e("jiarugouwuche", jiarugouwuchedialog.getEtShuliang().getText().toString().trim());
                 jiarugouwuchedialog.getEtShuliang().setText("0");
                 jiarugouwuchedialog.cancel();
 
@@ -107,7 +105,6 @@ public class ShouCangAdapter extends BaseQuickAdapter<ShouCangBean,BaseViewHolde
                 }else{
                     Bundle bundle=new Bundle();
                     bundle.putString("spid",item.getCommodity_id());
-                    Log.e("spid",item.getCommodity_id()+"---");
                     JumpUtil.Jump_intent(mContext, SPXiangQingActivity.class,bundle);
                 }
             }
@@ -119,9 +116,8 @@ public class ShouCangAdapter extends BaseQuickAdapter<ShouCangBean,BaseViewHolde
                 Intent zoushi=new Intent(mContext,TubiaoActivity.class);
                 zoushi.putExtra("mark_id",item.getSon_number());//市场id
                 zoushi.putExtra("market_name",item.getMarket_name());//市场名
-                zoushi.putExtra("classify_id",item.getType_tree_id());//三级分类id
-                zoushi.putExtra("classify_name",item.getClassify_name());//三级分类名称
-//                Log.e("classify_name",item.getClassify_name()+"-");
+                zoushi.putExtra("classify_id",item.getType_four_id());//四级分类id
+                zoushi.putExtra("classify_name",item.getClassify_name());//四级分类名称
                 mContext.startActivity(zoushi);
             }
         });

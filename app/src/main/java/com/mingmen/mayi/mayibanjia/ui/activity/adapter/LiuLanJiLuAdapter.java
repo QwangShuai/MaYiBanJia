@@ -62,6 +62,7 @@ public class LiuLanJiLuAdapter extends RecyclerView.Adapter<LiuLanJiLuAdapter.Vi
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final LiuLanJiLuBean data = mList.get(position);
+        Log.e("classify_id444", data.getType_four_id()+"----" );
         holder.tvSpming.setText(data.getGoodsName());
         holder.tvDianming.setText(data.getShopName());
         holder.tvJiage.setText(data.getPrice()+"");
@@ -82,8 +83,8 @@ public class LiuLanJiLuAdapter extends RecyclerView.Adapter<LiuLanJiLuAdapter.Vi
                 Intent zoushi=new Intent(mContext,TubiaoActivity.class);
                 zoushi.putExtra("mark_id",data.getSon_number());//市场id
                 zoushi.putExtra("market_name",data.getMarket_name());//市场名
-                zoushi.putExtra("classify_id",data.getType_tree_id());//三级分类名称
-                zoushi.putExtra("classify_name",data.getClassify_name());//三级分类名称
+                zoushi.putExtra("classify_id",data.getType_tree_id());//四级分类名称
+                zoushi.putExtra("classify_name",data.getClassify_name());//四级分类名称
                 mContext.startActivity(zoushi);
             }
         });

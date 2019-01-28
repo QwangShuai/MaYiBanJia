@@ -193,7 +193,6 @@ public class LiuLanJiLuActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<List<LiuLanJiLuBean>>() {
                     @Override
                     public void onNext(List<LiuLanJiLuBean> data) {
-//                    Log.e("data",gson .toJson(data)+"---");
                         if (srlShuaxin.isRefreshing()){
                             srlShuaxin.setRefreshing(false);
                         }

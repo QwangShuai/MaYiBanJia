@@ -201,6 +201,15 @@ public class SPXiangQingBean {
             private String market_name;
             private String spec_describe;
             private String tjprice;
+            private String type_four_id;
+
+            public String getType_four_id() {
+                return type_four_id;
+            }
+
+            public void setType_four_id(String type_four_id) {
+                this.type_four_id = type_four_id;
+            }
 
             public String getTjprice() {
                 return tjprice;

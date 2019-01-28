@@ -136,6 +136,7 @@ public class TubiaoActivity extends FragmentActivity {
     }
     //走势图接口
     private void zoushitu() {
+        Log.e("classify_id222", classify_id+"----" );
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
@@ -147,7 +148,6 @@ public class TubiaoActivity extends FragmentActivity {
                     public void onNext(List<ZouShiTuBean> data) {
                         list = new ArrayList<>();
                         list.addAll(data);
-
                         if (data.size()==0||data==null){
                             ToastUtil.showToast("该商品暂无价格走势");
                             lineChart.setVisibility(View.GONE);
@@ -169,7 +169,7 @@ public class TubiaoActivity extends FragmentActivity {
         old_market_name = getIntent().getStringExtra("market_name");
         old_classify_id = getIntent().getStringExtra("classify_id");
         old_classify_name = getIntent().getStringExtra("classify_name");
-
+        Log.e("classify_id1122",old_classify_name+"------");
         qitianqian = DateUtil.timeDateqt();
         jintian = DateUtil.dateFormat(new Date(), geshi);
         market_name=old_market_name;

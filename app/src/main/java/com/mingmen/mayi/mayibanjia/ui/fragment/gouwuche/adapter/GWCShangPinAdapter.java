@@ -131,9 +131,9 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
                 Intent zoushi=new Intent(mContext,TubiaoActivity.class);
                 zoushi.putExtra("mark_id",shoppingBean.getSon_number());//市场id
                 zoushi.putExtra("market_name",shoppingBean.getMarket_name());//市场名
-                zoushi.putExtra("classify_id",shoppingBean.getType_tree_id());//三级分类id
+                zoushi.putExtra("classify_id",shoppingBean.getType_four_id() );//三级分类id
                 zoushi.putExtra("classify_name",shoppingBean.getClassify_name());//三级分类名称
-                Log.e("ceshi----------", shoppingBean.getSon_number()+shoppingBean.getMarket_name()+shoppingBean.getType_tree_id()+shoppingBean.getClassify_name()+"================================");
+                Log.e("ceshi----------", shoppingBean.getSon_number()+shoppingBean.getMarket_name()+shoppingBean.getType_four_id()+shoppingBean.getClassify_name()+"================================");
                 mContext.startActivity(zoushi);
             }
         });

@@ -591,9 +591,8 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
                 Intent zoushi=new Intent(mContext,TubiaoActivity.class);
                 zoushi.putExtra("mark_id",xq.getSon_number());//市场id
                 zoushi.putExtra("market_name",xq.getMarket_name());//市场名
-                zoushi.putExtra("classify_id",xq.getType_tree_id());//三级分类id
-                zoushi.putExtra("classify_name",xq.getClassify_name());//三级分类名称
-                Log.e("classify_name",xq.getClassify_name()+"-");
+                zoushi.putExtra("classify_id",xq.getType_four_id());//四级分类id
+                zoushi.putExtra("classify_name",xq.getClassify_name());//4级分类名称
                 startActivity(zoushi);
                 break;
             case R.id.ll_jindian:

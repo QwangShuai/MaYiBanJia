@@ -224,6 +224,15 @@ public class GWCShangPinBean {
             private String classify_name;
             private String specNameThree;
             private String specNameTwo;
+            private String type_four_id;
+
+            public String getType_four_id() {
+                return type_four_id;
+            }
+
+            public void setType_four_id(String type_four_id) {
+                this.type_four_id = type_four_id;
+            }
 
             public String getSpecNameThree() {
                 return specNameThree;

@@ -18,12 +18,16 @@ import com.mingmen.mayi.mayibanjia.bean.ShouYeLeiBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
+import com.mingmen.mayi.mayibanjia.ui.activity.AddShangPinActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.QiangDanActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.GengDuoShangJiaDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.QiangDanShangPinDialog;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2018/8/30.
@@ -36,7 +40,6 @@ public class YiJiFenLeiAdapter extends BaseQuickAdapter<FCGName,BaseViewHolder> 
     }
     private CallBack mCallBack;
     private String xuanzhongid="";
-
     public String getXuanzhongid() {
         return xuanzhongid;
     }
@@ -55,25 +58,31 @@ public class YiJiFenLeiAdapter extends BaseQuickAdapter<FCGName,BaseViewHolder> 
     public interface OnItemClickListener {
         void onClick(View view, int position);
     }
+
+
     @Override
     protected void convert(final BaseViewHolder helper,final FCGName item) {
         TextView yijifenlei = helper.getView(R.id.tv_yijifenlei);
-        Log.e("选中的ID",xuanzhongid);
-        if (xuanzhongid.equals(item.getClassify_id())){
-            yijifenlei.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_solid_zangqing_3));
-            yijifenlei.setTextColor(mContext.getResources().getColor(R.color.white));
-        }else{
-            yijifenlei.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_999999_3));
-            yijifenlei.setTextColor(mContext.getResources().getColor(R.color.zicolor));
-        }
+            if(StringUtil.isValid(xuanzhongid)){
+                if (xuanzhongid.equals(item.getClassify_id())){
+                    yijifenlei.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_solid_zangqing_3));
+                    yijifenlei.setTextColor(mContext.getResources().getColor(R.color.white));
+                }else{
+                    yijifenlei.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_999999_3));
+                    yijifenlei.setTextColor(mContext.getResources().getColor(R.color.zicolor));
+                }
+            }
+
         helper.setText(R.id.tv_yijifenlei,item.getClassify_name());
         helper.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mCallBack!=null)
+                if(mCallBack!=null){
                     mCallBack.xuanzhong(item);
-                xuanzhongid=item.getClassify_id();
+                }
+                    xuanzhongid=item.getClassify_id();
             }
         });
     }
+
 }

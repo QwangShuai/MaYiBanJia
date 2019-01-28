@@ -296,7 +296,8 @@
         <activity android:name=".ui.activity.ShangPinChangeActivity" />
         <activity android:name=".ui.activity.ShangPinGuanLiTeJiaActivity" />
         <activity android:name=".ui.activity.CaiGouXuQiuActivity" />
-        <activity android:name=".ui.activity.ChangGouActivity"></activity>
+        <activity android:name=".ui.activity.ChangGouActivity" />
+        <activity android:name=".ui.activity.AddShangPinActivity"></activity>
     </application>
 
 </manifest>

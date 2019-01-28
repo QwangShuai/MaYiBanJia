@@ -110,32 +110,32 @@ public class FCGDiQuXuanZeActivity extends BaseActivity {
 
     public void initList(){
         shiChangAdapter = new FCGShiChangAdapter();
-        et_caigouming.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.toString().trim().length()>0){
-                    if(!s.toString().trim().equals(shichang)){
-                        getfcgname(s.toString().trim());
-                    }
-
-                }
-
-            }
-        });
+//        et_caigouming.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                if (s.toString().trim().length()>0){
+//                    if(!s.toString().trim().equals(shichang)){
+//                        getfcgname(s.toString().trim());
+//                    }
+//
+//                }
+//
+//            }
+//        });
 
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
         String date=sdf.format(new java.util.Date());
-        et_caigouming.setText(date);
+        et_caigouming.setText(date+"-"+getRandom());
 
         getBg();
     }
@@ -212,11 +212,15 @@ public class FCGDiQuXuanZeActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
-                        Intent intent=new Intent(mContext,FCGCaiGouXuQiuActivity.class);
+                        Intent intent=new Intent(mContext,CaiGouXuQiuActivity.class);
                         bundle.putString("caigouming",et_caigouming.getText().toString().trim());
                         intent.putExtras(bundle);
                         startActivity(intent);
                     }
                 },true);
+    }
+
+    private int getRandom(){
+        return (int) (Math.random()*9000+1000);
     }
 }

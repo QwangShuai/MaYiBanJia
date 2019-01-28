@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity{
                 gaibianye(3);
                 break;
             case R.id.iv_facaigou:
-                Intent caigouintent=new Intent(MainActivity.this,CaiGouXuQiuActivity.class);
+                Intent caigouintent=new Intent(MainActivity.this,FCGDiQuXuanZeActivity.class);
                 startActivity(caigouintent);
                 break;
         }

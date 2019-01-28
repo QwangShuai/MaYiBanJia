@@ -7,6 +7,7 @@ import com.mingmen.mayi.mayibanjia.bean.AllShiChangBean;
 import com.mingmen.mayi.mayibanjia.bean.CaiGouDanBean;
 import com.mingmen.mayi.mayibanjia.bean.CaiGouMingChengBean;
 import com.mingmen.mayi.mayibanjia.bean.CarsTypeBean;
+import com.mingmen.mayi.mayibanjia.bean.ChangYongBean;
 import com.mingmen.mayi.mayibanjia.bean.ChePaiBean;
 import com.mingmen.mayi.mayibanjia.bean.DaYinQrCodeBean;
 import com.mingmen.mayi.mayibanjia.bean.DdxqListBean;
@@ -1143,4 +1144,14 @@ public interface HttpService {
     Observable<ResultModel<List<AddQrCodeBean>>> getQrCodeSp(@Query("gy_order_id") String gy_order_id,
                                                               @Query("type") String type,
                                                               @Query("pageNumber") String pageNumber);
+
+    //获取常用列表
+    @POST("oftenName/list.do")
+    Observable<ResultModel<List<ChangYongBean>>> getChanggouList(@Query("user_token") String user_token);
+
+    //添加商品（多个）
+    @POST("ctBuyHostorder/addAllCtBuyHostorder.do")
+    Observable<ResultModel<String>> addSpList(@Query("user_token") String user_token,
+                                                             @Query("list") String list,
+                                                             @Query("purchase_name") String purchase_name);
 }

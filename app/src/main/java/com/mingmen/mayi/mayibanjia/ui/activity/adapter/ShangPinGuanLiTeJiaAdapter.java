@@ -1,8 +1,6 @@
 package com.mingmen.mayi.mayibanjia.ui.activity.adapter;
 
 import android.content.Intent;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -18,19 +16,17 @@ import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.FaBuShangPinActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShangPinGuanLiActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.ShangPinGuanLiTeJiaActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
-import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
-
-import java.util.List;
 
 /**
  * Created by Administrator on 2018/9/25.
  */
 
-public class ShangPinGuanLiAdapter extends BaseQuickAdapter<ShangPinGuanLiBean.GoodsListBean, BaseViewHolder> {
-    private ShangPinGuanLiActivity activity;
+public class ShangPinGuanLiTeJiaAdapter extends BaseQuickAdapter<ShangPinGuanLiBean.GoodsListBean, BaseViewHolder> {
+    private ShangPinGuanLiTeJiaActivity activity;
     private ConfirmDialog confirmDialog;
     private String goods = "0";
 
@@ -53,7 +49,7 @@ public class ShangPinGuanLiAdapter extends BaseQuickAdapter<ShangPinGuanLiBean.G
 
     private boolean isClick = true;
 
-    public ShangPinGuanLiAdapter(ShangPinGuanLiActivity activity, String goods) {
+    public ShangPinGuanLiTeJiaAdapter(ShangPinGuanLiTeJiaActivity activity, String goods) {
         super(R.layout.item_shangpinguanli);
         this.activity = activity;
         this.goods = goods;
@@ -189,13 +185,13 @@ public class ShangPinGuanLiAdapter extends BaseQuickAdapter<ShangPinGuanLiBean.G
 
     public void showDialog(String title, final String id, final String type) {
         confirmDialog.showDialog(title);
-        confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+        confirmDialog.getTvSubmit().setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 updateState(id, type);
             }
         });
-        confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
+        confirmDialog.getTvCancel().setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 confirmDialog.dismiss();

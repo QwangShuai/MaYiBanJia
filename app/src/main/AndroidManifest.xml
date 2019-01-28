@@ -292,7 +292,11 @@
         <activity android:name=".ui.activity.ZhuCeCanTingActivity" /> <!-- 注册餐厅 -->
         <activity android:name=".utils.dayinji.DaYinJiActivity" />
         <activity android:name=".ui.activity.XinXiLuRuGHDActivity" />
-        <activity android:name=".ui.activity.AddQrCodeActivity"></activity>
+        <activity android:name=".ui.activity.AddQrCodeActivity" />
+        <activity android:name=".ui.activity.ShangPinChangeActivity" />
+        <activity android:name=".ui.activity.ShangPinGuanLiTeJiaActivity" />
+        <activity android:name=".ui.activity.CaiGouXuQiuActivity" />
+        <activity android:name=".ui.activity.ChangGouActivity"></activity>
     </application>
 
 </manifest>

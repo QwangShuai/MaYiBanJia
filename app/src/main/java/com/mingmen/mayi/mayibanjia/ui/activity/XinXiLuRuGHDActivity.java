@@ -27,6 +27,7 @@ import android.widget.TextView;
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
+import com.bumptech.glide.Glide;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.JsonBean;
@@ -131,6 +132,7 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
     private String shichang_id ;
     private String shichangming ;
     private String tanweihao;
+    private String phone;
     @Override
     public int getLayoutId() {
         return R.layout.activity_xin_xi_lu_ru_ghd;
@@ -161,10 +163,17 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
             shengming=qiyexinxi.getQuYMC();
             shiming=qiyexinxi.getQuYMCa();
             quming=qiyexinxi.getQuYMCb();
+            tanweihao = qiyexinxi.getBooth_number();
+            phone = qiyexinxi.getTelephone();
+            shichangming = qiyexinxi.getSon_number();
             shidizhaopian=qiyexinxi.getPhoto();
             xiangxidizhi=qiyexinxi.getSpecific_address();
             tvQuyuxuanze.setText(qiyexinxi.getQuYMC()+"-"+qiyexinxi.getQuYMCa()+"-"+qiyexinxi.getQuYMCb());
             etXiangxidizhi.setText(qiyexinxi.getSpecific_address());
+            Glide.with(mContext).load(shidizhaopian).into(ivTu);
+            etPhone.setText(phone);
+            tvXuanzeshichang.setText(shichangming);
+            etTanweihao.setText(tanweihao);
         }
         photoDialog = new PhotoDialog(mContext,
                 mContext.getResources().getIdentifier("BottomDialog", "style", mContext.getPackageName()));
@@ -256,7 +265,7 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .qiyexiugai(PreferenceUtils.getString(MyApplication.mContext, "token",""),qiyeid,qiyemingcheng,shengid+"",shiid+"",quid+"","", xiangxidizhi,shidizhaopian,leibieid,"",etPhone.getText().toString().trim()))
+                                .qiyexiugai(PreferenceUtils.getString(MyApplication.mContext, "token",""),qiyemingcheng,shengid+"",shiid+"",quid+"","", xiangxidizhi,yewuyuanweizhi,shidizhaopian,leibieid,"",random_id,"2",tanweihao,shichang_id,etPhone.getText().toString().trim()))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
@@ -273,7 +282,7 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .qiyeluru(PreferenceUtils.getString(MyApplication.mContext, "token",""),qiyemingcheng,shengid+"",shiid+"",quid+"","", xiangxidizhi,yewuyuanweizhi,shidizhaopian,leibieid,"",etPhone.getText().toString().trim(),random_id,"2",tanweihao,shichang_id))
+                                .qiyeluru(PreferenceUtils.getString(MyApplication.mContext, "token",""),qiyemingcheng,shengid+"",shiid+"",quid+"","", xiangxidizhi,yewuyuanweizhi,shidizhaopian,leibieid,"",random_id,"2",tanweihao,shichang_id,etPhone.getText().toString().trim()))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {

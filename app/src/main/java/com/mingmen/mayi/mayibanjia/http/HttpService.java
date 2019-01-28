@@ -310,16 +310,20 @@ public interface HttpService {
     //企业修改(业务员)
     @POST("allCompany/updateCompany.do")
     Observable<ResultModel<String>> qiyexiugai(@Query("user_token") String user_token,
-                                               @Query("company_id") String company_id,
                                                @Query("company_name") String company_name,
                                                @Query("province") String province,
                                                @Query("city") String city,
                                                @Query("region") String region,
                                                @Query("street") String street,
                                                @Query("specific_address") String specific_address,
+                                               @Query("salesman_duty") String salesman_duty,
                                                @Query("photo") String photo,
                                                @Query("parent_number") String parent_number,
                                                @Query("scale") String scale,
+                                               @Query("random_id") String random_id,
+                                               @Query("role") String role,
+                                               @Query("booth_number") String booth_number,
+                                               @Query("son_number") String son_number,
                                                @Query("telephone") String telephone);
 
     //查询企业列表（业务员）
@@ -408,9 +412,6 @@ public interface HttpService {
                                                                 @Query("pageNumber") String pageNumber,
                                                                 @Query("sortOrder") String sortOrder);
 
-    //分类名称
-    @POST("ctObserver/chooseType.do")
-    Observable<ResultModel<List<FenLeiMingChengBean>>> getfenleimingcheng();
 
     //规格
     @POST("allSpec/list.do")
@@ -436,6 +437,7 @@ public interface HttpService {
                                                  @Query("commodity_name") String commodity_name,
                                                  @Query("type_two_id") String type_two_id,
                                                  @Query("type_tree_id") String type_tree_id,
+                                                 @Query("type_four_id") String type_four_id,
                                                  @Query("hostPicture") String hostPicture,
                                                  @Query("spec_describe") String spec_describe,
                                                  @Query("price") String price);
@@ -461,6 +463,7 @@ public interface HttpService {
                                                    @Query("commodity_name") String commodity_name,
                                                    @Query("type_two_id") String type_two_id,
                                                    @Query("type_tree_id") String type_tree_id,
+                                                   @Query("type_four_id") String type_four_id,
                                                    @Query("hostPicture") String hostPicture,
                                                    @Query("spec_describe") String spec_describe,
                                                    @Query("price") String price);
@@ -589,9 +592,9 @@ public interface HttpService {
                                              @Query("append_money") String append_money);
 
     //获取抢单商家商品
-    @POST("gyCommodity/queryByTypeTreeId.do")
+    @POST("gyCommodity/queryByTypeFourId.do")
     Observable<ResultModel<List<ShangPinBean>>> qiangdanshangpin(@Query("company_id") String user_token,
-                                                                 @Query("type_tree_id") String type_tree_id,
+                                                                 @Query("type_four_id") String type_tree_id,
                                                                  @Query("son_order_id") String son_order_id);
 
     //获取全部分类
@@ -842,7 +845,7 @@ public interface HttpService {
     //新建商品模糊查询
     @POST("gyCommodity/queryCommodityname.do")
     Observable<ResultModel<List<ShangPinSousuoMohuBean>>> searchSpname(@Query("user_token") String user_token,
-                                                                       @Query("type_two_id") String type_two_id,
+                                                                       @Query("type_tree_id") String type_tree_id,
                                                                        @Query("commodity_name") String commodity_name);
 
     //供应端退款

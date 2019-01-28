@@ -2,9 +2,9 @@ package com.mingmen.mayi.mayibanjia.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,8 +18,9 @@ import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.ShangPinGuanLiAdapter;
+import com.mingmen.mayi.mayibanjia.ui.activity.adapter.ShangPinGuanLiTeJiaAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.SanGeXuanXiangDialog;
-import com.mingmen.mayi.mayibanjia.ui.activity.dialog.SiGeXuanXiangDialog;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ShangPinTeJiaDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.SouSuoDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
@@ -34,19 +35,13 @@ import com.yanzhenjie.recyclerview.swipe.SwipeMenuItemClickListener;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static android.widget.ListPopupWindow.MATCH_PARENT;
 
-/**
- * Created by Administrator on 2018/9/25.
- */
-
-public class ShangPinGuanLiActivity extends BaseActivity {
+public class ShangPinGuanLiTeJiaActivity extends BaseActivity {
     @BindView(R.id.ll_title)
     LinearLayout llTitle;
     @BindView(R.id.tv_title)
@@ -61,13 +56,13 @@ public class ShangPinGuanLiActivity extends BaseActivity {
     LinearLayout llXinjianshangpin;
 
     private Context mContext;
-    private ShangPinGuanLiAdapter shangpinguanliadapter;
+    private ShangPinGuanLiTeJiaAdapter shangpinguanliadapter;
     private String chaxunzi="";
     private int ye = 1;
     private ArrayList<ShangPinGuanLiBean.GoodsListBean> mlist = new ArrayList<>();
     private String type="0";
     private String goods= "0";
-    private SanGeXuanXiangDialog titleDialog;
+    private ShangPinTeJiaDialog titleDialog;
     private boolean isClick = true;
     private String token = "";
     public String getToken() {
@@ -79,14 +74,14 @@ public class ShangPinGuanLiActivity extends BaseActivity {
     }
     @Override
     public int getLayoutId() {
-        return R.layout.activity_shangpinguanli;
+        return R.layout.activity_shang_pin_guan_li_te_jia;
     }
 
     @Override
     protected void initData() {
-        mContext=ShangPinGuanLiActivity.this;
-        titleDialog = new SanGeXuanXiangDialog()
-                .setActivity(this)
+        mContext=ShangPinGuanLiTeJiaActivity.this;
+        titleDialog = new ShangPinTeJiaDialog()
+                .setTeJiaActivity(this)
                 .setTop(AppUtil.dip2px(44));
         goods = getIntent().getStringExtra("goods");
         setToken(getIntent().getStringExtra("token"));
@@ -94,7 +89,7 @@ public class ShangPinGuanLiActivity extends BaseActivity {
         if(StringUtil.isValid(token)){
             isClick = false;
         } else {
-            token =PreferenceUtils.getString(MyApplication.mContext,"token","");
+            token = PreferenceUtils.getString(MyApplication.mContext,"token","");
         }
         initRecycleView();
 //        if(goods.equals("1")){
@@ -106,33 +101,33 @@ public class ShangPinGuanLiActivity extends BaseActivity {
 
     public void getShangpinList(final int ye) {
         HttpManager.getInstance()
-                 .with(mContext)
-                        .setObservable(
-                    RetrofitManager
-                            .getService()
-                            .getshangpinguanli(token, chaxunzi,goods,type,ye))
-                    .setDataListener(new HttpDataListener<ShangPinGuanLiBean>() {
-                @Override
-                public void onNext(ShangPinGuanLiBean data) {
-                    if (ye == 1) {
-                        mlist.clear();
-                        rvShangpinguanli.loadMoreFinish(false, true);
-                    }else{
-                        if (data.getGoodsList().size()>0&&data.getGoodsList().size()<5){
-                            rvShangpinguanli.loadMoreFinish(false, false);
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .getshangpinguanli(token, chaxunzi,goods,type,ye))
+                .setDataListener(new HttpDataListener<ShangPinGuanLiBean>() {
+                    @Override
+                    public void onNext(ShangPinGuanLiBean data) {
+                        if (ye == 1) {
+                            mlist.clear();
+                            rvShangpinguanli.loadMoreFinish(false, true);
                         }else{
-                            if (data.getGoodsList().size()==0){
-                                rvShangpinguanli.loadMoreFinish(true, false);
+                            if (data.getGoodsList().size()>0&&data.getGoodsList().size()<5){
+                                rvShangpinguanli.loadMoreFinish(false, false);
                             }else{
-                                rvShangpinguanli.loadMoreFinish(false, true);
+                                if (data.getGoodsList().size()==0){
+                                    rvShangpinguanli.loadMoreFinish(true, false);
+                                }else{
+                                    rvShangpinguanli.loadMoreFinish(false, true);
+                                }
                             }
                         }
+                        mlist.addAll(data.getGoodsList());
+                        shangpinguanliadapter.setNewData(mlist);
+                        shangpinguanliadapter.notifyDataSetChanged();
                     }
-                    mlist.addAll(data.getGoodsList());
-                    shangpinguanliadapter.setNewData(mlist);
-                    shangpinguanliadapter.notifyDataSetChanged();
-                }
-            },ye==1);
+                },ye==1);
     }
 
     private void initRecycleView() {
@@ -200,7 +195,7 @@ public class ShangPinGuanLiActivity extends BaseActivity {
         rvShangpinguanli.setLoadMoreListener(mLoadMoreListener); // 加载更多的监听。
         rvShangpinguanli.loadMoreFinish(false, true);
         rvShangpinguanli.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
-        shangpinguanliadapter=new ShangPinGuanLiAdapter(ShangPinGuanLiActivity.this,goods);
+        shangpinguanliadapter=new ShangPinGuanLiTeJiaAdapter(ShangPinGuanLiTeJiaActivity.this,goods);
         shangpinguanliadapter.setClick(isClick);
         rvShangpinguanli.setAdapter(shangpinguanliadapter);
     }
@@ -247,12 +242,7 @@ public class ShangPinGuanLiActivity extends BaseActivity {
     }
 
     public void setType(String s) {
-        if(s.equals("3")){
-            goods = "1";
-        } else {
-            goods = "0";
-            type=s;
-        }
+        type=s;
         ye = 1;
         getShangpinList(1);
     }

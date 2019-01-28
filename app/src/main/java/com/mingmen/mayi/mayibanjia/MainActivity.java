@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.mingmen.mayi.mayibanjia.ui.activity.CaiGouXuQiuActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.FCGDiQuXuanZeActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.myinterface.MainCallBack;
 import com.mingmen.mayi.mayibanjia.ui.fragment.gouwuche.GouWuCheFragment;
@@ -173,7 +174,7 @@ public class MainActivity extends AppCompatActivity{
                 gaibianye(3);
                 break;
             case R.id.iv_facaigou:
-                Intent caigouintent=new Intent(MainActivity.this,FCGDiQuXuanZeActivity.class);
+                Intent caigouintent=new Intent(MainActivity.this,CaiGouXuQiuActivity.class);
                 startActivity(caigouintent);
                 break;
         }

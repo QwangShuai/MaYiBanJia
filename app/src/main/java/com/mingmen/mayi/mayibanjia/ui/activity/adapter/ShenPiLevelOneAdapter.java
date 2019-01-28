@@ -59,6 +59,7 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
     private ShenPiLevelTwoAdapter adapter;
     private ShenPiLevelZeroAdapter zeroAdapter;
     private int zeroPos;
+    private int count=0;
     private long time = 300 * 1000;
     private  boolean youtuijian = false;
 //    private HashMap<String,String> myMap = new HashMap<>();
@@ -141,12 +142,14 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
 //                holder.tvXitongtuijian.setEnabled(false);
                 message = "特殊商品抢单中，请耐心等待抢单完成";
                 isClick = false;
+                holder.itemView.setEnabled(false);
                 activity.setClick(isClick);
             }
 
             @Override
             public void onFinish() {
                 zeroAdapter.setPosClick(zeroPos, false);
+                holder.itemView.setEnabled(true);
                 PreferenceUtils.remove(activity, mList.get(position).getSon_order_id());
 //                myMap.remove(mList.get(position).getSon_order_id());
                 activity.setClick(isClick);
@@ -262,28 +265,29 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
                     showPopupWindow(listBean.getSpecial_commodity(), holder.tvTeshu);
                 }
             });
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.e("是否需要加载", listBean.isNeedLoad() + "");
-                    if (listBean.isNeedLoad()) {//是否需要加载数据
-                        getshenpi(listBean, position, activity);
-                    } else {
-                        Log.e("当前展开状态获取",listBean.isSelect()+"???");
-                        //不需要加载数据时
-//                    展开二级列表
-                        if (listBean.isSelect()) {
-                            mList.get(position).setSelect(false);
-                            holder.rvDplist.setVisibility(View.GONE);
-                        notifyDataSetChanged();
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.e("是否需要加载", listBean.isNeedLoad() + "");
+                        if (listBean.isNeedLoad()) {//是否需要加载数据
+                            getshenpi(listBean, position, activity);
                         } else {
-                            mList.get(position).setSelect(true);
-                            holder.rvDplist.setVisibility(View.VISIBLE);
-                        notifyDataSetChanged();
+                            Log.e("当前展开状态获取",listBean.isSelect()+"???");
+                            //不需要加载数据时
+//                    展开二级列表
+                            if (listBean.isSelect()) {
+                                mList.get(position).setSelect(false);
+                                holder.rvDplist.setVisibility(View.GONE);
+                                notifyDataSetChanged();
+                            } else {
+                                mList.get(position).setSelect(true);
+                                holder.rvDplist.setVisibility(View.VISIBLE);
+                                notifyDataSetChanged();
+                            }
                         }
                     }
-                }
-            });
+                });
+
             holder.llLishi.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

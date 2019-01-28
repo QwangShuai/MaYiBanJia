@@ -98,33 +98,34 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <RelativeLayout
-                android:id="@+id/rl_lei"
-                android:paddingTop="20dp"
-                android:layout_marginBottom="12dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:id="@+id/ll_rv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    >
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recycler_view"
+                    <RelativeLayout
+                        android:id="@+id/rl_lei"
+                        android:paddingTop="20dp"
+                        android:layout_marginBottom="12dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"/>
-                </LinearLayout>
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:id="@+id/ll_rv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            >
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/recycler_view"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"/>
+                        </LinearLayout>
 
-                <com.mingmen.mayi.mayibanjia.ui.view.PageIndicatorView
-                    android:layout_marginTop="12dp"
-                    android:id="@+id/indicator"
-                    android:layout_width="match_parent"
-                    android:layout_height="6dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_alignBottom="@id/ll_rv"
-                    />
-            </RelativeLayout>
+                        <com.mingmen.mayi.mayibanjia.ui.view.PageIndicatorView
+                            android:layout_marginTop="12dp"
+                            android:id="@+id/indicator"
+                            android:layout_width="match_parent"
+                            android:layout_height="6dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignBottom="@id/ll_rv"
+                            />
+                    </RelativeLayout>
+
             <View
                 android:background="@color/gray_e7e7e7"
                 android:layout_width="match_parent"

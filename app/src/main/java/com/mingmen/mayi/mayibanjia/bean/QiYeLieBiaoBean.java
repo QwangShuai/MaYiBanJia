@@ -85,7 +85,6 @@ public class QiYeLieBiaoBean {
     private String role;
     private String telephone;
     private String principal;
-
     public String getPrincipal() {
         return principal;
     }

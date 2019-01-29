@@ -2,6 +2,7 @@ package com.mingmen.mayi.mayibanjia.ui.activity.adapter;
 
 import android.content.Context;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.CaiGouDanBean;
@@ -72,22 +74,36 @@ public class ChangGouListLevelOneAdapter extends RecyclerView.Adapter<ChangGouLi
         final ChangYongBean bean = mList.get(position);
         holder.tvPinlei.setText(bean.getClassify_name());
         adapter = new ChangGouListLevelTwoAdapter(mContext, mList.get(position).getList(),activity);
-        holder.rvListTwo.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+        holder.rvListTwo.setLayoutManager(new GridLayoutManager(mContext, 3));
         holder.rvListTwo.setAdapter(adapter);
         holder.rvListTwo.setFocusable(false);
         holder.rvListTwo.setNestedScrollingEnabled(false);
+        holder.rlBianji.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(holder.tvBianji.getText().toString().equals("编辑")){
+                    setShow(position,true);
+                    holder.tvBianji.setText("取消");
+                } else {
+                    setShow(position,false);
+                    holder.tvBianji.setText("编辑");
 
+                }
+                adapter.notifyDataSetChanged();
+
+            }
+        });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (bean.isShow()) {
                     bean.setShow(false);
-//                    holder.rvListTwo.setVisibility(View.GONE);
+                    holder.rlBianji.setVisibility(View.GONE);
                     holder.llRongqi.setVisibility(View.GONE);
                     holder.ivJinru.setImageResource(R.mipmap.jinru);
                 } else {
                     bean.setShow(true);
-//                    holder.rvListTwo.setVisibility(View.VISIBLE);
+                    holder.rlBianji.setVisibility(View.VISIBLE);
                     holder.llRongqi.setVisibility(View.VISIBLE);
                     holder.ivJinru.setImageResource(R.mipmap.xia_kongxin_hui);
                 }
@@ -126,5 +142,13 @@ public class ChangGouListLevelOneAdapter extends RecyclerView.Adapter<ChangGouLi
             super(view);
             ButterKnife.bind(this, view);
         }
+    }
+    public void setShow(int pos,boolean b){
+        for(int i=0;i<mList.get(pos).getList().size();i++){
+            mList.get(pos).getList().get(i).setShow(b);
+            mList.get(pos).getList().get(i).setSelect(false);
+        }
+        Log.e("setShow: ",new Gson().toJson(mList) );
+        notifyDataSetChanged();
     }
 }

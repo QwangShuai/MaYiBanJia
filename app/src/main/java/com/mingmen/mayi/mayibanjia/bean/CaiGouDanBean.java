@@ -321,6 +321,15 @@ public class CaiGouDanBean {
             private boolean isSelect;
             private String ct_buy_final_id;
             private String ct_buy_final_name;
+            private String often_name_id;
+
+            public String getOften_name_id() {
+                return often_name_id;
+            }
+
+            public void setOften_name_id(String often_name_id) {
+                this.often_name_id = often_name_id;
+            }
 
             public String getCt_buy_final_id() {
                 return ct_buy_final_id;

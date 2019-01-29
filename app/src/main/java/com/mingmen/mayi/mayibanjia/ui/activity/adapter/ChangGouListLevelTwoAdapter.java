@@ -11,9 +11,16 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mingmen.mayi.mayibanjia.R;
+import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.CaiGouDanBean;
 import com.mingmen.mayi.mayibanjia.bean.ChangYongBean;
+import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
+import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
+import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.ChangGouActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
+import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
 import java.util.List;
 
@@ -32,6 +39,7 @@ public class ChangGouListLevelTwoAdapter extends RecyclerView.Adapter<ChangGouLi
     private ViewHolder viewHolder;
     private List<ChangYongBean.ListBean> mList;
     private ChangGouActivity activity;
+    private ConfirmDialog confirmDialog;
 
     public ChangGouListLevelTwoAdapter(Context mContext, List<ChangYongBean.ListBean> mList, ChangGouActivity activity) {
         this.mContext = mContext;
@@ -46,8 +54,26 @@ public class ChangGouListLevelTwoAdapter extends RecyclerView.Adapter<ChangGouLi
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
+        confirmDialog = new ConfirmDialog(mContext,
+                mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         final ChangYongBean.ListBean bean= mList.get(position);
+        activity.onChangeMap(bean,bean.isSelect());
+        holder.ivShanchu.setVisibility(bean.isShow()?View.VISIBLE:View.GONE);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(bean.isShow()){
+                    ToastUtil.showToastLong("请先退出编辑");
+                } else {
+                    boolean b = !bean.isSelect();
+                    mList.get(position).setSelect(b);
+                    activity.onChangeMap(bean, b);
+                    notifyDataSetChanged();
+                }
+            }
+        });
+
         if(bean.isSelect()){
             holder.tvYijifenlei.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_solid_zangqing_3));
             holder.tvYijifenlei.setTextColor(mContext.getResources().getColor(R.color.white));
@@ -60,6 +86,33 @@ public class ChangGouListLevelTwoAdapter extends RecyclerView.Adapter<ChangGouLi
         holder.ivShanchu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                confirmDialog.showDialog("是否确定删除此采购单");
+                confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        HttpManager.getInstance()
+                                .with(mContext)
+                                .setObservable(
+                                        RetrofitManager
+                                                .getService()
+                                                .delChanggouSp(PreferenceUtils.getString(MyApplication.mContext, "token", ""), bean.getOften_name_id()))
+                                .setDataListener(new HttpDataListener<String>() {
+                                    @Override
+                                    public void onNext(String data) {
+                                        ToastUtil.showToastLong("删除常用商品成功");
+                                        mList.remove(position);
+                                        notifyDataSetChanged();
+                                        confirmDialog.dismiss();
+                                    }
+                                }, false);
+                    }
+                });
+                confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        confirmDialog.dismiss();
+                    }
+                });
 
             }
         });
@@ -95,10 +148,12 @@ public class ChangGouListLevelTwoAdapter extends RecyclerView.Adapter<ChangGouLi
         void onClick(View view, int position);
     }
 
-    public void setShow(boolean b){
-        viewHolder.ivShanchu.setVisibility(b?View.VISIBLE:View.GONE);
-
-    }
+//    public void setShow(boolean b){
+//        for(int i=0;i<mList.size();i++){
+//            mList.get(i).setShow(b);
+//        }
+//        notifyDataSetChanged();
+//    }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         @BindView(R.id.tv_yijifenlei)

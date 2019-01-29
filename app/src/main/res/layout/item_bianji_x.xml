@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="35dp"
+    android:layout_height="41dp"
     android:layout_marginLeft="6dp"
     android:layout_marginRight="6dp"
-    android:gravity="center"
-    android:layout_marginBottom="20dp">
+    android:layout_marginBottom="14dp">
 
     <RelativeLayout
         android:layout_marginTop="6dp"
@@ -15,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <TextView
-            android:layout_gravity="center"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
             android:id="@+id/tv_yijifenlei"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -26,6 +26,7 @@
             />
     </RelativeLayout>
     <ImageView
+        android:visibility="gone"
         android:id="@+id/iv_shanchu"
         android:src="@mipmap/shanchu_red"
         android:layout_alignParentRight="true"

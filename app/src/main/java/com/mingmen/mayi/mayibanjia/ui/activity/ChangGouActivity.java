@@ -1,8 +1,10 @@
 package com.mingmen.mayi.mayibanjia.ui.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -45,7 +47,7 @@ public class ChangGouActivity extends BaseActivity {
     private ChangGouListLevelOneAdapter adapter;
     private List<ChangYongBean> mlist = new ArrayList<>();
     private Context mContext;
-    private GridLayoutManager manager;
+    private LinearLayoutManager manager;
     private List<AddSpListBean> list = new ArrayList<>();
     private String id = "";
     private int count = 0;
@@ -60,7 +62,8 @@ public class ChangGouActivity extends BaseActivity {
         tvTitle.setText("常购商品");
         tvRight.setText("完成");
         mContext = ChangGouActivity.this;
-        manager = new GridLayoutManager(mContext, 3);
+        id = getIntent().getStringExtra("id");
+        manager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
         adapter = new ChangGouListLevelOneAdapter(mContext, mlist, ChangGouActivity.this);
         rvList.setLayoutManager(manager);
         rvList.setAdapter(adapter);
@@ -78,7 +81,7 @@ public class ChangGouActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
-                finish();
+                myBack();
                 break;
             case R.id.tv_right:
                 addSpList();
@@ -116,6 +119,7 @@ public class ChangGouActivity extends BaseActivity {
                         if (mysize != 0) {
                             mlist.clear();
                             mlist.addAll(list);
+                            adapter.notifyDataSetChanged();
                         } else {
                             ToastUtil.showToastLong("请先去添加常用商品");
                         }
@@ -130,7 +134,7 @@ public class ChangGouActivity extends BaseActivity {
             HttpManager.getInstance()
                     .with(mContext)
                     .setObservable(RetrofitManager.getService()
-                            .addSpList(PreferenceUtils.getString(MyApplication.mContext, "token", ""), sort_id,getIntent().getStringExtra("name")))
+                            .addSpList(PreferenceUtils.getString(MyApplication.mContext, "token", ""), sort_id,getIntent().getStringExtra("name"),id))
                     .setDataListener(new HttpDataListener<String>() {
                         @Override
                         public void onNext(String data) {
@@ -142,5 +146,18 @@ public class ChangGouActivity extends BaseActivity {
             ToastUtil.showToastLong("请至少选择一项商品");
         }
 
+    }
+
+    private void myBack(){
+        Intent it = new Intent();
+        it.putExtra("id",id);
+        setResult(2,it);
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        myBack();
     }
 }

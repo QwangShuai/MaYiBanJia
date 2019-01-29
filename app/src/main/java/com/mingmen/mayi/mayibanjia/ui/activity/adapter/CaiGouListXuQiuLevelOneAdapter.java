@@ -23,6 +23,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.CaiGouXuQiuActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShenPiShiBaiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.CaiGouDanXiuGaiDailog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.MessageDailog;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
@@ -38,9 +39,9 @@ import butterknife.ButterKnife;
 public class CaiGouListXuQiuLevelOneAdapter extends RecyclerView.Adapter<CaiGouListXuQiuLevelOneAdapter.ViewHolder> {
 
 
+    public CallBack callBack;
     private ViewHolder viewHolder;
     private List<CaiGouDanBean.FllistBean> mList;
-    public CallBack callBack;
     private Context mContext;
     private boolean itemIsClick[];
     private CaiGouListXuQiuLevelTwoAdapter adapter;
@@ -72,12 +73,11 @@ public class CaiGouListXuQiuLevelOneAdapter extends RecyclerView.Adapter<CaiGouL
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         final CaiGouDanBean.FllistBean bean = mList.get(position);
         holder.tvPinlei.setText(bean.getClassify_name());
-        adapter = new CaiGouListXuQiuLevelTwoAdapter(mContext,mList.get(position).getSonorderlist());
+        adapter = new CaiGouListXuQiuLevelTwoAdapter(mContext,mList.get(position).getSonorderlist(),position,activity);
         holder.rvListTwo.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         holder.rvListTwo.setAdapter(adapter);
         holder.rvListTwo.setFocusable(false);
         holder.rvListTwo.setNestedScrollingEnabled(false);
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,12 +126,7 @@ public class CaiGouListXuQiuLevelOneAdapter extends RecyclerView.Adapter<CaiGouL
                                                                 mList.get(position).getSonorderlist().remove(i);
                                                                 if (mList.get(position).getSonorderlist().size()==0){
                                                                     mList.remove(position);
-//                                                                    delLength();
                                                                 }
-                                                                if(type.equals("0")){
-//                                                                    activity.getlist();
-                                                                }
-
                                                                 notifyDataSetChanged();
                                                                 adapter.notifyDataSetChanged();
                                                                 break;
@@ -148,6 +143,60 @@ public class CaiGouListXuQiuLevelOneAdapter extends RecyclerView.Adapter<CaiGouL
                                     }
                                 });
                                 break;
+                            case R.id.tv_tjcg:
+                                confirmDialog.showDialog("是否添加为常购商品");
+                                confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        HttpManager.getInstance()
+                                                .with(mContext)
+                                                .setObservable(
+                                                        RetrofitManager
+                                                                .getService()
+                                                                .addChanggouSp(PreferenceUtils.getString(MyApplication.mContext, "token", ""),mList.get(position).getSonorderlist().get(pos).getPack_standard_id(),
+                                                                        mList.get(position).getClassify_id(),
+                                                                        mList.get(position).getSonorderlist().get(pos).getSort_id()))
+                                                .setDataListener(new HttpDataListener<String>() {
+                                                    @Override
+                                                    public void onNext(String data) {
+                                                        ToastUtil.showToast("添加成功");
+                                                        confirmDialog.dismiss();
+                                                    }
+                                                }, false);
+                                    }
+                                });
+                                confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        confirmDialog.dismiss();
+                                    }
+                                });
+                                break;
+                            case R.id.tv_tsyq:
+                                final MessageDailog dialog = new MessageDailog(mContext,mList.get(position).getSonorderlist().get(pos).getClassify_name(),
+                                        new MessageDailog.CallBack() {
+                                    @Override
+                                    public void confirm(String msg) {
+                                            HttpManager.getInstance()
+                                                    .with(mContext)
+                                                    .setObservable(
+                                                            RetrofitManager
+                                                                    .getService()
+                                                                    //user_token  是否是特殊商品不是0 是1    如果是特殊商品 填写要求   市场id  类别id  产品数量
+                                                                    .editorXuqiudan(mList.get(position).getSonorderlist().get(pos).getCount()+"",
+                                                                            PreferenceUtils.getString(MyApplication.mContext, "token",""),
+                                                                            mList.get(position).getSonorderlist().get(pos).getSon_order_id(),
+                                                                            msg,""))
+                                                    .setDataListener(new HttpDataListener<CaiGouDanBean.FllistBean.SonorderlistBean>() {
+                                                        @Override
+                                                        public void onNext(CaiGouDanBean.FllistBean.SonorderlistBean data) {
+                                                            activity.getlist();
+                                                        }
+                                                    });
+                                        }
+                                });
+                                dialog.show();
+                                break;
                         }
             }
         });
@@ -159,12 +208,12 @@ public class CaiGouListXuQiuLevelOneAdapter extends RecyclerView.Adapter<CaiGouL
         return mList.size();
     }
 
-    public interface CallBack {
-        void isClick(View v, int pos);
-    }
-
     public void setCallBack(CallBack callBack) {
         this.callBack = callBack;
+    }
+
+    public interface CallBack {
+        void isClick(View v, int pos);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

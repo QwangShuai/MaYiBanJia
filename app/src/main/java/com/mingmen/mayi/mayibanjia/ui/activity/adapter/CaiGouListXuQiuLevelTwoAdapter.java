@@ -2,6 +2,8 @@ package com.mingmen.mayi.mayibanjia.ui.activity.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.CaiGouDanBean;
+import com.mingmen.mayi.mayibanjia.ui.activity.CaiGouXuQiuActivity;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 
 import java.util.List;
@@ -29,11 +32,13 @@ public class CaiGouListXuQiuLevelTwoAdapter extends RecyclerView.Adapter<CaiGouL
     private ViewHolder viewHolder;
     private List<CaiGouDanBean.FllistBean.SonorderlistBean> mList;
     public CallBack callBack;
-
-
-    public CaiGouListXuQiuLevelTwoAdapter(Context mContext, List<CaiGouDanBean.FllistBean.SonorderlistBean> mList) {
+    private int pos;
+    private CaiGouXuQiuActivity activity;
+    public CaiGouListXuQiuLevelTwoAdapter(Context mContext, List<CaiGouDanBean.FllistBean.SonorderlistBean> mList,int pos,CaiGouXuQiuActivity activity) {
         this.mContext = mContext;
         this.mList = mList;
+        this.pos = pos;
+        this.activity = activity;
     }
 
     @Override
@@ -46,8 +51,51 @@ public class CaiGouListXuQiuLevelTwoAdapter extends RecyclerView.Adapter<CaiGouL
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final CaiGouDanBean.FllistBean.SonorderlistBean listBean = mList.get(position);
         holder.tvShangpin.setText(listBean.getClassify_name());
+        if(StringUtil.isValid(listBean.getOften_name_id())){
+            holder.tvTjcg.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_solid_zangqing_3));
+            holder.tvTjcg.setTextColor(mContext.getResources().getColor(R.color.white));
+        } else {
+            holder.tvTjcg.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_999999_3));
+            holder.tvTjcg.setTextColor(mContext.getResources().getColor(R.color.zicolor));
+            holder.tvTjcg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    callBack.isClick(v, position);
+                }
+            });
+        }
+        if(listBean.getCount()!=0){
+            holder.etCaigouliang.setText(listBean.getCount()+"");
+        }
+        if(StringUtil.isValid(listBean.getSpecial_commodity())){
+            holder.tvTsyq.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_solid_zangqing_3));
+            holder.tvTsyq.setTextColor(mContext.getResources().getColor(R.color.white));
+        } else {
+            holder.tvTsyq.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_999999_3));
+            holder.tvTsyq.setTextColor(mContext.getResources().getColor(R.color.zicolor));
+        }
 
         holder.ivShanchu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callBack.isClick(v, position);
+            }
+        });
+
+        holder.etCaigouliang.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+
+                } else {
+                    if(StringUtil.isValid(holder.etCaigouliang.getText().toString().trim())){
+                        int num = Integer.valueOf(holder.etCaigouliang.getText().toString().trim());
+                        activity.setListData(pos,position,num);
+                    }
+                }
+            }
+        });
+        holder.tvTsyq.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 callBack.isClick(v, position);

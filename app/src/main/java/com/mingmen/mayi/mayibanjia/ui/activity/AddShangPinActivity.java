@@ -1,6 +1,7 @@
 package com.mingmen.mayi.mayibanjia.ui.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -88,8 +89,9 @@ public class AddShangPinActivity extends BaseActivity {
     @Override
     protected void initData() {
         mContext = AddShangPinActivity.this;
-
+        id = getIntent().getStringExtra("id");
         adapter = new AddSpFourAdapter(mContext,yijiFenLei);
+        adapter.setActivity(AddShangPinActivity.this);
         setMyManager();
         bindAdapter();
         getShouyeFenLei(yclId, "2");
@@ -100,6 +102,7 @@ public class AddShangPinActivity extends BaseActivity {
                     if (etSousuo.getText().toString().trim().length() == 0) {
                        ToastUtil.showToastLong("请输入要搜索的商品");
                     } else {
+                        setViewShowClear();
                         getfcgname(etSousuo.getText().toString().trim());
                     }
                     return true;
@@ -120,9 +123,10 @@ public class AddShangPinActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
-                finish();
+                myBack();
                 break;
             case R.id.tv_quxiao:
+                setViewShowClear();
                 getfcgname(etSousuo.getText().toString());
                 break;
             case R.id.ll_pinlei:
@@ -219,6 +223,13 @@ public class AddShangPinActivity extends BaseActivity {
     }
 
     private void getTwo() {
+        twoid = "";
+        tvLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+        tvPinzhongLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+        adapter.setXuanzhongid("");
+        map.clear();
+        yijiFenLei.clear();
+        adapter.notifyDataSetChanged();
         tvLable.setTextColor(mContext.getResources().getColor(R.color.zangqing));
         tvPinzhongLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
         mytype = "2";
@@ -244,7 +255,12 @@ public class AddShangPinActivity extends BaseActivity {
         }
         for (FCGName fcgName : map.values()) {
             AddSpListBean addSpListBean = new AddSpListBean();
-            addSpListBean.setClassify_id(oneid);
+            if(StringUtil.isValid(fcgName.getTwo_classify_id())){
+                addSpListBean.setClassify_id(fcgName.getTwo_classify_id());
+            } else {
+                addSpListBean.setClassify_id(oneid);
+            }
+
             addSpListBean.setPack_standard_id(fcgName.getSpec_idThree());
             addSpListBean.setSort_id(fcgName.getClassify_id());
             list.add(addSpListBean);
@@ -266,7 +282,6 @@ public class AddShangPinActivity extends BaseActivity {
                         if (mysize != 0) {
                             if(mytype.equals("4")){
                                 adapter.setType(mytype);
-                                adapter.setActivity(AddShangPinActivity.this);
                             }
                             yijiFenLei.clear();
                             yijiFenLei.addAll(list);
@@ -286,7 +301,10 @@ public class AddShangPinActivity extends BaseActivity {
         tvPinzhongLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
         adapter.setXuanzhongid("");
         map.clear();
+        tvPinlei.setText("全部");
+        tvPinzhong.setText("全部");
         yijiFenLei.clear();
+        adapter.setType("4");
         adapter.notifyDataSetChanged();
     }
     public void addSpList() {
@@ -295,17 +313,30 @@ public class AddShangPinActivity extends BaseActivity {
             HttpManager.getInstance()
                     .with(mContext)
                     .setObservable(RetrofitManager.getService()
-                            .addSpList(PreferenceUtils.getString(MyApplication.mContext, "token", ""), sort_id, getIntent().getStringExtra("name")))
+                            .addSpList(PreferenceUtils.getString(MyApplication.mContext, "token", ""), sort_id, getIntent().getStringExtra("name"),id))
                     .setDataListener(new HttpDataListener<String>() {
                         @Override
                         public void onNext(String data) {
                             id = data;
+                            Log.e("myId",id);
                             ToastUtil.showToastLong("添加成功");
                         }
                     });
         } else {
             ToastUtil.showToastLong("请至少选择一项商品");
         }
+    }
 
+    private void myBack(){
+        Intent it = new Intent();
+        it.putExtra("id",id);
+        setResult(2,it);
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        myBack();
     }
 }

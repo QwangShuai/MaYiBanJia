@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/fillet_hollow_999999_3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_marginBottom="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#ff666666"
+            android:textSize="15sp"
+            android:maxLength="20"/>
+
+        <RelativeLayout
+            android:id="@+id/rl_teshu"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:background="@drawable/fillet_hollow_e7e7e7_3"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginBottom="12dp"
+            >
+            <EditText
+                android:maxLines="1"
+                android:padding="12dp"
+                android:id="@+id/et_teshu"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:background="@null"
+                android:textColor="#474747"
+                android:textSize="15sp"
+                android:hint="请填写特殊要求"
+                android:textColorHint="@color/hintcolor"
+                android:gravity="start"
+                android:maxLength="50"/>
+
+            <TextView
+                android:id="@+id/tv_hint"
+                android:textSize="10sp"
+                android:textColor="@color/hintcolor"
+                android:layout_marginRight="12dp"
+                android:layout_marginBottom="12dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:text="0/50"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_marginBottom="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="right">
+            <Button
+                android:id="@+id/bt_quxiao"
+                android:layout_width="90dp"
+                android:layout_height="28dp"
+                android:text="取消"
+                android:textColor="#ff666666"
+                android:textSize="12sp"
+                android:background="@drawable/fillet_hollow_999999_14"
+                android:layout_marginRight="12dp"
+                />
+            <Button
+                android:id="@+id/bt_queren"
+                android:layout_width="90dp"
+                android:layout_height="28dp"
+                android:text="确认"
+                android:textColor="#ffffffff"
+                android:textSize="12sp"
+                android:background="@drawable/fillet_solid_zangqing_14"
+                android:layout_marginRight="12dp"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
+

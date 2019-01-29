@@ -29,6 +29,23 @@
                 android:layout_height="wrap_content" />
         </RelativeLayout>
     </LinearLayout>
+    <RelativeLayout
+        android:background="@color/white"
+        android:visibility="gone"
+        android:id="@+id/rl_bianji"
+        android:layout_width="match_parent"
+        android:layout_height="38dp">
+        <TextView
+            android:layout_marginRight="14dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textSize="15sp"
+            android:textColor="@color/hintcolor"
+            android:text="编辑"
+            android:id="@+id/tv_bianji"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
     <LinearLayout
         android:orientation="vertical"
         android:id="@+id/ll_rongqi"
@@ -46,20 +63,5 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
     </LinearLayout>
-    <RelativeLayout
-        android:visibility="gone"
-        android:id="@+id/rl_bianji"
-        android:layout_width="match_parent"
-        android:layout_height="38dp">
-        <TextView
-            android:layout_marginRight="14dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:textSize="15sp"
-            android:textColor="@color/hintcolor"
-            android:text="编辑"
-            android:id="@+id/tv_bianji"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
+
 </LinearLayout>

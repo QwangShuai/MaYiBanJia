@@ -221,7 +221,7 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
                                                     Log.e("keykey", yingyezhizhao+"yingyezhizhao");
                                                 }else{
                                                     xukezheng = res.getString("key");
-                                                    Log.e("keykey", yingyezhizhao+"xukezheng");
+                                                    Log.e("keykey", xukezheng+"xukezheng");
                                                 }
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
@@ -322,9 +322,15 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
                 fuzeren =etFuzeren.getText().toString().trim();
                 yaoqingma =etYaoqingma.getText().toString().trim();
 //                dianpuming=etDianpuming.getText().toString().trim();
-                if (etDianpuming.getText().toString().trim() .isEmpty()|| fuzeren .isEmpty()|| yaoqingma  .isEmpty()||  yingyezhizhao .isEmpty()){
-                    ToastUtil.showToast("请确认信息填写无误后，再提交");
-                }else{
+                if(!StringUtil.isValid(etDianpuming.getText().toString().trim())){
+                    ToastUtil.showToastLong("店铺名不可以为空");
+                } else if(!StringUtil.isValid(fuzeren)){
+                    ToastUtil.showToastLong("负责人不可以为空");
+                } else if(!StringUtil.isValid(yaoqingma)){
+                    ToastUtil.showToastLong("邀请码不可以为空");
+                } else if(!StringUtil.isValid(yingyezhizhao)){
+                    ToastUtil.showToastLong("营业执照不可以为空");
+                } else{
                     if(StringUtil.isValid(dianpuid)&&etDianpuming.getText().toString().trim().equals(dianpuming)){
                         if(role.equals("2")){
                             if(StringUtil.isValid(xukezheng)){

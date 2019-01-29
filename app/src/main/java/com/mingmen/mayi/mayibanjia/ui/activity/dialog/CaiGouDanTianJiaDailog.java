@@ -398,7 +398,7 @@ public class CaiGouDanTianJiaDailog extends BaseFragmentDialog {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getCgmc(id))
+                                .getCgmc(PreferenceUtils.getString(MyApplication.mContext, "token", ""),id))
                 .setDataListener(new HttpDataListener<List<CaiGouMingChengBean>>() {
                     @Override
                     public void onNext(List<CaiGouMingChengBean> data) {

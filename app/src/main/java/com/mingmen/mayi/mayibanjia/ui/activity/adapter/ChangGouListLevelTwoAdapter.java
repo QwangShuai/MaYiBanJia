@@ -64,7 +64,33 @@ public class ChangGouListLevelTwoAdapter extends RecyclerView.Adapter<ChangGouLi
             @Override
             public void onClick(View v) {
                 if(bean.isShow()){
-                    ToastUtil.showToastLong("请先退出编辑");
+                    confirmDialog.showDialog("是否确定删除此采购单");
+                    confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            HttpManager.getInstance()
+                                    .with(mContext)
+                                    .setObservable(
+                                            RetrofitManager
+                                                    .getService()
+                                                    .delChanggouSp(PreferenceUtils.getString(MyApplication.mContext, "token", ""), bean.getOften_name_id()))
+                                    .setDataListener(new HttpDataListener<String>() {
+                                        @Override
+                                        public void onNext(String data) {
+                                            ToastUtil.showToastLong("删除常用商品成功");
+                                            mList.remove(position);
+                                            notifyDataSetChanged();
+                                            confirmDialog.dismiss();
+                                        }
+                                    }, false);
+                        }
+                    });
+                    confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            confirmDialog.dismiss();
+                        }
+                    });
                 } else {
                     boolean b = !bean.isSelect();
                     mList.get(position).setSelect(b);

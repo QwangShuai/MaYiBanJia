@@ -161,6 +161,7 @@ public class CaiGouListXuQiuLevelOneAdapter extends RecyclerView.Adapter<CaiGouL
                                                     public void onNext(String data) {
                                                         ToastUtil.showToast("添加成功");
                                                         confirmDialog.dismiss();
+                                                        activity.getlist();
                                                     }
                                                 }, false);
                                     }
@@ -173,7 +174,9 @@ public class CaiGouListXuQiuLevelOneAdapter extends RecyclerView.Adapter<CaiGouL
                                 });
                                 break;
                             case R.id.tv_tsyq:
-                                final MessageDailog dialog = new MessageDailog(mContext,mList.get(position).getSonorderlist().get(pos).getClassify_name(),
+                                final MessageDailog dialog = new MessageDailog(mContext,
+                                        mList.get(position).getSonorderlist().get(pos).getClassify_name(),
+                                        mList.get(position).getSonorderlist().get(pos).getSpecial_commodity(),
                                         new MessageDailog.CallBack() {
                                     @Override
                                     public void confirm(String msg) {

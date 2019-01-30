@@ -232,15 +232,15 @@ public class CaiGouXuQiuActivity extends BaseActivity {
                             .setDataListener(new HttpDataListener<String>() {
                                 @Override
                                 public void onNext(String data) {
-                                    HttpManager.getInstance()
-                                            .with(mContext)
-                                            .setObservable(
-                                                    RetrofitManager
-                                                            .getService()
-                                                            .updateCaiGou(PreferenceUtils.getString(MyApplication.mContext, "token",""),listGson))//这块得改
-                                            .setDataListener(new HttpDataListener<String>() {
-                                                @Override
-                                                public void onNext(String data) {
+//                                    HttpManager.getInstance()
+//                                            .with(mContext)
+//                                            .setObservable(
+//                                                    RetrofitManager
+//                                                            .getService()
+//                                                            .updateCaiGou(PreferenceUtils.getString(MyApplication.mContext, "token",""),listGson))//这块得改
+//                                            .setDataListener(new HttpDataListener<String>() {
+//                                                @Override
+//                                                public void onNext(String data) {
                                                     tijiaoxuqiuDialog .showDialog();
                                                     tijiaoxuqiuDialog.getTvCaigoudan().setOnClickListener(new View.OnClickListener() {
                                                         @Override
@@ -259,8 +259,8 @@ public class CaiGouXuQiuActivity extends BaseActivity {
                                                             startActivity(intent);
                                                             tijiaoxuqiuDialog.dismiss();
                                                             finish();
-                                                        }
-                                                    });
+//                                                        }
+//                                                    });
                                                 }
                                             });
                                 }

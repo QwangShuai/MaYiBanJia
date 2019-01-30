@@ -36,12 +36,14 @@ public class MessageDailog extends Dialog {
     private String teshuyaoqiu = "";
     private Context context;
     private String name;
+    private String tsyq;
 
-    public MessageDailog(@NonNull Context context,String name, CallBack mCallBack) {
+    public MessageDailog(@NonNull Context context,String name,String tsyq, CallBack mCallBack) {
         super(context);
         this.context = context;
         this.mCallBack = mCallBack;
         this.name = name;
+        this.tsyq = tsyq;
     }
 
     @Override
@@ -81,6 +83,7 @@ public class MessageDailog extends Dialog {
 
             }
         });
+        etTeshu.setText(tsyq);
         btQueren.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

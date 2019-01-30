@@ -304,7 +304,7 @@ public class AddShangPinActivity extends BaseActivity {
         tvPinlei.setText("全部");
         tvPinzhong.setText("全部");
         yijiFenLei.clear();
-        adapter.setType("4");
+        mytype = "4";
         adapter.notifyDataSetChanged();
     }
     public void addSpList() {

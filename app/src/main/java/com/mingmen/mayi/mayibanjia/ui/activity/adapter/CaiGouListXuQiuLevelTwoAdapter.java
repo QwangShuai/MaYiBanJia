@@ -13,8 +13,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mingmen.mayi.mayibanjia.R;
+import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.CaiGouDanBean;
+import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
+import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
+import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.CaiGouXuQiuActivity;
+import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 
 import java.util.List;
@@ -51,6 +56,7 @@ public class CaiGouListXuQiuLevelTwoAdapter extends RecyclerView.Adapter<CaiGouL
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final CaiGouDanBean.FllistBean.SonorderlistBean listBean = mList.get(position);
         holder.tvShangpin.setText(listBean.getClassify_name());
+        holder.tvGuige.setText(listBean.getPack_standard_name());
         if(StringUtil.isValid(listBean.getOften_name_id())){
             holder.tvTjcg.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_solid_zangqing_3));
             holder.tvTjcg.setTextColor(mContext.getResources().getColor(R.color.white));
@@ -91,6 +97,22 @@ public class CaiGouListXuQiuLevelTwoAdapter extends RecyclerView.Adapter<CaiGouL
                     if(StringUtil.isValid(holder.etCaigouliang.getText().toString().trim())){
                         int num = Integer.valueOf(holder.etCaigouliang.getText().toString().trim());
                         activity.setListData(pos,position,num);
+                        HttpManager.getInstance()
+                                .with(mContext)
+                                .setObservable(
+                                        RetrofitManager
+                                                .getService()
+                                                //user_token  是否是特殊商品不是0 是1    如果是特殊商品 填写要求   市场id  类别id  产品数量
+                                                .editorXuqiudan(num+"",
+                                                        PreferenceUtils.getString(MyApplication.mContext, "token",""),
+                                                        mList.get(position).getSon_order_id(),
+                                                        listBean.getSpecial_commodity(),""))
+                                .setDataListener(new HttpDataListener<CaiGouDanBean.FllistBean.SonorderlistBean>() {
+                                    @Override
+                                    public void onNext(CaiGouDanBean.FllistBean.SonorderlistBean data) {
+//                                        activity.getlist();
+                                    }
+                                },false);
                     }
                 }
             }
@@ -119,8 +141,8 @@ public class CaiGouListXuQiuLevelTwoAdapter extends RecyclerView.Adapter<CaiGouL
         EditText etCaigouliang;
         @BindView(R.id.tv_guige)
         TextView tvGuige;
-        @BindView(R.id.iv_xiangxia)
-        ImageView ivXiangxia;
+//        @BindView(R.id.iv_xiangxia)
+//        ImageView ivXiangxia;
         @BindView(R.id.rl_guige)
         RelativeLayout rlGuige;
         @BindView(R.id.tv_tsyq)

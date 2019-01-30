@@ -12,7 +12,7 @@
         android:layout_marginLeft="6dp"
         android:layout_marginRight="6dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="35dp">
         <TextView
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
@@ -30,6 +30,6 @@
         android:id="@+id/iv_shanchu"
         android:src="@mipmap/shanchu_red"
         android:layout_alignParentRight="true"
-        android:layout_width="13dp"
-        android:layout_height="13dp" />
+        android:layout_width="18dp"
+        android:layout_height="18dp" />
 </RelativeLayout>

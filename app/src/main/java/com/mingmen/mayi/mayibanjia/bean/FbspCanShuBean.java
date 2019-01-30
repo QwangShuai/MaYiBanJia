@@ -35,6 +35,24 @@ public class FbspCanShuBean {
     private String type_four_id="";
     private String spec_describe="";
     private String price="";
+    private double spec_count;
+    private String spec_detal_id="";
+
+    public double getSpec_count() {
+        return spec_count;
+    }
+
+    public void setSpec_count(double spec_count) {
+        this.spec_count = spec_count;
+    }
+
+    public String getSpec_detal_id() {
+        return spec_detal_id;
+    }
+
+    public void setSpec_detal_id(String spec_detal_id) {
+        this.spec_detal_id = spec_detal_id;
+    }
 
     public String getType_four_id() {
         return type_four_id;

@@ -42,7 +42,7 @@ public class GongYingDuanQiangDanActivity extends BaseActivity {
         vpQiangdan.setAdapter(adapter);
         tabsJiaoyi.setViewPager(vpQiangdan);
         vpQiangdan.setOffscreenPageLimit(0);
-        vpQiangdan.setCurrentItem(0);
+        vpQiangdan.setCurrentItem(getIntent().getIntExtra("ye",0));
     }
 
     @Override

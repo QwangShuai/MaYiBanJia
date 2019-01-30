@@ -11,6 +11,7 @@
     <string name="ctd_order"><u>餐厅端订单</u></string>
     <string name="check_goods"><u>普通商品</u></string>
     <string name="check_out_goods"><u>特价商品</u></string>
+    <string name="caiwubaobiao"><u>财务报表</u></string>
     <string name="only_input">qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM1234567890</string>
 
     <string name="default_printer_name">B3_6988</string>

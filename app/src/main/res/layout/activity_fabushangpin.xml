@@ -290,13 +290,6 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:paddingRight="12dp">
-                <!--<ImageView-->
-                <!--android:id="@+id/iv_sanji"-->
-                <!--android:layout_width="22dp"-->
-                <!--android:layout_height="22dp"-->
-                <!--android:padding="5dp"-->
-                <!--android:layout_marginLeft="7dp"-->
-                <!--android:src="@drawable/selectr_gouwuche_danxuan"/>-->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -340,7 +333,83 @@
                 android:layout_height="1dp"
                 android:background="@color/cutoff"
                 android:layout_marginLeft="12dp"/>
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/ll_dw"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical|right"
+                android:paddingRight="12dp">
+                <TextView
+                    android:id="@+id/tv_yxgg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="每桶换算单位为"
+                    android:textColor="#ff666666"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="12dp"
+                    />
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp">
+                    <EditText
+                        android:inputType="number"
+                        android:layout_weight="1"
+                        android:id="@+id/et_number"
+                        android:background="@drawable/fillet_hollow_999999_3"
+                        android:hint="请输入数量"
+                        android:textColorHint="@color/hintcolor"
+                        android:maxLength="3"
+                        android:textColor="@color/zicolor"
+                        android:textSize="12sp"
+                        android:paddingLeft="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp" />
+                    <TextView
+                        android:layout_marginLeft="6dp"
+                        android:textColor="@color/hintcolor"
+                        android:gravity="center"
+                        android:textSize="20sp"
+                        android:text="/"
+                        android:layout_width="15dp"
+                        android:layout_height="match_parent" />
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:id="@+id/ll_zxgg"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginLeft="6dp"
+                        android:background="@drawable/fillet_hollow_999999_3">
+                        <TextView
+                            android:id="@+id/tv_zxgg"
+                            android:layout_width="80dp"
+                            android:layout_height="match_parent"
+                            android:text=""
+                            android:textColor="@color/zicolor"
+                            android:textSize="12sp"
+                            android:paddingLeft="10dp"
+                            android:background="@null"
+                            android:hint="请选择单位"
+                            android:textColorHint="@color/hintcolor"
+                            android:gravity="center_vertical"
+                            />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="4dp"
+                            android:src="@mipmap/xiangxia_hui"/>
+                    </LinearLayout>
+                </LinearLayout>
 
+
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

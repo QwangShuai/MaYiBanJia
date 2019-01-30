@@ -442,7 +442,9 @@ public interface HttpService {
                                                  @Query("type_four_id") String type_four_id,
                                                  @Query("hostPicture") String hostPicture,
                                                  @Query("spec_describe") String spec_describe,
-                                                 @Query("price") String price);
+                                                 @Query("price") String price,
+                                                 @Query("spec_count") double spec_count,
+                                                 @Query("spec_detal_id") String spec_detal_id);
 
     //编辑商品
     @POST("gyCommodity/update.do")
@@ -468,7 +470,9 @@ public interface HttpService {
                                                    @Query("type_four_id") String type_four_id,
                                                    @Query("hostPicture") String hostPicture,
                                                    @Query("spec_describe") String spec_describe,
-                                                   @Query("price") String price);
+                                                   @Query("price") String price,
+                                                   @Query("spec_count") double spec_count,
+                                                   @Query("spec_detal_id") String spec_detal_id);
 
     //添加购物车
     @POST("ctShoppingCart/save.do")
@@ -1169,7 +1173,11 @@ public interface HttpService {
                                                   @Query("often_name_id") String often_name_id);
 
     //批量修改采购单
-    @POST(" ctBuyHostorder/updateAllCtBuyHostorder.do")
+    @POST("ctBuyHostorder/updateAllCtBuyHostorder.do")
     Observable<ResultModel<String>> updateCaiGou(@Query("user_token") String user_token,
                                                   @Query("list") String list);
+    //获取最小规格
+    @POST("allSpec/queryspec.do")
+    Observable<ResultModel<List<FbspGuiGeBean>>> getZxgg(@Query("spec_id") String spec_id,
+                                                 @Query("spec_name") String spec_name);
 }

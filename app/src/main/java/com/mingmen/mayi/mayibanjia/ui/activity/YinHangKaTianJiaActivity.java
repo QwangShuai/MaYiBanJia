@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.YinHangKaRzBean;
@@ -150,6 +152,7 @@ public class YinHangKaTianJiaActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<YinHangKaRzBean>() {
                     @Override
                     public void onNext(YinHangKaRzBean data) {
+                        Log.e("onNext: ",new Gson().toJson(data));
                         if(data.getRespCode().equals("0000")){
                             addBankCard();
                         } else {

@@ -21,8 +21,17 @@ public class FbspGuiGeBean {
         private String spec_id;
         private String spec_name;
         private String spec_grade;
+        private String affiliated_spec;
 
-        public String getChange_time() {
+    public String getAffiliated_spec() {
+        return affiliated_spec;
+    }
+
+    public void setAffiliated_spec(String affiliated_spec) {
+        this.affiliated_spec = affiliated_spec;
+    }
+
+    public String getChange_time() {
             return change_time;
         }
 

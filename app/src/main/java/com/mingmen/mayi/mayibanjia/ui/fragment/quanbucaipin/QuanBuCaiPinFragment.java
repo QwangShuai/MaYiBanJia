@@ -584,6 +584,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 setXuanXiangColor(tvPingfenzuigao);
                 break;
             case R.id.ll_sousuo:
+                rvShichangjia.setVisibility(View.GONE);
                 Intent it = new Intent(mContext, SouSuoActivity.class);
                 it.putExtra("sousuo",sousuo);
                 startActivityForResult(it,REQUEST_CODE);
@@ -630,7 +631,6 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         }
         else {
             if(!isResult){
-                Log.e(TAG, "onResume: "+"清空了吗" );
                 xzId = "";
                 yijipinleiid = "";
                 leiAdapter.setXuanzhongId("");

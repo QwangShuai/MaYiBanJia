@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -13,11 +12,13 @@ import com.bumptech.glide.Glide;
 import com.mingmen.mayi.mayibanjia.MainActivity;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
+import com.mingmen.mayi.mayibanjia.bean.PhoneBean;
 import com.mingmen.mayi.mayibanjia.bean.WoDeBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.PhoneDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.ghdingdan.GHDOrderActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.qiangdan.GongYingDuanQiangDanActivity;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
@@ -25,7 +26,6 @@ import com.mingmen.mayi.mayibanjia.ui.view.CircleImageView;
 import com.mingmen.mayi.mayibanjia.utils.PollingService;
 import com.mingmen.mayi.mayibanjia.utils.PollingUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
-import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,40 +36,79 @@ import butterknife.OnClick;
  */
 
 public class GongYingDuanShouYeActivity extends BaseActivity {
-    @BindView(R.id.tv_yue)
-    TextView tvYue;
-    @BindView(R.id.ll_qiangdan)
-    LinearLayout llQiangdan;
-    @BindView(R.id.ll_dingdan)
-    LinearLayout llDingdan;
-    @BindView(R.id.ll_shangpinguanli)
-    LinearLayout llShangpinguanli;
-    @BindView(R.id.ll_yonghupingjia)
-    LinearLayout llYonghupingjia;
-    @BindView(R.id.ll_tejiashangpin)
-    LinearLayout llTejiashangpin;
-    @BindView(R.id.tv_dingdan)
-    TextView tvDingdan;
-    @BindView(R.id.tv_spll)
-    TextView tvSpll;
-    @BindView(R.id.tv_spsc)
-    TextView tvSpsc;
-    @BindView(R.id.tv_dpgz)
-    TextView tvDpgz;
-    @BindView(R.id.tv_ysh)
-    TextView tvYsh;
-    @BindView(R.id.tv_dfh)
-    TextView tvDfh;
-    @BindView(R.id.tv_ywc)
-    TextView tvYwc;
+
     @BindView(R.id.iv_touxiang)
     CircleImageView ivTouxiang;
     @BindView(R.id.tv_dianming)
     TextView tvDianming;
     @BindView(R.id.tv_state)
     TextView tvState;
+    @BindView(R.id.ll_state_qiehuan)
+    LinearLayout llStateQiehuan;
+    @BindView(R.id.tv_qiehuan)
+    TextView tvQiehuan;
     @BindView(R.id.ll_qiehuan)
     LinearLayout llQiehuan;
+    @BindView(R.id.tv_yue)
+    TextView tvYue;
+    @BindView(R.id.tv_daishoukuan)
+    TextView tvDaishoukuan;
+    @BindView(R.id.ll_yue)
+    LinearLayout llYue;
+    @BindView(R.id.tv_spll)
+    TextView tvSpll;
+    @BindView(R.id.tv_spsc)
+    TextView tvSpsc;
+    @BindView(R.id.tv_dpgz)
+    TextView tvDpgz;
+    @BindView(R.id.ll_daidabao)
+    LinearLayout llDaidabao;
+    @BindView(R.id.tv_ddb)
+    TextView tvDdb;
+    @BindView(R.id.ll_daifahuo)
+    LinearLayout llDaifahuo;
+    @BindView(R.id.tv_dfh)
+    TextView tvDfh;
+    @BindView(R.id.ll_yishouhuo)
+    LinearLayout llYishouhuo;
+    @BindView(R.id.tv_ysh)
+    TextView tvYsh;
+    @BindView(R.id.ll_daiqueren)
+    LinearLayout llDaiqueren;
+    @BindView(R.id.tv_dqr)
+    TextView tvDqr;
+    @BindView(R.id.ll_yiwancheng)
+    LinearLayout llYiwancheng;
+    @BindView(R.id.tv_ywc)
+    TextView tvYwc;
+    @BindView(R.id.ll_daiqiangdan)
+    LinearLayout llDaiqiangdan;
+    @BindView(R.id.tv_dqd)
+    TextView tvDqd;
+    @BindView(R.id.ll_qiangdanzhong)
+    LinearLayout llQiangdanzhong;
+    @BindView(R.id.tv_qdz)
+    TextView tvQdz;
+    @BindView(R.id.ll_qiangdanshibai)
+    LinearLayout llQiangdanshibai;
+    @BindView(R.id.tv_qdsb)
+    TextView tvQdsb;
+    @BindView(R.id.ll_qiangdanchenggong)
+    LinearLayout llQiangdanchenggong;
+    @BindView(R.id.tv_qdcg)
+    TextView tvQdcg;
+    @BindView(R.id.ll_shangpinguanli)
+    LinearLayout llShangpinguanli;
+    @BindView(R.id.ll_tejiashangpin)
+    LinearLayout llTejiashangpin;
+    @BindView(R.id.ll_yonghupingjia)
+    LinearLayout llYonghupingjia;
+    @BindView(R.id.ll_zhanghuyuanquan)
+    LinearLayout llZhanghuyuanquan;
+    @BindView(R.id.ll_lianxikefu)
+    LinearLayout llLianxikefu;
+    @BindView(R.id.ll_bangzhuyufankui)
+    LinearLayout llBangzhuyufankui;
     private Context mContext;
     private WoDeBean woDeBean;
     private ConfirmDialog confirmDialog;
@@ -87,7 +126,7 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
         if (!PollingUtils.isOpen) {
             PollingUtils.startPollingService(mContext, 1, PollingService.class, PollingService.ACTION);
         }
-        if(PreferenceUtils.getInt(mContext,"random_id",1)==3){
+        if (PreferenceUtils.getInt(mContext, "random_id", 1) == 3) {
             llQiehuan.setVisibility(View.GONE);
         }
         instance = this;
@@ -98,20 +137,41 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.ll_qiangdan, R.id.ll_dingdan, R.id.ll_shangpinguanli, R.id.ll_yonghupingjia, R.id.ll_tejiashangpin,
-            R.id.ll_yue, R.id.ll_daifahuo, R.id.ll_yishouhuo, R.id.ll_yiwancheng,R.id.ll_qiehuan,R.id.iv_touxiang,R.id.tv_dianming,
-    R.id.ll_state_qiehuan})
+    @OnClick({ R.id.ll_shangpinguanli, R.id.ll_yonghupingjia, R.id.ll_tejiashangpin,R.id.ll_daidabao,R.id.ll_daiqueren,
+            R.id.ll_yue, R.id.ll_daifahuo, R.id.ll_yishouhuo, R.id.ll_yiwancheng, R.id.ll_qiehuan, R.id.iv_touxiang, R.id.tv_dianming,
+            R.id.ll_state_qiehuan,R.id.ll_daiqiangdan,R.id.ll_qiangdanzhong,R.id.ll_qiangdanshibai,R.id.ll_qiangdanchenggong,
+    R.id.ll_zhanghuyuanquan,R.id.ll_lianxikefu,R.id.ll_bangzhuyufankui})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.ll_qiangdan:
-//                Intent qiangdan = new Intent(mContext, QiangDanActivity.class);
-                Intent qiangdan = new Intent(mContext, GongYingDuanQiangDanActivity.class);
-                startActivity(qiangdan);
+            case R.id.ll_zhanghuyuanquan:
+                Intent it = new Intent(mContext,WoDeZhangHuActivity.class);
+                startActivity(it);
                 break;
-            case R.id.ll_dingdan://订单入口
-                Intent gonghuodingdan = new Intent(mContext, GHDOrderActivity.class);
-                gonghuodingdan.putExtra("ye", 0);
-                startActivity(gonghuodingdan);
+            case R.id.ll_lianxikefu:
+                getPhone();
+                break;
+            case R.id.ll_bangzhuyufankui:
+
+                break;
+            case R.id.ll_daiqiangdan:
+                Intent daiqiangdan = new Intent(mContext, GongYingDuanQiangDanActivity.class);
+                daiqiangdan.putExtra("ye",1);
+                startActivity(daiqiangdan);
+                break;
+            case R.id.ll_qiangdanzhong:
+                Intent qiangdanzhong = new Intent(mContext, GongYingDuanQiangDanActivity.class);
+                qiangdanzhong.putExtra("ye",2);
+                startActivity(qiangdanzhong);
+                break;
+            case R.id.ll_qiangdanshibai:
+                Intent qiangdanshibai = new Intent(mContext, GongYingDuanQiangDanActivity.class);
+                qiangdanshibai.putExtra("ye",3);
+                startActivity(qiangdanshibai);
+                break;
+            case R.id.ll_qiangdanchenggong:
+                Intent qiangdanchenggong = new Intent(mContext, GongYingDuanQiangDanActivity.class);
+                qiangdanchenggong.putExtra("ye",4);
+                startActivity(qiangdanchenggong);
                 break;
             case R.id.ll_shangpinguanli:
                 Intent sp = new Intent(mContext, ShangPinGuanLiActivity.class);
@@ -128,19 +188,29 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
             case R.id.ll_yue://余额
                 Jump_intent(YueActivity.class, new Bundle());
                 break;
+            case R.id.ll_daidabao:
+                Intent daidabao = new Intent(mContext, GHDOrderActivity.class);
+                daidabao.putExtra("ye", 1);
+                startActivity(daidabao);
+                break;
             case R.id.ll_daifahuo:
                 Intent daifahuo = new Intent(mContext, GHDOrderActivity.class);
-                daifahuo.putExtra("ye", 1);
+                daifahuo.putExtra("ye", 2);
                 startActivity(daifahuo);
                 break;
             case R.id.ll_yishouhuo:
                 Intent yishouhuo = new Intent(mContext, GHDOrderActivity.class);
-                yishouhuo.putExtra("ye", 2);
+                yishouhuo.putExtra("ye", 3);
                 startActivity(yishouhuo);
+                break;
+            case R.id.ll_daiqueren:
+                Intent daiqueren = new Intent(mContext, GHDOrderActivity.class);
+                daiqueren.putExtra("ye", 4);
+                startActivity(daiqueren);
                 break;
             case R.id.ll_yiwancheng:
                 Intent yiwancheng = new Intent(mContext, GHDOrderActivity.class);
-                yiwancheng.putExtra("ye", 3);
+                yiwancheng.putExtra("ye", 5);
                 startActivity(yiwancheng);
                 break;
             case R.id.ll_qiehuan:
@@ -222,9 +292,9 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
 
     private void initView() {
         Glide.with(mContext).load(woDeBean.getPhoto()).into(ivTouxiang);
-        tvDianming.setText(woDeBean.getCompany_name()+"");
-        type = woDeBean.getBusiness_state()+"";
-        tvState.setText(type.equals("0")?"营业中":"休息中");
+        tvDianming.setText(woDeBean.getCompany_name() + "");
+        type = woDeBean.getBusiness_state() + "";
+        tvState.setText(type.equals("0") ? "营业中" : "休息中");
         tvYue.setText(woDeBean.getMoney() + "");
         tvDfh.setVisibility(woDeBean.getStay_delivery() == 0 ? View.GONE : View.VISIBLE);
         tvDfh.setText(woDeBean.getStay_delivery() + "");
@@ -232,6 +302,18 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
         tvYsh.setText(woDeBean.getAlready_delivery() + "");
         tvYwc.setVisibility(woDeBean.getAlready_complete() == 0 ? View.GONE : View.VISIBLE);
         tvYwc.setText(woDeBean.getAlready_complete() + "");
+        tvDqr.setVisibility(woDeBean.getWait_qr()==0?View.GONE : View.VISIBLE);
+        tvDqr.setText(woDeBean.getWait_qr()+"");
+        tvDdb.setVisibility(woDeBean.getWait_db()==0?View.GONE : View.VISIBLE);
+        tvDdb.setText(woDeBean.getWait_db()+"");
+        tvQdz.setVisibility(woDeBean.getQiangdan_z()==0?View.GONE : View.VISIBLE);
+        tvQdz.setText(woDeBean.getQiangdan_z()+"");
+        tvQdcg.setVisibility(woDeBean.getQiangdan_cg()==0?View.GONE : View.VISIBLE);
+        tvQdz.setText(woDeBean.getQiangdan_cg()+"");
+        tvQdsb.setVisibility(woDeBean.getQiangdan_sbai()==0?View.GONE : View.VISIBLE);
+        tvQdsb.setText(woDeBean.getQiangdan_sbai()+"");
+        tvDaishoukuan.setVisibility(woDeBean.getWait_money()==0?View.GONE : View.VISIBLE);
+        tvDaishoukuan.setText("待收款 "+woDeBean.getWait_money()+"");
         tvSpll.setText(woDeBean.getLiulan() + "");
         tvSpsc.setText(woDeBean.getSc() + "");
         tvDpgz.setText(woDeBean.getGuanzhu() + "");
@@ -286,7 +368,7 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
         getwode();
     }
 
-    private void qiehuan(){
+    private void qiehuan() {
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(RetrofitManager.getService()
@@ -295,27 +377,41 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
                     @Override
                     public void onNext(String bean) {
                         Intent it = new Intent(mContext, MainActivity.class);
-                        it.putExtra("tosome",3);
+                        it.putExtra("tosome", 3);
                         startActivity(it);
                         finish();
                     }
                 });
     }
 
-    private void qiehuanState(){
-        final String state = type.equals("0")?"1":"0";
+    private void qiehuanState() {
+        final String state = type.equals("0") ? "1" : "0";
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(RetrofitManager.getService()
-                        .changeYingyeState(PreferenceUtils.getString(MyApplication.mContext, "token", ""),state))
+                        .changeYingyeState(PreferenceUtils.getString(MyApplication.mContext, "token", ""), state))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String bean) {
-                        Log.e("我的数据",bean);
-                        tvState.setText(bean.equals("0")?"营业中":"休息中");
+                        Log.e("我的数据", bean);
+                        tvState.setText(bean.equals("0") ? "营业中" : "休息中");
                         type = bean;
                     }
                 });
     }
+    public void getPhone() {
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(RetrofitManager.getService()
+                        .getPhone(PreferenceUtils.getString(MyApplication.mContext, "token", ""), ""))
+                .setDataListener(new HttpDataListener<PhoneBean>() {
 
+                    @Override
+                    public void onNext(PhoneBean bean) {
+                        new PhoneDialog().setData(bean.getKefu(),
+                                bean.getYewuyuan(), bean.getKefuphone(), bean.getYwyphone()).show(getSupportFragmentManager());
+                    }
+                }, false);
+
+    }
 }

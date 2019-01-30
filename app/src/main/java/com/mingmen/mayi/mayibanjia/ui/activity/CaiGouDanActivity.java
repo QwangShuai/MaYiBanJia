@@ -100,6 +100,7 @@ public class CaiGouDanActivity extends BaseActivity {
     private String purchase_id = "";
     private String ct_buy_final_id = "";
     private int mytype = 0;
+    private int ye=1;
     //    private Date dangqianTime;
     @Override
     public int getLayoutId() {
@@ -113,9 +114,12 @@ public class CaiGouDanActivity extends BaseActivity {
         tvRight.setTextColor(mContext.getResources().getColor(R.color.zangqing));
         tvRight.setVisibility(View.GONE);
         initAdapter();
+        if(StringUtil.isValid(getIntent().getStringExtra("type"))){
+            getHedanList("0",getIntent().getStringExtra("type"));
+        } else {
+            getHedanList("0","902");
+        }
         initdialog();
-        getHedanList("0","902");
-
     }
 
     private void initAdapter() {
@@ -258,7 +262,7 @@ public class CaiGouDanActivity extends BaseActivity {
 
 
     private void initdialog() {
-        titleDialog = new SiGeXuanXiangDialog().init("全部采购单", "审核通过", "审核不通过", "待审核")
+        titleDialog = new SiGeXuanXiangDialog().init("待提交", "审核通过", "审核不通过", "待审核")
                 .setActivity(this)
                 .setTop(AppUtil.dip2px(44));
 
@@ -372,8 +376,13 @@ public class CaiGouDanActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        tvTitle.setText("待审核");
-        getHedanList("0","902");
+        if(ye!=1){
+            Log.e(TAG, "onResume: "+"啊啊啊" );
+            tvTitle.setText("待审核");
+            getHedanList("0","902");
+
+        }
+        ye++;
     }
 
     @Override
@@ -427,8 +436,9 @@ public class CaiGouDanActivity extends BaseActivity {
         } else if(isState.equals("903")){
             tvTitle.setText("审核失败");
         } else {
-            tvTitle.setText("我的采购单");
+            tvTitle.setText("待提交");
         }
+        Log.e(TAG, "getHedanList: "+isState );
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(

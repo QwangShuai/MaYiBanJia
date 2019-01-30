@@ -98,7 +98,7 @@ public class SiGeXuanXiangDialog extends BaseFragmentDialog implements View.OnCl
         if(v.getId()==R.id.cancel_view){
             dismiss();
         }else {
-            changeView(tvXuanxiang1,v,"");
+            changeView(tvXuanxiang1,v,"904");
             changeView(tvXuanxiang2,v, "901");
             changeView(tvXuanxiang3,v, "903");
             changeView(tvXuanxiang4,v, "902");

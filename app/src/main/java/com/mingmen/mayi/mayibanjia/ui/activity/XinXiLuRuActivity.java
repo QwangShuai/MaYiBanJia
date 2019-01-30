@@ -285,7 +285,7 @@ public class XinXiLuRuActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .qiyexiugai(PreferenceUtils.getString(MyApplication.mContext,"token",""),qiyemingcheng,shengid+"",shiid+"",quid+"",jieid+"", xiangxidizhi,yewuyuanweizhi,shidizhaopian,leibieid,guimoname,"","1","1","",etPhone.getText().toString().trim()))
+                                .qiyexiugai(PreferenceUtils.getString(MyApplication.mContext,"token",""),qiyemingcheng,shengid+"",shiid+"",quid+"",jieid+"", xiangxidizhi,yewuyuanweizhi,shidizhaopian,leibieid,guimoname,"","1","1","",etPhone.getText().toString().trim(),qiyeid))
         .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {

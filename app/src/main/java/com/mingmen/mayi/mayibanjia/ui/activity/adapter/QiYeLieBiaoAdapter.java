@@ -74,12 +74,12 @@ public class QiYeLieBiaoAdapter extends RecyclerView.Adapter<QiYeLieBiaoAdapter.
         holder.tvGuimo.setText(data.getGuiMoId());
         holder.tvYewuyuan.setText("业务员:"+data.getPrincipal());
         Glide.with(mContext).load(data.getPhoto()).into(holder.ivTouxiang);
-        if (data.getSpecific_address() != null) {
-            holder.tvDizhi.setText(data.getQuYMC() + data.getQuYMCa() + data.getQuYMCb() + data.getQuYMCc() + data.getSpecific_address());
-        } else {
-            holder.tvDizhi.setText(data.getQuYMC() + data.getQuYMCa() + data.getQuYMCb() + data.getQuYMCc());
-        }
-        Log.e( "onBindViewHolder: ", data.getRole()+"---");
+//        if (data.getSpecific_address() != null) {
+//            holder.tvDizhi.setText(data.getQuYMC() + data.getQuYMCa() + data.getQuYMCb() + data.getQuYMCc() + data.getSpecific_address());
+//        } else {
+//            holder.tvDizhi.setText(data.getQuYMC() + data.getQuYMCa() + data.getQuYMCb() + data.getQuYMCc());
+//        }
+        holder.tvDizhi.setText(data.getSpecific_address());
         if(StringUtil.isValid(data.getUser_token())){
             if(!StringUtil.isValid(data.getRole())){
                 holder.tvDingdanCtd.setVisibility(View.GONE);

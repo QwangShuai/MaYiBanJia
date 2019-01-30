@@ -168,6 +168,8 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
             shichangming = qiyexinxi.getSon_number();
             shidizhaopian=qiyexinxi.getPhoto();
             xiangxidizhi=qiyexinxi.getSpecific_address();
+            shichang_id=qiyexinxi.getMarket_id();
+            Log.e("shichang_id--", qiyexinxi.getMarket_id() );
             tvQuyuxuanze.setText(qiyexinxi.getQuYMC()+"-"+qiyexinxi.getQuYMCa()+"-"+qiyexinxi.getQuYMCb());
             etXiangxidizhi.setText(qiyexinxi.getSpecific_address());
             Glide.with(mContext).load(shidizhaopian).into(ivTu);
@@ -265,7 +267,7 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .qiyexiugai(PreferenceUtils.getString(MyApplication.mContext, "token",""),qiyemingcheng,shengid+"",shiid+"",quid+"","", xiangxidizhi,yewuyuanweizhi,shidizhaopian,leibieid,"",random_id,"2",tanweihao,shichang_id,etPhone.getText().toString().trim()))
+                                .qiyexiugai(PreferenceUtils.getString(MyApplication.mContext, "token",""),qiyemingcheng,shengid+"",shiid+"",quid+"","", xiangxidizhi,yewuyuanweizhi,shidizhaopian,leibieid,"",random_id,"2",tanweihao,shichang_id,etPhone.getText().toString().trim(),qiyeid))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {

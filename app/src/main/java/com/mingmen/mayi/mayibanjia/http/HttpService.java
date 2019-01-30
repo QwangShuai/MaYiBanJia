@@ -325,7 +325,8 @@ public interface HttpService {
                                                @Query("role") String role,
                                                @Query("booth_number") String booth_number,
                                                @Query("son_number") String son_number,
-                                               @Query("telephone") String telephone);
+                                               @Query("telephone") String telephone,
+                                               @Query("company_id") String qiyeid);
 
     //查询企业列表（业务员）
     @POST("allCompany/queryAll.do")

@@ -7,3 +7,6 @@
 /build
 /captures
 .externalNativeBuild
+app/app-release.apk
+.idea/gradle.xml
+.idea/modules.xml

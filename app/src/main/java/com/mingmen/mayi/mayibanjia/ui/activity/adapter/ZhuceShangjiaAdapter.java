@@ -67,12 +67,12 @@ public class ZhuceShangjiaAdapter extends RecyclerView.Adapter<ZhuceShangjiaAdap
         if(StringUtil.isValid(data.getPhoto())){
             Glide.with(mContext).load(data.getPhoto()).into(holder.ivTouxiang);
         }
-        if (data.getSpecific_address() != null) {
+/*        if (data.getSpecific_address() != null) {
             holder.tvDizhi.setText(data.getQuYMC() + data.getQuYMCa() + data.getQuYMCb() + data.getQuYMCc() + data.getSpecific_address());
         } else {
             holder.tvDizhi.setText(data.getQuYMC() + data.getQuYMCa() + data.getQuYMCb() + data.getQuYMCc());
-        }
-
+        }*/
+        holder.tvDizhi.setText(data.getSpecific_address());
 
 //        if (mOnItemClickListener != null) {
 

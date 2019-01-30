@@ -132,10 +132,12 @@ public class AddAddressActivity extends BaseActivity {
 
             xiangxidizhi = editdata.getSpecific_address();
             moren = Integer.parseInt(editdata.getDefault_address());
-            etShouhuoren.setText(phoneName);
             etDianhua.setText(phonenumber);
             etXiangxidizhi.setText(xiangxidizhi);
-            tvSuozaidiqu.setText(shengming + shiming + quming + jieming);
+            //tvSuozaidiqu.setText(shengming + shiming + quming + jieming);
+            tvSuozaidiqu.setText(shengming + shiming + quming);
+            tvSuozaijiedao.setText(jieming);
+            etShouhuoren.setText(editdata.getLinkman());
             //是否默认
             if (moren == 0) {
                 switchMorendizhi.setChecked(true);

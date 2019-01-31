@@ -1134,7 +1134,7 @@ public interface HttpService {
                                                    @Query("phone") String phone);
 
 
-    //原材料ID：92bd917674ee41f392a25674445e76f9
+    //原材料ID：346926195929448587b078e7fe613530
     //获取采购单名称
     @POST("ctObserver/selectByNumerAndClassify_id")
     Observable<ResultModel<List<FCGName>>> getFeiLei(@Query("parent_id") String parent_id,

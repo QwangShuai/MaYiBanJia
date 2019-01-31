@@ -72,7 +72,7 @@ public class AddShangPinActivity extends BaseActivity {
     private AddSpFourAdapter adapter;
     private Context mContext;
     private GridLayoutManager manager;
-    private String yclId = "92bd917674ee41f392a25674445e76f9";
+    private String yclId = "346926195929448587b078e7fe613530 ";
     private String oneid;
     private String twoid;
     private Map<String,FCGName> map = new HashMap<>();

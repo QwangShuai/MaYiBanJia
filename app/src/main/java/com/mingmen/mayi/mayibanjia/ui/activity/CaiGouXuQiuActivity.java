@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -49,6 +50,8 @@ public class CaiGouXuQiuActivity extends BaseActivity {
     LinearLayout llChanggou;
     @BindView(R.id.ll_null)
     LinearLayout llNull;
+    @BindView(R.id.ll_activity)
+    LinearLayout llActivity;
     @BindView(R.id.rl_list)
     RecyclerView rvList;
 
@@ -94,7 +97,7 @@ public class CaiGouXuQiuActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_right, R.id.ll_add, R.id.ll_changgou})
+    @OnClick({R.id.iv_back, R.id.tv_right, R.id.ll_add, R.id.ll_changgou,R.id.ll_activity})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -108,6 +111,17 @@ public class CaiGouXuQiuActivity extends BaseActivity {
                 break;
             case R.id.ll_changgou:
                 setIntentType(1);
+                break;
+            case R.id.ll_activity:
+                llActivity.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        llActivity.setFocusable(true);
+                        llActivity.setFocusableInTouchMode(true);
+                        llActivity.requestFocus();
+                        return false;
+                    }
+                });
                 break;
         }
     }

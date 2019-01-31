@@ -161,7 +161,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     public String type = "0";
     private PopupWindow yijipop;
     private ArrayList<FCGName> datas = new ArrayList<>();
-    private String yclId = "92bd917674ee41f392a25674445e76f9";
+    private String yclId = "346926195929448587b078e7fe613530 ";
     private String xzId = "";
     private String xzId_2 = "";
     private GridLayoutManager manager;

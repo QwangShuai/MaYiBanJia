@@ -305,6 +305,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                             sanjiguigename = item.getSpec_name();
                             sanjiguigeid = item.getSpec_id() + "";
                             tvSanji.setText(sanjiguigename);
+                            tvYxgg.setText("每"+item.getSpec_name()+"换算单位为");
                             if (StringUtil.isValid(item.getAffiliated_spec())) {
                                 llDw.setVisibility(View.VISIBLE);
                                 isGuige = true;
@@ -368,7 +369,7 @@ public class FaBuShangPinActivity extends BaseActivity {
 
     private void tiaozhuan() {//传递参数界面
         if (isGuige) {
-            if (Double.valueOf(etNumber.getText().toString().trim()) == 0) {
+            if (!StringUtil.isValid(etNumber.getText().toString().trim())||Double.valueOf(etNumber.getText().toString().trim()) == 0) {
                 ToastUtil.showToastLong("请先输入最小单位数量");
                 return;
             } else if (!StringUtil.isValid(zxid)) {
@@ -382,6 +383,7 @@ public class FaBuShangPinActivity extends BaseActivity {
             canShuBean.setSpec_count(0.0);
             canShuBean.setSpec_detal_id("");
         }
+        canShuBean.setSpec_detal_name(sanjiguigename);
         canShuBean.setCommodity_name(etSpming.getText().toString().trim());
 //        canShuBean.setChoose_specifications(xuanzeguige + "");
 //        canShuBean.setPack_standard_one(yijiguigeid);
@@ -430,16 +432,25 @@ public class FaBuShangPinActivity extends BaseActivity {
                             sanjikexuan = false;
                         } else {
                             sanjikexuan = true;
-                            tvSanji.setText(data.get(0).getSpec_name());
-                            sanjiguigeid = data.get(0).getSpec_id();
-                            if (StringUtil.isValid(data.get(0).getAffiliated_spec())) {
-                                llDw.setVisibility(View.VISIBLE);
-                                isGuige = true;
-                                getZuixiaoGuige();
+                            if(StringUtil.isValid(tvSanji.getText().toString().trim())){
+                                if(isGuige){
+                                    getZuixiaoGuige();
+                                }
                             } else {
-                                llDw.setVisibility(View.GONE);
-                                isGuige = false;
+                                tvSanji.setText(data.get(0).getSpec_name());
+                                sanjiguigeid = data.get(0).getSpec_id();
+                                sanjiguigename = data.get(0).getSpec_name();
+                                if (StringUtil.isValid(data.get(0).getAffiliated_spec())) {
+                                    llDw.setVisibility(View.VISIBLE);
+                                    isGuige = true;
+                                    getZuixiaoGuige();
+                                } else {
+                                    llDw.setVisibility(View.GONE);
+                                    isGuige = false;
+                                }
                             }
+
+
                         }
 
                     }
@@ -638,16 +649,27 @@ public class FaBuShangPinActivity extends BaseActivity {
                         tvTishi.setText(bean.getSpec_describe().length() + "/50");
                         ming = bean.getClassify_name() + "";
                         etSpming.setText(bean.getClassify_name() + "");
-                        tvFenleimingcheng.setText(bean.getClassify_name());
+                        tvFenleimingcheng.setText(bean.getType_one_name());
                         sanjikexuan = true;
                         sanjiguigeid = bean.getPack_standard_tree();
+                        sanjiguigename = bean.getPackThreeName();
                         yijiid = bean.getType_one_id();
                         erjiid = bean.getType_two_id();
                         sanjiid = bean.getType_tree_id();
                         etSpming.setEnabled(true);
-                        getguige();
-                        tvSanji.setText(bean.getPackThreeName());
+//                        Log.e( "onNext: ",bean.getPackThreeName() );
                         tvTishi.setText(bean.getSpec_describe().length() + "/50");
+                        if(StringUtil.isValid(bean.getAffiliated_number())&&Integer.valueOf(bean.getAffiliated_number())!=0){
+                            llDw.setVisibility(View.VISIBLE);
+                            etNumber.setText(bean.getAffiliated_number());
+                            tvZxgg.setText(bean.getPackFourName());
+                            isGuige = true;
+                        } else {
+                            llDw.setVisibility(View.GONE);
+                            isGuige = false;
+                        }
+                        tvSanji.setText(bean.getPackThreeName());
+                        getguige();
                     }
                 });
     }

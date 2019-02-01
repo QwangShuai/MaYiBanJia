@@ -46,6 +46,8 @@ public class FaBuShangPinQiDingLiangActivity extends BaseActivity {
     ImageView ivQingkong;
     @BindView(R.id.tv_zhiman)
     TextView tvZhiman;
+    @BindView(R.id.tv_danwei)
+    TextView tvDanwei;
     @BindView(R.id.et_qidingliangdanjia1)
     EditText etQidingliangdanjia1;
     @BindView(R.id.et_qidingliang1)
@@ -101,6 +103,7 @@ public class FaBuShangPinQiDingLiangActivity extends BaseActivity {
 //        etQidingliangdanjia3.setEnabled(false);
         ivQingkong.setVisibility(View.GONE);
         yemian = getIntent().getStringExtra("yemian");
+        tvDanwei.setText("元/"+canshu.getSpec_detal_name());
         if(canshu.getGoods().equals("1")){
             llShowTejia.setVisibility(View.VISIBLE);
             istejia = true;
@@ -382,4 +385,10 @@ public class FaBuShangPinQiDingLiangActivity extends BaseActivity {
 //        etQidingliang3.setText(bean.getRation_three());
         tvTejia.setText(bean.getGoods().equals("1") ? "是" : "否");
     }
+
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//        finish();
+//    }
 }

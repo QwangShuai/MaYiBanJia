@@ -146,6 +146,10 @@ public class CaiGouDanActivity extends BaseActivity {
                         } else if (item.getOrder_audit_state().equals("903")) {
                             intent.setClass(CaiGouDanActivity.this, ShenPiShiBaiActivity.class);
                             intent.putExtra("id", item.getPurchase_id());
+                        } else if(item.getOrder_audit_state().equals("904")){
+                            intent.setClass(CaiGouDanActivity.this, CaiGouXuQiuActivity.class);
+                            intent.putExtra("id", item.getPurchase_id());
+                            intent.putExtra("caigouming",item.getPurchase_name());
                         }
                         String data1 = gson.toJson(item);
                         if(StringUtil.isValid(item.getCt_buy_final_id())){

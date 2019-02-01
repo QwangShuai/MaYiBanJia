@@ -27,6 +27,7 @@ import com.mingmen.mayi.mayibanjia.bean.ShouYeBannerBean;
 import com.mingmen.mayi.mayibanjia.bean.ShouYeLeiBean;
 import com.mingmen.mayi.mayibanjia.bean.ShouYeShangChangBean;
 import com.mingmen.mayi.mayibanjia.bean.ShouYeTeJiaBean;
+import com.mingmen.mayi.mayibanjia.ui.activity.HuoDongActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.QuanBuShiChangActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShangJiaActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ZhuCeCanTingActivity;
@@ -171,6 +172,9 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         holder.banner_home_lunbo.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
+                Intent it = new Intent(mContext, HuoDongActivity.class);
+                it.putExtra("url",bannerBean.get(position).getAddress());
+                mContext.startActivity(it);
 //                Log.e("bannerzt",mHomeBean.getBanner().get(position).getZt()+"zt");
 //                Log.e("bannerlink",mHomeBean.getBanner().get(position).getAp_link()+"link");
 //                tiaozhuan(mHomeBean.getBanner().get(position).getZt(),mHomeBean.getBanner().get(position).getAp_link());

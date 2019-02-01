@@ -178,6 +178,7 @@ public class LoginActivity extends BaseActivity {
                         Log.e("role","onNext: "+bean.getRole() );
                         PreferenceUtils.putString(MyApplication.mContext, "juese", bean.getRole());
                         PreferenceUtils.putInt(MyApplication.mContext,"random_id",bean.getRandom_id());
+                        PreferenceUtils.putString(MyApplication.mContext,"host_account_type",bean.getHost_account_type());
                         tiaozhuan(bean.getRole(),bean.getRandom_id());
 
 

@@ -229,7 +229,7 @@ public class EditorShangPinBean implements Serializable{
         private int specFourNum;
         private String pack_standard_four;
         private Object market_name;
-        private Object pack_standard_tree_name;
+        private String pack_standard_tree_name;
         private Object level;
         private Object origin;
         private Object count;
@@ -239,6 +239,24 @@ public class EditorShangPinBean implements Serializable{
         private List<String> hpicture;
         private List<String> dpicture;
         private String spec_describe;//描述
+        private String type_one_name;//1级到3级展示
+        private String affiliated_number;//数量
+
+        public String getType_one_name() {
+            return type_one_name;
+        }
+
+        public void setType_one_name(String type_one_name) {
+            this.type_one_name = type_one_name;
+        }
+
+        public String getAffiliated_number() {
+            return affiliated_number;
+        }
+
+        public void setAffiliated_number(String affiliated_number) {
+            this.affiliated_number = affiliated_number;
+        }
 
         public String getSpec_describe() {
             return spec_describe;
@@ -992,11 +1010,11 @@ public class EditorShangPinBean implements Serializable{
             this.market_name = market_name;
         }
 
-        public Object getPack_standard_tree_name() {
+        public String getPack_standard_tree_name() {
             return pack_standard_tree_name;
         }
 
-        public void setPack_standard_tree_name(Object pack_standard_tree_name) {
+        public void setPack_standard_tree_name(String pack_standard_tree_name) {
             this.pack_standard_tree_name = pack_standard_tree_name;
         }
 

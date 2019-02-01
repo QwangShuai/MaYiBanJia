@@ -502,6 +502,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                     String dizhijson = data.getStringExtra("dizhi");
                     Log.e("dizhijson", dizhijson);
                     dizhi = gson.fromJson(dizhijson, AddressListBean.class);
+                    count = 1;
                     initdizhi();
                     getsplist();
                     adapter.notifyDataSetChanged();
@@ -511,18 +512,21 @@ public class QueRenDingDanActivity extends BaseActivity {
     }
 
     private void initdizhi() {
-        Log.e("213213",dizhi.getLinkman()+"--"+dizhi.getContact_type()+"--"+dizhi.getProvince_name() + dizhi.getCity_name() + dizhi.getRegion_name() + dizhi.getSpecific_address());
+
         tvShouhuorenming.setText(dizhi.getLinkman());
         tvShouhuorendianhua.setText(dizhi.getContact_type());
         if (Integer.parseInt(dizhi.getDefault_address()) != 0) {
             tvMoren.setVisibility(View.GONE);
             tvDizhi.setText(dizhi.getProvince_name() + dizhi.getCity_name() + dizhi.getRegion_name()+ dizhi.getStreet_name() + dizhi.getSpecific_address());
         } else {
+            Log.e("213213",dizhi.getLinkman()+"--"+dizhi.getContact_type()+"--"+dizhi.getProvince_name() + dizhi.getCity_name() + dizhi.getRegion_name() + dizhi.getSpecific_address());
             tvMoren.setVisibility(View.VISIBLE);
             SpannableStringBuilder span = new SpannableStringBuilder("黑龙江省" + dizhi.getProvince_name() + dizhi.getCity_name() + dizhi.getRegion_name()+ dizhi.getStreet_name() + dizhi.getSpecific_address());
             span.setSpan(new ForegroundColorSpan(Color.TRANSPARENT), 0, 4,
                     Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
             tvDizhi.setText(span);
+            tvWudizhi.setVisibility(View.GONE);
+            llYoudizhi.setVisibility(View.VISIBLE);
         }
     }
 

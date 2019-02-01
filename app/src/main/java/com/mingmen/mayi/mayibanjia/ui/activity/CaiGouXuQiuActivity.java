@@ -74,6 +74,9 @@ public class CaiGouXuQiuActivity extends BaseActivity {
     protected void initData() {
         mContext = CaiGouXuQiuActivity.this;
         tvTitle.setText(getIntent().getStringExtra("caigouming"));
+        if(StringUtil.isValid(getIntent().getStringExtra("purchase_id"))){
+            purchase_id = getIntent().getStringExtra("purchase_id");
+        }
         tvRight.setText("确认提交");
         tvRight.setTextColor(mContext.getResources().getColor(R.color.zangqing));
         confirmDialog = new ConfirmDialog(mContext,

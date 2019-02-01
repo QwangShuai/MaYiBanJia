@@ -23,8 +23,8 @@ public class SanGeXuanXiangDialog extends BaseFragmentDialog implements View.OnC
     TextView tvXuanxiang2;
     @BindView(R.id.tv_xuanxiang3)
     TextView tvXuanxiang3;
-//    @BindView(R.id.tv_xuanxiang4)
-//    TextView tvXuanxiang4;
+    @BindView(R.id.tv_xuanxiang4)
+    TextView tvXuanxiang4;
     @BindView(R.id.cancel_view)
     View cancel_view;
     View xuanzhong;
@@ -58,8 +58,8 @@ public class SanGeXuanXiangDialog extends BaseFragmentDialog implements View.OnC
     }
 
     private void initEvent(){
-//        setOnClickListener(this,tvXuanxiang1,tvXuanxiang2,tvXuanxiang3,tvXuanxiang4);
-        setOnClickListener(this,tvXuanxiang1,tvXuanxiang2,tvXuanxiang3  );
+        setOnClickListener(this,tvXuanxiang1,tvXuanxiang2,tvXuanxiang3,tvXuanxiang4);
+//        setOnClickListener(this,tvXuanxiang1,tvXuanxiang2,tvXuanxiang3  );
         setOnClickListener(this,R.id.cancel_view);
     }
 
@@ -85,7 +85,7 @@ public class SanGeXuanXiangDialog extends BaseFragmentDialog implements View.OnC
             changeView(tvXuanxiang1,v,"0");
             changeView(tvXuanxiang2,v, "1");
             changeView(tvXuanxiang3,v, "2");
-//            changeView(tvXuanxiang4,v, "3");
+            changeView(tvXuanxiang4,v, "3");
 
         }
     }

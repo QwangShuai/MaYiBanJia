@@ -56,7 +56,19 @@ public class DingDanActivity extends BaseActivity {
     @Override
     protected void initData() {
         mContext = DingDanActivity.this;
-        adapter = new OrderAdapter(getSupportFragmentManager(), DingDanActivity.this);
+        Log.e("getItem: ",PreferenceUtils.getString(MyApplication.mContext,"role","") );
+//        if(PreferenceUtils.getString(MyApplication.mContext,"host_account_type","").equals("0")){
+            adapter = new OrderAdapter(getSupportFragmentManager(), DingDanActivity.this);
+        adapter.setFragments("1");
+//        }else {
+//            if(PreferenceUtils.getString(MyApplication.mContext,"role","").equals("1")){
+//                String[] fragments = new String[]{YiShouHuoFragment.class.getName()};
+//                String[] Titles = {"已收货"};
+//                adapter = new OrderAdapter(getSupportFragmentManager(), DingDanActivity.this,"1");
+//            }
+//        }
+
+
         vpDingdan.setAdapter(adapter);
         tabsDingdan.setViewPager(vpDingdan);
         setToken(getIntent().getStringExtra("token"));
@@ -66,6 +78,7 @@ public class DingDanActivity extends BaseActivity {
          */
         int tosome = getIntent().getIntExtra("to_shop",0);
         vpDingdan.setCurrentItem(tosome);
+
     }
 
 

@@ -4,6 +4,10 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
+
+import com.mingmen.mayi.mayibanjia.app.MyApplication;
+import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 
 /**
  * Created by Administrator on 2018/7/28/028.
@@ -14,7 +18,7 @@ public class OrderAdapter  extends FragmentPagerAdapter {
 
     private Context mContext;
     private String[] Titles = {"全部","待付款","待发货","待收货","已收货","已完成"};
-    private final String[] fragments = {
+    private String[] fragments = {
 
             QuanBuFragment.class.getName(),
             DaiFuKuanFragment.class.getName(),
@@ -24,11 +28,12 @@ public class OrderAdapter  extends FragmentPagerAdapter {
             YiWanChengFragment.class.getName(),
 
     };
+
+    private String type = "";
     public OrderAdapter(FragmentManager fm, Context context) {
         super(fm);
         this.mContext=context;
     }
-
     @Override
     public Fragment getItem(int position) {
         return Fragment.instantiate(mContext,fragments[position]);
@@ -41,5 +46,13 @@ public class OrderAdapter  extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         return Titles[position];
+    }
+
+    public void setFragments(String type){
+        if(type.equals("1")){
+            fragments = new String[]{DaiFuKuanFragment.class.getName(),YiWanChengFragment.class.getName(),};
+            Titles = new String[]{"待付款","已完成"};
+            notifyDataSetChanged();
+        }
     }
 }

@@ -261,7 +261,7 @@ public class AddShangPinActivity extends BaseActivity {
                 addSpListBean.setClassify_id(oneid);
             }
 
-            addSpListBean.setPack_standard_id(fcgName.getSpec_idThree());
+            addSpListBean.setPack_standard_id(fcgName.getSpec_idFour());
             addSpListBean.setSort_id(fcgName.getClassify_id());
             list.add(addSpListBean);
             count++;

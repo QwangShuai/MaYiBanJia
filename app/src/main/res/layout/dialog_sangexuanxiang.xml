@@ -46,20 +46,20 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/gray_e7e7e7"/>
-        <!--<TextView-->
-            <!--android:id="@+id/tv_xuanxiang4"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="50dp"-->
-            <!--android:gravity="center"-->
-            <!--android:text="特价商品"-->
-            <!--android:textSize="15sp"-->
-            <!--android:textColor="#474747"-->
-            <!--android:background="@color/white"-->
-            <!--/>-->
-        <!--<View-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="1dp"-->
-            <!--android:background="@color/gray_e7e7e7"/>-->
+        <TextView
+            android:id="@+id/tv_xuanxiang4"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="待审核"
+            android:textSize="15sp"
+            android:textColor="#474747"
+            android:background="@color/white"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_e7e7e7"/>
         <View
             android:id="@+id/cancel_view"
             android:layout_width="match_parent"

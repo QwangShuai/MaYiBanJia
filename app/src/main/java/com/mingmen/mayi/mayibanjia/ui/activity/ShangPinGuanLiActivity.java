@@ -247,19 +247,19 @@ public class ShangPinGuanLiActivity extends BaseActivity {
     }
 
     public void setType(String s) {
-        if(s.equals("3")){
-            goods = "1";
-        } else {
+//        if(s.equals("3")){
+//            goods = "1";
+//        } else {
             goods = "0";
             type=s;
-        }
+//        }
         ye = 1;
         getShangpinList(1);
     }
 
     @Override
-    protected void onRestart() {
-        super.onRestart();
+    protected void onResume() {
+        super.onResume();
         setType(type);
     }
 }

@@ -31,6 +31,7 @@ public class ShouYeBannerBean {
         private Object changer;
         private String picture_address;
         private String creater_time;
+        private String address;
 
         public String getId() {
             return id;
@@ -120,4 +121,11 @@ public class ShouYeBannerBean {
             this.creater_time = creater_time;
         }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 }

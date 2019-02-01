@@ -136,7 +136,7 @@ public class FaBiaoPingJiaActivity extends BaseActivity {
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(RetrofitManager.getService()
-                        .getPingjiaLable())
+                        .getPingjiaLable(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
                 .setDataListener(new HttpDataListener<List<PingJiaLableBean>>() {
                     @Override
                     public void onNext(List<PingJiaLableBean> data) {

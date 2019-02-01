@@ -147,7 +147,7 @@ public class YinHangKaTianJiaActivity extends BaseActivity {
     public void getRz() {//添加银行卡
         HttpManager.getInstance().with(mContext)
                 .setObservable(RetrofitManager.getService()
-                        .getYinhangZzrz( bank_account, principal,
+                        .getYinhangZzrz(PreferenceUtils.getString(MyApplication.mContext, "token", ""), bank_account, principal,
                                 id_number, phone))
                 .setDataListener(new HttpDataListener<YinHangKaRzBean>() {
                     @Override

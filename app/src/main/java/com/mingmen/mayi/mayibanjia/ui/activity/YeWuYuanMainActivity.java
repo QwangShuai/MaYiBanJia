@@ -332,7 +332,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
                                 .setObservable(
                                         RetrofitManager
                                                 .getService()
-                                                .getqylb())
+                                                .getqylb(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
                                 .setDataListener(new HttpDataListener<List<QiYeLeiBieBean>>(){
                                     @Override
                                     public void onNext(List<QiYeLeiBieBean> data) {

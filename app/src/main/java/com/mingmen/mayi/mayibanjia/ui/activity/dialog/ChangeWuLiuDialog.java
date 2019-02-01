@@ -130,7 +130,7 @@ public class ChangeWuLiuDialog extends Dialog {
                 HttpManager.getInstance()
                         .with(context)
                         .setObservable(RetrofitManager.getService()
-                                .getCarsType(bean.getCars_type()))
+                                .getCarsType(PreferenceUtils.getString(MyApplication.mContext, "token", ""),bean.getCars_type()))
                         .setDataListener(new HttpDataListener<List<CarsTypeBean>>() {
                             @Override
                             public void onNext(List<CarsTypeBean> data) {
@@ -224,7 +224,7 @@ public class ChangeWuLiuDialog extends Dialog {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getChepai(name, car_type_id))
+                                .getChepai(PreferenceUtils.getString(MyApplication.mContext, "token", ""),name, car_type_id))
                 .setDataListener(new HttpDataListener<List<ChePaiBean>>() {
                     @Override
                     public void onNext(List<ChePaiBean> data) {

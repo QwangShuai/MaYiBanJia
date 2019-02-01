@@ -805,7 +805,7 @@ public class SouSuoActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .shichangsousuoshangpin(fenleiid))
+                                .shichangsousuoshangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""),fenleiid))
                 .setDataListener(new HttpDataListener<List<ShiChangSouSuoShangPinBean>>() {
                     @Override
                     public void onNext(List<ShiChangSouSuoShangPinBean> list) {

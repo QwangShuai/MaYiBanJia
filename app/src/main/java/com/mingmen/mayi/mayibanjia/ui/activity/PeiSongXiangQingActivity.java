@@ -60,7 +60,7 @@ public class PeiSongXiangQingActivity extends BaseActivity {
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(RetrofitManager.getService()
-                        .getSJWuLiuXQ(id, "1"))
+                        .getSJWuLiuXQ(PreferenceUtils.getString(MyApplication.mContext, "token", ""),id, "1"))
                 .setDataListener(new HttpDataListener<List<SiJiWLXQBean>>() {
                     @Override
                     public void onNext(List<SiJiWLXQBean> data) {

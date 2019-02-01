@@ -104,7 +104,7 @@ public class QiangDanAdapter extends BaseQuickAdapter<QiangDanBean,BaseViewHolde
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .qiangdanshangpin(item.getCompany_id(),item.getSort_id(),item.getSon_order_id()))
+                                .qiangdanshangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""),item.getCompany_id(),item.getSort_id(),item.getSon_order_id()))
                 .setDataListener(new HttpDataListener<List<ShangPinBean>>() {
                     @Override
                     public void onNext(List<ShangPinBean> data) {

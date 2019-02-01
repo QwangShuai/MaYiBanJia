@@ -100,7 +100,7 @@ public class SiJiPeiSongAdapter extends RecyclerView.Adapter<SiJiPeiSongAdapter.
                 HttpManager.getInstance()
                         .with(mContext)
                         .setObservable(RetrofitManager.getService()
-                                .getJingweidu(data.getSpecific_address() + ""))
+                                .getJingweidu(PreferenceUtils.getString(MyApplication.mContext, "token", ""),data.getSpecific_address() + ""))
                         .setDataListener(new HttpDataListener<String>() {
                             @Override
                             public void onNext(String weizhi) {

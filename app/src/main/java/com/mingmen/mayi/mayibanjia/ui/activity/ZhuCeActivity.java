@@ -261,7 +261,7 @@ public class ZhuCeActivity extends BaseActivity {
                     .setObservable(
                             RetrofitManager
                                     .getService()
-                                    . yanzhengcode(etPhone.getText().toString().trim(),etYanzhengma.getText().toString().trim()))
+                                    . yanzhengcode(PreferenceUtils.getString(MyApplication.mContext, "token", ""),etPhone.getText().toString().trim(),etYanzhengma.getText().toString().trim()))
                     .setDataListener(new HttpDataListener<String>() {
                         @Override
                         public void onNext(String data) {

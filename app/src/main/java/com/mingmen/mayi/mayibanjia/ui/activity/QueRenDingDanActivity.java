@@ -374,7 +374,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getsongdashijian())
+                                .getsongdashijian(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
                 .setDataListener(new HttpDataListener<List<SongDaShiJianBean>>() {
                     @Override
                     public void onNext(List<SongDaShiJianBean> data) {
@@ -537,7 +537,7 @@ public class QueRenDingDanActivity extends BaseActivity {
             HttpManager.getInstance()
                     .with(mContext)
                     .setObservable(RetrofitManager.getService()
-                            .getYunFei(spID, dizhi.getAddress_id(), number,Integer.parseInt(lujingtype)))
+                            .getYunFei(PreferenceUtils.getString(MyApplication.mContext, "token", ""),spID, dizhi.getAddress_id(), number,Integer.parseInt(lujingtype)))
                     .setDataListener(new HttpDataListener<List<YunFeiBean>>() {
                         @Override
                         public void onNext(List<YunFeiBean> o) {

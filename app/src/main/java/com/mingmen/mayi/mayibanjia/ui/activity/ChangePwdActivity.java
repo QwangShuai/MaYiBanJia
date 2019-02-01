@@ -179,7 +179,7 @@ public class ChangePwdActivity extends BaseActivity {
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(RetrofitManager.getService()
-                        .changePwd(PreferenceUtils.getString(MyApplication.mContext, "phone", ""), etYpwd.getText().toString(),
+                        .changePwd(PreferenceUtils.getString(MyApplication.mContext, "token", ""),PreferenceUtils.getString(MyApplication.mContext, "phone", ""), etYpwd.getText().toString(),
                                 "1", etNpwd.getText().toString(), ""))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override

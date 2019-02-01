@@ -367,7 +367,7 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .qiniushangchuan())
+                                .qiniushangchuan(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(final String list) {

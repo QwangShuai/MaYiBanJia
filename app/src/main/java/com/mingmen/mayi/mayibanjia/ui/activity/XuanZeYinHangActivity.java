@@ -72,7 +72,7 @@ public class XuanZeYinHangActivity extends BaseActivity {
     public void getBankCardList(){
         HttpManager.getInstance().with(mContext)
                 .setObservable(RetrofitManager.getService()
-                        .getBankCardList())
+                        .getBankCardList(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
                 .setDataListener(new HttpDataListener<List<XuanZeYinHangKaBean>>() {
                     @Override
                     public void onNext(List<XuanZeYinHangKaBean> data) {

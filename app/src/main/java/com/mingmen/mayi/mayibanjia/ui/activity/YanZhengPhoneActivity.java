@@ -143,7 +143,7 @@ public class YanZhengPhoneActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                . yanzhengcode(PreferenceUtils.getString(MyApplication.mContext,"phone",""),etYanzhengma.getText().toString().trim()))
+                                . yanzhengcode(PreferenceUtils.getString(MyApplication.mContext, "token", ""),PreferenceUtils.getString(MyApplication.mContext,"phone",""),etYanzhengma.getText().toString().trim()))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {

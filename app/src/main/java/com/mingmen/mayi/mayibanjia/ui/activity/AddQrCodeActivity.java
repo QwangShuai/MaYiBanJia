@@ -118,7 +118,7 @@ public class AddQrCodeActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getQrCodeSp(gy_order_id,type,ye+""))
+                                .getQrCodeSp(PreferenceUtils.getString(MyApplication.mContext, "token", ""),gy_order_id,type,ye+""))
                 .setDataListener(new HttpDataListener<List<AddQrCodeBean>>() {
                     @Override
                     public void onNext(final List<AddQrCodeBean> data) {
@@ -155,7 +155,7 @@ public class AddQrCodeActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getQrCodeSp(gy_order_id,type,ye+""))
+                                .getQrCodeSp(PreferenceUtils.getString(MyApplication.mContext, "token", ""),gy_order_id,type,ye+""))
                 .setDataListener(new HttpDataListener<List<AddQrCodeBean>>() {
                     @Override
                     public void onNext(final List<AddQrCodeBean> data) {

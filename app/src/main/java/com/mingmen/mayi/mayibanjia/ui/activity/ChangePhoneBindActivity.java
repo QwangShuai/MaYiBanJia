@@ -148,7 +148,7 @@ public class ChangePhoneBindActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                . yanzhengcode(etPhone.getText().toString().toString(),etYanzhengma.getText().toString().trim()))
+                                . yanzhengcode(PreferenceUtils.getString(MyApplication.mContext, "token", ""),etPhone.getText().toString().toString(),etYanzhengma.getText().toString().trim()))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {

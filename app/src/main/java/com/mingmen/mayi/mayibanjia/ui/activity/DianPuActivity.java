@@ -446,7 +446,7 @@ public class DianPuActivity extends BaseActivity implements View.OnClickListener
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getDpspListSearch(etSousuo.getText().toString().trim(),dianpuid))
+                                .getDpspListSearch(PreferenceUtils.getString(MyApplication.mContext, "token", ""),etSousuo.getText().toString().trim(),dianpuid))
                 .setDataListener(new HttpDataListener<List<DianPuZhanShiBean.CompanyListBean>>() {
                     @Override
                     public void onNext(List<DianPuZhanShiBean.CompanyListBean> list) {

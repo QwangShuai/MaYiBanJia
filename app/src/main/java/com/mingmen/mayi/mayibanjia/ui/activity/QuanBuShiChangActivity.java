@@ -180,7 +180,7 @@ public class QuanBuShiChangActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getShichangList(provinceNo,cityNo,region,name,ye+""))
+                                .getShichangList(PreferenceUtils.getString(MyApplication.mContext, "token", ""),provinceNo,cityNo,region,name,ye+""))
                 .setDataListener(new HttpDataListener<List<QuanBuShiChangBean>>() {
                     @Override
                     public void onNext(final List<QuanBuShiChangBean> data) {

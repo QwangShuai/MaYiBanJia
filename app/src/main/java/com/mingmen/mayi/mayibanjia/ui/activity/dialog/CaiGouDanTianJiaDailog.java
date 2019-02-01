@@ -283,7 +283,7 @@ public class CaiGouDanTianJiaDailog extends BaseFragmentDialog {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getfcgguige(sanjifenleiId))
+                                .getfcgguige(PreferenceUtils.getString(MyApplication.mContext, "token", ""),sanjifenleiId))
                 .setDataListener(new HttpDataListener<List<FCGGuige>>() {
                     @Override
                     public void onNext(List<FCGGuige> data) {

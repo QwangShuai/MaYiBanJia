@@ -163,7 +163,7 @@ public class QuanBuPingjiaActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getPingjiaTypeNumber(company_id))
+                                .getPingjiaTypeNumber(PreferenceUtils.getString(MyApplication.mContext, "token", ""),company_id))
                 .setDataListener(new HttpDataListener<PingJiaTypeListBean>() {
                     @Override
                     public void onNext(PingJiaTypeListBean data) {

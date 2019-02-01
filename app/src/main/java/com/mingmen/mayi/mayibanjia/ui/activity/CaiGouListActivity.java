@@ -100,7 +100,7 @@ public class CaiGouListActivity extends BaseActivity {
                                     RetrofitManager
                                             .getService()
                                             //user_token  是否是特殊商品不是0 是1    如果是特殊商品 填写要求   市场id  类别id  产品数量
-                                            .postCaigoudan(purchase_id))
+                                            .postCaigoudan(PreferenceUtils.getString(MyApplication.mContext, "token", ""),purchase_id))
                             .setDataListener(new HttpDataListener<String>() {
                                 @Override
                                 public void onNext(String data) {

@@ -416,7 +416,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getguige(sanjiid))
+                                .getguige(PreferenceUtils.getString(MyApplication.mContext, "token", ""),sanjiid))
                 .setDataListener(new HttpDataListener<List<FbspGuiGeBean>>() {
 
                     @Override
@@ -505,7 +505,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .qiniushangchuan())
+                                .qiniushangchuan(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String list) {
@@ -635,7 +635,7 @@ public class FaBuShangPinActivity extends BaseActivity {
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(RetrofitManager.getService()
-                        .editorShangPin(id))
+                        .editorShangPin(PreferenceUtils.getString(MyApplication.mContext, "token", ""),id))
                 .setDataListener(new HttpDataListener<EditorShangPinBean>() {
                     @Override
                     public void onNext(EditorShangPinBean data) {
@@ -743,7 +743,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getFeiLei(id, level))
+                                .getFeiLei(PreferenceUtils.getString(MyApplication.mContext, "token", ""),id, level))
                 .setDataListener(new HttpDataListener<List<FCGName>>() {
 
                     @Override
@@ -797,7 +797,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getZxgg(sanjiguigeid, sanjiguigename))
+                                .getZxgg(PreferenceUtils.getString(MyApplication.mContext, "token", ""),sanjiguigeid, sanjiguigename))
                 .setDataListener(new HttpDataListener<List<FbspGuiGeBean>>() {
 
                     @Override

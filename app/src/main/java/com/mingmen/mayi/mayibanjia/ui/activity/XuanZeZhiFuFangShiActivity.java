@@ -181,7 +181,7 @@ public class XuanZeZhiFuFangShiActivity extends BaseActivity {
                     .setObservable(
                             RetrofitManager
                                     .getService()//支付方式  1余额支付 2微信支付 3支付宝支付
-                                    .getWXPay(dingdanid, Double.valueOf(zongjia)*100+""))
+                                    .getWXPay(PreferenceUtils.getString(MyApplication.mContext, "token", ""),dingdanid, Double.valueOf(zongjia)*100+""))
                     .setDataListener(new HttpDataListener<WXPayBean>() {
                         @Override
                         public void onNext(WXPayBean data) {

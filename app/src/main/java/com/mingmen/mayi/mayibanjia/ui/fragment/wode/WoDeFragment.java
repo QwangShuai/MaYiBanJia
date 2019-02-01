@@ -225,6 +225,7 @@ public class WoDeFragment extends BaseFragment {
         }
         if (!PreferenceUtils.getString(MyApplication.mContext, "host_account_type", "").equals("0")) {
             role = PreferenceUtils.getString(MyApplication.mContext, "juese", "");
+            Log.e( "loadData: ",role );
             if (role.equals("1")) {
                 llCg.setVisibility(View.GONE);
             } else if (role.equals("4")) {

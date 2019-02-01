@@ -474,7 +474,7 @@ public class XinXiLuRuActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getsheng(city+""))
+                                .getsheng(PreferenceUtils.getString(MyApplication.mContext, "token", ""),city+""))
                 .setDataListener(new HttpDataListener<List<ProvinceBean>>() {
                     @Override
                     public void onNext(final List<ProvinceBean> list) {
@@ -545,7 +545,7 @@ public class XinXiLuRuActivity extends BaseActivity {
                     .setObservable(
                             RetrofitManager
                                     .getService()
-                                    .getqylb())
+                                    .getqylb(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
                     .setDataListener(new HttpDataListener<List<QiYeLeiBieBean>>(){
                         @Override
                         public void onNext(List<QiYeLeiBieBean> data) {
@@ -618,7 +618,7 @@ public class XinXiLuRuActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .qiniushangchuan())
+                                .qiniushangchuan(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String list) {

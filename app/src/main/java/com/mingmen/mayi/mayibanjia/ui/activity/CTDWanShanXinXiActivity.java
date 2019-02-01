@@ -159,7 +159,7 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .dianpuchaxun(chaxun))
+                                .dianpuchaxun(PreferenceUtils.getString(MyApplication.mContext, "token", ""),chaxun))
                 .setDataListener(new HttpDataListener<List<DianMingChaXunBean>>() {
                     @Override
                     public void onNext(final List<DianMingChaXunBean> data) {
@@ -220,7 +220,7 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .qiniushangchuan())
+                                .qiniushangchuan(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String list) {

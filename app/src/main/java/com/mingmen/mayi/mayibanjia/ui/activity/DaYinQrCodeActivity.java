@@ -136,7 +136,7 @@ public class DaYinQrCodeActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getQrCodeList(id,sp_id))
+                                .getQrCodeList(PreferenceUtils.getString(MyApplication.mContext, "token", ""),id,sp_id))
                 .setDataListener(new HttpDataListener<List<DaYinQrCodeBean>>() {
 
                     @Override

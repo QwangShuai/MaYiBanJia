@@ -344,7 +344,7 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .qiniushangchuan())
+                                .qiniushangchuan(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String list) {
@@ -556,7 +556,7 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getshichang(quid+""))
+                                .getshichang(PreferenceUtils.getString(MyApplication.mContext, "token", ""),quid+""))
                 .setDataListener(new HttpDataListener<List<ShiChangBean>>() {
                     @Override
                     public void onNext(List<ShiChangBean> list) {

@@ -275,7 +275,7 @@ public class ShouYeFragment extends BaseFragment {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getFeiLei(UMConfig.YCL_ID,"2"))
+                                .getFeiLei(PreferenceUtils.getString(MyApplication.mContext, "token", ""),UMConfig.YCL_ID,"2"))
                 .setDataListener(new HttpDataListener<List<FCGName>>() {
 
                     @Override
@@ -293,7 +293,7 @@ public class ShouYeFragment extends BaseFragment {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getShouYeShangJia())
+                                .getShouYeShangJia(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
                 .setDataListener(new HttpDataListener<ShouYeShangChangBean>() {
 
                     @Override

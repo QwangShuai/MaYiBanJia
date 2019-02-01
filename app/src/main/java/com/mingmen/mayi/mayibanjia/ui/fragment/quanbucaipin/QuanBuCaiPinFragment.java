@@ -476,7 +476,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getallshichang("230000", "230100"))
+                                .getallshichang(PreferenceUtils.getString(MyApplication.mContext, "token", ""),"230000", "230100"))
                 .setDataListener(new HttpDataListener<AllShiChangBean>() {
                     @Override
                     public void onNext(AllShiChangBean data) {
@@ -719,7 +719,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getFeiLei(id, type))
+                                .getFeiLei(PreferenceUtils.getString(MyApplication.mContext, "token", ""),id, type))
                 .setDataListener(new HttpDataListener<List<FCGName>>() {
 
                     @Override
@@ -866,7 +866,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .shichangsousuoshangpin(sanjipinleiid))
+                                .shichangsousuoshangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""),sanjipinleiid))
                 .setDataListener(new HttpDataListener<List<ShiChangSouSuoShangPinBean>>() {
                     @Override
                     public void onNext(List<ShiChangSouSuoShangPinBean> list) {

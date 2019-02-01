@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mingmen.mayi.mayibanjia.R;
+import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.SiJiWLXQBean;
 import com.mingmen.mayi.mayibanjia.bean.WuLiuBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
@@ -23,6 +24,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.SiJiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.WeiYiQrCodeActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.DiTuDialog;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
+import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 import com.mingmen.mayi.mayibanjia.utils.custom.RecycleViewDivider;
 
@@ -84,7 +86,7 @@ public class SJPSXiangQingAdapter extends RecyclerView.Adapter<SJPSXiangQingAdap
                 HttpManager.getInstance()
                         .with(mContext)
                         .setObservable(RetrofitManager.getService()
-                                .getJingweidu(data.getCtAddress() + ""))
+                                .getJingweidu(PreferenceUtils.getString(MyApplication.mContext, "token", ""),data.getCtAddress() + ""))
                         .setDataListener(new HttpDataListener<String>() {
                             @Override
                             public void onNext(String weizhi) {

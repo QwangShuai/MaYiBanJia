@@ -149,7 +149,7 @@ public class AddShangPinActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getFeiLei(id, type))
+                                .getFeiLei(PreferenceUtils.getString(MyApplication.mContext, "token", ""),id, type))
                 .setDataListener(new HttpDataListener<List<FCGName>>() {
 
                     @Override

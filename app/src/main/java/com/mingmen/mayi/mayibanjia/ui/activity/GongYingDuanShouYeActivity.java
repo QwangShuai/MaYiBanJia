@@ -318,6 +318,7 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
         tvSpsc.setText(woDeBean.getSc() + "");
         tvDpgz.setText(woDeBean.getGuanzhu() + "");
         tvDqd.setVisibility(woDeBean.getQiangdan()==0?View.GONE : View.VISIBLE);
+        tvDqd.setText(woDeBean.getQiangdan()+ "");
 
 //        tvDianpuguanzhu.setText(woDeBean.getGuanzhu());
 //        tvLiulanjilu.setText(woDeBean.getLiulan());

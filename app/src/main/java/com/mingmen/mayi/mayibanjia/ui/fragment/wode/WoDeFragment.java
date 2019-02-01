@@ -332,6 +332,7 @@ public class WoDeFragment extends BaseFragment {
             tvTongguo.setVisibility(View.VISIBLE);
             tvTongguo.setText(woDeBean.getShenhe_cg() + "");
         }
+
         tvMingzi.setText(woDeBean.getCompany_name());
         tvZhanghao.setText(woDeBean.getTelephone());
     }

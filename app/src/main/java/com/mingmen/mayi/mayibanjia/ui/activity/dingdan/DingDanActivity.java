@@ -57,18 +57,14 @@ public class DingDanActivity extends BaseActivity {
     protected void initData() {
         mContext = DingDanActivity.this;
         Log.e("getItem: ",PreferenceUtils.getString(MyApplication.mContext,"role","") );
-//        if(PreferenceUtils.getString(MyApplication.mContext,"host_account_type","").equals("0")){
-            adapter = new OrderAdapter(getSupportFragmentManager(), DingDanActivity.this);
-        adapter.setFragments("1");
-//        }else {
-//            if(PreferenceUtils.getString(MyApplication.mContext,"role","").equals("1")){
-//                String[] fragments = new String[]{YiShouHuoFragment.class.getName()};
-//                String[] Titles = {"已收货"};
-//                adapter = new OrderAdapter(getSupportFragmentManager(), DingDanActivity.this,"1");
-//            }
-//        }
-
-
+        adapter = new OrderAdapter(getSupportFragmentManager(), DingDanActivity.this);
+        if(!PreferenceUtils.getString(MyApplication.mContext,"host_account_type","").equals("0")) {
+            if(PreferenceUtils.getString(MyApplication.mContext,"juese","").equals("1")){
+                adapter.setFragments("1");
+            } else if(PreferenceUtils.getString(MyApplication.mContext,"juese","").equals("4")){
+                adapter.setFragments("4");
+            }
+        }
         vpDingdan.setAdapter(adapter);
         tabsDingdan.setViewPager(vpDingdan);
         setToken(getIntent().getStringExtra("token"));
@@ -97,10 +93,9 @@ public class DingDanActivity extends BaseActivity {
         }
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        Log.e("1111","1111");
-        adapter.notifyDataSetChanged();
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        adapter.notifyDataSetChanged();
+//    }
 }

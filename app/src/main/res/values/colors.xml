@@ -16,6 +16,7 @@
     <color name="hintcolor">#999999</color>
     <color name="cutoff">#00e7e7e7</color>
     <color name="gray_e7e7e7">#e7e7e7</color>
+    <color name="gray_e7e7e7_80">#80e7e7e7</color>
     <color name="red_ba2800">#ba2800</color>
     <color name="zicolor">#474747</color>
     <color name="hei20">#20000000</color>

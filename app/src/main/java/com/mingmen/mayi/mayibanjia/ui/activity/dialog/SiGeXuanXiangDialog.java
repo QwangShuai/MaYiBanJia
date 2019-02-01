@@ -110,4 +110,5 @@ public class SiGeXuanXiangDialog extends BaseFragmentDialog implements View.OnCl
         this.activity = activity;
         return this;
     }
+
 }

@@ -55,8 +55,8 @@ public class LoginActivity extends BaseActivity {
     private Context mContext;
     private String pass;
     private String phone;
+    private String zzh="";
     private boolean isLogin;
-
 
     @Override
     public int getLayoutId() {
@@ -173,12 +173,14 @@ public class LoginActivity extends BaseActivity {
                     public void onNext(ZhuCeChengGongBean bean) {
                         Log.e("token", bean.getToken() + "===");
                         PreferenceUtils.putString(MyApplication.mContext,"phone",bean.getTelephone());
+                        PreferenceUtils.putString(MyApplication.mContext,"host_account_type",bean.getHost_account_type());
                         PreferenceUtils.putBoolean(MyApplication.mContext, "isLogin", true);
                         PreferenceUtils.putString(MyApplication.mContext, "token", bean.getToken());
                         Log.e("role","onNext: "+bean.getRole() );
                         PreferenceUtils.putString(MyApplication.mContext, "juese", bean.getRole());
                         PreferenceUtils.putInt(MyApplication.mContext,"random_id",bean.getRandom_id());
-                        PreferenceUtils.putString(MyApplication.mContext,"host_account_type",bean.getHost_account_type());
+                        zzh = bean.getHost_account_type();
+                        Log.e("onNext: ","我的天啊" +zzh);
                         tiaozhuan(bean.getRole(),bean.getRandom_id());
 
 
@@ -213,6 +215,9 @@ public class LoginActivity extends BaseActivity {
 
         } else if ("1".equals(juese)) {//餐厅端
             Intent intent = new Intent(mContext, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            if(!zzh.equals("0")){
+                intent.putExtra("tosome",3);
+            }
             startActivity(intent);
             finish();
         }

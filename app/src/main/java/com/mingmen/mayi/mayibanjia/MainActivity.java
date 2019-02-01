@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.ui.activity.CaiGouXuQiuActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.FCGDiQuXuanZeActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.myinterface.MainCallBack;
@@ -20,6 +21,7 @@ import com.mingmen.mayi.mayibanjia.ui.fragment.quanbucaipin.QuanBuCaiPinFragment
 import com.mingmen.mayi.mayibanjia.ui.fragment.shouye.ShouYeFragment;
 import com.mingmen.mayi.mayibanjia.ui.fragment.wode.WoDeFragment;
 import com.mingmen.mayi.mayibanjia.ui.view.noscrollviewpager.NoScrollViewPager;
+import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.QuanXian;
 
 import java.util.ArrayList;
@@ -53,6 +55,11 @@ public class MainActivity extends AppCompatActivity{
     public static MainActivity instance = null;
     private String sp_type ="";
     private String sp_id ="";
+    private String zzh ="";
+    private String role ="";
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +83,12 @@ public class MainActivity extends AppCompatActivity{
 
 
     private void initview() {
+        zzh  = PreferenceUtils.getString(MyApplication.mContext, "host_account_type", "");
+        if(zzh.equals("0")){
 
+        } else {
+            role = PreferenceUtils.getString(MyApplication.mContext, "juese", "");
+        }
         ShouYeFragment shouYeFragment=new ShouYeFragment();
         QuanBuCaiPinFragment quanBuCaiPinFragment=new QuanBuCaiPinFragment();
         GouWuCheFragment gouWuCheFragment=new GouWuCheFragment();
@@ -159,23 +171,34 @@ public class MainActivity extends AppCompatActivity{
         switch (view.getId()) {
             case R.id.iv_shouye:
 //                ivFacaigou.setVisibility(View.VISIBLE);
-                gaibianye(0);
+                if(zzh.equals("0")){
+                    gaibianye(0);
+                }
+
                 break;
             case R.id.iv_quanbucaipin:
 //                ivFacaigou.setVisibility(View.GONE);
-                gaibianye(1);
+                if(zzh.equals("0")){
+                    gaibianye(1);
+                }
+
                 break;
             case R.id.iv_gouwuche:
 //                ivFacaigou.setVisibility(View.GONE);
-                gaibianye(2);
+                if(zzh.equals("0")){
+                    gaibianye(2);
+                }
                 break;
             case R.id.iv_wode:
 //                ivFacaigou.setVisibility(View.GONE);
                 gaibianye(3);
                 break;
             case R.id.iv_facaigou:
-                Intent caigouintent=new Intent(MainActivity.this,FCGDiQuXuanZeActivity.class);
-                startActivity(caigouintent);
+                if(zzh.equals("0")||role.equals("2")||role.equals("5")){
+                    Intent caigouintent=new Intent(MainActivity.this,FCGDiQuXuanZeActivity.class);
+                    startActivity(caigouintent);
+                }
+
                 break;
         }
     }

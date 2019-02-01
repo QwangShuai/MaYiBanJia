@@ -15,22 +15,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
-import com.mingmen.mayi.mayibanjia.MainActivity;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
-import com.mingmen.mayi.mayibanjia.bean.CaiGouDanBean;
 import com.mingmen.mayi.mayibanjia.bean.PhoneBean;
 import com.mingmen.mayi.mayibanjia.bean.WoDeBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
-import com.mingmen.mayi.mayibanjia.ui.activity.AddZiZhuangHuActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.CaiGouDanActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.DianPuGuanZhuActivity;
-import com.mingmen.mayi.mayibanjia.ui.activity.GongYingDuanSheZhiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.GongYingDuanShouYeActivity;
-import com.mingmen.mayi.mayibanjia.ui.activity.JueSeGuanLiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.LiuLanJiLuActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShouCangListActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShouHuoDiZhiActivity;
@@ -46,8 +40,6 @@ import com.mingmen.mayi.mayibanjia.ui.base.BaseFragment;
 import com.mingmen.mayi.mayibanjia.ui.view.CircleImageView;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -77,8 +69,6 @@ public class WoDeFragment extends BaseFragment {
     LinearLayout llYue;
     //    @BindView(R.id.ll_dingdan)
 //    LinearLayout llDingdan;
-    @BindView(R.id.rl_shouhuodizhi)
-    RelativeLayout rlShouhuodizhi;
     @BindView(R.id.ll_qiehuan)
     LinearLayout llQiehuan;
     @BindView(R.id.tv_mingzi)
@@ -97,6 +87,10 @@ public class WoDeFragment extends BaseFragment {
     TextView tvLiulanjilu;
     @BindView(R.id.ll_liulanjilu)
     LinearLayout llLiulanjilu;
+    @BindView(R.id.ll_cg)
+    LinearLayout llCg;
+    @BindView(R.id.ll_dd)
+    LinearLayout llDd;
     @BindView(R.id.tv_daifukuan)
     TextView tvDaifukuan;
     @BindView(R.id.rl_daifukuan)
@@ -141,12 +135,67 @@ public class WoDeFragment extends BaseFragment {
     TextView tvWeitongguo;
     @BindView(R.id.rl_tongguo)
     RelativeLayout rlTongguo;
+    @BindView(R.id.rl_yiwancheng)
+    RelativeLayout rlYiwancheng;
     @BindView(R.id.tv_tongguo)
     TextView tvTongguo;
+    @BindView(R.id.iv_wqx_dfk)
+    ImageView ivWqxDfk;
+    @BindView(R.id.iv_wqx_dfh)
+    ImageView ivWqxDfh;
+    @BindView(R.id.iv_wqx_dsh)
+    ImageView ivWqxDsh;
+    @BindView(R.id.iv_wqx_ysh)
+    ImageView ivWqxYsh;
+    @BindView(R.id.iv_wqx_ywc)
+    ImageView ivWqxYwc;
+    Unbinder unbinder;
+    @BindView(R.id.ll_myyue)
+    LinearLayout llMyyue;
+    @BindView(R.id.tv_qiehuan)
+    TextView tvQiehuan;
+    @BindView(R.id.daifukuan)
+    ImageView daifukuan;
+    @BindView(R.id.daifahuo)
+    ImageView daifahuo;
+    @BindView(R.id.daishouhuo)
+    ImageView daishouhuo;
+    @BindView(R.id.yishouhuo)
+    ImageView yishouhuo;
+    @BindView(R.id.yiwancheng)
+    ImageView yiwancheng;
+    @BindView(R.id.daishenhe)
+    ImageView daishenhe;
+    @BindView(R.id.daitijiao)
+    ImageView daitijiao;
+    @BindView(R.id.weitongguo)
+    ImageView weitongguo;
+    @BindView(R.id.tongguo)
+    ImageView tongguo;
+    @BindView(R.id.iv_wqx_zzh)
+    ImageView ivWqxZzh;
+    @BindView(R.id.rl_zizhanghu)
+    RelativeLayout rlZizhanghu;
+    @BindView(R.id.iv_wqx_shdi)
+    ImageView ivWqxShdi;
+    @BindView(R.id.rl_shouhuodizhi)
+    RelativeLayout rlShouhuodizhi;
+    @BindView(R.id.iv_wqx_yhzh)
+    ImageView ivWqxYhzh;
+    @BindView(R.id.iv_wqx_wdpj)
+    ImageView ivWqxWdpj;
+    @BindView(R.id.iv_wqx_cjwt)
+    ImageView ivWqxCjwt;
+    @BindView(R.id.iv_wqx_kfdh)
+    ImageView ivWqxKfdh;
+    @BindView(R.id.iv_wqx_yjfk)
+    ImageView ivWqxYjfk;
     private View viewSPYXFragment;
     private Context mContext;
     private WoDeBean woDeBean;
     private LinearLayout layout_1;
+    private String role = "";
+
 
     @Override
     protected View getSuccessView() {
@@ -174,6 +223,20 @@ public class WoDeFragment extends BaseFragment {
                 window.setStatusBarColor(getResources().getColor(R.color.white));
             }
         }
+        if (!PreferenceUtils.getString(MyApplication.mContext, "host_account_type", "").equals("0")) {
+            role = PreferenceUtils.getString(MyApplication.mContext, "juese", "");
+            if (role.equals("1")) {
+                llCg.setVisibility(View.GONE);
+            } else if (role.equals("4")) {
+                llCg.setVisibility(View.GONE);
+            } else if (role.equals("2")) {
+                llDd.setVisibility(View.GONE);
+            } else if (role.equals("3")) {
+                llDd.setVisibility(View.GONE);
+            }
+            setShowView();
+        }
+
         getwode(true);
     }
 
@@ -201,7 +264,6 @@ public class WoDeFragment extends BaseFragment {
                             }
                         }
 
-
                         initView();
                     }
                 }, isxianshi);
@@ -209,7 +271,10 @@ public class WoDeFragment extends BaseFragment {
 
     private void initView() {
         Glide.with(getActivity()).load(woDeBean.getPhoto()).into(ivTouxiang);
-        tvYue.setText(woDeBean.getMoney());
+        if (PreferenceUtils.getString(MyApplication.mContext, "host_account_type", "").equals("0")) {
+            tvYue.setText(woDeBean.getMoney());
+        }
+
         tvShoucangshu.setText(woDeBean.getSc() + "");
         tvDianpuguanzhu.setText(woDeBean.getGuanzhu() + "");
         tvLiulanjilu.setText(woDeBean.getLiulan() + "");
@@ -289,23 +354,23 @@ public class WoDeFragment extends BaseFragment {
             case R.id.iv_tongzhi:
                 break;
             case R.id.rl_daishenhe:
-                Intent daishenhe = new Intent(mContext,CaiGouDanActivity.class);
-                daishenhe.putExtra("type","902");
+                Intent daishenhe = new Intent(mContext, CaiGouDanActivity.class);
+                daishenhe.putExtra("type", "902");
                 mContext.startActivity(daishenhe);
                 break;
             case R.id.rl_daitijiao:
-                Intent daitijiao = new Intent(mContext,CaiGouDanActivity.class);
-                daitijiao.putExtra("type","904");
+                Intent daitijiao = new Intent(mContext, CaiGouDanActivity.class);
+                daitijiao.putExtra("type", "904");
                 mContext.startActivity(daitijiao);
                 break;
             case R.id.rl_weitongguo:
-                Intent weitongguo = new Intent(mContext,CaiGouDanActivity.class);
-                weitongguo.putExtra("type","903");
+                Intent weitongguo = new Intent(mContext, CaiGouDanActivity.class);
+                weitongguo.putExtra("type", "903");
                 mContext.startActivity(weitongguo);
                 break;
             case R.id.rl_tongguo:
-                Intent tongguo = new Intent(mContext,CaiGouDanActivity.class);
-                tongguo.putExtra("type","901");
+                Intent tongguo = new Intent(mContext, CaiGouDanActivity.class);
+                tongguo.putExtra("type", "901");
                 mContext.startActivity(tongguo);
                 break;
             case R.id.ll_shoucang://商品收藏
@@ -325,7 +390,11 @@ public class WoDeFragment extends BaseFragment {
 //                break;
             case R.id.rl_daifukuan:
                 Bundle daifukuan = new Bundle();
-                daifukuan.putInt("to_shop", 1);
+                if (role.equals("1")) {
+                    daifukuan.putInt("to_shop", 0);
+                } else {
+                    daifukuan.putInt("to_shop", 1);
+                }
                 Jump_intent(DingDanActivity.class, daifukuan);
                 break;
             case R.id.rl_daifahuo:
@@ -335,17 +404,32 @@ public class WoDeFragment extends BaseFragment {
                 break;
             case R.id.rl_daishouhuo:
                 Bundle daishouhuo = new Bundle();
-                daishouhuo.putInt("to_shop", 3);
+                if (role.equals("4")) {
+                    daishouhuo.putInt("to_shop", 0);
+                } else {
+                    daishouhuo.putInt("to_shop", 3);
+                }
+
                 Jump_intent(DingDanActivity.class, daishouhuo);
                 break;
             case R.id.rl_yishouhuo:
                 Bundle yishouhuo = new Bundle();
-                yishouhuo.putInt("to_shop", 4);
+                if (role.equals("4")) {
+                    yishouhuo.putInt("to_shop", 1);
+                } else {
+                    yishouhuo.putInt("to_shop", 4);
+                }
+
                 Jump_intent(DingDanActivity.class, yishouhuo);
                 break;
             case R.id.rl_yiwancheng:
                 Bundle yiwancheng = new Bundle();
-                yiwancheng.putInt("to_shop", 5);
+                if (role.equals("1")) {
+                    yiwancheng.putInt("to_shop", 1);
+                } else {
+                    yiwancheng.putInt("to_shop", 5);
+                }
+
                 Jump_intent(DingDanActivity.class, yiwancheng);
                 break;
             case R.id.rl_shouhuodizhi://收货地址
@@ -424,5 +508,66 @@ public class WoDeFragment extends BaseFragment {
                         getActivity().finish();
                     }
                 });
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    private void setShowView() {
+        llMyyue.setEnabled(false);
+        tvYue.setText("****");
+        tvYue.setTextColor(mContext.getResources().getColor(R.color.zicolor));
+        ivWqxZzh.setVisibility(View.VISIBLE);
+        ivWqxShdi.setVisibility(View.VISIBLE);
+        ivWqxYhzh.setVisibility(View.VISIBLE);
+        ivWqxWdpj.setVisibility(View.VISIBLE);
+        ivWqxCjwt.setVisibility(View.VISIBLE);
+//        ivWqxYjfk.setVisibility(View.VISIBLE);
+
+        llShoucang.setEnabled(false);
+        llGuanzhu.setEnabled(false);
+        llLiulanjilu.setEnabled(false);
+//        ivTouxiang.setEnabled(false);
+        rlZizhanghu.setEnabled(false);
+        rlShouhuodizhi.setEnabled(false);
+        rlYinhang.setEnabled(false);
+        llPingjia.setEnabled(false);
+        rlChangjianwenti.setEnabled(false);
+//        rlYijian.setEnabled(false);
+
+        if (role.equals("1")) {
+            ivWqxDfh.setVisibility(View.VISIBLE);
+            ivWqxDsh.setVisibility(View.VISIBLE);
+            ivWqxYsh.setVisibility(View.VISIBLE);
+
+            rlDaifahuo.setEnabled(false);
+            rlDaishouhuo.setEnabled(false);
+            rlYishouhuo.setEnabled(false);
+        } else if (role.equals("2")) {
+
+        } else if (role.equals("3")) {
+
+        } else if (role.equals("4")) {
+            ivWqxDfh.setVisibility(View.VISIBLE);
+            ivWqxDfk.setVisibility(View.VISIBLE);
+            ivWqxYwc.setVisibility(View.VISIBLE);
+
+            rlDaifukuan.setEnabled(false);
+            rlDaifahuo.setEnabled(false);
+            rlYiwancheng.setEnabled(false);
+        } else if (role.equals("5")) {
+
+        }
     }
 }

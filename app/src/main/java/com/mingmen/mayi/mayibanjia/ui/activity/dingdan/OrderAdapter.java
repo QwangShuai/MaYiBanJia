@@ -52,7 +52,10 @@ public class OrderAdapter  extends FragmentPagerAdapter {
         if(type.equals("1")){
             fragments = new String[]{DaiFuKuanFragment.class.getName(),YiWanChengFragment.class.getName(),};
             Titles = new String[]{"待付款","已完成"};
-            notifyDataSetChanged();
+        } else if(type.equals("4")){
+            fragments = new String[]{DaiShouHuoFragment.class.getName(),YiShouHuoFragment.class.getName(),};
+            Titles = new String[]{"待收货","已收货"};
         }
+        notifyDataSetChanged();
     }
 }

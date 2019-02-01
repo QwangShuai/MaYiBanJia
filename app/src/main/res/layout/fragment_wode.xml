@@ -117,6 +117,7 @@
                     </LinearLayout>
                 </RelativeLayout>
                 <LinearLayout
+                    android:id="@+id/ll_dd"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
@@ -182,6 +183,15 @@
                                 android:textSize="12sp"
                                 android:layout_centerHorizontal="true"
                                 />
+                                <ImageView
+                                    android:id="@+id/iv_wqx_dfk"
+                                    android:visibility="gone"
+                                    android:layout_marginRight="30dp"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_marginTop="6dp"
+                                    android:src="@mipmap/wuquanxian"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
                         </RelativeLayout>
                         <RelativeLayout
                             android:id="@+id/rl_daifahuo"
@@ -221,6 +231,15 @@
                                 android:layout_marginTop="8dp"
                                 android:layout_centerHorizontal="true"
                                 />
+                            <ImageView
+                                android:id="@+id/iv_wqx_dfh"
+                                android:visibility="gone"
+                                android:layout_marginRight="30dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginTop="6dp"
+                                android:src="@mipmap/wuquanxian"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
                         </RelativeLayout>
                         <RelativeLayout
                             android:id="@+id/rl_daishouhuo"
@@ -260,6 +279,15 @@
                                 android:layout_marginTop="8dp"
                                 android:layout_centerHorizontal="true"
                                 />
+                            <ImageView
+                                android:id="@+id/iv_wqx_dsh"
+                                android:visibility="gone"
+                                android:layout_marginRight="30dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginTop="6dp"
+                                android:src="@mipmap/wuquanxian"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -300,6 +328,15 @@
                                 android:text="已收货"
                                 android:textColor="#474747"
                                 android:textSize="12sp" />
+                            <ImageView
+                                android:id="@+id/iv_wqx_ysh"
+                                android:visibility="gone"
+                                android:layout_marginRight="30dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginTop="6dp"
+                                android:src="@mipmap/wuquanxian"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
                         </RelativeLayout>
                         <RelativeLayout
                             android:id="@+id/rl_yiwancheng"
@@ -339,12 +376,23 @@
                                 android:text="已完成"
                                 android:textColor="#474747"
                                 android:textSize="12sp" />
+                            <ImageView
+                                android:id="@+id/iv_wqx_ywc"
+                                android:visibility="gone"
+                                android:layout_marginRight="30dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginTop="6dp"
+                                android:src="@mipmap/wuquanxian"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
                         </RelativeLayout>
 
 
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
+                    android:visibility="visible"
+                    android:id="@+id/ll_cg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
@@ -624,6 +672,15 @@
                                     android:text="子账户"
                                     android:textColor="#474747"
                                     android:textSize="12sp" />
+                                <ImageView
+                                    android:id="@+id/iv_wqx_zzh"
+                                    android:visibility="gone"
+                                    android:layout_marginRight="44dp"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_marginTop="6dp"
+                                    android:src="@mipmap/wuquanxian"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
                             </RelativeLayout>
 
                             <!--<RelativeLayout-->
@@ -687,6 +744,15 @@
                                     android:text="收货地址"
                                     android:textColor="#474747"
                                     android:textSize="12sp" />
+                                <ImageView
+                                    android:id="@+id/iv_wqx_shdi"
+                                    android:visibility="gone"
+                                    android:layout_marginRight="44dp"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_marginTop="6dp"
+                                    android:src="@mipmap/wuquanxian"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
                             </RelativeLayout>
                             <RelativeLayout
                                 android:id="@+id/rl_yinhang"
@@ -723,6 +789,15 @@
                                     android:text="银行账户"
                                     android:textColor="#474747"
                                     android:textSize="12sp" />
+                                <ImageView
+                                    android:id="@+id/iv_wqx_yhzh"
+                                    android:visibility="gone"
+                                    android:layout_marginRight="44dp"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_marginTop="6dp"
+                                    android:src="@mipmap/wuquanxian"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
                             </RelativeLayout>
                             <RelativeLayout
                                 android:id="@+id/ll_pingjia"
@@ -760,6 +835,15 @@
                                     android:text="我的评价"
                                     android:textColor="#474747"
                                     android:textSize="12sp" />
+                                <ImageView
+                                    android:id="@+id/iv_wqx_wdpj"
+                                    android:visibility="gone"
+                                    android:layout_marginRight="44dp"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_marginTop="6dp"
+                                    android:src="@mipmap/wuquanxian"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
                             </RelativeLayout>
                         </LinearLayout>
                     </LinearLayout>
@@ -792,6 +876,15 @@
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginBottom="12dp"
                                 />
+                            <ImageView
+                                android:id="@+id/iv_wqx_cjwt"
+                                android:visibility="gone"
+                                android:layout_marginRight="44dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginTop="6dp"
+                                android:src="@mipmap/wuquanxian"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
                         </RelativeLayout>
                         <RelativeLayout
                             android:id="@+id/rl_kefu"
@@ -817,6 +910,15 @@
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginBottom="12dp"
                                 />
+                            <ImageView
+                                android:id="@+id/iv_wqx_kfdh"
+                                android:visibility="gone"
+                                android:layout_marginRight="44dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginTop="6dp"
+                                android:src="@mipmap/wuquanxian"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
                         </RelativeLayout>
                         <RelativeLayout
                             android:id="@+id/rl_yijian"
@@ -841,6 +943,15 @@
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginBottom="12dp"
                                 />
+                            <ImageView
+                                android:id="@+id/iv_wqx_yjfk"
+                                android:visibility="gone"
+                                android:layout_marginRight="44dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginTop="6dp"
+                                android:src="@mipmap/wuquanxian"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
                         </RelativeLayout>
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -879,7 +990,7 @@
                             android:id="@+id/tv_yue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0.00"
+                            android:text=""
                             android:textColor="#3c92a3"
                             android:textSize="18sp" />
                         <TextView

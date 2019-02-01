@@ -144,12 +144,14 @@
                             android:text=""
                             android:textColor="@color/zicolor"
                             android:textSize="12sp"
-                            android:hint="请输入企业规模"
+                            android:hint="请输入企业餐位数"
                             android:textColorHint="@color/hintcolor"
                             android:gravity="center_vertical"
                             android:layout_marginLeft="36dp"
                             android:background="@drawable/fillet_hollow_999999_3"
                             android:paddingLeft="5dp"
+                            android:digits="1234567890"
+                            android:maxLength="4"
                             />
                         <!--<TextView-->
                             <!--android:id="@+id/tv_qiyeguimo"-->

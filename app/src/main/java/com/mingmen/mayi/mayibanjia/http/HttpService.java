@@ -446,7 +446,9 @@ public interface HttpService {
                                                  @Query("spec_describe") String spec_describe,
                                                  @Query("price") String price,
                                                  @Query("spec_count") double spec_count,
-                                                 @Query("spec_detal_id") String spec_detal_id);
+                                                 @Query("spec_detal_id") String spec_detal_id,
+                                                 @Query("pack_standard_tree_name") String pack_standard_tree_name,
+                                                 @Query("spec_name") String spec_name);
 
     //编辑商品
     @POST("gyCommodity/update.do")
@@ -474,7 +476,9 @@ public interface HttpService {
                                                    @Query("spec_describe") String spec_describe,
                                                    @Query("price") String price,
                                                    @Query("spec_count") double spec_count,
-                                                   @Query("spec_detal_id") String spec_detal_id);
+                                                   @Query("spec_detal_id") String spec_detal_id,
+                                                   @Query("pack_standard_tree_name") String pack_standard_tree_name,
+                                                   @Query("spec_name") String spec_name);
 
     //添加购物车
     @POST("ctShoppingCart/save.do")
@@ -1110,7 +1114,8 @@ public interface HttpService {
     @POST("ctBuyHostorder/queryBySonorderlist.do")
     Observable<ResultModel<List<CaiGouDanBean>>> getHedanList(@Query("user_token") String user_token,
                                                               @Query("type") String type,
-                                                              @Query("order_audit_state") String order_audit_state);
+                                                              @Query("order_audit_state") String order_audit_state,
+                                                              @Query("pageNumber") String pageNumber);
 
     //获取采购单合单列表
     @POST("ctBuyHostorder/AddSingle.do")

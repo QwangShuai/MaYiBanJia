@@ -38,6 +38,15 @@ public class FbspCanShuBean {
     private double spec_count;
     private String spec_detal_id="";
     private String spec_detal_name="";
+    private String pack_standard_tree_name="";
+
+    public String getPack_standard_tree_name() {
+        return pack_standard_tree_name;
+    }
+
+    public void setPack_standard_tree_name(String pack_standard_tree_name) {
+        this.pack_standard_tree_name = pack_standard_tree_name;
+    }
 
     public String getSpec_detal_name() {
         return spec_detal_name;

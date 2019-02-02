@@ -185,6 +185,7 @@ public class FaBuShangPinActivity extends BaseActivity {
     private String ming = "";
     private boolean isGuige;
     private String zxid = "";
+    private String zxname = "";
 
     //    private boolean isSelect = false;
     @Override
@@ -358,6 +359,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                     @Override
                     public void onItemPicked(int index, FbspGuiGeBean item) {
                         zxid = item.getSpec_id();
+                        zxname = item.getSpec_name();
                         tvZxgg.setText(item.getSpec_name());
                         zuixiaopicker.dismiss();
                     }
@@ -401,6 +403,8 @@ public class FaBuShangPinActivity extends BaseActivity {
         } else {
             canShuBean.setType_four_id(sanjiid);
         }
+        canShuBean.setPack_standard_tree_name(sanjiguigename);
+        canShuBean.setSpec_detal_name(zxname);
         Intent intent = new Intent(mContext, FaBuShangPinQiDingLiangActivity.class);
         intent.putExtra("canshu", gson.toJson(canShuBean));
         intent.putExtra("yemian", yemian);
@@ -684,15 +688,18 @@ public class FaBuShangPinActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<List<ShangPinSousuoMohuBean>>() {
                     @Override
                     public void onNext(List<ShangPinSousuoMohuBean> data) {
-                        datas.clear();
-                        datas.addAll(data);
-                        if (mPopWindow != null) {
-                            Log.e("data", data + "111111111");
-                            mPopWindow.showAsDropDown(etSpming);
-                            mohuAdapter.setData(datas);
-                        } else {
-                            showPopupWindow();
-                        }
+                        int mysize = data==null?0:data.size();
+                            if (mPopWindow != null) {
+//                                if(mysize!=0){
+                                    datas.clear();
+                                    datas.addAll(data);
+                                    Log.e("data", data + "111111111");
+                                    mPopWindow.showAsDropDown(etSpming);
+                                    mohuAdapter.notifyDataSetChanged();
+//                                }
+                            } else {
+                                showPopupWindow();
+                            }
 
                     }
                 }, false);
@@ -806,6 +813,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                         zuixiaoguige.addAll(data);
                         tvZxgg.setText(data.get(0).getSpec_name());
                         zxid = data.get(0).getSpec_id();
+                        zxname = data.get(0).getSpec_name();
                     }
                 });
     }

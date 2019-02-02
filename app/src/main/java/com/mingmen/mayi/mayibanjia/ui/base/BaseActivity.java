@@ -20,6 +20,8 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.R;
+import com.mingmen.mayi.mayibanjia.app.MyApplication;
+import com.mingmen.mayi.mayibanjia.ui.activity.LoginActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.XCFlowLayout;
 import com.mingmen.mayi.mayibanjia.utils.AppManager;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
@@ -121,6 +123,10 @@ public abstract class BaseActivity extends AppCompatActivity {
             tvs.add(view);
             xcfShangpinlishisousuo.addView(view, lp);
         }
+    }
+
+    public static void goLogin(){
+        MyApplication.mContext.startActivity(new Intent(MyApplication.mContext, LoginActivity.class),new Bundle());
     }
 }
 

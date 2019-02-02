@@ -101,6 +101,7 @@ public class CaiGouDanActivity extends BaseActivity {
     private String ct_buy_final_id = "";
     private int mytype = 0;
     private int ye=1;
+    private String type = "902";
     //    private Date dangqianTime;
     @Override
     public int getLayoutId() {
@@ -233,7 +234,7 @@ public class CaiGouDanActivity extends BaseActivity {
                 // 第一个参数：表示此次数据是否为空。
                 // 第二个参数：表示是否还有更多数据。
                 rvCaigoudan.loadMoreFinish(false, true);
-
+                getHedanList("0",type);
                 // 如果加载失败调用下面的方法，传入errorCode和errorMessage。
                 // errorCode随便传，你自定义LoadMoreView时可以根据errorCode判断错误类型。
                 // errorMessage是会显示到loadMoreView上的，用户可以看到。
@@ -431,6 +432,7 @@ public class CaiGouDanActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
     public void getHedanList(final String status,final String isState) {
+        type = isState;
         rl.setVisibility(View.GONE);
         if(isState.equals("902")){
             tvTitle.setText("待审核");
@@ -448,7 +450,7 @@ public class CaiGouDanActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getHedanList(PreferenceUtils.getString(MyApplication.mContext, "token", ""), status,isState))
+                                .getHedanList(PreferenceUtils.getString(MyApplication.mContext, "token", ""), status,isState,ye+""))
                 .setDataListener(new HttpDataListener<List<CaiGouDanBean>>() {
                     @Override
                     public void onNext(List<CaiGouDanBean> list) {
@@ -457,6 +459,13 @@ public class CaiGouDanActivity extends BaseActivity {
                         mList.clear();
                         mList.addAll(list);
                         adapter.setNewData(list);
+                        if (list.size() == 5) {
+                            rvCaigoudan.loadMoreFinish(false, true);
+                        } else if (list.size() > 0) {
+                            rvCaigoudan.loadMoreFinish(false, false);
+                        } else {
+                            rvCaigoudan.loadMoreFinish(true, false);
+                        }
                         adapter.notifyDataSetChanged();
                         if(status.equals("0")){
                             xuanzhong.clear();
@@ -469,6 +478,7 @@ public class CaiGouDanActivity extends BaseActivity {
                         } else {
                             adapter.setShow(true);
                         }
+                        ye++;
                     }
                 });
     }

@@ -63,7 +63,6 @@ public class ShangPinGuanLiActivity extends BaseActivity {
     private Context mContext;
     private ShangPinGuanLiAdapter shangpinguanliadapter;
     private String chaxunzi="";
-    private int ye = 1;
     private ArrayList<ShangPinGuanLiBean.GoodsListBean> mlist = new ArrayList<>();
     private String type="0";
     private String goods= "0";
@@ -81,7 +80,7 @@ public class ShangPinGuanLiActivity extends BaseActivity {
     public int getLayoutId() {
         return R.layout.activity_shangpinguanli;
     }
-
+    private int ye = 1;
     @Override
     protected void initData() {
         mContext=ShangPinGuanLiActivity.this;
@@ -100,11 +99,11 @@ public class ShangPinGuanLiActivity extends BaseActivity {
 //        if(goods.equals("1")){
 //
 //        }
-        getShangpinList(1);
+        getShangpinList();
     }
 
 
-    public void getShangpinList(final int ye) {
+    public void getShangpinList() {
         HttpManager.getInstance()
                  .with(mContext)
                         .setObservable(
@@ -131,8 +130,10 @@ public class ShangPinGuanLiActivity extends BaseActivity {
                     mlist.addAll(data.getGoodsList());
                     shangpinguanliadapter.setNewData(mlist);
                     shangpinguanliadapter.notifyDataSetChanged();
+                    ye++;
                 }
-            },ye==1);
+
+            });
     }
 
     private void initRecycleView() {
@@ -190,8 +191,7 @@ public class ShangPinGuanLiActivity extends BaseActivity {
         SwipeMenuRecyclerView.LoadMoreListener mLoadMoreListener = new SwipeMenuRecyclerView.LoadMoreListener() {
             @Override
             public void onLoadMore() {
-                ye++;
-                getShangpinList(ye);
+                getShangpinList();
             }
         };
 
@@ -224,7 +224,7 @@ public class ShangPinGuanLiActivity extends BaseActivity {
                                 public void sousuozi(String msg) {
                                     Log.e("msg",msg+"==");
                                     chaxunzi=msg;
-                                    getShangpinList(1);
+                                    getShangpinList();
                                 }
                             }).show(getSupportFragmentManager());
                 } else {
@@ -254,12 +254,17 @@ public class ShangPinGuanLiActivity extends BaseActivity {
             type=s;
 //        }
         ye = 1;
-        getShangpinList(1);
+        mlist.clear();
+        getShangpinList();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        setType(type);
+        if(ye!=1){
+            Log.e("onResume: ","执行了" );
+            setType(type);
+        }
+
     }
 }

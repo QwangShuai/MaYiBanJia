@@ -1149,5 +1149,6 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     public void onPause() {
         super.onPause();
         isResult = false;
+        rvShichangjia.setVisibility(View.GONE);
     }
 }

@@ -131,7 +131,7 @@ public class CaiGouDanXiuGaiDailog extends BaseFragmentDialog{
             public void afterTextChanged(Editable s) {
             }
         });
-        getfcgguige(sanjifenleiId);
+//        getfcgguige(sanjifenleiId);
     }
 
     @OnClick({R.id.bt_queren,R.id.bt_quxiao,R.id.iv_shanchuwenzi,R.id.rl_guige})
@@ -147,11 +147,11 @@ public class CaiGouDanXiuGaiDailog extends BaseFragmentDialog{
                 etTeshu.setText("");
                 break;
             case R.id.rl_guige:
-                if (guigedatas!=null&&guigedatas.size()>0){
-                    showGuigePopupWindow();
-                }else{
-                    ToastUtil.showToast("请输入商品名，并选择相应的分类");
-                }
+//                if (guigedatas!=null&&guigedatas.size()>0){
+//                    showGuigePopupWindow();
+//                }else{
+//                    ToastUtil.showToast("请输入商品名，并选择相应的分类");
+//                }
                 break;
         }
     }
@@ -177,29 +177,29 @@ public class CaiGouDanXiuGaiDailog extends BaseFragmentDialog{
         yaoqiu = etTeshu.getText().toString().trim();
 //        guige = tvGuige.getText().toString().trim();
     }
-    private void getfcgguige(String sanjifenleiId) {
-        huoqushuju();
-        HttpManager.getInstance()
-                .with(getActivity())
-                .setObservable(
-                        RetrofitManager
-                                .getService()
-                                .getfcgguige(PreferenceUtils.getString(MyApplication.mContext, "token", ""),sanjifenleiId))
-                .setDataListener(new HttpDataListener<List<FCGGuige>>() {
-                    @Override
-                    public void onNext(List<FCGGuige> data) {
-                        guigedatas = new ArrayList<>();
-                        guigedatas.addAll(data);
-                        if (guigeadapter!=null){
-                            guigeadapter.setData(guigedatas);
-                        }
-                        if(guigedatas!=null&&guigedatas.size()!=0){
-                            tvGuige.setText(guigedatas.get(0).getSpec_name());
-                            pack_standard_id = guigedatas.get(0).getSpec_id();
-                        }
-                    }
-                },false);
-    }
+//    private void getfcgguige(String sanjifenleiId) {
+//        huoqushuju();
+//        HttpManager.getInstance()
+//                .with(getActivity())
+//                .setObservable(
+//                        RetrofitManager
+//                                .getService()
+//                                .getfcgguige(PreferenceUtils.getString(MyApplication.mContext, "token", ""),sanjifenleiId))
+//                .setDataListener(new HttpDataListener<List<FCGGuige>>() {
+//                    @Override
+//                    public void onNext(List<FCGGuige> data) {
+//                        guigedatas = new ArrayList<>();
+//                        guigedatas.addAll(data);
+//                        if (guigeadapter!=null){
+//                            guigeadapter.setData(guigedatas);
+//                        }
+//                        if(guigedatas!=null&&guigedatas.size()!=0){
+//                            tvGuige.setText(guigedatas.get(0).getSpec_name());
+//                            pack_standard_id = guigedatas.get(0).getSpec_id();
+//                        }
+//                    }
+//                },false);
+//    }
     private void showGuigePopupWindow() {
         View view = View.inflate(getActivity(), R.layout.pp_textview_recycleview, null);
         guigePop = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);

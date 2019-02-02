@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -234,7 +233,6 @@ public class XuanZeZhiFuFangShiActivity extends BaseActivity {
             public void run() {
                 PayTask alipay = new PayTask(XuanZeZhiFuFangShiActivity.this);//调用支付接口
                 Map<String, String> result = alipay.payV2(orderInfo, true);//支付结果
-                Log.i("msp", result.toString());
                 Message msg = new Message();
                 msg.what = SDK_PAY_FLAG;
                 msg.obj = result;
@@ -279,6 +277,8 @@ public class XuanZeZhiFuFangShiActivity extends BaseActivity {
                                     startActivity(intent);
                                     finish();
 //                                       QueRenDingDanActivity.instance.finish();
+                                }else{
+                                    ToastUtil.showToast("余额不足请选择其他支付方式");
                                 }
                                 break;
                             case 2:

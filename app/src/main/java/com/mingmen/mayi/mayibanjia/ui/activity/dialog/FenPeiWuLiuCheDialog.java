@@ -146,13 +146,20 @@ public class FenPeiWuLiuCheDialog extends Dialog {
             public void onClick(View v) {//确认
                 if(TextUtils.isEmpty(et_chepaihao.getText().toString())){
                     ToastUtil.showToast("车牌号不能为空!");
+                    return;
+                }
+                boolean   yz=isCarnumberNO(et_chepaihao.getText().toString());
+                if(yz==false){
+                    ToastUtil.showToast("车牌号格式错误");
+
                 } else if(TextUtils.isEmpty(et_xingming.getText().toString())){
-                    ToastUtil.showToast("用户名不能为空!");
+                    ToastUtil.showToast("联系人不能为空!");
                 } else if(!AppUtil.isMobile(et_lianxifangshi.getText().toString())){
                     ToastUtil.showToast("手机号格式不正确!");
                 } else if(TextUtils.isEmpty(car_type_id)){
                     ToastUtil.showToast("请选择车辆类型!");
                 } else {
+
                     HttpManager.getInstance()
                             .with(context)
                             .setObservable(RetrofitManager.getService()
@@ -179,6 +186,16 @@ public class FenPeiWuLiuCheDialog extends Dialog {
                 dismiss();
             }
         });
+    }
+    //验证车牌号
+    public static boolean isCarnumberNO(String carnumber) {
+        /*
+         车牌号格式：汉字 + A-Z + 5位A-Z或0-9
+        （只包括了普通车牌号，教练车和部分部队车等车牌号不包括在内）
+         */
+        String carnumRegex = "[\u4e00-\u9fa5]{1}[A-Z]{1}[A-Z_0-9]{5}";
+        if (TextUtils.isEmpty(carnumber)) return false;
+        else return carnumber.matches(carnumRegex);
     }
     //PopupWindow
     private void showPopupWindow() {

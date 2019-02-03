@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +63,8 @@ public class QrCodeAdapter extends RecyclerView.Adapter<QrCodeAdapter.ViewHolder
         holder.tv_dianpu.setText(bean.getCompany_name()+"(餐厅端)");
 //        holder.tv_dizhi.setText(bean.getCompanyAddress());
         holder.tv_phone.setText(bean.getDriverPhone());
-        holder.tv_weiyima.setText(bean.getOnlyCode());
+       // holder.tv_weiyima.setText(bean.getOnlyCode());
+        holder.tv_onlyCode.setText("唯一码"+bean.getOnlyCode());
         holder.tv_chepaihao.setText(bean.getPlateNumber());
 //        holder.tv_dianming.setText(bean.getGy_company_name()+"(卖家店铺)");
         holder.tv_zuofei.setOnClickListener(new View.OnClickListener() {
@@ -108,6 +110,8 @@ public class QrCodeAdapter extends RecyclerView.Adapter<QrCodeAdapter.ViewHolder
                 TextView tv_biaoshi;
         @BindView(R.id.tv_dianpu)
                 TextView tv_dianpu;
+        @BindView(R.id.tv_onlyCode)
+        TextView tv_onlyCode;
         @BindView(R.id.tv_dizhi)
                 TextView tv_dizhi;
         @BindView(R.id.tv_phone)
@@ -118,8 +122,8 @@ public class QrCodeAdapter extends RecyclerView.Adapter<QrCodeAdapter.ViewHolder
                 TextView tv_dayin;
         @BindView(R.id.rl_dayin)
         RelativeLayout rl_dayin;
-        @BindView(R.id.tv_weiyima)
-                TextView tv_weiyima;
+//        @BindView(R.id.tv_weiyima)
+//                TextView tv_weiyima;
         @BindView(R.id.tv_dianming)
                 TextView tv_dianming;
         @BindView(R.id.tv_chepaihao)

@@ -123,12 +123,19 @@ public class GHOrderAdapter extends RecyclerView.Adapter<GHOrderAdapter.ViewHold
                 }
             });
         } else {
+            //修改的地方不好使待改
+            if(StringUtil.isValid(String.valueOf(bean.getWl_sweep_time()))){
+                holder.tv_fahuoshijian.setText("发货时间:" + String.valueOf(bean.getWl_sweep_time()));
+            }else{
+                holder.tv_fahuoshijian.setVisibility(View.GONE);
+            }
+            holder.iv_del.setVisibility(View.GONE);
             holder.tv_state.setVisibility(View.GONE);
             holder.tv_wait_state.setVisibility(View.GONE);
             holder.tv_peisongyuan.setText("配送员:" + bean.getDriver_name());
             holder.tv_phone.setText(String.valueOf(bean.getDriver_phone()));
             holder.tv_chepaihao.setText(String.valueOf(bean.getPlate_number()));
-            holder.tv_fahuoshijian.setText("发货时间:" + String.valueOf(bean.getWl_sweep_time()));
+            //holder.tv_fahuoshijian.setText("发货时间:" + String.valueOf(bean.getWl_sweep_time()));
             holder.tv_end_time.setText(bean.getMj_sweep_time());
             holder.tvTuikuan.setVisibility(View.GONE);
         }

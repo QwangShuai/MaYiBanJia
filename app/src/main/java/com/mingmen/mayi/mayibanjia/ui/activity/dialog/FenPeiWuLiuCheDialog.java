@@ -144,6 +144,7 @@ public class FenPeiWuLiuCheDialog extends Dialog {
         bt_sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {//确认
+
                 if(TextUtils.isEmpty(et_chepaihao.getText().toString())){
                     ToastUtil.showToast("车牌号不能为空!");
                     return;

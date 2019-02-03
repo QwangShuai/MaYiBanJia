@@ -49,7 +49,7 @@ public class WeiYiQrCodeActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        tvTitle.setText("唯一二维码");
+        tvTitle.setText("唯一码");
         type = getIntent().getStringExtra("type");
         if(type.equals("gyID")){
             gyID = getIntent().getStringExtra("gyID");

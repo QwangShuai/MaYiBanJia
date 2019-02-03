@@ -57,7 +57,7 @@ public class WeiYiQrCodeAdapter extends RecyclerView.Adapter<WeiYiQrCodeAdapter.
     public void onBindViewHolder(ViewHolder holder, final int position) {
 //        pos = position;
         data = mList.get(position);
-        holder.tvSuoyin.setText(data.getSerial());
+        //holder.tvSuoyin.setText(data.getSerial());
         holder.tvQuhuoma.setText(data.getOnlyCode());
         holder.btSure.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,8 +75,8 @@ public class WeiYiQrCodeAdapter extends RecyclerView.Adapter<WeiYiQrCodeAdapter.
     static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_quhuoma)
         TextView tvQuhuoma;
-        @BindView(R.id.tv_suoyin)
-        TextView tvSuoyin;
+       /* @BindView(R.id.tv_suoyin)
+        TextView tvSuoyin;*/
         @BindView(R.id.bt_sure)
         Button btSure;
         ViewHolder(View view) {

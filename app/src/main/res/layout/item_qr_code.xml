@@ -21,13 +21,13 @@
         android:layout_width="108dp"
         android:layout_height="108dp" />
     <TextView
-        android:visibility="gone"
+        android:id="@+id/tv_onlyCode"
         android:layout_marginTop="4dp"
         android:layout_below="@+id/iv_qr_code"
         android:layout_marginLeft="20dp"
         android:layout_toRightOf="@id/tv_suoyin"
-        android:text="唯一二维码"
-        android:layout_width="100dp"
+        android:text="唯一码"
+        android:layout_width="115dp"
         android:layout_height="wrap_content" />
     <LinearLayout
         android:id="@+id/zhanwei"
@@ -69,7 +69,7 @@
                 android:layout_marginLeft="5dp"
                 />
         </LinearLayout>
-        <LinearLayout
+<!--        <LinearLayout
             android:gravity="center_vertical"
             android:layout_marginTop="5dp"
             android:orientation="horizontal"
@@ -87,7 +87,7 @@
                 android:text="ABCDEFG110"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-        </LinearLayout>
+        </LinearLayout>-->
         <LinearLayout
             android:gravity="center_vertical"
             android:layout_marginTop="5dp"

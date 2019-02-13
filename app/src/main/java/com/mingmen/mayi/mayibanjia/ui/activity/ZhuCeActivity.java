@@ -24,6 +24,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
 import java.util.List;
@@ -325,7 +326,7 @@ public class ZhuCeActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .login(etPhone.getText().toString().trim(), "", etYanzhengma.getText().toString(), "2"))
+                                .login(etPhone.getText().toString().trim(), "", etYanzhengma.getText().toString(), "2","1", StringUtil.getMyUUID(mContext)))
                 .setDataListener(new HttpDataListener<ZhuCeChengGongBean>() {
                     @Override
                     public void onNext(ZhuCeChengGongBean bean) {

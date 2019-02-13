@@ -25,6 +25,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.LoginActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.XCFlowLayout;
 import com.mingmen.mayi.mayibanjia.utils.AppManager;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
+import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -125,8 +126,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public static void goLogin(){
-        MyApplication.mContext.startActivity(new Intent(MyApplication.mContext, LoginActivity.class),new Bundle());
+    public static void goLogin(Context mContext){
+        PreferenceUtils.putBoolean(MyApplication.mContext, "isLogin", false);
+        mContext.startActivity(new Intent(mContext, LoginActivity.class),new Bundle());
     }
 }
 

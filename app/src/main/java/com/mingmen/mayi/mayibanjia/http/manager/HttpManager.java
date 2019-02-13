@@ -44,7 +44,7 @@ public class HttpManager {
     this.observable = observable.subscribeOn(Schedulers.io())
         .unsubscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .map(new ResultMap());
+        .map(new ResultMap(context.get()));
 
     return singleton;
   }

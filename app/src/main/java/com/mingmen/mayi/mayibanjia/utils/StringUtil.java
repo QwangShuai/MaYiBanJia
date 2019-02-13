@@ -2,7 +2,9 @@ package com.mingmen.mayi.mayibanjia.utils;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.telephony.TelephonyManager;
 import android.text.method.ReplacementTransformationMethod;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.bean.JsonBean;
@@ -20,6 +22,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -1221,5 +1224,26 @@ public class StringUtil {
 
 		}
 		return detail;
+	}
+	public static String getMyUUID(Context mContext){
+
+		final TelephonyManager tm = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
+
+		final String tmDevice, tmSerial, tmPhone, androidId;
+
+		tmDevice = "" + tm.getDeviceId();
+
+		tmSerial = "" + tm.getSimSerialNumber();
+
+		androidId= "" + android.provider.Settings.Secure.getString(mContext.getContentResolver(),
+
+				android.provider.Settings.Secure.ANDROID_ID);
+
+		UUID deviceUuid = new UUID(androidId.hashCode(), ((long)tmDevice.hashCode() << 32) | tmSerial.hashCode());
+
+		String uniqueId = deviceUuid.toString();
+		Log.e("getMyUUID: ",uniqueId );
+		return uniqueId;
+
 	}
 }

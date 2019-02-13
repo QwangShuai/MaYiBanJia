@@ -147,8 +147,9 @@ public interface HttpService {
     Observable<ResultModel<ZhuCeChengGongBean>> login(@Query("telephone") String telephone,
                                                       @Query("password") String password,
                                                       @Query("yzm") String yzm,
-                                                      @Query("login_type") String login_type
-    );
+                                                      @Query("login_type") String login_type,
+                                                      @Query("device_name") String device_name,
+                                                      @Query("deviceid") String deviceid);
 
     //市场搜索
     @POST("sy/queryMarket.do")

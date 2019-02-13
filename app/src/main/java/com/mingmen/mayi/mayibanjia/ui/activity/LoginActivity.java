@@ -24,6 +24,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -83,6 +84,7 @@ public class LoginActivity extends BaseActivity {
             permissionItems.add(new PermissionItem(Manifest.permission.READ_EXTERNAL_STORAGE, "读取SD卡", R.drawable.permission_ic_storage));
             permissionItems.add(new PermissionItem(Manifest.permission.ACCESS_COARSE_LOCATION, "网络定位", R.drawable.permission_ic_location));
             permissionItems.add(new PermissionItem(Manifest.permission.SEND_SMS, "短信权限", R.drawable.permission_ic_sms));
+            permissionItems.add(new PermissionItem(Manifest.permission.READ_PHONE_STATE, "手机状态", R.drawable.permission_ic_phone));
             //
             HiPermission.create(LoginActivity.this)
                     .permissions(permissionItems)
@@ -167,7 +169,7 @@ public class LoginActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .login(phone, pass, "", "1"))
+                                .login(phone, pass, "", "1","1", StringUtil.getMyUUID(mContext)))
                 .setDataListener(new HttpDataListener<ZhuCeChengGongBean>() {
                     @Override
                     public void onNext(ZhuCeChengGongBean bean) {
@@ -221,5 +223,10 @@ public class LoginActivity extends BaseActivity {
             startActivity(intent);
             finish();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
     }
 }

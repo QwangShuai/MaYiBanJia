@@ -419,7 +419,50 @@
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
                         android:orientation="horizontal">
-
+                        <RelativeLayout
+                            android:id="@+id/rl_daitijiao"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:layout_weight="1">
+                            <RelativeLayout
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:layout_width="42dp"
+                                android:layout_height="match_parent">
+                                <ImageView
+                                    android:id="@+id/daitijiao"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@mipmap/dtj_ct"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="16dp"
+                                    />
+                                <TextView
+                                    android:id="@+id/tv_daitijiao"
+                                    android:layout_width="15dp"
+                                    android:layout_height="15dp"
+                                    android:text=""
+                                    android:textSize="10sp"
+                                    android:textColor="#ff3300"
+                                    android:background="@drawable/fillet_hollow_ff3300_10"
+                                    android:gravity="center"
+                                    android:layout_marginTop="10dp"
+                                    android:visibility="gone"
+                                    android:layout_alignParentRight="true"
+                                    />
+                                <TextView
+                                    android:layout_below="@+id/daitijiao"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="待提交"
+                                    android:textColor="#474747"
+                                    android:textSize="12sp"
+                                    android:layout_marginTop="12dp"
+                                    android:layout_centerHorizontal="true"
+                                    />
+                            </RelativeLayout>
+                        </RelativeLayout>
                         <RelativeLayout
                             android:id="@+id/rl_daishenhe"
                             android:layout_width="match_parent"
@@ -465,50 +508,7 @@
                             </RelativeLayout>
 
                         </RelativeLayout>
-                        <RelativeLayout
-                            android:id="@+id/rl_daitijiao"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:layout_weight="1">
-                        <RelativeLayout
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
-                            android:layout_width="42dp"
-                            android:layout_height="match_parent">
-                            <ImageView
-                                android:id="@+id/daitijiao"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@mipmap/dtj_ct"
-                                android:layout_centerHorizontal="true"
-                                android:layout_marginTop="16dp"
-                                />
-                            <TextView
-                                android:id="@+id/tv_daitijiao"
-                                android:layout_width="15dp"
-                                android:layout_height="15dp"
-                                android:text=""
-                                android:textSize="10sp"
-                                android:textColor="#ff3300"
-                                android:background="@drawable/fillet_hollow_ff3300_10"
-                                android:gravity="center"
-                                android:layout_marginTop="10dp"
-                                android:visibility="gone"
-                                android:layout_alignParentRight="true"
-                                />
-                            <TextView
-                                android:layout_below="@+id/daitijiao"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="待提交"
-                                android:textColor="#474747"
-                                android:textSize="12sp"
-                                android:layout_marginTop="12dp"
-                                android:layout_centerHorizontal="true"
-                                />
-                            </RelativeLayout>
-                        </RelativeLayout>
+
                         <RelativeLayout
                             android:id="@+id/rl_weitongguo"
                             android:layout_width="match_parent"

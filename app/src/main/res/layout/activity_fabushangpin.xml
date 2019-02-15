@@ -140,10 +140,20 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="*注:使用系统匹配的商品名称发布后不需要审批。"
+                android:textColor="#ff3300"
+                android:textSize="12sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="120dp"
+                android:layout_marginBottom="2dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="添加售卖规格"
                 android:textColor="#ff666666"
                 android:textSize="12sp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginBottom="2dp"
                 />

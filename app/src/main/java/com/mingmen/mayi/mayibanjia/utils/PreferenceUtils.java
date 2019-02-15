@@ -5,6 +5,11 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.bean.EditorShangPinBean;
+import com.mingmen.mayi.mayibanjia.bean.ZiZhangHuDetailsBean;
+import com.mingmen.mayi.mayibanjia.bean.ZzhQuanXianBean;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Administrator on 2018/7/4/004.
@@ -73,7 +78,17 @@ public class PreferenceUtils {
         return bean;
     }
 
-
+    public static void setQuanxianList(Context context, ZiZhangHuDetailsBean bean){//存储编辑数据
+        getSharedPreference(context);
+        Gson gson = new Gson();
+        String data = gson.toJson(bean);
+        sp.edit().putString("quanxian",data).commit();
+    }
+    public static List<ZiZhangHuDetailsBean.RoleListBean> getQuanxianList(Context context, String defValue) {//获取编辑数据
+        getSharedPreference(context);
+        ZiZhangHuDetailsBean bean =  new Gson().fromJson(sp.getString("quanxian",""),ZiZhangHuDetailsBean.class);
+        return bean.getRoleList();
+    }
     /**
      * 移除
      * @param
@@ -83,5 +98,10 @@ public class PreferenceUtils {
         sp.edit().remove(key).commit();
     }
 
+    public static void clear(Context context) {
+        getSharedPreference(context);
+        sp.edit().clear();
+        sp.edit().commit();
+    }
 
 }

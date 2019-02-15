@@ -32,6 +32,15 @@ public class WoDeBean {
     private int wait_tj;
     private int shenhe_sbai;
     private int shenhe_cg;
+    private float evaluation;
+
+    public float getEvaluation() {
+        return evaluation;
+    }
+
+    public void setEvaluation(float evaluation) {
+        this.evaluation = evaluation;
+    }
 
     public int getWait_money() {
         return wait_money;

@@ -26,13 +26,13 @@ public class ResultMap<T> implements Function<ResultModel<T>, T> {
       return httpResult.getData();
     } else if("8888".equals(httpResult.getStatus())){
       ToastUtil.showToastLong("Token过期了");
-      BaseActivity.goLogin(mContext);
+      BaseActivity.goLogin(mContext,"login");
       throw new RuntimeException("Token过期");
 //      return httpResult.getData();
     } else if("9999".equals(httpResult.getStatus())){
-      ToastUtil.showToastLong("Token过期了");
-      BaseActivity.goLogin(mContext);
-      throw new RuntimeException("Token过期");
+      ToastUtil.showToastLong("账号已登陆");
+      BaseActivity.goLogin(mContext,"");
+      throw new RuntimeException("账号已登陆");
     } else {
       Log.e("codecode", httpResult.getStatus());
       Log.e("message", httpResult.getMsg());

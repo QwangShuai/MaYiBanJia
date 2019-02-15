@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -109,6 +110,9 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
     LinearLayout llLianxikefu;
     @BindView(R.id.ll_bangzhuyufankui)
     LinearLayout llBangzhuyufankui;
+    @BindView(R.id.rb_pingfen)
+    RatingBar rbPingfen;
+
     private Context mContext;
     private WoDeBean woDeBean;
     private ConfirmDialog confirmDialog;
@@ -319,7 +323,7 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
         tvDpgz.setText(woDeBean.getGuanzhu() + "");
         tvDqd.setVisibility(woDeBean.getQiangdan()==0?View.GONE : View.VISIBLE);
         tvDqd.setText(woDeBean.getQiangdan()+ "");
-
+        rbPingfen.setRating(woDeBean.getEvaluation());
 //        tvDianpuguanzhu.setText(woDeBean.getGuanzhu());
 //        tvLiulanjilu.setText(woDeBean.getLiulan());
 //        if (Integer.parseInt(woDeBean.getStay_payment())==0){

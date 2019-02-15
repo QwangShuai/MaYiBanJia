@@ -28,6 +28,7 @@ import com.mingmen.mayi.mayibanjia.bean.GetMenDianBean;
 import com.mingmen.mayi.mayibanjia.bean.GetZiZhiBean;
 import com.mingmen.mayi.mayibanjia.bean.JYMXBean;
 import com.mingmen.mayi.mayibanjia.bean.JYMXItemBean;
+import com.mingmen.mayi.mayibanjia.bean.JiaoYiMingXiBean;
 import com.mingmen.mayi.mayibanjia.bean.JieSuanJirGuoBean;
 import com.mingmen.mayi.mayibanjia.bean.JueSeBean;
 import com.mingmen.mayi.mayibanjia.bean.LiShiJiLuBean;
@@ -77,6 +78,7 @@ import com.mingmen.mayi.mayibanjia.bean.ZhuCeChengGongBean;
 import com.mingmen.mayi.mayibanjia.bean.ZiZhangHuBean;
 import com.mingmen.mayi.mayibanjia.bean.ZiZhangHuDetailsBean;
 import com.mingmen.mayi.mayibanjia.bean.ZouShiTuBean;
+import com.mingmen.mayi.mayibanjia.bean.ZzhQuanXianBean;
 import com.mingmen.mayi.mayibanjia.http.result.ResultModel;
 
 import java.util.List;
@@ -127,8 +129,9 @@ public interface HttpService {
                                                       @Query("circulation_permit") String circulation_permit,//食品流通许可证
                                                       @Query("company_id") String company_id,//企业id
                                                       @Query("salesman_code") String salesman_code,//邀请码
-                                                      @Query("yzm") String yzm//验证码
-    );
+                                                      @Query("yzm") String yzm,//验证码
+                                                      @Query("device_name") String device_name,
+                                                      @Query("deviceid") String deviceid);
 
     //门店名称模糊查询
     @POST("allCompany/getname.do")
@@ -906,6 +909,13 @@ public interface HttpService {
                                                         @Query("state") String state, @Query("timeState") String timeState,
                                                         @Query("pageNumber") Integer pageNumber);
 
+    //交易明细列表(新)
+    @POST("payHistory/list.do")
+    Observable<ResultModel<JiaoYiMingXiBean>> getJYMX(@Query("user_token") String user_token,
+                                                      @Query("dateyear") String dateyear,
+                                                      @Query("datemonth") String datemonth,
+                                                      @Query("pageNumber") Integer pageNumber);
+
     //交易明细
     @POST("payHistory/getId.do")
     Observable<ResultModel<JYMXItemBean>> getJYMXItem(@Query("user_token") String user_token,
@@ -1207,6 +1217,15 @@ public interface HttpService {
     //获取最小规格
     @POST("allSpec/queryspec.do")
     Observable<ResultModel<List<FbspGuiGeBean>>> getZxgg(@Query("user_token") String user_token,
+                                                         @Query("classify_id") String classify_id,
                                                          @Query("spec_id") String spec_id,
                                                          @Query("spec_name") String spec_name);
+
+    //查询子账户所有权限
+    @POST("allCompanyAccount/queryAccountRole.do")
+    Observable<ResultModel<ZiZhangHuDetailsBean>> getZzhAllQuanxian(@Query("user_token") String user_token);
+
+    //退出登录
+    @POST("allCompanyAccount/logoff.do")
+    Observable<ResultModel<String>> exitLogin(@Query("user_token") String user_token);
 }

@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +19,8 @@ import com.mingmen.mayi.mayibanjia.MainActivity;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.ZhuCeChengGongBean;
+import com.mingmen.mayi.mayibanjia.bean.ZiZhangHuDetailsBean;
+import com.mingmen.mayi.mayibanjia.bean.ZzhQuanXianBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
@@ -58,7 +61,8 @@ public class LoginActivity extends BaseActivity {
     private String phone;
     private String zzh="";
     private boolean isLogin;
-
+    private long exitTime = 0;
+    public static LoginActivity instance;
     @Override
     public int getLayoutId() {
         return R.layout.activity_login;
@@ -67,6 +71,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void initData() {
         mContext = LoginActivity.this;
+        instance = LoginActivity.this;
         isLogin = PreferenceUtils.getBoolean(MyApplication.mContext, "isLogin", false);
         if (isLogin) {
             tiaozhuan(PreferenceUtils.getString(MyApplication.mContext, "juese", ""),
@@ -185,7 +190,6 @@ public class LoginActivity extends BaseActivity {
                         Log.e("onNext: ","我的天啊" +zzh);
                         tiaozhuan(bean.getRole(),bean.getRandom_id());
 
-
                     }
                 });
     }
@@ -216,17 +220,49 @@ public class LoginActivity extends BaseActivity {
             }
 
         } else if ("1".equals(juese)) {//餐厅端
-            Intent intent = new Intent(mContext, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            final Intent intent = new Intent(mContext, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             if(!zzh.equals("0")){
-                intent.putExtra("tosome",3);
+                HttpManager.getInstance()
+                        .with(mContext)
+                        .setObservable(
+                                RetrofitManager
+                                        .getService()
+                                        .getZzhAllQuanxian(PreferenceUtils.getString(MyApplication.mContext,"token","")))
+                        .setDataListener(new HttpDataListener<ZiZhangHuDetailsBean>() {
+                            @Override
+                            public void onNext(ZiZhangHuDetailsBean bean) {
+                                PreferenceUtils.setQuanxianList(MyApplication.mContext,bean);
+                                intent.putExtra("tosome",3);
+                                startActivity(intent);
+                                finish();
+                            }
+                        });
+
+            } else {
+                startActivity(intent);
+                finish();
             }
-            startActivity(intent);
-            finish();
+
         }
     }
 
     @Override
-    public void onBackPressed() {
-//        super.onBackPressed();
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            exit();
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    public void exit() {
+        if ((System.currentTimeMillis() - exitTime) > 2000) {
+            Toast.makeText(getApplicationContext(), "再按一次退出程序",
+                    Toast.LENGTH_SHORT).show();
+            exitTime = System.currentTimeMillis();
+        } else {
+            finish();
+//            System.exit(0);
+        }
     }
 }

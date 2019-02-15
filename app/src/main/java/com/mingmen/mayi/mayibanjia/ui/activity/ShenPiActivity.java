@@ -2,7 +2,6 @@ package com.mingmen.mayi.mayibanjia.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,34 +12,24 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.CaiGouDanBean;
 import com.mingmen.mayi.mayibanjia.bean.GetAllMarketBean;
-import com.mingmen.mayi.mayibanjia.bean.LiShiJiLuBean;
 import com.mingmen.mayi.mayibanjia.bean.ShangpinidAndDianpuidBean;
 import com.mingmen.mayi.mayibanjia.bean.ShenPiQuanXuanBean;
-import com.mingmen.mayi.mayibanjia.bean.XiTongTuiJianBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
-import com.mingmen.mayi.mayibanjia.ui.activity.adapter.ShenPiLevelOneAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.ShenPiLevelZeroAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.CaiGouDanTianJiaDailog;
-import com.mingmen.mayi.mayibanjia.ui.activity.dialog.CaiGouDanXiuGaiDailog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
-import com.mingmen.mayi.mayibanjia.ui.activity.dialog.LiShiJiLuDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ShenPiShiBaiDailog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
-import com.mingmen.mayi.mayibanjia.utils.AppUtil;
-import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
-import com.mingmen.mayi.mayibanjia.utils.custom.TvRecyclerView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,13 +37,8 @@ import java.util.List;
 import java.util.Set;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static com.mingmen.mayi.mayibanjia.bean.CaiGouDanBean.TYPE_FIVE;
-import static com.mingmen.mayi.mayibanjia.bean.CaiGouDanBean.TYPE_FOUR;
-import static com.mingmen.mayi.mayibanjia.bean.CaiGouDanBean.TYPE_ONE;
-import static com.mingmen.mayi.mayibanjia.bean.CaiGouDanBean.TYPE_THREE;
-import static com.mingmen.mayi.mayibanjia.bean.CaiGouDanBean.TYPE_TWO;
 
 /**
  * Created by Administrator on 2018/7/30/030.
@@ -104,6 +88,10 @@ public class ShenPiActivity extends BaseActivity {
     TextView tvShibai;
     @BindView(R.id.tv_hdmc)
     TextView tvHdmc;
+    @BindView(R.id.ll_quanxuan)
+    LinearLayout llQuanxuan;
+    @BindView(R.id.ll)
+    LinearLayout ll;
 
     private Context mContext;
     private List<CaiGouDanBean.FllistBean> caigoudan = new ArrayList<>();
@@ -115,7 +103,7 @@ public class ShenPiActivity extends BaseActivity {
     private HashMap<String, ShangpinidAndDianpuidBean> xuanzhong = new HashMap<>();
     private int item_position;
     private String purchase_id;
-    private String ct_buy_final_id="";
+    private String ct_buy_final_id = "";
     private LinearLayoutManager manager;
     private CaiGouDanBean myBean = new CaiGouDanBean();
     List<GetAllMarketBean> market_id = new ArrayList<>();
@@ -130,6 +118,7 @@ public class ShenPiActivity extends BaseActivity {
     }
 
     public static ShenPiActivity instance = null;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_shenpi;
@@ -141,7 +130,7 @@ public class ShenPiActivity extends BaseActivity {
         tvTitle.setText("审批");
         tvRight.setText("添加商品");
         instance = this;
-        if(StringUtil.isValid(getIntent().getStringExtra("ct_buy_final_id"))){
+        if (StringUtil.isValid(getIntent().getStringExtra("ct_buy_final_id"))) {
             ct_buy_final_id = getIntent().getStringExtra("ct_buy_final_id");
         } else {
             purchase_id = getIntent().getStringExtra("purchase_id");
@@ -149,11 +138,16 @@ public class ShenPiActivity extends BaseActivity {
 
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
-
+        if (StringUtil.isValid(PreferenceUtils.getString(MyApplication.mContext, "isShenPi", ""))) {
+            if (PreferenceUtils.getString(MyApplication.mContext, "isShenPi", "").equals("5")) {
+                Log.e("My",PreferenceUtils.getString(MyApplication.mContext, "isShenPi", ""));
+                ll.setVisibility(View.GONE);
+            }
+        }
         getShenpi();
     }
 
-    private void initView(){
+    private void initView() {
 //        caigoudan = myBean.getFllist();//采购单一级数据
 //        if (myBean.getOrder_audit_state().equals("903") || myBean.getOrder_audit_state().equals("901")) {
 //            isClick = false;
@@ -212,7 +206,7 @@ public class ShenPiActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .shenpitongguo(PreferenceUtils.getString(MyApplication.mContext, "token", ""), new Gson().toJson(market_id), purchase_id,ct_buy_final_id, type))
+                                .shenpitongguo(PreferenceUtils.getString(MyApplication.mContext, "token", ""), new Gson().toJson(market_id), purchase_id, ct_buy_final_id, type))
                 .setDataListener(new HttpDataListener<ShenPiQuanXuanBean>() {
                     @Override
                     public void onNext(ShenPiQuanXuanBean data) {
@@ -279,7 +273,7 @@ public class ShenPiActivity extends BaseActivity {
                 case R.id.tv_right:
                     //添加商品
                     CaiGouDanTianJiaDailog dailog = new CaiGouDanTianJiaDailog();
-                    dailog.setInitStr(ct_buy_final_id,purchase_id, myBean.getMarket_id())
+                    dailog.setInitStr(ct_buy_final_id, purchase_id, myBean.getMarket_id())
                             .setCallBack(new CaiGouDanTianJiaDailog.CallBack() {
                                 @Override
                                 public void confirm(CaiGouDanBean.FllistBean.SonorderlistBean msg) {
@@ -561,13 +555,13 @@ public class ShenPiActivity extends BaseActivity {
 //                        sdbean.setDanjia("");
 //                        xuanzhong.put(caigoudan.get(i).getSonorderlist().get(caigoudan.get(i).getSonorderlist().size() - 1).getSon_order_id(), sdbean);
 //                    }else if(j==caigoudan.get(i).getSonorderlist().size()-1){
-                        bean.setMarket_id(caigoudan.get(i).getSonorderlist().get(caigoudan.get(i).getSonorderlist().size() - 1).getMarket_id());
-                        caigoudan.get(i).getSonorderlist().add(bean);
-                        ShangpinidAndDianpuidBean sdbean = new ShangpinidAndDianpuidBean();
-                        sdbean.setCommodity_id("");
-                        sdbean.setCompany_id("");
-                        sdbean.setDanjia("");
-                        xuanzhong.put(caigoudan.get(i).getSonorderlist().get(caigoudan.get(i).getSonorderlist().size() - 1).getSon_order_id(), sdbean);
+                bean.setMarket_id(caigoudan.get(i).getSonorderlist().get(caigoudan.get(i).getSonorderlist().size() - 1).getMarket_id());
+                caigoudan.get(i).getSonorderlist().add(bean);
+                ShangpinidAndDianpuidBean sdbean = new ShangpinidAndDianpuidBean();
+                sdbean.setCommodity_id("");
+                sdbean.setCompany_id("");
+                sdbean.setDanjia("");
+                xuanzhong.put(caigoudan.get(i).getSonorderlist().get(caigoudan.get(i).getSonorderlist().size() - 1).getSon_order_id(), sdbean);
 //                    }
 //                }
                 adapter.notifyDataSetChanged();
@@ -593,7 +587,7 @@ public class ShenPiActivity extends BaseActivity {
 
     }
 
-    public void setItemMarket_id(int pos, String id,String name) {
+    public void setItemMarket_id(int pos, String id, String name) {
         caigoudan.get(pos).setMarket_id(id);
         caigoudan.get(pos).setMarket_name(name);
     }
@@ -604,7 +598,7 @@ public class ShenPiActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .shenpishibai(PreferenceUtils.getString(MyApplication.mContext, "token", ""), yuanyin, purchase_id,ct_buy_final_id))
+                                .shenpishibai(PreferenceUtils.getString(MyApplication.mContext, "token", ""), yuanyin, purchase_id, ct_buy_final_id))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
@@ -624,8 +618,8 @@ public class ShenPiActivity extends BaseActivity {
         return myClick;
     }
 
-    private void getShenpi(){
-        if(StringUtil.isValid(ct_buy_final_id)){
+    private void getShenpi() {
+        if (StringUtil.isValid(ct_buy_final_id)) {
             HttpManager.getInstance()
                     .with(mContext)
                     .setObservable(
@@ -638,7 +632,7 @@ public class ShenPiActivity extends BaseActivity {
                             myBean.setMarket_id(data.getMarket_id());
                             myBean.setPurchase_id(data.getPurchase_id());
 //                            myBean = data;
-                            caigoudan.addAll(data.getFllist()) ;
+                            caigoudan.addAll(data.getFllist());
 //                            adapter.notifyDataSetChanged();
                             tvHdmc.setVisibility(View.VISIBLE);
                             tvHdmc.setText(data.getCt_buy_final_name());
@@ -659,11 +653,18 @@ public class ShenPiActivity extends BaseActivity {
                             myBean.setMarket_id(data.getMarket_id());
                             myBean.setPurchase_id(data.getPurchase_id());
 //                            myBean = data;
-                            caigoudan.addAll(data.getFllist()) ;
+                            caigoudan.addAll(data.getFllist());
 //                            adapter.notifyDataSetChanged();
                             initView();
                         }
                     });
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

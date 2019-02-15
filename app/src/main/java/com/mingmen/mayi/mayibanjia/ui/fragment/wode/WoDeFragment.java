@@ -19,6 +19,8 @@ import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.PhoneBean;
 import com.mingmen.mayi.mayibanjia.bean.WoDeBean;
+import com.mingmen.mayi.mayibanjia.bean.ZiZhangHuDetailsBean;
+import com.mingmen.mayi.mayibanjia.bean.ZzhQuanXianBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
@@ -40,6 +42,9 @@ import com.mingmen.mayi.mayibanjia.ui.base.BaseFragment;
 import com.mingmen.mayi.mayibanjia.ui.view.CircleImageView;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -194,7 +199,9 @@ public class WoDeFragment extends BaseFragment {
     private Context mContext;
     private WoDeBean woDeBean;
     private LinearLayout layout_1;
-    private String role = "";
+    private String roleDdType = "";
+    private String roleCgType = "";
+    private List<ZiZhangHuDetailsBean.RoleListBean> role = new ArrayList<>();
 
 
     @Override
@@ -224,20 +231,34 @@ public class WoDeFragment extends BaseFragment {
             }
         }
         if (!PreferenceUtils.getString(MyApplication.mContext, "host_account_type", "").equals("0")) {
-            role = PreferenceUtils.getString(MyApplication.mContext, "juese", "");
-            Log.e( "loadData: ",role );
-            if (role.equals("1")) {
-                llCg.setVisibility(View.GONE);
-            } else if (role.equals("4")) {
-                llCg.setVisibility(View.GONE);
-            } else if (role.equals("2")) {
-                llDd.setVisibility(View.GONE);
-            } else if (role.equals("3")) {
-                llDd.setVisibility(View.GONE);
+            role = PreferenceUtils.getQuanxianList(MyApplication.mContext, "quanxian");
+            llDd.setVisibility(View.GONE);
+            llCg.setVisibility(View.GONE);
+            int mysize = role == null ? 0 : role.size();
+            if (mysize != 0) {
+                for (int i = 0; i < role.size(); i++) {
+                    if (role.get(i).getRole_id().equals("1")) {
+                        roleDdType += role.get(i).getRole_id();
+                        llDd.setVisibility(View.VISIBLE);
+                    } else if (role.get(i).getRole_id().equals("4")) {
+                        llDd.setVisibility(View.VISIBLE);
+                        roleDdType += role.get(i).getRole_id();
+                    } else if (role.get(i).getRole_id().equals("2")) {
+                        llCg.setVisibility(View.VISIBLE);
+                        roleCgType += role.get(i).getRole_id();
+                    } else if (role.get(i).getRole_id().equals("3")) {
+                        llCg.setVisibility(View.VISIBLE);
+                        roleCgType += role.get(i).getRole_id();
+                    } else if (role.get(i).getRole_id().equals("5")) {
+                        llCg.setVisibility(View.VISIBLE);
+                        roleCgType += role.get(i).getRole_id();
+                    }
+                }
+                setShowView();
             }
-            setShowView();
-        }
 
+
+        }
         getwode(true);
     }
 
@@ -392,7 +413,8 @@ public class WoDeFragment extends BaseFragment {
 //                break;
             case R.id.rl_daifukuan:
                 Bundle daifukuan = new Bundle();
-                if (role.equals("1")) {
+                daifukuan.putString("roleDdType", roleDdType);
+                if (roleDdType.equals("1")) {
                     daifukuan.putInt("to_shop", 0);
                 } else {
                     daifukuan.putInt("to_shop", 1);
@@ -406,8 +428,11 @@ public class WoDeFragment extends BaseFragment {
                 break;
             case R.id.rl_daishouhuo:
                 Bundle daishouhuo = new Bundle();
-                if (role.equals("4")) {
+                daishouhuo.putString("roleDdType", roleDdType);
+                if (roleDdType.equals("4")) {
                     daishouhuo.putInt("to_shop", 0);
+                } else if (roleDdType.equals("14") || roleDdType.equals("41")) {
+                    daishouhuo.putInt("to_shop", 2);
                 } else {
                     daishouhuo.putInt("to_shop", 3);
                 }
@@ -416,8 +441,11 @@ public class WoDeFragment extends BaseFragment {
                 break;
             case R.id.rl_yishouhuo:
                 Bundle yishouhuo = new Bundle();
-                if (role.equals("4")) {
+                yishouhuo.putString("roleDdType", roleDdType);
+                if (roleDdType.equals("4")) {
                     yishouhuo.putInt("to_shop", 1);
+                } else if (roleDdType.equals("14") || roleDdType.equals("41")) {
+                    yishouhuo.putInt("to_shop", 3);
                 } else {
                     yishouhuo.putInt("to_shop", 4);
                 }
@@ -426,8 +454,11 @@ public class WoDeFragment extends BaseFragment {
                 break;
             case R.id.rl_yiwancheng:
                 Bundle yiwancheng = new Bundle();
-                if (role.equals("1")) {
+                yiwancheng.putString("roleDdType", roleDdType);
+                if (roleDdType.equals("1")) {
                     yiwancheng.putInt("to_shop", 1);
+                } else if (roleDdType.equals("14") || roleDdType.equals("41")) {
+                    yiwancheng.putInt("to_shop", 4);
                 } else {
                     yiwancheng.putInt("to_shop", 5);
                 }
@@ -547,8 +578,11 @@ public class WoDeFragment extends BaseFragment {
         llPingjia.setEnabled(false);
         rlChangjianwenti.setEnabled(false);
 //        rlYijian.setEnabled(false);
-
-        if (role.equals("1")) {
+//        for (int i=0;i<role.size();i++){
+        if (roleDdType.equals("14") || roleDdType.equals("41")) {
+            ivWqxDfh.setVisibility(View.VISIBLE);
+            rlDaifahuo.setEnabled(false);
+        } else if (roleDdType.equals("1")) {
             ivWqxDfh.setVisibility(View.VISIBLE);
             ivWqxDsh.setVisibility(View.VISIBLE);
             ivWqxYsh.setVisibility(View.VISIBLE);
@@ -556,11 +590,7 @@ public class WoDeFragment extends BaseFragment {
             rlDaifahuo.setEnabled(false);
             rlDaishouhuo.setEnabled(false);
             rlYishouhuo.setEnabled(false);
-        } else if (role.equals("2")) {
-
-        } else if (role.equals("3")) {
-
-        } else if (role.equals("4")) {
+        } else if (roleDdType.equals("4")) {
             ivWqxDfh.setVisibility(View.VISIBLE);
             ivWqxDfk.setVisibility(View.VISIBLE);
             ivWqxYwc.setVisibility(View.VISIBLE);
@@ -568,8 +598,15 @@ public class WoDeFragment extends BaseFragment {
             rlDaifukuan.setEnabled(false);
             rlDaifahuo.setEnabled(false);
             rlYiwancheng.setEnabled(false);
-        } else if (role.equals("5")) {
+        }
+        if (roleCgType.equals("25") || roleCgType.equals("52")) {//全部权限
+
+        } else if (roleCgType.equals("5")) {//无审批权限
+            PreferenceUtils.putString(MyApplication.mContext,"isShenPi",roleCgType);
+        } else if (roleCgType.equals("2")) {//全部权限
 
         }
+//        }
+
     }
 }

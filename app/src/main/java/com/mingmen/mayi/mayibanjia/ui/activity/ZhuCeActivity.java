@@ -18,6 +18,8 @@ import com.mingmen.mayi.mayibanjia.MainActivity;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.ZhuCeChengGongBean;
+import com.mingmen.mayi.mayibanjia.bean.ZiZhangHuDetailsBean;
+import com.mingmen.mayi.mayibanjia.bean.ZzhQuanXianBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
@@ -62,6 +64,7 @@ public class ZhuCeActivity extends BaseActivity {
     private Context mContext;
     private boolean runningThree = true;
     private String yemian = "1";
+    private String zzh="";
     private CountDownTimer downTimer = new CountDownTimer(60 * 1000, 1000) {
         @Override
         public void onTick(long l) {
@@ -330,12 +333,13 @@ public class ZhuCeActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<ZhuCeChengGongBean>() {
                     @Override
                     public void onNext(ZhuCeChengGongBean bean) {
-                        Log.e("token", bean.getToken() + "===");
 
                         PreferenceUtils.putBoolean(MyApplication.mContext, "isLogin", true);
                         PreferenceUtils.putString(MyApplication.mContext, "token", bean.getToken());
                         PreferenceUtils.putString(MyApplication.mContext, "juese", bean.getRole());
                         PreferenceUtils.putInt(MyApplication.mContext,"random_id",bean.getRandom_id());
+                        PreferenceUtils.putString(MyApplication.mContext,"host_account_type",bean.getHost_account_type());
+                        zzh = bean.getHost_account_type();
                         tiaozhuan(bean.getRole(),bean.getRandom_id());
 
 
@@ -369,9 +373,28 @@ public class ZhuCeActivity extends BaseActivity {
             }
 
         } else if ("1".equals(juese)) {//餐厅端
-            Intent intent = new Intent(mContext, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
+            final Intent intent = new Intent(mContext, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            if(!zzh.equals("0")){
+                HttpManager.getInstance()
+                        .with(mContext)
+                        .setObservable(
+                                RetrofitManager
+                                        .getService()
+                                        .getZzhAllQuanxian(PreferenceUtils.getString(MyApplication.mContext,"token","")))
+                        .setDataListener(new HttpDataListener<ZiZhangHuDetailsBean>() {
+                            @Override
+                            public void onNext(ZiZhangHuDetailsBean bean) {
+                                PreferenceUtils.setQuanxianList(MyApplication.mContext,bean);
+                                intent.putExtra("tosome",3);
+                                startActivity(intent);
+                                finish();
+                            }
+                        });
+
+            } else {
+                startActivity(intent);
+                finish();
+            }
         }
     }
 }

@@ -68,13 +68,7 @@ public class GongYingDuanSheZhiActivity extends BaseActivity {
                 confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        PreferenceUtils.putBoolean(MyApplication.mContext, "isLogin", false);
-                        Intent intent = new Intent(mContext, LoginActivity.class);
-                        startActivity(intent);
-                        confirmDialog.dismiss();
-                        PollingUtils.stopPollingService(mContext,PollingService.class, PollingService.ACTION);
-                        GongYingDuanShouYeActivity.instance.finish();
-                        finish();
+                        exitLogin();
                     }
                 });
                 confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
@@ -124,5 +118,24 @@ public class GongYingDuanSheZhiActivity extends BaseActivity {
         Intent it = new Intent(mContext,GongYingDuanShouYeActivity.class);
         startActivity(it);
         finish();
+    }
+    private void exitLogin() {
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(RetrofitManager.getService()
+                        .exitLogin(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
+                .setDataListener(new HttpDataListener<String>() {
+                    @Override
+                    public void onNext(String data) {
+                        PreferenceUtils.putBoolean(MyApplication.mContext,"isLogin",false);
+                        PreferenceUtils.clear(MyApplication.mContext);
+                        Intent intent = new Intent(mContext, LoginActivity.class);
+                        startActivity(intent);
+                        confirmDialog.dismiss();
+                        PollingUtils.stopPollingService(mContext,PollingService.class, PollingService.ACTION);
+                        GongYingDuanShouYeActivity.instance.finish();
+                        finish();
+                    }
+                });
     }
 }

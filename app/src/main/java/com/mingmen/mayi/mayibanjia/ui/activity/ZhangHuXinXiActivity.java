@@ -85,12 +85,7 @@ public class ZhangHuXinXiActivity extends BaseActivity {
                 confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        PreferenceUtils.putBoolean(MyApplication.mContext, "isLogin", false);
-                        Intent intent = new Intent(mContext, LoginActivity.class);
-                        startActivity(intent);
-                        confirmDialog.dismiss();
-                        MainActivity.instance.finish();
-                        finish();
+                        exitLogin();
                     }
                 });
                 confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
@@ -139,6 +134,25 @@ public class ZhangHuXinXiActivity extends BaseActivity {
                         tvZzShenhe.setText(bean.getZz().toString());
                         sh_state = bean.getZz().toString();
 //                        tvFrShenhe.setText(bean.getFr().toString());
+                    }
+                });
+    }
+
+    private void exitLogin() {
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(RetrofitManager.getService()
+                        .exitLogin(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
+                .setDataListener(new HttpDataListener<String>() {
+                    @Override
+                    public void onNext(String data) {
+                        PreferenceUtils.putBoolean(MyApplication.mContext,"isLogin",false);
+                        PreferenceUtils.clear(MyApplication.mContext);
+                        Intent intent = new Intent(mContext, LoginActivity.class);
+                        startActivity(intent);
+                        confirmDialog.dismiss();
+                        MainActivity.instance.finish();
+                        finish();
                     }
                 });
     }

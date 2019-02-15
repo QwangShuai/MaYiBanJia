@@ -36,6 +36,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.adapter.DianPuMingAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.PhotoDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 import com.mingmen.mayi.mayibanjia.utils.photo.FileStorage;
 import com.mingmen.mayi.mayibanjia.utils.photo.QiNiuPhoto;
@@ -198,7 +199,7 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .zhuce(fuzeren,phone,pass,yingyezhizhao,"",dianpuid,yaoqingma,yanzhengma))
+                                .zhuce(fuzeren,phone,pass,yingyezhizhao,"",dianpuid,yaoqingma,yanzhengma,"1", StringUtil.getMyUUID(mContext)))
                 .setDataListener(new HttpDataListener<ZhuCeChengGongBean>() {
                     @Override
                     public void onNext(ZhuCeChengGongBean list) {

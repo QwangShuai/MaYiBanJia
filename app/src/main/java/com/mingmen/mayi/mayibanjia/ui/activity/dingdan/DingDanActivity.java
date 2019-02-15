@@ -17,6 +17,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.PeiSongXiangQingActivity;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.PagerSlidingTabStrip;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.qrCode.CaptureActivity;
 
 import butterknife.BindView;
@@ -41,6 +42,7 @@ public class DingDanActivity extends BaseActivity {
     private OrderAdapter adapter;
     private Context mContext;
     private String token="";
+    private String type="";
     public String getToken() {
         return token;
     }
@@ -58,11 +60,14 @@ public class DingDanActivity extends BaseActivity {
         mContext = DingDanActivity.this;
         Log.e("getItem: ",PreferenceUtils.getString(MyApplication.mContext,"role","") );
         adapter = new OrderAdapter(getSupportFragmentManager(), DingDanActivity.this);
-        if(!PreferenceUtils.getString(MyApplication.mContext,"host_account_type","").equals("0")) {
-            if(PreferenceUtils.getString(MyApplication.mContext,"juese","").equals("1")){
+        if(StringUtil.isValid(getIntent().getStringExtra("roleDdType"))){
+            type = getIntent().getStringExtra("roleDdType");
+            if(type.equals("1")){
                 adapter.setFragments("1");
-            } else if(PreferenceUtils.getString(MyApplication.mContext,"juese","").equals("4")){
+            } else if(type.equals("4")){
                 adapter.setFragments("4");
+            } else {
+                adapter.setFragments("10");
             }
         }
         vpDingdan.setAdapter(adapter);

@@ -70,7 +70,8 @@ public class YueActivity extends BaseActivity {
 //                Jump_intent(JiaoYiMingXiActivity.class, new Bundle());
 //                break;
             case R.id.rl_chongzhi:
-                Jump_intent(JiaoYiMingXiActivity.class, new Bundle());
+//                Jump_intent(JiaoYiMingXiActivity.class, new Bundle());
+                Jump_intent(JiaoYiLiuShuiActivity.class, new Bundle());
                 break;
             case R.id.rl_tixian:
                 Bundle bundle = new Bundle();

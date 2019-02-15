@@ -33,7 +33,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="83dp"
                         android:layout_marginTop="36dp"
                         android:orientation="horizontal">
 
@@ -59,12 +59,37 @@
                                 android:text="农家蔬果店"
                                 android:textColor="@color/white"
                                 android:textSize="18sp" />
-
+                            <LinearLayout
+                                android:background="@drawable/fillet_soild_ba2800_12"
+                                android:paddingLeft="6dp"
+                                android:paddingRight="6dp"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="4dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="15dp">
+                                <TextView
+                                    android:textSize="10sp"
+                                    android:textColor="@color/white"
+                                    android:text="店铺评分"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+                                <RatingBar
+                                    android:layout_marginLeft="4dp"
+                                    android:isIndicator="true"
+                                    android:id="@+id/rb_pingfen"
+                                    android:layout_height="8dp"
+                                    android:layout_width="wrap_content"
+                                    android:numStars="5"
+                                    android:rating="3.5"
+                                    style="@style/foodRatingBar"
+                                    />
+                            </LinearLayout>
                             <LinearLayout
                                 android:id="@+id/ll_state_qiehuan"
                                 android:layout_width="80dp"
                                 android:layout_height="23dp"
-                                android:layout_marginTop="10dp"
+                                android:layout_marginTop="4dp"
                                 android:background="@drawable/fillet_soild_ba2800_12"
                                 android:gravity="center_vertical"
                                 android:orientation="horizontal">

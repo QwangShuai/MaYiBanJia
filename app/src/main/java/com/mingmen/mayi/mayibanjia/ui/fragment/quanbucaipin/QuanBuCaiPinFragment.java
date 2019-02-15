@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +14,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -30,6 +33,7 @@ import com.mingmen.mayi.mayibanjia.app.UMConfig;
 import com.mingmen.mayi.mayibanjia.bean.AllShiChangBean;
 import com.mingmen.mayi.mayibanjia.bean.FCGName;
 import com.mingmen.mayi.mayibanjia.bean.FenLeiBean;
+import com.mingmen.mayi.mayibanjia.bean.RoleBean;
 import com.mingmen.mayi.mayibanjia.bean.ShangPinSouSuoBean;
 import com.mingmen.mayi.mayibanjia.bean.ShiChangSouSuoShangPinBean;
 import com.mingmen.mayi.mayibanjia.bean.ShouYeLeiBean;
@@ -50,6 +54,7 @@ import com.mingmen.mayi.mayibanjia.ui.base.BaseFragment;
 import com.mingmen.mayi.mayibanjia.ui.fragment.quanbucaipin.adapter.QuanBuCaiPinLeiAdapter;
 import com.mingmen.mayi.mayibanjia.ui.view.AutoLineFeedLayoutManager;
 import com.mingmen.mayi.mayibanjia.ui.view.PageIndicatorView;
+import com.mingmen.mayi.mayibanjia.ui.view.XCFlowLayout;
 import com.mingmen.mayi.mayibanjia.ui.view.ZiXunPagingScrollHelper;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
@@ -140,6 +145,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     private ArrayList<FenLeiBean> allFenLei = new ArrayList<>();
     private ArrayList<FCGName> yijiFenLei = new ArrayList<>();
     private ArrayList<FCGName> erjiFenLei = new ArrayList<>();
+    private ArrayList<TextView> tvs;
     private ArrayList<FenLeiBean> sanjiFenLei;
     private boolean isLodeFenLei = false;
     private YiJiFenLeiAdapter adapter;
@@ -180,6 +186,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     private TextView tvYiji;
     private TextView tvErji;
     private TextView tvSanji;
+    private TextView tvAllShichang;
     private LinearLayout llPinleiPop;
     private LinearLayout llPinzhongPop;
     private LinearLayout llShichangPop;
@@ -190,6 +197,9 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     private RecyclerView rvErji;
     private RecyclerView rvSanji;
     private RecyclerView rv_yijifenlei;
+//    private XCFlowLayout xcf1;
+//    private XCFlowLayout xcf2;
+//    private XCFlowLayout xcf3;
 
     private ShiChangAdapter yijiAdapter = new ShiChangAdapter();
     private ShiChangAdapter erjiAdapter = new ShiChangAdapter();
@@ -307,11 +317,25 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                if(rlLei.getVisibility()==View.VISIBLE?false:true){
+                    rlLei.setVisibility(View.VISIBLE);
+                }
+                mystate = 0;
                 ye = 1;
                 getOneList();
                 refreshLayout.setRefreshing(false);
             }
         });
+//        refreshLayout.setOnChildScrollUpCallback(new SwipeRefreshLayout.OnChildScrollUpCallback() {
+//            @Override
+//            public boolean canChildScrollUp(@NonNull SwipeRefreshLayout parent, @Nullable View child) {
+//                if (rvShangpin == null) {
+//                    return false;
+//                }
+//                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) rvShangpin.getLayoutManager();
+//                return linearLayoutManager.findFirstCompletelyVisibleItemPosition() != 0;
+//            }
+//        });
 
 
         jiarugouwuchedialog = new JiaRuGouWuCheDialog(mContext,
@@ -324,6 +348,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
             tvPinlei.setText(activity.getType());
 //            tvPinlei.setTextColor(getResources().getColor(R.color.zangqing));
             yijipinleiid = activity.getSp_id();
+            ye = 1;
             getOneList();
             activity.setType("");
         } else {
@@ -339,7 +364,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .sousuoshangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""), sousuo, "", "",UMConfig.YCL_ID, yijipinleiid, erjipinleiid, sanjipinleiid, shichangid, zuigaojia, zuidijia, type, 1))
+                                .sousuoshangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""), sousuo, "", "",UMConfig.YCL_ID, yijipinleiid, erjipinleiid, sanjipinleiid, shichangid, zuigaojia, zuidijia, type, ye))
                 .setDataListener(new HttpDataListener<ShangPinSouSuoBean>() {
                     @Override
                     public void onNext(final ShangPinSouSuoBean shangpin) {
@@ -491,6 +516,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                                     @Override
                                     public void xuanzhong(AllShiChangBean.Bean msg) {
                                         shuaxinAdapter(msg);
+                                        ye = 1;
                                         sousuoshangpin(sousuo, "0");
                                     }
                                 });
@@ -508,6 +534,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                                 .setCallBack(new ShiChangAdapter.CallBack() {
                                     @Override
                                     public void xuanzhong(AllShiChangBean.Bean msg) {
+                                        ye = 1;
                                         shuaxinAdapter(msg);
                                         sousuoshangpin(sousuo, "0");
                                     }
@@ -527,6 +554,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                                 .setCallBack(new ShiChangAdapter.CallBack() {
                                     @Override
                                     public void xuanzhong(AllShiChangBean.Bean msg) {
+                                        ye = 1;
                                         shuaxinAdapter(msg);
                                         sousuoshangpin(sousuo, "0");
                                     }
@@ -661,7 +689,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                     @Override
                     public void onNext(final ShangPinSouSuoBean shangpin) {
 //                        rvShangpin.removeAllViews();
-//                        ye=1;
+                        ye++;
                         rvShangpin.loadMoreFinish(false, true);
                         if ("3".equals(type)) {
                             isdi = true;
@@ -807,12 +835,16 @@ public class QuanBuCaiPinFragment extends BaseFragment {
 
     private void setState(){
 //        yijipinleiid = "";
+        ye = 1;
         erjipinleiid = "";
         sanjipinleiid = "";
         tvPinlei.setText("全部");
         tvPinzhong.setTextColor(getResources().getColor(R.color.zicolor));
         tvPinlei.setTextColor(getResources().getColor(R.color.zicolor));
         tvPinzhong.setText("全部");
+        tvShichang.setText("全部");
+        tvShichang.setTextColor(getResources().getColor(R.color.zicolor));
+        shichangid = "";
     }
 
     @Override
@@ -921,8 +953,12 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         rvSanji = (RecyclerView) view.findViewById(R.id.rv_sanjishichang);
         tvYiji = (TextView) view.findViewById(R.id.tv_yiji);
         tvErji = (TextView) view.findViewById(R.id.tv_yiji);
-        tvErji = (TextView) view.findViewById(R.id.tv_yiji);
+        tvAllShichang = (TextView) view.findViewById(R.id.tv_all_shichang);
         rv_yijifenlei = view.findViewById(R.id.rv_yijifenlei);
+//        xcf1 = view.findViewById(R.id.xcf1);
+//        xcf2 = view.findViewById(R.id.xcf2);
+//        xcf3 = view.findViewById(R.id.xcf3);
+
         getshichang();
 
         llPinleiPop.setOnClickListener(new View.OnClickListener() {
@@ -972,7 +1008,16 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 }
             }
         });
-
+        tvAllShichang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AllShiChangBean.Bean msg = new AllShiChangBean.Bean();
+                msg.setMark_id("");
+                msg.setMarket_name("全部");
+                shuaxinAdapter(msg);
+                sousuoshangpin(sousuo, "0");
+            }
+        });
         WindowManager wm1 = getActivity().getWindowManager();
         int width = wm1.getDefaultDisplay().getWidth();
         int height = wm1.getDefaultDisplay().getHeight();
@@ -1065,9 +1110,11 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         if(StringUtil.isValid(shichangname)){
             tvShichangPop.setText(shichangname);
             tvShichangPop.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+            tvAllShichang.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_999999_3));
         } else {
             tvShichangPop.setText("全部");
             tvShichangPop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
+            tvAllShichang.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_zangqing_3));
         }
 
     }
@@ -1143,6 +1190,14 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         tvPinzhongPop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
         erjiadapter.setXuanzhongid("");
         erjiadapter.notifyDataSetChanged();
+        tvShichangPop.setText("全部");
+        tvPinzhongPop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
+        yijiAdapter.setXuanZhongId("");
+        erjiAdapter.setXuanZhongId("");
+        sanjiAdapter.setXuanZhongId("");
+        yijiAdapter.notifyDataSetChanged();
+        erjiAdapter.notifyDataSetChanged();
+        sanjiAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -1150,5 +1205,45 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         super.onPause();
         isResult = false;
         rvShichangjia.setVisibility(View.GONE);
+    }
+    private void initShangpinChildViews(XCFlowLayout xcfShangpinlishisousuo, final List<AllShiChangBean.Bean> mList) {
+        xcfShangpinlishisousuo.removeAllViews();
+        tvs = new ArrayList();
+        ViewGroup.MarginLayoutParams lp = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp.leftMargin = AppUtil.dip2px(12);
+        lp.rightMargin = AppUtil.dip2px(0);
+        lp.topMargin = AppUtil.dip2px(12);
+        lp.bottomMargin = 0;
+        for (int i = 0; i < mList.size(); i++) {
+            TextView view = new TextView(mContext);
+            view.setText(mList.get(i).getMarket_name());
+            view.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+            view.setTextSize(12);
+            view.setPadding(AppUtil.dip2px(12), AppUtil.dip2px(8), AppUtil.dip2px(12), AppUtil.dip2px(8));
+            view.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_zangqing_3));
+//            xuanzhong.put(mList.get(i).getRole_id(),mList.get(i));
+            tvs.add(view);
+            xcfShangpinlishisousuo.addView(view, lp);
+        }
+        for (int i = 0; i < tvs.size(); i++) {
+            final int finalI = i;
+            tvs.get(i).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mList.get(finalI).getMark_id().equals(shichangid)){
+                        tvs.get(finalI).setTextColor(mContext.getResources().getColor(R.color.white));
+                        tvs.get(finalI).setBackground(mContext.getResources().getDrawable(R.drawable.fillet_solid_zangqing_3));
+                        shichangid = mList.get(finalI).getMark_id();
+                        tvShichangPop.setText(mList.get(finalI).getMarket_name());
+                    } else {
+                        tvs.get(finalI).setTextColor(mContext.getResources().getColor(R.color.zangqing));
+                        tvs.get(finalI).setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_zangqing_3));
+                        shichangid = "";
+                        tvShichangPop.setText("全部");
+                    }
+
+                }
+            });
+        }
     }
 }

@@ -495,7 +495,7 @@ public class QueRenDingDanActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case 1:
-                if (resultCode == 1 & data != null) {
+                if (resultCode == 1 && data != null) {
                     number = "";
                     yunfei = 0.0;
                     zongzhong = 0.0;

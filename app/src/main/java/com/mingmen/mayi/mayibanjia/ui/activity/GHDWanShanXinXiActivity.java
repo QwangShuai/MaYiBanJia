@@ -361,7 +361,7 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .zhuce(fuzeren,phone,pass,yingyezhizhao,xukezheng,dianpuid, yaoqingma,yanzhengma))
+                                .zhuce(fuzeren,phone,pass,yingyezhizhao,xukezheng,dianpuid, yaoqingma,yanzhengma,"1", StringUtil.getMyUUID(mContext)))
                 .setDataListener(new HttpDataListener<ZhuCeChengGongBean>() {
                     @Override
                     public void onNext(ZhuCeChengGongBean list) {

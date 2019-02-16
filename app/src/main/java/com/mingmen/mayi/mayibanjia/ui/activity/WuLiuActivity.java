@@ -23,6 +23,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.adapter.WuLiuFenPeiAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.WuLiuDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
+import com.mingmen.mayi.mayibanjia.utils.AppManager;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
@@ -207,7 +208,7 @@ public class WuLiuActivity extends BaseActivity {
                         startActivity(intent);
                         confirmDialog.dismiss();
                         tuichupop.dismiss();
-                        finish();
+                        AppManager.getAppManager().finishAllActivity();
                     }
                 });
     }

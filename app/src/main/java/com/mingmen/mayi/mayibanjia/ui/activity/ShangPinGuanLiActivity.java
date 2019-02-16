@@ -250,7 +250,7 @@ public class ShangPinGuanLiActivity extends BaseActivity {
 //        if(s.equals("3")){
 //            goods = "1";
 //        } else {
-            goods = "0";
+//            goods = "0";
             type=s;
 //        }
         ye = 1;

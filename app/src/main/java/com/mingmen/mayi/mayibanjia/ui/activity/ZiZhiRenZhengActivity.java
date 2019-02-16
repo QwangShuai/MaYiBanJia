@@ -65,7 +65,7 @@ public class ZiZhiRenZhengActivity extends BaseActivity {
         tvTitle.setText("资质认证");
         mContext = ZiZhiRenZhengActivity.this;
         yemian = getIntent().getStringExtra("yemian");
-        if("审核通过".equals(getIntent().getStringExtra("state"))||"审核中".equals(getIntent().getStringExtra("state"))){
+        if("审核通过".equals(getIntent().getStringExtra("state"))||"待审核".equals(getIntent().getStringExtra("state"))){
             getZizhiShow();
         }
 

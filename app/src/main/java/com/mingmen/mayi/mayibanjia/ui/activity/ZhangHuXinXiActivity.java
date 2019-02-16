@@ -19,6 +19,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.CircleImageView;
+import com.mingmen.mayi.mayibanjia.utils.AppManager;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 
 import butterknife.BindView;
@@ -152,7 +153,7 @@ public class ZhangHuXinXiActivity extends BaseActivity {
                         startActivity(intent);
                         confirmDialog.dismiss();
                         MainActivity.instance.finish();
-                        finish();
+                        AppManager.getAppManager().finishActivity();
                     }
                 });
     }

@@ -93,11 +93,11 @@ public class AddAddressActivity extends BaseActivity {
     private String jieming;
     private String jieid;
     private String addressid;
-    private ArrayList<JsonBean> options1Items = new ArrayList<>();//省
-    private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();//市
-    private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();//区
-    int city = 0;
-    int[] pos = new int[3];
+//    private ArrayList<JsonBean> options1Items = new ArrayList<>();//省
+//    private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();//市
+//    private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();//区
+//    int city = 0;
+//    int[] pos = new int[3];
 
     @Override
     public int getLayoutId() {
@@ -157,7 +157,8 @@ public class AddAddressActivity extends BaseActivity {
 
             }
         });
-        initJsonData();
+//        initJsonData();
+        getDizhi();
     }
 
 
@@ -181,7 +182,8 @@ public class AddAddressActivity extends BaseActivity {
                 }
 
                 //验证信息是否有空
-                if (!"".equals(phoneName) & !"".equals(phonenumber) & !"".equals(shengming) & !"".equals(shiming) & !"".equals(quming) & !"".equals(xiangxidizhi)) {
+//                if (!"".equals(phoneName) & !"".equals(phonenumber) & !"".equals(shengming) & !"".equals(shiming) & !"".equals(quming) & !"".equals(xiangxidizhi)) {
+                if (!"".equals(phoneName) & !"".equals(phonenumber) & !"".equals(xiangxidizhi)) {
                     if ("add".equals(rukou)) {
                         addAddress();
                     } else {
@@ -191,16 +193,16 @@ public class AddAddressActivity extends BaseActivity {
                     ToastUtil.showToast("请确认信息填写完整后再提交");
                 }
                 break;
-            case R.id.tv_suozaidiqu:
-                showCityPicker();
-                break;
-            case R.id.tv_suozaijiedao:
-                if (city == 0) {
-                    ToastUtil.showToast("请先选择区域");
-                } else {
-                    getsheng();
-                }
-                break;
+//            case R.id.tv_suozaidiqu:
+//                showCityPicker();
+//                break;
+//            case R.id.tv_suozaijiedao:
+//                if (city == 0) {
+//                    ToastUtil.showToast("请先选择区域");
+//                } else {
+//                    getsheng();
+//                }
+//                break;
             case R.id.ll_dianhuabu:
                 //通过电话簿获取姓名电话
                 if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
@@ -221,122 +223,122 @@ public class AddAddressActivity extends BaseActivity {
         }
     }
 
-    private void getsheng() {
-        HttpManager.getInstance()
-                .with(mContext)
-                .setObservable(
-                        RetrofitManager
-                                .getService()
-                                .getsheng(PreferenceUtils.getString(MyApplication.mContext, "token", ""),city+""))
-                .setDataListener(new HttpDataListener<List<ProvinceBean>>() {
-                    @Override
-                    public void onNext(final List<ProvinceBean> list) {
-                        zonglist = new ArrayList<ProvinceBean>();
-                        zonglist.addAll(list);
-                        jiedialog();
-
-                    }
-                });
-    }
-
-    private void shengdialog() {
-        final SinglePicker<ProvinceBean> picker = new SinglePicker<ProvinceBean>(AddAddressActivity.this, shenglist);
-        picker.setCanceledOnTouchOutside(false);
-        picker.setSelectedIndex(1);
-        picker.setCycleDisable(false);
-        picker.setOnItemPickListener(new SinglePicker.OnItemPickListener<ProvinceBean>() {
-            @Override
-            public void onItemPicked(int index, ProvinceBean item) {
-                shengming = item.getQuymc();
-                shengid = item.getQuybm() + "";
-                shilist = new ArrayList();
-                for (int i = 0; i < zonglist.size(); i++) {
-                    if (zonglist.get(i).getQuyfjbm() == Integer.parseInt(shengid)) {
-                        shilist.add(zonglist.get(i));
-                    }
-                }
-                shidialog();
-                picker.dismiss();
-            }
-        });
-        picker.show();
-    }
-
-    private void shidialog() {
-        final SinglePicker<ProvinceBean> picker = new SinglePicker<ProvinceBean>(AddAddressActivity.this, shilist);
-        picker.setCanceledOnTouchOutside(false);
-        picker.setSelectedIndex(1);
-        picker.setCycleDisable(false);
-        picker.setOnItemPickListener(new SinglePicker.OnItemPickListener<ProvinceBean>() {
-            @Override
-            public void onItemPicked(int index, ProvinceBean item) {
-                shiming = item.getQuymc();
-                shiid = item.getQuybm() + "";
-                qulist = new ArrayList();
-                for (int i = 0; i < zonglist.size(); i++) {
-                    if (zonglist.get(i).getQuyfjbm() == Integer.parseInt(shiid)) {
-                        qulist.add(zonglist.get(i));
-                    }
-                }
-                qudialog();
-                picker.dismiss();
-            }
-        });
-        picker.show();
-    }
-
-    private void qudialog() {
-        final SinglePicker<ProvinceBean> picker = new SinglePicker<ProvinceBean>(AddAddressActivity.this, qulist);
-        picker.setCanceledOnTouchOutside(false);
-        picker.setSelectedIndex(1);
-        picker.setCycleDisable(false);
-        picker.setOnItemPickListener(new SinglePicker.OnItemPickListener<ProvinceBean>() {
-            @Override
-            public void onItemPicked(int index, ProvinceBean item) {
-                quming = item.getQuymc();
-                quid = item.getQuybm() + "";
-                jielist = new ArrayList();
-                for (int i = 0; i < zonglist.size(); i++) {
-                    if (zonglist.get(i).getQuyfjbm() == Integer.parseInt(quid)) {
-                        jielist.add(zonglist.get(i));
-                    }
-                }
-                if (jielist.size() == 0) {
-                    jieming = "";
-                    jieid = "";
-                    tvSuozaidiqu.setText(shengming + shiming + quming + jieming);
-                } else {
-                    jiedialog();
-                }
-
-                picker.dismiss();
+//    private void getsheng() {
+//        HttpManager.getInstance()
+//                .with(mContext)
+//                .setObservable(
+//                        RetrofitManager
+//                                .getService()
+//                                .getsheng(PreferenceUtils.getString(MyApplication.mContext, "token", ""),city+""))
+//                .setDataListener(new HttpDataListener<List<ProvinceBean>>() {
+//                    @Override
+//                    public void onNext(final List<ProvinceBean> list) {
+//                        zonglist = new ArrayList<ProvinceBean>();
+//                        zonglist.addAll(list);
+//                        jiedialog();
+//
+//                    }
+//                });
+//    }
+//
+//    private void shengdialog() {
+//        final SinglePicker<ProvinceBean> picker = new SinglePicker<ProvinceBean>(AddAddressActivity.this, shenglist);
+//        picker.setCanceledOnTouchOutside(false);
+//        picker.setSelectedIndex(1);
+//        picker.setCycleDisable(false);
+//        picker.setOnItemPickListener(new SinglePicker.OnItemPickListener<ProvinceBean>() {
+//            @Override
+//            public void onItemPicked(int index, ProvinceBean item) {
+//                shengming = item.getQuymc();
+//                shengid = item.getQuybm() + "";
+//                shilist = new ArrayList();
+//                for (int i = 0; i < zonglist.size(); i++) {
+//                    if (zonglist.get(i).getQuyfjbm() == Integer.parseInt(shengid)) {
+//                        shilist.add(zonglist.get(i));
+//                    }
+//                }
+//                shidialog();
+//                picker.dismiss();
+//            }
+//        });
+//        picker.show();
+//    }
+//
+//    private void shidialog() {
+//        final SinglePicker<ProvinceBean> picker = new SinglePicker<ProvinceBean>(AddAddressActivity.this, shilist);
+//        picker.setCanceledOnTouchOutside(false);
+//        picker.setSelectedIndex(1);
+//        picker.setCycleDisable(false);
+//        picker.setOnItemPickListener(new SinglePicker.OnItemPickListener<ProvinceBean>() {
+//            @Override
+//            public void onItemPicked(int index, ProvinceBean item) {
+//                shiming = item.getQuymc();
+//                shiid = item.getQuybm() + "";
+//                qulist = new ArrayList();
+//                for (int i = 0; i < zonglist.size(); i++) {
+//                    if (zonglist.get(i).getQuyfjbm() == Integer.parseInt(shiid)) {
+//                        qulist.add(zonglist.get(i));
+//                    }
+//                }
+//                qudialog();
+//                picker.dismiss();
+//            }
+//        });
+//        picker.show();
+//    }
+//
+//    private void qudialog() {
+//        final SinglePicker<ProvinceBean> picker = new SinglePicker<ProvinceBean>(AddAddressActivity.this, qulist);
+//        picker.setCanceledOnTouchOutside(false);
+//        picker.setSelectedIndex(1);
+//        picker.setCycleDisable(false);
+//        picker.setOnItemPickListener(new SinglePicker.OnItemPickListener<ProvinceBean>() {
+//            @Override
+//            public void onItemPicked(int index, ProvinceBean item) {
+//                quming = item.getQuymc();
+//                quid = item.getQuybm() + "";
+//                jielist = new ArrayList();
+//                for (int i = 0; i < zonglist.size(); i++) {
+//                    if (zonglist.get(i).getQuyfjbm() == Integer.parseInt(quid)) {
+//                        jielist.add(zonglist.get(i));
+//                    }
+//                }
+//                if (jielist.size() == 0) {
+//                    jieming = "";
+//                    jieid = "";
+//                    tvSuozaidiqu.setText(shengming + shiming + quming + jieming);
+//                } else {
+//                    jiedialog();
+//                }
+//
+//                picker.dismiss();
+////                    picker.dismiss();
+////                    tvSuozaidiqu.setText(shengming+shiming+quming);
+//            }
+//        });
+//        picker.show();
+//    }
+//
+//    private void jiedialog() {
+//        if (zonglist.size() != 0) {
+//            final SinglePicker<ProvinceBean> picker = new SinglePicker<ProvinceBean>(AddAddressActivity.this, zonglist);
+//            picker.setCanceledOnTouchOutside(false);
+//            picker.setSelectedIndex(1);
+//            picker.setCycleDisable(false);
+//            picker.show();
+//            picker.setOnItemPickListener(new SinglePicker.OnItemPickListener<ProvinceBean>() {
+//                @Override
+//                public void onItemPicked(int index, ProvinceBean item) {
+//                    jieming = item.getQuymc();
+//                    jieid = item.getQuybm() + "";
 //                    picker.dismiss();
-//                    tvSuozaidiqu.setText(shengming+shiming+quming);
-            }
-        });
-        picker.show();
-    }
-
-    private void jiedialog() {
-        if (zonglist.size() != 0) {
-            final SinglePicker<ProvinceBean> picker = new SinglePicker<ProvinceBean>(AddAddressActivity.this, zonglist);
-            picker.setCanceledOnTouchOutside(false);
-            picker.setSelectedIndex(1);
-            picker.setCycleDisable(false);
-            picker.show();
-            picker.setOnItemPickListener(new SinglePicker.OnItemPickListener<ProvinceBean>() {
-                @Override
-                public void onItemPicked(int index, ProvinceBean item) {
-                    jieming = item.getQuymc();
-                    jieid = item.getQuybm() + "";
-                    picker.dismiss();
-                    tvSuozaijiedao.setText(jieming);
-                }
-            });
-        } else {
-            ToastUtil.showToast("暂无街道信息,信息录入失败");
-        }
-    }
+//                    tvSuozaijiedao.setText(jieming);
+//                }
+//            });
+//        } else {
+//            ToastUtil.showToast("暂无街道信息,信息录入失败");
+//        }
+//    }
 
     //获得返回的结果
     @Override
@@ -382,7 +384,7 @@ public class AddAddressActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .addAddress(PreferenceUtils.getString(MyApplication.mContext, "token", ""), shengid + "", shiid + "", quid + "", jieid + "", etXiangxidizhi.getText().toString().trim(), phoneName, phonenumber, moren + ""))
+                                .addAddress(PreferenceUtils.getString(MyApplication.mContext, "token", ""),  etXiangxidizhi.getText().toString().trim(), phoneName, phonenumber, moren + ""))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
@@ -399,7 +401,7 @@ public class AddAddressActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .editAddress(PreferenceUtils.getString(MyApplication.mContext, "token", ""), shengid + "", shiid + "", quid + "", jieid + "", etXiangxidizhi.getText().toString().trim(), phoneName, phonenumber, moren + "", addressid))
+                                .editAddress(PreferenceUtils.getString(MyApplication.mContext, "token", ""), etXiangxidizhi.getText().toString().trim(), phoneName, phonenumber, moren + "", addressid))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
@@ -408,96 +410,111 @@ public class AddAddressActivity extends BaseActivity {
                 });
     }
 
-    private void showCityPicker() {
-        OptionsPickerView pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
-            @Override
-            public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                //返回的分别是三个级别的选中位置
-                String tx = options1Items.get(options1).getPickerViewText() + "-" +
-                        options2Items.get(options1).get(options2) + "-" +
-                        options3Items.get(options1).get(options2).get(options3);
-                tvSuozaidiqu.setText(tx);
-                shengid = options1Items.get(options1).getQuybm() + "";
-                shiid = options1Items.get(options1).getCitylist().get(options2).getQuybm() + "";
-                city = options1Items.get(options1).getCitylist().get(options2).getQulist().get(options3).getQuybm();
-                quid = options1Items.get(options1).getCitylist().get(options2).getQulist().get(options3).getQuybm() + "";
+//    private void showCityPicker() {
+//        OptionsPickerView pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
+//            @Override
+//            public void onOptionsSelect(int options1, int options2, int options3, View v) {
+//                //返回的分别是三个级别的选中位置
+//                String tx = options1Items.get(options1).getPickerViewText() + "-" +
+//                        options2Items.get(options1).get(options2) + "-" +
+//                        options3Items.get(options1).get(options2).get(options3);
+//                tvSuozaidiqu.setText(tx);
+//                shengid = options1Items.get(options1).getQuybm() + "";
+//                shiid = options1Items.get(options1).getCitylist().get(options2).getQuybm() + "";
+//                city = options1Items.get(options1).getCitylist().get(options2).getQulist().get(options3).getQuybm();
+//                quid = options1Items.get(options1).getCitylist().get(options2).getQulist().get(options3).getQuybm() + "";
+//
+//                pos[0] = options1;
+//                pos[1] = options2;
+//                pos[2] = options3;
+//
+//                jieming = "";
+//                jieid = "";
+//                tvSuozaijiedao.setText("");
+//                Log.e("我的区域编号", city + "");
+//            }
+//        })
+//                .setTitleText("城市选择")
+//                .setDividerColor(Color.BLACK)
+//                .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
+//                .setContentTextSize(20)
+//                .build();
+//
+//        /*pvOptions.setPicker(options1Items);//一级选择器
+//        pvOptions.setPicker(options1Items, options2Items);//二级选择器*/
+//        pvOptions.setPicker(options1Items, options2Items, options3Items);//三级选择器
+//        pvOptions.setSelectOptions(pos[0], pos[1], pos[2]);
+//        pvOptions.show();
+//    }
+//
+//    private void initJsonData() {//解析数据
+//
+//        /**
+//         * 注意：assets 目录下的Json文件仅供参考，实际使用可自行替换文件
+//         * 关键逻辑在于循环体
+//         *
+//         * */
+//        String JsonData = StringUtil.getJson(this, "province.json");//获取assets目录下的json文件数据
+//
+//        ArrayList<JsonBean> jsonBean = StringUtil.parseData(JsonData);//用Gson 转成实体
+//
+//        /**
+//         * 添加省份数据
+//         *
+//         * 注意：如果是添加的JavaBean实体，则实体类需要实现 IPickerViewData 接口，
+//         * PickerView会通过getPickerViewText方法获取字符串显示出来。
+//         */
+//        options1Items = jsonBean;
+//
+//        for (int i = 0; i < jsonBean.size(); i++) {//遍历省份
+//            ArrayList<String> CityList = new ArrayList<>();//该省的城市列表（第二级）
+//            ArrayList<ArrayList<String>> Province_AreaList = new ArrayList<>();//该省的所有地区列表（第三极）
+//
+//            for (int c = 0; c < jsonBean.get(i).getCitylist().size(); c++) {//遍历该省份的所有城市
+//                String CityName = jsonBean.get(i).getCitylist().get(c).getQuymc();
+//                CityList.add(CityName);//添加城市
+//
+//                ArrayList<String> City_AreaList = new ArrayList<>();//该城市的所有地区列表
+//
+//                //如果无地区数据，建议添加空字符串，防止数据为null 导致三个选项长度不匹配造成崩溃
+//                if (jsonBean.get(i).getCitylist().get(c).getQulist() == null
+//                        || jsonBean.get(i).getCitylist().get(c).getQulist().size() == 0) {
+//                    City_AreaList.add("");
+//                } else {
+//
+//                    for (int d = 0; d < jsonBean.get(i).getCitylist().get(c).getQulist().size(); d++) {//该城市对应地区所有数据
+//                        String AreaName = jsonBean.get(i).getCitylist().get(c).getQulist().get(d).getQuymc();
+//
+//                        City_AreaList.add(AreaName);//添加该城市所有地区数据
+//                    }
+//                }
+//                Province_AreaList.add(City_AreaList);//添加该省所有地区数据
+//            }
+//
+//            /**
+//             * 添加城市数据
+//             */
+//            options2Items.add(CityList);
+//
+//            /**
+//             * 添加地区数据
+//             */
+//            options3Items.add(Province_AreaList);
+//        }
+//    }
 
-                pos[0] = options1;
-                pos[1] = options2;
-                pos[2] = options3;
-
-                jieming = "";
-                jieid = "";
-                tvSuozaijiedao.setText("");
-                Log.e("我的区域编号", city + "");
-            }
-        })
-                .setTitleText("城市选择")
-                .setDividerColor(Color.BLACK)
-                .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
-                .setContentTextSize(20)
-                .build();
-
-        /*pvOptions.setPicker(options1Items);//一级选择器
-        pvOptions.setPicker(options1Items, options2Items);//二级选择器*/
-        pvOptions.setPicker(options1Items, options2Items, options3Items);//三级选择器
-        pvOptions.setSelectOptions(pos[0], pos[1], pos[2]);
-        pvOptions.show();
-    }
-
-    private void initJsonData() {//解析数据
-
-        /**
-         * 注意：assets 目录下的Json文件仅供参考，实际使用可自行替换文件
-         * 关键逻辑在于循环体
-         *
-         * */
-        String JsonData = StringUtil.getJson(this, "province.json");//获取assets目录下的json文件数据
-
-        ArrayList<JsonBean> jsonBean = StringUtil.parseData(JsonData);//用Gson 转成实体
-
-        /**
-         * 添加省份数据
-         *
-         * 注意：如果是添加的JavaBean实体，则实体类需要实现 IPickerViewData 接口，
-         * PickerView会通过getPickerViewText方法获取字符串显示出来。
-         */
-        options1Items = jsonBean;
-
-        for (int i = 0; i < jsonBean.size(); i++) {//遍历省份
-            ArrayList<String> CityList = new ArrayList<>();//该省的城市列表（第二级）
-            ArrayList<ArrayList<String>> Province_AreaList = new ArrayList<>();//该省的所有地区列表（第三极）
-
-            for (int c = 0; c < jsonBean.get(i).getCitylist().size(); c++) {//遍历该省份的所有城市
-                String CityName = jsonBean.get(i).getCitylist().get(c).getQuymc();
-                CityList.add(CityName);//添加城市
-
-                ArrayList<String> City_AreaList = new ArrayList<>();//该城市的所有地区列表
-
-                //如果无地区数据，建议添加空字符串，防止数据为null 导致三个选项长度不匹配造成崩溃
-                if (jsonBean.get(i).getCitylist().get(c).getQulist() == null
-                        || jsonBean.get(i).getCitylist().get(c).getQulist().size() == 0) {
-                    City_AreaList.add("");
-                } else {
-
-                    for (int d = 0; d < jsonBean.get(i).getCitylist().get(c).getQulist().size(); d++) {//该城市对应地区所有数据
-                        String AreaName = jsonBean.get(i).getCitylist().get(c).getQulist().get(d).getQuymc();
-
-                        City_AreaList.add(AreaName);//添加该城市所有地区数据
+    private void getDizhi() {
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .getDizhi(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
+                .setDataListener(new HttpDataListener<AddressListBean>() {
+                    @Override
+                    public void onNext(final AddressListBean bean) {
+                        tvSuozaidiqu.setText(bean.getAdressall()+"");
                     }
-                }
-                Province_AreaList.add(City_AreaList);//添加该省所有地区数据
-            }
-
-            /**
-             * 添加城市数据
-             */
-            options2Items.add(CityList);
-
-            /**
-             * 添加地区数据
-             */
-            options3Items.add(Province_AreaList);
-        }
+                });
     }
 }

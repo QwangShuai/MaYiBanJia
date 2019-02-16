@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.mingmen.mayi.mayibanjia.MainActivity;
@@ -24,6 +25,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.ghdingdan.GHDOrderActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.qiangdan.GongYingDuanQiangDanActivity;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.CircleImageView;
+import com.mingmen.mayi.mayibanjia.utils.AppManager;
 import com.mingmen.mayi.mayibanjia.utils.PollingService;
 import com.mingmen.mayi.mayibanjia.utils.PollingUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
@@ -118,6 +120,7 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
     private ConfirmDialog confirmDialog;
     private String type = "0";
     public static GongYingDuanShouYeActivity instance = null;
+    private long exitTime = 0;
 
     @Override
     public int getLayoutId() {
@@ -420,4 +423,22 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
                 }, false);
 
     }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        exit();
+    }
+
+    public void exit() {
+        if ((System.currentTimeMillis() - exitTime) > 2000) {
+            Toast.makeText(getApplicationContext(), "再按一次退出程序",
+                    Toast.LENGTH_SHORT).show();
+            exitTime = System.currentTimeMillis();
+        } else {
+            AppManager.getAppManager().AppExit(mContext);
+//            System.exit(0);
+        }
+    }
+
 }

@@ -4,6 +4,7 @@ package com.mingmen.mayi.mayibanjia.app;
  * Created by jqt on 2016/12/16.
  */
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
@@ -17,6 +18,8 @@ import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -42,6 +45,8 @@ public class MyApplication extends MultiDexApplication {
     }
     public static Context mContext;
     public static  UploadManager uploadManager;
+//    private List<Activity> oList;//用于存放所有启动的Activity的集合
+
 //    public static IWXAPI mWxApi;
     @Override
     public void onCreate() {
@@ -81,6 +86,7 @@ public class MyApplication extends MultiDexApplication {
 //        crashHandler.init(getApplicationContext());
         doInit();
 //        registerToWX();
+//        oList = new ArrayList<Activity>();
     }
 
     private void doInit() {
@@ -103,6 +109,23 @@ public class MyApplication extends MultiDexApplication {
 //        // 将该app注册到微信
 //        mWxApi.registerApp(Constants.APP_ID);
 //    }
-
+//    public void addActivity_(Activity activity) {
+//    // 判断当前集合中不存在该Activity
+//    if (!oList.contains(activity)) {
+//        oList.add(activity);//把当前Activity添加到集合中
+//    }
+//}
+//    public void removeActivity_(Activity activity) {
+//        if (oList.contains(activity)) {
+//            oList.remove(activity);//从集合中移除
+//            activity.finish();//销毁当前Activity
+//        }
+//    }
+//    public void removeALLActivity_() {
+//        //通过循环，把集合中的所有Activity销毁
+//        for (Activity activity : oList) {
+//            activity.finish();
+//        }
+//    }
 
 }

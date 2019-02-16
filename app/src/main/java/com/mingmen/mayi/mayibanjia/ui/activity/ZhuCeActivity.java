@@ -333,7 +333,7 @@ public class ZhuCeActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<ZhuCeChengGongBean>() {
                     @Override
                     public void onNext(ZhuCeChengGongBean bean) {
-
+                        PreferenceUtils.putString(MyApplication.mContext,"phone",bean.getTelephone());
                         PreferenceUtils.putBoolean(MyApplication.mContext, "isLogin", true);
                         PreferenceUtils.putString(MyApplication.mContext, "token", bean.getToken());
                         PreferenceUtils.putString(MyApplication.mContext, "juese", bean.getRole());

@@ -12,6 +12,7 @@ import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -66,7 +67,11 @@ public class ChangePhoneActivity extends BaseActivity {
     }
     public String getPhone(){
         String myphone = PreferenceUtils.getString(MyApplication.mContext,"phone","");
-        String mobie = myphone.substring(0,3)+"****"+myphone.substring(7,myphone.length());
-        return mobie;
+        if(StringUtil.isValid(myphone)){
+            String mobie = myphone.substring(0,3)+"****"+myphone.substring(7,myphone.length());
+            return mobie;
+        }
+
+        return "手机号怎么没有了呢";
     }
 }

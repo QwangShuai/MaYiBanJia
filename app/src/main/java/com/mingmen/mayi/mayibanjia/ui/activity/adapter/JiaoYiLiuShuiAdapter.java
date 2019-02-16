@@ -78,7 +78,7 @@ public class JiaoYiLiuShuiAdapter extends RecyclerView.Adapter<JiaoYiLiuShuiAdap
             case "5":
                 holder.tvTitle.setText("提现失败");
                 holder.tvMoney.setTextColor(mContext.getResources().getColor(R.color.zicolor));
-                holder.tvMoney.setText("+"+bean.getPay_money());
+                holder.tvMoney.setText(bean.getPay_money());
                 break;
         }
         holder.tvTime.setText(bean.getCreate_time());

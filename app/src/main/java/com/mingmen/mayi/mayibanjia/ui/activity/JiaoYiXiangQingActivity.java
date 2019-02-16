@@ -92,6 +92,16 @@ public class JiaoYiXiangQingActivity extends BaseActivity {
                                 tvJine.setTextColor(mContext.getResources().getColor(R.color.zicolor));
                                 tvJine.setText("+"+bean.getCollect_money());
                                 break;
+                            case "4":
+                                tvState.setText("提现成功");
+                                tvJine.setTextColor(mContext.getResources().getColor(R.color.zicolor));
+                                tvJine.setText("+"+bean.getPay_money());
+                                break;
+                            case "5":
+                                tvState.setText("提现失败");
+                                tvJine.setTextColor(mContext.getResources().getColor(R.color.mayihong));
+                                tvJine.setText(bean.getPay_money());
+                                break;
                         }
                         tvDianpu.setText(bean.getCompany_name());
                         tvTime.setText(bean.getCreate_time());

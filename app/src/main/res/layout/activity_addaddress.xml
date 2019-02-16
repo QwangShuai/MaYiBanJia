@@ -110,6 +110,7 @@
             android:hint="所在地区"
             />
         <ImageView
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/jinru"
@@ -121,6 +122,7 @@
         android:background="@color/cutoff"
         android:layout_marginLeft="12dp"/>
     <LinearLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:orientation="horizontal"
@@ -138,7 +140,7 @@
             android:gravity="center_vertical"
             android:layout_weight="1"
             android:textColorHint="#999999"
-            android:hint="所在街道"
+            android:hint="所在商圈"
             />
         <ImageView
             android:layout_width="wrap_content"

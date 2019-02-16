@@ -19,6 +19,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.WuLiuFenPeiAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
+import com.mingmen.mayi.mayibanjia.utils.AppManager;
 import com.mingmen.mayi.mayibanjia.utils.PollingService;
 import com.mingmen.mayi.mayibanjia.utils.PollingUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
@@ -134,7 +135,7 @@ public class GongYingDuanSheZhiActivity extends BaseActivity {
                         confirmDialog.dismiss();
                         PollingUtils.stopPollingService(mContext,PollingService.class, PollingService.ACTION);
                         GongYingDuanShouYeActivity.instance.finish();
-                        finish();
+                        AppManager.getAppManager().finishAllActivity();
                     }
                 });
     }

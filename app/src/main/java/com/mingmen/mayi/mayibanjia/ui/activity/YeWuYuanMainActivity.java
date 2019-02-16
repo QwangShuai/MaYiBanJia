@@ -29,6 +29,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.dialog.QiYeSouSUoDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.YeWuYuanAddDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.YeWuYuanDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
+import com.mingmen.mayi.mayibanjia.utils.AppManager;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
@@ -456,12 +457,13 @@ public class YeWuYuanMainActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
+                        PreferenceUtils.putBoolean(MyApplication.mContext,"isLogin",false);
                         PreferenceUtils.clear(MyApplication.mContext);
                         Intent intent = new Intent(mContext, LoginActivity.class);
                         startActivity(intent);
                         confirmDialog.dismiss();
                         tuichupop.dismiss();
-                        finish();
+                        AppManager.getAppManager().finishAllActivity();
                     }
                 });
     }

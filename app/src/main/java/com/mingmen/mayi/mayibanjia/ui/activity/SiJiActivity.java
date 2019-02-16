@@ -27,6 +27,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.SiJiPeiSongDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.WuLiuDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
+import com.mingmen.mayi.mayibanjia.utils.AppManager;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.qrCode.CaptureActivity;
@@ -209,7 +210,7 @@ public class SiJiActivity extends BaseActivity {
                         startActivity(intent);
                         confirmDialog.dismiss();
                         tuichupop.dismiss();
-                        finish();
+                        AppManager.getAppManager().finishAllActivity();
                     }
                 });
     }

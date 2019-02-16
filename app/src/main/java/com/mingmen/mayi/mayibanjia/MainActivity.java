@@ -18,11 +18,13 @@ import com.mingmen.mayi.mayibanjia.ui.activity.CaiGouXuQiuActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.FCGDiQuXuanZeActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.LoginActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.myinterface.MainCallBack;
+import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.ui.fragment.gouwuche.GouWuCheFragment;
 import com.mingmen.mayi.mayibanjia.ui.fragment.quanbucaipin.QuanBuCaiPinFragment;
 import com.mingmen.mayi.mayibanjia.ui.fragment.shouye.ShouYeFragment;
 import com.mingmen.mayi.mayibanjia.ui.fragment.wode.WoDeFragment;
 import com.mingmen.mayi.mayibanjia.ui.view.noscrollviewpager.NoScrollViewPager;
+import com.mingmen.mayi.mayibanjia.utils.AppManager;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.QuanXian;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
@@ -35,7 +37,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import qiu.niorgai.StatusBarCompat;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @BindView(R.id.view_fenge)
     View viewFenge;
@@ -64,14 +66,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            Window window = getWindow();
-//            //设置状态栏颜
-//            window.setStatusBarColor(getResources().getColor(R.color.zangqing));
-//        }
-        setContentView(R.layout.activity_main);
+    public int getLayoutId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected void initData() {
         StatusBarCompat.translucentStatusBar(this);
 
         ButterKnife.bind(this);
@@ -152,13 +152,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            exit();
-            return false;
-        }
-        return super.onKeyDown(keyCode, event);
+    public void onBackPressed() {
+//        super.onBackPressed();
+        exit();
     }
+
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        if (keyCode == KeyEvent.KEYCODE_BACK) {
+//            exit();
+//            return false;
+//        }
+//        return super.onKeyDown(keyCode, event);
+//    }
 
     public void exit() {
         if ((System.currentTimeMillis() - exitTime) > 2000) {
@@ -166,10 +172,10 @@ public class MainActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             exitTime = System.currentTimeMillis();
         } else {
-            if(LoginActivity.instance!=null){
-                LoginActivity.instance.finish();
-            }
-            finish();
+            AppManager.getAppManager().AppExit(context);
+//            if(LoginActivity.instance!=null){
+//                LoginActivity.instance.finish();
+//            }
 //            System.exit(0);
         }
     }

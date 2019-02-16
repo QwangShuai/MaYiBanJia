@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.AddressListBean;
@@ -42,7 +43,8 @@ public class ShouHuoDiZhiActivity extends BaseActivity {
     private Context mContext;
     private ShouHuoDiZhiAdapter adapter;
     private String rukou;
-
+    private int mysize;
+    private String myDizhi;
 
     @Override
     public int getLayoutId() {
@@ -76,7 +78,9 @@ public class ShouHuoDiZhiActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<List<AddressListBean>>() {
                     @Override
                     public void onNext(final List<AddressListBean> data) {
-                        if (data.size()>0){
+                        mysize = data==null?0:data.size();
+                        if (mysize>0){
+                            myDizhi = new Gson().toJson(data.get(0));
                             rvShouhuodizhi.setVisibility(View.VISIBLE);
                             llMeiyou.setVisibility(View.GONE);
                             adapter = new ShouHuoDiZhiAdapter(mContext, data);
@@ -99,6 +103,7 @@ public class ShouHuoDiZhiActivity extends BaseActivity {
                                        case R.id.ll_kuang:
                                            if ("xuanze".equals(rukou)){
                                                Intent fanhui=new Intent(mContext,QueRenDingDanActivity.class);
+                                               fanhui.putExtra("size",mysize);
                                                fanhui.putExtra("dizhi",gson.toJson(data.get(position)));
                                                setResult(1,fanhui);
                                                finish();
@@ -141,7 +146,7 @@ public class ShouHuoDiZhiActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
-                finish();
+                myBack();
                 break;
             case R.id.tv_right:
                 Intent intent=new Intent(mContext,AddAddressActivity.class);
@@ -150,5 +155,18 @@ public class ShouHuoDiZhiActivity extends BaseActivity {
                 startActivity(intent);
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        myBack();
+    }
+
+    private void myBack(){
+        Intent fanhui=new Intent(mContext,QueRenDingDanActivity.class);
+        fanhui.putExtra("size",mysize);
+        fanhui.putExtra("dizhi",myDizhi);
+        setResult(1,fanhui);
+        finish();
     }
 }

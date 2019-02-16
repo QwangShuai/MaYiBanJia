@@ -52,9 +52,18 @@ public class AddressListBean {
         private Object order;
         private Object sort;
         private int rows;
+        private String adressall;
         private PagerBean pager;
 
-        public String getRegion() {
+    public String getAdressall() {
+        return adressall;
+    }
+
+    public void setAdressall(String adressall) {
+        this.adressall = adressall;
+    }
+
+    public String getRegion() {
             return region;
         }
 

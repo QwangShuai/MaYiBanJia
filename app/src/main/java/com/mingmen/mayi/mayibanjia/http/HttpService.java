@@ -71,6 +71,7 @@ import com.mingmen.mayi.mayibanjia.bean.XQPingJiaBean;
 import com.mingmen.mayi.mayibanjia.bean.XiTongTuiJianBean;
 import com.mingmen.mayi.mayibanjia.bean.XuanZeYinHangKaBean;
 import com.mingmen.mayi.mayibanjia.bean.YinHangKaBean;
+import com.mingmen.mayi.mayibanjia.bean.YinHangKaRzBean;
 import com.mingmen.mayi.mayibanjia.bean.YunFeiBean;
 import com.mingmen.mayi.mayibanjia.bean.YunFeiJieSuanBean;
 import com.mingmen.mayi.mayibanjia.bean.ZhangHuRenZhengBean;
@@ -215,10 +216,6 @@ public interface HttpService {
     //添加收货地址
     @POST("allAddress/save.do")
     Observable<ResultModel<String>> addAddress(@Query("user_token") String user_token,
-                                               @Query("province") String province,
-                                               @Query("city") String city,
-                                               @Query("region") String region,
-                                               @Query("street") String street,
                                                @Query("specific_address") String specific_address,
                                                @Query("linkman") String linkman,
                                                @Query("contact_type") String contact_type,
@@ -228,10 +225,6 @@ public interface HttpService {
     //修改收货地址
     @POST("allAddress/update.do")
     Observable<ResultModel<String>> editAddress(@Query("user_token") String user_token,
-                                                @Query("province") String province,
-                                                @Query("city") String city,
-                                                @Query("region") String region,
-                                                @Query("street") String street,
                                                 @Query("specific_address") String specific_address,
                                                 @Query("linkman") String linkman,
                                                 @Query("contact_type") String contact_type,
@@ -1160,11 +1153,11 @@ public interface HttpService {
 
     //银行卡验证
     @POST("qyBankCard/fourYz.do")
-    Observable<ResultModel<String>> getYinhangZzrz(@Query("user_token") String user_token,
-                                                   @Query("bank_account") String bank_account,
-                                                   @Query("account_person") String account_person,
-                                                   @Query("id_number") String id_number,
-                                                   @Query("phone") String phone);
+    Observable<ResultModel<YinHangKaRzBean>> getYinhangZzrz(@Query("user_token") String user_token,
+                                                            @Query("bank_account") String bank_account,
+                                                            @Query("account_person") String account_person,
+                                                            @Query("id_number") String id_number,
+                                                            @Query("phone") String phone);
 
 
     //原材料ID：346926195929448587b078e7fe613530
@@ -1228,4 +1221,8 @@ public interface HttpService {
     //退出登录
     @POST("allCompanyAccount/logoff.do")
     Observable<ResultModel<String>> exitLogin(@Query("user_token") String user_token);
+
+    //获取店铺省市区
+    @POST("allAddress/getquan.do")
+    Observable<ResultModel<AddressListBean>> getDizhi(@Query("user_token") String user_token);
 }

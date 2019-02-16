@@ -96,43 +96,63 @@ public class CaiGouListXuQiuLevelTwoAdapter extends RecyclerView.Adapter<CaiGouL
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                Log.e("afterTextChanged: ", ""+s);
-            }
-        });
-        holder.etCaigouliang.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus){
-
-                } else {
-                    if(StringUtil.isValid(holder.etCaigouliang.getText().toString().trim())){
-                        int num = Integer.valueOf(holder.etCaigouliang.getText().toString().trim());
-                        activity.setListData(pos,position,num);
+                if(StringUtil.isValid(s.toString().trim())) {
+                    if (StringUtil.isValid(s.toString().trim())) {
+                        int num = Integer.valueOf(s.toString().trim());
+                        activity.setListData(pos, position, num);
                         HttpManager.getInstance()
                                 .with(mContext)
                                 .setObservable(
                                         RetrofitManager
                                                 .getService()
                                                 //user_token  是否是特殊商品不是0 是1    如果是特殊商品 填写要求   市场id  类别id  产品数量
-                                                .editorXuqiudan(num+"",
-                                                        PreferenceUtils.getString(MyApplication.mContext, "token",""),
+                                                .editorXuqiudan(num + "",
+                                                        PreferenceUtils.getString(MyApplication.mContext, "token", ""),
                                                         mList.get(position).getSon_order_id(),
-                                                        listBean.getSpecial_commodity(),""))
+                                                        listBean.getSpecial_commodity(), ""))
                                 .setDataListener(new HttpDataListener<CaiGouDanBean.FllistBean.SonorderlistBean>() {
                                     @Override
                                     public void onNext(CaiGouDanBean.FllistBean.SonorderlistBean data) {
 //                                        activity.getlist();
                                     }
-                                },false);
+                                }, false);
                     }
                 }
             }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
         });
+//        holder.etCaigouliang.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if(hasFocus){
+//
+//                } else {
+//                    if(StringUtil.isValid(holder.etCaigouliang.getText().toString().trim())){
+//                        int num = Integer.valueOf(holder.etCaigouliang.getText().toString().trim());
+//                        activity.setListData(pos,position,num);
+//                        HttpManager.getInstance()
+//                                .with(mContext)
+//                                .setObservable(
+//                                        RetrofitManager
+//                                                .getService()
+//                                                //user_token  是否是特殊商品不是0 是1    如果是特殊商品 填写要求   市场id  类别id  产品数量
+//                                                .editorXuqiudan(num+"",
+//                                                        PreferenceUtils.getString(MyApplication.mContext, "token",""),
+//                                                        mList.get(position).getSon_order_id(),
+//                                                        listBean.getSpecial_commodity(),""))
+//                                .setDataListener(new HttpDataListener<CaiGouDanBean.FllistBean.SonorderlistBean>() {
+//                                    @Override
+//                                    public void onNext(CaiGouDanBean.FllistBean.SonorderlistBean data) {
+////                                        activity.getlist();
+//                                    }
+//                                },false);
+//                    }
+//                }
+//            }
+//        });
         holder.tvTsyq.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

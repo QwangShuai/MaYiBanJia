@@ -496,16 +496,34 @@ public class QueRenDingDanActivity extends BaseActivity {
         switch (requestCode) {
             case 1:
                 if (resultCode == 1 && data != null) {
-                    number = "";
-                    yunfei = 0.0;
-                    zongzhong = 0.0;
-                    String dizhijson = data.getStringExtra("dizhi");
-                    Log.e("dizhijson", dizhijson);
-                    dizhi = gson.fromJson(dizhijson, AddressListBean.class);
-                    count = 1;
-                    initdizhi();
-                    getsplist();
-                    adapter.notifyDataSetChanged();
+                    if(data.getIntExtra("size",0)==0){
+                        tvSpjine.setText("0");
+                        tvYunfei.setText("0");
+                        tvHejijine.setText("0");
+                        tvWudizhi.setVisibility(View.VISIBLE);
+                        llYoudizhi.setVisibility(View.GONE);
+                        count = 0;
+                        number = "";
+                        yunfei = 0.0;
+                        zongzhong = 0.0;
+                        initdizhi();
+                        getsplist();
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        llYoudizhi.setVisibility(View.VISIBLE);
+                        tvWudizhi.setVisibility(View.GONE);
+                        number = "";
+                        yunfei = 0.0;
+                        zongzhong = 0.0;
+                        String dizhijson = data.getStringExtra("dizhi");
+                        Log.e("dizhijson", dizhijson);
+                        dizhi = gson.fromJson(dizhijson, AddressListBean.class);
+                        count = 1;
+                        initdizhi();
+                        getsplist();
+                        adapter.notifyDataSetChanged();
+                    }
+
                 }
                 break;
         }

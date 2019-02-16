@@ -12,6 +12,15 @@ public class JYMXItemBean {
     private String create_time;
     private String order_id;
     private String pay_number;
+    private String reasons;
+
+    public String getReasons() {
+        return reasons;
+    }
+
+    public void setReasons(String reasons) {
+        this.reasons = reasons;
+    }
 
     public String getState() {
         return state;

@@ -36,7 +36,8 @@ public class JiaoYiXiangQingActivity extends BaseActivity {
     TextView tvNumber;
     @BindView(R.id.tv_order_number)
     TextView tvOrderNumber;
-
+    @BindView(R.id.tv_reasons)
+    TextView tvSeasons;
     private Context mContext;
     private String id;
     @Override
@@ -107,6 +108,7 @@ public class JiaoYiXiangQingActivity extends BaseActivity {
                         tvTime.setText(bean.getCreate_time());
                         tvNumber.setText(bean.getPay_number());
                         tvOrderNumber.setText(bean.getOrder_id());
+                        tvSeasons.setText(bean.getReasons());
                     }
                 });
     }

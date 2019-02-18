@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
@@ -78,7 +79,8 @@ public class YeWuYuanMainActivity extends BaseActivity {
     private String type = "1";
     private String role = "2";
     private SwipeMenuRecyclerView.LoadMoreListener mLoadMoreListener;
-
+    private long exitTime = 0;
+    private boolean isOne = true;
     @Override
     public int getLayoutId() {
         return R.layout.activity_yewuyuanmain;
@@ -159,9 +161,13 @@ public class YeWuYuanMainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        ye = 1;
-        mlist.clear();
-        getQiyeLiebiao(type,role);
+        if(isOne){
+            isOne = false;
+        } else {
+            ye = 1;
+            mlist.clear();
+            getQiyeLiebiao(type,role);
+        }
     }
 
     //查询企业列表
@@ -466,5 +472,20 @@ public class YeWuYuanMainActivity extends BaseActivity {
                         AppManager.getAppManager().finishAllActivity();
                     }
                 });
+    }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        exit();
+    }
+    public void exit() {
+        if ((System.currentTimeMillis() - exitTime) > 2000) {
+            Toast.makeText(getApplicationContext(), "再按一次退出程序",
+                    Toast.LENGTH_SHORT).show();
+            exitTime = System.currentTimeMillis();
+        } else {
+            AppManager.getAppManager().AppExit(mContext);
+        }
     }
 }

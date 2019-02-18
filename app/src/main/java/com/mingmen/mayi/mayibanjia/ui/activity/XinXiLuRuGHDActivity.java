@@ -197,11 +197,11 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.tv_xuanzeshichang:
-                if(quid!=0){
+//                if(quid!=0){
                     getshichang();
-                } else {
-                    ToastUtil.showToastLong("请先选择区域");
-                }
+//                } else {
+//                    ToastUtil.showToastLong("请先选择区域");
+//                }
 
                 break;
             case R.id.iv_tu:
@@ -244,9 +244,11 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
                     ToastUtil.showToast("企业名称不可以为空");
                 } else if(TextUtils.isEmpty(tanweihao)){
                     ToastUtil.showToast("摊位号不可以为空");
-                } else if(TextUtils.isEmpty(xiangxidizhi)){
-                    ToastUtil.showToast("详细地址不可以为空");
-                } else if(TextUtils.isEmpty(shichang_id)){
+                }
+//                else if(TextUtils.isEmpty(xiangxidizhi)){
+//                    ToastUtil.showToast("详细地址不可以为空");
+//                }
+                else if(TextUtils.isEmpty(shichang_id)){
                     ToastUtil.showToast("市场不可以为空");
                 } else if(!AppUtil.isMobile(etPhone.getText().toString().trim())&&!AppUtil.isPhone(etPhone.getText().toString().trim())){
                     ToastUtil.showToast("请输入正确的联系方式");
@@ -267,7 +269,8 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .qiyexiugai(PreferenceUtils.getString(MyApplication.mContext, "token",""),qiyemingcheng,shengid+"",shiid+"",quid+"","", xiangxidizhi,yewuyuanweizhi,shidizhaopian,leibieid,"",random_id,"2",tanweihao,shichang_id,etPhone.getText().toString().trim(),qiyeid))
+//                                .qiyexiugai(PreferenceUtils.getString(MyApplication.mContext, "token",""),qiyemingcheng,shengid+"",shiid+"",quid+"","", xiangxidizhi,yewuyuanweizhi,shidizhaopian,leibieid,"",random_id,"2",tanweihao,shichang_id,etPhone.getText().toString().trim(),qiyeid))
+                                .qiyexiugai(PreferenceUtils.getString(MyApplication.mContext, "token",""),qiyemingcheng,"","","","", "",yewuyuanweizhi,shidizhaopian,leibieid,"",random_id,"2",tanweihao,shichang_id,etPhone.getText().toString().trim(),qiyeid))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {

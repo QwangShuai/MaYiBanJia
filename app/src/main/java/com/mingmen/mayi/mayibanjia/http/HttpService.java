@@ -1138,12 +1138,12 @@ public interface HttpService {
                                                          @Query("ct_buy_final_id") String ct_buy_final_id);
 
     //获取审批详情3级
-    @POST("ctBuyHostorder/queryListXQ_XCX")
+    @POST("ctBuyHostorder/queryListXQ_XCX.do")
     Observable<ResultModel<CaiGouDanBean>> getShenpiThree(@Query("user_token") String user_token,
                                                           @Query("purchase_id") String purchase_id);
 
     //获取采购单名称
-    @POST("ctBuyHostorder/queryBySonorderName")
+    @POST("ctBuyHostorder/queryBySonorderName.do")
     Observable<ResultModel<List<CaiGouMingChengBean>>> getCgmc(@Query("user_token") String user_token,
                                                                @Query("ct_buy_final_id") String ct_buy_final_id);
 
@@ -1162,13 +1162,13 @@ public interface HttpService {
 
     //原材料ID：346926195929448587b078e7fe613530
     //获取采购单名称
-    @POST("ctObserver/selectByNumerAndClassify_id")
+    @POST("ctObserver/selectByNumerAndClassify_id.do")
     Observable<ResultModel<List<FCGName>>> getFeiLei(@Query("user_token") String user_token,
                                                      @Query("parent_id") String parent_id,
                                                      @Query("classify_grade") String classify_grade);
 
     //获取三四级名称
-    @POST("gyCommodity/queryByClassify_name")
+    @POST("gyCommodity/queryByClassify_name.do")
     Observable<ResultModel<List<FCGName>>> searchSpList(@Query("user_token") String user_token,
                                                         @Query("commodity_name") String commodity_name);
 

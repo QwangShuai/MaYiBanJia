@@ -115,15 +115,16 @@ public class SiJiActivity extends BaseActivity {
                 });
     }
     private void showTuiChuPop() {
-        View view = View.inflate(mContext, R.layout.pop_tuichu, null);
+        View view = View.inflate(mContext, R.layout.pop_change_pwd, null);
         tuichupop = new PopupWindow(view);
 
         WindowManager wm1 = this.getWindowManager();
         int width = wm1.getDefaultDisplay().getWidth();
         int height = wm1.getDefaultDisplay().getHeight();
         tuichupop.setWidth(AppUtil.dip2px(130));
-        tuichupop.setHeight(AppUtil.dip2px(50));
+        tuichupop.setHeight(AppUtil.dip2px(100));
         LinearLayout ll_tuichu = view.findViewById(R.id.ll_tuichu);
+        LinearLayout ll_change_pwd = view.findViewById(R.id.ll_change_pwd);
         ll_tuichu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,6 +142,14 @@ public class SiJiActivity extends BaseActivity {
                         tuichupop.dismiss();
                     }
                 });
+            }
+        });
+        ll_change_pwd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent(mContext,WoDeZhangHuActivity.class);
+                startActivity(it);
+                tuichupop.dismiss();
             }
         });
         tuichupop.setOutsideTouchable(true);

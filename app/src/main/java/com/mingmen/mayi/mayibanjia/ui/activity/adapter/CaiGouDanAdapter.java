@@ -31,6 +31,8 @@ public class CaiGouDanAdapter extends BaseQuickAdapter<CaiGouDanBean, BaseViewHo
     private LinearLayout ll;
     private BaseViewHolder helper;
     private boolean isShow;
+    private String type;
+    public static final int viewtype_normaldata = 0,viewtype_erpdata = 1;
 
     public CaiGouDanAdapter(Resources resources) {
         super(R.layout.item_caigoudan);
@@ -51,7 +53,7 @@ public class CaiGouDanAdapter extends BaseQuickAdapter<CaiGouDanBean, BaseViewHo
         ll = helper.getView(R.id.ll_rongqi);
         helper.addOnClickListener(R.id.bt_xiangqing);
         helper.addOnClickListener(R.id.iv_xuanzhong);
-
+        type = item.getOrder_audit_state();
         helper.setText(R.id.tv_shijian, item.getCreate_time());
         switch (Integer.parseInt(item.getOrder_audit_state())) {
             case 901://审核通过
@@ -82,7 +84,6 @@ public class CaiGouDanAdapter extends BaseQuickAdapter<CaiGouDanBean, BaseViewHo
         }
 
         ivXuanzhong.setSelected(item.isSelect());
-
         helper.setText(R.id.tv_zongjia, item.getZongjia() == null ? "" : "¥" + item.getZongjia());
         helper.setText(R.id.tv_caigoudanming, item.getPurchase_name() != null ? item.getPurchase_name() : "");
     }
@@ -91,5 +92,10 @@ public class CaiGouDanAdapter extends BaseQuickAdapter<CaiGouDanBean, BaseViewHo
 //        ivXuanzhong.setVisibility(b?View.VISIBLE:View.GONE);
         isShow = b;
         notifyDataSetChanged();
+    }
+
+    public int getViewType() {
+        // current menu type
+        return type.equals("903")?viewtype_erpdata:viewtype_normaldata;
     }
 }

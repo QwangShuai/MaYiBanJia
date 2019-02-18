@@ -506,7 +506,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                         number = "";
                         yunfei = 0.0;
                         zongzhong = 0.0;
-                        initdizhi();
+//                        initdizhi();
                         getsplist();
                         adapter.notifyDataSetChanged();
                     } else {
@@ -530,7 +530,6 @@ public class QueRenDingDanActivity extends BaseActivity {
     }
 
     private void initdizhi() {
-
         tvShouhuorenming.setText(dizhi.getLinkman());
         tvShouhuorendianhua.setText(dizhi.getContact_type());
         if (Integer.parseInt(dizhi.getDefault_address()) != 0) {

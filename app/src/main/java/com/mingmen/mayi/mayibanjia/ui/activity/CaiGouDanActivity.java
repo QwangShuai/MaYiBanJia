@@ -179,7 +179,7 @@ public class CaiGouDanActivity extends BaseActivity {
         });
         rvCaigoudan.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
 
-// 创建菜单：
+        // 创建菜单：
         SwipeMenuCreator mSwipeMenuCreator = new SwipeMenuCreator() {
             @Override
             public void onCreateMenu(SwipeMenu rightMenuleftMenu, SwipeMenu rightMenu, int viewType) {
@@ -206,19 +206,24 @@ public class CaiGouDanActivity extends BaseActivity {
                 final int direction = menuBridge.getDirection(); // 左侧还是右侧菜单。
                 final int adapterPosition = menuBridge.getAdapterPosition(); // RecyclerView的Item的position。
                 final CaiGouDanBean item = (CaiGouDanBean) adapter.getItem(adapterPosition);
-                HttpManager.getInstance()
-                        .with(mContext)
-                        .setObservable(
-                                RetrofitManager
-                                        .getService()
-                                        .delxuqiudan(PreferenceUtils.getString(MyApplication.mContext, "token", ""), item.getPurchase_id()))
-                        .setDataListener(new HttpDataListener<String>() {
-                            @Override
-                            public void onNext(String data) {
-                                adapter.remove(adapterPosition);
-                                int menuPosition = menuBridge.getPosition(); // 菜单在RecyclerView的Item中的Position。
-                            }
-                        });
+                if(item.getOrder_audit_state().equals("903")){
+                    HttpManager.getInstance()
+                            .with(mContext)
+                            .setObservable(
+                                    RetrofitManager
+                                            .getService()
+                                            .delxuqiudan(PreferenceUtils.getString(MyApplication.mContext, "token", ""), item.getPurchase_id()))
+                            .setDataListener(new HttpDataListener<String>() {
+                                @Override
+                                public void onNext(String data) {
+                                    adapter.remove(adapterPosition);
+                                    int menuPosition = menuBridge.getPosition(); // 菜单在RecyclerView的Item中的Position。
+                                }
+                            });
+                } else {
+                    ToastUtil.showToastLong("此状态不可删除");
+                }
+
 
             }
         };

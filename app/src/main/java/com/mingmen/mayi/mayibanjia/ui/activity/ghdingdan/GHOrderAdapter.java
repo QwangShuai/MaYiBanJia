@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
+import com.mingmen.mayi.mayibanjia.bean.AddQrCodeBean;
 import com.mingmen.mayi.mayibanjia.bean.GHOrderBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
@@ -202,10 +203,22 @@ public class GHOrderAdapter extends RecyclerView.Adapter<GHOrderAdapter.ViewHold
             holder.tv_dayin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    HttpManager.getInstance()
+                            .with(mContext)
+                            .setObservable(
+                                    RetrofitManager
+                                            .getService()
+                                            .getQrCodeSp(PreferenceUtils.getString(MyApplication.mContext, "token", ""),bean.getGy_order_id(),"2","1"))
+                            .setDataListener(new HttpDataListener<List<AddQrCodeBean>>() {
+                                @Override
+                                public void onNext(final List<AddQrCodeBean> data) {
+                                    Intent it = new Intent(mContext, AddQrCodeActivity.class);
+                                    it.putExtra("id", bean.getGy_order_id());
+                                    mContext.startActivity(it);
+                                }
+                            });
                     //if (!TextUtils.isEmpty(String.valueOf(bean.getDriver_name()))) {
-                    Intent it = new Intent(mContext, AddQrCodeActivity.class);
-                    it.putExtra("id", bean.getGy_order_id());
-                    mContext.startActivity(it);
+
 //                    GHDOrderActivity activity = new GHDOrderActivity();
 //                    Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.qr_code);
 //                    activity.dayinQrCode(bitmap);

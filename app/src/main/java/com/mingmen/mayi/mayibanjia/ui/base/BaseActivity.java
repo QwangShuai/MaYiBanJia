@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
+import com.mingmen.mayi.mayibanjia.ui.activity.GongYingDuanShouYeActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.LoginActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ZhuCeActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.XCFlowLayout;
@@ -138,10 +139,15 @@ public abstract class BaseActivity extends AppCompatActivity {
             it.setClass(mContext, ZhuCeActivity.class) ;
             it.putExtra("yemian","2");
         }
+
         PreferenceUtils.putBoolean(MyApplication.mContext,"isLogin",false);
         PreferenceUtils.clear(MyApplication.mContext);
-        PollingUtils.stopPollingService(mContext,PollingService.class, PollingService.ACTION);
         mContext.startActivity(it);
+        AppManager.getAppManager().finishAllActivity();
+        if (GongYingDuanShouYeActivity.instance!=null){
+            PollingUtils.stopPollingService(GongYingDuanShouYeActivity.instance, PollingService.class, PollingService.ACTION);
+            GongYingDuanShouYeActivity.instance.finish();
+        }
     }
 }
 

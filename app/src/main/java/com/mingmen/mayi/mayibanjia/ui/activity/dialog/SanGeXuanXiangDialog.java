@@ -41,7 +41,7 @@ public class SanGeXuanXiangDialog extends BaseFragmentDialog implements View.OnC
 
     @Override
     protected int getLayoutResId() {
-        return R.layout.dialog_sangexuanxiang;
+        return R.layout.pop_sigexuanxiang;
     }
 
     @Override
@@ -58,6 +58,10 @@ public class SanGeXuanXiangDialog extends BaseFragmentDialog implements View.OnC
     }
 
     private void initEvent(){
+        tvXuanxiang1.setText("全部");
+        tvXuanxiang2.setText("已上架");
+        tvXuanxiang3.setText("已下架");
+        tvXuanxiang4.setText("待审核");
         setOnClickListener(this,tvXuanxiang1,tvXuanxiang2,tvXuanxiang3,tvXuanxiang4);
 //        setOnClickListener(this,tvXuanxiang1,tvXuanxiang2,tvXuanxiang3  );
         setOnClickListener(this,R.id.cancel_view);

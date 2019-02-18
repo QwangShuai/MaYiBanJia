@@ -242,6 +242,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
             tvTitle.setText("全部商家");
         }
         mlist.clear();
+        adapter.notifyDataSetChanged();
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
@@ -266,7 +267,6 @@ public class YeWuYuanMainActivity extends BaseActivity {
                         }
                     }
                 });
-
     }
 
     //删除

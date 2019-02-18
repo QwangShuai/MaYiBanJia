@@ -132,10 +132,19 @@ public class GHOrderAdapter extends RecyclerView.Adapter<GHOrderAdapter.ViewHold
             holder.iv_del.setVisibility(View.GONE);
             holder.tv_state.setVisibility(View.GONE);
             holder.tv_wait_state.setVisibility(View.GONE);
-            holder.tv_peisongyuan.setText("配送员:" + bean.getDriver_name());
+            Log.d("abcdefg",String.valueOf(bean.getDriver_name()));
+            if(StringUtil.isValid(String.valueOf(bean.getDriver_name()))){
+                holder.tv_peisongyuan.setText("配送员:" + bean.getDriver_name());
+                holder.tv_chepaihao.setText(String.valueOf(bean.getPlate_number()));
+                //holder.tv_fahuoshijian.setText("发货时间:" + String.valueOf(bean.getWl_sweep_time()));
+
+            }else{
+                holder.tv_peisongyuan.setVisibility(View.GONE);
+                holder.tv_phone.setVisibility(View.GONE);
+                holder.iv_dianhua.setVisibility(View.GONE);
+                holder.tv_chepaihao.setVisibility(View.GONE);
+            }
             holder.tv_phone.setText(String.valueOf(bean.getDriver_phone()));
-            holder.tv_chepaihao.setText(String.valueOf(bean.getPlate_number()));
-            //holder.tv_fahuoshijian.setText("发货时间:" + String.valueOf(bean.getWl_sweep_time()));
             holder.tv_end_time.setText(bean.getMj_sweep_time());
             holder.tvTuikuan.setVisibility(View.GONE);
         }

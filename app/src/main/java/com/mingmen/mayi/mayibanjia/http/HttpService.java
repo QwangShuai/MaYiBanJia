@@ -67,6 +67,7 @@ import com.mingmen.mayi.mayibanjia.bean.WeiYiQrCodeBean;
 import com.mingmen.mayi.mayibanjia.bean.WoDeBean;
 import com.mingmen.mayi.mayibanjia.bean.WuLiuBean;
 import com.mingmen.mayi.mayibanjia.bean.WuLiuObjBean;
+import com.mingmen.mayi.mayibanjia.bean.XJSPXuanZeBean;
 import com.mingmen.mayi.mayibanjia.bean.XQPingJiaBean;
 import com.mingmen.mayi.mayibanjia.bean.XiTongTuiJianBean;
 import com.mingmen.mayi.mayibanjia.bean.XuanZeYinHangKaBean;
@@ -330,6 +331,7 @@ public interface HttpService {
     //查询企业列表（业务员）
     @POST("allCompany/queryAll.do")
     Observable<ResultModel<List<QiYeLieBiaoBean>>> getqiyeliebiao(@Query("user_token") String user_token,
+                                                                  @Query("typeA") String typeA,
                                                                   @Query("type") String type,
                                                                   @Query("pageNumber") String pageNumber,
                                                                   @Query("role") String role);
@@ -352,6 +354,7 @@ public interface HttpService {
     Observable<ResultModel<List<QiYeLieBiaoBean>>> getqiyedaicanshu(@Query("user_token") String user_token,
                                                                     @Query("company_name") String company_name,
                                                                     @Query("parent_number") String parent_number,
+                                                                    @Query("typeA") String typeA,
                                                                     @Query("type") String type);
 
     //删除企业（业务员）
@@ -1225,4 +1228,9 @@ public interface HttpService {
     //获取店铺省市区
     @POST("allAddress/getquan.do")
     Observable<ResultModel<AddressListBean>> getDizhi(@Query("user_token") String user_token);
+
+    //获取商品三级
+    @POST("ctObserver/selectThree.do")
+    Observable<ResultModel<List<FCGName>>> getThreeFenlei(@Query("user_token") String user_token,
+                                                                 @Query("classify_name") String classify_name);
 }

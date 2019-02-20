@@ -27,6 +27,8 @@ import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.AppManager;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
+import com.mingmen.mayi.mayibanjia.utils.PollingService;
+import com.mingmen.mayi.mayibanjia.utils.PollingUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
@@ -78,7 +80,10 @@ public class LoginActivity extends BaseActivity {
             tiaozhuan(PreferenceUtils.getString(MyApplication.mContext, "juese", ""),
                     PreferenceUtils.getInt(MyApplication.mContext,"random_id",0));
         }
-
+        if (GongYingDuanShouYeActivity.instance!=null){
+            PollingUtils.stopPollingService(GongYingDuanShouYeActivity.instance, PollingService.class, PollingService.ACTION);
+            GongYingDuanShouYeActivity.instance.finish();
+        }
         if ("魅族".equals(AppUtil.getDeviceBrand())) {
 
         } else {

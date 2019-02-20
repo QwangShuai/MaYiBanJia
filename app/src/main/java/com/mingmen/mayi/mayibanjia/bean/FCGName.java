@@ -47,9 +47,36 @@ public class FCGName {
     private String sort;
     private PagerBean pager;
     private String order;
-    private String two_classify_id;
     private int rows;
     private boolean isSelect;
+    private String one_classify_name;
+    private String two_classify_name;
+    private String one_classify_id;
+    private String two_classify_id;
+
+    public String getOne_classify_name() {
+        return one_classify_name;
+    }
+
+    public void setOne_classify_name(String one_classify_name) {
+        this.one_classify_name = one_classify_name;
+    }
+
+    public String getTwo_classify_name() {
+        return two_classify_name;
+    }
+
+    public void setTwo_classify_name(String two_classify_name) {
+        this.two_classify_name = two_classify_name;
+    }
+
+    public String getOne_classify_id() {
+        return one_classify_id;
+    }
+
+    public void setOne_classify_id(String one_classify_id) {
+        this.one_classify_id = one_classify_id;
+    }
 
     public boolean isSelect() {
         return isSelect;

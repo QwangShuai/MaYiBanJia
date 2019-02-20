@@ -55,6 +55,7 @@ public class ZiZhiRenZhengActivity extends BaseActivity {
     private String xinyongma = "";
     private String shenfenzheng = "";
     private String name = "";
+    private String state;
     @Override
     public int getLayoutId() {
         return R.layout.activity_zi_zhi_ren_zheng;
@@ -65,9 +66,8 @@ public class ZiZhiRenZhengActivity extends BaseActivity {
         tvTitle.setText("资质认证");
         mContext = ZiZhiRenZhengActivity.this;
         yemian = getIntent().getStringExtra("yemian");
-        if("审核通过".equals(getIntent().getStringExtra("state"))||"待审核".equals(getIntent().getStringExtra("state"))){
-            getZizhiShow();
-        }
+        state = getIntent().getStringExtra("state");
+        getZizhiShow();
 
     }
 
@@ -108,12 +108,14 @@ public class ZiZhiRenZhengActivity extends BaseActivity {
                         Glide.with(mContext).load(bean.getBusiness_license()).into(ivYingyezhizhao);
                         tvFuzeren.setText(bean.getPrincipal());
                         etName.setText(bean.getLegal_person());
-                        etName.setEnabled(false);
+                        if(state.equals("审核中")||state.equals("审核成功")){
+                            etName.setEnabled(false);
+                            etXinyongma.setEnabled(false);
+                            etShenfenzheng.setEnabled(false);
+                            btnSubmit.setVisibility(View.GONE);
+                        }
                         etXinyongma.setText(bean.getDuty_paragraph());
-                        etXinyongma.setEnabled(false);
                         etShenfenzheng.setText(bean.getId_number());
-                        etShenfenzheng.setEnabled(false);
-                        btnSubmit.setVisibility(View.GONE);
                     }
                 });
     }

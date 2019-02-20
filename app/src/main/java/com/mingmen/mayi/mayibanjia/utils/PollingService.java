@@ -57,7 +57,7 @@ public class PollingService extends Service {
     public void onCreate() {
         super.onCreate();
         Timer timer = new Timer();
-//        if (PollingUtils.isOpen) {
+        if (PollingUtils.isOpen) {
             TimerTask task = new TimerTask() {
                 @Override
                 public void run() {
@@ -69,9 +69,9 @@ public class PollingService extends Service {
                 }
             };
             timer.schedule(task, 0, 10000);
-//        } else {
-//            timer.cancel();
-//        }
+        } else {
+            timer.cancel();
+        }
 
 
     }

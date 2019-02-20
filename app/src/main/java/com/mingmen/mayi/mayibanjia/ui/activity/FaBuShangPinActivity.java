@@ -46,6 +46,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.XinJianSpMohuAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.PhotoDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
+import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
@@ -193,7 +194,7 @@ public class FaBuShangPinActivity extends BaseActivity {
     public int getLayoutId() {
         return R.layout.activity_fabushangpin;
     }
-
+    private int REQUEST_CODE = 5;
     @Override
     protected void initData() {
         mContext = this;
@@ -293,7 +294,8 @@ public class FaBuShangPinActivity extends BaseActivity {
                 });
                 break;
             case R.id.ll_fenleimingcheng:
-                getFeilei(yclId, "2");
+                setIntentType();
+//                getFeilei(yclId, "2");
                 break;
             case R.id.ll_sanjiguige:
 //                if ("".equals(sanjiid)) {
@@ -512,6 +514,18 @@ public class FaBuShangPinActivity extends BaseActivity {
                     }
                 }
                 break;
+        }
+        if(resultCode==4){
+            if(requestCode==REQUEST_CODE){
+                if(StringUtil.isValid(data.getStringExtra("name"))){
+                    tvFenleimingcheng.setText(data.getStringExtra("name"));
+                    lingjiid = data.getStringExtra("one_id");
+                    yclId = data.getStringExtra("one_id");
+                    yijiid = data.getStringExtra("two_id");
+                    erjiid = data.getStringExtra("three_id");
+                    etSpming.setEnabled(true);
+                }
+            }
         }
     }
 
@@ -832,5 +846,10 @@ public class FaBuShangPinActivity extends BaseActivity {
                         etNumber.setText(data.get(0).getAffiliated_number());
                     }
                 });
+    }
+    private void setIntentType(){
+        Intent it = new Intent();
+        it.setClass(mContext, XJSPFeiLeiXuanZeActivity.class);
+        startActivityForResult(it,REQUEST_CODE);
     }
 }

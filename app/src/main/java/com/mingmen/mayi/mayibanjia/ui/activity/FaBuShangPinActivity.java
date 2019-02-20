@@ -314,7 +314,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                             sanjiguigeid = item.getSpec_id() + "";
                             tvSanji.setText(sanjiguigename);
                             tvYxgg.setText("每"+item.getSpec_name()+"换算单位为");
-                            if (StringUtil.isValid(item.getAffiliated_spec())) {
+                            if (StringUtil.isValid(item.getAffiliated_spec_name())) {
                                 llDw.setVisibility(View.VISIBLE);
                                 isGuige = true;
                                 getZuixiaoGuige();

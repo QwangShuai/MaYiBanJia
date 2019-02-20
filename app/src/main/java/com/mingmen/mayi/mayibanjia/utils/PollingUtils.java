@@ -17,10 +17,10 @@ import android.util.Log;
  *
  */
 public class PollingUtils {
-//    public static boolean isOpen=false;
+    public static boolean isOpen=false;
     //开启轮询服务
     public static void startPollingService(Context context, int seconds, Class<?> cls,String action) {
-//        isOpen=true;
+        isOpen=true;
         //获取AlarmManager系统服务
         AlarmManager manager = (AlarmManager) context
                 .getSystemService(Context.ALARM_SERVICE);
@@ -39,7 +39,7 @@ public class PollingUtils {
     }
     //停止轮询服务
     public static void stopPollingService(Context context, Class<?> cls,String action) {
-//        isOpen=false;
+        isOpen=false;
         Log.e("停止轮询服务", "停止轮询服务");
         AlarmManager manager = (AlarmManager) context
                 .getSystemService(Context.ALARM_SERVICE);
@@ -49,5 +49,6 @@ public class PollingUtils {
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
         //取消正在执行的服务
         manager.cancel(pendingIntent);
+        context.stopService(intent);
     }
 }

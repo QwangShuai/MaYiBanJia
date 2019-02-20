@@ -131,23 +131,19 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public static void goLogin(Context mContext,String state){
-
-        Intent it = new Intent();
-        if(state.equals("login")){
-         it.setClass(mContext, LoginActivity.class) ;
-        } else {
-            it.setClass(mContext, ZhuCeActivity.class) ;
-            it.putExtra("yemian","2");
-        }
-
-        PreferenceUtils.putBoolean(MyApplication.mContext,"isLogin",false);
-        PreferenceUtils.clear(MyApplication.mContext);
-        mContext.startActivity(it);
-        AppManager.getAppManager().finishAllActivity();
-        if (GongYingDuanShouYeActivity.instance!=null){
-            PollingUtils.stopPollingService(GongYingDuanShouYeActivity.instance, PollingService.class, PollingService.ACTION);
-            GongYingDuanShouYeActivity.instance.finish();
-        }
+//        if(LoginActivity.instance==null&&!state.equals("login")){
+            Intent it = new Intent();
+            if(state.equals("login")){
+                it.setClass(mContext, LoginActivity.class) ;
+            } else {
+                it.setClass(mContext, ZhuCeActivity.class) ;
+                it.putExtra("yemian","2");
+            }
+            PreferenceUtils.putBoolean(MyApplication.mContext,"isLogin",false);
+            PreferenceUtils.clear(MyApplication.mContext);
+            mContext.startActivity(it);
+            AppManager.getAppManager().finishAllActivity();
+//        }
     }
 }
 

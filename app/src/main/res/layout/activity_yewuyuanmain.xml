@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
@@ -57,18 +58,26 @@
                 android:layout_alignParentRight="true"/>
         </RelativeLayout>
     </LinearLayout>
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/srl_shuaxin"
+    <com.mingmen.mayi.mayibanjia.ui.view.PagerSlidingTabStrip
+        android:id="@+id/tabs_dingdan"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/white"
+        app:pstsDividerColor="@color/transparent"
+        app:pstsIndicatorColor="@color/zangqing"
+        app:pstsIndicatorHeight="4dp"
+        app:pstsTabPaddingLeftRight="2dp"
+        app:pstsShouldExpand="true"
+        app:pstsTabBackground="@color/transparent"
+        app:pstsUnderlineHeight="1dp"></com.mingmen.mayi.mayibanjia.ui.view.PagerSlidingTabStrip>
+
+
+    <android.support.v4.view.ViewPager
         android:layout_weight="1"
-        >
-    <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
-        android:id="@+id/rv_qiyeliebiao"
+        android:id="@+id/vp_dingdan"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        ></com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView>
-    </android.support.v4.widget.SwipeRefreshLayout>
+        android:background="@color/white"></android.support.v4.view.ViewPager>
     <TextView
         android:id="@+id/tv_right"
         android:layout_width="match_parent"

@@ -23,6 +23,15 @@ public class FbspGuiGeBean {
         private String spec_grade;
         private String affiliated_spec;
         private String affiliated_number;
+        private String affiliated_spec_name;
+
+    public String getAffiliated_spec_name() {
+        return affiliated_spec_name;
+    }
+
+    public void setAffiliated_spec_name(String affiliated_spec_name) {
+        this.affiliated_spec_name = affiliated_spec_name;
+    }
 
     public String getAffiliated_number() {
         return affiliated_number;

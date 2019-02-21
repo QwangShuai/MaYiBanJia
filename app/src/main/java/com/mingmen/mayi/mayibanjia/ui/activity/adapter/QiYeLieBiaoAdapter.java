@@ -16,8 +16,10 @@ import com.bumptech.glide.Glide;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.QiYeLieBiaoBean;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShangPinGuanLiActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.YeWuYuanMainActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dingdan.DingDanActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ghdingdan.GHDOrderActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.yewuyuan.BaseYeWuYuanFragment;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
@@ -37,15 +39,19 @@ public class QiYeLieBiaoAdapter extends RecyclerView.Adapter<QiYeLieBiaoAdapter.
     private List<QiYeLieBiaoBean> mList;
     private OnItemClickListener mOnItemClickListener;
     private Intent it;
+    private YeWuYuanMainActivity activity;
+    private BaseYeWuYuanFragment fragment;
+//    public QiYeLieBiaoAdapter(Context mContext, List<QiYeLieBiaoBean> list, YeWuYuanMainActivity activity, BaseYeWuYuanFragment fragment) {
     public QiYeLieBiaoAdapter(Context mContext, List<QiYeLieBiaoBean> list) {
         this.mContext = mContext;
         this.mList = list;
+//        this.activity = activity;
+//        this.fragment = fragment;
     }
 
     public interface OnItemClickListener {
         void onClick(View view, int position);
     }
-
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
@@ -59,6 +65,19 @@ public class QiYeLieBiaoAdapter extends RecyclerView.Adapter<QiYeLieBiaoAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
+//        activity.setChangeView(new YeWuYuanMainActivity.ChangeView() {
+//            @Override
+//            public void changeType(String type, String role) {
+//                BaseYeWuYuanFragment.mytype = type;
+//                BaseYeWuYuanFragment.myrole = role;
+//                fragment.getQiyeLiebiao(type,role,1);
+//            }
+//
+//            @Override
+//            public void changCanshu(String name, String leibie) {
+//                fragment.getQiyeLiebiaodaicanshu(name,leibie);
+//            }
+//        });
         final QiYeLieBiaoBean data = mList.get(position);
 //        String zi = string.getCompany_name().toString().trim();
 //        holder.tv_ming.setText(zi);

@@ -135,6 +135,7 @@ public class DingDanXiangQingActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<DdxqListBean>() {
                     @Override
                     public void onNext(DdxqListBean data) {;
+                        btnQuerenShouhuo.setVisibility(View.GONE);
                         if (data.getState().equals("401")) {
                             tvState.setText("等待卖家付款");
                             llDaifukuan.setVisibility(View.VISIBLE);

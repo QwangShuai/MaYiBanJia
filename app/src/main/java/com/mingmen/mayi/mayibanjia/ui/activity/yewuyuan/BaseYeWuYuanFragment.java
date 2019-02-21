@@ -82,17 +82,18 @@ public abstract class BaseYeWuYuanFragment extends BaseFragment {
     public void onStart() {
         super.onStart();
         initview();
-        getQiyeLiebiao(mytype,myrole);
+        getQiyeLiebiao(mytype,myrole,0);
     }
 
     private void initview() {
         activity = (YeWuYuanMainActivity) getActivity();
+//        adapter = new QiYeLieBiaoAdapter(activity, mlist,activity,BaseYeWuYuanFragment.this);
         adapter = new QiYeLieBiaoAdapter(activity, mlist);
         mLoadMoreListener = new SwipeMenuRecyclerView.LoadMoreListener() {
             @Override
             public void onLoadMore() {
                 // 该加载更多啦。
-                getQiyeLiebiao(mytype,myrole);
+                getQiyeLiebiao(mytype,myrole,0);
             }
         };
 
@@ -112,7 +113,7 @@ public abstract class BaseYeWuYuanFragment extends BaseFragment {
                 // 重置adapter的数据源为空
                 ye = 1;
                 mlist.clear();
-                getQiyeLiebiao(mytype,myrole);
+                getQiyeLiebiao(mytype,myrole,0);
                 refreshLayout.setRefreshing(false);
             }
         });
@@ -186,7 +187,7 @@ public abstract class BaseYeWuYuanFragment extends BaseFragment {
         ye = 1;
 //        updateList(true);
         mlist.clear();
-        getQiyeLiebiao(mytype,myrole);
+        getQiyeLiebiao(mytype,myrole,0);
         adapter.notifyDataSetChanged();
     }
     //编辑
@@ -203,7 +204,7 @@ public abstract class BaseYeWuYuanFragment extends BaseFragment {
         startActivity(intent);
     }
     //查询企业列表..带参数
-    private void getQiyeLiebiaodaicanshu(String trim, String leibieid) {
+    public void getQiyeLiebiaodaicanshu(String trim, String leibieid) {
         Log.e("getQiyeLiebiaodaicanshu",trim+"--"+leibieid);
         HttpManager.getInstance()
                 .with(activity)
@@ -253,7 +254,10 @@ public abstract class BaseYeWuYuanFragment extends BaseFragment {
 //                    }
 //                });
 //    }
-public void getQiyeLiebiao(String type,String role) {
+public void getQiyeLiebiao(String type,String role,int myye) {
+    if(myye!=0){
+        ye = myye;
+    }
     Log.e( "getQiyeLiebiao: ",type+"---"+role +"----");
     HttpManager.getInstance()
             .with(activity)

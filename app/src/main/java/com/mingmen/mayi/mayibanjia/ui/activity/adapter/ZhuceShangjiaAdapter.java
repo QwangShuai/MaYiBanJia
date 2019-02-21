@@ -62,8 +62,22 @@ public class ZhuceShangjiaAdapter extends RecyclerView.Adapter<ZhuceShangjiaAdap
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final QiYeLieBiaoBean data = mList.get(position);
         holder.tvMingzi.setText(data.getCompany_name());
-        holder.tvLeibie.setText(data.getLeiBieName());
-        holder.tvGuimo.setText(data.getGuiMoId()+"平米");
+        if(StringUtil.isValid(data.getLeiBieName())){
+            holder.tvLeibie.setText(data.getLeiBieName());
+        } else {
+            holder.tvLeibie.setVisibility(View.GONE);
+        }
+        if (0!=data.getEvaluation()){
+            holder.rbPingfen.setRating(data.getEvaluation());
+        } else {
+            holder.rbPingfen.setVisibility(View.GONE);
+        }
+        if(StringUtil.isValid(data.getGuiMoId())){
+            holder.tvGuimo.setText("餐位数：" + data.getGuiMoId());
+        } else {
+            holder.tvGuimo.setText("市场："+ data.getSon_number());
+        }
+
         if(StringUtil.isValid(data.getPhoto())){
             Glide.with(mContext).load(data.getPhoto()).into(holder.ivTouxiang);
         }

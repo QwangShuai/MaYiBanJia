@@ -189,11 +189,10 @@ public class LoginActivity extends BaseActivity {
                         PreferenceUtils.putString(MyApplication.mContext,"host_account_type",bean.getHost_account_type());
                         PreferenceUtils.putBoolean(MyApplication.mContext, "isLogin", true);
                         PreferenceUtils.putString(MyApplication.mContext, "token", bean.getToken());
-                        Log.e("role","onNext: "+bean.getRole() );
                         PreferenceUtils.putString(MyApplication.mContext, "juese", bean.getRole());
                         PreferenceUtils.putInt(MyApplication.mContext,"random_id",bean.getRandom_id());
                         zzh = bean.getHost_account_type();
-                        Log.e("onNext: ","我的天啊" +zzh);
+                        Log.e("onNext: ",bean.getRole()+"我的天啊" +zzh);
                         tiaozhuan(bean.getRole(),bean.getRandom_id());
 
                     }
@@ -205,24 +204,24 @@ public class LoginActivity extends BaseActivity {
         if ("5".equals(juese)) {
             Intent intent = new Intent(mContext, WuLiuActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
-            finish();
+            AppManager.getAppManager().finishAllActivity();
         } else if ("4".equals(juese)) {//业务员
             Intent intent = new Intent(mContext, YeWuYuanMainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
-            finish();
+            AppManager.getAppManager().finishAllActivity();
         } else if ("3".equals(juese)) {//物流司机
             Intent intent = new Intent(mContext, SiJiActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
-            finish();
+            AppManager.getAppManager().finishAllActivity();
         } else if ("2".equals(juese)) {//供应端
             if(random_id==1){
                 Intent intent = new Intent(mContext, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
-                finish();
+                AppManager.getAppManager().finishAllActivity();
             } else {
                 Intent intent = new Intent(mContext, GongYingDuanShouYeActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
-                finish();
+                AppManager.getAppManager().finishAllActivity();
             }
 
         } else if ("1".equals(juese)) {//餐厅端
@@ -240,13 +239,13 @@ public class LoginActivity extends BaseActivity {
                                 PreferenceUtils.setQuanxianList(MyApplication.mContext,bean);
                                 intent.putExtra("tosome",3);
                                 startActivity(intent);
-                                finish();
+                                AppManager.getAppManager().finishAllActivity();
                             }
                         });
 
             } else {
                 startActivity(intent);
-                finish();
+                AppManager.getAppManager().finishAllActivity();
             }
 
         }

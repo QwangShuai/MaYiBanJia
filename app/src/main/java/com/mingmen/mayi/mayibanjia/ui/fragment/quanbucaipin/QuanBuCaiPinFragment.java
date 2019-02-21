@@ -765,6 +765,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                                 leiBean.addAll(list);
                                 bindZiXun();
                             } else if (type.equals("3")) {
+                                Log.e(TAG, "onNext: "+"为什么没展示" );
                                 yijiFenLei.clear();
                                 yijiFenLei.add(quanbu);
                                 yijiFenLei.addAll(list);
@@ -1045,9 +1046,11 @@ public class QuanBuCaiPinFragment extends BaseFragment {
             tvPinleiPop.setText("全部");
             tvPinleiPop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
         }
+        setMyManager();
         rv_yijifenlei.setLayoutManager(manager);
         rv_yijifenlei.setAdapter(adapter);
         adapter.setNewData(yijiFenLei);
+        adapter.notifyDataSetChanged();
         adapter.setCallBack(new YiJiFenLeiAdapter.CallBack() {
             @Override
             public void xuanzhong(FCGName msg) {
@@ -1067,7 +1070,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 sousuoshangpin(sousuo, "0");
             }
         });
-        setMyManager();
+
     }
 
     private void showErji() {
@@ -1158,6 +1161,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                     yijipop.dismiss();
                 } else {
 //                        yijipop.showAsDropDown(llShichang);
+                    Log.e(TAG, "showPopOne: "+"开始展示 但是没刷新吗" );
                     showYiJiPop(1);
                 }
             } else {

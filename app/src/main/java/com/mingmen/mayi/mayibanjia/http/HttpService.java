@@ -339,7 +339,7 @@ public interface HttpService {
     //商家模糊查询
     @POST("allCompany/queryAll.do")
     Observable<ResultModel<List<QiYeLieBiaoBean>>> getShangjiaList(@Query("user_token") String user_token,
-                                                                   @Query("type") String type,
+                                                                   @Query("typeA") String typeA,
                                                                    @Query("province") String province,
                                                                    @Query("city") String city,
                                                                    @Query("region") String region,

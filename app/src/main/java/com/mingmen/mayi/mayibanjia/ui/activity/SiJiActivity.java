@@ -214,7 +214,7 @@ public class SiJiActivity extends BaseActivity {
                     public void onNext(String data) {
 //                        PreferenceUtils.clear(MyApplication.mContext);
                         PreferenceUtils.putBoolean(MyApplication.mContext,"isLogin",false);
-                        PreferenceUtils.clear(MyApplication.mContext);
+                        PreferenceUtils.remove(MyApplication.mContext,"juese");
                         Intent intent = new Intent(mContext, LoginActivity.class);
                         startActivity(intent);
                         confirmDialog.dismiss();

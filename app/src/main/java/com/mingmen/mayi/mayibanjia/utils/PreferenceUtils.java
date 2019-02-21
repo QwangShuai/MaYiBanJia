@@ -100,8 +100,7 @@ public class PreferenceUtils {
 
     public static void clear(Context context) {
         getSharedPreference(context);
-        sp.edit().clear();
-        sp.edit().commit();
+        sp.edit().clear().commit();
     }
 
 }

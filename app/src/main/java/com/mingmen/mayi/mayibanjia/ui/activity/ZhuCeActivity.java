@@ -24,6 +24,7 @@ import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
+import com.mingmen.mayi.mayibanjia.utils.AppManager;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
@@ -340,6 +341,7 @@ public class ZhuCeActivity extends BaseActivity {
                         PreferenceUtils.putInt(MyApplication.mContext,"random_id",bean.getRandom_id());
                         PreferenceUtils.putString(MyApplication.mContext,"host_account_type",bean.getHost_account_type());
                         zzh = bean.getHost_account_type();
+                        Log.e("onNext: ",bean.getRole()+"我的天啊" +bean.getRandom_id());
                         tiaozhuan(bean.getRole(),bean.getRandom_id());
 
 
@@ -352,24 +354,24 @@ public class ZhuCeActivity extends BaseActivity {
         if ("5".equals(juese)) {
             Intent intent = new Intent(mContext, WuLiuActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
-            finish();
+            AppManager.getAppManager().finishActivity();
         } else if ("4".equals(juese)) {//业务员
             Intent intent = new Intent(mContext, YeWuYuanMainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
-            finish();
+            AppManager.getAppManager().finishActivity();
         } else if ("3".equals(juese)) {//物流司机
             Intent intent = new Intent(mContext, SiJiActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
-            finish();
+            AppManager.getAppManager().finishActivity();
         } else if ("2".equals(juese)) {//供应端
-            if(random_id==0){
+            if(random_id==0||random_id==3){
                 Intent intent = new Intent(mContext, GongYingDuanShouYeActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
-                finish();
+                AppManager.getAppManager().finishActivity();
             } else {
                 Intent intent = new Intent(mContext, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
-                finish();
+                AppManager.getAppManager().finishActivity();
             }
 
         } else if ("1".equals(juese)) {//餐厅端
@@ -387,13 +389,13 @@ public class ZhuCeActivity extends BaseActivity {
                                 PreferenceUtils.setQuanxianList(MyApplication.mContext,bean);
                                 intent.putExtra("tosome",3);
                                 startActivity(intent);
-                                finish();
+                                AppManager.getAppManager().finishActivity();
                             }
                         });
 
             } else {
                 startActivity(intent);
-                finish();
+                AppManager.getAppManager().finishActivity();
             }
         }
     }

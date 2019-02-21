@@ -1,7 +1,5 @@
 package com.mingmen.mayi.mayibanjia.ui.activity.yewuyuan;
 
-import android.app.Activity;
-
 import com.mingmen.mayi.mayibanjia.ui.activity.dingdan.BaseDingDanFragment;
 
 /**

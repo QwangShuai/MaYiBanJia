@@ -148,7 +148,7 @@ public class ZhangHuXinXiActivity extends BaseActivity {
                     @Override
                     public void onNext(String data) {
                         PreferenceUtils.putBoolean(MyApplication.mContext,"isLogin",false);
-                        PreferenceUtils.clear(MyApplication.mContext);
+                        PreferenceUtils.remove(MyApplication.mContext,"juese");
                         Intent intent = new Intent(mContext, LoginActivity.class);
                         startActivity(intent);
                         confirmDialog.dismiss();

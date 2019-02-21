@@ -131,6 +131,7 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
     protected void initData() {
         mContext = GongYingDuanShouYeActivity.this;
         if (!PollingUtils.isOpen) {
+            Log.e( "initData: ","aaa" );
             PollingUtils.startPollingService(mContext, 1, PollingService.class, PollingService.ACTION);
         }
         if (PreferenceUtils.getInt(mContext, "random_id", 1) == 3) {
@@ -256,7 +257,8 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         //Stop polling service
-        System.out.println("Stop polling service...");
+        Log.e("onDestroy: ","服务开始停止" );
+        PollingUtils.isOpen = false;
         PollingUtils.stopPollingService(mContext, PollingService.class, PollingService.ACTION);
     }
 
@@ -388,7 +390,7 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
                         Intent it = new Intent(mContext, MainActivity.class);
                         it.putExtra("tosome", 3);
                         startActivity(it);
-                        finish();
+                        AppManager.getAppManager().finishActivity();
                     }
                 });
     }

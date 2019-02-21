@@ -44,7 +44,7 @@ import static com.mingmen.mayi.mayibanjia.app.MyApplication.mContext;
  */
 
 public class PollingService extends Service {
-    public static final String ACTION = "com.lambertlei.Services";
+    public static final String ACTION = "com.ssl.Services";
     private static final String ID = "PUSH_NOTIFY_ID";
 
     private static final String NAME = "PUSH_NOTIFY_NAME";

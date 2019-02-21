@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,8 +66,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         //初始化
         imm = (InputMethodManager) this
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
-        initData();
         AppManager.getAppManager().addActivity(this);
+        initData();
     }
 
 
@@ -131,7 +132,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public static void goLogin(Context mContext,String state){
-//        if(LoginActivity.instance==null&&!state.equals("login")){
+
             Intent it = new Intent();
             if(state.equals("login")){
                 it.setClass(mContext, LoginActivity.class) ;
@@ -140,10 +141,15 @@ public abstract class BaseActivity extends AppCompatActivity {
                 it.putExtra("yemian","2");
             }
             PreferenceUtils.putBoolean(MyApplication.mContext,"isLogin",false);
-            PreferenceUtils.clear(MyApplication.mContext);
+            PreferenceUtils.remove(MyApplication.mContext,"juese");
+            if(GongYingDuanShouYeActivity.instance!=null){
+//                Log.e("goLogin: ", "难受啊马飞");
+                PollingUtils.isOpen = false;
+                PollingUtils.stopPollingService(GongYingDuanShouYeActivity.instance,PollingService.class,PollingService.ACTION);
+                GongYingDuanShouYeActivity.instance.finish();
+            }
             mContext.startActivity(it);
             AppManager.getAppManager().finishAllActivity();
-//        }
     }
 }
 

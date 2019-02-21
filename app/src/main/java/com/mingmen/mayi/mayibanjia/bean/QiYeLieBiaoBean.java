@@ -86,6 +86,15 @@ public class QiYeLieBiaoBean {
     private String telephone;
     private String principal;
     private String market_id;
+    private float evaluation;
+
+    public float getEvaluation() {
+        return evaluation;
+    }
+
+    public void setEvaluation(float evaluation) {
+        this.evaluation = evaluation;
+    }
 
     public String getMarket_id() {
         return market_id;

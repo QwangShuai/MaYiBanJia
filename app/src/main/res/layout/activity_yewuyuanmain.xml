@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/bg_fafafa"
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,11 +41,6 @@
                     android:textSize="18sp"
                     android:gravity="center"
                     />
-                <ImageView
-                    android:layout_width="12dp"
-                    android:layout_height="7dp"
-                    android:src="@mipmap/xiangxia_bai"
-                    android:layout_marginLeft="6dp"/>
             </LinearLayout>
             <ImageView
                 android:visibility="gone"
@@ -58,26 +54,89 @@
                 android:layout_alignParentRight="true"/>
         </RelativeLayout>
     </LinearLayout>
-    <com.mingmen.mayi.mayibanjia.ui.view.PagerSlidingTabStrip
-        android:id="@+id/tabs_dingdan"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
+    <LinearLayout
         android:background="@color/white"
-        app:pstsDividerColor="@color/transparent"
-        app:pstsIndicatorColor="@color/zangqing"
-        app:pstsIndicatorHeight="4dp"
-        app:pstsTabPaddingLeftRight="2dp"
-        app:pstsShouldExpand="true"
-        app:pstsTabBackground="@color/transparent"
-        app:pstsUnderlineHeight="1dp"></com.mingmen.mayi.mayibanjia.ui.view.PagerSlidingTabStrip>
-
-
-    <android.support.v4.view.ViewPager
-        android:layout_weight="1"
-        android:id="@+id/vp_dingdan"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"></android.support.v4.view.ViewPager>
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:id="@+id/ll_type"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="15sp"
+                android:layout_marginLeft="13dp"
+                android:id="@+id/tv_type"
+                android:textColor="@color/zangqing"
+                android:text="我的餐厅"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:layout_marginLeft="8dp"
+                android:src="@mipmap/xia_zangqing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:id="@+id/ll_zhuce"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="15sp"
+                android:layout_marginLeft="13dp"
+                android:id="@+id/tv_zhuce"
+                android:textColor="@color/zangqing"
+                android:text="已注册"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:layout_marginLeft="8dp"
+                android:src="@mipmap/xia_zangqing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <!--<TextView-->
+                <!--android:layout_marginLeft="13dp"-->
+                <!--android:id="@+id/tv_type"-->
+                <!--android:textColor="@color/zangqing"-->
+                <!--android:text="我的餐厅"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content" />-->
+            <!--<ImageView-->
+                <!--android:layout_marginLeft="8dp"-->
+                <!--android:src="@mipmap/xia_zangqing"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content" />-->
+        </LinearLayout>
+    </LinearLayout>
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
+            android:id="@+id/rv_qiyeliebiao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"></com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
     <TextView
         android:id="@+id/tv_right"
         android:layout_width="match_parent"

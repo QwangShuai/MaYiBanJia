@@ -7,58 +7,41 @@
         <TextView
             android:id="@+id/tv_xuanxiang1"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="50dp"
             android:gravity="center"
-            android:text="是"
+            android:text="全部餐厅"
             android:textSize="15sp"
             android:textColor="@color/zicolor"
             android:background="@color/white"
             />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray_e7e7e7"/>
         <TextView
             android:id="@+id/tv_xuanxiang2"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="50dp"
             android:gravity="center"
-            android:text="否"
+            android:text="全部供货商"
             android:textSize="15sp"
             android:textColor="#474747"
             android:background="@color/white"
             />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray_e7e7e7"/>
         <TextView
             android:id="@+id/tv_xuanxiang3"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="50dp"
             android:gravity="center"
-            android:text="否"
+            android:text="我的餐厅"
             android:textSize="15sp"
             android:textColor="#474747"
             android:background="@color/white"
             />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray_e7e7e7"/>
         <TextView
             android:id="@+id/tv_xuanxiang4"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="50dp"
             android:gravity="center"
-            android:text="否"
+            android:text="我的供货商"
             android:textSize="15sp"
             android:textColor="#474747"
             android:background="@color/white"
             />
-        <View
-            android:id="@+id/cancel_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#40000000"/>
 </LinearLayout>

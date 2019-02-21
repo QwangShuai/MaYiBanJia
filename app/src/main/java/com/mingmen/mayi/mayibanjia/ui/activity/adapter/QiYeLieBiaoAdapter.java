@@ -19,7 +19,6 @@ import com.mingmen.mayi.mayibanjia.ui.activity.ShangPinGuanLiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.YeWuYuanMainActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dingdan.DingDanActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ghdingdan.GHDOrderActivity;
-import com.mingmen.mayi.mayibanjia.ui.activity.yewuyuan.BaseYeWuYuanFragment;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
@@ -40,7 +39,6 @@ public class QiYeLieBiaoAdapter extends RecyclerView.Adapter<QiYeLieBiaoAdapter.
     private OnItemClickListener mOnItemClickListener;
     private Intent it;
     private YeWuYuanMainActivity activity;
-    private BaseYeWuYuanFragment fragment;
 //    public QiYeLieBiaoAdapter(Context mContext, List<QiYeLieBiaoBean> list, YeWuYuanMainActivity activity, BaseYeWuYuanFragment fragment) {
     public QiYeLieBiaoAdapter(Context mContext, List<QiYeLieBiaoBean> list) {
         this.mContext = mContext;

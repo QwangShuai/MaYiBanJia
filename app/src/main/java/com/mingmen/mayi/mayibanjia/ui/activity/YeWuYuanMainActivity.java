@@ -76,7 +76,8 @@ public class YeWuYuanMainActivity extends BaseActivity {
     private String leibieid = "";
     private PopupWindow tuichupop;
     private PopupWindow typepop;
-    private YeWuYuanDialog dialog;
+    private PopupWindow zhucepop;
+//    private YeWuYuanDialog dialog;
     private long exitTime = 0;
     private QiYeLieBiaoAdapter adapter;
     private QiYeLieBiaoDialog bianjidialog;
@@ -102,13 +103,11 @@ public class YeWuYuanMainActivity extends BaseActivity {
         mContext = YeWuYuanMainActivity.this;
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
-        mlist.clear();
-        getQiyeLiebiao(type, role);
         mLoadMoreListener = new SwipeMenuRecyclerView.LoadMoreListener() {
             @Override
             public void onLoadMore() {
                 // 该加载更多啦。
-                getQiyeLiebiao(type, role);
+                getQiyeLiebiao();
             }
         };
         srlShuaxin.setColorSchemeResources(R.color.zangqing, R.color.zangqing,
@@ -121,7 +120,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
                 // 重置adapter的数据源为空
                 ye = 1;
                 mlist.clear();
-                getQiyeLiebiao(type, role);
+                getQiyeLiebiao();
                 srlShuaxin.setRefreshing(false);
             }
         });
@@ -164,6 +163,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
                 }
             }
         });
+        getQiyeLiebiao();
     }
 
     @Override
@@ -174,12 +174,15 @@ public class YeWuYuanMainActivity extends BaseActivity {
         } else {
             ye = 1;
             mlist.clear();
-            getQiyeLiebiao(type, role);
+            getQiyeLiebiao();
         }
     }
 
     //查询企业列表
-    public void getQiyeLiebiao(String type, String role) {
+    public void getQiyeLiebiao() {
+        if(ye==1){
+            mlist.clear();
+        }
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
@@ -200,8 +203,8 @@ public class YeWuYuanMainActivity extends BaseActivity {
                             } else {
                                 rvQiyeliebiao.loadMoreFinish(true, false);
                             }
-                            adapter.notifyDataSetChanged();
                         }
+                        adapter.notifyDataSetChanged();
                     }
                 });
     }
@@ -242,8 +245,8 @@ public class YeWuYuanMainActivity extends BaseActivity {
                             } else {
                                 rvQiyeliebiao.loadMoreFinish(true, false);
                             }
-                            adapter.notifyDataSetChanged();
                         }
+                        adapter.notifyDataSetChanged();
                     }
                 });
     }
@@ -270,8 +273,8 @@ public class YeWuYuanMainActivity extends BaseActivity {
                             } else {
                                 rvQiyeliebiao.loadMoreFinish(true, false);
                             }
-                            adapter.notifyDataSetChanged();
                         }
+                        adapter.notifyDataSetChanged();
                     }
                 });
 
@@ -284,6 +287,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
                 showTypePop();
                 break;
             case R.id.ll_zhuce:
+                showZhucePop();
                 break;
             case R.id.tv_shaixuan:
                 //搜索弹出框
@@ -390,9 +394,9 @@ public class YeWuYuanMainActivity extends BaseActivity {
                 showTuiChuPop();
                 break;
             case R.id.tv_title:
-                dialog = new YeWuYuanDialog();
-                dialog.setTop(AppUtil.dip2px(44)).setActivity(YeWuYuanMainActivity.this);
-                dialog.show(getSupportFragmentManager());
+//                dialog = new YeWuYuanDialog();
+//                dialog.setTop(AppUtil.dip2px(44)).setActivity(YeWuYuanMainActivity.this);
+//                dialog.show(getSupportFragmentManager());
                 break;
         }
     }
@@ -402,8 +406,8 @@ public class YeWuYuanMainActivity extends BaseActivity {
         tuichupop = new PopupWindow(view);
 
         WindowManager wm1 = this.getWindowManager();
-        int width = wm1.getDefaultDisplay().getWidth();
-        int height = wm1.getDefaultDisplay().getHeight();
+//        int width = wm1.getDefaultDisplay().getWidth();
+//        int height = wm1.getDefaultDisplay().getHeight();
         tuichupop.setWidth(AppUtil.dip2px(130));
         tuichupop.setHeight(AppUtil.dip2px(50));
         LinearLayout ll_tuichu = view.findViewById(R.id.ll_tuichu);
@@ -436,11 +440,11 @@ public class YeWuYuanMainActivity extends BaseActivity {
         typepop = new PopupWindow(view);
 
         WindowManager wm1 = this.getWindowManager();
-//        int width = llType.getWidth();
-        int width = wm1.getDefaultDisplay().getWidth();
+        int width = llType.getWidth();
+//        int width = wm1.getDefaultDisplay().getWidth();
         int height = llType.getHeight();
-        typepop.setWidth(width);
-        typepop.setHeight(width/3);
+        typepop.setWidth(AppUtil.Dp2px(mContext,88));
+        typepop.setHeight(AppUtil.Dp2px(mContext,105));
         TextView tv_qbct = view.findViewById(R.id.tv_xuanxiang1);
         TextView tv_qbghs = view.findViewById(R.id.tv_xuanxiang2);
         TextView tv_wdct = view.findViewById(R.id.tv_xuanxiang3);
@@ -462,6 +466,10 @@ public class YeWuYuanMainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 tvType.setText("全部餐厅");
+                type = "2";
+                role = "1";
+                ye = 1;
+                getQiyeLiebiao();
                 typepop.dismiss();
             }
         });
@@ -469,6 +477,10 @@ public class YeWuYuanMainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 tvType.setText("全部供货商");
+                type = "2";
+                role = "2";
+                ye = 1;
+                getQiyeLiebiao();
                 typepop.dismiss();
             }
         });
@@ -476,6 +488,10 @@ public class YeWuYuanMainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 tvType.setText("我的餐厅");
+                type = "1";
+                role = "1";
+                ye = 1;
+                getQiyeLiebiao();
                 typepop.dismiss();
             }
         });
@@ -483,11 +499,56 @@ public class YeWuYuanMainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 tvType.setText("我的供货商");
+                type = "1";
+                role = "2";
+                ye = 1;
+                getQiyeLiebiao();
                 typepop.dismiss();
             }
         });
     }
+    private void showZhucePop() {
+        View view = View.inflate(mContext, R.layout.pop_yewuyuan_zhuce, null);
+        zhucepop = new PopupWindow(view);
 
+        WindowManager wm1 = this.getWindowManager();
+//        int width = llType.getWidth();
+//        int height = llType.getHeight();
+        zhucepop.setWidth(AppUtil.Dp2px(mContext,58));
+        zhucepop.setHeight(AppUtil.Dp2px(mContext,35));
+        TextView tv_yzc = view.findViewById(R.id.tv_xuanxiang1);
+        TextView tv_wzc = view.findViewById(R.id.tv_xuanxiang2);
+        if(tvZhuce.getText().toString().equals("已注册")){
+            tv_yzc.setVisibility(View.GONE);
+        } else if(tvType.getText().toString().equals("未注册")){
+            tv_wzc.setVisibility(View.GONE);
+        }
+        zhucepop.setOutsideTouchable(true);
+        zhucepop.setBackgroundDrawable(new BitmapDrawable());
+        zhucepop.showAsDropDown(llZhuce);
+
+        tv_yzc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tvZhuce.setText("已注册");
+                zctype = "2";
+                ye = 1;
+                getQiyeLiebiao();
+                zhucepop.dismiss();
+            }
+        });
+        tv_wzc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tvZhuce.setText("未注册");
+                zctype = "1";
+                ye = 1;
+                getQiyeLiebiao();
+                zhucepop.dismiss();
+            }
+        });
+
+    }
     private void exitLogin() {
         HttpManager.getInstance()
                 .with(mContext)

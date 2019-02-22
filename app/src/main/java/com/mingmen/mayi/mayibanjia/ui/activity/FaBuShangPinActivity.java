@@ -451,8 +451,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                             sanjiguigeid = data.get(0).getSpec_id();
                             sanjiguigename = data.get(0).getSpec_name();
                             sanjikexuan = true;
-                            Log.e("MIn_onNext: ",sanjiguigeid+"----"+sanjiguigename );
-
+                            tvYxgg.setText("每"+sanjiguigename+"换算单位为");
 //                            if(StringUtil.isValid(tvSanji.getText().toString().trim())){
 //                                if(isGuige){
 //                                    getZuixiaoGuige();
@@ -841,7 +840,8 @@ public class FaBuShangPinActivity extends BaseActivity {
                         zuixiaoguige.clear();
                         zuixiaoguige.addAll(data);
                         tvZxgg.setText(data.get(0).getSpec_name());
-                        zxid = data.get(0).getSpec_id();
+                        //zxid = data.get(0).getSpec_id();
+                        zxid = data.get(0).getAffiliated_spec();
                         zxname = data.get(0).getSpec_name();
                         etNumber.setText(data.get(0).getAffiliated_number());
                     }

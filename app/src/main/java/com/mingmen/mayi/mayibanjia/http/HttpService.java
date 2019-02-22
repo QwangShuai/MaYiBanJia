@@ -1233,4 +1233,11 @@ public interface HttpService {
     @POST("ctObserver/selectThree.do")
     Observable<ResultModel<List<FCGName>>> getThreeFenlei(@Query("user_token") String user_token,
                                                                  @Query("classify_name") String classify_name);
+    //获取商品三级
+    @POST("notify/getPayNotify.do")
+    Observable<ResultModel<String>> postZFB(@Query("user_token") String user_token,
+                                            @Query("out_trade_no") String out_trade_no,
+                                            @Query("trade_no") String trade_no,
+                                            @Query("amount") String amount,
+                                            @Query("trade_status") String trade_status);
 }

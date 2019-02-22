@@ -8,8 +8,11 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.SystemClock;
 import android.util.Log;
+
+import com.mingmen.mayi.mayibanjia.ui.activity.GongYingDuanShouYeActivity;
 
 /**
  * 轮询工具类
@@ -18,6 +21,7 @@ import android.util.Log;
  */
 public class PollingUtils {
     public static boolean isOpen=false;
+    public static int requestCode = 0;
     //开启轮询服务
     public static void startPollingService(Context context, int seconds, Class<?> cls,String action) {
         isOpen=true;
@@ -28,12 +32,12 @@ public class PollingUtils {
         Intent intent = new Intent(context, cls);
         intent.setAction(action);
         Log.e("--------------","startPollingService...");
-        PendingIntent pendingIntent = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getService(context, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         //触发服务的起始时间
         long triggerAtTime = SystemClock.elapsedRealtime();
 
         //使用AlarmManger的setRepeating方法设置定期执行的时间间隔（seconds秒）和需要执行的Service
-        manager.setRepeating(AlarmManager.ELAPSED_REALTIME, triggerAtTime,
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, triggerAtTime,
                 seconds * 1000, pendingIntent);
         Log.e("result", "it will start weigthing 3...");
     }
@@ -45,10 +49,12 @@ public class PollingUtils {
                 .getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, cls);
         intent.setAction(action);
-        PendingIntent pendingIntent = PendingIntent.getService(context, 0,
+        PendingIntent pendingIntent = PendingIntent.getService(context, requestCode,
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
         //取消正在执行的服务
+        context.stopService(intent);
         manager.cancel(pendingIntent);
-//        context.stopService(intent);
+
+
     }
 }

@@ -164,6 +164,7 @@ public class LoginActivity extends BaseActivity {
             case R.id.tv_dongtaimimadenglu:
                 Intent dongtailogin=new Intent(mContext, ZhuCeActivity.class);
                 dongtailogin.putExtra("yemian","2");
+                dongtailogin.putExtra("phone",etPhone.getText().toString());
                 startActivity(dongtailogin);
                 break;
             case R.id.tv_zhuce:
@@ -190,6 +191,9 @@ public class LoginActivity extends BaseActivity {
                         PreferenceUtils.putBoolean(MyApplication.mContext, "isLogin", true);
                         PreferenceUtils.putString(MyApplication.mContext, "token", bean.getToken());
                         PreferenceUtils.putString(MyApplication.mContext, "juese", bean.getRole());
+                        if(StringUtil.isValid(bean.getName())){
+                            PreferenceUtils.putString(MyApplication.mContext, "name", bean.getName());
+                        }
                         PreferenceUtils.putInt(MyApplication.mContext,"random_id",bean.getRandom_id());
                         zzh = bean.getHost_account_type();
                         Log.e("onNext: ",bean.getRole()+"我的天啊" +zzh);

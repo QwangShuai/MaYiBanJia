@@ -25,6 +25,7 @@ import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.WuLiuFenPeiAdapter;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.CircleImageView;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
@@ -70,6 +71,7 @@ public class TiXianActivity extends BaseActivity {
     private final static int REQUESTCODE = 1; // 返回的结果码
     private boolean isClick = false;
     private String cardID = "";
+    private ConfirmDialog confirmDialog;
     @Override
     public int getLayoutId() {
         return R.layout.activity_ti_xian;
@@ -81,6 +83,8 @@ public class TiXianActivity extends BaseActivity {
         tvTitle.setText("提现");
         yue = getIntent().getStringExtra("yue");
         tvJine.setText("可提取金额："+yue+"元，");
+        confirmDialog = new ConfirmDialog(mContext,
+                mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         etJine.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -135,7 +139,20 @@ public class TiXianActivity extends BaseActivity {
                     } else if(Double.valueOf(yue)< Double.valueOf(etJine.getText().toString())){
                         ToastUtil.showToast("最大金额不可以超过余额");
                     } else {
-                        tixian();
+                        confirmDialog.showDialog("确认提现将收取千分之6的手续费，是否提现");
+                        confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                tixian();
+                            }
+                        });
+                        confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                confirmDialog.dismiss();
+                            }
+                        });
+
                     }
                 }
                 break;

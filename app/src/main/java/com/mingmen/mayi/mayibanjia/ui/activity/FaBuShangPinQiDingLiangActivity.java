@@ -103,7 +103,7 @@ public class FaBuShangPinQiDingLiangActivity extends BaseActivity {
 //        etQidingliangdanjia3.setEnabled(false);
         ivQingkong.setVisibility(View.GONE);
         yemian = getIntent().getStringExtra("yemian");
-        tvDanwei.setText("元/"+canshu.getSpec_detal_name());
+        tvDanwei.setText("元/"+canshu.getPack_standard_tree_name());
         if(canshu.getGoods().equals("1")){
             llShowTejia.setVisibility(View.VISIBLE);
             istejia = true;

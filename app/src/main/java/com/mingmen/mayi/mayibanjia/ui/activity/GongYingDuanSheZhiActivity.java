@@ -128,14 +128,15 @@ public class GongYingDuanSheZhiActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
-                        PreferenceUtils.putBoolean(MyApplication.mContext,"isLogin",false);
-                        PreferenceUtils.remove(MyApplication.mContext,"juese");
-                        Intent intent = new Intent(mContext, LoginActivity.class);
-                        startActivity(intent);
+//                        PreferenceUtils.putBoolean(MyApplication.mContext,"isLogin",false);
+//                        PreferenceUtils.remove(MyApplication.mContext,"juese");
+//                        Intent intent = new Intent(mContext, LoginActivity.class);
+//                        startActivity(intent);
                         confirmDialog.dismiss();
-                        PollingUtils.stopPollingService(mContext,PollingService.class, PollingService.ACTION);
-                        GongYingDuanShouYeActivity.instance.finish();
-                        AppManager.getAppManager().finishAllActivity();
+//                        PollingUtils.stopPollingService(GongYingDuanShouYeActivity.instance,PollingService.class, PollingService.ACTION);
+//                        GongYingDuanShouYeActivity.instance.finish();
+//                        AppManager.getAppManager().finishAllActivity();
+                        goLogin(mContext,"login");
                     }
                 });
     }

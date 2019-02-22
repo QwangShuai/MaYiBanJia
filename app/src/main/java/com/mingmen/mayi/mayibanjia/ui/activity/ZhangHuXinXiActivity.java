@@ -20,6 +20,8 @@ import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.CircleImageView;
 import com.mingmen.mayi.mayibanjia.utils.AppManager;
+import com.mingmen.mayi.mayibanjia.utils.PollingService;
+import com.mingmen.mayi.mayibanjia.utils.PollingUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 
 import butterknife.BindView;
@@ -147,13 +149,17 @@ public class ZhangHuXinXiActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
-                        PreferenceUtils.putBoolean(MyApplication.mContext,"isLogin",false);
-                        PreferenceUtils.remove(MyApplication.mContext,"juese");
-                        Intent intent = new Intent(mContext, LoginActivity.class);
-                        startActivity(intent);
+//                        if(GongYingDuanShouYeActivity.instance!=null){
+//                            PollingUtils.stopPollingService(GongYingDuanShouYeActivity.instance, PollingService.class,PollingService.ACTION);
+//                        }
+//                        PreferenceUtils.putBoolean(MyApplication.mContext,"isLogin",false);
+//                        PreferenceUtils.remove(MyApplication.mContext,"juese");
+//                        Intent intent = new Intent(mContext, LoginActivity.class);
+//                        startActivity(intent);
                         confirmDialog.dismiss();
-                        MainActivity.instance.finish();
-                        AppManager.getAppManager().finishActivity();
+//                        MainActivity.instance.finish();
+//                        AppManager.getAppManager().finishActivity();
+                        goLogin(mContext,"login");
                     }
                 });
     }

@@ -48,15 +48,15 @@ public class PollingService extends Service {
     private static final String ID = "PUSH_NOTIFY_ID";
 
     private static final String NAME = "PUSH_NOTIFY_NAME";
+    private Timer timer;
     @Override
     public IBinder onBind(Intent arg0) {
         return null;
     }
-
     @Override
     public void onCreate() {
         super.onCreate();
-        Timer timer = new Timer();
+        timer = new Timer();
         if (PollingUtils.isOpen) {
             TimerTask task = new TimerTask() {
                 @Override
@@ -76,7 +76,26 @@ public class PollingService extends Service {
 
     }
 
+
+//    class PollingThread extends Thread {
+//        //运行状态，下一步骤有大用
+//        public boolean isRunning = true;
+//        @Override
+//        public void run() {
+//                while(isRunning){
+//                    try {
+//                        //休息10秒
+//                        Thread.sleep(10000);
+//                        qiangdan();
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//            }
+//        }
+//    }
+
     private void qiangdan() {
+        Log.e("yingyingying","正在轮询中。。。");
         HttpManager.getInstance()
                 .with(MyApplication.mContext)
                 .setObservable(
@@ -86,8 +105,7 @@ public class PollingService extends Service {
                 .setDataListener(new HttpDataListener<List<QiangDanBean>>() {
                     @Override
                     public void onNext(List<QiangDanBean> data) {
-                        Log.e("我的数据",new Gson().toJson(data));
-                        int size = data==null?0:data.size();
+                        int size = data == null ? 0 : data.size();
                         if (size == 0) {
                             return;
                         }
@@ -98,7 +116,8 @@ public class PollingService extends Service {
 
     @Override
     public void onStart(Intent intent, int startId) {
-        super.onStart(intent, startId);
+//        super.onStart(intent, startId);
+//        new PollingThread().start();
     }
 
     /**
@@ -111,7 +130,7 @@ public class PollingService extends Service {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
         NotificationManager manager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel mChannel = new NotificationChannel(ID,NAME, NotificationManager.IMPORTANCE_LOW);
+            NotificationChannel mChannel = new NotificationChannel(ID, NAME, NotificationManager.IMPORTANCE_LOW);
             manager.createNotificationChannel(mChannel);
             builder.setChannelId(ID);
         }
@@ -132,5 +151,8 @@ public class PollingService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        timer.cancel();
+        stopService(new Intent(GongYingDuanShouYeActivity.instance,PollingService.class));
+//        System.exit(0);
     }
 }

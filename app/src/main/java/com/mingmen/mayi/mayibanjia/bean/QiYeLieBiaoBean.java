@@ -87,6 +87,15 @@ public class QiYeLieBiaoBean {
     private String principal;
     private String market_id;
     private float evaluation;
+    private String random_id;
+
+    public String getRandom_id() {
+        return random_id;
+    }
+
+    public void setRandom_id(String random_id) {
+        this.random_id = random_id;
+    }
 
     public float getEvaluation() {
         return evaluation;

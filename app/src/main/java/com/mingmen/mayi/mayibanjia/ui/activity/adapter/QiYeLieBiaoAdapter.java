@@ -109,11 +109,18 @@ public class QiYeLieBiaoAdapter extends RecyclerView.Adapter<QiYeLieBiaoAdapter.
                 holder.tvDingdanGyd.setVisibility(View.GONE);
                 holder.tvShangpinPt.setVisibility(View.GONE);
                 holder.tvShangpinTj.setVisibility(View.GONE);
-            } else {
-                holder.tvDingdanCtd.setVisibility(View.VISIBLE);
-                holder.tvDingdanGyd.setVisibility(View.VISIBLE);
-                holder.tvShangpinPt.setVisibility(View.VISIBLE);
-                holder.tvShangpinTj.setVisibility(View.VISIBLE);
+            } else if(data.getRole().equals("2")){
+                if(data.getRandom_id().equals("0")){
+                    holder.tvDingdanCtd.setVisibility(View.VISIBLE);
+                    holder.tvDingdanGyd.setVisibility(View.VISIBLE);
+                    holder.tvShangpinPt.setVisibility(View.VISIBLE);
+                    holder.tvShangpinTj.setVisibility(View.VISIBLE);
+                } else if(data.getRandom_id().equals("1")){
+                    holder.tvDingdanGyd.setVisibility(View.VISIBLE);
+                    holder.tvShangpinPt.setVisibility(View.VISIBLE);
+                    holder.tvShangpinTj.setVisibility(View.VISIBLE);
+                }
+
             }
         } else {
             holder.tvDingdanCtd.setVisibility(View.GONE);

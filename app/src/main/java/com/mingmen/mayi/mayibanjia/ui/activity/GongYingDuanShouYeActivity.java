@@ -130,14 +130,14 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
     @Override
     protected void initData() {
         mContext = GongYingDuanShouYeActivity.this;
+        instance = this;
         if (!PollingUtils.isOpen) {
             Log.e( "initData: ","aaa" );
-            PollingUtils.startPollingService(mContext, 1, PollingService.class, PollingService.ACTION);
+            PollingUtils.startPollingService(GongYingDuanShouYeActivity.instance, 1, PollingService.class, PollingService.ACTION);
         }
         if (PreferenceUtils.getInt(mContext, "random_id", 1) == 3) {
             llQiehuan.setVisibility(View.GONE);
         }
-        instance = this;
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         getwode();
@@ -227,12 +227,12 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
             case R.id.iv_touxiang:
                 Intent shezhi = new Intent(mContext, GongYingDuanSheZhiActivity.class);
                 startActivity(shezhi);
-                finish();
+//                finish();
                 break;
             case R.id.tv_dianming:
                 Intent shezhi2 = new Intent(mContext, GongYingDuanSheZhiActivity.class);
                 startActivity(shezhi2);
-                finish();
+//                finish();
                 break;
             case R.id.ll_state_qiehuan:
                 confirmDialog.showDialog("是否切换营业状态");
@@ -259,7 +259,7 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
         //Stop polling service
         Log.e("onDestroy: ","服务开始停止" );
         PollingUtils.isOpen = false;
-        PollingUtils.stopPollingService(mContext, PollingService.class, PollingService.ACTION);
+        PollingUtils.stopPollingService(GongYingDuanShouYeActivity.instance, PollingService.class, PollingService.ACTION);
     }
 
     //    private void getData() {

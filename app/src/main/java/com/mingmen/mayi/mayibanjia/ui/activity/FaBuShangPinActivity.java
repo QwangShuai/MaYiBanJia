@@ -257,6 +257,7 @@ public class FaBuShangPinActivity extends BaseActivity {
 
             }
         });
+        showPopupWindow();
     }
 
 
@@ -451,7 +452,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                             sanjiguigeid = data.get(0).getSpec_id();
                             sanjiguigename = data.get(0).getSpec_name();
                             sanjikexuan = true;
-                            tvYxgg.setText("每"+sanjiguigename+"换算单位为");
+                            tvYxgg.setText("每"+data.get(0).getSpec_name()+"换算单位为");
 //                            if(StringUtil.isValid(tvSanji.getText().toString().trim())){
 //                                if(isGuige){
 //                                    getZuixiaoGuige();
@@ -743,7 +744,7 @@ public class FaBuShangPinActivity extends BaseActivity {
 //        mPopWindow.setFocusable(true);
 //        mPopWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 //        mPopWindow.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
-        mPopWindow.showAsDropDown(etSpming);
+//        mPopWindow.showAsDropDown(etSpming);
         rv_mohu = (RecyclerView) view.findViewById(R.id.rv_list);
         mohuAdapter = new XinJianSpMohuAdapter(mContext, datas);
         rv_mohu.setAdapter(mohuAdapter);

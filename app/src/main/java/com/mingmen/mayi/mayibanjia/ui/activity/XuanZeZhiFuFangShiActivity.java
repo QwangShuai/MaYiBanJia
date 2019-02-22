@@ -14,10 +14,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
+import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.MainActivity;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.app.UMConfig;
+import com.mingmen.mayi.mayibanjia.bean.PostZFBBean;
 import com.mingmen.mayi.mayibanjia.bean.WXPayBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
@@ -205,11 +207,13 @@ public class XuanZeZhiFuFangShiActivity extends BaseActivity {
                      对于支付结果，请商户依赖服务端的异步通知结果。同步通知结果，仅作为支付结束的通知。
                      */
                     String resultInfo = payResult.getResult();// 同步返回需要验证的信息
+                    PostZFBBean bean = new Gson().fromJson(resultInfo,PostZFBBean.class);
                     String resultStatus = payResult.getResultStatus();
                     // 判断resultStatus 为9000则代表支付成功
                     if (TextUtils.equals(resultStatus, "9000")) {
                         // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
                         Toast.makeText(XuanZeZhiFuFangShiActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
+                        postZFB(bean.getOut_trade_no(),bean.getTrade_no(),bean.getAmount(),bean.getTrade_status());
 
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
@@ -292,6 +296,20 @@ public class XuanZeZhiFuFangShiActivity extends BaseActivity {
                                 break;
                         }
 
+
+                    }
+                }, false);
+    }
+    public void postZFB(String out_trade_no,String trade_no,String amount,String trade_status){
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()//支付方式  1余额支付 2微信支付 3支付宝支付
+                                .postZFB(PreferenceUtils.getString(MyApplication.mContext, "token", ""), out_trade_no , trade_no, amount,trade_status))
+                .setDataListener(new HttpDataListener<String>() {
+                    @Override
+                    public void onNext(String data) {
 
                     }
                 }, false);

@@ -232,8 +232,11 @@
 
         <!-- //轮询服务 -->
         <service
-            android:name=".utils.PollingService"
-            android:exported="true" />
+            android:name=".utils.PollingService">
+            <intent-filter>
+                <action android:name="com.ssl.Services"/>
+            </intent-filter>
+        </service>
 
         <activity
             android:name=".ui.activity.WuLiuActivity"

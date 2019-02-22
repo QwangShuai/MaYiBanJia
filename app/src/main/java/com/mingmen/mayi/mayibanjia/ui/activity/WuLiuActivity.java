@@ -202,13 +202,14 @@ public class WuLiuActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
-                        PreferenceUtils.putBoolean(MyApplication.mContext,"isLogin",false);
-                        PreferenceUtils.remove(MyApplication.mContext,"juese");
-                        Intent intent = new Intent(mContext, LoginActivity.class);
-                        startActivity(intent);
+//                        PreferenceUtils.putBoolean(MyApplication.mContext,"isLogin",false);
+//                        PreferenceUtils.remove(MyApplication.mContext,"juese");
+//                        Intent intent = new Intent(mContext, LoginActivity.class);
+//                        startActivity(intent);
                         confirmDialog.dismiss();
-                        tuichupop.dismiss();
-                        AppManager.getAppManager().finishAllActivity();
+//                        tuichupop.dismiss();
+//                        AppManager.getAppManager().finishAllActivity();
+                        goLogin(mContext,"login");
                     }
                 });
     }

@@ -97,7 +97,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        tvTitle.setText("我的商家");
+        tvTitle.setText(PreferenceUtils.getString(MyApplication.mContext,"name",""));
         ivSangedian.setVisibility(View.VISIBLE);
 //        ivBack.setImageResource(R.mipmap.sousuo_bai);
         mContext = YeWuYuanMainActivity.this;
@@ -557,13 +557,14 @@ public class YeWuYuanMainActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
-                        PreferenceUtils.putBoolean(MyApplication.mContext, "isLogin", false);
-                        PreferenceUtils.remove(MyApplication.mContext, "juese");
-                        Intent intent = new Intent(mContext, LoginActivity.class);
-                        startActivity(intent);
+//                        PreferenceUtils.putBoolean(MyApplication.mContext, "isLogin", false);
+//                        PreferenceUtils.remove(MyApplication.mContext, "juese");
+//                        Intent intent = new Intent(mContext, LoginActivity.class);
+//                        startActivity(intent);
                         confirmDialog.dismiss();
-                        tuichupop.dismiss();
-                        AppManager.getAppManager().finishAllActivity();
+//                        tuichupop.dismiss();
+//                        AppManager.getAppManager().finishAllActivity();
+                        goLogin(mContext,"login");
                     }
                 });
     }

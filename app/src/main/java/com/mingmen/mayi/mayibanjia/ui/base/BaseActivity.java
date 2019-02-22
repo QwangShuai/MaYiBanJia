@@ -142,12 +142,13 @@ public abstract class BaseActivity extends AppCompatActivity {
             }
             PreferenceUtils.putBoolean(MyApplication.mContext,"isLogin",false);
             PreferenceUtils.remove(MyApplication.mContext,"juese");
-            if(GongYingDuanShouYeActivity.instance!=null){
-//                Log.e("goLogin: ", "难受啊马飞");
-                PollingUtils.isOpen = false;
-                PollingUtils.stopPollingService(GongYingDuanShouYeActivity.instance,PollingService.class,PollingService.ACTION);
-                GongYingDuanShouYeActivity.instance.finish();
-            }
+//            if(GongYingDuanShouYeActivity.instance!=null){
+//                if(PollingUtils.isOpen){
+//                    PollingUtils.isOpen = false;
+//                    PollingUtils.stopPollingService(GongYingDuanShouYeActivity.instance,PollingService.class,PollingService.ACTION);
+//                    GongYingDuanShouYeActivity.instance.finish();
+//                }
+//            }
             mContext.startActivity(it);
             AppManager.getAppManager().finishAllActivity();
     }

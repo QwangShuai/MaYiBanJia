@@ -1094,14 +1094,17 @@ public class QuanBuCaiPinFragment extends BaseFragment {
             public void xuanzhong(FCGName msg) {
                 yijipop.dismiss();
                 tvPinzhong.setText(msg.getClassify_name());
-                sanjipinleiid = msg.getClassify_id();
                 sanjipinleiname = msg.getClassify_name();
+                Log.e(TAG, "xuanzhong: "+new Gson().toJson(msg) );
 //                    erjiadapter.notifyDataSetChanged();
                 if (msg.getClassify_name().equals("全部")) {
                     tvPinzhong.setTextColor(getResources().getColor(R.color.zicolor));
+//                    sanjipinleiid = "";
                 } else {
                     tvPinzhong.setTextColor(getResources().getColor(R.color.zangqing));
                 }
+                sanjipinleiid = msg.getClassify_id();
+                ye = 1;
                 recyclerView.setVisibility(View.VISIBLE);
                 sousuoshangpin(sousuo, "0");
 
@@ -1143,6 +1146,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     }
 
     private void setPopColor() {
+        ye = 1;
         shichangid = "";
         shichangname = "全部";
         tvShichangPop.setText(shichangname);

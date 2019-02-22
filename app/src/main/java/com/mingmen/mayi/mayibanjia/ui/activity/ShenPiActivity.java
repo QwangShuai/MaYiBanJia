@@ -318,12 +318,12 @@ public class ShenPiActivity extends BaseActivity {
 
                                     }
                                 }
-                                if (special_son_order_id.length() != 0) {
-                                    special_son_order_id = special_son_order_id.substring(0, special_son_order_id.length() - 1);
-                                    special_commodity_id = special_commodity_id.substring(0, special_commodity_id.length() - 1);
-                                    //如果存在特殊商品  并且已选择  更新抢单信息
-                                    gengxinqiangdan(special_son_order_id, special_commodity_id);
-                                }
+//                                if (special_son_order_id.length() != 0) {
+//                                    special_son_order_id = special_son_order_id.substring(0, special_son_order_id.length() - 1);
+//                                    special_commodity_id = special_commodity_id.substring(0, special_commodity_id.length() - 1);
+//                                    //如果存在特殊商品  并且已选择  更新抢单信息
+//                                    gengxinqiangdan(special_son_order_id, special_commodity_id);
+//                                }
 
                                 intent.putExtra("son_order_id", son_order_id);
                                 intent.putExtra("commodity_id", commodity_id);
@@ -396,20 +396,20 @@ public class ShenPiActivity extends BaseActivity {
 
     }
 
-    //更新抢单信息接口
-    private void gengxinqiangdan(String special_son_order_id, String special_commodity_id) {
-        HttpManager.getInstance()
-                .with(mContext)
-                .setObservable(
-                        RetrofitManager
-                                .getService()
-                                .gengxinqiangdan(PreferenceUtils.getString(MyApplication.mContext, "token", ""), special_son_order_id, special_commodity_id))
-                .setDataListener(new HttpDataListener<String>() {
-                    @Override
-                    public void onNext(String data) {
-                    }
-                }, false);
-    }
+//    //更新抢单信息接口
+//    private void gengxinqiangdan(String special_son_order_id, String special_commodity_id) {
+//        HttpManager.getInstance()
+//                .with(mContext)
+//                .setObservable(
+//                        RetrofitManager
+//                                .getService()
+//                                .gengxinqiangdan(PreferenceUtils.getString(MyApplication.mContext, "token", ""), special_son_order_id, special_commodity_id))
+//                .setDataListener(new HttpDataListener<String>() {
+//                    @Override
+//                    public void onNext(String data) {
+//                    }
+//                }, false);
+//    }
 
     public TextView getTvBiaoqian() {
         return tvBiaoqian;

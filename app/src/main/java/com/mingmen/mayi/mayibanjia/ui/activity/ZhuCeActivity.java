@@ -94,6 +94,9 @@ public class ZhuCeActivity extends BaseActivity {
         } else {
             tvTitle.setText("登录");
             llZhuce.setVisibility(View.GONE);
+            if(StringUtil.isValid(getIntent().getStringExtra("phone"))){
+                etPhone.setText(getIntent().getStringExtra("phone"));
+            }
         }
         mContext=ZhuCeActivity.this;
         if(yemian.equals("1")){
@@ -340,6 +343,9 @@ public class ZhuCeActivity extends BaseActivity {
                         PreferenceUtils.putString(MyApplication.mContext, "juese", bean.getRole());
                         PreferenceUtils.putInt(MyApplication.mContext,"random_id",bean.getRandom_id());
                         PreferenceUtils.putString(MyApplication.mContext,"host_account_type",bean.getHost_account_type());
+                        if(StringUtil.isValid(bean.getName())){
+                            PreferenceUtils.putString(MyApplication.mContext, "name", bean.getName());
+                        }
                         zzh = bean.getHost_account_type();
                         Log.e("onNext: ",bean.getRole()+"我的天啊" +bean.getRandom_id());
                         tiaozhuan(bean.getRole(),bean.getRandom_id());

@@ -213,13 +213,14 @@ public class SiJiActivity extends BaseActivity {
                     @Override
                     public void onNext(String data) {
 //                        PreferenceUtils.clear(MyApplication.mContext);
-                        PreferenceUtils.putBoolean(MyApplication.mContext,"isLogin",false);
-                        PreferenceUtils.remove(MyApplication.mContext,"juese");
-                        Intent intent = new Intent(mContext, LoginActivity.class);
-                        startActivity(intent);
+//                        PreferenceUtils.putBoolean(MyApplication.mContext,"isLogin",false);
+//                        PreferenceUtils.remove(MyApplication.mContext,"juese");
+//                        Intent intent = new Intent(mContext, LoginActivity.class);
+//                        startActivity(intent);
                         confirmDialog.dismiss();
-                        tuichupop.dismiss();
-                        AppManager.getAppManager().finishAllActivity();
+//                        tuichupop.dismiss();
+//                        AppManager.getAppManager().finishAllActivity();
+                        goLogin(mContext,"login");
                     }
                 });
     }

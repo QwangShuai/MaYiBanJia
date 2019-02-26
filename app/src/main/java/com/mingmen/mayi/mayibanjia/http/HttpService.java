@@ -431,10 +431,7 @@ public interface HttpService {
                                                  @Query("ration_one") String ration_one,
                                                  @Query("pice_one") String pice_one,
                                                  @Query("inventory") String inventory,
-                                                 @Query("origin") String origin,
-                                                 @Query("level") String level,
-                                                 @Query("apply") String apply,
-                                                 @Query("proportion") String proportion,
+                                                 @Query("gylist") String gylist,
                                                  @Query("type_one_id") String type_one_id,
                                                  @Query("goods") String goods,
                                                  @Query("commodity_state") String commodity_state,
@@ -461,10 +458,7 @@ public interface HttpService {
                                                    @Query("ration_one") String ration_one,
                                                    @Query("pice_one") String pice_one,
                                                    @Query("inventory") String inventory,
-                                                   @Query("origin") String origin,
-                                                   @Query("level") String level,
-                                                   @Query("apply") String apply,
-                                                   @Query("proportion") String proportion,
+                                                   @Query("gylist") String gylist,
                                                    @Query("type_one_id") String type_one_id,
                                                    @Query("goods") String goods,
                                                    @Query("commodity_state") String commodity_state,
@@ -1240,8 +1234,12 @@ public interface HttpService {
                                             @Query("trade_no") String trade_no,
                                             @Query("amount") String amount,
                                             @Query("trade_status") String trade_status);
-    //获取商品三级
+    //获取商品4级
     @POST("ctObserver/queryThree")
     Observable<ResultModel<FCGName>> getFourSp(@Query("user_token") String user_token,
                                             @Query("classify_name") String classify_name);
+
+    //获取新建商品分支条件
+    @POST("gyCommodity/commoditySpec.do")
+    Observable<ResultModel<List<PingJiaLableBean>>> getFenLeiCanShu(@Query("user_token") String user_token);
 }

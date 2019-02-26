@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -220,8 +221,9 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
                         tvPinlei.setText(msg.getTwo_classify_name());
                     }
                     getFour();
-                } else {
+                } else if(mytype.equals("4")) {
                     threeid = msg.getClassify_id();
+                    Log.e("xuanzhong: ", threeid+"+++");
                     fourName = msg.getClassify_name();
                     adapter.setXuanzhongid(threeid);
                     tvMingcheng.setText(msg.getClassify_name());

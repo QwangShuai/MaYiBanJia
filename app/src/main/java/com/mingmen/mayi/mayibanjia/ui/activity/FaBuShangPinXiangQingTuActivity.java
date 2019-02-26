@@ -11,22 +11,31 @@ import android.os.Build;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.EditorShangPinBean;
 import com.mingmen.mayi.mayibanjia.bean.FbspCanShuBean;
+import com.mingmen.mayi.mayibanjia.bean.FeiLeiLableSubmitBean;
+import com.mingmen.mayi.mayibanjia.bean.PingJiaLableBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
+import com.mingmen.mayi.mayibanjia.ui.activity.adapter.FenLeiLableAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.PhotoDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.AppManager;
@@ -68,16 +77,24 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
     ImageView ivXq3;
     @BindView(R.id.iv_xq4)
     ImageView ivXq4;
-    @BindView(R.id.et_chandi)
-    EditText etChandi;
-    @BindView(R.id.et_dengji)
-    EditText etDengji;
-    @BindView(R.id.et_shiyong)
-    EditText etShiyong;
-    @BindView(R.id.et_bili)
-    EditText etBili;
+//    @BindView(R.id.et_chandi)
+//    EditText etChandi;
+//    @BindView(R.id.et_dengji)
+//    EditText etDengji;
+//    @BindView(R.id.et_shiyong)
+//    EditText etShiyong;
+//    @BindView(R.id.et_bili)
+//    EditText etBili;
     @BindView(R.id.bt_baocun)
     Button btBaocun;
+    @BindView(R.id.et_miaoshu)
+    EditText etMiaoshu;
+    @BindView(R.id.tishi)
+    TextView tvTishi;
+    @BindView(R.id.rv_flcs)
+    RecyclerView rvFlcs;
+
+
     private Uri imageUri;//原图保存地址
     private Uri outputUri;
     private String imagePath;
@@ -97,6 +114,11 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
     private String pipei = "0";
     private String spID;
     private List<String> picList = Arrays.asList("","","","");
+    private FenLeiLableAdapter adapter;
+    private List<PingJiaLableBean> mlist = new ArrayList<>();
+    private List<FeiLeiLableSubmitBean> list = new ArrayList<>();
+
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_fabushangpin_xiangqingtu;
@@ -123,6 +145,24 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
         photoDialog.getWindow().setGravity(Gravity.BOTTOM | Gravity.LEFT | Gravity.RIGHT);
         String canshujson = getIntent().getStringExtra("canshu");
         canshu = gson.fromJson(canshujson, FbspCanShuBean.class);
+        etMiaoshu.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                tvTishi.setText(s.toString().trim().length() + "/50");
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        setRvAdapter();
+        getFenLeiLable();
     }
 
 
@@ -241,10 +281,11 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                 });
                 break;
             case R.id.bt_baocun:
-                canshu.setOrigin(etChandi.getText().toString().trim());
-                canshu.setLevel(etDengji.getText().toString().trim());
-                canshu.setApply(etShiyong.getText().toString().trim());
-                canshu.setProportion(etBili.getText().toString().trim());
+//                canshu.setOrigin(etChandi.getText().toString().trim());
+//                canshu.setLevel(etDengji.getText().toString().trim());
+//                canshu.setApply(etShiyong.getText().toString().trim());
+//                canshu.setProportion(etBili.getText().toString().trim());
+                canshu.setSpec_describe(etMiaoshu.getText().toString().trim());
                 if(yemian.equals("0")){
                     if ("".equals(tu1)&"".equals(tu2)&"".equals(tu3)&"".equals(tu4)){
                         canshu.setDeputyPicture(canshu.getHostPicture());
@@ -281,8 +322,7 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                         .getService()
                         .fabushangpin(PreferenceUtils.getString(MyApplication.mContext, "token",""),"",canshu.getDeputyPicture(),
                                 canshu.getPack_standard_two(),canshu.getPack_standard_tree(),
-                                canshu.getRation_one(),canshu.getPice_one(),canshu.getInventory(),canshu.getOrigin(),canshu.getLevel(),
-                                canshu.getApply(),canshu.getProportion(),canshu.getType_one_id(),canshu.getGoods(),canshu.getCommodity_state(),canshu.getCommodity_name(),
+                                canshu.getRation_one(),canshu.getPice_one(),canshu.getInventory(),new Gson().toJson(list),canshu.getType_one_id(),canshu.getGoods(),canshu.getCommodity_state(),canshu.getCommodity_name(),
                                 canshu.getType_two_id(),canshu.getType_tree_id(),canshu.getType_four_id(),canshu.getHostPicture(),
                                 canshu.getSpec_describe(),canshu.getPrice(),canshu.getSpec_count(),canshu.getSpec_detal_id(),canshu.getPack_standard_tree_name(),canshu.getSpec_detal_name()))
                 .setDataListener(new HttpDataListener<String>() {
@@ -291,7 +331,6 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                 Log.e("data",data+"---");
                 ToastUtil.showToast("添加成功");
                 finish();
-                FaBuShangPinQiDingLiangActivity.instance.finish();
                 FaBuShangPinActivity.instance.finish();
             }
         });
@@ -305,8 +344,7 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                                 .getService()
                                 .updateshangpin(PreferenceUtils.getString(MyApplication.mContext, "token",""),spID,"",picList,
                                         canshu.getPack_standard_two(),canshu.getPack_standard_tree(),
-                                        canshu.getRation_one(),canshu.getPice_one(),canshu.getInventory(),canshu.getOrigin(),canshu.getLevel(),
-                                        canshu.getApply(),canshu.getProportion(),canshu.getType_one_id(),canshu.getGoods(),canshu.getCommodity_state(),canshu.getCommodity_name(),
+                                        canshu.getRation_one(),canshu.getPice_one(),canshu.getInventory(),new Gson().toJson(list),canshu.getType_one_id(),canshu.getGoods(),canshu.getCommodity_state(),canshu.getCommodity_name(),
                                         canshu.getType_two_id(),canshu.getType_tree_id(),canshu.getType_four_id(),canshu.getHostPicture(),canshu.getSpec_describe(),
                                         canshu.getPrice(),canshu.getSpec_count(),canshu.getSpec_detal_id(),canshu.getPack_standard_tree_name(),canshu.getSpec_detal_name()))
                 .setDataListener(new HttpDataListener<String>() {
@@ -315,7 +353,6 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                         Log.e("data",data+"---");
                         ToastUtil.showToast("编辑成功");
                         finish();
-                        FaBuShangPinQiDingLiangActivity.instance.finish();
                         FaBuShangPinActivity.instance.finish();
                     }
                 });
@@ -507,6 +544,7 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
     public void setDataView(){//编辑展示
         EditorShangPinBean bean = PreferenceUtils.getEditorShangPinBean(MyApplication.mContext, "");
         spID = bean.getXq().getCommodity_id();
+        etMiaoshu.setText(bean.getXq().getSpec_describe());
 //        picList.addAll(bean.getXq().getFtPicture());
         if(!"null".equals(String.valueOf(bean.getXq().getFtPicture()))){
             for (int i=0;i<bean.getXq().getFtPicture().size();i++){
@@ -525,21 +563,58 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
             }
         }
 
-        for(int i = 0 ; i<bean.getParameteList().size();i++){
-            switch (bean.getParameteList().get(i).getParamete_name_id()){
-                case "产地":
-                    etChandi.setText(bean.getParameteList().get(i).getParamete_content());
-                    break;
-                case "适用":
-                    etShiyong.setText(bean.getParameteList().get(i).getParamete_content());
-                    break;
-                case "比例":
-                    etBili.setText(bean.getParameteList().get(i).getParamete_content());
-                    break;
-                case "等级":
-                    etDengji.setText(bean.getParameteList().get(i).getParamete_content());
-                    break;
-            }
+//        for(int i = 0 ; i<bean.getParameteList().size();i++){
+//            switch (bean.getParameteList().get(i).getParamete_name_id()){
+//                case "产地":
+//                    etChandi.setText(bean.getParameteList().get(i).getParamete_content());
+//                    break;
+//                case "适用":
+//                    etShiyong.setText(bean.getParameteList().get(i).getParamete_content());
+//                    break;
+//                case "比例":
+//                    etBili.setText(bean.getParameteList().get(i).getParamete_content());
+//                    break;
+//                case "等级":
+//                    etDengji.setText(bean.getParameteList().get(i).getParamete_content());
+//                    break;
+//            }
+//        }
+    }
+
+    public void changeList(int pos,String text){
+        if(!text.equals(list.get(pos).getParamete_content())){
+            list.get(pos).setParamete_content(text);
         }
+    }
+
+    private void getFenLeiLable(){
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .getFenLeiCanShu(PreferenceUtils.getString(MyApplication.mContext,"token","")))
+                .setDataListener(new HttpDataListener<List<PingJiaLableBean>>() {
+                    @Override
+                    public void onNext(List<PingJiaLableBean> data) {
+                        int mysize = data==null?0:data.size();
+                        if(mysize!=0){
+                            mlist.addAll(data);
+                            for (PingJiaLableBean bean:data) {
+                                FeiLeiLableSubmitBean mybean = new FeiLeiLableSubmitBean();
+                                mybean.setParamete_name_id(bean.getSon_number());
+                                mybean.setParamete_content("");
+                                list.add(mybean);
+                            }
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                });
+    }
+
+    private void setRvAdapter(){
+        rvFlcs.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false));
+        adapter = new FenLeiLableAdapter(mContext,mlist,FaBuShangPinXiangQingTuActivity.this);
+        rvFlcs.setAdapter(adapter);
     }
 }

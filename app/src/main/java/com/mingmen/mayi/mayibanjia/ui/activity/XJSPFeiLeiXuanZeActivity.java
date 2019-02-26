@@ -21,7 +21,6 @@ import com.mingmen.mayi.mayibanjia.bean.FCGName;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
-import com.mingmen.mayi.mayibanjia.ui.activity.adapter.AddSpFourAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.XJSPFeiLeiXuanZeAdapter;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
@@ -69,6 +68,12 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
     Button btnQueren;
     @BindView(R.id.rv_yijifenlei)
     RecyclerView rvYijifenlei;
+    @BindView(R.id.tv_mingcheng_lable)
+    TextView tvMingchengLable;
+    @BindView(R.id.tv_mingcheng)
+    TextView tvMingcheng;
+    @BindView(R.id.ll_mingcheng)
+    LinearLayout llMingcheng;
 
     private ArrayList<FCGName> yijiFenLei = new ArrayList<>();
     private XJSPFeiLeiXuanZeAdapter adapter;
@@ -77,9 +82,11 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
     private String yclId = "346926195929448587b078e7fe613530 ";
     private String oneid;
     private String twoid;
+    private String threeid;
     private String oneName;
     private String twoName;
     private String threeName;
+    private String fourName;
     private Map<String, FCGName> map = new HashMap<>();
     private List<AddSpListBean> list = new ArrayList<>();
     private String id = "";
@@ -123,7 +130,7 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_quxiao, R.id.ll_fenlei, R.id.ll_pinlei, R.id.ll_pinzhong, R.id.btn_queren})
+    @OnClick({R.id.iv_back, R.id.tv_quxiao, R.id.ll_fenlei, R.id.ll_pinlei, R.id.ll_pinzhong, R.id.btn_queren,R.id.ll_mingcheng})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -142,11 +149,14 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
             case R.id.ll_pinzhong:
                 getThree();
                 break;
+            case R.id.ll_mingcheng:
+
+                break;
             case R.id.btn_queren:
-                if(StringUtil.isValid(twoid)){
+                if (StringUtil.isValid(threeid)) {
                     resultData();
-                }else {
-                    ToastUtil.showToastLong("您还没选择三级分类");
+                } else {
+                    ToastUtil.showToastLong("您还没选择商品");
                 }
                 break;
         }
@@ -201,7 +211,7 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
                     threeName = msg.getClassify_name();
                     adapter.setXuanzhongid(twoid);
                     tvPinzhong.setText(msg.getClassify_name());
-                    if(StringUtil.isValid(msg.getOne_classify_id())){
+                    if (StringUtil.isValid(msg.getOne_classify_id())) {
                         yclId = msg.getOne_classify_id();
                         oneid = msg.getTwo_classify_id();
                         oneName = msg.getOne_classify_name();
@@ -209,6 +219,12 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
                         tvFenlei.setText(msg.getOne_classify_name());
                         tvPinlei.setText(msg.getTwo_classify_name());
                     }
+                    getFour();
+                } else {
+                    threeid = msg.getClassify_id();
+                    fourName = msg.getClassify_name();
+                    adapter.setXuanzhongid(threeid);
+                    tvMingcheng.setText(msg.getClassify_name());
                 }
 
                 adapter.notifyDataSetChanged();
@@ -226,6 +242,7 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
         tvFeileiLable.setTextColor(mContext.getResources().getColor(R.color.zangqing));
         tvLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
         tvPinzhongLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+        tvMingcheng.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
         mytype = "1";
         adapter.setXuanzhongid(yclId);
         getShouyeFenLei("-1", "1");
@@ -238,8 +255,10 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
         map.clear();
 //        yijiFenLei.clear();
 //        adapter.notifyDataSetChanged();
+        tvFeileiLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
         tvLable.setTextColor(mContext.getResources().getColor(R.color.zangqing));
         tvPinzhongLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+        tvMingcheng.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
         mytype = "2";
         adapter.setXuanzhongid(oneid);
         getShouyeFenLei(yclId, "2");
@@ -253,15 +272,29 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
         tvFeileiLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
         tvPinzhongLable.setTextColor(mContext.getResources().getColor(R.color.zangqing));
         tvLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+        tvMingcheng.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
         mytype = "3";
         adapter.setXuanzhongid(twoid);
         getShouyeFenLei(oneid, "3");
     }
-
+    private void getFour() {
+//        adapter.setXuanzhongid("");
+        map.clear();
+//        yijiFenLei.clear();
+//        adapter.notifyDataSetChanged();
+        tvFeileiLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+        tvPinzhongLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+        tvLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+        tvMingcheng.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+        mytype = "4";
+        adapter.setXuanzhongid(threeid);
+        getShouyeFenLei(twoid, "4");
+    }
     private void setViewShowClear() {
         yclId = "";
         oneid = "";
         twoid = "";
+        threeid = "";
         tvLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
         tvPinzhongLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
         adapter.setXuanzhongid("");
@@ -269,8 +302,9 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
         tvFenlei.setText("全部");
         tvPinlei.setText("全部");
         tvPinzhong.setText("全部");
+        tvMingcheng.setText("全部");
         yijiFenLei.clear();
-        mytype = "3";
+        mytype = "4";
         adapter.notifyDataSetChanged();
     }
 
@@ -284,7 +318,7 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getThreeFenlei(PreferenceUtils.getString(MyApplication.mContext, "token", ""), name))
+                                .getFourSp(PreferenceUtils.getString(MyApplication.mContext, "token", ""), name))
                 .setDataListener(new HttpDataListener<List<FCGName>>() {
                     @Override
                     public void onNext(List<FCGName> list) {
@@ -294,19 +328,23 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
                             yijiFenLei.addAll(list);
                             adapter.notifyDataSetChanged();
                         } else {
-                            ToastUtil.showToastLong("当前类别暂无品类");
+                            ToastUtil.showToastLong("当前类别暂无商品");
                         }
 
                     }
                 }, false);
     }
-    private void resultData(){
+
+    private void resultData() {
         Intent it = new Intent();
-        it.putExtra("one_id",yclId);
-        it.putExtra("two_id",oneid);
-        it.putExtra("three_id",twoid);
-        it.putExtra("name",oneName+"-"+twoName+"-"+threeName);
-        setResult(4,it);
+        it.putExtra("one_id", yclId);
+        it.putExtra("two_id", oneid);
+        it.putExtra("three_id", twoid);
+        it.putExtra("four_id", threeid);
+        it.putExtra("name", oneName + "-" + twoName + "-" + threeName);
+        it.putExtra("spname",fourName);
+        setResult(4, it);
         finish();
     }
+
 }

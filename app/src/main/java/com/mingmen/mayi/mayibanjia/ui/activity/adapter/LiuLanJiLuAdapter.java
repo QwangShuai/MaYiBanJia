@@ -63,7 +63,7 @@ public class LiuLanJiLuAdapter extends RecyclerView.Adapter<LiuLanJiLuAdapter.Vi
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final LiuLanJiLuBean data = mList.get(position);
         Log.e("classify_id444", data.getType_four_id()+"----" );
-        holder.tvSpming.setText(data.getGoodsName());
+        holder.tvSpming.setText(data.getClassify_name());
         holder.tvDianming.setText(data.getShopName());
         holder.tvJiage.setText(data.getPrice()+"");
         //holder.tvGuige.setText(data.getPackStandard()+"");

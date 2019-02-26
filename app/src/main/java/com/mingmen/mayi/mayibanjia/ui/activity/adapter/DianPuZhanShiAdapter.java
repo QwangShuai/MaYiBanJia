@@ -61,7 +61,6 @@ public class DianPuZhanShiAdapter extends RecyclerView.Adapter<DianPuZhanShiAdap
         holder.tvSpming.setText(data.getClassify_name());
         holder.tvJiage.setText(data.getPice_one());
 //        holder.tvDianpuming.setText(data.getCompany_name());
-        holder.tvGuige.setText("");
         holder.tvSpxiaoliang.setText("已售"+data.getCommodity_sales());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,8 +98,6 @@ public class DianPuZhanShiAdapter extends RecyclerView.Adapter<DianPuZhanShiAdap
         ImageView ivSptu;
         @BindView(R.id.tv_spming)
         TextView tvSpming;
-        @BindView(R.id.tv_guige)
-        TextView tvGuige;
         @BindView(R.id.tv_renminbi)
         TextView tvRenminbi;
         @BindView(R.id.tv_jiage)

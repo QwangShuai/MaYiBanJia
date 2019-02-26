@@ -111,6 +111,15 @@ public class DianPuZhanShiBean {
     private String ywyphone;
     private String remark;
     private String goodsCount;
+    private String telephone;
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
 
     public String getGoodsCount() {
         return goodsCount;

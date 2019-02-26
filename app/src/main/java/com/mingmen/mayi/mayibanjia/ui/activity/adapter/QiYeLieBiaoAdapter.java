@@ -99,12 +99,7 @@ public class QiYeLieBiaoAdapter extends RecyclerView.Adapter<QiYeLieBiaoAdapter.
 //        }
         holder.tvDizhi.setText(data.getSpecific_address());
         if(StringUtil.isValid(data.getUser_token())){
-            if(!StringUtil.isValid(data.getRole())){
-                holder.tvDingdanCtd.setVisibility(View.GONE);
-                holder.tvDingdanGyd.setVisibility(View.GONE);
-                holder.tvShangpinPt.setVisibility(View.GONE);
-                holder.tvShangpinTj.setVisibility(View.GONE);
-            } else if(data.getRole().equals("1")){
+            if(data.getRole().equals("1")){
                 holder.tvDingdanCtd.setVisibility(View.VISIBLE);
                 holder.tvDingdanGyd.setVisibility(View.GONE);
                 holder.tvShangpinPt.setVisibility(View.GONE);
@@ -116,6 +111,7 @@ public class QiYeLieBiaoAdapter extends RecyclerView.Adapter<QiYeLieBiaoAdapter.
                     holder.tvShangpinPt.setVisibility(View.VISIBLE);
                     holder.tvShangpinTj.setVisibility(View.VISIBLE);
                 } else if(data.getRandom_id().equals("1")){
+                    holder.tvDingdanCtd.setVisibility(View.GONE);
                     holder.tvDingdanGyd.setVisibility(View.VISIBLE);
                     holder.tvShangpinPt.setVisibility(View.VISIBLE);
                     holder.tvShangpinTj.setVisibility(View.VISIBLE);

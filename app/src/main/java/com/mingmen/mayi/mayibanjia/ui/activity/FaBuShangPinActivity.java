@@ -438,8 +438,6 @@ public class FaBuShangPinActivity extends BaseActivity {
                             llSanjiguige.setEnabled(false);
                             etNumber.setEnabled(false);
                         }
-                        Log.e("onNext: ",sanjiid );
-                        Log.e("data", gson.toJson(data) + "---");
                         sanjiguige = new ArrayList<FbspGuiGeBean>();
 
                         for (int i = 0; i < data.size(); i++) {
@@ -523,7 +521,9 @@ public class FaBuShangPinActivity extends BaseActivity {
                     yclId = data.getStringExtra("one_id");
                     yijiid = data.getStringExtra("two_id");
                     erjiid = data.getStringExtra("three_id");
+                    sanjiid = data.getStringExtra("four_id");
                     etSpming.setEnabled(true);
+                    etSpming.setText(data.getStringExtra("spname"));
                 }
             }
         }
@@ -689,10 +689,12 @@ public class FaBuShangPinActivity extends BaseActivity {
                         etSpming.setEnabled(true);
 //                        Log.e( "onNext: ",bean.getPackThreeName() );
                         tvTishi.setText(bean.getSpec_describe().length() + "/50");
+                        zxid = bean.getAffiliated_spec();
                         if(StringUtil.isValid(bean.getAffiliated_number())&&Integer.valueOf(bean.getAffiliated_number())!=0){
                             llDw.setVisibility(View.VISIBLE);
                             etNumber.setText(bean.getAffiliated_number());
                             tvZxgg.setText(bean.getPackFourName());
+                            tvYxgg.setText("每"+bean.getSpec_name()+"换算单位为");
                             isGuige = true;
                         } else {
                             llDw.setVisibility(View.GONE);

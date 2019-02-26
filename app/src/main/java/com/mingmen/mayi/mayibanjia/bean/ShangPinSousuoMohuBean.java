@@ -9,6 +9,33 @@ public class ShangPinSousuoMohuBean {
     private String classify_name;
     private String commodity_id;
     private String classify_id;
+    private String spec_name;
+    private String affiliated_number;
+    private String affiliated_spec_name;
+
+    public String getSpec_name() {
+        return spec_name;
+    }
+
+    public void setSpec_name(String spec_name) {
+        this.spec_name = spec_name;
+    }
+
+    public String getAffiliated_number() {
+        return affiliated_number;
+    }
+
+    public void setAffiliated_number(String affiliated_number) {
+        this.affiliated_number = affiliated_number;
+    }
+
+    public String getAffiliated_spec_name() {
+        return affiliated_spec_name;
+    }
+
+    public void setAffiliated_spec_name(String affiliated_spec_name) {
+        this.affiliated_spec_name = affiliated_spec_name;
+    }
 
     public String getClassify_name() {
         return classify_name;

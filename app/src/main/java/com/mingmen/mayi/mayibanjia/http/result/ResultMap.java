@@ -1,9 +1,11 @@
 package com.mingmen.mayi.mayibanjia.http.result;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.mingmen.mayi.mayibanjia.ui.activity.LoginActivity;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
@@ -13,7 +15,6 @@ import io.reactivex.functions.Function;
 
 public class ResultMap<T> implements Function<ResultModel<T>, T> {
   private Context mContext;
-
   public ResultMap(Context mContext){
     this.mContext = mContext;
   }
@@ -30,8 +31,9 @@ public class ResultMap<T> implements Function<ResultModel<T>, T> {
       throw new RuntimeException("Token过期");
 //      return httpResult.getData();
     } else if("9999".equals(httpResult.getStatus())){
-      ToastUtil.showToastLong("账号已登陆");
-      BaseActivity.goLogin(mContext,"");
+      ToastUtil.showToastLong("账号已登陆,点击登录获取验证码");
+//      BaseActivity.goLogin(mContext,"");
+      LoginActivity.instance.setView();
       throw new RuntimeException("账号已登陆");
     } else {
       Log.e("codecode", httpResult.getStatus());

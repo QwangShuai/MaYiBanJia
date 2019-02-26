@@ -4,23 +4,23 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import com.mingmen.mayi.mayibanjia.MainActivity;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.ZhuCeChengGongBean;
 import com.mingmen.mayi.mayibanjia.bean.ZiZhangHuDetailsBean;
-import com.mingmen.mayi.mayibanjia.bean.ZzhQuanXianBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.weyye.hipermission.HiPermission;
 import me.weyye.hipermission.PermissionCallback;
@@ -59,13 +60,36 @@ public class LoginActivity extends BaseActivity {
     TextView tvDongtaimimadenglu;
     @BindView(R.id.tv_zhuce)
     TextView tvZhuce;
+    @BindView(R.id.et_yzm)
+    EditText etYzm;
+    @BindView(R.id.bt_yzm)
+    Button btYzm;
+    @BindView(R.id.ll_yzm)
+    LinearLayout llYzm;
     private Context mContext;
     private String pass;
     private String phone;
-    private String zzh="";
+    private String zzh = "";
     private boolean isLogin;
     private long exitTime = 0;
+    private boolean runningThree = true;
     public static LoginActivity instance;
+    private String type = "1";
+    public static int ISLOGIN = 1;
+    private CountDownTimer downTimer = new CountDownTimer(60 * 1000, 1000) {
+        @Override
+        public void onTick(long l) {
+            btYzm.setText((l / 1000) + "秒");
+            btYzm.setBackground(getResources().getDrawable(R.drawable.fillet_solid_buliang_5));
+        }
+
+        @Override
+        public void onFinish() {
+            runningThree = true;
+            btYzm.setText("重新发送");
+            btYzm.setBackground(getResources().getDrawable(R.drawable.fillet_solid_zangqing_5));
+        }
+    };
     @Override
     public int getLayoutId() {
         return R.layout.activity_login;
@@ -75,12 +99,17 @@ public class LoginActivity extends BaseActivity {
     protected void initData() {
         mContext = LoginActivity.this;
         instance = LoginActivity.this;
+        ISLOGIN = 1;
         isLogin = PreferenceUtils.getBoolean(MyApplication.mContext, "isLogin", false);
+        if(getIntent().getBooleanExtra("login",false)){
+            type = "2";
+            llYzm.setVisibility(View.VISIBLE);
+        }
         if (isLogin) {
             tiaozhuan(PreferenceUtils.getString(MyApplication.mContext, "juese", ""),
-                    PreferenceUtils.getInt(MyApplication.mContext,"random_id",0));
+                    PreferenceUtils.getInt(MyApplication.mContext, "random_id", 0));
         }
-        if (GongYingDuanShouYeActivity.instance!=null){
+        if (GongYingDuanShouYeActivity.instance != null) {
             PollingUtils.stopPollingService(GongYingDuanShouYeActivity.instance, PollingService.class, PollingService.ACTION);
             GongYingDuanShouYeActivity.instance.finish();
         }
@@ -149,28 +178,68 @@ public class LoginActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.bt_login, R.id.tv_dongtaimimadenglu, R.id.tv_zhuce})
+    @OnClick({R.id.bt_login, R.id.tv_dongtaimimadenglu, R.id.tv_zhuce,R.id.bt_yzm})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_login:
-                pass = etPass.getText().toString().trim();
-                phone = etPhone.getText().toString().trim();
-                if (AppUtil.isMobile(phone)) {
-                    login();
+                if(ISLOGIN==1){
+                    pass = etPass.getText().toString().trim();
+                    phone = etPhone.getText().toString().trim();
+                    if (AppUtil.isMobile(phone)) {
+                        if(llYzm.getVisibility()==View.VISIBLE?true:false){
+                            if(etYzm.getText().toString().length()==6){
+                                type = "2";
+                                login();
+                            } else {
+                                ToastUtil.showToastLong("请确认验证码是否规范输入");
+                            }
+                        } else {
+                            login();
+                        }
+
+                    } else {
+                        ToastUtil.showToast("手机格式不正确，请重新填写");
+                    }
                 } else {
-                    ToastUtil.showToast("手机格式不正确，请重新填写");
+                    llYzm.setVisibility(View.VISIBLE);
+                    pass = etPass.getText().toString().trim();
+                    phone = etPhone.getText().toString().trim();
+                    if (AppUtil.isMobile(phone)) {
+                        if(llYzm.getVisibility()==View.VISIBLE?true:false){
+                            if(etYzm.getText().toString().length()==6){
+                                type = "2";
+                                login();
+                            } else {
+                                ToastUtil.showToastLong("请确认验证码是否规范输入");
+                            }
+                        } else {
+                            login();
+                        }
+
+                    } else {
+                        ToastUtil.showToast("手机格式不正确，请重新填写");
+                    }
                 }
+
                 break;
             case R.id.tv_dongtaimimadenglu:
-                Intent dongtailogin=new Intent(mContext, ZhuCeActivity.class);
-                dongtailogin.putExtra("yemian","2");
-                dongtailogin.putExtra("phone",etPhone.getText().toString());
+                Intent dongtailogin = new Intent(mContext, ZhuCeActivity.class);
+                dongtailogin.putExtra("yemian", "2");
+                dongtailogin.putExtra("phone", etPhone.getText().toString());
                 startActivity(dongtailogin);
                 break;
             case R.id.tv_zhuce:
                 Intent zhuce = new Intent(mContext, ZhuCeActivity.class);
-                zhuce.putExtra("yemian","1");
+                zhuce.putExtra("yemian", "1");
                 startActivity(zhuce);
+                break;
+            case R.id.bt_yzm:
+                //获取验证码
+                if (AppUtil.isMobile(etPhone.getText().toString().trim())){
+                    getCode();
+                }else{
+                    ToastUtil.showToast("手机格式不正确，请重新填写");
+                }
                 break;
         }
     }
@@ -181,29 +250,34 @@ public class LoginActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .login(phone, pass, "", "1","1", StringUtil.getMyUUID(mContext)))
+                                .login(phone, pass, etYzm.getText().toString(), type, "1", StringUtil.getMyUUID(mContext)))
                 .setDataListener(new HttpDataListener<ZhuCeChengGongBean>() {
                     @Override
                     public void onNext(ZhuCeChengGongBean bean) {
                         Log.e("token", bean.getToken() + "===");
-                        PreferenceUtils.putString(MyApplication.mContext,"phone",bean.getTelephone());
-                        PreferenceUtils.putString(MyApplication.mContext,"host_account_type",bean.getHost_account_type());
+                        PreferenceUtils.putString(MyApplication.mContext, "phone", bean.getTelephone());
+                        PreferenceUtils.putString(MyApplication.mContext, "host_account_type", bean.getHost_account_type());
                         PreferenceUtils.putBoolean(MyApplication.mContext, "isLogin", true);
                         PreferenceUtils.putString(MyApplication.mContext, "token", bean.getToken());
                         PreferenceUtils.putString(MyApplication.mContext, "juese", bean.getRole());
-                        if(StringUtil.isValid(bean.getName())){
+                        if (StringUtil.isValid(bean.getName())) {
                             PreferenceUtils.putString(MyApplication.mContext, "name", bean.getName());
                         }
-                        PreferenceUtils.putInt(MyApplication.mContext,"random_id",bean.getRandom_id());
+                        PreferenceUtils.putInt(MyApplication.mContext, "random_id", bean.getRandom_id());
                         zzh = bean.getHost_account_type();
-                        Log.e("onNext: ",bean.getRole()+"我的天啊" +zzh);
-                        tiaozhuan(bean.getRole(),bean.getRandom_id());
+                        Log.e("onNext: ", bean.getRole() + "我的天啊" + zzh);
+                        tiaozhuan(bean.getRole(), bean.getRandom_id());
 
+                    }
+                    @Override
+                    protected Object clone() throws CloneNotSupportedException {
+                        llYzm.setVisibility(View.VISIBLE);
+                        return super.clone();
                     }
                 });
     }
 
-    private void tiaozhuan(String juese,int random_id) {
+    private void tiaozhuan(String juese, int random_id) {
         //登录成功后  跳转
         if ("5".equals(juese)) {
             Intent intent = new Intent(mContext, WuLiuActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -218,7 +292,7 @@ public class LoginActivity extends BaseActivity {
             startActivity(intent);
             AppManager.getAppManager().finishAllActivity();
         } else if ("2".equals(juese)) {//供应端
-            if(random_id==1){
+            if (random_id == 1) {
                 Intent intent = new Intent(mContext, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 AppManager.getAppManager().finishAllActivity();
@@ -230,18 +304,18 @@ public class LoginActivity extends BaseActivity {
 
         } else if ("1".equals(juese)) {//餐厅端
             final Intent intent = new Intent(mContext, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            if(!zzh.equals("0")){
+            if (!zzh.equals("0")) {
                 HttpManager.getInstance()
                         .with(mContext)
                         .setObservable(
                                 RetrofitManager
                                         .getService()
-                                        .getZzhAllQuanxian(PreferenceUtils.getString(MyApplication.mContext,"token","")))
+                                        .getZzhAllQuanxian(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
                         .setDataListener(new HttpDataListener<ZiZhangHuDetailsBean>() {
                             @Override
                             public void onNext(ZiZhangHuDetailsBean bean) {
-                                PreferenceUtils.setQuanxianList(MyApplication.mContext,bean);
-                                intent.putExtra("tosome",3);
+                                PreferenceUtils.setQuanxianList(MyApplication.mContext, bean);
+                                intent.putExtra("tosome", 3);
                                 startActivity(intent);
                                 AppManager.getAppManager().finishAllActivity();
                             }
@@ -273,5 +347,41 @@ public class LoginActivity extends BaseActivity {
             AppManager.getAppManager().AppExit(mContext);
 //            System.exit(0);
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+    private void getCode() {
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                . getcode("2",etPhone.getText().toString().trim()))
+                .setDataListener(new HttpDataListener<String>() {
+
+                    @Override
+                    public void onNext(String data) {
+                        Log.e("getcode",data);
+                        downTimer.start();
+                        runningThree = false;
+                        ToastUtil.showToast("已发送验证码");
+
+                    }
+                });
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    public void setView(){
+        llYzm.setVisibility(View.VISIBLE);
     }
 }

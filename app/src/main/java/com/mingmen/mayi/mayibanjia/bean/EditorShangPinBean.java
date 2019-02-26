@@ -241,6 +241,15 @@ public class EditorShangPinBean implements Serializable{
         private String spec_describe;//描述
         private String type_one_name;//1级到3级展示
         private String affiliated_number;//数量
+        private String affiliated_spec;//ID
+
+        public String getAffiliated_spec() {
+            return affiliated_spec;
+        }
+
+        public void setAffiliated_spec(String affiliated_spec) {
+            this.affiliated_spec = affiliated_spec;
+        }
 
         public String getType_one_name() {
             return type_one_name;

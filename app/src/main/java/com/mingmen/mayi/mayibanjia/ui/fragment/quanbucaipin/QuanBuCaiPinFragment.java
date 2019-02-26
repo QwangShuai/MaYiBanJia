@@ -662,6 +662,8 @@ public class QuanBuCaiPinFragment extends BaseFragment {
             activity.setType("");
         } else {
             if (!isResult) {
+                tvSousuozi.setText("");
+                sousuo = "";
                 xzId = "";
                 yijipinleiid = "";
                 leiAdapter.setXuanzhongId("");
@@ -863,11 +865,16 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 setState();
                 clearPopXuanzhong();
                 erjipinleiid = data.getStringExtra("three_id");
-                if (StringUtil.isValid(data.getStringExtra("four_id"))) {
+                if (StringUtil.isValid(data.getStringExtra("four_name"))) {
                     sanjipinleiid = data.getStringExtra("four_id");
                     sousuo = data.getStringExtra("four_name");
                     tvSousuozi.setText(sousuo);
-                    sousuoshangpin("", type);
+                    if(StringUtil.isValid(sanjipinleiid)){
+                        sousuoshangpin("", type);
+                    } else {
+                        getOneList();
+                    }
+
                 } else {
                     erjipinleiname = data.getStringExtra("three_name");
                     sousuo = data.getStringExtra("three_name");

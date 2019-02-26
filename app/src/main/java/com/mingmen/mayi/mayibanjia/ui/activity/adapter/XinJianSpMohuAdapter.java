@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.FCGName;
 import com.mingmen.mayi.mayibanjia.bean.ShangPinSousuoMohuBean;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +51,12 @@ public class XinJianSpMohuAdapter extends  RecyclerView.Adapter<XinJianSpMohuAda
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         ShangPinSousuoMohuBean data = mList.get(position);
-        holder.tv_ming.setText(data.getClassify_name()+"");
+        if(StringUtil.isValid(data.getAffiliated_number())){
+            holder.tv_ming.setText(data.getClassify_name()+"("+data.getAffiliated_number()+data.getAffiliated_spec_name()+"/"+data.getSpec_name()+")");
+        } else {
+            holder.tv_ming.setText(data.getClassify_name()+"("+data.getSpec_name()+")");
+        }
+
         if (mOnItemClickListener!=null){
             holder.tv_ming.setOnClickListener(new View.OnClickListener() {
                 @Override

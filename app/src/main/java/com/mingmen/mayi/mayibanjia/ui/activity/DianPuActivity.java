@@ -109,6 +109,7 @@ public class DianPuActivity extends BaseActivity implements View.OnClickListener
     private int ye = 1;
     private String type = "";
     private boolean jiage;
+    private String telephone;
     private List<DianPuZhanShiBean.CompanyListBean> mlist = new ArrayList<>();
     private JiaRuGouWuCheDialog jiarugouwuchedialog;
 
@@ -201,11 +202,20 @@ public class DianPuActivity extends BaseActivity implements View.OnClickListener
                 int firstVisibleItemPosition = manager.findFirstVisibleItemPosition();
                 // 当不滚动时
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    ivFanhuidingbu.setVisibility(View.GONE);
-                    llWeizhi.setVisibility(View.GONE);
+                    if(ivFanhuidingbu.getVisibility()==View.VISIBLE){
+                        ivFanhuidingbu.setVisibility(View.GONE);
+                        llWeizhi.setVisibility(View.GONE);
+                    }
                 } else if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {//拖动中
-                    ivFanhuidingbu.setVisibility(View.VISIBLE);
-                    llWeizhi.setVisibility(View.VISIBLE);
+                    if(ivFanhuidingbu.getVisibility()==View.GONE){
+                        ivFanhuidingbu.setVisibility(View.VISIBLE);
+                        llWeizhi.setVisibility(View.VISIBLE);
+                    }
+                } else if(newState ==RecyclerView.SCROLL_STATE_SETTLING){
+                    if(ivFanhuidingbu.getVisibility()==View.GONE){
+                        ivFanhuidingbu.setVisibility(View.VISIBLE);
+                        llWeizhi.setVisibility(View.VISIBLE);
+                    }
                 }
             }
         });
@@ -321,6 +331,7 @@ public class DianPuActivity extends BaseActivity implements View.OnClickListener
         tvFocus.setText(isFocus?"已关注":"关注");
         ivFocus.setVisibility(isFocus?View.GONE:View.VISIBLE);
         tvZongshu.setText( dianpuxinxi.getGoodsCount()+"");
+        telephone = dianpuxinxi.getTelephone();
         getSpList();
     }
 
@@ -383,7 +394,7 @@ public class DianPuActivity extends BaseActivity implements View.OnClickListener
             case R.id.ll_dianhua:
                 //电话
                 Intent dianhua = new Intent(Intent.ACTION_DIAL);
-                Uri data = Uri.parse("tel:" + "");
+                Uri data = Uri.parse("tel:" + telephone );
                 dianhua.setData(data);
                 startActivity(dianhua);
                 break;

@@ -1,5 +1,6 @@
 package com.mingmen.mayi.mayibanjia.http.manager;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
@@ -19,7 +20,6 @@ public class HttpManager {
   private WeakReference<Context> context;
   private Observable observable;
   private HttpObserver observer;
-
   private HttpManager() {
 
   }

@@ -372,7 +372,12 @@ public class SouSuoActivity extends BaseActivity {
                         lastSearch = etSousuo.getText().toString().trim();
                     }
 
-                    sousuo(lastSearch,false);
+//                    sousuo(lastSearch,false);
+                    Intent it = new Intent();
+                        it.putExtra("three_id","");
+                        it.putExtra("four_id","");
+                        it.putExtra("four_name",lastSearch);
+                        setResult(2,it);
 
 
                     if (recordsDao.dianpuIsHas(lastSearch)) {
@@ -381,6 +386,7 @@ public class SouSuoActivity extends BaseActivity {
                     PreferenceUtils.putString(MyApplication.mContext, "keyword", lastSearch);
                     recordsDao.addDianpu(lastSearch);
                     initChildViews();
+                    finish();
                     return true;
                 }
                 return false;

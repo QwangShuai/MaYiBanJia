@@ -132,13 +132,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public static void goLogin(Context mContext,String state){
-
+        Log.e("goLogin: ",mContext.toString() );
             Intent it = new Intent();
+            it.setClass(mContext, LoginActivity.class) ;
             if(state.equals("login")){
-                it.setClass(mContext, LoginActivity.class) ;
+
             } else {
-                it.setClass(mContext, ZhuCeActivity.class) ;
-                it.putExtra("yemian","2");
+                it.putExtra("login",true);
             }
             PreferenceUtils.putBoolean(MyApplication.mContext,"isLogin",false);
             PreferenceUtils.remove(MyApplication.mContext,"juese");

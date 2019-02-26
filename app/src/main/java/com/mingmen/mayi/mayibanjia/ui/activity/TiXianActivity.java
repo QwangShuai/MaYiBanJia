@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,6 +29,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.adapter.WuLiuFenPeiAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.CircleImageView;
+import com.mingmen.mayi.mayibanjia.utils.MyMath;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
@@ -139,7 +141,10 @@ public class TiXianActivity extends BaseActivity {
                     } else if(Double.valueOf(yue)< Double.valueOf(etJine.getText().toString())){
                         ToastUtil.showToast("最大金额不可以超过余额");
                     } else {
-                        confirmDialog.showDialog("确认提现将收取千分之6的手续费，是否提现");
+                        double  yueDou=Double.parseDouble(etJine.getText().toString());
+                        double  fuWuFei=0.006;
+                        double mony=MyMath.mulAll(yueDou,fuWuFei);
+                        confirmDialog.showDialog("确认提现将收取"+mony+"元的手续费，是否提现");
                         confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {

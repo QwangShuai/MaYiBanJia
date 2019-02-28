@@ -14,9 +14,13 @@ import android.widget.Toast;
 
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.ZiZhangHuDetailsBean;
+import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
+import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
+import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.CaiGouXuQiuActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.FCGDiQuXuanZeActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.LoginActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.myinterface.MainCallBack;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.ui.fragment.gouwuche.GouWuCheFragment;
@@ -53,6 +57,8 @@ public class MainActivity extends BaseActivity {
     ImageView ivFacaigou;
     @BindView(R.id.viewpager)
     NoScrollViewPager viewPager;
+    @BindView(R.id.imageView)
+    ImageView imageView;
     private long exitTime = 0;
     private List<Fragment> fragments = new ArrayList<>();
     private Context context = MainActivity.this;
@@ -61,6 +67,8 @@ public class MainActivity extends BaseActivity {
     private String sp_type = "";
     private String sp_id = "";
     private String zzh = "";
+    private ConfirmDialog confirmDialog;
+    private Context mContext;
     //    private String role ="";
     private List<ZiZhangHuDetailsBean.RoleListBean> role = new ArrayList<>();
 
@@ -73,13 +81,15 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initData() {
         StatusBarCompat.translucentStatusBar(this);
-
+        mContext = MainActivity.this;
         ButterKnife.bind(this);
         //检测版本
         updataVersion();
         //权限
         QuanXian.huoqu(MainActivity.this);
         //布局
+        confirmDialog = new ConfirmDialog(mContext,
+                mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         initview();
         instance = this;
     }
@@ -91,6 +101,9 @@ public class MainActivity extends BaseActivity {
 
         } else {
             role = PreferenceUtils.getQuanxianList(MyApplication.mContext, "quanxian");
+        }
+        if(PreferenceUtils.getBoolean(MyApplication.mContext,"youke",false)){
+            imageView.setVisibility(View.VISIBLE);
         }
         ShouYeFragment shouYeFragment = new ShouYeFragment();
         QuanBuCaiPinFragment quanBuCaiPinFragment = new QuanBuCaiPinFragment();
@@ -140,7 +153,7 @@ public class MainActivity extends BaseActivity {
      * 检测版本
      */
     private void updataVersion() {
-//        VersionParams.Builder builder = new VersionParams.Builder()
+//        VersionParams.Builder builder = new VersionParams.Builder)
 //                .setRequestUrl("http://www.baidu.com")
 //                .setService(UpdataSerive.class);
 //        builder.setShowNotification(true);
@@ -148,7 +161,7 @@ public class MainActivity extends BaseActivity {
 //        builder.setCustomDownloadActivityClass(CustomVersionDialogActivity.class);
 //        CustomVersionDialogActivity.isCustomDownloading = true;
 //        builder.setCustomDownloadActivityClass(CustomVersionDialogActivity.class);
-//        AllenChecker.startVersionCheck((Application) MyApplication.mContext, builder.build());
+//        AllenChecker.startVersionCheck((Application) MyApplication.mCo(ntext, builder.build());
     }
 
     @Override
@@ -180,7 +193,7 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.iv_shouye, R.id.iv_quanbucaipin, R.id.iv_gouwuche, R.id.iv_wode, R.id.iv_facaigou})
+    @OnClick({R.id.iv_shouye, R.id.iv_quanbucaipin, R.id.iv_gouwuche, R.id.iv_wode, R.id.iv_facaigou,R.id.imageView})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_shouye:
@@ -211,7 +224,12 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.iv_wode:
 //                ivFacaigou.setVisibility(View.GONE);
-                gaibianye(3);
+                if(PreferenceUtils.getBoolean(MyApplication.mContext,"youke",false)){
+                    ToastUtil.showToastLong("游客无权限进入");
+                } else {
+                    gaibianye(3);
+                }
+
                 break;
             case R.id.iv_facaigou:
                 if (zzh.equals("0")) {
@@ -229,6 +247,21 @@ public class MainActivity extends BaseActivity {
                     }
                 }
 
+                break;
+            case R.id.imageView:
+                confirmDialog.showDialog("是否确定退出当前账号");
+                confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        exitLogin();
+                    }
+                });
+                confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        confirmDialog.dismiss();
+                    }
+                });
                 break;
         }
     }
@@ -299,5 +332,27 @@ public class MainActivity extends BaseActivity {
         }
 
         return b;
+    }
+    private void exitLogin() {
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(RetrofitManager.getService()
+                        .exitLogin(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
+                .setDataListener(new HttpDataListener<String>() {
+                    @Override
+                    public void onNext(String data) {
+//                        if(GongYingDuanShouYeActivity.instance!=null){
+//                            PollingUtils.stopPollingService(GongYingDuanShouYeActivity.instance, PollingService.class,PollingService.ACTION);
+//                        }
+//                        PreferenceUtils.putBoolean(MyApplication.mContext,"isLogin",false);
+//                        PreferenceUtils.remove(MyApplication.mContext,"juese");
+//                        Intent intent = new Intent(mContext, LoginActivity.class);
+//                        startActivity(intent);
+                        confirmDialog.dismiss();
+//                        MainActivity.instance.finish();
+//                        AppManager.getAppManager().finishActivity();
+                        goLogin(mContext,"login");
+                    }
+                });
     }
 }

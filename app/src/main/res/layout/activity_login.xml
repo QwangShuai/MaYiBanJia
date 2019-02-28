@@ -6,6 +6,7 @@
     android:background="@color/white"
     >
     <ScrollView
+        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
@@ -145,6 +146,17 @@
                     android:text="登录"
                     android:textColor="@color/white"
                     android:textSize="18sp"/>
+                <Button
+                    android:id="@+id/bt_youke"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/fillet_hollow_zangqing_5"
+                    android:text="游客登陆"
+                    android:textColor="@color/zangqing"
+                    android:textSize="18sp"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -178,4 +190,25 @@
         </LinearLayout>
     </ScrollView>
 
+    <LinearLayout
+        android:id="@+id/ll_phone"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginBottom="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="12sp"
+            android:textColor="@color/hintcolor"
+            android:text="客服电话"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginLeft="4dp"
+            android:textSize="12sp"
+            android:textColor="@color/blue_3184cc"
+            android:text="0451-8798-9897"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 </LinearLayout>

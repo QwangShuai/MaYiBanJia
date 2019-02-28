@@ -115,8 +115,7 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
     private String spID;
     private List<String> picList = Arrays.asList("","","","");
     private FenLeiLableAdapter adapter;
-    private List<PingJiaLableBean> mlist = new ArrayList<>();
-    private List<FeiLeiLableSubmitBean> list = new ArrayList<>();
+    private List<FeiLeiLableSubmitBean> mlist = new ArrayList<>();
 
 
     @Override
@@ -128,8 +127,10 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
     protected void initData() {
         mContext=FaBuShangPinXiangQingTuActivity.this;
         yemian = getIntent().getStringExtra("yemian");
+        setRvAdapter();
         if(yemian.equals("0")){
             tvTitle.setText("新建商品");
+            getFenLeiLable();
             pipei = getIntent().getStringExtra("pipei");
             if(!pipei.equals("0")){
                 setDataView();
@@ -161,8 +162,6 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
 
             }
         });
-        setRvAdapter();
-        getFenLeiLable();
     }
 
 
@@ -322,7 +321,7 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                         .getService()
                         .fabushangpin(PreferenceUtils.getString(MyApplication.mContext, "token",""),"",canshu.getDeputyPicture(),
                                 canshu.getPack_standard_two(),canshu.getPack_standard_tree(),
-                                canshu.getRation_one(),canshu.getPice_one(),canshu.getInventory(),new Gson().toJson(list),canshu.getType_one_id(),canshu.getGoods(),canshu.getCommodity_state(),canshu.getCommodity_name(),
+                                canshu.getRation_one(),canshu.getPice_one(),canshu.getInventory(),new Gson().toJson(mlist),canshu.getType_one_id(),canshu.getGoods(),canshu.getCommodity_state(),canshu.getCommodity_name(),
                                 canshu.getType_two_id(),canshu.getType_tree_id(),canshu.getType_four_id(),canshu.getHostPicture(),
                                 canshu.getSpec_describe(),canshu.getPrice(),canshu.getSpec_count(),canshu.getSpec_detal_id(),canshu.getPack_standard_tree_name(),canshu.getSpec_detal_name()))
                 .setDataListener(new HttpDataListener<String>() {
@@ -344,7 +343,7 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                                 .getService()
                                 .updateshangpin(PreferenceUtils.getString(MyApplication.mContext, "token",""),spID,"",picList,
                                         canshu.getPack_standard_two(),canshu.getPack_standard_tree(),
-                                        canshu.getRation_one(),canshu.getPice_one(),canshu.getInventory(),new Gson().toJson(list),canshu.getType_one_id(),canshu.getGoods(),canshu.getCommodity_state(),canshu.getCommodity_name(),
+                                        canshu.getRation_one(),canshu.getPice_one(),canshu.getInventory(),new Gson().toJson(mlist),canshu.getType_one_id(),canshu.getGoods(),canshu.getCommodity_state(),canshu.getCommodity_name(),
                                         canshu.getType_two_id(),canshu.getType_tree_id(),canshu.getType_four_id(),canshu.getHostPicture(),canshu.getSpec_describe(),
                                         canshu.getPrice(),canshu.getSpec_count(),canshu.getSpec_detal_id(),canshu.getPack_standard_tree_name(),canshu.getSpec_detal_name()))
                 .setDataListener(new HttpDataListener<String>() {
@@ -562,6 +561,18 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                 }
             }
         }
+        int mysize = bean.getParameteList()==null?0:bean.getParameteList().size();
+        if(mysize!=0){
+            for (int i=0;i<mysize;i++){
+                FeiLeiLableSubmitBean mybean = new FeiLeiLableSubmitBean();
+                mybean.setParamete_name(bean.getParameteList().get(i).getParamete_name());
+                mybean.setParamete_name_id(bean.getParameteList().get(i).getParamete_name_id());
+                mybean.setParamete_content(bean.getParameteList().get(i).getParamete_content());
+                mlist.add(mybean);
+                adapter.notifyDataSetChanged();
+            }
+        }
+
 
 //        for(int i = 0 ; i<bean.getParameteList().size();i++){
 //            switch (bean.getParameteList().get(i).getParamete_name_id()){
@@ -582,8 +593,8 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
     }
 
     public void changeList(int pos,String text){
-        if(!text.equals(list.get(pos).getParamete_content())){
-            list.get(pos).setParamete_content(text);
+        if(!text.equals(mlist.get(pos).getParamete_content())){
+            mlist.get(pos).setParamete_content(text);
         }
     }
 
@@ -594,18 +605,12 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                         RetrofitManager
                                 .getService()
                                 .getFenLeiCanShu(PreferenceUtils.getString(MyApplication.mContext,"token","")))
-                .setDataListener(new HttpDataListener<List<PingJiaLableBean>>() {
+                .setDataListener(new HttpDataListener<List<FeiLeiLableSubmitBean>>() {
                     @Override
-                    public void onNext(List<PingJiaLableBean> data) {
+                    public void onNext(List<FeiLeiLableSubmitBean> data) {
                         int mysize = data==null?0:data.size();
                         if(mysize!=0){
                             mlist.addAll(data);
-                            for (PingJiaLableBean bean:data) {
-                                FeiLeiLableSubmitBean mybean = new FeiLeiLableSubmitBean();
-                                mybean.setParamete_name_id(bean.getSon_number());
-                                mybean.setParamete_content("");
-                                list.add(mybean);
-                            }
                             adapter.notifyDataSetChanged();
                         }
                     }

@@ -242,6 +242,15 @@ public class EditorShangPinBean implements Serializable{
         private String type_one_name;//1级到3级展示
         private String affiliated_number;//数量
         private String affiliated_spec;//ID
+        private String type_four_id;
+
+        public String getType_four_id() {
+            return type_four_id;
+        }
+
+        public void setType_four_id(String type_four_id) {
+            this.type_four_id = type_four_id;
+        }
 
         public String getAffiliated_spec() {
             return affiliated_spec;
@@ -1096,8 +1105,17 @@ public class EditorShangPinBean implements Serializable{
         private String commodity_id;
         private Object create_time;
         private String paramete_name_id;
+        private String paramete_name;
         private Object paramete_id;
         private String paramete_content;
+
+        public String getParamete_name() {
+            return paramete_name;
+        }
+
+        public void setParamete_name(String paramete_name) {
+            this.paramete_name = paramete_name;
+        }
 
         public String getCommodity_id() {
             return commodity_id;

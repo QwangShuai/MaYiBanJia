@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.ActivityCompat;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import com.mingmen.mayi.mayibanjia.MainActivity;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
+import com.mingmen.mayi.mayibanjia.app.UMConfig;
 import com.mingmen.mayi.mayibanjia.bean.ZhuCeChengGongBean;
 import com.mingmen.mayi.mayibanjia.bean.ZiZhangHuDetailsBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
@@ -64,12 +66,18 @@ public class LoginActivity extends BaseActivity {
     EditText etYzm;
     @BindView(R.id.bt_yzm)
     Button btYzm;
+    @BindView(R.id.bt_youke)
+    Button btYouke;
     @BindView(R.id.ll_yzm)
     LinearLayout llYzm;
+    @BindView(R.id.ll_phone)
+    LinearLayout llPhone;
+
+
     private Context mContext;
     private String pass;
     private String phone;
-    private String zzh = "";
+    private String zzh = "0";
     private boolean isLogin;
     private long exitTime = 0;
     private boolean runningThree = true;
@@ -178,7 +186,7 @@ public class LoginActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.bt_login, R.id.tv_dongtaimimadenglu, R.id.tv_zhuce,R.id.bt_yzm})
+    @OnClick({R.id.bt_login, R.id.tv_dongtaimimadenglu, R.id.tv_zhuce,R.id.bt_yzm,R.id.bt_youke,R.id.ll_phone})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_login:
@@ -241,6 +249,12 @@ public class LoginActivity extends BaseActivity {
                     ToastUtil.showToast("手机格式不正确，请重新填写");
                 }
                 break;
+            case R.id.bt_youke:
+                youkeLogin();
+                break;
+            case R.id.ll_phone:
+                CallPhone(UMConfig.PHONE);
+                break;
         }
     }
 
@@ -276,7 +290,39 @@ public class LoginActivity extends BaseActivity {
                     }
                 });
     }
+    private void youkeLogin() {
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .youkeLogin())
+                .setDataListener(new HttpDataListener<ZhuCeChengGongBean>() {
+                    @Override
+                    public void onNext(ZhuCeChengGongBean bean) {
+                        Log.e("token", bean.getToken() + "===");
+                        PreferenceUtils.putString(MyApplication.mContext, "phone", bean.getTelephone());
+                        PreferenceUtils.putString(MyApplication.mContext, "host_account_type", bean.getHost_account_type());
+                        PreferenceUtils.putBoolean(MyApplication.mContext, "isLogin", true);
+                        PreferenceUtils.putString(MyApplication.mContext, "token", bean.getToken());
+                        PreferenceUtils.putString(MyApplication.mContext, "juese", bean.getRole());
+                        if (StringUtil.isValid(bean.getName())) {
+                            PreferenceUtils.putString(MyApplication.mContext, "name", bean.getName());
+                        }
+                        PreferenceUtils.putInt(MyApplication.mContext, "random_id", bean.getRandom_id());
+                        PreferenceUtils.putBoolean(MyApplication.mContext, "youke", true);
+                        zzh = bean.getHost_account_type();
+                        Log.e("onNext: ", bean.getRole() + "我的天啊" + zzh);
+                        tiaozhuan(bean.getRole(), bean.getRandom_id());
 
+                    }
+                    @Override
+                    protected Object clone() throws CloneNotSupportedException {
+                        llYzm.setVisibility(View.VISIBLE);
+                        return super.clone();
+                    }
+                });
+    }
     private void tiaozhuan(String juese, int random_id) {
         //登录成功后  跳转
         if ("5".equals(juese)) {
@@ -383,5 +429,11 @@ public class LoginActivity extends BaseActivity {
 
     public void setView(){
         llYzm.setVisibility(View.VISIBLE);
+    }
+    public void CallPhone(String phone) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        Uri data = Uri.parse("tel:" + phone);
+        intent.setData(data);
+        mContext.startActivity(intent);
     }
 }

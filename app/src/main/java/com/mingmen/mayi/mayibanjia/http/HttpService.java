@@ -20,6 +20,7 @@ import com.mingmen.mayi.mayibanjia.bean.FCGGuige;
 import com.mingmen.mayi.mayibanjia.bean.FCGName;
 import com.mingmen.mayi.mayibanjia.bean.FCGSaveFanHuiBean;
 import com.mingmen.mayi.mayibanjia.bean.FbspGuiGeBean;
+import com.mingmen.mayi.mayibanjia.bean.FeiLeiLableSubmitBean;
 import com.mingmen.mayi.mayibanjia.bean.FenLeiBean;
 import com.mingmen.mayi.mayibanjia.bean.FenLeiMingChengBean;
 import com.mingmen.mayi.mayibanjia.bean.GHOrderBean;
@@ -155,6 +156,9 @@ public interface HttpService {
                                                       @Query("login_type") String login_type,
                                                       @Query("device_name") String device_name,
                                                       @Query("deviceid") String deviceid);
+    //游客登录
+    @POST("allCompanyAccount/queryvisitor.do")
+    Observable<ResultModel<ZhuCeChengGongBean>> youkeLogin();
 
     //市场搜索
     @POST("sy/queryMarket.do")
@@ -1241,5 +1245,5 @@ public interface HttpService {
 
     //获取新建商品分支条件
     @POST("gyCommodity/commoditySpec.do")
-    Observable<ResultModel<List<PingJiaLableBean>>> getFenLeiCanShu(@Query("user_token") String user_token);
+    Observable<ResultModel<List<FeiLeiLableSubmitBean>>> getFenLeiCanShu(@Query("user_token") String user_token);
 }

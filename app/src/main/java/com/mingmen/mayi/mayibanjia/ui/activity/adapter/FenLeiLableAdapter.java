@@ -11,8 +11,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.mingmen.mayi.mayibanjia.R;
+import com.mingmen.mayi.mayibanjia.bean.FeiLeiLableSubmitBean;
 import com.mingmen.mayi.mayibanjia.bean.PingJiaLableBean;
 import com.mingmen.mayi.mayibanjia.ui.activity.FaBuShangPinXiangQingTuActivity;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 
 import java.util.List;
 
@@ -27,10 +29,10 @@ public class FenLeiLableAdapter extends RecyclerView.Adapter<FenLeiLableAdapter.
 
     private ViewHolder viewHolder;
     private Context mContext;
-    private List<PingJiaLableBean> mList;
+    private List<FeiLeiLableSubmitBean> mList;
     private FaBuShangPinXiangQingTuActivity activity;
 
-    public FenLeiLableAdapter(Context mContext, List<PingJiaLableBean> list, FaBuShangPinXiangQingTuActivity activity) {
+    public FenLeiLableAdapter(Context mContext, List<FeiLeiLableSubmitBean> list, FaBuShangPinXiangQingTuActivity activity) {
         this.mContext = mContext;
         this.mList = list;
         this.activity = activity;
@@ -44,8 +46,15 @@ public class FenLeiLableAdapter extends RecyclerView.Adapter<FenLeiLableAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        PingJiaLableBean bean = mList.get(position);
-        holder.tvName.setText(bean.getSon_name());
+        FeiLeiLableSubmitBean bean = mList.get(position);
+        if(position==mList.size()-1){
+            holder.viewCut.setVisibility(View.INVISIBLE);
+        }
+        holder.tvName.setText(bean.getParamete_name());
+        if(StringUtil.isValid(bean.getParamete_content())){
+            holder.etCanshu.setText(bean.getParamete_content());
+        }
+
         holder.etCanshu.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -75,6 +84,8 @@ public class FenLeiLableAdapter extends RecyclerView.Adapter<FenLeiLableAdapter.
         TextView tvName;
         @BindView(R.id.et_canshu)
         EditText etCanshu;
+        @BindView(R.id.view_cut)
+        View viewCut;
 
         ViewHolder(View view) {
             super(view);

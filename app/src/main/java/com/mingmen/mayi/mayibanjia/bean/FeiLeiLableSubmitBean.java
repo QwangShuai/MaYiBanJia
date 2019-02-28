@@ -6,7 +6,16 @@ package com.mingmen.mayi.mayibanjia.bean;
 
 public class FeiLeiLableSubmitBean {
     private String paramete_name_id;
+    private String paramete_name;
     private String paramete_content;
+
+    public String getParamete_name() {
+        return paramete_name;
+    }
+
+    public void setParamete_name(String paramete_name) {
+        this.paramete_name = paramete_name;
+    }
 
     public String getParamete_name_id() {
         return paramete_name_id;

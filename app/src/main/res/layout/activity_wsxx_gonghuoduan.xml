@@ -17,7 +17,48 @@
             android:paddingLeft="12dp"
             android:paddingRight="12dp">
 
+            <LinearLayout
+                android:layout_marginTop="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="区域选择"
+                    android:textColor="#ff474747"
+                    android:textSize="14sp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/tv_quyuxuanze"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="36dp"
+                        android:background="@drawable/fillet_hollow_999999_3"
+                        android:gravity="center_vertical"
+                        android:hint="请选择"
+                        android:paddingLeft="5dp"
+                        android:text=""
+                        android:textColor="@color/zicolor"
+                        android:textColorHint="@color/hintcolor"
+                        android:textSize="12sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:paddingRight="4dp"
+                        android:src="@mipmap/xiangxia_hui" />
+                </RelativeLayout>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -38,7 +79,7 @@
                     android:layout_height="match_parent"
                     android:background="@null"
                     android:text=""
-                    android:hint="请填写"
+                    android:hint="请选择区域后方可填写"
                     android:textColorHint="#999999"
                     android:paddingLeft="5dp"
                     android:textSize="15sp"

@@ -335,9 +335,14 @@ public class GouWuCheFragment extends BaseFragment {
         for (int i = 0; i < gwcdianpushangpin.size(); i++) {
             for (int j = 0; j < gwcdianpushangpin.get(i).getShangPinBeen().size(); j++) {
                 if (isquanxuan){
-                    selectedId.put(gwcdianpushangpin.get(i).getShangPinBeen().get(j).getShopping_id(),gwcdianpushangpin.get(i).getShangPinBeen().get(j).getCompany_id());
+                    if(!gwcdianpushangpin.get(i).getShangPinBeen().get(j).getCommodity_state().equals("1")){
+                        selectedId.put(gwcdianpushangpin.get(i).getShangPinBeen().get(j).getShopping_id(),gwcdianpushangpin.get(i).getShangPinBeen().get(j).getCompany_id());
+                    }
                 }
-                gwcdianpushangpin.get(i).getShangPinBeen().get(j).setSelected(isquanxuan);
+                if(!gwcdianpushangpin.get(i).getShangPinBeen().get(j).getCommodity_state().equals("1")){
+                    gwcdianpushangpin.get(i).getShangPinBeen().get(j).setSelected(isquanxuan);
+                }
+
             }
 
         }

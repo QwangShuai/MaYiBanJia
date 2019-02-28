@@ -169,11 +169,16 @@ public class GWCDianPuAdapter extends  RecyclerView.Adapter<GWCDianPuAdapter.Vie
                     shangpinadapter.setSelected(datas.isSelected());
                     List<GWCShangPinBean.ShoppingBean> splist = shangpinadapter.getmList();
                     for (int i = 0; i <splist.size() ; i++) {
-                        if (datas.isSelected()){
-                            splist.get(i).setSelected(true);
-                        }else{
-                            splist.get(i).setSelected(false);
+                        if(!splist.get(i).getCommodity_state().equals("1")){
+                            if (datas.isSelected()){
+                                splist.get(i).setSelected(true);
+                            }else{
+                                splist.get(i).setSelected(false);
+                            }
+                        } else {
+                            ToastUtil.showToastLong("包含已下架商品，请及时删除");
                         }
+
                     }
                     shangpinadapter.setmList(splist);
                     gouWuCheFragment.getalllist();

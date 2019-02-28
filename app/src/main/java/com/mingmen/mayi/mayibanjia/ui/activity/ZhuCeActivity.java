@@ -289,7 +289,8 @@ public class ZhuCeActivity extends BaseActivity {
                                     ToastUtil.showToast("请输入验证码");
                                     return ;
                                 }else if (AppUtil.isMobile(etPhone.getText().toString().trim())){
-                                    Intent intent=new Intent(mContext,GHDWanShanXinXiActivity.class);
+//                                    Intent intent=new Intent(mContext,GHDWanShanXinXiActivity.class);
+                                    Intent intent=new Intent(mContext,XuanZeJueSeActivity.class);
                                     Bundle bundle=new Bundle();
                                     bundle.putString("phone",phone);
                                     bundle.putString("pass1",pass1);

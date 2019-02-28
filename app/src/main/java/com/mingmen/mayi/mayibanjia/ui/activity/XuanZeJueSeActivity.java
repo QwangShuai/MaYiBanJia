@@ -3,7 +3,6 @@ package com.mingmen.mayi.mayibanjia.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -42,8 +41,14 @@ public class XuanZeJueSeActivity extends BaseActivity {
     LinearLayout llGonghuoduan;
     @BindView(R.id.bt_xiayibu)
     Button btXiayibu;
+    @BindView(R.id.iv_shequshichang)
+    ImageView ivShequshichang;
+    @BindView(R.id.tv_shequshichang)
+    TextView tvShequshichang;
+    @BindView(R.id.ll_shequshichang)
+    LinearLayout llShequshichang;
     private Context mContext;
-    private boolean isCt;
+    private String isXz = "1";
 
     @Override
     public int getLayoutId() {
@@ -52,16 +57,16 @@ public class XuanZeJueSeActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        mContext=XuanZeJueSeActivity.this;
+        mContext = XuanZeJueSeActivity.this;
         tvTitle.setText("请选择角色");
         btXiayibu.setEnabled(false);
         btXiayibu.setBackground(getResources().getDrawable(R.drawable.fillet_solid_buliang_5));
-        bundle=getIntent().getExtras();
+        bundle = getIntent().getExtras();
 
 
     }
 
-    @OnClick({R.id.iv_back, R.id.ll_cantingduan, R.id.ll_gonghuoduan, R.id.bt_xiayibu})
+    @OnClick({R.id.iv_back, R.id.ll_cantingduan, R.id.ll_gonghuoduan, R.id.bt_xiayibu,R.id.ll_shequshichang})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -70,31 +75,82 @@ public class XuanZeJueSeActivity extends BaseActivity {
             case R.id.ll_cantingduan:
                 ivCantingduan.setSelected(true);
                 ivGonghuoduan.setSelected(false);
-                isCt=true;
+                ivShequshichang.setSelected(false);
+
+                llCantingduan.setBackground(getResources().getDrawable(R.drawable.fillet_solid_zangqing_5));
+                llGonghuoduan.setBackground(getResources().getDrawable(R.drawable.fillet_solid_white_5));
+                llShequshichang.setBackground(getResources().getDrawable(R.drawable.fillet_solid_white_5));
+
+                tvCantingduan.setTextColor(getResources().getColor(R.color.white));
+                tvGonghuoduan.setTextColor(getResources().getColor(R.color.green_6dd46d));
+                tvShequshichang.setTextColor(getResources().getColor(R.color.green_6dd46d));
+
+                isXz = "1";
                 btXiayibu.setEnabled(true);
                 btXiayibu.setBackground(getResources().getDrawable(R.drawable.fillet_solid_zangqing_5));
                 break;
             case R.id.ll_gonghuoduan:
                 ivCantingduan.setSelected(false);
                 ivGonghuoduan.setSelected(true);
-                isCt=false;
+                ivShequshichang.setSelected(false);
+
+                llCantingduan.setBackground(getResources().getDrawable(R.drawable.fillet_solid_white_5));
+                llGonghuoduan.setBackground(getResources().getDrawable(R.drawable.fillet_solid_zangqing_5));
+                llShequshichang.setBackground(getResources().getDrawable(R.drawable.fillet_solid_white_5));
+
+                tvCantingduan.setTextColor(getResources().getColor(R.color.green_6dd46d));
+                tvGonghuoduan.setTextColor(getResources().getColor(R.color.white));
+                tvShequshichang.setTextColor(getResources().getColor(R.color.green_6dd46d));
+
+                isXz = "2";
+                btXiayibu.setEnabled(true);
+                btXiayibu.setBackground(getResources().getDrawable(R.drawable.fillet_solid_zangqing_5));
+                break;
+            case R.id.ll_shequshichang:
+                ivCantingduan.setSelected(false);
+                ivGonghuoduan.setSelected(false);
+                ivShequshichang.setSelected(true);
+
+                llCantingduan.setBackground(getResources().getDrawable(R.drawable.fillet_solid_white_5));
+                llGonghuoduan.setBackground(getResources().getDrawable(R.drawable.fillet_solid_white_5));
+                llShequshichang.setBackground(getResources().getDrawable(R.drawable.fillet_solid_zangqing_5));
+
+                tvCantingduan.setTextColor(getResources().getColor(R.color.green_6dd46d));
+                tvGonghuoduan.setTextColor(getResources().getColor(R.color.green_6dd46d));
+                tvShequshichang.setTextColor(getResources().getColor(R.color.white));
+
+                isXz = "3";
                 btXiayibu.setEnabled(true);
                 btXiayibu.setBackground(getResources().getDrawable(R.drawable.fillet_solid_zangqing_5));
                 break;
             case R.id.bt_xiayibu:
-                if (isCt){
-                    Intent intent=new Intent(mContext,CTDWanShanXinXiActivity.class);
-                    bundle.putString("jueseid","1");
+                if (isXz.equals("1")) {
+                    Intent intent = new Intent(mContext, CTDWanShanXinXiActivity.class);
+                    bundle.putString("jueseid", isXz);
                     intent.putExtras(bundle);
                     startActivity(intent);
-                }else{
-                    Intent intent=new Intent(mContext,GHDWanShanXinXiActivity.class);
-                    bundle.putString("jueseid","2");
+                }
+//                else if(isXz.equals("2")){
+//                    Intent intent = new Intent(mContext, GHDWanShanXinXiActivity.class);
+//                    bundle.putString("jueseid", "2");.,mmp[
+//                    intent.putExtras(bundle);
+//                    startActivity(intent);
+//                }
+                else {
+                    Intent intent = new Intent(mContext, GHDWanShanXinXiActivity.class);
+                    bundle.putString("jueseid", isXz);
                     intent.putExtras(bundle);
                     startActivity(intent);
                 }
 
                 break;
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

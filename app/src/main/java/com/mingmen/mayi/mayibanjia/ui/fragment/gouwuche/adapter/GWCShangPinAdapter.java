@@ -57,19 +57,20 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
     private boolean isSelected;
     GouWuCheFragment gouWuCheFragment;
     private OnItemClickListener mOnItemClickListener;
+
     public boolean isSelected() {
         return isSelected;
     }
 
 
-
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         void onClick(View view, int position, List<GWCShangPinBean.ShoppingBean> mList);
     }
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener ){
-        this. mOnItemClickListener=onItemClickListener;
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.mOnItemClickListener = onItemClickListener;
     }
+
     public void setSelected(boolean selected) {
         isSelected = selected;
     }
@@ -91,28 +92,38 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
     public void onBindViewHolder(final ViewHolder holder, final int position) {//购物车页面初始数据加载
         final GWCShangPinBean.ShoppingBean shoppingBean = mList.get(position);
         //holder.tvName.setText(shoppingBean.getClassify_name());
-        holder.tvName.setText(shoppingBean.getClassify_name());//商品名称改为三级分类名称
         //holder.tvGuige.setText(shoppingBean.getPack_standard());
-        holder.tvPrice.setText(shoppingBean.getPrice()+"");
-        holder.tvNumber.setText(shoppingBean.getNumber()+"");
+        holder.tvPrice.setText(shoppingBean.getPrice() + "");
+        holder.tvNumber.setText(shoppingBean.getNumber() + "");
+        if (shoppingBean.getCommodity_state().equals("1")) {
+            holder.tvName.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+            holder.tvName.setText(shoppingBean.getClassify_name() + "(已下架)");
+        } else {
+            holder.tvName.setText(shoppingBean.getClassify_name());//商品名称改为三级分类名称
+        }
         Glide.with(mContext).load(shoppingBean.getUrl())
                 .into(holder.ivTu);
         holder.ivDanxuan.setSelected(shoppingBean.isSelected());
 
-        if (!StringUtil.isEmpty(shoppingBean.getRation_one())){
-            if (!StringUtil.isEmpty(shoppingBean.getSpecNameTwo())){
-                holder.tvQidingliang.setText(shoppingBean.getRation_one()+shoppingBean.getSpecNameTwo());
-            }else{
-                holder.tvQidingliang.setText(shoppingBean.getRation_one()+shoppingBean.getSpecNameThree());
+        if (!StringUtil.isEmpty(shoppingBean.getRation_one())) {
+            if (!StringUtil.isEmpty(shoppingBean.getSpecNameTwo())) {
+                holder.tvQidingliang.setText(shoppingBean.getRation_one() + shoppingBean.getSpecNameTwo());
+            } else {
+                holder.tvQidingliang.setText(shoppingBean.getRation_one() + shoppingBean.getSpecNameThree());
             }
 
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle=new Bundle();
-                bundle.putString("spid",shoppingBean.getCommodity_id());
-                JumpUtil.Jump_intent(mContext, SPXiangQingActivity.class,bundle);
+                if (shoppingBean.getCommodity_state().equals("1")) {
+                    ToastUtil.showToastLong("已过期商品，请及时删除");
+                } else {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("spid", shoppingBean.getCommodity_id());
+                    JumpUtil.Jump_intent(mContext, SPXiangQingActivity.class, bundle);
+                }
+
             }
         });
 /*        holder.llQidingliang.setOnClickListener(new View.OnClickListener() {
@@ -128,108 +139,129 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
             @Override
             public void onClick(View v) {
                 //走势图
-                Intent zoushi=new Intent(mContext,TubiaoActivity.class);
-                zoushi.putExtra("mark_id",shoppingBean.getSon_number());//市场id
-                zoushi.putExtra("market_name",shoppingBean.getMarket_name());//市场名
-                zoushi.putExtra("classify_id",shoppingBean.getType_four_id() );//三级分类id
-                zoushi.putExtra("classify_name",shoppingBean.getClassify_name());//三级分类名称
-                Log.e("ceshi----------", shoppingBean.getSon_number()+shoppingBean.getMarket_name()+shoppingBean.getType_four_id()+shoppingBean.getClassify_name()+"================================");
-                mContext.startActivity(zoushi);
+                if (shoppingBean.getCommodity_state().equals("1")) {
+                    ToastUtil.showToastLong("已过期商品，请及时删除");
+                } else {
+                    Intent zoushi = new Intent(mContext, TubiaoActivity.class);
+                    zoushi.putExtra("mark_id", shoppingBean.getSon_number());//市场id
+                    zoushi.putExtra("market_name", shoppingBean.getMarket_name());//市场名
+                    zoushi.putExtra("classify_id", shoppingBean.getType_four_id());//三级分类id
+                    zoushi.putExtra("classify_name", shoppingBean.getClassify_name());//三级分类名称
+                    Log.e("ceshi----------", shoppingBean.getSon_number() + shoppingBean.getMarket_name() + shoppingBean.getType_four_id() + shoppingBean.getClassify_name() + "================================");
+                    mContext.startActivity(zoushi);
+                }
+
             }
         });
-        if (mOnItemClickListener!=null){
+        if (mOnItemClickListener != null) {
             holder.ivDanxuan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 //                    gouWuCheFragment.getalllist();
-                    shoppingBean.setSelected(!shoppingBean.isSelected());
-                    holder.ivDanxuan.setSelected(shoppingBean.isSelected());
-                    mList.get(position).setSelected(shoppingBean.isSelected());
-                    mOnItemClickListener.onClick(v,position,mList);
+                    if (shoppingBean.getCommodity_state().equals("1")) {
+                        ToastUtil.showToastLong("已过期商品，请及时删除");
+                    } else {
+                        shoppingBean.setSelected(!shoppingBean.isSelected());
+                        holder.ivDanxuan.setSelected(shoppingBean.isSelected());
+                        mList.get(position).setSelected(shoppingBean.isSelected());
+                        mOnItemClickListener.onClick(v, position, mList);
+                    }
+
                 }
             });
             final String qidingliang1 = shoppingBean.getRation_one();
             holder.tvNumber.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    new GWCXiuGaiShuLiangDialog()
-                            .setKuCun(shoppingBean.getInventory(), qidingliang1,Integer.parseInt(holder.tvNumber.getText().toString().trim()))
-                            .setCallBack(new GWCXiuGaiShuLiangDialog.CallBack() {
-                        @Override
-                        public void shuliang(final String msg) {
-                            HttpManager.getInstance()
-                                    .with(mContext)
-                                    .setObservable(
-                                            RetrofitManager
-                                                    .getService()
-                                                    .editcar(PreferenceUtils.getString(MyApplication.mContext, "token",""),shoppingBean.getShopping_id(),3+"",msg))
-                                    .setDataListener(new HttpDataListener<String>() {
-                                        @Override
-                                        public void onNext(String data) {
-                                            holder.tvNumber.setText(msg);
-                                            mList.get(position).setNumber(Integer.parseInt(msg));
-                                        }
-                                    },false);
+                    if (shoppingBean.getCommodity_state().equals("1")) {
+                        ToastUtil.showToastLong("已过期商品，请及时删除");
+                    } else {
+                        new GWCXiuGaiShuLiangDialog()
+                                .setKuCun(shoppingBean.getInventory(), qidingliang1, Integer.parseInt(holder.tvNumber.getText().toString().trim()))
+                                .setCallBack(new GWCXiuGaiShuLiangDialog.CallBack() {
+                                    @Override
+                                    public void shuliang(final String msg) {
+                                        HttpManager.getInstance()
+                                                .with(mContext)
+                                                .setObservable(
+                                                        RetrofitManager
+                                                                .getService()
+                                                                .editcar(PreferenceUtils.getString(MyApplication.mContext, "token", ""), shoppingBean.getShopping_id(), 3 + "", msg))
+                                                .setDataListener(new HttpDataListener<String>() {
+                                                    @Override
+                                                    public void onNext(String data) {
+                                                        holder.tvNumber.setText(msg);
+                                                        mList.get(position).setNumber(Integer.parseInt(msg));
+                                                    }
+                                                }, false);
 
-                        }
-                    }).show(gouWuCheFragment.getActivity().getSupportFragmentManager());
+                                    }
+                                }).show(gouWuCheFragment.getActivity().getSupportFragmentManager());
+                    }
                 }
             });
             final int[] shuliang = {Integer.parseInt(holder.tvNumber.getText().toString().trim())};
             holder.tvJiahao.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (shuliang[0] ==Integer.parseInt(shoppingBean.getInventory())){
-                        ToastUtil.showToast("不能再加啦");
-                        return;
-                    }else{
-                        HttpManager.getInstance()
-                                .with(mContext)
-                                .setObservable(
-                                        RetrofitManager
-                                                .getService()
-                                                .editcar(PreferenceUtils.getString(MyApplication.mContext, "token",""),shoppingBean.getShopping_id(),1+"",shuliang[0]+""))
-                                .setDataListener(new HttpDataListener<String>() {
-                                    @Override
-                                    public void onNext(String data) {
-                                        shuliang[0]++;
-                                        holder.tvNumber.setText(shuliang[0]+"");
-                                        mList.get(position).setNumber(shuliang[0]);
+                    if (shoppingBean.getCommodity_state().equals("1")) {
+                        ToastUtil.showToastLong("已过期商品，请及时删除");
+                    } else {
+                        if (shuliang[0] == Integer.parseInt(shoppingBean.getInventory())) {
+                            ToastUtil.showToast("不能再加啦");
+                            return;
+                        } else {
+                            HttpManager.getInstance()
+                                    .with(mContext)
+                                    .setObservable(
+                                            RetrofitManager
+                                                    .getService()
+                                                    .editcar(PreferenceUtils.getString(MyApplication.mContext, "token", ""), shoppingBean.getShopping_id(), 1 + "", shuliang[0] + ""))
+                                    .setDataListener(new HttpDataListener<String>() {
+                                        @Override
+                                        public void onNext(String data) {
+                                            shuliang[0]++;
+                                            holder.tvNumber.setText(shuliang[0] + "");
+                                            mList.get(position).setNumber(shuliang[0]);
 //                        ToastUtil.showToast("修改成功");
-                                    }
-                                },false);
+                                        }
+                                    }, false);
 
+                        }
                     }
-
                 }
             });
             holder.tvJianhao.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (shuliang[0] <=Integer.parseInt(qidingliang1)){
-                        ToastUtil.showToast("不能再减啦");
-                        return;
-                    }else{
-                        if (shuliang[0]==Integer.parseInt(qidingliang1)){
+                    if (shoppingBean.getCommodity_state().equals("1")) {
+                        ToastUtil.showToastLong("已过期商品，请及时删除");
+                    } else {
+                        if (shuliang[0] <= Integer.parseInt(qidingliang1)) {
                             ToastUtil.showToast("不能再减啦");
                             return;
-                        }
-                        HttpManager.getInstance()
-                                .with(mContext)
-                                .setObservable(
-                                        RetrofitManager
-                                                .getService()
-                                                .editcar(PreferenceUtils.getString(MyApplication.mContext, "token",""),shoppingBean.getShopping_id(),2+"",shuliang[0]+""))
-                                .setDataListener(new HttpDataListener<String>() {
-                                    @Override
-                                    public void onNext(String data) {
-                                        shuliang[0]--;
-                                        holder.tvNumber.setText(shuliang[0]+"");
-                                        mList.get(position).setNumber(shuliang[0]);
+                        } else {
+                            if (shuliang[0] == Integer.parseInt(qidingliang1)) {
+                                ToastUtil.showToast("不能再减啦");
+                                return;
+                            }
+                            HttpManager.getInstance()
+                                    .with(mContext)
+                                    .setObservable(
+                                            RetrofitManager
+                                                    .getService()
+                                                    .editcar(PreferenceUtils.getString(MyApplication.mContext, "token", ""), shoppingBean.getShopping_id(), 2 + "", shuliang[0] + ""))
+                                    .setDataListener(new HttpDataListener<String>() {
+                                        @Override
+                                        public void onNext(String data) {
+                                            shuliang[0]--;
+                                            holder.tvNumber.setText(shuliang[0] + "");
+                                            mList.get(position).setNumber(shuliang[0]);
 
 //                        ToastUtil.showToast("修改成功");
-                                    }
-                                },false);
+                                        }
+                                    }, false);
+                        }
                     }
 
                 }
@@ -284,28 +316,29 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
 
 
     //修改购物车数量
-    private void editcar(String shoppingid,String shuliang) {
+    private void editcar(String shoppingid, String shuliang) {
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .editcar(PreferenceUtils.getString(MyApplication.mContext, "token",""),shoppingid,3+"",shuliang))
+                                .editcar(PreferenceUtils.getString(MyApplication.mContext, "token", ""), shoppingid, 3 + "", shuliang))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
 //                        ToastUtil.showToast("修改成功");
                     }
-                },false);
+                }, false);
     }
 
-    public List<GWCShangPinBean.ShoppingBean> getmList(){
-    return mList;
-}
-public void setmList(List<GWCShangPinBean.ShoppingBean> list){
-    mList=list;
-    notifyDataSetChanged();
-}
+    public List<GWCShangPinBean.ShoppingBean> getmList() {
+        return mList;
+    }
+
+    public void setmList(List<GWCShangPinBean.ShoppingBean> list) {
+        mList = list;
+        notifyDataSetChanged();
+    }
 
     @Override
     public int getItemCount() {
@@ -320,8 +353,8 @@ public void setmList(List<GWCShangPinBean.ShoppingBean> list){
         ImageView ivTu;
         @BindView(R.id.tv_name)
         TextView tvName;
-/*        @BindView(R.id.tv_guige)
-        TextView tvGuige;*/
+        /*        @BindView(R.id.tv_guige)
+                TextView tvGuige;*/
         @BindView(R.id.tv_price)
         TextView tvPrice;
         @BindView(R.id.tv_jianhao)
@@ -330,17 +363,18 @@ public void setmList(List<GWCShangPinBean.ShoppingBean> list){
         TextView tvNumber;
         @BindView(R.id.tv_jiahao)
         TextView tvJiahao;
-/*        @BindView(R.id.ll_qidingliang)
-        LinearLayout llQidingliang;*/
+        /*        @BindView(R.id.ll_qidingliang)
+                LinearLayout llQidingliang;*/
         @BindView(R.id.iv_zoushi)
         ImageView ivZoushi;
         @BindView(R.id.tv_qidingliang)
         TextView tvQidingliang;
+
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
     }
 
-    }
+}
 

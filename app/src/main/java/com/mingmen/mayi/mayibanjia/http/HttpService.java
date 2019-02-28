@@ -138,7 +138,13 @@ public interface HttpService {
 
     //门店名称模糊查询
     @POST("allCompany/getname.do")
-    Observable<ResultModel<List<DianMingChaXunBean>>> dianpuchaxun(@Query("user_token") String user_token, @Query("company_name") String company_name);
+    Observable<ResultModel<List<DianMingChaXunBean>>> dianpuchaxun(@Query("user_token") String user_token,
+                                                                   @Query("province") String province,
+                                                                   @Query("city") String city,
+                                                                   @Query("region") String region,
+                                                                   @Query("role") String role,
+                                                                   @Query("random_id") String random_id,
+                                                                   @Query("company_name") String company_name);
 
     //供货端获取省
     @POST("sysQuy/querychina.do")

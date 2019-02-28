@@ -225,6 +225,15 @@ public class GWCShangPinBean {
             private String specNameThree;
             private String specNameTwo;
             private String type_four_id;
+            private String commodity_state;
+
+            public String getCommodity_state() {
+                return commodity_state;
+            }
+
+            public void setCommodity_state(String commodity_state) {
+                this.commodity_state = commodity_state;
+            }
 
             public String getType_four_id() {
                 return type_four_id;

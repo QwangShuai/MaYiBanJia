@@ -6,75 +6,103 @@
     android:background="@color/white">
     <include layout="@layout/head_zangqing"/>
     <LinearLayout
+        android:gravity="center_horizontal"
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:orientation="horizontal"
-        android:layout_marginTop="115dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
         >
         <LinearLayout
             android:id="@+id/ll_cantingduan"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:background="@mipmap/xuanzejuesebeijing"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:orientation="vertical">
             <ImageView
                 android:id="@+id/iv_cantingduan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="69dp"
+                android:layout_height="63dp"
                 android:src="@drawable/selectr_xzjs_cantingduan"
-                android:layout_marginTop="26dp"
+                android:layout_marginTop="35dp"
                 />
             <TextView
                 android:id="@+id/tv_cantingduan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="餐厅端"
-                android:textColor="#fffbb03b"
-                android:textSize="30sp"
-                android:layout_marginTop="30dp"
+                android:textColor="@color/green_6dd46d"
+                android:textSize="15sp"
+                android:layout_marginTop="16dp"
                 />
         </LinearLayout>
         <View
-            android:layout_width="15dp"
-            android:layout_height="match_parent"/>
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
         <LinearLayout
             android:id="@+id/ll_gonghuoduan"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:background="@mipmap/xuanzejuesebeijing"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:orientation="vertical">
             <ImageView
                 android:id="@+id/iv_gonghuoduan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="75dp"
+                android:layout_height="57dp"
                 android:src="@drawable/selectr_xzjs_gonghuoduan"
-                android:layout_marginTop="26dp"
+                android:layout_marginTop="42dp"
                 />
             <TextView
                 android:id="@+id/tv_gonghuoduan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="供货端"
-                android:textColor="#ff6dd46d"
-                android:textSize="30sp"
-                android:layout_marginTop="30dp"
+                android:textColor="@color/green_6dd46d"
+                android:textSize="15sp"
+                android:layout_marginTop="15dp"
+                />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
+        <LinearLayout
+            android:id="@+id/ll_shequshichang"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:background="@mipmap/xuanzejuesebeijing"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/iv_shequshichang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/selectr_xzjs_shequshichang"
+                android:layout_marginTop="16dp"
+                />
+            <TextView
+                android:id="@+id/tv_shequshichang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="社区市场"
+                android:textColor="@color/green_6dd46d"
+                android:textSize="15sp"
+                android:layout_marginTop="16dp"
                 />
         </LinearLayout>
     </LinearLayout>
 
     <Button
+        android:layout_marginBottom="12dp"
         android:id="@+id/bt_xiayibu"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/fillet_solid_zangqing_5"
         android:text="下一步"
         android:textColor="@color/white"

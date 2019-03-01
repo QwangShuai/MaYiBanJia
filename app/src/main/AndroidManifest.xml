@@ -178,8 +178,8 @@
             android:windowSoftInputMode="adjustPan" /> <!-- 选择支付方式 -->
         <activity
             android:name=".ui.activity.GongYingDuanShouYeActivity"
-            android:screenOrientation="portrait"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" /> <!-- 供应端首页 -->
         <activity
             android:name=".ui.activity.QiangDanActivity"
@@ -228,10 +228,9 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
 
         <!-- //轮询服务 -->
-        <service
-            android:name=".utils.PollingService">
+        <service android:name=".utils.PollingService">
             <intent-filter>
-                <action android:name="com.ssl.Services"/>
+                <action android:name="com.ssl.Services" />
             </intent-filter>
         </service>
 
@@ -291,7 +290,6 @@
         <activity android:name=".ui.activity.ShangJiaActivity" /> <!-- 注册商家 -->
         <activity android:name=".ui.activity.QuanBuShiChangActivity" /> <!-- 注册市场 -->
         <activity android:name=".ui.activity.ZhuCeCanTingActivity" /> <!-- 注册餐厅 -->
-        <activity android:name=".utils.dayinji.DaYinJiActivity" /> <!-- 打印机 -->
         <activity android:name=".ui.activity.XinXiLuRuGHDActivity" /> <!-- 信息录入供货端 -->
         <activity android:name=".ui.activity.AddQrCodeActivity" /> <!-- 添加二维码 -->
         <activity android:name=".ui.activity.ShangPinChangeActivity" /> <!-- 商品修改 -->
@@ -301,7 +299,8 @@
         <activity android:name=".ui.activity.AddShangPinActivity" /> <!-- 添加商品 -->
         <activity android:name=".ui.activity.HuoDongActivity" /> <!-- 活动 -->
         <activity android:name=".ui.activity.JiaoYiLiuShuiActivity" /> <!-- 交易流水 -->
-        <activity android:name=".ui.activity.XJSPFeiLeiXuanZeActivity"></activity><!-- 新建商品分类选择 -->
+        <activity android:name=".ui.activity.XJSPFeiLeiXuanZeActivity" /> <!-- 新建商品分类选择 -->
+        <activity android:name=".utils.dayinji.DeviceListActivity"></activity>
     </application>
 
 </manifest>

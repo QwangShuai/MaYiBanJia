@@ -27,6 +27,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.adapter.DdXqShichangAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.XqShichangAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
+import com.mingmen.mayi.mayibanjia.utils.AppManager;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
@@ -210,7 +211,7 @@ public class DingDanXiangQingActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_fanhui:
-                finish();
+                AppManager.getAppManager().finishActivity();
                 break;
             case R.id.iv_sangedian:
                 break;

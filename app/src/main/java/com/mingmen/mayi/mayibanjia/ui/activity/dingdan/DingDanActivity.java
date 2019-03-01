@@ -16,6 +16,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.PeiSongXiangQingActivity;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.PagerSlidingTabStrip;
+import com.mingmen.mayi.mayibanjia.utils.AppManager;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.qrCode.CaptureActivity;
@@ -87,7 +88,7 @@ public class DingDanActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_fanhui:
-                finish();
+                AppManager.getAppManager().finishActivity();
                 break;
             case R.id.iv_sousuo:
 

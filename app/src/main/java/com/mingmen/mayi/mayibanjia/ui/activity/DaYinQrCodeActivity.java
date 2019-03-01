@@ -29,7 +29,7 @@ import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
-import com.mingmen.mayi.mayibanjia.utils.dayinji.bean.BluetoothDevice;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +38,6 @@ import java.util.regex.Pattern;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import zpSDK.zpSDK.zpBluetoothPrinter;
 
 public class DaYinQrCodeActivity extends BaseActivity {
     @BindView(R.id.iv_back)

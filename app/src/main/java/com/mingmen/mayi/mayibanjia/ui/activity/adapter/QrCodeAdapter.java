@@ -1,5 +1,6 @@
 package com.mingmen.mayi.mayibanjia.ui.activity.adapter;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -25,10 +26,12 @@ import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.DaYinQrCodeActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ghdingdan.GHOrderAdapter;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
-import com.mingmen.mayi.mayibanjia.utils.dayinji.DaYinJiActivity;
+import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
+import com.mingmen.mayi.mayibanjia.utils.dayinji.DeviceListActivity;
 
 import java.util.List;
 
+import HPRTAndroidSDKA300.HPRTPrinterHelper;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -41,6 +44,7 @@ public class QrCodeAdapter extends RecyclerView.Adapter<QrCodeAdapter.ViewHolder
     private Context mContext;
     private List<DaYinQrCodeBean> mList;
     private DaYinQrCodeActivity activity;
+    private BluetoothAdapter bluetoothAdapter;
     public QrCodeAdapter(Context mContext, List<DaYinQrCodeBean> list, DaYinQrCodeActivity activity) {
         this.mContext = mContext;
         this.mList = list;
@@ -55,6 +59,7 @@ public class QrCodeAdapter extends RecyclerView.Adapter<QrCodeAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
+        bluetoothAdapter =BluetoothAdapter.getDefaultAdapter();
         final DaYinQrCodeBean bean = mList.get(position);
 //        holder.tv_suoyin.setText(bean.getSerial());
         if(!TextUtils.isEmpty(bean.getTwocode()))
@@ -88,9 +93,31 @@ public class QrCodeAdapter extends RecyclerView.Adapter<QrCodeAdapter.ViewHolder
         holder.tv_dayin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent it = new Intent(mContext, DaYinJiActivity.class);
-                it.putExtra("iv",bean.getTwocode());
-                mContext.startActivity(it);
+                if(bluetoothAdapter==null){
+                    ToastUtil.showToastLong("该设备暂不支持蓝牙功能");
+                } else if(bluetoothAdapter.isEnabled()){
+                    if(HPRTPrinterHelper.IsOpened()){
+                        try {
+                            Bitmap bitmap = convertViewToBitmap(holder.rl_dayin, 200, 200);
+                            HPRTPrinterHelper.printAreaSize("0","200","200","500","1");
+                            HPRTPrinterHelper.Expanded("0","0",bitmap,1);
+                            HPRTPrinterHelper.Form();
+                            HPRTPrinterHelper.Print();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    } else {
+                        Intent it = new Intent(mContext, DeviceListActivity.class);
+//                    it.putExtra("iv",bean.getTwocode());
+                        mContext.startActivity(it);
+                    }
+                } else {
+                    ToastUtil.showToastLong("请先打开蓝牙");
+                }
+
+
+
 //                activity.dayinQrCode(holder.rl_dayin);
             }
         });
@@ -132,5 +159,11 @@ public class QrCodeAdapter extends RecyclerView.Adapter<QrCodeAdapter.ViewHolder
             super(view);
             ButterKnife.bind(this, view);
         }
+    }
+    public static Bitmap convertViewToBitmap(View view, int bitmapWidth, int bitmapHeight) {
+        Bitmap bitmap = Bitmap.createBitmap(bitmapWidth, bitmapHeight, Bitmap.Config.ARGB_8888);
+        view.draw(new Canvas(bitmap));
+
+        return bitmap;
     }
 }

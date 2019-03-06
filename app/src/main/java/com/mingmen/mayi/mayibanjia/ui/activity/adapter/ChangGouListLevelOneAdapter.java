@@ -49,7 +49,6 @@ public class ChangGouListLevelOneAdapter extends RecyclerView.Adapter<ChangGouLi
     private Context mContext;
     private boolean itemIsClick[];
     private ChangGouListLevelTwoAdapter adapter;
-    private ConfirmDialog confirmDialog;
     private String type = "0";
     private ChangGouActivity activity;
 
@@ -69,8 +68,6 @@ public class ChangGouListLevelOneAdapter extends RecyclerView.Adapter<ChangGouLi
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        confirmDialog = new ConfirmDialog(mContext,
-                mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         final ChangYongBean bean = mList.get(position);
         holder.tvPinlei.setText(bean.getClassify_name());
         adapter = new ChangGouListLevelTwoAdapter(mContext, mList.get(position).getList(),activity);
@@ -111,6 +108,11 @@ public class ChangGouListLevelOneAdapter extends RecyclerView.Adapter<ChangGouLi
         });
     }
 
+    public void delPos(int pos){
+        mList.remove(pos);
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
         return mList.size();
@@ -148,7 +150,6 @@ public class ChangGouListLevelOneAdapter extends RecyclerView.Adapter<ChangGouLi
             mList.get(pos).getList().get(i).setShow(b);
             mList.get(pos).getList().get(i).setSelect(false);
         }
-        Log.e("setShow: ",new Gson().toJson(mList) );
         notifyDataSetChanged();
     }
 }

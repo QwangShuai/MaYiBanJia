@@ -202,6 +202,31 @@ public class ShangPinSouSuoBean  {
             private String picture_url;
             private String classify_name;
             private String spec_describe;//规格描述
+            private List<ListGG> listgg;
+
+            public String getdPicture() {
+                return dPicture;
+            }
+
+            public void setdPicture(String dPicture) {
+                this.dPicture = dPicture;
+            }
+
+            public String gethPicture() {
+                return hPicture;
+            }
+
+            public void sethPicture(String hPicture) {
+                this.hPicture = hPicture;
+            }
+
+            public List<ListGG> getListgg() {
+                return listgg;
+            }
+
+            public void setListgg(List<ListGG> listgg) {
+                this.listgg = listgg;
+            }
 
             public String getSpec_describe() {
                 return spec_describe;
@@ -929,6 +954,72 @@ public class ShangPinSouSuoBean  {
 
             public void setSortOrder(String sortOrder) {
                 this.sortOrder = sortOrder;
+            }
+
+            public static class ListGG{
+                private String commodity_id;
+                private String price;
+                private String commodity_name;
+                private String ration_one;
+                private String inventory;
+                private String company_id;
+                private String picture_url;
+
+                public String getPicture_url() {
+                    return picture_url;
+                }
+
+                public void setPicture_url(String picture_url) {
+                    this.picture_url = picture_url;
+                }
+
+                public String getCompany_id() {
+                    return company_id;
+                }
+
+                public void setCompany_id(String company_id) {
+                    this.company_id = company_id;
+                }
+
+                public String getCommodity_id() {
+                    return commodity_id;
+                }
+
+                public void setCommodity_id(String commodity_id) {
+                    this.commodity_id = commodity_id;
+                }
+
+                public String getPrice() {
+                    return price;
+                }
+
+                public void setPrice(String price) {
+                    this.price = price;
+                }
+
+                public String getCommodity_name() {
+                    return commodity_name;
+                }
+
+                public void setCommodity_name(String commodity_name) {
+                    this.commodity_name = commodity_name;
+                }
+
+                public String getRation_one() {
+                    return ration_one;
+                }
+
+                public void setRation_one(String ration_one) {
+                    this.ration_one = ration_one;
+                }
+
+                public String getInventory() {
+                    return inventory;
+                }
+
+                public void setInventory(String inventory) {
+                    this.inventory = inventory;
+                }
             }
         }
 }

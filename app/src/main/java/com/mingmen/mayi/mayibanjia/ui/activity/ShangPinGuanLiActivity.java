@@ -148,7 +148,7 @@ public class ShangPinGuanLiActivity extends BaseActivity {
                     deleteItem.setTextSize(15);
                     deleteItem.setHeight(MATCH_PARENT);
                     deleteItem.setWidth(200);
-                    deleteItem.setBackground(R.color.mayihong);
+                    deleteItem.setBackground(R.color.red_ff3300);
                     rightMenu.addMenuItem(deleteItem); // 在Item右侧添加一个菜单。
                 }
             };

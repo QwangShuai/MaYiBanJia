@@ -53,6 +53,24 @@ public class FCGName {
     private String two_classify_name;
     private String one_classify_id;
     private String two_classify_id;
+    private String three_classify_id;
+    private String three_classify_name;
+
+    public String getThree_classify_name() {
+        return three_classify_name;
+    }
+
+    public void setThree_classify_name(String three_classify_name) {
+        this.three_classify_name = three_classify_name;
+    }
+
+    public String getThree_classify_id() {
+        return three_classify_id;
+    }
+
+    public void setThree_classify_id(String three_classify_id) {
+        this.three_classify_id = three_classify_id;
+    }
 
     public String getOne_classify_name() {
         return one_classify_name;

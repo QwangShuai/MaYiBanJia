@@ -51,7 +51,7 @@
                 <TextView
                     android:layout_centerVertical="true"
                     android:textSize="15sp"
-                    android:textColor="@color/mayihong"
+                    android:textColor="@color/red_ff3300"
                     android:layout_alignParentRight="true"
                     android:text=""
                     android:layout_width="wrap_content"

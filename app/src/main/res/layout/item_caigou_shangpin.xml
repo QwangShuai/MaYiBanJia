@@ -19,7 +19,7 @@
         android:id="@+id/tv_teshu"
         android:layout_marginLeft="5dp"
         android:layout_centerVertical="true"
-        android:background="@color/mayihong"
+        android:background="@color/red_ff3300"
         android:layout_toRightOf="@+id/tv_shangpin"
         android:layout_width="45dp"
         android:layout_height="15dp"

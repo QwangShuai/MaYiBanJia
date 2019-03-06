@@ -92,7 +92,7 @@ public class DianPuGuanZhuActivity extends BaseActivity {
             public void onCreateMenu(SwipeMenu leftMenu, SwipeMenu rightMenu, int viewType) {
                 SwipeMenuItem deleteItem = new SwipeMenuItem(mContext);
                 deleteItem.setText("删除");
-                deleteItem.setBackgroundColor(getResources().getColor(R.color.mayihong));
+                deleteItem.setBackgroundColor(getResources().getColor(R.color.red_ff3300));
                 deleteItem.setTextSize(18);
                 deleteItem.setTextColor(getResources().getColor(R.color.white));
                 deleteItem.setHeight(MATCH_PARENT);

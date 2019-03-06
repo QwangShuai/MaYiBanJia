@@ -88,7 +88,7 @@ public class SiGeXuanXiangDialog extends BaseFragmentDialog implements View.OnCl
         int color=getContext().getResources().getColor(textView.getId()==chooseView.getId()?R.color.caigoudanxuanzhong:R.color.zicolor);
         textView.setTextColor(color);
         if (textView.getId()==chooseView.getId())
-            activity.getHedanList("0",s);
+            activity.getHedanList("0",s,1);
         this.dismiss();
     }
 

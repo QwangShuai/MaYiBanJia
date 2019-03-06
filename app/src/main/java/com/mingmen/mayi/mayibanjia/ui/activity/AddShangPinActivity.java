@@ -18,13 +18,15 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
+import com.mingmen.mayi.mayibanjia.app.UMConfig;
 import com.mingmen.mayi.mayibanjia.bean.AddSpListBean;
 import com.mingmen.mayi.mayibanjia.bean.FCGName;
+import com.mingmen.mayi.mayibanjia.bean.ShangPinSousuoMohuBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.AddSpFourAdapter;
-import com.mingmen.mayi.mayibanjia.ui.activity.adapter.YiJiFenLeiAdapter;
+import com.mingmen.mayi.mayibanjia.ui.activity.adapter.XJSPFeiLeiGuigeAdapter;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
@@ -63,10 +65,22 @@ public class AddShangPinActivity extends BaseActivity {
     LinearLayout llPinzhong;
     @BindView(R.id.btn_queren)
     Button btnQueren;
-    @BindView(R.id.ll_shichang)
-    LinearLayout llShichang;
     @BindView(R.id.rv_yijifenlei)
     RecyclerView rvYijifenlei;
+    @BindView(R.id.tv_shangpin_lable)
+    TextView tvShangpinLable;
+    @BindView(R.id.tv_shangpin)
+    TextView tvShangpin;
+    @BindView(R.id.ll_shangpin)
+    LinearLayout llShangpin;
+    @BindView(R.id.tv_guige_lable)
+    TextView tvGuigeLable;
+    @BindView(R.id.tv_guige)
+    TextView tvGuige;
+    @BindView(R.id.ll_guige)
+    LinearLayout llGuige;
+    @BindView(R.id.rv_guige)
+    RecyclerView rvGuige;
 
     private ArrayList<FCGName> yijiFenLei = new ArrayList<>();
     private AddSpFourAdapter adapter;
@@ -75,11 +89,18 @@ public class AddShangPinActivity extends BaseActivity {
     private String yclId = "346926195929448587b078e7fe613530 ";
     private String oneid;
     private String twoid;
-    private Map<String,FCGName> map = new HashMap<>();
+//    private Map<String, ShangPinSousuoMohuBean> map = new HashMap<>();
     private String mytype = "2";
-    private List<AddSpListBean> list =new ArrayList<>();
+    private List<AddSpListBean> list = new ArrayList<>();
     private String id = "";
-    private int count = 0;
+    private XJSPFeiLeiGuigeAdapter guigeadapter;
+    private List<ShangPinSousuoMohuBean> datas = new ArrayList<>();
+    private String twoName;
+    private String threeName;
+    private String fourid;
+    private String fourName;
+    private String fiveName;
+    private String threeid;
 
     @Override
     public int getLayoutId() {
@@ -90,7 +111,7 @@ public class AddShangPinActivity extends BaseActivity {
     protected void initData() {
         mContext = AddShangPinActivity.this;
         id = getIntent().getStringExtra("id");
-        adapter = new AddSpFourAdapter(mContext,yijiFenLei);
+        adapter = new AddSpFourAdapter(mContext, yijiFenLei);
         adapter.setActivity(AddShangPinActivity.this);
         setMyManager();
         bindAdapter();
@@ -100,7 +121,7 @@ public class AddShangPinActivity extends BaseActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     if (etSousuo.getText().toString().trim().length() == 0) {
-                       ToastUtil.showToastLong("请输入要搜索的商品");
+                        ToastUtil.showToastLong("请输入要搜索的商品");
                     } else {
                         setViewShowClear();
                         getfcgname(etSousuo.getText().toString().trim());
@@ -119,7 +140,8 @@ public class AddShangPinActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_quxiao, R.id.ll_pinlei, R.id.ll_pinzhong, R.id.btn_queren})
+    @OnClick({R.id.iv_back, R.id.tv_quxiao, R.id.ll_pinlei, R.id.ll_pinzhong, R.id.btn_queren,
+            R.id.ll_shangpin, R.id.ll_guige})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -130,13 +152,35 @@ public class AddShangPinActivity extends BaseActivity {
                 getfcgname(etSousuo.getText().toString());
                 break;
             case R.id.ll_pinlei:
-                getTwo();
+                if(StringUtil.isValid(yclId)){
+                    getTwo();
+                } else {
+                    ToastUtil.showToastLong("请选择商品分类");
+                }
                 break;
             case R.id.ll_pinzhong:
-                getThree();
+                if(StringUtil.isValid(oneid)){
+                    getThree();
+                } else {
+                    ToastUtil.showToastLong("请选择商品品类");
+                }
                 break;
             case R.id.btn_queren:
                 addSpList();
+                break;
+            case R.id.ll_shangpin:
+                if (StringUtil.isValid(twoid)) {
+                    getFour();
+                } else {
+                    ToastUtil.showToastLong("请选择商品品类");
+                }
+                break;
+            case R.id.ll_guige:
+                if (StringUtil.isValid(fourName)) {
+                    getGuige();
+                } else {
+                    ToastUtil.showToastLong("请先选择商品名称");
+                }
                 break;
         }
     }
@@ -149,17 +193,17 @@ public class AddShangPinActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getFeiLei(PreferenceUtils.getString(MyApplication.mContext, "token", ""),id, type))
+                                .getFeiLei(PreferenceUtils.getString(MyApplication.mContext, "token", ""), id, type))
                 .setDataListener(new HttpDataListener<List<FCGName>>() {
 
                     @Override
                     public void onNext(List<FCGName> list) {
                         int mysize = list == null ? 0 : list.size();
                         if (mysize != 0) {
-                            if(mytype.equals("4")){
-                                adapter.setType(mytype);
-                                adapter.setActivity(AddShangPinActivity.this);
-                            }
+//                            if (mytype.equals("4")) {
+//                                adapter.setType(mytype);
+//                                adapter.setActivity(AddShangPinActivity.this);
+//                            }
                             yijiFenLei.clear();
                             yijiFenLei.addAll(list);
                             adapter.notifyDataSetChanged();
@@ -181,17 +225,55 @@ public class AddShangPinActivity extends BaseActivity {
                     adapter.setXuanzhongid(oneid);
                     tvPinlei.setText(msg.getClassify_name());
                     getThree();
-                } else if(mytype.equals("3")) {
+                } else if (mytype.equals("3")) {
                     twoid = msg.getClassify_id();
                     adapter.setXuanzhongid(oneid);
                     tvPinzhong.setText(msg.getClassify_name());
                     getFour();
-                }else if(mytype.equals("4")){
-                    onChangeMap(msg,msg.isSelect());
+                } else if (mytype.equals("4")) {
+                    if (StringUtil.isValid(msg.getOne_classify_id())) {
+                        oneid = msg.getTwo_classify_id();
+                        twoid = msg.getThree_classify_id();
+                        twoName = msg.getTwo_classify_name();
+                        threeName = msg.getThree_classify_name();
+                        tvPinlei.setText(msg.getTwo_classify_name());
+                        tvPinzhong.setText(msg.getThree_classify_name());
+                    }
+                    threeid = msg.getClassify_id();
+                    Log.e("xuanzhong: ", threeid + "+++");
+                    fourName = msg.getClassify_name();
+                    adapter.setXuanzhongid(threeid);
+                    tvShangpin.setText(msg.getClassify_name());
+                    getGuige();
                 }
 
                 adapter.notifyDataSetChanged();
 
+            }
+        });
+        guigeadapter = new XJSPFeiLeiGuigeAdapter(mContext, datas);
+        rvGuige.setLayoutManager(new GridLayoutManager(mContext, 3));
+        rvGuige.setAdapter(guigeadapter);
+        guigeadapter.setCallBack(new XJSPFeiLeiGuigeAdapter.CallBack() {
+            @Override
+            public void xuanzhong(ShangPinSousuoMohuBean msg) {
+                list.clear();
+                AddSpListBean addSpListBean = new AddSpListBean();
+//                if (StringUtil.isValid(msg.getClassify_id())) {
+//                    addSpListBean.setClassify_id(msg.getClassify_id());
+//                } else {
+                    addSpListBean.setClassify_id(oneid);
+//                }
+
+                addSpListBean.setPack_standard_id(msg.getSpec_idFour());
+                fourid = msg.getClassify_id();
+                fiveName = msg.getClassify_name();
+                addSpListBean.setSort_id(msg.getClassify_id());
+                list.add(addSpListBean);
+                guigeadapter.setXuanzhongid(msg.getClassify_id());
+                tvGuige.setText(msg.getClassify_name());
+
+                guigeadapter.notifyDataSetChanged();
             }
         });
     }
@@ -212,77 +294,87 @@ public class AddShangPinActivity extends BaseActivity {
     }
 
     private void getThree() {
-        if(StringUtil.isValid(oneid)){
-            tvPinzhongLable.setTextColor(mContext.getResources().getColor(R.color.zangqing));
-            tvLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
-            mytype = "3";
-            adapter.setType("");
-            adapter.setXuanzhongid(twoid);
-            getShouyeFenLei(oneid, "3");
+        if (rvGuige.getVisibility() == View.VISIBLE) {
+            rvGuige.setVisibility(View.GONE);
+            rvYijifenlei.setVisibility(View.VISIBLE);
         }
+        tvPinzhongLable.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+        tvLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+        tvShangpinLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+        tvGuigeLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+        mytype = "3";
+        adapter.setXuanzhongid(twoid);
+        getShouyeFenLei(oneid, "3");
     }
 
     private void getTwo() {
-        twoid = "";
-        tvLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
-        tvPinzhongLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
-        adapter.setXuanzhongid("");
-        map.clear();
-        yijiFenLei.clear();
-        adapter.notifyDataSetChanged();
+        if (rvGuige.getVisibility() == View.VISIBLE) {
+            rvGuige.setVisibility(View.GONE);
+            rvYijifenlei.setVisibility(View.VISIBLE);
+        }
         tvLable.setTextColor(mContext.getResources().getColor(R.color.zangqing));
         tvPinzhongLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+        tvShangpinLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+        tvGuigeLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
         mytype = "2";
-        adapter.setType("");
         adapter.setXuanzhongid(oneid);
         getShouyeFenLei(yclId, "2");
     }
+
     private void getFour() {
-        tvLable.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+        if (rvGuige.getVisibility() == View.VISIBLE) {
+            rvGuige.setVisibility(View.GONE);
+            rvYijifenlei.setVisibility(View.VISIBLE);
+        }
+
         tvPinzhongLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+        tvLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+        tvShangpinLable.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+        tvGuigeLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
         mytype = "4";
-//        adapter.setXuanzhongid(oneid);
+        adapter.setXuanzhongid(threeid);
         getShouyeFenLei(twoid, "4");
     }
 
-    public void onChangeMap(FCGName mybean,boolean b){
-        count = 0;
-        list.clear();
-        if(b){
-            map.put(mybean.getClassify_id(),mybean);
-        } else {
-            map.remove(mybean.getClassify_id());
-        }
-        for (FCGName fcgName : map.values()) {
-            AddSpListBean addSpListBean = new AddSpListBean();
-            if(StringUtil.isValid(fcgName.getTwo_classify_id())){
-                addSpListBean.setClassify_id(fcgName.getTwo_classify_id());
-            } else {
-                addSpListBean.setClassify_id(oneid);
-            }
+//    public void onChangeMap(ShangPinSousuoMohuBean mybean, boolean b) {
+//        count = 0;
+//        list.clear();
+//        if (b) {
+//            map.put(mybean.getClassify_id(), mybean);
+//        } else {
+//            map.remove(mybean.getClassify_id());
+//        }
+//        for (ShangPinSousuoMohuBean bean : map.values()) {
+//            AddSpListBean addSpListBean = new AddSpListBean();
+//            if (StringUtil.isValid(bean.getClassify_id())) {
+//                addSpListBean.setClassify_id(bean.getClassify_id());
+//            } else {
+//                addSpListBean.setClassify_id(oneid);
+//            }
+//
+//            addSpListBean.setPack_standard_id(bean.getSpec_idFour());
+//            addSpListBean.setSort_id(threeid);
+//            list.add(addSpListBean);
+//            count++;
+//            Log.e("zzzzz", count + "------");
+//        }
+//    }
 
-            addSpListBean.setPack_standard_id(fcgName.getSpec_idFour());
-            addSpListBean.setSort_id(fcgName.getClassify_id());
-            list.add(addSpListBean);
-            count++;
-            Log.e("zzzzz",count+"------");
-        }
-    }
     private void getfcgname(final String name) {
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getfcgname(PreferenceUtils.getString(MyApplication.mContext, "token", ""), name))
+                                .getFourSp(PreferenceUtils.getString(MyApplication.mContext, "token", ""), name, UMConfig.YCL_ID))
                 .setDataListener(new HttpDataListener<List<FCGName>>() {
                     @Override
                     public void onNext(List<FCGName> list) {
                         int mysize = list == null ? 0 : list.size();
                         if (mysize != 0) {
-                            if(mytype.equals("4")){
-                                adapter.setType(mytype);
-                            }
+//                            if (mytype.equals("4")) {
+//                                adapter.setType(mytype);
+//                            }
                             yijiFenLei.clear();
                             yijiFenLei.addAll(list);
                             adapter.notifyDataSetChanged();
@@ -294,31 +386,45 @@ public class AddShangPinActivity extends BaseActivity {
                 }, false);
     }
 
-    private void setViewShowClear(){
+    private void setViewShowClear() {
+        if (rvGuige.getVisibility() == View.VISIBLE) {
+            rvGuige.setVisibility(View.GONE);
+            rvYijifenlei.setVisibility(View.VISIBLE);
+        }
         oneid = "";
         twoid = "";
+        threeid = "";
+        fourid = "";
         tvLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
         tvPinzhongLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+        tvShangpinLable.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+        tvGuigeLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
         adapter.setXuanzhongid("");
-        map.clear();
+        adapter.notifyDataSetChanged();
+        guigeadapter.setXuanzhongid("");
+        guigeadapter.notifyDataSetChanged();
+//        map.clear();
         tvPinlei.setText("全部");
         tvPinzhong.setText("全部");
+        tvShangpin.setText("全部");
+        tvGuige.setText("全部");
         yijiFenLei.clear();
         mytype = "4";
-        adapter.notifyDataSetChanged();
+
     }
+
     public void addSpList() {
-        if (count != 0) {
+        if (StringUtil.isValid(fourid)) {
             String sort_id = new Gson().toJson(list);
             HttpManager.getInstance()
                     .with(mContext)
                     .setObservable(RetrofitManager.getService()
-                            .addSpList(PreferenceUtils.getString(MyApplication.mContext, "token", ""), sort_id, getIntent().getStringExtra("name"),id))
+                            .addSpList(PreferenceUtils.getString(MyApplication.mContext, "token", ""), sort_id, getIntent().getStringExtra("name"), id))
                     .setDataListener(new HttpDataListener<String>() {
                         @Override
                         public void onNext(String data) {
                             id = data;
-                            Log.e("myId",id);
+                            Log.e("myId", id);
                             ToastUtil.showToastLong("添加成功");
                         }
                     });
@@ -327,10 +433,10 @@ public class AddShangPinActivity extends BaseActivity {
         }
     }
 
-    private void myBack(){
+    private void myBack() {
         Intent it = new Intent();
-        it.putExtra("id",id);
-        setResult(2,it);
+        it.putExtra("id", id);
+        setResult(2, it);
         finish();
     }
 
@@ -338,5 +444,34 @@ public class AddShangPinActivity extends BaseActivity {
     public void onBackPressed() {
 //        super.onBackPressed();
         myBack();
+    }
+
+    private void getGuige() {
+        if (rvGuige.getVisibility() == View.GONE) {
+            rvYijifenlei.setVisibility(View.GONE);
+            rvGuige.setVisibility(View.VISIBLE);
+        }
+        tvPinzhongLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+        tvLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+        tvShangpinLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+        tvGuigeLable.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+        datas.clear();
+        Log.e("getfcgname: ", PreferenceUtils.getString(MyApplication.mContext, "token", "") + "---" + twoid + "---" + fourName);
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .searchSpname(PreferenceUtils.getString(MyApplication.mContext, "token", ""), twoid, fourName))
+                .setDataListener(new HttpDataListener<List<ShangPinSousuoMohuBean>>() {
+                    @Override
+                    public void onNext(List<ShangPinSousuoMohuBean> data) {
+                        int mysize = data == null ? 0 : data.size();
+                        if (mysize != 0) {
+                            datas.addAll(data);
+                        }
+                        guigeadapter.notifyDataSetChanged();
+                    }
+                }, false);
     }
 }

@@ -116,9 +116,9 @@ public class CaiGouDanActivity extends BaseActivity {
         tvRight.setVisibility(View.GONE);
         initAdapter();
         if(StringUtil.isValid(getIntent().getStringExtra("type"))){
-            getHedanList("0",getIntent().getStringExtra("type"));
+            getHedanList("0",getIntent().getStringExtra("type"),1);
         } else {
-            getHedanList("0","902");
+            getHedanList("0","902",1);
         }
         initdialog();
     }
@@ -189,7 +189,7 @@ public class CaiGouDanActivity extends BaseActivity {
                 deleteItem.setTextSize(15);
                 deleteItem.setHeight(MATCH_PARENT);
                 deleteItem.setWidth(getWindowManager().getDefaultDisplay().getWidth() * 1 / 6);
-                deleteItem.setBackground(R.color.mayihong);
+                deleteItem.setBackground(R.color.red_ff3300);
                 rightMenu.addMenuItem(deleteItem); // 在Item左侧添加一个菜单。
 
 //                SwipeMenuItem deleteItem = new SwipeMenuItem(mContext); // 各种文字和图标属性设置。
@@ -239,7 +239,7 @@ public class CaiGouDanActivity extends BaseActivity {
                 // 第一个参数：表示此次数据是否为空。
                 // 第二个参数：表示是否还有更多数据。
                 rvCaigoudan.loadMoreFinish(false, true);
-                getHedanList("0",type);
+                getHedanList("0",type,0);
                 // 如果加载失败调用下面的方法，传入errorCode和errorMessage。
                 // errorCode随便传，你自定义LoadMoreView时可以根据errorCode判断错误类型。
                 // errorMessage是会显示到loadMoreView上的，用户可以看到。
@@ -303,14 +303,14 @@ public class CaiGouDanActivity extends BaseActivity {
                     mList.get(i).setSelect(false);
                     adapter.refreshNotifyItemChanged(i);
                 }
-                getHedanList("2","902");
+                getHedanList("2","902",1);
                 break;
             case R.id.bt_hedan:
                 isBack = true;
                 mytype =0;
                 xuanzhong.clear();
                 tvTijiao.setText("合单");
-                getHedanList("2","902");
+                getHedanList("2","902",1);
                 ll.setVisibility(View.GONE);
                 rlHedan.setVisibility(View.VISIBLE);
                 tvRight.setVisibility(View.VISIBLE);
@@ -320,7 +320,7 @@ public class CaiGouDanActivity extends BaseActivity {
                 mytype =1;
                 xuanzhong.clear();
                 tvTijiao.setText("拆分");
-                getHedanList("1","902");
+                getHedanList("1","902",1);
                 ll.setVisibility(View.GONE);
                 rlHedan.setVisibility(View.VISIBLE);
                 tvRight.setVisibility(View.VISIBLE);
@@ -389,10 +389,9 @@ public class CaiGouDanActivity extends BaseActivity {
         if(ye!=1){
             Log.e(TAG, "onResume: "+"啊啊啊" );
             tvTitle.setText("待审核");
-            getHedanList("0","902");
+            getHedanList("0","902",1);
 
         }
-        ye++;
     }
 
     @Override
@@ -436,7 +435,10 @@ public class CaiGouDanActivity extends BaseActivity {
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
-    public void getHedanList(final String status,final String isState) {
+    public void getHedanList(final String status,final String isState,final int myye) {
+        if(myye==1){
+            ye = myye;
+        }
         type = isState;
         rl.setVisibility(View.GONE);
         if(isState.equals("902")){
@@ -554,7 +556,7 @@ public class CaiGouDanActivity extends BaseActivity {
                     public void onNext(String data) {
                         purchase_id = "";
                         ToastUtil.showToast("合单成功");
-                        getHedanList("0","902");
+                        getHedanList("0","902",1);
 //                        setShow();
                     }
                 });
@@ -572,7 +574,7 @@ public class CaiGouDanActivity extends BaseActivity {
                     public void onNext(String data) {
                         ct_buy_final_id = "";
                         ToastUtil.showToast("拆单成功");
-                        getHedanList("0","902");
+                        getHedanList("0","902",1);
 //                        setShow();
                     }
                 });

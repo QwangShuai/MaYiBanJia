@@ -25,7 +25,6 @@ public class XJSPFeiLeiXuanZeAdapter extends RecyclerView.Adapter<XJSPFeiLeiXuan
     private ViewHolder viewHolder;
     private CallBack mCallBack;
     private String xuanzhongid = "";
-    private XJSPFeiLeiXuanZeActivity activity;
     private Context mContext;
     private List<FCGName> list;
 
@@ -98,12 +97,6 @@ public class XJSPFeiLeiXuanZeAdapter extends RecyclerView.Adapter<XJSPFeiLeiXuan
 
     public interface OnItemClickListener {
         void onClick(View view, int position);
-    }
-
-
-
-    public void setActivity(XJSPFeiLeiXuanZeActivity activity) {
-        this.activity = activity;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

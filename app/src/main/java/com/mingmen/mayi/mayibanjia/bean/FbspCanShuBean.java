@@ -5,40 +5,49 @@ package com.mingmen.mayi.mayibanjia.bean;
  */
 
 public class FbspCanShuBean {
-    private String company_id="";
-    private String deputyPicture="";
-    private String choose_specifications="";
-    private String pack_standard_one="";
-    private String specOneNum="";
-    private String pack_standard_two="";
-    private String specTwoNum="";
-    private String pack_standard_tree="";
-    private String specThreeNum="";
-    private String ration_one="";
-    private String pice_one="";
-    private String ration_two="";
-    private String pice_two="";
-    private String ration_three="";
-    private String pice_three="";
-    private String inventory="";
-    private String origin="";
-    private String level="";
-    private String apply="";
-    private String proportion="";
-    private String type_one_id="";
-    private String commodity_state="";
-    private String commodity_name="";
-    private String hostPicture="";
-    private String goods="";
-    private String type_two_id="";
-    private String type_tree_id="";
-    private String type_four_id="";
-    private String spec_describe="";
-    private String price="";
+    private String company_id = "";
+    private String deputyPicture = "";
+    private String choose_specifications = "";
+    private String pack_standard_one = "";
+    private String specOneNum = "";
+    private String pack_standard_two = "";
+    private String specTwoNum = "";
+    private String pack_standard_tree = "";
+    private String specThreeNum = "";
+    private String ration_one = "";
+    private String pice_one = "";
+    private String ration_two = "";
+    private String pice_two = "";
+    private String ration_three = "";
+    private String pice_three = "";
+    private String inventory = "";
+    private String origin = "";
+    private String level = "";
+    private String apply = "";
+    private String proportion = "";
+    private String type_one_id = "";
+    private String commodity_state = "";
+    private String commodity_name = "";
+    private String hostPicture = "";
+    private String goods = "";
+    private String type_two_id = "";
+    private String type_tree_id = "";
+    private String type_four_id = "";
+    private String spec_describe = "";
+    private String price = "";
     private double spec_count;
-    private String spec_detal_id="";
-    private String spec_detal_name="";
-    private String pack_standard_tree_name="";
+    private String spec_detal_id = "";
+    private String spec_detal_name = "";
+    private String pack_standard_tree_name = "";
+    private String brand = "";
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
 
     public String getPack_standard_tree_name() {
         return pack_standard_tree_name;

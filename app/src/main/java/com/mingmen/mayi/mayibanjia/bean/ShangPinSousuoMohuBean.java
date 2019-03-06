@@ -10,6 +10,25 @@ public class ShangPinSousuoMohuBean {
     private String commodity_id;
     private String classify_id;
     private String spec_name;
+    private String spec_idFour;
+    private boolean isSelect;
+
+    public boolean isSelect() {
+        return isSelect;
+    }
+
+    public void setSelect(boolean select) {
+        isSelect = select;
+    }
+
+    public String getSpec_idFour() {
+        return spec_idFour;
+    }
+
+    public void setSpec_idFour(String spec_idFour) {
+        this.spec_idFour = spec_idFour;
+    }
+
     private String affiliated_number;
     private String affiliated_spec_name;
 

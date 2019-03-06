@@ -28,7 +28,7 @@
         <TextView
             android:textSize="10sp"
             android:layout_marginLeft="5dp"
-            android:textColor="@color/mayihong"
+            android:textColor="@color/red_ff3300"
             android:text="￥"
             android:layout_width="wrap_content"
             android:gravity="center_vertical"
@@ -37,7 +37,7 @@
             android:id="@+id/tv_heji"
             android:textSize="15sp"
             android:layout_marginRight="12dp"
-            android:textColor="@color/mayihong"
+            android:textColor="@color/red_ff3300"
             android:text="7700"
             android:layout_width="wrap_content"
             android:gravity="center_vertical"

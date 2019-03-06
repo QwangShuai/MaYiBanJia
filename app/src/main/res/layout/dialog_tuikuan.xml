@@ -42,7 +42,7 @@
             <EditText
                 android:inputType="numberDecimal"
                 android:textColorHint="@color/hintcolor"
-                android:textColor="@color/mayihong"
+                android:textColor="@color/red_ff3300"
                 android:textSize="12sp"
                 android:id="@+id/et_tuikuan"
                 android:layout_toLeftOf="@+id/yuan"

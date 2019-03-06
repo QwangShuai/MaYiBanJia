@@ -223,7 +223,7 @@
             android:text="退款金额:"
             android:layout_marginRight="9dp"
             android:textSize="12sp"
-            android:textColor="@color/mayihong"
+            android:textColor="@color/red_ff3300"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -232,7 +232,7 @@
             android:id="@+id/tv_tuikuanjine"
             android:layout_alignParentRight="true"
             android:textSize="18sp"
-            android:textColor="@color/mayihong"
+            android:textColor="@color/red_ff3300"
             android:text="￥:1035.9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -250,7 +250,7 @@
             android:text="附加费:"
             android:layout_marginRight="9dp"
             android:textSize="12sp"
-            android:textColor="@color/mayihong"
+            android:textColor="@color/red_ff3300"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -259,7 +259,7 @@
             android:id="@+id/tv_fuJiaFeiMoney"
             android:layout_alignParentRight="true"
             android:textSize="18sp"
-            android:textColor="@color/mayihong"
+            android:textColor="@color/red_ff3300"
             android:text="￥:1035.9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -294,7 +294,7 @@
             android:id="@+id/tv_zongjia"
             android:layout_alignParentRight="true"
             android:textSize="20sp"
-            android:textColor="@color/mayihong"
+            android:textColor="@color/red_ff3300"
             android:text="￥:1035.9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

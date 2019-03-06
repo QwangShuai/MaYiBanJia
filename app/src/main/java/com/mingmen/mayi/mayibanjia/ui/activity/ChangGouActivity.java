@@ -116,14 +116,13 @@ public class ChangGouActivity extends BaseActivity {
                     @Override
                     public void onNext(List<ChangYongBean> list) {
                         int mysize = list == null ? 0 : list.size();
+                        mlist.clear();
                         if (mysize != 0) {
-                            mlist.clear();
                             mlist.addAll(list);
-                            adapter.notifyDataSetChanged();
                         } else {
                             ToastUtil.showToastLong("请先去添加常用商品");
                         }
-
+                        adapter.notifyDataSetChanged();
                     }
                 });
     }

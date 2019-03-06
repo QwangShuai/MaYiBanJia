@@ -36,7 +36,7 @@ public class CaiGouDanAdapter extends BaseQuickAdapter<CaiGouDanBean, BaseViewHo
 
     public CaiGouDanAdapter(Resources resources) {
         super(R.layout.item_caigoudan);
-        select = resources.getColor(R.color.mayihong);//设置选中的颜色
+        select = resources.getColor(R.color.red_ff3300);//设置选中的颜色
         defaultC = resources.getColor(R.color.hintcolor);//设置默认的颜色
     }
 

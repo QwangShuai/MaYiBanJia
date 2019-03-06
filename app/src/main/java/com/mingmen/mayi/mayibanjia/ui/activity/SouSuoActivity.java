@@ -244,7 +244,7 @@ public class SouSuoActivity extends BaseActivity {
                             .setObservable(
                                     RetrofitManager
                                             .getService()
-                                            .sousuoshangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""), sousuozi,"","",UMConfig.YCL_ID,yijipinleiid,erjipinleiid,sanjipinleiid,shichangid,zuigaojia,zuidijia,type,ye))
+                                            .sousuoshangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""), sousuozi,"","",UMConfig.YCL_ID,yijipinleiid,erjipinleiid,sanjipinleiid,shichangid,zuigaojia,zuidijia,type,ye,""))
                             .setDataListener(new HttpDataListener<ShangPinSouSuoBean>() {
                                 @Override
                                 public void onNext(final ShangPinSouSuoBean shangpin) {
@@ -880,7 +880,7 @@ public class SouSuoActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .sousuoshangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""), sousuo,"","", UMConfig.YCL_ID,yijipinleiid,erjipinleiid,sanjipinleiid,shichangid,zuigaojia,zuidijia,type,1))
+                                .sousuoshangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""), sousuo,"","", UMConfig.YCL_ID,yijipinleiid,erjipinleiid,sanjipinleiid,shichangid,zuigaojia,zuidijia,type,1,""))
                 .setDataListener(new HttpDataListener<ShangPinSouSuoBean>() {
                     @Override
                     public void onNext(final ShangPinSouSuoBean shangpin) {

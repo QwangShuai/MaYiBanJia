@@ -88,6 +88,24 @@ public class QiYeLieBiaoBean {
     private String market_id;
     private float evaluation;
     private String random_id;
+    private String one_classify_id;
+    private String one_classify_name;
+
+    public String getOne_classify_id() {
+        return one_classify_id;
+    }
+
+    public void setOne_classify_id(String one_classify_id) {
+        this.one_classify_id = one_classify_id;
+    }
+
+    public String getOne_classify_name() {
+        return one_classify_name;
+    }
+
+    public void setOne_classify_name(String one_classify_name) {
+        this.one_classify_name = one_classify_name;
+    }
 
     public String getRandom_id() {
         return random_id;

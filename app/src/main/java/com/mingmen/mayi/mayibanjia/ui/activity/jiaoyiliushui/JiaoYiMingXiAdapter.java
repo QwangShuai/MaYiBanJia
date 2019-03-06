@@ -51,12 +51,12 @@ public class JiaoYiMingXiAdapter extends RecyclerView.Adapter<JiaoYiMingXiAdapte
                 break;
             case "1":
                 holder.tvTitle.setText("付款");
-                holder.tvMoney.setTextColor(mContext.getResources().getColor(R.color.mayihong));
+                holder.tvMoney.setTextColor(mContext.getResources().getColor(R.color.red_ff3300));
                 holder.tvMoney.setText("-"+bean.getPay_money());
                 break;
             case "2":
                 holder.tvTitle.setText("提现");
-                holder.tvMoney.setTextColor(mContext.getResources().getColor(R.color.mayihong));
+                holder.tvMoney.setTextColor(mContext.getResources().getColor(R.color.red_ff3300));
                 holder.tvMoney.setText("-"+bean.getPay_money());
                 break;
             case "3":

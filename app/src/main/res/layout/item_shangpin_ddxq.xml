@@ -33,7 +33,7 @@
                 android:textSize="14sp"/>
             <TextView
                 android:id="@+id/tv_fujiafei"
-                android:textColor="@color/mayihong"
+                android:textColor="@color/red_ff3300"
                 android:text="(附加费:200元)"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

@@ -26,15 +26,15 @@ public class ResultMap<T> implements Function<ResultModel<T>, T> {
       Log.e("object", new Gson().toJson(httpResult.getData()) + "---");
       return httpResult.getData();
     } else if("8888".equals(httpResult.getStatus())){
-      ToastUtil.showToastLong("Token过期了");
+      ToastUtil.showToastLong(httpResult.getMsg());
       BaseActivity.goLogin(mContext,"login");
-      throw new RuntimeException("Token过期");
+      throw new RuntimeException(httpResult.getMsg());
 //      return httpResult.getData();
     } else if("9999".equals(httpResult.getStatus())){
-      ToastUtil.showToastLong("账号已登陆,点击登录获取验证码");
+      ToastUtil.showToastLong(httpResult.getMsg());
 //      BaseActivity.goLogin(mContext,"");
       LoginActivity.instance.setView();
-      throw new RuntimeException("账号已登陆");
+      throw new RuntimeException(httpResult.getMsg());
     } else {
       Log.e("codecode", httpResult.getStatus());
       Log.e("message", httpResult.getMsg());

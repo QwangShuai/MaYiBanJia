@@ -80,12 +80,12 @@ public class JiaoYiXiangQingActivity extends BaseActivity {
                                 break;
                             case "1":
                                 tvState.setText("付款");
-                                tvJine.setTextColor(mContext.getResources().getColor(R.color.mayihong));
+                                tvJine.setTextColor(mContext.getResources().getColor(R.color.red_ff3300));
                                 tvJine.setText("-"+bean.getPay_money());
                                 break;
                             case "2":
                                 tvState.setText("提现");
-                                tvJine.setTextColor(mContext.getResources().getColor(R.color.mayihong));
+                                tvJine.setTextColor(mContext.getResources().getColor(R.color.red_ff3300));
                                 tvJine.setText("-"+bean.getPay_money());
                                 break;
                             case "3":
@@ -100,7 +100,7 @@ public class JiaoYiXiangQingActivity extends BaseActivity {
                                 break;
                             case "5":
                                 tvState.setText("提现失败");
-                                tvJine.setTextColor(mContext.getResources().getColor(R.color.mayihong));
+                                tvJine.setTextColor(mContext.getResources().getColor(R.color.red_ff3300));
                                 tvJine.setText(bean.getPay_money());
                                 break;
                         }

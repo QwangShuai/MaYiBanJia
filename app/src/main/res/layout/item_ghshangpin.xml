@@ -9,7 +9,7 @@
         android:gravity="center"
         android:textColor="@color/white"
         android:textSize="9sp"
-        android:background="@color/mayihong"
+        android:background="@color/red_ff3300"
         android:id="@+id/tv_teshushangpin"
         android:text="特殊商品"
         android:layout_width="45dp"

@@ -6,6 +6,6 @@
 
     <corners android:radius="200dp"/>
     <!--边框-->
-    <stroke android:width="2dp" android:color="@color/mayihong" />
+    <stroke android:width="2dp" android:color="@color/red_ff3300" />
 
 </shape>

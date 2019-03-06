@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.ContactsContract;
@@ -24,11 +25,13 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 
@@ -39,6 +42,7 @@ import com.mingmen.mayi.mayibanjia.MainActivity;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.DianMingChaXunBean;
+import com.mingmen.mayi.mayibanjia.bean.FCGName;
 import com.mingmen.mayi.mayibanjia.bean.JsonBean;
 import com.mingmen.mayi.mayibanjia.bean.ProvinceBean;
 import com.mingmen.mayi.mayibanjia.bean.ShiChangBean;
@@ -47,6 +51,7 @@ import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.DianPuMingAdapter;
+import com.mingmen.mayi.mayibanjia.ui.activity.adapter.FenLeiMohuAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.PhotoDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
@@ -115,6 +120,7 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
     @BindView(R.id.tv_quyuxuanze)
     TextView tvQuyuxuanze;
 
+
     private Context mContext;
     private Uri imageUri;//原图保存地址
     private Uri outputUri;//裁剪保存地址
@@ -145,8 +151,9 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
     private int shiid;
     private int quid;
     private String type="1";
-    int city=0;
-    int[] pos= new int[3];
+    private int city=0;
+    private int[] pos= new int[3];
+
 
     @Override
     public int getLayoutId() {
@@ -202,6 +209,7 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
         });
         etDianpuming.setEnabled(false);
         initJsonData();
+
     }
 
     private void qiniushangchuan() {

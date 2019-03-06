@@ -100,8 +100,8 @@ public class DeviceListActivity extends Activity {
 
         setResult(Activity.RESULT_CANCELED);
         thisCon = this.getApplicationContext();
-        tvTitle.setText("蓝牙设备");
         initView();
+        tvTitle.setText("蓝牙设备");
         // 初始化 arryadapter 已经配对的设备和新扫描到得设备
         mPairedDevicesArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, getPairedData());
         mNewDevicesArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
@@ -369,6 +369,7 @@ public class DeviceListActivity extends Activity {
     }
 
     private void initView() {
+        tvTitle = findViewById(R.id.tv_title);
         titlePairedDevices = findViewById(R.id.title_paired_devices);
         pairedDevices = findViewById(R.id.paired_devices);
         titleNewDevices = findViewById(R.id.title_new_devices);

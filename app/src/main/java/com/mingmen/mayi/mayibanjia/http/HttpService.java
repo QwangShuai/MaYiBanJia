@@ -162,6 +162,7 @@ public interface HttpService {
                                                       @Query("login_type") String login_type,
                                                       @Query("device_name") String device_name,
                                                       @Query("deviceid") String deviceid);
+
     //游客登录
     @POST("allCompanyAccount/queryvisitor.do")
     Observable<ResultModel<ZhuCeChengGongBean>> youkeLogin();
@@ -194,7 +195,8 @@ public interface HttpService {
                                                                @Query("big") String big,
                                                                @Query("small") String small,
                                                                @Query("sortOrder") String sortOrder,
-                                                               @Query("pageNumber") Integer pageNumber);//0:默认查询（搜索），1：销量最高 2，评分最高 3.价格最高 4.价格最低
+                                                               @Query("pageNumber") Integer pageNumber,
+                                                               @Query("pack_standard_tree") String pack_standard_tree);//0:默认查询（搜索），1：销量最高 2，评分最高 3.价格最高 4.价格最低
 
     //全部菜品默认list，搜索也调用此方法
     @POST("gyCommodity/queryByCommodity_name.do")
@@ -316,7 +318,8 @@ public interface HttpService {
                                              @Query("role") String role,
                                              @Query("booth_number") String booth_number,
                                              @Query("son_number") String son_number,
-                                             @Query("telephone") String telephone);
+                                             @Query("telephone") String telephone,
+                                             @Query("one_classify_id") String one_classify_id);
 
     //企业修改(业务员)
     @POST("allCompany/updateCompany.do")
@@ -336,7 +339,8 @@ public interface HttpService {
                                                @Query("booth_number") String booth_number,
                                                @Query("son_number") String son_number,
                                                @Query("telephone") String telephone,
-                                               @Query("company_id") String qiyeid);
+                                               @Query("company_id") String qiyeid,
+                                               @Query("one_classify_id") String one_classify_id);
 
     //查询企业列表（业务员）
     @POST("allCompany/queryAll.do")
@@ -455,7 +459,8 @@ public interface HttpService {
                                                  @Query("spec_count") double spec_count,
                                                  @Query("spec_detal_id") String spec_detal_id,
                                                  @Query("pack_standard_tree_name") String pack_standard_tree_name,
-                                                 @Query("spec_name") String spec_name);
+                                                 @Query("spec_name") String spec_name,
+                                                 @Query("brand") String brand);
 
     //编辑商品
     @POST("gyCommodity/update.do")
@@ -482,7 +487,8 @@ public interface HttpService {
                                                    @Query("spec_count") double spec_count,
                                                    @Query("spec_detal_id") String spec_detal_id,
                                                    @Query("pack_standard_tree_name") String pack_standard_tree_name,
-                                                   @Query("spec_name") String spec_name);
+                                                   @Query("spec_name") String spec_name,
+                                                   @Query("brand") String brand);
 
     //添加购物车
     @POST("ctShoppingCart/save.do")
@@ -1217,9 +1223,7 @@ public interface HttpService {
     //获取最小规格
     @POST("allSpec/queryspec.do")
     Observable<ResultModel<List<FbspGuiGeBean>>> getZxgg(@Query("user_token") String user_token,
-                                                         @Query("classify_id") String classify_id,
-                                                         @Query("spec_id") String spec_id,
-                                                         @Query("spec_name") String spec_name);
+                                                         @Query("classify_id") String classify_id);
 
     //查询子账户所有权限
     @POST("allCompanyAccount/queryAccountRole.do")
@@ -1236,7 +1240,8 @@ public interface HttpService {
     //获取商品三级
     @POST("ctObserver/selectThree.do")
     Observable<ResultModel<List<FCGName>>> getThreeFenlei(@Query("user_token") String user_token,
-                                                                 @Query("classify_name") String classify_name);
+                                                          @Query("classify_name") String classify_name);
+
     //支付宝返回数据回传
     @POST("notify/getPayNotify.do")
     Observable<ResultModel<String>> postZFB(@Query("user_token") String user_token,
@@ -1244,12 +1249,18 @@ public interface HttpService {
                                             @Query("trade_no") String trade_no,
                                             @Query("amount") String amount,
                                             @Query("trade_status") String trade_status);
+
     //获取商品4级
     @POST("ctObserver/queryThree")
-    Observable<ResultModel<FCGName>> getFourSp(@Query("user_token") String user_token,
-                                            @Query("classify_name") String classify_name);
+    Observable<ResultModel<List<FCGName>>> getFourSp(@Query("user_token") String user_token,
+                                                     @Query("classify_name") String classify_name,
+                                                     @Query("one_classify_id") String one_classify_id);
 
     //获取新建商品分支条件
     @POST("gyCommodity/commoditySpec.do")
     Observable<ResultModel<List<FeiLeiLableSubmitBean>>> getFenLeiCanShu(@Query("user_token") String user_token);
+
+    //获取企业售卖的1级分类
+    @POST("allCompany/queryByFl.do")
+    Observable<ResultModel<FCGName>> getQiyeYiji(@Query("user_token") String user_token);
 }

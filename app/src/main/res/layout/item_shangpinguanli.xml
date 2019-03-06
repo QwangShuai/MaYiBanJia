@@ -2,6 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="114dp">
+    <Button
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_alignParentRight="true"
+        android:id="@+id/bt_add_guige"
+        android:layout_width="70dp"
+        android:layout_height="28dp"
+        android:text="新增规格"
+        android:textColor="#ff3c92a3"
+        android:textSize="15sp"
+        android:background="@drawable/fillet_hollow_zangqing_3"
+        />
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -88,6 +100,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginRight="12dp"
         android:layout_marginBottom="20dp">
+
         <Button
             android:id="@+id/bt_bianji"
             android:layout_width="70dp"

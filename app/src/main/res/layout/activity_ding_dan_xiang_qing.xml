@@ -384,7 +384,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="￥"
-                            android:textColor="@color/mayihong"
+                            android:textColor="@color/red_ff3300"
                             android:textSize="10sp" />
 
                         <TextView
@@ -393,7 +393,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="4dp"
                             android:text="137."
-                            android:textColor="@color/mayihong"
+                            android:textColor="@color/red_ff3300"
                             android:textSize="18sp" />
 
                         <TextView
@@ -401,7 +401,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="00"
-                            android:textColor="@color/mayihong"
+                            android:textColor="@color/red_ff3300"
                             android:textSize="12sp" />
                     </LinearLayout>
                 </RelativeLayout>

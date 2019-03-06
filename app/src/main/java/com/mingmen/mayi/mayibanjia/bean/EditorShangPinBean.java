@@ -150,7 +150,7 @@ public class EditorShangPinBean implements Serializable{
         private int specThreeNum;
         private Object price;
         private int choose_specifications;
-        private int pice_one;
+        private double pice_one;
         private String company_id;
         private String ration_one;
         private String ration_two;
@@ -243,6 +243,15 @@ public class EditorShangPinBean implements Serializable{
         private String affiliated_number;//数量
         private String affiliated_spec;//ID
         private String type_four_id;
+        private String brand;
+
+        public String getBrand() {
+            return brand;
+        }
+
+        public void setBrand(String brand) {
+            this.brand = brand;
+        }
 
         public String getType_four_id() {
             return type_four_id;
@@ -396,11 +405,11 @@ public class EditorShangPinBean implements Serializable{
             this.choose_specifications = choose_specifications;
         }
 
-        public int getPice_one() {
+        public double getPice_one() {
             return pice_one;
         }
 
-        public void setPice_one(int pice_one) {
+        public void setPice_one(double pice_one) {
             this.pice_one = pice_one;
         }
 

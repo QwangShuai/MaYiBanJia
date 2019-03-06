@@ -108,13 +108,15 @@ public class ShenPiActivity extends BaseActivity {
     private CaiGouDanBean myBean = new CaiGouDanBean();
     List<GetAllMarketBean> market_id = new ArrayList<>();
     private boolean isClick = true;
+    private String message = "暂无此权限";
 
     public boolean isClick() {
         return isClick;
     }
 
-    public void setClick(boolean click) {
-        isClick = click;
+    public void setClick(boolean click,String message) {
+        this.isClick = click;
+        this.message = message;
     }
 
     public static ShenPiActivity instance = null;
@@ -391,7 +393,7 @@ public class ShenPiActivity extends BaseActivity {
                     break;
             }
         } else {
-            ToastUtil.showToast("暂无此权限");
+            ToastUtil.showToast(message);
         }
 
     }

@@ -18,7 +18,7 @@
             android:layout_marginBottom="1dp"
             android:layout_marginLeft="44dp"
             android:layout_marginTop="12dp"
-            android:background="@color/mayihong"
+            android:background="@color/red_ff3300"
             android:gravity="center"
             android:text="特殊商品"
             android:textColor="#ffffffff"

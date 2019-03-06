@@ -12,7 +12,7 @@
             android:id="@+id/tv_state"
             android:layout_marginRight="13dp"
             android:textSize="20sp"
-            android:textColor="@color/mayihong"
+            android:textColor="@color/red_ff3300"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:text="待取货"
@@ -204,7 +204,7 @@
         <Button
             android:textSize="12sp"
             android:text="通知商家"
-            android:textColor="@color/mayihong"
+            android:textColor="@color/red_ff3300"
             android:id="@+id/btn_tongzhi"
             android:background="@drawable/fillet_hollow_zangqing_tuoyuan"
             android:layout_alignParentRight="true"

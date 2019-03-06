@@ -40,6 +40,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.dialog.PhotoDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.AppManager;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 import com.mingmen.mayi.mayibanjia.utils.photo.FileStorage;
 import com.mingmen.mayi.mayibanjia.utils.photo.QiNiuPhoto;
@@ -129,12 +130,18 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
         yemian = getIntent().getStringExtra("yemian");
         setRvAdapter();
         if(yemian.equals("0")){
-            tvTitle.setText("新建商品");
-            getFenLeiLable();
-            pipei = getIntent().getStringExtra("pipei");
-            if(!pipei.equals("0")){
+            if(StringUtil.isValid(getIntent().getStringExtra("guige"))){
+                tvTitle.setText("新增规格");
                 setDataView();
+            } else {
+                tvTitle.setText("新建商品");
+                getFenLeiLable();
+                pipei = getIntent().getStringExtra("pipei");
+                if(!pipei.equals("0")){
+                    setDataView();
+                }
             }
+
         } else {
             tvTitle.setText("编辑商品");
             setDataView();
@@ -323,7 +330,7 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                                 canshu.getPack_standard_two(),canshu.getPack_standard_tree(),
                                 canshu.getRation_one(),canshu.getPice_one(),canshu.getInventory(),new Gson().toJson(mlist),canshu.getType_one_id(),canshu.getGoods(),canshu.getCommodity_state(),canshu.getCommodity_name(),
                                 canshu.getType_two_id(),canshu.getType_tree_id(),canshu.getType_four_id(),canshu.getHostPicture(),
-                                canshu.getSpec_describe(),canshu.getPrice(),canshu.getSpec_count(),canshu.getSpec_detal_id(),canshu.getPack_standard_tree_name(),canshu.getSpec_detal_name()))
+                                canshu.getSpec_describe(),canshu.getPrice(),canshu.getSpec_count(),canshu.getSpec_detal_id(),canshu.getPack_standard_tree_name(),canshu.getSpec_detal_name(),canshu.getBrand()))
                 .setDataListener(new HttpDataListener<String>() {
             @Override
             public void onNext(String data) {
@@ -345,7 +352,7 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                                         canshu.getPack_standard_two(),canshu.getPack_standard_tree(),
                                         canshu.getRation_one(),canshu.getPice_one(),canshu.getInventory(),new Gson().toJson(mlist),canshu.getType_one_id(),canshu.getGoods(),canshu.getCommodity_state(),canshu.getCommodity_name(),
                                         canshu.getType_two_id(),canshu.getType_tree_id(),canshu.getType_four_id(),canshu.getHostPicture(),canshu.getSpec_describe(),
-                                        canshu.getPrice(),canshu.getSpec_count(),canshu.getSpec_detal_id(),canshu.getPack_standard_tree_name(),canshu.getSpec_detal_name()))
+                                        canshu.getPrice(),canshu.getSpec_count(),canshu.getSpec_detal_id(),canshu.getPack_standard_tree_name(),canshu.getSpec_detal_name(),canshu.getBrand()))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
@@ -552,12 +559,16 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
             for(int i = 0;i<bean.getXq().getDpicture().size();i++){
                 if(i==0){
                     Glide.with(FaBuShangPinXiangQingTuActivity.this).load(bean.getXq().getDpicture().get(i)).into(ivXq1);
+                    tu1 = bean.getXq().getDpicture().get(i);
                 } else if(i==1){
                     Glide.with(FaBuShangPinXiangQingTuActivity.this).load(bean.getXq().getDpicture().get(i)).into(ivXq2);
+                    tu2 = bean.getXq().getDpicture().get(i);
                 } else if(i==2){
                     Glide.with(FaBuShangPinXiangQingTuActivity.this).load(bean.getXq().getDpicture().get(i)).into(ivXq3);
+                    tu3 = bean.getXq().getDpicture().get(i);
                 } else {
                     Glide.with(FaBuShangPinXiangQingTuActivity.this).load(bean.getXq().getDpicture().get(i)).into(ivXq4);
+                    tu4 = bean.getXq().getDpicture().get(i);
                 }
             }
         }

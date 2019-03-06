@@ -225,7 +225,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="联系方式"
+                    android:text="服务电话"
                     android:textColor="#ff474747"
                     android:textSize="14sp" />
 

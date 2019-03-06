@@ -4,8 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,12 +12,12 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -34,26 +33,23 @@ import com.mingmen.mayi.mayibanjia.app.UMConfig;
 import com.mingmen.mayi.mayibanjia.bean.AllShiChangBean;
 import com.mingmen.mayi.mayibanjia.bean.FCGName;
 import com.mingmen.mayi.mayibanjia.bean.FenLeiBean;
-import com.mingmen.mayi.mayibanjia.bean.RoleBean;
 import com.mingmen.mayi.mayibanjia.bean.ShangPinSouSuoBean;
+import com.mingmen.mayi.mayibanjia.bean.ShangPinSousuoMohuBean;
 import com.mingmen.mayi.mayibanjia.bean.ShiChangSouSuoShangPinBean;
-import com.mingmen.mayi.mayibanjia.bean.ShouYeLeiBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShiChangSouSuoShangPinActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.SouSuoActivity;
-import com.mingmen.mayi.mayibanjia.ui.activity.adapter.ErJiFenLeiAdapter;
-import com.mingmen.mayi.mayibanjia.ui.activity.adapter.SanJiFenLeiAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.ShangPinListAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.ShangPinMohuAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.ShiChangAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.ShiChangSouSuoShangPinListAdapter;
+import com.mingmen.mayi.mayibanjia.ui.activity.adapter.XJSPFeiLeiGuigeAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.YiJiFenLeiAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.JiaRuGouWuCheDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseFragment;
 import com.mingmen.mayi.mayibanjia.ui.fragment.quanbucaipin.adapter.QuanBuCaiPinLeiAdapter;
-import com.mingmen.mayi.mayibanjia.ui.view.AutoLineFeedLayoutManager;
 import com.mingmen.mayi.mayibanjia.ui.view.PageIndicatorView;
 import com.mingmen.mayi.mayibanjia.ui.view.XCFlowLayout;
 import com.mingmen.mayi.mayibanjia.ui.view.ZiXunPagingScrollHelper;
@@ -70,6 +66,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * Created by Administrator on 2018/7/16/016.
@@ -128,6 +125,19 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     View viewZhanwei;
     @BindView(R.id.rl_lei)
     RelativeLayout rlLei;
+    @BindView(R.id.ll_dingwei)
+    LinearLayout llDingwei;
+    @BindView(R.id.tv_shichangjia)
+    TextView tvShichangjia;
+    @BindView(R.id.ll_rv)
+    LinearLayout llRv;
+    @BindView(R.id.ll_pinzhong)
+    LinearLayout llPinzhong;
+    @BindView(R.id.tv_guige)
+    TextView tvGuige;
+    @BindView(R.id.ll_guige)
+    LinearLayout llGuige;
+    Unbinder unbinder;
 
     private ShiChangSouSuoShangPinListAdapter shichangadapter;
     private ArrayList<ShiChangSouSuoShangPinBean> shichanglist = new ArrayList<>();
@@ -171,6 +181,9 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     private String yclId = "346926195929448587b078e7fe613530 ";
     private String xzId = "";
     private String xzId_2 = "";
+    private String xzId_3 = "";
+    private String guigeId = "";
+    private String guigeName = "";
     private GridLayoutManager manager;
     private int REQUEST_CODE = 1;
     List<List<FCGName>> lei_datas = new ArrayList<>();
@@ -184,6 +197,8 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     private TextView tvPinzhongPop;
     private TextView tvShichangLablePop;
     private TextView tvShichangPop;
+    private TextView tvGuigeLablePop;
+    private TextView tvGuigePop;
     private TextView tvYiji;
     private TextView tvErji;
     private TextView tvSanji;
@@ -193,11 +208,13 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     private LinearLayout llShichangPop;
     private LinearLayout llShichangjiaPop;
     private LinearLayout llSousuoPop;
+    private LinearLayout llGuigePop;
     private ScrollView svShichang;
     private RecyclerView rvYiji;
     private RecyclerView rvErji;
     private RecyclerView rvSanji;
     private RecyclerView rv_yijifenlei;
+    private RecyclerView rvGuige;
 //    private XCFlowLayout xcf1;
 //    private XCFlowLayout xcf2;
 //    private XCFlowLayout xcf3;
@@ -211,6 +228,8 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     private boolean isResult;
     private AlphaAnimation mHideAnimation = null;
     private AlphaAnimation mShowAnimation = null;
+    private XJSPFeiLeiGuigeAdapter guigeadapter;
+    private List<ShangPinSousuoMohuBean> mlist = new ArrayList<>();
 
     @Override
     protected View getSuccessView() {
@@ -254,7 +273,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                         .setObservable(
                                 RetrofitManager
                                         .getService()
-                                        .sousuoshangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""), sousuo, "", "", UMConfig.YCL_ID, yijipinleiid, erjipinleiid, sanjipinleiid, shichangid, zuigaojia, zuidijia, type, ye))
+                                        .sousuoshangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""), sousuo, "", "", UMConfig.YCL_ID, yijipinleiid, erjipinleiid, sanjipinleiid, shichangid, zuigaojia, zuidijia, type, ye,guigeId))
                         .setDataListener(new HttpDataListener<ShangPinSouSuoBean>() {
                             @Override
                             public void onNext(final ShangPinSouSuoBean shangpin) {
@@ -349,6 +368,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
 
         adapter = new YiJiFenLeiAdapter();
         erjiadapter = new YiJiFenLeiAdapter();
+        guigeadapter = new XJSPFeiLeiGuigeAdapter(mContext,mlist);
         if (!TextUtils.isEmpty(activity.getType())) {//是否是首页传参过来的
             tvPinlei.setText(activity.getType());
 //            tvPinlei.setTextColor(getResources().getColor(R.color.zangqing));
@@ -369,7 +389,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .sousuoshangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""), sousuo, "", "", UMConfig.YCL_ID, yijipinleiid, erjipinleiid, sanjipinleiid, shichangid, zuigaojia, zuidijia, type, ye))
+                                .sousuoshangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""), sousuo, "", "", UMConfig.YCL_ID, yijipinleiid, erjipinleiid, sanjipinleiid, shichangid, zuigaojia, zuidijia, type, ye,guigeId))
                 .setDataListener(new HttpDataListener<ShangPinSouSuoBean>() {
                     @Override
                     public void onNext(final ShangPinSouSuoBean shangpin) {
@@ -454,6 +474,8 @@ public class QuanBuCaiPinFragment extends BaseFragment {
             showErji();
         } else if (state == 3) {
             showShichang();
+        } else if(state == 4) {
+            showThreePop();
         }
 //        recyclerView.setVisibility(View.GONE);
         yijipop.showAsDropDown(viewZhanwei);
@@ -570,7 +592,8 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     }
 
     //    @OnClick({R.id.ll_diqu, R.id.ll_pinlei, R.id.ll_shaixuan,R.id.iv_shanchuzi, R.id.tv_xiaoliang, R.id.ll_jiage, R.id.tv_pingfenzuigao})
-    @OnClick({R.id.ll_shichangjia, R.id.ll_pinzhong, R.id.ll_pinlei, R.id.ll_shichang, R.id.ll_sousuo, R.id.tv_xiaoliang, R.id.ll_jiage, R.id.tv_pingfenzuigao})
+    @OnClick({R.id.ll_shichangjia, R.id.ll_pinzhong, R.id.ll_pinlei, R.id.ll_shichang,
+            R.id.ll_sousuo, R.id.tv_xiaoliang, R.id.ll_jiage, R.id.tv_pingfenzuigao, R.id.ll_guige})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 //            case R.id.ll_diqu:
@@ -626,6 +649,9 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 break;
             case R.id.ll_pinzhong:
                 showPopTwo();
+                break;
+            case R.id.ll_guige:
+                showPopThree();
                 break;
             case R.id.ll_shichangjia:
                 if (StringUtil.isValid(sanjipinleiid)) {
@@ -689,7 +715,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .sousuoshangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""), sousuo, "", "", UMConfig.YCL_ID, yijipinleiid, erjipinleiid, sanjipinleiid, shichangid, zuigaojia, zuidijia, type, 1))
+                                .sousuoshangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""), sousuo, "", "", UMConfig.YCL_ID, yijipinleiid, erjipinleiid, sanjipinleiid, shichangid, zuigaojia, zuidijia, type, 1,guigeId))
                 .setDataListener(new HttpDataListener<ShangPinSouSuoBean>() {
                     @Override
                     public void onNext(final ShangPinSouSuoBean shangpin) {
@@ -767,7 +793,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                                 leiBean.addAll(list);
                                 bindZiXun();
                             } else if (type.equals("3")) {
-                                Log.e(TAG, "onNext: "+"为什么没展示" );
+                                Log.e(TAG, "onNext: " + "为什么没展示");
                                 yijiFenLei.clear();
                                 yijiFenLei.add(quanbu);
                                 yijiFenLei.addAll(list);
@@ -849,8 +875,12 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         tvPinlei.setTextColor(getResources().getColor(R.color.zicolor));
         tvPinzhong.setText("全部");
         tvShichang.setText("全部");
+        tvGuige.setText("全部");
         tvShichang.setTextColor(getResources().getColor(R.color.zicolor));
         shichangid = "";
+        shichangname = "";
+        guigeId = "";
+        guigeName = "";
     }
 
     @Override
@@ -869,7 +899,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                     sanjipinleiid = data.getStringExtra("four_id");
                     sousuo = data.getStringExtra("four_name");
                     tvSousuozi.setText(sousuo);
-                    if(StringUtil.isValid(sanjipinleiid)){
+                    if (StringUtil.isValid(sanjipinleiid)) {
                         sousuoshangpin("", type);
                     } else {
                         getOneList();
@@ -950,11 +980,14 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         ivBackPop = (ImageView) view.findViewById(R.id.iv_back_pop);
         tvLablePop = (TextView) view.findViewById(R.id.tv_lable_pop);
         tvPinleiPop = (TextView) view.findViewById(R.id.tv_pinlei_pop);
+        tvGuigePop = (TextView) view.findViewById(R.id.tv_guige_pop);
+        tvGuigeLablePop = (TextView) view.findViewById(R.id.tv_guige_lable_pop);
         llPinleiPop = (LinearLayout) view.findViewById(R.id.ll_pinlei_pop);
         llPinzhongPop = (LinearLayout) view.findViewById(R.id.ll_pinzhong_pop);
         llShichangPop = (LinearLayout) view.findViewById(R.id.ll_shichang_pop);
         llShichangjiaPop = (LinearLayout) view.findViewById(R.id.ll_shichangjia_pop);
         llSousuoPop = (LinearLayout) view.findViewById(R.id.ll_sousuo_pop);
+        llGuigePop = (LinearLayout) view.findViewById(R.id.ll_guige_pop);
         tvPinzhongLablePop = (TextView) view.findViewById(R.id.tv_pinzhong_lable_pop);
         tvPinzhongPop = (TextView) view.findViewById(R.id.tv_pinzhong_pop);
         tvShichangLablePop = (TextView) view.findViewById(R.id.tv_shichang_lable_pop);
@@ -967,6 +1000,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         tvErji = (TextView) view.findViewById(R.id.tv_yiji);
         tvAllShichang = (TextView) view.findViewById(R.id.tv_all_shichang);
         rv_yijifenlei = view.findViewById(R.id.rv_yijifenlei);
+        rvGuige = view.findViewById(R.id.rv_guige);
 //        xcf1 = view.findViewById(R.id.xcf1);
 //        xcf2 = view.findViewById(R.id.xcf2);
 //        xcf3 = view.findViewById(R.id.xcf3);
@@ -983,6 +1017,12 @@ public class QuanBuCaiPinFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 showPopTwo();
+            }
+        });
+        llGuigePop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopThree();
             }
         });
         llShichangPop.setOnClickListener(new View.OnClickListener() {
@@ -1046,13 +1086,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         tvLablePop.setTextColor(mContext.getResources().getColor(R.color.zangqing));
         rv_yijifenlei.setVisibility(View.VISIBLE);
         svShichang.setVisibility(View.GONE);
-        if (StringUtil.isValid(erjipinleiname)) {
-            tvPinleiPop.setText(erjipinleiname);
-            tvPinleiPop.setTextColor(mContext.getResources().getColor(R.color.zangqing));
-        } else {
-            tvPinleiPop.setText("全部");
-            tvPinleiPop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
-        }
+        refreshView();
         setMyManager();
         rv_yijifenlei.setLayoutManager(manager);
         rv_yijifenlei.setAdapter(adapter);
@@ -1061,11 +1095,13 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         adapter.setCallBack(new YiJiFenLeiAdapter.CallBack() {
             @Override
             public void xuanzhong(FCGName msg) {
-                setState();
                 yijipop.dismiss();
                 tvPinlei.setText(msg.getClassify_name());
                 erjipinleiid = msg.getClassify_id();
-                sanjipinleiid = "";
+                clearPinzhong();
+                clearGuige();
+                erjipinleiname = msg.getClassify_name();
+
                 if (msg.getClassify_name().equals("全部")) {
                     tvPinlei.setTextColor(getResources().getColor(R.color.zicolor));
                 } else {
@@ -1085,13 +1121,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         rv_yijifenlei.setVisibility(View.VISIBLE);
         svShichang.setVisibility(View.GONE);
         tvPinzhongLablePop.setTextColor(mContext.getResources().getColor(R.color.zangqing));
-        if (StringUtil.isValid(sanjipinleiname)) {
-            tvPinzhongPop.setText(sanjipinleiname);
-            tvPinzhongPop.setTextColor(mContext.getResources().getColor(R.color.zangqing));
-        } else {
-            tvPinzhongPop.setText("全部");
-            tvPinzhongPop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
-        }
+        refreshView();
         rv_yijifenlei.setLayoutManager(manager);
         rv_yijifenlei.setAdapter(erjiadapter);
         erjiadapter.setNewData(erjiFenLei);
@@ -1102,7 +1132,8 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 yijipop.dismiss();
                 tvPinzhong.setText(msg.getClassify_name());
                 sanjipinleiname = msg.getClassify_name();
-                Log.e(TAG, "xuanzhong: "+new Gson().toJson(msg) );
+                clearGuige();
+                Log.e(TAG, "xuanzhong: " + new Gson().toJson(msg));
 //                    erjiadapter.notifyDataSetChanged();
                 if (msg.getClassify_name().equals("全部")) {
                     tvPinzhong.setTextColor(getResources().getColor(R.color.zicolor));
@@ -1125,15 +1156,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         rv_yijifenlei.setVisibility(View.GONE);
         svShichang.setVisibility(View.VISIBLE);
         tvShichangLablePop.setTextColor(mContext.getResources().getColor(R.color.zangqing));
-        if (StringUtil.isValid(shichangname)) {
-            tvShichangPop.setText(shichangname);
-            tvShichangPop.setTextColor(mContext.getResources().getColor(R.color.zangqing));
-            tvAllShichang.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_999999_3));
-        } else {
-            tvShichangPop.setText("全部");
-            tvShichangPop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
-            tvAllShichang.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_zangqing_3));
-        }
+        refreshView();
 
     }
 
@@ -1142,8 +1165,13 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         Log.e("item", new Gson().toJson(msg));
         shichangname = msg.getMarket_name();
         shichangid = msg.getMark_id();
-        tvShichang.setText(shichangname);
-        tvShichang.setTextColor(getResources().getColor(R.color.zangqing));
+        tvShichang.setText(msg.getMarket_name());
+        if (msg.getMarket_name().equals("全部")) {
+            tvShichang.setTextColor(getResources().getColor(R.color.zicolor));
+        } else {
+            tvShichang.setTextColor(getResources().getColor(R.color.zangqing));
+        }
+        refreshView();
         yijiAdapter.setXuanZhongId(shichangid);
         erjiAdapter.setXuanZhongId(shichangid);
         sanjiAdapter.setXuanZhongId(shichangid);
@@ -1153,13 +1181,18 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     }
 
     private void setPopColor() {
+        if (rvGuige.getVisibility() == View.VISIBLE) {
+            rv_yijifenlei.setVisibility(View.VISIBLE);
+            rvGuige.setVisibility(View.GONE);
+        }
         ye = 1;
-        shichangid = "";
-        shichangname = "全部";
-        tvShichangPop.setText(shichangname);
+//        shichangid = "";
+//        shichangname = "全部";
+//        tvShichangPop.setText(shichangname);
         tvLablePop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
         tvPinzhongLablePop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
         tvShichangLablePop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
+        tvGuigeLablePop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
     }
 
     private void showPopOne() {
@@ -1172,7 +1205,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                     yijipop.dismiss();
                 } else {
 //                        yijipop.showAsDropDown(llShichang);
-                    Log.e(TAG, "showPopOne: "+"开始展示 但是没刷新吗" );
+                    Log.e(TAG, "showPopOne: " + "开始展示 但是没刷新吗");
                     showYiJiPop(1);
                 }
             } else {
@@ -1202,9 +1235,27 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         }
 
     }
+    private void showPopThree() {
+        //规格
+        if (StringUtil.isValid(sanjipinleiname)) {
+            if (isLodeFenLei) {
+                yijipop.setFocusable(true);
+                if (yijipop.isShowing()) {
+                    yijipop.dismiss();
+                } else {
+                    showYiJiPop(4);
+                }
+            } else {
+                getGuige();
+            }
+        } else {
+            ToastUtil.showToastLong("请先选择商品的品种");
+        }
 
+    }
     private void clearPopXuanzhong() {
-        erjipinleiname = "全部";
+        erjipinleiname = "";
+        shichangname = "";
         tvPinleiPop.setText("全部");
         tvPinleiPop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
         adapter.setXuanzhongid("");
@@ -1297,5 +1348,136 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         mShowAnimation.setDuration(duration);
         mShowAnimation.setFillAfter(true);
         view.startAnimation(mShowAnimation);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+
+    private void getGuige() {
+        mlist.clear();
+        Log.e("getfcgname: ", PreferenceUtils.getString(MyApplication.mContext, "token", "") + "---" + xzId_2 + "---" + sanjipinleiname);
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .searchSpname(PreferenceUtils.getString(MyApplication.mContext, "token", ""), xzId_2, sanjipinleiname))
+                .setDataListener(new HttpDataListener<List<ShangPinSousuoMohuBean>>() {
+                    @Override
+                    public void onNext(List<ShangPinSousuoMohuBean> data) {
+                        int mysize = data == null ? 0 : data.size();
+                        ShangPinSousuoMohuBean bean = new ShangPinSousuoMohuBean();
+                        bean.setClassify_id("");
+                        bean.setClassify_name("全部");
+                        mlist.add(bean);
+                        if (mysize != 0) {
+                            mlist.addAll(data);
+                        }
+                        guigeadapter.notifyDataSetChanged();
+                        showYiJiPop(4);
+                    }
+                }, false);
+    }
+
+    private void showThreePop(){
+        setPopColor();
+        svShichang.setVisibility(View.GONE);
+        refreshView();
+        rvGuige.setLayoutManager(new GridLayoutManager(mContext,3));
+        rvGuige.setAdapter(guigeadapter);
+        guigeadapter.setCallBack(new XJSPFeiLeiGuigeAdapter.CallBack() {
+            @Override
+            public void xuanzhong(ShangPinSousuoMohuBean msg) {
+                ye = 1;
+                recyclerView.setVisibility(View.VISIBLE);
+                yijipop.dismiss();
+                if (msg.getClassify_name().equals("全部")) {
+                    tvGuige.setTextColor(getResources().getColor(R.color.zicolor));
+                } else {
+                    tvGuige.setTextColor(getResources().getColor(R.color.zangqing));
+                }
+                guigeadapter.setXuanzhongid(msg.getClassify_id());
+                tvGuige.setText(msg.getClassify_name());
+                guigeName = msg.getClassify_name();
+                xzId_3 = msg.getClassify_id();
+                guigeId = msg.getSpec_idFour();
+                Log.e("xuanzhong: guigeId=",guigeId );
+                guigeadapter.notifyDataSetChanged();
+                sousuoshangpin(sousuo, "0");
+            }
+        });
+        if (rvGuige.getVisibility() == View.GONE) {
+            rv_yijifenlei.setVisibility(View.GONE);
+            rvGuige.setVisibility(View.VISIBLE);
+        }
+        tvGuigeLablePop.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+        setMyManager();
+    }
+    private void clearPinzhong(){
+        tvPinzhongPop.setText("全部");
+        tvPinzhongPop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
+        tvPinzhong.setText("全部");
+        tvPinzhong.setTextColor(mContext.getResources().getColor(R.color.zicolor));
+        erjiadapter.setXuanzhongid("");
+        sanjipinleiid = "";
+        sanjipinleiname = "";
+    }
+    private void clearGuige(){
+        tvGuigePop.setText("全部");
+        tvGuigePop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
+        tvGuige.setText("全部");
+        tvGuige.setTextColor(mContext.getResources().getColor(R.color.zicolor));
+        guigeadapter.setXuanzhongid("");
+        xzId_3 = "";
+        guigeId = "";
+        guigeName = "";
+    }
+
+    private void refreshView(){
+        if (StringUtil.isValid(erjipinleiname)) {
+            tvPinleiPop.setText(erjipinleiname);
+            tvPinleiPop.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+        } else {
+            tvPinleiPop.setText("全部");
+            tvPinleiPop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
+        }
+
+        if (StringUtil.isValid(sanjipinleiname)) {
+            tvPinzhongPop.setText(sanjipinleiname);
+            tvPinzhongPop.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+        } else {
+            tvPinzhongPop.setText("全部");
+            tvPinzhongPop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
+        }
+
+        if (StringUtil.isValid(guigeName)) {
+            tvGuigePop.setText(guigeName);
+            tvGuigePop.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+        } else {
+            tvGuigePop.setText("全部");
+            tvGuigePop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
+        }
+
+        if (StringUtil.isValid(shichangname)) {
+            tvShichangPop.setText(shichangname);
+            tvShichangPop.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+            tvAllShichang.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_999999_3));
+        } else {
+            tvShichangPop.setText("全部");
+            tvShichangPop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
+            tvAllShichang.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_zangqing_3));
+        }
     }
 }

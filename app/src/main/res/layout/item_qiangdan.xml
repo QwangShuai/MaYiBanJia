@@ -42,7 +42,7 @@
         <TextView
             android:layout_width="45dp"
             android:layout_height="15dp"
-            android:background="@color/mayihong"
+            android:background="@color/red_ff3300"
             android:gravity="center"
             android:text="特殊商品"
             android:textColor="#ffffffff"

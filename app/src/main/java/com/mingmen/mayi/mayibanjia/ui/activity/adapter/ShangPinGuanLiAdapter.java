@@ -68,14 +68,14 @@ public class ShangPinGuanLiAdapter extends BaseQuickAdapter<ShangPinGuanLiBean.G
         helper.setText(R.id.tv_xiaoliang, "已售" + item.getSumGoodsSales());
         helper.setText(R.id.tv_kucun, "库存" + item.getInventory());
         helper.setText(R.id.tv_danjia, "¥ " + item.getPrice());
-        helper.setVisible(R.id.bt_bianji,true);
+        helper.setVisible(R.id.bt_bianji, true);
         helper.setOnClickListener(R.id.bt_bianji, new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isClick()) {
                     if (item.getApproval_state().equals("0") || item.getApproval_state().equals("2")) {
                         ToastUtil.showToast("上架不能编辑，请先下架");
-                    }else {
+                    } else {
                         Intent it = new Intent(mContext, FaBuShangPinActivity.class);
                         it.putExtra("state", "1");
                         it.putExtra("goods", goods);
@@ -87,6 +87,21 @@ public class ShangPinGuanLiAdapter extends BaseQuickAdapter<ShangPinGuanLiBean.G
                     ToastUtil.showToastLong("请注意，您只有阅览权限");
                 }
 
+            }
+        });
+        helper.setOnClickListener(R.id.bt_add_guige, new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isClick()) {
+                    Intent it = new Intent(mContext, FaBuShangPinActivity.class);
+                    it.putExtra("state", "0");
+                    it.putExtra("goods", goods);
+                    it.putExtra("guige","1");
+                    it.putExtra("bean", item.getCommodity_id());
+                    mContext.startActivity(it);
+                } else {
+                    ToastUtil.showToastLong("请注意，您只有阅览权限");
+                }
             }
         });
         switch (item.getApproval_state()) {
@@ -166,8 +181,9 @@ public class ShangPinGuanLiAdapter extends BaseQuickAdapter<ShangPinGuanLiBean.G
                 });
                 break;
             case "5":
-                helper.setVisible(R.id.bt_bianji,false);
-                helper.setText(R.id.bt_shangjia,"审核中");
+                helper.setVisible(R.id.bt_bianji, false);
+                helper.setVisible(R.id.bt_add_guige, false);
+                helper.setText(R.id.bt_shangjia, "审核中");
                 break;
 
         }

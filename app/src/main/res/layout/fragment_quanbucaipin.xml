@@ -229,7 +229,49 @@
                         android:textColor="@color/zicolor"
                         android:textSize="15sp" />
                 </LinearLayout>
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray_e7e7e7"></View>
 
+                <LinearLayout
+                    android:id="@+id/ll_guige"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="品种"
+                            android:textColor="@color/hintcolor" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:src="@mipmap/xiangxia_hui" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_guige"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="5dp"
+                        android:text="全部"
+                        android:textColor="@color/zicolor"
+                        android:textSize="15sp" />
+                </LinearLayout>
                 <View
                     android:layout_width="0.5dp"
                     android:layout_height="match_parent"

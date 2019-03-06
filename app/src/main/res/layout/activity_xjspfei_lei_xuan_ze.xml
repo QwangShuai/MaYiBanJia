@@ -49,7 +49,7 @@
                 android:text=""
                 android:textColor="#474747"
                 android:textSize="12sp"
-                android:hint="搜索商品名称 品种"
+                android:hint="搜索商品名称"
                 android:paddingLeft="2dp"
                 android:textColorHint="#999999"
                 android:imeOptions="actionSearch"
@@ -79,6 +79,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/ll_fenlei"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -98,7 +99,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="分类"
-                    android:textColor="@color/zangqing" />
+                    android:textColor="@color/zicolor" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -116,10 +117,12 @@
                 android:text="全部"
                 android:textColor="@color/zicolor"
                 android:textSize="15sp" />
+
             <View
-                android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></View>
+                android:layout_height="match_parent"
+                android:layout_weight="1"></View>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
@@ -127,9 +130,11 @@
         </LinearLayout>
 
         <View
+            android:visibility="gone"
             android:layout_width="0.5dp"
             android:layout_height="match_parent"
             android:background="@color/gray_e7e7e7"></View>
+
         <LinearLayout
             android:id="@+id/ll_pinlei"
             android:layout_width="match_parent"
@@ -149,8 +154,8 @@
                     android:id="@+id/tv_lable"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="分类"
-                    android:textColor="@color/zicolor" />
+                    android:text="品类"
+                    android:textColor="@color/zangqing" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -168,10 +173,12 @@
                 android:text="全部"
                 android:textColor="@color/zicolor"
                 android:textSize="15sp" />
+
             <View
-                android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></View>
+                android:layout_height="match_parent"
+                android:layout_weight="1"></View>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
@@ -182,6 +189,7 @@
             android:layout_width="0.5dp"
             android:layout_height="match_parent"
             android:background="@color/gray_e7e7e7"></View>
+
         <LinearLayout
             android:id="@+id/ll_pinzhong"
             android:layout_width="match_parent"
@@ -201,7 +209,7 @@
                     android:id="@+id/tv_pinzhong_lable"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="品类"
+                    android:text="品种"
                     android:textColor="@color/hintcolor" />
 
                 <ImageView
@@ -220,10 +228,12 @@
                 android:text="全部"
                 android:textColor="@color/zicolor"
                 android:textSize="15sp" />
+
             <View
-                android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></View>
+                android:layout_height="match_parent"
+                android:layout_weight="1"></View>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
@@ -234,6 +244,7 @@
             android:layout_width="0.5dp"
             android:layout_height="match_parent"
             android:background="@color/gray_e7e7e7"></View>
+
         <LinearLayout
             android:id="@+id/ll_mingcheng"
             android:layout_width="match_parent"
@@ -272,26 +283,93 @@
                 android:text="全部"
                 android:textColor="@color/zicolor"
                 android:textSize="15sp" />
+
             <View
-                android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></View>
+                android:layout_height="match_parent"
+                android:layout_weight="1"></View>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:background="@color/gray_e7e7e7"></View>
         </LinearLayout>
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="@color/gray_e7e7e7"></View>
 
+        <LinearLayout
+            android:id="@+id/ll_guige"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_guige_lable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="规格"
+                    android:textColor="@color/hintcolor" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:src="@mipmap/xiangxia_hui" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_guige"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="6dp"
+                android:text="全部"
+                android:textColor="@color/zicolor"
+                android:textSize="15sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"></View>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/gray_e7e7e7"></View>
+        </LinearLayout>
     </LinearLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_yijifenlei"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <RelativeLayout
         android:layout_weight="1"
-        android:paddingLeft="6dp"
-        android:paddingRight="6dp"
-        android:paddingTop="20dp" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_yijifenlei"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:paddingTop="20dp" />
+        <android.support.v7.widget.RecyclerView
+            android:visibility="gone"
+            android:id="@+id/rv_guige"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:paddingTop="20dp" />
+    </RelativeLayout>
+
     <Button
         android:layout_margin="12dp"
         android:id="@+id/btn_queren"

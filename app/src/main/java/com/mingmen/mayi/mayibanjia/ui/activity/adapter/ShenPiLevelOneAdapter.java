@@ -138,12 +138,12 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
                 holder.tvXitongtuijian.setText((l / 1000) + "秒后抢单结束");
 //                myMap.put(mList.get(position).getSon_order_id(),l+"");
                 PreferenceUtils.putLong(activity, mList.get(position).getSon_order_id(), l);
-                holder.tvXitongtuijian.setTextColor(activity.getResources().getColor(R.color.mayihong));
+                holder.tvXitongtuijian.setTextColor(activity.getResources().getColor(R.color.red_ff3300));
 //                holder.tvXitongtuijian.setEnabled(false);
                 message = "特殊商品抢单中，请耐心等待抢单完成";
                 isClick = false;
                 holder.itemView.setEnabled(false);
-                activity.setClick(isClick);
+                activity.setClick(isClick,message);
             }
 
             @Override
@@ -152,7 +152,7 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
                 holder.itemView.setEnabled(true);
                 PreferenceUtils.remove(activity, mList.get(position).getSon_order_id());
 //                myMap.remove(mList.get(position).getSon_order_id());
-                activity.setClick(isClick);
+                activity.setClick(isClick,message);
                 runningThree[0] = true;
                 holder.tvXitongtuijian.setVisibility(View.GONE);
                 holder.tvXitongtuijian.setText("发送抢单");

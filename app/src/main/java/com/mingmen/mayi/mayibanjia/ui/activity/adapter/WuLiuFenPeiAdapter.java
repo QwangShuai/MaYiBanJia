@@ -51,7 +51,7 @@ public class WuLiuFenPeiAdapter extends  RecyclerView.Adapter<WuLiuFenPeiAdapter
             holder.tv_orfenche.setText("已分车");
         } else {
             holder.tv_orfenche.setText("已变更");
-            holder.tv_orfenche.setTextColor(R.color.mayihong);
+            holder.tv_orfenche.setTextColor(R.color.red_ff3300);
         }
         holder.tv_fenpeiwuliuche.setOnClickListener(new View.OnClickListener() {
             @Override

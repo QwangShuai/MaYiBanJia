@@ -117,7 +117,7 @@ public class GWCDianPuAdapter extends  RecyclerView.Adapter<GWCDianPuAdapter.Vie
                 deleteItem.setHeight(MATCH_PARENT);
                 deleteItem.setWidth(200);
 //                deleteItem.setWidth(getWindowManager().getDefaultDisplay().getWidth() * 1 / 6);
-                deleteItem.setBackground(R.color.mayihong);
+                deleteItem.setBackground(R.color.red_ff3300);
                 rightMenu.addMenuItem(deleteItem); // 在Item左侧添加一个菜单。
 
 

@@ -3,6 +3,7 @@ package com.mingmen.mayi.mayibanjia.ui.activity.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.QiYeLieBiaoBean;
+import com.mingmen.mayi.mayibanjia.ui.activity.DianPuActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShangPinGuanLiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dingdan.DingDanActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ghdingdan.GHDOrderActivity;
@@ -77,7 +79,16 @@ public class ZhuceShangjiaAdapter extends RecyclerView.Adapter<ZhuceShangjiaAdap
         } else {
             holder.tvGuimo.setText("市场："+ data.getSon_number());
         }
-
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                Intent jindian = new Intent(mContext, DianPuActivity.class);
+                bundle.putString("dianpuid", data.getCompany_id());
+                jindian.putExtras(bundle);
+                mContext.startActivity(jindian);
+            }
+        });
         if(StringUtil.isValid(data.getPhoto())){
             Glide.with(mContext).load(data.getPhoto()).into(holder.ivTouxiang);
         }

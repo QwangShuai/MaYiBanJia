@@ -389,7 +389,7 @@
                                 android:background="@drawable/fillet_hollow_ff3300_10"
                                 android:gravity="center"
                                 android:text="1"
-                                android:textColor="@color/mayihong"
+                                android:textColor="@color/red_ff3300"
                                 android:textSize="10sp"
                                 android:visibility="visible" />
                         </RelativeLayout>
@@ -436,7 +436,7 @@
                                 android:background="@drawable/fillet_hollow_ff3300_10"
                                 android:gravity="center"
                                 android:text="1"
-                                android:textColor="@color/mayihong"
+                                android:textColor="@color/red_ff3300"
                                 android:textSize="10sp"
                                 android:visibility="visible" />
                         </RelativeLayout>
@@ -489,7 +489,7 @@
                                 android:background="@drawable/fillet_hollow_ff3300_10"
                                 android:gravity="center"
                                 android:text="1"
-                                android:textColor="@color/mayihong"
+                                android:textColor="@color/red_ff3300"
                                 android:textSize="10sp"
                                 android:visibility="visible" />
                         </RelativeLayout>
@@ -541,7 +541,7 @@
                                 android:background="@drawable/fillet_hollow_ff3300_10"
                                 android:gravity="center"
                                 android:text="1"
-                                android:textColor="@color/mayihong"
+                                android:textColor="@color/red_ff3300"
                                 android:textSize="10sp"
                                 android:visibility="visible" />
                         </RelativeLayout>
@@ -593,7 +593,7 @@
                                 android:background="@drawable/fillet_hollow_ff3300_10"
                                 android:gravity="center"
                                 android:text="1"
-                                android:textColor="@color/mayihong"
+                                android:textColor="@color/red_ff3300"
                                 android:textSize="10sp"
                                 android:visibility="visible" />
                         </RelativeLayout>
@@ -674,7 +674,7 @@
                                 android:background="@drawable/fillet_hollow_ff3300_10"
                                 android:gravity="center"
                                 android:text="1"
-                                android:textColor="@color/mayihong"
+                                android:textColor="@color/red_ff3300"
                                 android:textSize="10sp"
                                 android:visibility="visible" />
                         </RelativeLayout>
@@ -721,7 +721,7 @@
                                 android:background="@drawable/fillet_hollow_ff3300_10"
                                 android:gravity="center"
                                 android:text="1"
-                                android:textColor="@color/mayihong"
+                                android:textColor="@color/red_ff3300"
                                 android:textSize="10sp"
                                 android:visibility="visible" />
                         </RelativeLayout>
@@ -774,7 +774,7 @@
                                 android:background="@drawable/fillet_hollow_ff3300_10"
                                 android:gravity="center"
                                 android:text="1"
-                                android:textColor="@color/mayihong"
+                                android:textColor="@color/red_ff3300"
                                 android:textSize="10sp"
                                 android:visibility="visible" />
                         </RelativeLayout>
@@ -826,7 +826,7 @@
                                 android:background="@drawable/fillet_hollow_ff3300_10"
                                 android:gravity="center"
                                 android:text="1"
-                                android:textColor="@color/mayihong"
+                                android:textColor="@color/red_ff3300"
                                 android:textSize="10sp"
                                 android:visibility="visible" />
                         </RelativeLayout>

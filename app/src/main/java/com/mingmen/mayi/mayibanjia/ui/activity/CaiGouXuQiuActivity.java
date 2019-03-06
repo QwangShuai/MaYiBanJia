@@ -264,7 +264,9 @@ public class CaiGouXuQiuActivity extends BaseActivity {
                                                         public void onClick(View v) {
                                                             Intent intent = new Intent(mContext, CaiGouDanActivity.class);
                                                             startActivity(intent);
-                                                            FCGDiQuXuanZeActivity.instance.finish();
+                                                            if(FCGDiQuXuanZeActivity.instance!=null){
+                                                                FCGDiQuXuanZeActivity.instance.finish();
+                                                            }
                                                             tijiaoxuqiuDialog.dismiss();
                                                             finish();
                                                         }

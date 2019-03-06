@@ -7,19 +7,24 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -30,6 +35,7 @@ import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bumptech.glide.Glide;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
+import com.mingmen.mayi.mayibanjia.bean.FCGName;
 import com.mingmen.mayi.mayibanjia.bean.JsonBean;
 import com.mingmen.mayi.mayibanjia.bean.ProvinceBean;
 import com.mingmen.mayi.mayibanjia.bean.QiYeLeiBieBean;
@@ -38,6 +44,7 @@ import com.mingmen.mayi.mayibanjia.bean.ShiChangBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
+import com.mingmen.mayi.mayibanjia.ui.activity.adapter.FenLeiMohuAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.PhotoDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
@@ -93,6 +100,8 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
     ScrollView sl;
     @BindView(R.id.bt_queding)
     Button btQueding;
+    @BindView(R.id.tv_fenleixuanze)
+    TextView tvFenleixuanze;
 
     private Uri imageUri;//原图保存地址
     private Uri outputUri;
@@ -133,6 +142,14 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
     private String shichangming ;
     private String tanweihao;
     private String phone;
+
+    private PopupWindow mPopWindow;
+    private RecyclerView rv_mohu;
+    private FenLeiMohuAdapter mohuAdapter;
+    private ArrayList<FCGName> datas = new ArrayList<>();
+    private String oneId = "";
+
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_xin_xi_lu_ru_ghd;
@@ -176,11 +193,15 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
             etPhone.setText(phone);
             tvXuanzeshichang.setText(shichangming);
             etTanweihao.setText(tanweihao);
+            oneId = qiyexinxi.getOne_classify_id();
+            tvFenleixuanze.setText(qiyexinxi.getOne_classify_name());
         }
         photoDialog = new PhotoDialog(mContext,
                 mContext.getResources().getIdentifier("BottomDialog", "style", mContext.getPackageName()));
         photoDialog.getWindow().setGravity(Gravity.BOTTOM | Gravity.LEFT | Gravity.RIGHT);
+        showPopupWindow();
         initJsonData();
+        getShouyeFenLei("-1","1");
     }
 
     @Override
@@ -190,7 +211,8 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.tv_right, R.id.tv_xuanzeshichang, R.id.iv_tu, R.id.tv_qiehuan, R.id.tv_quyuxuanze, R.id.bt_queding})
+    @OnClick({R.id.tv_right, R.id.tv_xuanzeshichang, R.id.iv_tu, R.id.tv_qiehuan,
+            R.id.tv_quyuxuanze, R.id.bt_queding,R.id.tv_fenleixuanze})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_right:
@@ -260,6 +282,11 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
                     }
                 }
                 break;
+            case R.id.tv_fenleixuanze:
+                if (mPopWindow != null) {
+                    mPopWindow.showAsDropDown(tvFenleixuanze);
+                }
+                break;
         }
     }
     //修改
@@ -270,7 +297,7 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
                         RetrofitManager
                                 .getService()
 //                                .qiyexiugai(PreferenceUtils.getString(MyApplication.mContext, "token",""),qiyemingcheng,shengid+"",shiid+"",quid+"","", xiangxidizhi,yewuyuanweizhi,shidizhaopian,leibieid,"",random_id,"2",tanweihao,shichang_id,etPhone.getText().toString().trim(),qiyeid))
-                                .qiyexiugai(PreferenceUtils.getString(MyApplication.mContext, "token",""),qiyemingcheng,"","","","", "",yewuyuanweizhi,shidizhaopian,leibieid,"",random_id,"2",tanweihao,shichang_id,etPhone.getText().toString().trim(),qiyeid))
+                                .qiyexiugai(PreferenceUtils.getString(MyApplication.mContext, "token",""),qiyemingcheng,"","","","", "",yewuyuanweizhi,shidizhaopian,leibieid,"",random_id,"2",tanweihao,shichang_id,etPhone.getText().toString().trim(),qiyeid,oneId))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
@@ -287,7 +314,7 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .qiyeluru(PreferenceUtils.getString(MyApplication.mContext, "token",""),qiyemingcheng,shengid+"",shiid+"",quid+"","", xiangxidizhi,yewuyuanweizhi,shidizhaopian,leibieid,"",random_id,"2",tanweihao,shichang_id,etPhone.getText().toString().trim()))
+                                .qiyeluru(PreferenceUtils.getString(MyApplication.mContext, "token",""),qiyemingcheng,shengid+"",shiid+"",quid+"","", xiangxidizhi,yewuyuanweizhi,shidizhaopian,leibieid,"",random_id,"2",tanweihao,shichang_id,etPhone.getText().toString().trim(),oneId))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
@@ -601,4 +628,49 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
 //
 //        picker.show();
 //    }
+private void showPopupWindow() {
+    View view = View.inflate(mContext, R.layout.pp_textview_recycleview, null);
+    mPopWindow = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    int width = getWindowManager().getDefaultDisplay().getWidth();
+    int height = getWindowManager().getDefaultDisplay().getHeight();
+    mPopWindow.setWidth(width * 2 / 6);
+    mPopWindow.setHeight(height * 2 / 9);
+    mPopWindow.setOutsideTouchable(true);
+    mPopWindow.setBackgroundDrawable(new BitmapDrawable());
+//    mPopWindow.showAsDropDown(tvFenleixuanze);
+    rv_mohu = (RecyclerView) view.findViewById(R.id.rv_list);
+    mohuAdapter = new FenLeiMohuAdapter(mContext, datas);
+    rv_mohu.setAdapter(mohuAdapter);
+    rv_mohu.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+    mohuAdapter.setOnItemClickListener(new FenLeiMohuAdapter.OnItemClickListener() {
+        @Override
+        public void onClick(View view, int position) {
+            tvFenleixuanze.setText(datas.get(position).getClassify_name());
+            oneId = datas.get(position).getClassify_id();
+            mPopWindow.dismiss();
+        }
+    });
+}
+
+    private void getShouyeFenLei(String id, final String type) {
+        datas.clear();
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .getFeiLei(PreferenceUtils.getString(MyApplication.mContext, "token", ""), id, type))
+                .setDataListener(new HttpDataListener<List<FCGName>>() {
+
+                    @Override
+                    public void onNext(List<FCGName> list) {
+                        int mysize = list == null ? 0 : list.size();
+                        if (mysize != 0) {
+                            datas.addAll(list);
+                        } else {
+                            ToastUtil.showToastLong("当前类别暂无品类");
+                        }
+                    }
+                }, false);
+    }
 }

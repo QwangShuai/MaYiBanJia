@@ -20,6 +20,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.adapter.YinHangKaAdapter;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,9 +107,16 @@ public class YinHangKaActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
-                        Bundle bundle = new Bundle();
-                        bundle.putString("principal",data);
-                        JumpUtil.Jump_intent(mContext,YinHangKaTianJiaActivity.class,bundle);
+                        if(StringUtil.isValid(data)){
+                            Bundle bundle = new Bundle();
+                            bundle.putString("principal",data);
+                            JumpUtil.Jump_intent(mContext,YinHangKaTianJiaActivity.class,bundle);
+                        } else {
+                            Bundle bundle = new Bundle();
+                            bundle.putString("state","待审核");
+                            JumpUtil.Jump_intent(mContext,ZiZhiRenZhengActivity.class,bundle);
+                        }
+
                     }
                 });
     }

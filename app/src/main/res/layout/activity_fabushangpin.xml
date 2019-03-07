@@ -103,46 +103,12 @@
                 </LinearLayout>
 
             </LinearLayout>
+
             <LinearLayout
-                android:id="@+id/ll_pinpai"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:orientation="horizontal"
-                android:paddingLeft="12dp"
-                android:gravity="center_vertical">
-                <TextView
-                    android:id="@+id/tv_ppname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="商品品牌"
-                    android:textColor="#ff666666"
-                    android:textSize="15sp"
-                    />
-                <EditText
-                    android:id="@+id/et_ppming"
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:text=""
-                    android:textColor="@color/zicolor"
-                    android:textSize="12sp"
-                    android:layout_marginRight="12dp"
-                    android:layout_marginLeft="50dp"
-                    android:paddingLeft="10dp"
-                    android:background="@drawable/fillet_hollow_999999_3"
-                    android:hint="请输入商品品牌（非必填）"
-                    android:textColorHint="@color/hintcolor"
-                    android:maxLength="20"
-                    />
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/cutoff"
-                android:layout_marginLeft="12dp"/>
-            <LinearLayout
+                android:padding="13dp"
+                android:id="@+id/ll_teshu"
                 android:visibility="visible"
                 android:gravity="center_vertical"
-                android:layout_marginLeft="13dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageView
@@ -196,7 +162,42 @@
                 android:layout_height="1dp"
                 android:background="@color/cutoff"
                 android:layout_marginLeft="12dp"/>
-
+            <LinearLayout
+                android:id="@+id/ll_pinpai"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:orientation="horizontal"
+                android:paddingLeft="12dp"
+                android:gravity="center_vertical">
+                <TextView
+                    android:id="@+id/tv_ppname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="商品品牌"
+                    android:textColor="#ff666666"
+                    android:textSize="15sp"
+                    />
+                <EditText
+                    android:id="@+id/et_ppming"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:text=""
+                    android:textColor="@color/zicolor"
+                    android:textSize="12sp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginLeft="50dp"
+                    android:paddingLeft="10dp"
+                    android:background="@drawable/fillet_hollow_999999_3"
+                    android:hint="请输入商品品牌（非必填）"
+                    android:textColorHint="@color/hintcolor"
+                    android:maxLength="20"
+                    />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/cutoff"
+                android:layout_marginLeft="12dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="84dp"

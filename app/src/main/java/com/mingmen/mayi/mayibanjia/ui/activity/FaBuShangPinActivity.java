@@ -229,35 +229,34 @@ public class FaBuShangPinActivity extends BaseActivity {
                 setDataView(id);
             } else {
                 tvTitle.setText("新建商品");
-                etSpming.setEnabled(false);
-                etSpming.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        if (!ming.equals(s.toString().trim())) {
-                            if(!isSelect){
-                                Log.e("我的输入", s.toString().trim() + "这是原来的名字" + ming);
-                                canShuBean.setType_tree_id("");
-                                sanjiid = "";
-                                llSanjiguige.setEnabled(true);
-                                llZxgg.setEnabled(true);
-                                etNumber.setEnabled(true);
-                                getfcgname(s.toString().trim());
-                                getguige();
-                            }
-                        }
-
-                    }
-                    @Override
-                    public void afterTextChanged(Editable s) {
-                    }
-                });
             }
+            etSpming.setEnabled(false);
+            etSpming.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if (!ming.equals(s.toString().trim())) {
+                        if(!isSelect){
+                            Log.e("我的输入", s.toString().trim() + "这是原来的名字" + ming);
+                            canShuBean.setType_tree_id("");
+                            sanjiid = "";
+                            llSanjiguige.setEnabled(true);
+                            llZxgg.setEnabled(true);
+                            etNumber.setEnabled(true);
+                            getfcgname(s.toString().trim());
+                            getguige();
+                        }
+                    }
+
+                }
+                @Override
+                public void afterTextChanged(Editable s) {
+                }
+            });
         } else {
             tvTitle.setText("编辑商品");
             yemian = "1";
@@ -299,7 +298,7 @@ public class FaBuShangPinActivity extends BaseActivity {
 
     //    @OnClick({R.id.iv_back, R.id.iv_sptu, R.id.iv_yiji, R.id.iv_erji, R.id.iv_sanji, R.id.ll_fenleimingcheng, R.id.ll_yijiguige, R.id.ll_erjiguige, R.id.ll_sanjiguige, R.id.bt_xiayibu})
     @OnClick({R.id.iv_back,R.id.iv_qingkong, R.id.tv_zhiman, R.id.ll_tejia, R.id.iv_sptu, R.id.ll_fenleimingcheng, R.id.ll_sanjiguige,
-            R.id.bt_xiayibu, R.id.iv_teshu, R.id.ll_zxgg,R.id.ll_shangpinmingcheng})
+            R.id.bt_xiayibu, R.id.ll_teshu, R.id.ll_zxgg,R.id.ll_shangpinmingcheng})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -404,9 +403,9 @@ public class FaBuShangPinActivity extends BaseActivity {
             case R.id.bt_xiayibu:
                 qidingliang1 = etQidingliang1.getText().toString().trim();
                 qidingliangdanjia1 = etQidingliangdanjia1.getText().toString().trim();
-//                if (!StringUtil.isValid(etSpming.getText().toString().trim())) {
-//                    ToastUtil.showToast("请填写商品名");
-//                } else
+                if (!StringUtil.isValid(etSpming.getText().toString().trim())&&!StringUtil.isValid(sanjiid)) {
+                    ToastUtil.showToast("请填写商品名或选择一件商品");
+                } else
                 if (!StringUtil.isValid(shangpintu)) {
                     ToastUtil.showToast("请选择商品图");
                 }else if (!StringUtil.isValid(etKucun.getText().toString().trim())) {
@@ -457,7 +456,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                     tiaozhuan();
                 }
                 break;
-            case R.id.iv_teshu:
+            case R.id.ll_teshu:
                 isSelect = !isSelect;
                 ivTeshu.setSelected(isSelect);
                 if(isSelect){
@@ -469,10 +468,15 @@ public class FaBuShangPinActivity extends BaseActivity {
                     yijiid = "";
                     erjiid = "";
                     sanjiid = "";
+                    llSanjiguige.setEnabled(true);
+                    llZxgg.setEnabled(true);
+                    etNumber.setEnabled(true);
                     llFenleimingcheng.setEnabled(false);
                     llShangpinmingcheng.setEnabled(false);
                     llFl.setVisibility(View.GONE);
                     llSp.setVisibility(View.GONE);
+                    getguige();
+                    getZuixiaoGuige();
                 } else {
                     tvSpname.setText("选择商品");
                     llFenleimingcheng.setEnabled(true);

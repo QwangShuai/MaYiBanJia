@@ -225,7 +225,7 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
                         ToastUtil.showToastLong("注册成功");
                         PreferenceUtils.putString(MyApplication.mContext,"token",list.getToken());
                         PreferenceUtils.putString(MyApplication.mContext,"juese",list.getRole());
-                        PreferenceUtils.putBoolean(MyApplication.mContext,"isLogin",true);
+                        PreferenceUtils.putBoolean(MyApplication.mContext,"isLogin",false);
                         //注册成功后  跳转
                         Intent intent = new Intent(mContext, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);  ;
                         startActivity(intent);

@@ -278,7 +278,7 @@ public class DianPuActivity extends BaseActivity implements View.OnClickListener
                             ye++;
                         }
                     }
-                });
+                },false);
     }
 
 //关注
@@ -297,6 +297,9 @@ public class DianPuActivity extends BaseActivity implements View.OnClickListener
                          isFocus = true;
                          tvFocus.setText("已关注");
                          ivFocus.setVisibility(View.GONE);
+                         mlist.clear();
+                         ye = 1;
+                         getdianpuzhanshi();
                      }
                  });
      }
@@ -315,6 +318,9 @@ public class DianPuActivity extends BaseActivity implements View.OnClickListener
                          isFocus = false;
                          tvFocus.setText("关注");
                          ivFocus.setVisibility(View.VISIBLE);
+                         mlist.clear();
+                         ye = 1;
+                         getdianpuzhanshi();
                      }
                  });
      }
@@ -475,7 +481,7 @@ public class DianPuActivity extends BaseActivity implements View.OnClickListener
 //                            ye++;
                         }
                     }
-                });
+                },false);
     }
     //添加购物车
     private void addcar(final String spid, String shuliang, String dianpuid, String gouwucheid, String guigeid) {

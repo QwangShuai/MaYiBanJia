@@ -6,15 +6,24 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.mingmen.mayi.mayibanjia.ui.activity.AddQrCodeActivity">
-    <include layout="@layout/head_zangqing_select"></include>
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/srl_shuaxin"
+    <include layout="@layout/head_zangqing"></include>
+    <com.mingmen.mayi.mayibanjia.ui.view.PagerSlidingTabStrip
+        android:id="@+id/tabs_add_qr_code"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
-            android:id="@+id/rv_qrcode"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"></com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView>
-    </android.support.v4.widget.SwipeRefreshLayout>
+        android:layout_height="44dp"
+        android:background="@color/white"
+        app:pstsDividerColor="@color/transparent"
+        app:pstsIndicatorColor="@color/zangqing"
+        app:pstsIndicatorHeight="4dp"
+        app:pstsTabPaddingLeftRight="2dp"
+        app:pstsShouldExpand="true"
+        app:pstsTabBackground="@color/transparent"
+        app:pstsUnderlineHeight="1dp"></com.mingmen.mayi.mayibanjia.ui.view.PagerSlidingTabStrip>
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_add_qr_code"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"></android.support.v4.view.ViewPager>
 </LinearLayout>

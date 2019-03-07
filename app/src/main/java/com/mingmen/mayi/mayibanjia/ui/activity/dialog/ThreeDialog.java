@@ -76,7 +76,7 @@ public class ThreeDialog extends BaseFragmentDialog implements View.OnClickListe
         textView.setTextColor(color);
         if (textView.getId()==chooseView.getId()){
             if("qr".equals(type)){
-                activity.updateSpList(s);
+//                activity.updateSpList(s);
             }
         }
 

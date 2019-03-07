@@ -303,7 +303,7 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
         Glide.with(mContext).load(woDeBean.getPhoto()).into(ivTouxiang);
         tvDianming.setText(woDeBean.getCompany_name() + "");
         type = woDeBean.getBusiness_state() + "";
-        tvState.setText(type.equals("0") ? "营业中" : "休息中");
+        tvState.setText(type.equals("0") ? "营业中" : "停止接单");
         tvYue.setText(woDeBean.getMoney() + "");
         tvDfh.setVisibility(woDeBean.getStay_delivery() == 0 ? View.GONE : View.VISIBLE);
         tvDfh.setText(woDeBean.getStay_delivery() + "");
@@ -405,7 +405,7 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
                     @Override
                     public void onNext(String bean) {
                         Log.e("我的数据", bean);
-                        tvState.setText(bean.equals("0") ? "营业中" : "休息中");
+                        tvState.setText(bean.equals("0") ? "营业中" : "停止接单");
                         type = bean;
                     }
                 });

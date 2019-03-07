@@ -367,6 +367,11 @@ public class AddAddressActivity extends BaseActivity {
                         phoneName = phone.getString(phone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
                         //手机号码
                         phonenumber = phone.getString(phone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                        if(phonenumber.contains("+")){
+                            phonenumber = phonenumber.substring(3,phonenumber.length());
+                        }
+                        phonenumber = phonenumber.replaceAll(" ","");
+                        phonenumber = phonenumber.replaceAll("-","");
                         //格式化手机号
                         etShouhuoren.setText(phoneName);
                         etDianhua.setText(phonenumber);

@@ -108,7 +108,7 @@ public class ZiZhiRenZhengActivity extends BaseActivity {
                         Glide.with(mContext).load(bean.getBusiness_license()).into(ivYingyezhizhao);
                         tvFuzeren.setText(bean.getPrincipal());
                         etName.setText(bean.getLegal_person());
-                        if(state.equals("审核中")||state.equals("审核成功")){
+                        if(state.equals("审核中")||state.equals("审核通过")){
                             etName.setEnabled(false);
                             etXinyongma.setEnabled(false);
                             etShenfenzheng.setEnabled(false);

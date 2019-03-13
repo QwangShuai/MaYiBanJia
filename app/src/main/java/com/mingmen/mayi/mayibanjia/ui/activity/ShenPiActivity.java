@@ -26,6 +26,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.adapter.ShenPiLevelZeroAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.CaiGouDanTianJiaDailog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ShenPiShiBaiDailog;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.XuanZeZhuBiaoDailog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
@@ -103,18 +104,22 @@ public class ShenPiActivity extends BaseActivity {
     private HashMap<String, ShangpinidAndDianpuidBean> xuanzhong = new HashMap<>();
     private int item_position;
     private String purchase_id;
+    private String purchase_name = "";
     private String ct_buy_final_id = "";
     private LinearLayoutManager manager;
     private CaiGouDanBean myBean = new CaiGouDanBean();
     List<GetAllMarketBean> market_id = new ArrayList<>();
     private boolean isClick = true;
     private String message = "暂无此权限";
+    private int REQUEST_CODE = 1;
+    //    CaiGouDanTianJiaDailog dialog;
+    XuanZeZhuBiaoDailog dialog;
 
     public boolean isClick() {
         return isClick;
     }
 
-    public void setClick(boolean click,String message) {
+    public void setClick(boolean click, String message) {
         this.isClick = click;
         this.message = message;
     }
@@ -136,13 +141,14 @@ public class ShenPiActivity extends BaseActivity {
             ct_buy_final_id = getIntent().getStringExtra("ct_buy_final_id");
         } else {
             purchase_id = getIntent().getStringExtra("purchase_id");
+            purchase_name = getIntent().getStringExtra("caigouming");
         }
 
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         if (StringUtil.isValid(PreferenceUtils.getString(MyApplication.mContext, "isShenPi", ""))) {
             if (PreferenceUtils.getString(MyApplication.mContext, "isShenPi", "").equals("5")) {
-                Log.e("My",PreferenceUtils.getString(MyApplication.mContext, "isShenPi", ""));
+                Log.e("My", PreferenceUtils.getString(MyApplication.mContext, "isShenPi", ""));
                 ll.setVisibility(View.GONE);
             }
         }
@@ -178,6 +184,7 @@ public class ShenPiActivity extends BaseActivity {
 
     //获取总价
     private void zongjia(String son_order_id, String commodity_id, final TextView tv) {
+        Log.e( "zongjia: ",son_order_id+"----"+commodity_id );
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
@@ -274,17 +281,53 @@ public class ShenPiActivity extends BaseActivity {
             switch (view.getId()) {
                 case R.id.tv_right:
                     //添加商品
-                    CaiGouDanTianJiaDailog dailog = new CaiGouDanTianJiaDailog();
-                    dailog.setInitStr(ct_buy_final_id, purchase_id, myBean.getMarket_id())
-                            .setCallBack(new CaiGouDanTianJiaDailog.CallBack() {
-                                @Override
-                                public void confirm(CaiGouDanBean.FllistBean.SonorderlistBean msg) {
-                                    ToastUtil.showToast("添加成功");
-                                    tvZongjia.setText("0");
-                                    selectPinlei(msg);
-                                    adapter.notifyDataSetChanged();
-                                }
-                            }).show(getSupportFragmentManager());
+                    if (StringUtil.isValid(ct_buy_final_id)) {
+                        dialog = new XuanZeZhuBiaoDailog();
+                        dialog.setInitStr(ct_buy_final_id)
+                                .setCallBack(new XuanZeZhuBiaoDailog.CallBack() {
+                                    @Override
+                                    public void setPurchase(String id, String name) {
+                                        Intent it = new Intent();
+                                        it.setClass(mContext, AddShangPinActivity.class);
+                                        it.putExtra("name", name);
+                                        it.putExtra("id", id);
+                                        startActivityForResult(it, REQUEST_CODE);
+                                    }
+                                }).show(getSupportFragmentManager());
+                    } else {
+                        Intent it = new Intent();
+                        it.setClass(mContext, AddShangPinActivity.class);
+                        it.putExtra("name", purchase_name);
+                        it.putExtra("id", purchase_id);
+                        startActivityForResult(it, REQUEST_CODE);
+                    }
+
+//                    dialog = new CaiGouDanTianJiaDailog();
+//                    dialog.setInitStr(ct_buy_final_id, purchase_id, myBean.getMarket_id())
+//                            .setCallBack(new CaiGouDanTianJiaDailog.CallBack() {
+//                                @Override
+//                                public void confirm(CaiGouDanBean.FllistBean.SonorderlistBean msg) {
+//                                    ToastUtil.showToast("添加成功");
+//                                    tvZongjia.setText("0");
+//                                    selectPinlei(msg);
+//                                    adapter.notifyDataSetChanged();
+//                                }
+//
+//                                @Override
+//                                public void setDialogResult() {
+//                                    Intent it = new Intent();
+//                                    it.setClass(mContext, AddShangPinActivity.class);
+//                                    it.putExtra("name",purchase_name);
+//                                    it.putExtra("id",purchase_id);
+//                                    startActivityForResult(it,REQUEST_CODE);
+//                                }
+//
+//                                @Override
+//                                public void setPurchase(String id, String name) {
+//                                    purchase_id = id;
+//                                    purchase_name = name;
+//                                }
+//                            }).show(getSupportFragmentManager());
 
                     break;
                 case R.id.tv_tijiao:
@@ -668,5 +711,18 @@ public class ShenPiActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 2) {
+            if (requestCode == REQUEST_CODE) {
+                if (StringUtil.isValid(data.getStringExtra("id"))) {
+                    caigoudan.clear();
+                    getShenpi();
+                }
+            }
+        }
     }
 }

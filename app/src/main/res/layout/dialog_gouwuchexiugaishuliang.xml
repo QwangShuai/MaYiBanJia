@@ -28,6 +28,7 @@
                 android:id="@+id/et_shuzi"
                 android:layout_width="60dp"
                 android:layout_height="30dp"
+                android:maxLength="4"
                 android:text="1234"
                 android:textColor="@color/zicolor"
                 android:textSize="22dp"

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
     <include layout="@layout/head_zangqing"/>
     <ScrollView
@@ -223,6 +224,34 @@
                 android:layout_height="1dp"
                 android:background="@color/cutoff"
                 android:layout_marginLeft="12dp"/>
+            <LinearLayout
+                android:visibility="gone"
+                android:background="@color/gray_fafafa"
+                android:id="@+id/ll_szgg"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="72dp">
+                <TextView
+                    android:layout_marginTop="12dp"
+                    android:layout_marginLeft="14dp"
+                    android:textSize="15sp"
+                    android:gravity="center"
+                    android:background="@drawable/fillet_hollow_zangqing_3"
+                    android:textColor="@color/zangqing"
+                    android:text="选择规格"
+                    android:id="@+id/tv_xzgg"
+                    android:layout_width="90dp"
+                    android:layout_height="28dp" />
+                <TextView
+                    android:text="注：选择已有商品不需选择规格"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginTop="8dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/hintcolor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

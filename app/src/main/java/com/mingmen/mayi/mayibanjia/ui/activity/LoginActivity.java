@@ -277,10 +277,16 @@ public class LoginActivity extends BaseActivity {
                         if (StringUtil.isValid(bean.getName())) {
                             PreferenceUtils.putString(MyApplication.mContext, "name", bean.getName());
                         }
-                        PreferenceUtils.putInt(MyApplication.mContext, "random_id", bean.getRandom_id());
                         zzh = bean.getHost_account_type();
+                        if(bean.getRole().equals("2")){
+                            PreferenceUtils.putInt(MyApplication.mContext, "random_id", bean.getRandom_id());
+                            tiaozhuan(bean.getRole(), bean.getRandom_id());
+                        } else {
+                            tiaozhuan(bean.getRole(), 0);
+                        }
+
                         Log.e("onNext: ", bean.getRole() + "我的天啊" + zzh);
-                        tiaozhuan(bean.getRole(), bean.getRandom_id());
+
 
                     }
                     @Override

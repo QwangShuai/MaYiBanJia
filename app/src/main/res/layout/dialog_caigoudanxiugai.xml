@@ -76,6 +76,7 @@
                 android:paddingLeft="9dp">
 
                 <EditText
+                    android:maxLength="4"
                     android:id="@+id/et_caigouliang"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

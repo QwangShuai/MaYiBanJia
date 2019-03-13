@@ -6,6 +6,7 @@ package com.mingmen.mayi.mayibanjia.bean;
 
 public class FbspCanShuBean {
     private String company_id = "";
+    private String commodity_id = "";
     private String deputyPicture = "";
     private String choose_specifications = "";
     private String pack_standard_one = "";
@@ -40,6 +41,23 @@ public class FbspCanShuBean {
     private String spec_detal_name = "";
     private String pack_standard_tree_name = "";
     private String brand = "";
+    private String classify_name = "";
+
+    public String getClassify_name() {
+        return classify_name;
+    }
+
+    public void setClassify_name(String classify_name) {
+        this.classify_name = classify_name;
+    }
+
+    public String getCommodity_id() {
+        return commodity_id;
+    }
+
+    public void setCommodity_id(String commodity_id) {
+        this.commodity_id = commodity_id;
+    }
 
     public String getBrand() {
         return brand;

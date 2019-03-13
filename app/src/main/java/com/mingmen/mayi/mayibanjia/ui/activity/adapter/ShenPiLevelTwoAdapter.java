@@ -1,50 +1,36 @@
 package com.mingmen.mayi.mayibanjia.ui.activity.adapter;
 
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.R;
-import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.CaiGouDanBean;
 import com.mingmen.mayi.mayibanjia.bean.XiTongTuiJianBean;
-import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
-import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
-import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.SPXiangQingActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShenPiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.GengDuoShangJiaDialog;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
-import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
-import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.mingmen.mayi.mayibanjia.bean.CaiGouDanBean.TYPE_FIVE;
-import static com.mingmen.mayi.mayibanjia.bean.CaiGouDanBean.TYPE_FOUR;
-import static com.mingmen.mayi.mayibanjia.bean.CaiGouDanBean.TYPE_ONE;
-import static com.mingmen.mayi.mayibanjia.bean.CaiGouDanBean.TYPE_THREE;
-import static com.mingmen.mayi.mayibanjia.bean.CaiGouDanBean.TYPE_TWO;
-
 /**
  * Created by Administrator on 2018/11/12.
  */
 
 public class ShenPiLevelTwoAdapter extends RecyclerView.Adapter<ShenPiLevelTwoAdapter.ViewHolder> {
+
 
 
     private ShenPiActivity activity;
@@ -70,7 +56,9 @@ public class ShenPiLevelTwoAdapter extends RecyclerView.Adapter<ShenPiLevelTwoAd
         } else {
             holder.rlKuang.setVisibility(View.GONE);
         }
-        if (ccListBeanLevel.isXuanzhong()){
+        holder.rbPingfen.setRating(ccListBeanLevel.getCcListBean().getStar_evaluation());
+        holder.tvPingfen.setText(ccListBeanLevel.getCcListBean().getStar_evaluation()+"");
+        if (ccListBeanLevel.isXuanzhong()) {
             holder.rlKuang.setBackgroundColor(activity.getResources().getColor(R.color.hei20));
         } else {
             holder.rlKuang.setBackgroundColor(activity.getResources().getColor(R.color.white));
@@ -79,7 +67,7 @@ public class ShenPiLevelTwoAdapter extends RecyclerView.Adapter<ShenPiLevelTwoAd
             @Override
             public void onClick(View v) {
                 for (int i = 0; i < mList.size(); i++) {
-                        mList.get(i).setXuanzhong(false);
+                    mList.get(i).setXuanzhong(false);
                 }
                 mList.get(position).setXuanzhong(true);
                 activity.setMoreShangjia();
@@ -92,9 +80,9 @@ public class ShenPiLevelTwoAdapter extends RecyclerView.Adapter<ShenPiLevelTwoAd
             holder.tvFujiafei.setVisibility(View.GONE);
         holder.tvSpming.setText(ccListBeanLevel.getCcListBean().getClassify_name() + "");
         holder.tvDianming.setText(ccListBeanLevel.getCcListBean().getCompany_name() + "");
-        holder.tvGuige.setText(ccListBeanLevel.getCcListBean().getPack_standard() + "");
+//        holder.tvGuige.setText(ccListBeanLevel.getCcListBean().getPack_standard() + "");
         holder.tvDanjia.setText(ccListBeanLevel.getCcListBean().getPrice() + "");
-        holder.tvSpxiaoliang.setText("已售"+ccListBeanLevel.getCcListBean().getCommodity_sales());
+        holder.tvSpxiaoliang.setText("已售" + ccListBeanLevel.getCcListBean().getCommodity_sales());
         if (ccListBeanLevel.getCcListBean().isxianshi())
             holder.biaoqian.setVisibility(View.VISIBLE);
         else
@@ -141,8 +129,8 @@ public class ShenPiLevelTwoAdapter extends RecyclerView.Adapter<ShenPiLevelTwoAd
         TextView tvDian;
         @BindView(R.id.tv_dianming)
         TextView tvDianming;
-        @BindView(R.id.tv_guige)
-        TextView tvGuige;
+//        @BindView(R.id.tv_guige)
+//        TextView tvGuige;
         @BindView(R.id.tv_renminbi)
         TextView tvRenminbi;
         @BindView(R.id.tv_danjia)
@@ -161,13 +149,19 @@ public class ShenPiLevelTwoAdapter extends RecyclerView.Adapter<ShenPiLevelTwoAd
         Button btShangjia;
         @BindView(R.id.rl_kuang)
         RelativeLayout rlKuang;
+        @BindView(R.id.rb_pingfen)
+        RatingBar rbPingfen;
+        @BindView(R.id.tv_pingfen)
+        TextView tvPingfen;
+
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
     }
-    public void setXuanzhong(int pos){//全选设置选中状态
-        for (int i = 0;i<mList.size();i++){
+
+    public void setXuanzhong(int pos) {//全选设置选中状态
+        for (int i = 0; i < mList.size(); i++) {
             mList.get(i).setXuanzhong(false);
         }
         mList.get(pos).setXuanzhong(true);

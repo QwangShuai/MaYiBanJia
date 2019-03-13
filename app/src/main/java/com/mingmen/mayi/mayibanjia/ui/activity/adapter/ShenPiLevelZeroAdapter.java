@@ -58,9 +58,9 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
     private boolean isClick = true;
     private boolean itemIsClick[];
     List listBeanLevel = new ArrayList();
-    private String market_id="";
+    private String market_id = "";
 
-    public ShenPiLevelZeroAdapter(ShenPiActivity activity, List<CaiGouDanBean.FllistBean> mList,Context mContext) {
+    public ShenPiLevelZeroAdapter(ShenPiActivity activity, List<CaiGouDanBean.FllistBean> mList, Context mContext) {
         this.activity = activity;
         this.mList = mList;
         this.mContext = mContext;
@@ -77,33 +77,33 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final CaiGouDanBean.FllistBean bean = mList.get(position);
         holder.tvPinlei.setText(bean.getClassify_name());
-        if(StringUtil.isValid(bean.getMarket_id())){
+        if (StringUtil.isValid(bean.getMarket_id())) {
             holder.tvShichang.setText(bean.getMarket_name());
-            for (int i=0;i<mList.get(position).getSonorderlist().size();i++) {
+            for (int i = 0; i < mList.get(position).getSonorderlist().size(); i++) {
                 mList.get(position).getSonorderlist().get(i).setMarket_id(bean.getMarket_id());
             }
         }
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
-        adapter = new ShenPiLevelOneAdapter(activity, mList.get(position).getSonorderlist(),ShenPiLevelZeroAdapter.this,position);
+        adapter = new ShenPiLevelOneAdapter(activity, mList.get(position).getSonorderlist(), ShenPiLevelZeroAdapter.this, position);
         adapter.setClick(isClick);
         holder.rvList.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         holder.rvList.setAdapter(adapter);
         holder.rvList.setFocusable(false);
 //        holder.rvList.setNestedScrollingEnabled(false);
-        if(isClick){
-                holder.rlShichang.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if(!itemIsClick[position]){
+        if (isClick) {
+            holder.rlShichang.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!itemIsClick[position]) {
                         ShiChangDialog dialog = new ShiChangDialog(mContext, new ShiChangDialog.CallBack() {
                             @Override
                             public void confirm(String id, String name) {
                                 holder.tvShichang.setText(name);
                                 market_id = id;
                                 mList.get(position).setMarket_id(id);
-                                activity.setItemMarket_id(position,id,name);
-                                for (int i=0;i<mList.get(position).getSonorderlist().size();i++){
+                                activity.setItemMarket_id(position, id, name);
+                                for (int i = 0; i < mList.get(position).getSonorderlist().size(); i++) {
                                     mList.get(position).getSonorderlist().get(i).setMarket_id(id);
                                     mList.get(position).getSonorderlist().get(i).setNeedLoad(true);
                                     mList.get(position).getSonorderlist().get(i).setSelect(false);
@@ -111,7 +111,7 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
                                     bean.setCommodity_id("");
                                     bean.setCompany_id("");
                                     bean.setDanjia("");
-                                    activity.setAdapterXuanzhong( mList.get(position).getSonorderlist().get(i).getSon_order_id(),bean);
+                                    activity.setAdapterXuanzhong(mList.get(position).getSonorderlist().get(i).getSon_order_id(), bean);
 //                            adapter.setZongjia("");
 //                                    adapter.setClick();
                                     notifyDataSetChanged();
@@ -120,16 +120,16 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
                             }
                         });
                         dialog.show();
-                        } else {
-                            ToastUtil.showToast("请耐心等待特殊商品匹配完成");
-                        }
+                    } else {
+                        ToastUtil.showToast("请耐心等待特殊商品匹配完成");
                     }
-                });
+                }
+            });
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(bean.isShow()){
+                if (bean.isShow()) {
                     bean.setShow(false);
                     holder.rvList.setVisibility(View.GONE);
                     holder.ivJinru.setImageResource(R.mipmap.jinru);
@@ -148,12 +148,12 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
         adapter.setCallBack(new ShenPiLevelOneAdapter.CallBack() {
             @Override
             public void isClick(View view, final int pos) {
-                if(isClick){
-                    if(!itemIsClick[position]){
+                if (isClick) {
+                    if (!itemIsClick[position]) {
                         switch (view.getId()) {
                             case R.id.iv_shanchu://删除当前采购单
                                 //不能全删
-                                if (mList.get(position).getSonorderlist().size() == 1&&mList.size()==1) {
+                                if (mList.get(position).getSonorderlist().size() == 1 && mList.size() == 1) {
                                     ToastUtil.showToast("不能全部删除");
                                     return;
                                 }
@@ -170,23 +170,32 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
                                                 .setDataListener(new HttpDataListener<String>() {
                                                     @Override
                                                     public void onNext(String data) {
-                                                        Log.e("data", data + "(＾－＾)V");
+                                                        Log.e("data", position + "(＾－＾)V" + pos);
                                                         ToastUtil.showToast("删除成功");
                                                         confirmDialog.dismiss();
-                                                        //在存储商品id 的map中删掉当前商品
-                                                        for (int i = 0; i < mList.get(position).getSonorderlist().size(); i++) {
-                                                            if (mList.get(position).getSonorderlist().get(pos).getSon_order_id().equals(mList.get(position).getSonorderlist().get(i).getSon_order_id())) {
-                                                                activity.setAdapterDelXuanzhong(mList.get(position).getSonorderlist().get(pos).getSon_order_id());
-                                                                mList.get(position).getSonorderlist().remove(i);
-                                                                if (mList.get(position).getSonorderlist().size()==0){
-                                                                    mList.remove(position);
-                                                                    delLength();
-                                                                }
-                                                                notifyDataSetChanged();
-                                                                adapter.notifyDataSetChanged();
-                                                                activity.delViewShow();
-                                                            }
+                                                        activity.setAdapterDelXuanzhong(mList.get(position).getSonorderlist().get(pos).getSon_order_id());
+                                                        mList.get(position).getSonorderlist().remove(pos);
+                                                        if (mList.get(position).getSonorderlist().size() == 0) {
+                                                            mList.remove(position);
+                                                            delLength();
                                                         }
+                                                        notifyDataSetChanged();
+                                                        adapter.notifyDataSetChanged();
+                                                        activity.delViewShow();
+                                                        //在存储商品id 的map中删掉当前商品
+//                                                        for (int i = 0; i < mList.get(position).getSonorderlist().size(); i++) {
+//                                                            if (mList.get(position).getSonorderlist().get(pos).getSon_order_id().equals(mList.get(position).getSonorderlist().get(i).getSon_order_id())) {
+//                                                                activity.setAdapterDelXuanzhong(mList.get(position).getSonorderlist().get(pos).getSon_order_id());
+//                                                                mList.get(position).getSonorderlist().remove(i);
+//                                                                if (mList.get(position).getSonorderlist().size()==0){
+//                                                                    mList.remove(position);
+//                                                                    delLength();
+//                                                                }
+//                                                                notifyDataSetChanged();
+//                                                                adapter.notifyDataSetChanged();
+//                                                                activity.delViewShow();
+//                                                            }
+//                                                        }
                                                     }
                                                 }, false);
                                     }
@@ -217,17 +226,17 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
                                                 bean.setCompany_id("");
                                                 bean.setDanjia("");
 //                                            adapter.setZongjia("");
-                                                activity.setAdapterXuanzhong( mList.get(position).getSonorderlist().get(pos).getSon_order_id(),bean);
+                                                activity.setAdapterXuanzhong(mList.get(position).getSonorderlist().get(pos).getSon_order_id(), bean);
                                                 notifyDataSetChanged();
                                                 adapter.notifyDataSetChanged();
                                             }
                                         }).show(activity.getSupportFragmentManager());
                                 break;
                             case R.id.ll_lishi://打开历史记录   从历史记录中选择商品换到当前位置
-                                if(StringUtil.isValid(mList.get(position).getSonorderlist().get(pos).getMarket_id())){
+                                if (StringUtil.isValid(mList.get(position).getSonorderlist().get(pos).getMarket_id())) {
                                     market_id = mList.get(position).getSonorderlist().get(pos).getMarket_id();
                                 }
-                                if(StringUtil.isValid(market_id)){
+                                if (StringUtil.isValid(market_id)) {
                                     final List<CaiGouDanBean.FllistBean.SonorderlistBean.CcListBeanLevel> level = new ArrayList<>();
                                     if (mList.get(position).getSonorderlist().get(pos).isNeedLoad()) {
                                         ToastUtil.showToast("正在匹配商家...");
@@ -264,7 +273,7 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
                                                                     }
                                                                     mList.get(position).getSonorderlist().get(pos).setLevels(level);
                                                                     if (mList.get(position).getSonorderlist().get(pos).getLevels().size() != 0) {
-                                                                        Log.e("dd",pos+"---");
+                                                                        Log.e("dd", pos + "---");
                                                                         mList.get(position).getSonorderlist().get(pos).setSelect(false);
                                                                         adapter.notifyDataSetChanged();
 //                                                                        adapter.setShow(pos);
@@ -302,9 +311,11 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
     public interface CallBack {
         void isClick(View v, int pos);
     }
+
     public void setCallBack(CallBack callBack) {
         this.callBack = callBack;
     }
+
     static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_pinlei)
         TextView tvPinlei;
@@ -322,12 +333,14 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
             ButterKnife.bind(this, view);
         }
     }
-    public void setClick(boolean b){
+
+    public void setClick(boolean b) {
         isClick = b;
     }
+
     //获取子采购单的系统推荐数据   2级---
     public void getshenpi(final CaiGouDanBean.FllistBean.SonorderlistBean listBean, final int pos, final boolean isgangkaishi) {
-        Log.e("获取的市场ID",market_id);
+        Log.e("获取的市场ID", market_id);
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
@@ -399,19 +412,19 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
 
     }
 
-    public void setPosClick(int mypos,boolean b){
+    public void setPosClick(int mypos, boolean b) {
         itemIsClick[mypos] = b;
     }
 
-    public void addLength(){
-        itemIsClick = new boolean[itemIsClick.length+1];
+    public void addLength() {
+        itemIsClick = new boolean[itemIsClick.length + 1];
     }
 
-    public void delLength(){
-        itemIsClick = new boolean[itemIsClick.length-1];
+    public void delLength() {
+        itemIsClick = new boolean[itemIsClick.length - 1];
     }
 
-    public void stopTime(){
+    public void stopTime() {
         adapter.timeCancel();
     }
 }

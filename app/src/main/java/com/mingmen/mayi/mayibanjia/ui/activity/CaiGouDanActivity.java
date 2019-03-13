@@ -144,9 +144,11 @@ public class CaiGouDanActivity extends BaseActivity {
                         if (item.getOrder_audit_state().equals("901")) {
                             intent.setClass(CaiGouDanActivity.this, ShenPiChengGongActivity.class);
                             intent.putExtra("id", item.getPurchase_id());
+                            intent.putExtra("caigouming",item.getPurchase_name());
                         } else if (item.getOrder_audit_state().equals("903")) {
                             intent.setClass(CaiGouDanActivity.this, ShenPiShiBaiActivity.class);
                             intent.putExtra("id", item.getPurchase_id());
+                            intent.putExtra("caigouming",item.getPurchase_name());
                         } else if(item.getOrder_audit_state().equals("904")){
                             intent.setClass(CaiGouDanActivity.this, CaiGouXuQiuActivity.class);
                             intent.putExtra("id", item.getPurchase_id());
@@ -157,6 +159,7 @@ public class CaiGouDanActivity extends BaseActivity {
                             intent.putExtra("ct_buy_final_id",item.getCt_buy_final_id());
                         } else {
                             intent.putExtra("purchase_id",item.getPurchase_id());
+                            intent.putExtra("caigouming",item.getPurchase_name());
                         }
                         intent.putExtra("data", data1);
                         startActivity(intent);
@@ -206,7 +209,7 @@ public class CaiGouDanActivity extends BaseActivity {
                 final int direction = menuBridge.getDirection(); // 左侧还是右侧菜单。
                 final int adapterPosition = menuBridge.getAdapterPosition(); // RecyclerView的Item的position。
                 final CaiGouDanBean item = (CaiGouDanBean) adapter.getItem(adapterPosition);
-                if(item.getOrder_audit_state().equals("903")){
+                if(item.getOrder_audit_state().equals("903")||item.getOrder_audit_state().equals("904")){
                     HttpManager.getInstance()
                             .with(mContext)
                             .setObservable(

@@ -30,6 +30,7 @@
     <color name="gray_d8e9ed">#d8e9ed</color>
     <color name="black_333333">#333333</color>
     <color name="yellow_fbb03b">#fbb03b</color>
+    <color name="black_f2000000">#f2000000</color>
     <!--蓝牙打印机-->
     <color name="tran_light_grey">#88EEEEE0</color>
 

@@ -227,7 +227,7 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
                         PreferenceUtils.putString(MyApplication.mContext,"juese",list.getRole());
                         PreferenceUtils.putBoolean(MyApplication.mContext,"isLogin",false);
                         //注册成功后  跳转
-                        Intent intent = new Intent(mContext, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);  ;
+                        Intent intent = new Intent(mContext, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);  ;
                         startActivity(intent);
 
                     }

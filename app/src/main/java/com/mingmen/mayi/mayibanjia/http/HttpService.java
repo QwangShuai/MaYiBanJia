@@ -438,6 +438,8 @@ public interface HttpService {
     //添加商品
     @POST("gyCommodity/save.do")
     Observable<ResultModel<String>> fabushangpin(@Query("user_token") String user_token,
+                                                 @Query("classify_name") String classify_name,
+                                                 @Query("commodity_id") String commodity_id,
                                                  @Query("company_id") String company_id,
                                                  @Query("deputyPicture") String deputyPicture,
                                                  @Query("pack_standard_two") String pack_standard_two,
@@ -1263,4 +1265,23 @@ public interface HttpService {
     //获取企业售卖的1级分类
     @POST("allCompany/queryByFl.do")
     Observable<ResultModel<FCGName>> getQiyeYiji(@Query("user_token") String user_token);
+
+    //发布商品选择规格
+    @POST("allSpec/tuiJianSpec.do")
+    Observable<ResultModel<List<FbspGuiGeBean>>> getXuanZeGuige(@Query("user_token") String user_token,
+                                                                @Query("spec_name") String spec_name,
+                                                                @Query("classify_id") String classify_id);
+
+    //新增规格验证
+    @POST("gyCommodity/YZSp.do")
+    Observable<ResultModel<String>> guigeYanzheng(@Query("user_token") String user_token,
+                                                  @Query("type_four_id") String type_four_id,
+                                                  @Query("pice_one") String pice_one,
+                                                  @Query("ration_one") String ration_one,
+                                                  @Query("spec_name") String spec_name,
+                                                  @Query("affiliated_number") String affiliated_number,
+                                                  @Query("affiliated_spec_name") String affiliated_spec_name);
+    //获取业务员所在省市区
+    @POST("sysQuy/getPlace.do")
+    Observable<ResultModel<AddressListBean>> getYwyDiqu(@Query("user_token") String user_token);
 }

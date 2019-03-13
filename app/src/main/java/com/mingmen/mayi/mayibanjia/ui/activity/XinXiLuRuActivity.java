@@ -31,6 +31,7 @@ import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
+import com.mingmen.mayi.mayibanjia.bean.AddressListBean;
 import com.mingmen.mayi.mayibanjia.bean.JsonBean;
 import com.mingmen.mayi.mayibanjia.bean.ProvinceBean;
 import com.mingmen.mayi.mayibanjia.bean.QiYeGuiMoBean;
@@ -65,6 +66,8 @@ import cn.qqtheme.framework.entity.County;
 import cn.qqtheme.framework.entity.Province;
 import cn.qqtheme.framework.picker.AddressPicker;
 import cn.qqtheme.framework.picker.SinglePicker;
+import id.zelory.compressor.Compressor;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
  * Created by Administrator on 2018/7/24/024.
@@ -189,7 +192,7 @@ public class XinXiLuRuActivity extends BaseActivity {
         photoDialog = new PhotoDialog(mContext,
                 mContext.getResources().getIdentifier("BottomDialog", "style", mContext.getPackageName()));
         photoDialog.getWindow().setGravity(Gravity.BOTTOM | Gravity.LEFT | Gravity.RIGHT);
-
+        getYwyDiqu();
         //初始化定位
         initLocation();
         //开始定位
@@ -278,7 +281,7 @@ public class XinXiLuRuActivity extends BaseActivity {
                 break;
         }
     }
-//修改
+    //修改
     private void xiugai() {
         HttpManager.getInstance()
                 .with(mContext)
@@ -602,6 +605,21 @@ public class XinXiLuRuActivity extends BaseActivity {
 //                            bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(outputUri));
                             bitmap = BitmapFactory.decodeFile(imagePath);
                         }
+//                        Compressor.getDefault(this)
+//                                .compressToFileAsObservable(bitmap)
+//                                .subscribeOn(Schedulers.io())
+//                                .observeOn(AndroidSchedulers.mainThread())
+//                                .subscribe(new Action1<File>() {
+//                                    @Override
+//                                    public void call(File file) {
+//                                        compressedImage = file;
+//                                    }
+//                                }, new Action1<Throwable>() {
+//                                    @Override
+//                                    public void call(Throwable throwable) {
+//                                        showError(throwable.getMessage());
+//                                    }
+//                                });
                         qiniushangchuan();
 
                     } catch (Exception e) {
@@ -825,5 +843,27 @@ public class XinXiLuRuActivity extends BaseActivity {
         pvOptions.setPicker(options1Items, options2Items,options3Items);//三级选择器
         pvOptions.setSelectOptions(pos[0],pos[1],pos[2]);
         pvOptions.show();
+    }
+
+    //获取业务员所在地区
+    private void getYwyDiqu() {
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .getYwyDiqu(PreferenceUtils.getString(MyApplication.mContext,"token","")))
+                .setDataListener(new HttpDataListener<AddressListBean>() {
+                    @Override
+                    public void onNext(AddressListBean bean) {
+                        shengid = Integer.valueOf(bean.getProvince());
+                        shiid = Integer.valueOf(bean.getCity());
+                        quid = Integer.valueOf(bean.getRegion());
+
+                        tvQuyuxuanze.setText(bean.getProvince_name()+"-"+
+                                bean.getCity_name()+"-"+
+                                bean.getRegion_name());
+                    }
+                });
     }
 }

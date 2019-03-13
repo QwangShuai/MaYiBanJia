@@ -291,6 +291,7 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
     }
     //修改
     private void xiugai() {
+        Log.e("xiugai: ",shidizhaopian+"---" );
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(

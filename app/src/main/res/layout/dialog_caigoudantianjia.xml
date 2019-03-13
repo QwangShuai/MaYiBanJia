@@ -32,12 +32,14 @@
                 android:textSize="15sp"
                 android:maxLength="20"/>
 
-            <EditText
+            <TextView
+                android:gravity="center_vertical"
                 android:singleLine="true"
-                android:id="@+id/et_shangpin_ming"
+                android:id="@+id/tv_shangpin_ming"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text=""
+                android:hint="请选择商品"
                 android:textColor="#ff474747"
                 android:textSize="15sp"
                 android:background="@null"
@@ -134,6 +136,7 @@
                 android:paddingLeft="9dp"
                 >
                 <EditText
+                    android:maxLength="4"
                     android:id="@+id/et_caigouliang"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -166,11 +169,12 @@
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
-                        android:background="@color/cutoff"
+                        android:background="@color/gray_e7e7e7"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
                         />
                     <ImageView
+                        android:visibility="gone"
                         android:id="@+id/tv_xiangxia"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

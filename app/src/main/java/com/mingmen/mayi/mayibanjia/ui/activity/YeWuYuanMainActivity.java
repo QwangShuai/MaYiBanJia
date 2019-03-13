@@ -254,6 +254,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
     //查询企业列表..带参数
     private void getQiyeLiebiaodaicanshu(String trim, String leibieid) {
         Log.e("getQiyeLiebiaodaicanshu", trim + "--" + leibieid);
+        mlist.clear();
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(

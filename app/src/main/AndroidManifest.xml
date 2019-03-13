@@ -300,7 +300,8 @@
         <activity android:name=".ui.activity.HuoDongActivity" /> <!-- 活动 -->
         <activity android:name=".ui.activity.JiaoYiLiuShuiActivity" /> <!-- 交易流水 -->
         <activity android:name=".ui.activity.XJSPFeiLeiXuanZeActivity" /> <!-- 新建商品分类选择 -->
-        <activity android:name=".utils.dayinji.DeviceListActivity"></activity>
+        <activity android:name=".utils.dayinji.DeviceListActivity" />
+        <activity android:name=".ui.activity.XuanZeGuiGeActivity"></activity>
     </application>
 
 </manifest>

@@ -21,8 +21,10 @@ import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.CaiGouListLevelOneAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.CaiGouDanTianJiaDailog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.TiJiaoXuQiuDialog;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.XuanZeZhuBiaoDailog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -52,6 +54,10 @@ public class ShenPiShiBaiActivity extends BaseActivity {
     private CaiGouListLevelOneAdapter adapter;
     private List<CaiGouDanBean.FllistBean> mList = new ArrayList<>();
     private TiJiaoXuQiuDialog tijiaoxuqiuDialog;
+    private String purchase_name = "";
+    private String ct_buy_final_id = "";
+    private int REQUEST_CODE = 1;
+    XuanZeZhuBiaoDailog dialog;
 
     @Override
     public int getLayoutId() {
@@ -90,16 +96,46 @@ public class ShenPiShiBaiActivity extends BaseActivity {
                 myBack();
                 break;
             case R.id.tv_right:
-                CaiGouDanTianJiaDailog dailog = new CaiGouDanTianJiaDailog();
-                dailog.setInitStr("",purchase_id, "")
-                        .setCallBack(new CaiGouDanTianJiaDailog.CallBack() {
-                            @Override
-                            public void confirm(CaiGouDanBean.FllistBean.SonorderlistBean msg) {
-                                ToastUtil.showToast("添加成功");
-                                selectPinlei(msg);
-                                adapter.notifyDataSetChanged();
-                            }
-                        }).show(getSupportFragmentManager());
+                if (StringUtil.isValid(ct_buy_final_id)) {
+                    dialog = new XuanZeZhuBiaoDailog();
+                    dialog.setInitStr(ct_buy_final_id)
+                            .setCallBack(new XuanZeZhuBiaoDailog.CallBack() {
+                                @Override
+                                public void setPurchase(String id, String name) {
+                                    Intent it = new Intent();
+                                    it.setClass(mContext, AddShangPinActivity.class);
+                                    it.putExtra("name", name);
+                                    it.putExtra("id", id);
+                                    startActivityForResult(it, REQUEST_CODE);
+                                }
+                            }).show(getSupportFragmentManager());
+                } else {
+                    Intent it = new Intent();
+                    it.setClass(mContext, AddShangPinActivity.class);
+                    it.putExtra("name", purchase_name);
+                    it.putExtra("id", purchase_id);
+                    startActivityForResult(it, REQUEST_CODE);
+                }
+//                CaiGouDanTianJiaDailog dailog = new CaiGouDanTianJiaDailog();
+//                dailog.setInitStr("",purchase_id, "")
+//                        .setCallBack(new CaiGouDanTianJiaDailog.CallBack() {
+//                            @Override
+//                            public void confirm(CaiGouDanBean.FllistBean.SonorderlistBean msg) {
+//                                ToastUtil.showToast("添加成功");
+//                                selectPinlei(msg);
+//                                adapter.notifyDataSetChanged();
+//                            }
+//
+//                            @Override
+//                            public void setDialogResult() {
+//
+//                            }
+//
+//                            @Override
+//                            public void setPurchase(String id, String name) {
+//
+//                            }
+//                        }).show(getSupportFragmentManager());
 
                 break;
             case R.id.bt_tijiao:
@@ -189,5 +225,18 @@ public class ShenPiShiBaiActivity extends BaseActivity {
         Intent intent = new Intent(ShenPiShiBaiActivity.this, CaiGouDanActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 2) {
+            if (requestCode == REQUEST_CODE) {
+                if (StringUtil.isValid(data.getStringExtra("id"))) {
+                    mList.clear();
+                    getlist();
+                }
+            }
+        }
     }
 }

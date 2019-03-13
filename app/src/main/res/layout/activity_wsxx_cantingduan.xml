@@ -246,7 +246,7 @@
                             android:id="@+id/tv_dianhua"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0451-8798-9897"
+                            android:text="0451-8886-9191 "
                             android:textColor="@color/zangqing"
                             android:textSize="12sp"
                             />
@@ -254,7 +254,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="咨询。"
-                            android:textColor="#999999"
+                            android:textColor="@color/hintcolor"
                             android:textSize="12sp"
                             />
                     </LinearLayout>

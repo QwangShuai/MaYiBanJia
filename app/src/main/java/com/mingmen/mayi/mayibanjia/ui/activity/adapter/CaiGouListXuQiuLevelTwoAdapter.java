@@ -64,13 +64,13 @@ public class CaiGouListXuQiuLevelTwoAdapter extends RecyclerView.Adapter<CaiGouL
         } else {
             holder.tvTjcg.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_999999_3));
             holder.tvTjcg.setTextColor(mContext.getResources().getColor(R.color.zicolor));
-            holder.tvTjcg.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    callBack.isClick(v, position);
-                }
-            });
         }
+        holder.tvTjcg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callBack.isClick(v, position);
+            }
+        });
         if(listBean.getCount()!=0){
             holder.etCaigouliang.setText(listBean.getCount()+"");
         }

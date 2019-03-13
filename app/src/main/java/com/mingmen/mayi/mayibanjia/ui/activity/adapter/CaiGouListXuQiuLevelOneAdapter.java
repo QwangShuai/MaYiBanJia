@@ -25,6 +25,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.dialog.CaiGouDanXiuGaiDailog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.MessageDailog;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
 import java.util.List;
@@ -144,34 +145,64 @@ public class CaiGouListXuQiuLevelOneAdapter extends RecyclerView.Adapter<CaiGouL
                                 });
                                 break;
                             case R.id.tv_tjcg:
-                                confirmDialog.showDialog("是否添加为常购商品");
-                                confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        HttpManager.getInstance()
-                                                .with(mContext)
-                                                .setObservable(
-                                                        RetrofitManager
-                                                                .getService()
-                                                                .addChanggouSp(PreferenceUtils.getString(MyApplication.mContext, "token", ""),mList.get(position).getSonorderlist().get(pos).getPack_standard_id(),
-                                                                        mList.get(position).getClassify_id(),
-                                                                        mList.get(position).getSonorderlist().get(pos).getSort_id()))
-                                                .setDataListener(new HttpDataListener<String>() {
-                                                    @Override
-                                                    public void onNext(String data) {
-                                                        ToastUtil.showToast("添加成功");
-                                                        confirmDialog.dismiss();
-                                                        activity.getlist();
-                                                    }
-                                                }, false);
-                                    }
-                                });
-                                confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        confirmDialog.dismiss();
-                                    }
-                                });
+                                if(StringUtil.isValid(mList.get(position).getSonorderlist().get(pos).getOften_name_id())){
+                                    confirmDialog.showDialog("是否删除常购商品");
+                                    confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            HttpManager.getInstance()
+                                                    .with(mContext)
+                                                    .setObservable(
+                                                            RetrofitManager
+                                                                    .getService()
+                                                                    .delChanggouSp(PreferenceUtils.getString(MyApplication.mContext, "token", ""),mList.get(position).getSonorderlist().get(pos).getOften_name_id()))
+                                                    .setDataListener(new HttpDataListener<String>() {
+                                                        @Override
+                                                        public void onNext(String data) {
+                                                            ToastUtil.showToast("删除成功");
+                                                            confirmDialog.dismiss();
+                                                            activity.getlist();
+                                                        }
+                                                    }, false);
+                                        }
+                                    });
+                                    confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            confirmDialog.dismiss();
+                                        }
+                                    });
+                                } else {
+                                    confirmDialog.showDialog("是否添加为常购商品");
+                                    confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            HttpManager.getInstance()
+                                                    .with(mContext)
+                                                    .setObservable(
+                                                            RetrofitManager
+                                                                    .getService()
+                                                                    .addChanggouSp(PreferenceUtils.getString(MyApplication.mContext, "token", ""),mList.get(position).getSonorderlist().get(pos).getPack_standard_id(),
+                                                                            mList.get(position).getClassify_id(),
+                                                                            mList.get(position).getSonorderlist().get(pos).getSort_id()))
+                                                    .setDataListener(new HttpDataListener<String>() {
+                                                        @Override
+                                                        public void onNext(String data) {
+                                                            ToastUtil.showToast("添加成功");
+                                                            confirmDialog.dismiss();
+                                                            activity.getlist();
+                                                        }
+                                                    }, false);
+                                        }
+                                    });
+                                    confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            confirmDialog.dismiss();
+                                        }
+                                    });
+                                }
+
                                 break;
                             case R.id.tv_tsyq:
                                 final MessageDailog dialog = new MessageDailog(mContext,

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -81,13 +82,31 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"></View>
 
-                <TextView
-                    android:id="@+id/tv_guige"
+                <LinearLayout
+                    android:gravity="bottom"
+                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="5.5元/斤"
-                    android:textColor="#ff999999"
-                    android:textSize="12sp" />
+                    android:layout_height="wrap_content">
+                    <RatingBar
+                        android:isIndicator="true"
+                        android:id="@+id/rb_pingfen"
+                        android:layout_height="8dp"
+                        android:layout_width="wrap_content"
+                        android:numStars="5"
+                        android:rating="3.5"
+                        style="@style/foodRatingBar"
+                        android:layout_marginBottom="2dp"
+                        />
+                    <TextView
+                        android:id="@+id/tv_pingfen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="4.7"
+                        android:textColor="@color/zicolor"
+                        android:textSize="12sp"
+                        android:layout_marginLeft="8dp"
+                        />
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"

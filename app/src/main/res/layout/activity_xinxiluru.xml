@@ -317,7 +317,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="街道选择"
+                        android:text="商圈选择"
                         android:textColor="#ff474747"
                         android:textSize="14sp" />
 

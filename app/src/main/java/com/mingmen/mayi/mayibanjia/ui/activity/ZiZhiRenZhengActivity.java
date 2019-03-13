@@ -51,7 +51,7 @@ public class ZiZhiRenZhengActivity extends BaseActivity {
     @BindView(R.id.rl_xukezheng)
     RelativeLayout rlXukezheng;
     private Context mContext;
-    private String yemian;
+    private String yemian = "";
     private String xinyongma = "";
     private String shenfenzheng = "";
     private String name = "";
@@ -100,7 +100,7 @@ public class ZiZhiRenZhengActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<GetZiZhiBean>() {
                     @Override
                     public void onNext(GetZiZhiBean bean) {
-                        if(!TextUtils.isEmpty(yemian)){
+                        if(StringUtil.isValid(yemian)){
                             Glide.with(mContext).load(bean.getCirculation_permit()).into(ivXukezheng);
                         } else {
                             rlXukezheng.setVisibility(View.GONE);

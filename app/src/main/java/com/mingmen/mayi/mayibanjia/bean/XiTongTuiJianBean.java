@@ -233,7 +233,7 @@ public class XiTongTuiJianBean {
         private String specific_address;//商家具体地址
         private String market_id;//市场id
         private String market_name;//市场name
-        private double star_evaluation;//评价
+        private float star_evaluation;//评价
         private String choose_specifications;//默认显示规格
         private String type_tree_id;
         private String price;
@@ -407,10 +407,10 @@ public class XiTongTuiJianBean {
         public void setPack_standard_one(String pack_standard_one) {
             this.pack_standard_one = pack_standard_one;
         }
-        public double getStar_evaluation() {
+        public float getStar_evaluation() {
             return star_evaluation;
         }
-        public void setStar_evaluation(double star_evaluation) {
+        public void setStar_evaluation(float star_evaluation) {
             this.star_evaluation = star_evaluation;
         }
         public String getSpecific_address() {

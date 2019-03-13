@@ -108,7 +108,7 @@ public class ZhangHuXinXiActivity extends BaseActivity {
                 it = new Intent(mContext, ZiZhiRenZhengActivity.class);
                 it.putExtra("id", "");
                 it.putExtra("state",sh_state);
-                it.putExtra("yemian","0");
+                it.putExtra("yemian","");
                 startActivity(it);
                 break;
 //            case R.id.ll_farenrenzheng:

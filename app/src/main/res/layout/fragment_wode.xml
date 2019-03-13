@@ -92,27 +92,42 @@
                                 />
                         </LinearLayout>
                         <LinearLayout
-                            android:layout_marginRight="19dp"
-                            android:id="@+id/ll_qiehuan"
-                            android:layout_width="102dp"
-                            android:layout_height="30dp"
-                            android:orientation="horizontal"
-                            android:gravity="center"
-                            android:layout_gravity="center_vertical"
-                            android:background="@drawable/fillet_hollow_white_20">
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@mipmap/qiehuan" />
-
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
                             <TextView
-                                android:id="@+id/tv_qiehuan"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="4dp"
-                                android:text="身份切换"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginRight="19dp"
+                                android:layout_gravity="right"
+                                android:textSize="15sp"
                                 android:textColor="@color/white"
-                                android:textSize="12sp" />
+                                android:text="餐厅端"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <LinearLayout
+                                android:layout_marginTop="8dp"
+                                android:id="@+id/ll_qiehuan"
+                                android:layout_width="102dp"
+                                android:layout_height="30dp"
+                                android:layout_marginRight="19dp"
+                                android:background="@drawable/fillet_hollow_white_20"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@mipmap/qiehuan" />
+
+                                <TextView
+                                    android:id="@+id/tv_qiehuan"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="4dp"
+                                    android:text="身份切换"
+                                    android:textColor="@color/white"
+                                    android:textSize="12sp" />
+                            </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
                 </RelativeLayout>

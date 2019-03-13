@@ -23,6 +23,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.dialog.SiGeXuanXiangDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.SouSuoDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
+import com.mingmen.mayi.mayibanjia.utils.CrashHandler;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
@@ -84,6 +85,8 @@ public class ShangPinGuanLiActivity extends BaseActivity {
     @Override
     protected void initData() {
         mContext=ShangPinGuanLiActivity.this;
+        CrashHandler crashHandler = CrashHandler.getInstance();
+        crashHandler.init(mContext);
         titleDialog = new SanGeXuanXiangDialog()
                 .setActivity(this)
                 .setTop(AppUtil.dip2px(44));
@@ -128,7 +131,6 @@ public class ShangPinGuanLiActivity extends BaseActivity {
                         }
                     }
                     mlist.addAll(data.getGoodsList());
-                    shangpinguanliadapter.setNewData(mlist);
                     shangpinguanliadapter.notifyDataSetChanged();
                     ye++;
                 }
@@ -173,7 +175,6 @@ public class ShangPinGuanLiActivity extends BaseActivity {
                                 @Override
                                 public void onNext(String data) {
                                     mlist.remove(adapterPosition);
-                                    shangpinguanliadapter.setNewData(mlist);
                                     shangpinguanliadapter.notifyDataSetChanged();
                                 }
                             },false);
@@ -200,7 +201,7 @@ public class ShangPinGuanLiActivity extends BaseActivity {
         rvShangpinguanli.setLoadMoreListener(mLoadMoreListener); // 加载更多的监听。
         rvShangpinguanli.loadMoreFinish(false, true);
         rvShangpinguanli.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
-        shangpinguanliadapter=new ShangPinGuanLiAdapter(ShangPinGuanLiActivity.this,goods);
+        shangpinguanliadapter=new ShangPinGuanLiAdapter(mContext,ShangPinGuanLiActivity.this,goods,mlist);
         shangpinguanliadapter.setClick(isClick);
         rvShangpinguanli.setAdapter(shangpinguanliadapter);
     }
@@ -254,7 +255,12 @@ public class ShangPinGuanLiActivity extends BaseActivity {
             type=s;
 //        }
         ye = 1;
+        int mysize = mlist==null?0:mlist.size();
+        if(mysize!=0){
+            rvShangpinguanli.scrollToPosition(0);
+        }
         mlist.clear();
+        shangpinguanliadapter.notifyDataSetChanged();
         getShangpinList();
     }
 

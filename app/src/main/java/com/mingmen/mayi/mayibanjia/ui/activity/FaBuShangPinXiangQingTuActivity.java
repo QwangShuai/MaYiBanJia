@@ -326,7 +326,7 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                     .setObservable(
                 RetrofitManager
                         .getService()
-                        .fabushangpin(PreferenceUtils.getString(MyApplication.mContext, "token",""),"",canshu.getDeputyPicture(),
+                        .fabushangpin(PreferenceUtils.getString(MyApplication.mContext, "token",""),canshu.getClassify_name(),spID,"",canshu.getDeputyPicture(),
                                 canshu.getPack_standard_two(),canshu.getPack_standard_tree(),
                                 canshu.getRation_one(),canshu.getPice_one(),canshu.getInventory(),new Gson().toJson(mlist),canshu.getType_one_id(),canshu.getGoods(),canshu.getCommodity_state(),canshu.getCommodity_name(),
                                 canshu.getType_two_id(),canshu.getType_tree_id(),canshu.getType_four_id(),canshu.getHostPicture(),

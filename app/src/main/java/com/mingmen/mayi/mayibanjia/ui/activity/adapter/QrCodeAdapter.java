@@ -20,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.DaYinQrCodeBean;
@@ -29,6 +30,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.DaYinQrCodeActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ghdingdan.GHOrderAdapter;
+import com.mingmen.mayi.mayibanjia.utils.LogUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
@@ -101,7 +103,6 @@ public class QrCodeAdapter extends RecyclerView.Adapter<QrCodeAdapter.ViewHolder
         holder.tv_dayin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("onClick: ",holder.rl_dayin.getWidth()+"----"+holder.rl_dayin.getHeight() );
                 if(bluetoothAdapter==null){
                     ToastUtil.showToastLong("该设备暂不支持蓝牙功能");
                 } else if(bluetoothAdapter.isEnabled()){

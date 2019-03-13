@@ -1,10 +1,12 @@
 package com.mingmen.mayi.mayibanjia.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2018/8/8.
  */
 
-public class FbspGuiGeBean {
+public class FbspGuiGeBean implements Serializable {
 
         /**
          * change_time : null

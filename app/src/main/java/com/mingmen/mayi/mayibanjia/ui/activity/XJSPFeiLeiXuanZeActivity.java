@@ -293,6 +293,7 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
 //        map.clear();
 //        yijiFenLei.clear();
 //        adapter.notifyDataSetChanged();
+
         tvFeileiLable.setTextColor(mContext.getResources().getColor(R.color.zangqing));
         tvLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
         tvPinzhongLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
@@ -315,6 +316,12 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
 //        map.clear();
 //        yijiFenLei.clear();
 //        adapter.notifyDataSetChanged();
+        twoid = "";
+        threeid = "";
+        fourid = "";
+        tvPinzhong.setText("全部");
+        tvMingcheng.setText("全部");
+        tvGuige.setText("全部");
         tvFeileiLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
         tvLable.setTextColor(mContext.getResources().getColor(R.color.zangqing));
         tvPinzhongLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
@@ -334,6 +341,11 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
 //        map.clear();
 //        yijiFenLei.clear();
 //        adapter.notifyDataSetChanged();
+        threeid = "";
+        fourid = "";
+        tvMingcheng.setText("全部");
+        tvGuige.setText("全部");
+
         tvFeileiLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
         tvPinzhongLable.setTextColor(mContext.getResources().getColor(R.color.zangqing));
         tvLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
@@ -350,6 +362,8 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
             rvYijifenlei.setVisibility(View.VISIBLE);
         }
 
+        fourid = "";
+        tvGuige.setText("全部");
 //        adapter.setXuanzhongid("");
 //        map.clear();
 //        yijiFenLei.clear();
@@ -439,7 +453,7 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
         it.putExtra("three_id", twoid);
         it.putExtra("four_id", threeid);
         it.putExtra("five_id", fourid);
-        it.putExtra("name", "-" + twoName + "-" + threeName+"-"+fourName);
+        it.putExtra("name", twoName + "-" + threeName+"-"+fourName);
         it.putExtra("spname",fiveName );
         setResult(4, it);
         finish();

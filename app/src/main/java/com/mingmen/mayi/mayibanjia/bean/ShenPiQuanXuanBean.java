@@ -67,9 +67,9 @@ public class ShenPiQuanXuanBean {
             private Object type_tree_id;
             private String ration_one;
             private String ration_two;
-            private int pice_one;
-            private int pice_two;
-            private int pice_three;
+            private double pice_one;
+            private double pice_two;
+            private double pice_three;
             private String market_id;
             private Object pack_standard_one;
             private Object pack_standard_two;
@@ -209,27 +209,27 @@ public class ShenPiQuanXuanBean {
                 this.ration_two = ration_two;
             }
 
-            public int getPice_one() {
+            public double getPice_one() {
                 return pice_one;
             }
 
-            public void setPice_one(int pice_one) {
+            public void setPice_one(double pice_one) {
                 this.pice_one = pice_one;
             }
 
-            public int getPice_two() {
+            public double getPice_two() {
                 return pice_two;
             }
 
-            public void setPice_two(int pice_two) {
+            public void setPice_two(double pice_two) {
                 this.pice_two = pice_two;
             }
 
-            public int getPice_three() {
+            public double getPice_three() {
                 return pice_three;
             }
 
-            public void setPice_three(int pice_three) {
+            public void setPice_three(double pice_three) {
                 this.pice_three = pice_three;
             }
 

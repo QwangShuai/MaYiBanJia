@@ -27,6 +27,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.AddSpFourAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.XJSPFeiLeiGuigeAdapter;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.CaiGouDanTianJiaDailog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
@@ -256,24 +257,31 @@ public class AddShangPinActivity extends BaseActivity {
         rvGuige.setAdapter(guigeadapter);
         guigeadapter.setCallBack(new XJSPFeiLeiGuigeAdapter.CallBack() {
             @Override
-            public void xuanzhong(ShangPinSousuoMohuBean msg) {
+            public void xuanzhong(final ShangPinSousuoMohuBean msg) {
                 list.clear();
-                AddSpListBean addSpListBean = new AddSpListBean();
-//                if (StringUtil.isValid(msg.getClassify_id())) {
-//                    addSpListBean.setClassify_id(msg.getClassify_id());
-//                } else {
-                    addSpListBean.setClassify_id(oneid);
-//                }
+                Log.e( "xuanzhong: ",fourName );
+                CaiGouDanTianJiaDailog dailog = new CaiGouDanTianJiaDailog();
+                dailog.setDate(fourName,msg.getSpec_name());
+                dailog.setCallBack(new CaiGouDanTianJiaDailog.CallBack() {
+                    @Override
+                    public void confirm(String count, String tsyq) {
+                        AddSpListBean addSpListBean = new AddSpListBean();
+                        addSpListBean.setClassify_id(oneid);
+                        addSpListBean.setCount(count);
+                        addSpListBean.setSpecial_commodity(tsyq);
+                        addSpListBean.setPack_standard_id(msg.getSpec_idFour());
+                        fourid = msg.getClassify_id();
+                        fiveName = msg.getClassify_name();
+                        addSpListBean.setSort_id(msg.getClassify_id());
+                        list.add(addSpListBean);
+                        guigeadapter.setXuanzhongid(msg.getClassify_id());
+                        tvGuige.setText(msg.getClassify_name());
 
-                addSpListBean.setPack_standard_id(msg.getSpec_idFour());
-                fourid = msg.getClassify_id();
-                fiveName = msg.getClassify_name();
-                addSpListBean.setSort_id(msg.getClassify_id());
-                list.add(addSpListBean);
-                guigeadapter.setXuanzhongid(msg.getClassify_id());
-                tvGuige.setText(msg.getClassify_name());
+                        guigeadapter.notifyDataSetChanged();
+                    }
+                });
+                dailog.show(getSupportFragmentManager());
 
-                guigeadapter.notifyDataSetChanged();
             }
         });
     }

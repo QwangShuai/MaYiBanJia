@@ -99,11 +99,13 @@ public class GWCXiuGaiShuLiangDialog extends BaseFragmentDialog {
                 if (Integer.parseInt(shuzi)>Integer.parseInt(kuCun)){
                     dismiss();
                     ToastUtil.showToast("超过库存了");
+                    return;
                 }
                 Log.e("qidingliang",qidingliang+"---");
                 if (Integer.parseInt(shuzi)<Integer.parseInt(qidingliang)){
                     dismiss();
                     ToastUtil.showToast("低于起订量不能买");
+                    return;
                 }
                 if (mCallBack != null)
                     mCallBack.shuliang(shuzi);

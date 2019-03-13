@@ -8,6 +8,24 @@ public class AddSpListBean {
     private String classify_id;
     private String pack_standard_id;
     private String sort_id;
+    private String special_commodity;
+    private String count;
+
+    public String getSpecial_commodity() {
+        return special_commodity;
+    }
+
+    public void setSpecial_commodity(String special_commodity) {
+        this.special_commodity = special_commodity;
+    }
+
+    public String getCount() {
+        return count;
+    }
+
+    public void setCount(String count) {
+        this.count = count;
+    }
 
     public String getClassify_id() {
         return classify_id;

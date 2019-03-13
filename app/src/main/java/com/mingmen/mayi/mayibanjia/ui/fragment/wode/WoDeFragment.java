@@ -369,7 +369,7 @@ public class WoDeFragment extends BaseFragment {
 
     @OnClick({R.id.iv_tongzhi, R.id.iv_touxiang, R.id.ll_shoucang, R.id.iv_mingpian, R.id.rl_daifukuan,
             R.id.rl_daifahuo, R.id.rl_daishouhuo, R.id.rl_yishouhuo, R.id.rl_yiwancheng, R.id.rl_shouhuodizhi, R.id.rl_yijian,
-            R.id.rl_kefu, R.id.ll_guanzhu, R.id.ll_liulanjilu, R.id.rl_yinhang, R.id.tv_qiehuan, R.id.ll_myyue, R.id.ll_pingjia, R.id.rl_zizhanghu,
+            R.id.rl_kefu, R.id.ll_guanzhu, R.id.ll_liulanjilu, R.id.rl_yinhang, R.id.ll_qiehuan, R.id.ll_myyue, R.id.ll_pingjia, R.id.rl_zizhanghu,
             R.id.rl_daishenhe, R.id.rl_daitijiao, R.id.rl_weitongguo, R.id.rl_tongguo})
 //            ,R.id.rl_jueseguanli})
     public void onViewClicked(View view) {
@@ -488,7 +488,7 @@ public class WoDeFragment extends BaseFragment {
             case R.id.rl_yinhang:
                 Jump_intent(YinHangKaActivity.class, new Bundle());
                 break;
-            case R.id.tv_qiehuan:
+            case R.id.ll_qiehuan:
                 qiehuan();
                 break;
             case R.id.ll_myyue:

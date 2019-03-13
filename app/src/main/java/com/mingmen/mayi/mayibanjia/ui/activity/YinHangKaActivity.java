@@ -17,6 +17,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.XuanZeYinHangKaAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.YinHangKaAdapter;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
@@ -41,6 +42,8 @@ public class YinHangKaActivity extends BaseActivity {
     private YinHangKaAdapter adapter ;
     private Context mContext;
     private int tixian = 0;
+    private ConfirmDialog confirmDialog;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_yin_hang_ka;
@@ -49,6 +52,8 @@ public class YinHangKaActivity extends BaseActivity {
     @Override
     protected void initData() {
         mContext = YinHangKaActivity.this;
+        confirmDialog = new ConfirmDialog(mContext,
+                mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         tixian = getIntent().getIntExtra("tixian",0);
         adapter = new YinHangKaAdapter(mContext, mList, new YinHangKaAdapter.CallBack() {
             @Override
@@ -112,9 +117,23 @@ public class YinHangKaActivity extends BaseActivity {
                             bundle.putString("principal",data);
                             JumpUtil.Jump_intent(mContext,YinHangKaTianJiaActivity.class,bundle);
                         } else {
-                            Bundle bundle = new Bundle();
-                            bundle.putString("state","待审核");
-                            JumpUtil.Jump_intent(mContext,ZiZhiRenZhengActivity.class,bundle);
+                            confirmDialog.showDialog("您的资质认证状态为未审核，是否前去认证");
+                            confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    confirmDialog.dismiss();
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("state","待审核");
+                                    JumpUtil.Jump_intent(mContext,ZiZhiRenZhengActivity.class,bundle);
+                                }
+                            });
+                            confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    confirmDialog.dismiss();
+                                }
+                            });
+
                         }
 
                     }

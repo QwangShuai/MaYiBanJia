@@ -249,7 +249,13 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
 //                finish();
                 break;
             case R.id.ll_state_qiehuan:
-                confirmDialog.showDialog("是否切换营业状态");
+                String tiShi="";
+                if(type.equals("0")){
+                    tiShi="是否停止接单";
+                }else{
+                    tiShi="是否开始营业";
+                }
+                confirmDialog.showDialog(tiShi);
                 confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

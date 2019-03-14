@@ -251,7 +251,7 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
             case R.id.ll_state_qiehuan:
                 String tiShi="";
                 if(type.equals("0")){
-                    tiShi="是否停止接单";
+                    tiShi="是否关店";
                 }else{
                     tiShi="是否开始营业";
                 }
@@ -323,7 +323,7 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
         Glide.with(mContext).load(woDeBean.getPhoto()).into(ivTouxiang);
         tvDianming.setText(woDeBean.getCompany_name() + "");
         type = woDeBean.getBusiness_state() + "";
-        tvState.setText(type.equals("0") ? "营业中" : "停止接单");
+        tvState.setText(type.equals("0") ? "营业中" : "已关店");
         tvYue.setText(woDeBean.getMoney() + "");
         tvDfh.setVisibility(woDeBean.getStay_delivery() == 0 ? View.GONE : View.VISIBLE);
         tvDfh.setText(woDeBean.getStay_delivery() + "");
@@ -425,7 +425,7 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
                     @Override
                     public void onNext(String bean) {
                         Log.e("我的数据", bean);
-                        tvState.setText(bean.equals("0") ? "营业中" : "停止接单");
+                        tvState.setText(bean.equals("0") ? "营业中" : "以关店");
                         type = bean;
                     }
                 });

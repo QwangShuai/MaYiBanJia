@@ -122,7 +122,7 @@ public class YinHangKaActivity extends BaseActivity {
                             bundle.putString("principal",data);
                             JumpUtil.Jump_intent(mContext,YinHangKaTianJiaActivity.class,bundle);
                         } else {
-                            confirmDialog.showDialog("您的资质认证状态为未审核，是否前去认证");
+                            confirmDialog.showDialog("您的资质认证状态未提交审核或是在审核中，是否前去查看");
                             confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {

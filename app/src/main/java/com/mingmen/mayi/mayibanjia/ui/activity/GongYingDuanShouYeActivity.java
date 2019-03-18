@@ -113,6 +113,8 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
     LinearLayout llLianxikefu;
     @BindView(R.id.ll_bangzhuyufankui)
     LinearLayout llBangzhuyufankui;
+    @BindView(R.id.ll_tianjiashangpin)
+    LinearLayout llTianjiashangpin;
     @BindView(R.id.rb_pingfen)
     RatingBar rbPingfen;
 
@@ -123,6 +125,7 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
     public static GongYingDuanShouYeActivity instance = null;
     private long exitTime = 0;
     private String sh_state="待审核";
+    private String yue = "0";
     @Override
     public int getLayoutId() {
         return R.layout.activity_gongyingduanshouye;
@@ -147,14 +150,21 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
 
 
     @OnClick({R.id.ll_shangpinguanli, R.id.ll_yonghupingjia, R.id.ll_tejiashangpin,
-            R.id.ll_daidabao, R.id.ll_daiqueren, R.id.ll_yue, R.id.ll_daifahuo,
+            R.id.ll_daidabao, R.id.ll_daiqueren, R.id.tv_yue, R.id.ll_daifahuo,
             R.id.ll_yishouhuo, R.id.ll_yiwancheng, R.id.ll_qiehuan, R.id.iv_touxiang,
             R.id.tv_dianming, R.id.ll_state_qiehuan, R.id.ll_daiqiangdan, R.id.ll_qiangdanzhong,
             R.id.ll_qiangdanshibai, R.id.ll_qiangdanchenggong, R.id.ll_zhanghuyuanquan,
             R.id.ll_lianxikefu, R.id.ll_bangzhuyufankui, R.id.ll_yinhangzhanghao,
-            R.id.ll_zizhirenzheng})
+            R.id.ll_zizhirenzheng,R.id.tv_cwbb,R.id.tv_tixian,R.id.ll_tianjiashangpin})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.ll_tianjiashangpin:
+                //添加商品
+                Intent intent = new Intent(mContext, FaBuShangPinActivity.class);
+                intent.putExtra("state", "0");
+                intent.putExtra("goods", "0");
+                startActivity(intent);
+                break;
             case R.id.ll_zizhirenzheng:
                 Intent it_zz = new Intent(mContext, ZiZhiRenZhengActivity.class);
                 it_zz.putExtra("id", "");
@@ -207,8 +217,16 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
                 tejia.putExtra("goods", "1");
                 startActivity(tejia);
                 break;
-            case R.id.ll_yue://余额
+            case R.id.tv_yue://余额
                 Jump_intent(YueActivity.class, new Bundle());
+                break;
+            case R.id.tv_tixian://提现
+                Bundle bundle = new Bundle();
+                bundle.putString("yue",yue);
+                Jump_intent(TiXianActivity.class, bundle);
+                break;
+            case R.id.tv_cwbb://财务报表
+                Jump_intent(JiaoYiLiuShuiActivity.class, new Bundle());
                 break;
             case R.id.ll_daidabao:
                 Intent daidabao = new Intent(mContext, GHDOrderActivity.class);
@@ -319,6 +337,7 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
         type = woDeBean.getBusiness_state() + "";
         tvState.setText(type.equals("0") ? "营业中" : "停止接单");
         tvYue.setText(woDeBean.getMoney() + "");
+        yue = woDeBean.getMoney() + "";
         tvDfh.setVisibility(woDeBean.getStay_delivery() == 0 ? View.GONE : View.VISIBLE);
         tvDfh.setText(woDeBean.getStay_delivery() + "");
         tvYsh.setVisibility(woDeBean.getAlready_delivery() == 0 ? View.GONE : View.VISIBLE);

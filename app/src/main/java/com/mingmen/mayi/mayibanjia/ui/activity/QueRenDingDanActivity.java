@@ -263,6 +263,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<QueRenDingDanShangPinBean>() {
                     @Override
                     public void onNext(QueRenDingDanShangPinBean data) {
+                        Log.e("onNext: ","shangpinlist" );
                         shichangCount = data==null?0:data.getMarketlist().size();
                         spID = "";
                         number = "";

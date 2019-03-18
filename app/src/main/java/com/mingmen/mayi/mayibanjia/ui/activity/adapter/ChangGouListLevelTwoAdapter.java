@@ -40,16 +40,16 @@ public class ChangGouListLevelTwoAdapter extends RecyclerView.Adapter<ChangGouLi
     private List<ChangYongBean.ListBean> mList;
     private ChangGouActivity activity;
     private ConfirmDialog confirmDialog;
-    private ChangGouListLevelOneAdapter adapter;
+//    private ChangGouListLevelOneAdapter adapter;
     private OnItemClickListener listener;
-    private int pos;
+//    private int pos;
 
     public ChangGouListLevelTwoAdapter(Context mContext, List<ChangYongBean.ListBean> mList, ChangGouActivity activity) {
         this.mContext = mContext;
         this.mList = mList;
         this.activity = activity;
-        this.adapter = adapter;
-        this.pos = pos;
+//        this.adapter = adapter;
+//        this.pos = pos;
     }
 
     @Override
@@ -63,54 +63,45 @@ public class ChangGouListLevelTwoAdapter extends RecyclerView.Adapter<ChangGouLi
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         final ChangYongBean.ListBean bean= mList.get(position);
-        activity.onChangeMap(bean,bean.isSelect());
         holder.ivShanchu.setVisibility(bean.isShow()?View.VISIBLE:View.GONE);
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(bean.isShow()){
-//                    confirmDialog.showDialog("是否确定删除此采购单");
-//                    confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            HttpManager.getInstance()
-//                                    .with(mContext)
-//                                    .setObservable(
-//                                            RetrofitManager
-//                                                    .getService()
-//                                                    .delChanggouSp(PreferenceUtils.getString(MyApplication.mContext, "token", ""), bean.getOften_name_id()))
-//                                    .setDataListener(new HttpDataListener<String>() {
-//                                        @Override
-//                                        public void onNext(String data) {
-//                                            ToastUtil.showToastLong("删除常用商品成功");
-//                                            mList.remove(position);
-//                                            int mysize = mList==null?0:mList.size();
-//                                            Log.e("onNext:mysize",mysize+"---" );
-//                                            if(mysize!=0){
-//                                                notifyDataSetChanged();
-//                                            } else {
-//                                                adapter.delPos(pos);
-//                                            }
-//                                            activity.getList();
-//                                            confirmDialog.dismiss();
-//                                        }
-//                                    }, false);
-//                        }
-//                    });
-//                    confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            confirmDialog.dismiss();
-//                        }
-//                    });
-//                } else {
-//                    boolean b = !bean.isSelect();
-//                    mList.get(position).setSelect(b);
-//                    activity.onChangeMap(bean, b);
-//                    notifyDataSetChanged();
-//                }
-//            }
-//        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(bean.isShow()){
+                    confirmDialog.showDialog("是否确定删除此采购单");
+                    confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            HttpManager.getInstance()
+                                    .with(mContext)
+                                    .setObservable(
+                                            RetrofitManager
+                                                    .getService()
+                                                    .delChanggouSp(PreferenceUtils.getString(MyApplication.mContext, "token", ""), bean.getOften_name_id()))
+                                    .setDataListener(new HttpDataListener<String>() {
+                                        @Override
+                                        public void onNext(String data) {
+                                            ToastUtil.showToastLong("删除常用商品成功");
+                                            activity.getList();
+                                            confirmDialog.dismiss();
+                                        }
+                                    }, false);
+                        }
+                    });
+                    confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            confirmDialog.dismiss();
+                        }
+                    });
+                } else {
+                    boolean b = !bean.isSelect();
+                    mList.get(position).setSelect(b);
+                    activity.onChangeMap(bean);
+                    notifyDataSetChanged();
+                }
+            }
+        });
 
         if(bean.isSelect()){
             holder.tvYijifenlei.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_solid_zangqing_3));
@@ -119,7 +110,6 @@ public class ChangGouListLevelTwoAdapter extends RecyclerView.Adapter<ChangGouLi
             holder.tvYijifenlei.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_999999_3));
             holder.tvYijifenlei.setTextColor(mContext.getResources().getColor(R.color.zicolor));
         }
-        activity.onChangeMap(bean, bean.isSelect());
         holder.tvYijifenlei.setText(bean.getClassify_name());
         holder.ivShanchu.setOnClickListener(new View.OnClickListener() {
             @Override

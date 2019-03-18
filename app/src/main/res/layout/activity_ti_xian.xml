@@ -6,6 +6,7 @@
     android:orientation="vertical">
     <include layout="@layout/head_zangqing" />
     <RelativeLayout
+        android:id="@+id/rl_add_yinhangka"
         android:padding="12dp"
         android:layout_marginTop="8dp"
         android:layout_width="match_parent"
@@ -22,7 +23,7 @@
             android:textColor="@color/zangqing"
             android:textSize="12sp"
             android:layout_alignParentRight="true"
-            android:text="选择银行卡"
+            android:text="添加银行卡"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </RelativeLayout>

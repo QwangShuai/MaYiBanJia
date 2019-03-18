@@ -31,6 +31,15 @@ public class ShangPinSousuoMohuBean {
 
     private String affiliated_number;
     private String affiliated_spec_name;
+    private String affiliated_spec;
+
+    public String getAffiliated_spec() {
+        return affiliated_spec;
+    }
+
+    public void setAffiliated_spec(String affiliated_spec) {
+        this.affiliated_spec = affiliated_spec;
+    }
 
     public String getSpec_name() {
         return spec_name;

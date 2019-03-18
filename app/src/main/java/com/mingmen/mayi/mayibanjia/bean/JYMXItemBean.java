@@ -13,6 +13,24 @@ public class JYMXItemBean {
     private String order_id;
     private String pay_number;
     private String reasons;
+    private String gy_company_name;
+    private String ct_company_name;
+
+    public String getGy_company_name() {
+        return gy_company_name;
+    }
+
+    public void setGy_company_name(String gy_company_name) {
+        this.gy_company_name = gy_company_name;
+    }
+
+    public String getCt_company_name() {
+        return ct_company_name;
+    }
+
+    public void setCt_company_name(String ct_company_name) {
+        this.ct_company_name = ct_company_name;
+    }
 
     public String getReasons() {
         return reasons;

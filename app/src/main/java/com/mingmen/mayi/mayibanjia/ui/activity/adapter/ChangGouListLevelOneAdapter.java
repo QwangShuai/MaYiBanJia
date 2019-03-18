@@ -47,16 +47,13 @@ public class ChangGouListLevelOneAdapter extends RecyclerView.Adapter<ChangGouLi
     private List<ChangYongBean> mList;
     public CallBack callBack;
     private Context mContext;
-    private boolean itemIsClick[];
     private ChangGouListLevelTwoAdapter adapter;
-    private String type = "0";
     private ChangGouActivity activity;
 
     public ChangGouListLevelOneAdapter(Context mContext,List<ChangYongBean> mList, ChangGouActivity activity) {
         this.mList = mList;
         this.mContext = mContext;
         this.activity = activity;
-        itemIsClick = new boolean[mList.size()];
     }
 
 

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,11 +30,6 @@
                     android:textSize="18sp"
                     android:gravity="center"
                     />
-                <ImageView
-                    android:layout_width="12dp"
-                    android:layout_height="7dp"
-                    android:src="@mipmap/xiangxia_bai"
-                    android:layout_marginLeft="6dp"/>
             </LinearLayout>
             <ImageView
                 android:id="@+id/iv_back"
@@ -55,29 +51,23 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
-        android:id="@+id/rv_shangpinguanli"
+    <com.mingmen.mayi.mayibanjia.ui.view.PagerSlidingTabStrip
+        android:id="@+id/tabs_dingdan"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/white"
+        app:pstsDividerColor="@color/transparent"
+        app:pstsIndicatorColor="@color/zangqing"
+        app:pstsIndicatorHeight="4dp"
+        app:pstsTabPaddingLeftRight="2dp"
+        app:pstsShouldExpand="true"
+        app:pstsTabBackground="@color/transparent"
+        app:pstsUnderlineHeight="1dp"></com.mingmen.mayi.mayibanjia.ui.view.PagerSlidingTabStrip>
+
+
+    <com.mingmen.mayi.mayibanjia.utils.custom.CustomViewPager
+        android:id="@+id/vp_dingdan"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"></com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView>
-
-    <LinearLayout
-        android:id="@+id/ll_xinjianshangpin"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:gravity="center">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/jiahao_lv"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="新建商品"
-            android:textColor="#ff474747"
-            android:textSize="15sp"
-            android:layout_marginLeft="8dp"
-            />
-    </LinearLayout>
+        android:background="@color/white"></com.mingmen.mayi.mayibanjia.utils.custom.CustomViewPager>
 </LinearLayout>

@@ -149,11 +149,12 @@ public class FenPeiWuLiuCheDialog extends Dialog {
                     ToastUtil.showToast("车牌号不能为空!");
                     return;
                 }
-                boolean   yz=isCarnumberNO(et_chepaihao.getText().toString());
-                if(yz==false){
-                    ToastUtil.showToast("车牌号格式错误");
-
-                } else if(TextUtils.isEmpty(et_xingming.getText().toString())){
+//                boolean   yz =isCarnumberNO(et_chepaihao.getText().toString());
+//                if(yz==false){
+//                    ToastUtil.showToast("车牌号格式错误");
+//
+//                } else
+                    if(TextUtils.isEmpty(et_xingming.getText().toString())){
                     ToastUtil.showToast("联系人不能为空!");
                 } else if(!AppUtil.isMobile(et_lianxifangshi.getText().toString())){
                     ToastUtil.showToast("手机号格式不正确!");

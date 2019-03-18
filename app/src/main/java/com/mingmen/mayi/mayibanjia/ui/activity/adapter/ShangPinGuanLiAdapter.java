@@ -36,19 +36,11 @@ import butterknife.ButterKnife;
 
 public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAdapter.ViewHolder> {
     
-    private ShangPinGuanLiActivity activity;
     private ConfirmDialog confirmDialog;
     private String goods = "0";
     private ViewHolder viewHolder;
     private List<ShangPinGuanLiBean.GoodsListBean> mList;
-    private Context mContext;//    public String getGoods() {
-//        return goods;
-//    }
-//
-//    public void setGoods(String goods) {
-//        this.goods = goods;
-//        notifyDataSetChanged();
-//    }
+    private Context mContext;
 
     public boolean isClick() {
         return isClick;
@@ -60,9 +52,8 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
 
     private boolean isClick = true;
 
-    public ShangPinGuanLiAdapter(Context mContext,ShangPinGuanLiActivity activity, String goods,List<ShangPinGuanLiBean.GoodsListBean> mList) {
+    public ShangPinGuanLiAdapter(Context mContext,String goods,List<ShangPinGuanLiBean.GoodsListBean> mList) {
         this.mContext = mContext;
-        this.activity = activity;
         this.goods = goods;
         this.mList = mList;
     }
@@ -78,7 +69,7 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
                     @Override
                     public void onNext(String data) {
                         confirmDialog.dismiss();
-                        activity.setType("0");
+//                        activity.setType("0");
                         notifyDataSetChanged();
                     }
                 }, false);

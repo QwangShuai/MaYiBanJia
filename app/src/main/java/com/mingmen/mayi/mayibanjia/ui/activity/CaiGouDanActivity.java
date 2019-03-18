@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SwitchCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -37,6 +39,7 @@ import com.yanzhenjie.recyclerview.swipe.SwipeMenuCreator;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuItem;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuItemClickListener;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
+import com.yanzhenjie.recyclerview.swipe.touch.OnItemMovementListener;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -194,13 +197,8 @@ public class CaiGouDanActivity extends BaseActivity {
                 deleteItem.setWidth(getWindowManager().getDefaultDisplay().getWidth() * 1 / 6);
                 deleteItem.setBackground(R.color.red_ff3300);
                 rightMenu.addMenuItem(deleteItem); // 在Item左侧添加一个菜单。
-
-//                SwipeMenuItem deleteItem = new SwipeMenuItem(mContext); // 各种文字和图标属性设置。
-//                leftMenu.addMenuItem(deleteItem); // 在Item右侧添加一个菜单。
-                // 注意：哪边不想要菜单，那么不要添加即可。
             }
         };
-
         SwipeMenuItemClickListener mMenuItemClickListener = new SwipeMenuItemClickListener() {
             @Override
             public void onItemClick(final SwipeMenuBridge menuBridge) {

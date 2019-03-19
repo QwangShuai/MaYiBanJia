@@ -148,7 +148,7 @@ public class TiXianActivity extends BaseActivity {
                     } else {
                         double  yueDou=Double.parseDouble(etJine.getText().toString());
                         double  fuWuFei=0.006;
-                        double mony=MyMath.mulAll(yueDou,fuWuFei);
+                        double mony=MyMath.mul(yueDou,fuWuFei);
                         confirmDialog.showDialog("确认提现将收取"+mony+"元的手续费，是否提现");
                         confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
                             @Override

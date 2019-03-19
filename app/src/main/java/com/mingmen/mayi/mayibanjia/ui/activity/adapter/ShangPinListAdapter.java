@@ -67,7 +67,7 @@ public class ShangPinListAdapter extends RecyclerView.Adapter<ShangPinListAdapte
         final ShangPinSouSuoBean.ZhengchangBean data = mList.get(position);
         //holder.tvSpming.setText(data.getClassify_name());
         holder.tvSpming.setText(data.getClassify_name());
-        holder.tvDianming.setText(data.getCompany_name());
+        holder.tvDianming.setText(data.getCompany_name()+"("+data.getMarket_name()+")");
         holder.tvJiage.setText(data.getPrice()+"");
         //holder.tvGuige.setText(data.getPackStandard()+"");
         holder.tvSpxiaoliang.setText("已售"+data.getCommodity_sales());

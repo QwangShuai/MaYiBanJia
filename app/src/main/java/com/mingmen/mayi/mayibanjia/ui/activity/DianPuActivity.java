@@ -327,7 +327,7 @@ public class DianPuActivity extends BaseActivity implements View.OnClickListener
 
     private void initView() {
         Glide.with(mContext).load(dianpuxinxi.getFile_path()+"").into(ivDiantu);
-        tvDianming.setText(dianpuxinxi.getCompany_name());
+        tvDianming.setText(dianpuxinxi.getCompany_name()+"("+dianpuxinxi.getMarket_name()+")");
         tvPingfen.setText(dianpuxinxi.getEvaluation()+"");
         rbPingfen.setRating((float) dianpuxinxi.getEvaluation());
         guanzhuid=dianpuxinxi.getAttention_id()!=null?dianpuxinxi.getAttention_id():"";

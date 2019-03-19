@@ -56,9 +56,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="规格详情："
+                android:text="其他说明："
                 android:textSize="15sp"
-                android:textColor="@color/hintcolor"
+                android:textColor="@color/zicolor"
                 android:maxLines="1"
                 android:ellipsize="end"
                 />
@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textSize="15sp"
-                android:textColor="@color/hintcolor"
+                android:textColor="@color/black_333333"
                 android:maxLines="1"
                 android:ellipsize="end"
                 />
@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:text="库存："
                 android:textSize="15sp"
-                android:textColor="@color/hintcolor"
+                android:textColor="@color/zicolor"
                 android:maxLines="1"
                 android:ellipsize="end"
                 />
@@ -112,7 +112,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="起订量:"
-                android:textColor="@color/hintcolor"
+                android:textColor="@color/zicolor"
                 android:textSize="15sp" />
 
             <TextView

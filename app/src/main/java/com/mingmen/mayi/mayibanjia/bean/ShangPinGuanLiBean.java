@@ -122,6 +122,7 @@ public class ShangPinGuanLiBean {
              * region : null
              */
 
+            private String audit_state;
             private String commodity_name;
             private String picture_address;
             private String number_views;
@@ -221,6 +222,13 @@ public class ShangPinGuanLiBean {
             private String region;
             private String approval_state;
 
+            public String getAudit_state() {
+                return audit_state;
+            }
+
+            public void setAudit_state(String audit_state) {
+                this.audit_state = audit_state;
+            }
 
             public String getCommodity_name() {
                 return commodity_name;

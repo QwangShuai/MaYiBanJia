@@ -101,10 +101,6 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
     LinearLayout llQiangdanchenggong;
     @BindView(R.id.tv_qdcg)
     TextView tvQdcg;
-    @BindView(R.id.ll_shangpinguanli)
-    LinearLayout llShangpinguanli;
-    @BindView(R.id.ll_tejiashangpin)
-    LinearLayout llTejiashangpin;
     @BindView(R.id.ll_yonghupingjia)
     LinearLayout llYonghupingjia;
     @BindView(R.id.ll_zhanghuyuanquan)
@@ -117,6 +113,26 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
     LinearLayout llTianjiashangpin;
     @BindView(R.id.rb_pingfen)
     RatingBar rbPingfen;
+    @BindView(R.id.tv_tixian)
+    TextView tvTixian;
+    @BindView(R.id.tv_cwbb)
+    TextView tvCwbb;
+    @BindView(R.id.ll_shangjia)
+    LinearLayout llShangjia;
+    @BindView(R.id.tv_sj)
+    TextView tvSj;
+    @BindView(R.id.ll_xiajia)
+    LinearLayout llXiajia;
+    @BindView(R.id.tv_xj)
+    TextView tvXj;
+    @BindView(R.id.ll_daishenhe)
+    LinearLayout llDaishenhe;
+    @BindView(R.id.tv_dsh)
+    TextView tvDsh;
+    @BindView(R.id.ll_yinhangzhanghao)
+    LinearLayout llYinhangzhanghao;
+    @BindView(R.id.ll_zizhirenzheng)
+    LinearLayout llZizhirenzheng;
 
     private Context mContext;
     private WoDeBean woDeBean;
@@ -124,8 +140,9 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
     private String type = "0";
     public static GongYingDuanShouYeActivity instance = null;
     private long exitTime = 0;
-    private String sh_state="待审核";
+    private String sh_state = "待审核";
     private String yue = "0";
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_gongyingduanshouye;
@@ -149,13 +166,14 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.ll_shangpinguanli, R.id.ll_yonghupingjia, R.id.ll_tejiashangpin,
+    @OnClick({ R.id.ll_yonghupingjia,
             R.id.ll_daidabao, R.id.ll_daiqueren, R.id.tv_yue, R.id.ll_daifahuo,
             R.id.ll_yishouhuo, R.id.ll_yiwancheng, R.id.ll_qiehuan, R.id.iv_touxiang,
             R.id.tv_dianming, R.id.ll_state_qiehuan, R.id.ll_daiqiangdan, R.id.ll_qiangdanzhong,
             R.id.ll_qiangdanshibai, R.id.ll_qiangdanchenggong, R.id.ll_zhanghuyuanquan,
             R.id.ll_lianxikefu, R.id.ll_bangzhuyufankui, R.id.ll_yinhangzhanghao,
-            R.id.ll_zizhirenzheng,R.id.tv_cwbb,R.id.tv_tixian,R.id.ll_tianjiashangpin})
+            R.id.ll_zizhirenzheng, R.id.tv_cwbb, R.id.tv_tixian, R.id.ll_tianjiashangpin,
+            R.id.ll_shangjia,R.id.ll_xiajia,R.id.ll_daishenhe,R.id.ll_tejiashangpin_gyd})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_tianjiashangpin:
@@ -165,11 +183,35 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
                 intent.putExtra("goods", "0");
                 startActivity(intent);
                 break;
+            case R.id.ll_shangjia:
+                Intent  it_shangjia = new Intent(mContext, ShangPinGuanLiActivity.class);
+                it_shangjia.putExtra("to_gl",1);
+                it_shangjia.putExtra("goods", "0");
+                startActivity(it_shangjia);
+                break;
+            case R.id.ll_xiajia:
+                Intent  it_xiajia = new Intent(mContext, ShangPinGuanLiActivity.class);
+                it_xiajia.putExtra("to_gl",2);
+                it_xiajia.putExtra("goods", "0");
+                startActivity(it_xiajia);
+                break;
+            case R.id.ll_tejiashangpin_gyd:
+                Intent  it_tj = new Intent(mContext, ShangPinGuanLiActivity.class);
+                it_tj.putExtra("goods","1");
+                startActivity(it_tj);
+                break;
+            case R.id.ll_daishenhe:
+                Intent  it_daishenhe = new Intent(mContext, ShangPinGuanLiActivity.class);
+                it_daishenhe.putExtra("to_gl",3);
+                it_daishenhe.putExtra("goods", "0");
+                startActivity(it_daishenhe);
+                break;
+
             case R.id.ll_zizhirenzheng:
                 Intent it_zz = new Intent(mContext, ZiZhiRenZhengActivity.class);
                 it_zz.putExtra("id", "");
-                it_zz.putExtra("state",sh_state);
-                it_zz.putExtra("yemian","1");
+                it_zz.putExtra("state", sh_state);
+                it_zz.putExtra("yemian", "1");
                 startActivity(it_zz);
                 break;
             case R.id.ll_yinhangzhanghao:
@@ -205,24 +247,14 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
                 qiangdanchenggong.putExtra("ye", 4);
                 startActivity(qiangdanchenggong);
                 break;
-            case R.id.ll_shangpinguanli:
-                Intent sp = new Intent(mContext, ShangPinGuanLiActivity.class);
-                sp.putExtra("goods", "0");
-                startActivity(sp);
-                break;
             case R.id.ll_yonghupingjia:
-                break;
-            case R.id.ll_tejiashangpin:
-                Intent tejia = new Intent(mContext, ShangPinGuanLiActivity.class);
-                tejia.putExtra("goods", "1");
-                startActivity(tejia);
                 break;
             case R.id.tv_yue://余额
                 Jump_intent(YueActivity.class, new Bundle());
                 break;
             case R.id.tv_tixian://提现
                 Bundle bundle = new Bundle();
-                bundle.putString("yue",yue);
+                bundle.putString("yue", yue);
                 Jump_intent(TiXianActivity.class, bundle);
                 break;
             case R.id.tv_cwbb://财务报表
@@ -267,11 +299,11 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
 //                finish();
                 break;
             case R.id.ll_state_qiehuan:
-                String tiShi="";
-                if(type.equals("0")){
-                    tiShi="是否关店";
-                }else{
-                    tiShi="是否开始营业";
+                String tiShi = "";
+                if (type.equals("0")) {
+                    tiShi = "是否关店";
+                } else {
+                    tiShi = "是否开始营业";
                 }
                 confirmDialog.showDialog(tiShi);
                 confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
@@ -367,6 +399,12 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
         tvDpgz.setText(woDeBean.getGuanzhu() + "");
         tvDqd.setVisibility(woDeBean.getQiangdan() == 0 ? View.GONE : View.VISIBLE);
         tvDqd.setText(woDeBean.getQiangdan() + "");
+        tvSj.setVisibility(woDeBean.getShelves() == 0 ? View.GONE : View.VISIBLE);
+        tvSj.setText(woDeBean.getShelves() + "");
+        tvXj.setVisibility(woDeBean.getSold_out() == 0 ? View.GONE : View.VISIBLE);
+        tvXj.setText(woDeBean.getSold_out() + "");
+        tvDsh.setVisibility(woDeBean.getWait_audit() == 0 ? View.GONE : View.VISIBLE);
+        tvDsh.setText(woDeBean.getWait_audit() + "");
         rbPingfen.setRating(woDeBean.getEvaluation());
 //        tvDianpuguanzhu.setText(woDeBean.getGuanzhu());
 //        tvLiulanjilu.setText(woDeBean.getLiulan());
@@ -482,6 +520,7 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
 //            System.exit(0);
         }
     }
+
     private void getRenzheng() {
         HttpManager.getInstance()
                 .with(mContext)

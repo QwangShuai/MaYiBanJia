@@ -22,6 +22,8 @@ import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.FaBuShangPinActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShangPinGuanLiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
+import com.mingmen.mayi.mayibanjia.ui.activity.shangpinguanli.BaseShangPinFragment;
+import com.mingmen.mayi.mayibanjia.ui.activity.shangpinguanli.QuanBuShangPinFragment;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
@@ -41,6 +43,9 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
     private ViewHolder viewHolder;
     private List<ShangPinGuanLiBean.GoodsListBean> mList;
     private Context mContext;
+    private BaseShangPinFragment fragment;
+    private QuanBuShangPinFragment qb_fragment;
+    private boolean isTs;
 
     public boolean isClick() {
         return isClick;
@@ -52,12 +57,20 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
 
     private boolean isClick = true;
 
-    public ShangPinGuanLiAdapter(Context mContext,String goods,List<ShangPinGuanLiBean.GoodsListBean> mList) {
+    public ShangPinGuanLiAdapter(Context mContext,String goods,List<ShangPinGuanLiBean.GoodsListBean> mList,BaseShangPinFragment fragment) {
         this.mContext = mContext;
         this.goods = goods;
         this.mList = mList;
+        this.fragment = fragment;
+        isTs = false;
     }
-
+    public ShangPinGuanLiAdapter(Context mContext,String goods,List<ShangPinGuanLiBean.GoodsListBean> mList,QuanBuShangPinFragment qb_fragment) {
+        this.mContext = mContext;
+        this.goods = goods;
+        this.mList = mList;
+        this.qb_fragment = qb_fragment;
+        isTs = true;
+    }
     public void updateState(String id, final String type) {
         HttpManager.getInstance()
                 .with(mContext)
@@ -69,7 +82,12 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
                     @Override
                     public void onNext(String data) {
                         confirmDialog.dismiss();
-//                        activity.setType("0");
+                        if(isTs){
+                            qb_fragment.onResume();
+                        } else {
+                            fragment.onResume();
+                        }
+
                         notifyDataSetChanged();
                     }
                 }, false);
@@ -118,6 +136,9 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
                         Intent it = new Intent(mContext, FaBuShangPinActivity.class);
                         it.putExtra("state", "1");
                         it.putExtra("goods", goods);
+                        if(bean.getAudit_state().equals("5")){
+                            it.putExtra("shsb", "1");
+                        }
                         it.putExtra("bean", bean.getCommodity_id());
                         mContext.startActivity(it);
                     }
@@ -222,6 +243,18 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
                     }
                 });
                 break;
+
+        }
+        switch (bean.getAudit_state()) {
+            case "1":
+                holder.btBianji.setVisibility(View.VISIBLE);
+                holder.btAddGuige.setVisibility(View.GONE);
+                holder.btShangjia.setVisibility(View.VISIBLE);
+                holder.btShangjia.setText("审核失败");
+                holder.btXiajia.setVisibility(View.GONE);
+                holder.btShangjia.setEnabled(false);
+                break;
+
             case "5":
                 holder.btBianji.setVisibility(View.GONE);
                 holder.btAddGuige.setVisibility(View.GONE);
@@ -230,6 +263,9 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
                 holder.btXiajia.setVisibility(View.GONE);
                 break;
 
+        }
+        if(goods.equals("1")){
+            holder.btAddGuige.setVisibility(View.GONE);
         }
     }
 

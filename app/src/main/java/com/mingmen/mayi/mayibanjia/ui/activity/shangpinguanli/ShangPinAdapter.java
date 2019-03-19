@@ -1,6 +1,7 @@
 package com.mingmen.mayi.mayibanjia.ui.activity.shangpinguanli;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -37,6 +38,12 @@ public class ShangPinAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         return Fragment.instantiate(mContext,fragments[position]);
     }
+
+//    @Override
+//    public int getItemPosition(@NonNull Object object) {
+//        ((BaseShangPinFragment) object).onResume();
+//        return super.getItemPosition(object);
+//    }
 
     @Override
     public int getCount() {

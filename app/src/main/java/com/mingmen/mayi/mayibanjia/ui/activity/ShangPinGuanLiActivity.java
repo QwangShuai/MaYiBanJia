@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,6 +17,7 @@ import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.ShangPinGuanLiBean;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.SouSuoDialog;
+import com.mingmen.mayi.mayibanjia.ui.activity.shangpinguanli.BaseShangPinFragment;
 import com.mingmen.mayi.mayibanjia.ui.activity.shangpinguanli.DaiShenHeShangPinFragment;
 import com.mingmen.mayi.mayibanjia.ui.activity.shangpinguanli.ShangJiaShangPinFragment;
 import com.mingmen.mayi.mayibanjia.ui.activity.shangpinguanli.ShangPinAdapter;
@@ -55,6 +58,15 @@ public class ShangPinGuanLiActivity extends BaseActivity {
     private String chaxunzi="";
     private ArrayList<ShangPinGuanLiBean.GoodsListBean> mlist = new ArrayList<>();
     private String type="0";
+
+    public String getGoods() {
+        return goods;
+    }
+
+    public void setGoods(String goods) {
+        this.goods = goods;
+    }
+
     private String goods= "0";
     private boolean isClick = true;
     private String token = "";
@@ -97,10 +109,28 @@ public class ShangPinGuanLiActivity extends BaseActivity {
         tabsDingdan.setViewPager(vpDingdan);
         setToken(getIntent().getStringExtra("token"));
         vpDingdan.setOffscreenPageLimit(0);
+//        vpDingdan.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//
+//            }
+//
+//            @Override
+//            public void onPageSelected(int position) {
+//                ShangPinAdapter myadapter = (ShangPinAdapter) vpDingdan.getAdapter();
+//                BaseShangPinFragment fragment = (BaseShangPinFragment) myadapter.getItem(position);
+//                fragment.onResume();
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int state) {
+//
+//            }
+//        });
         /**
          * 跳转传过来的页面，到哪个
          */
-        int tosome = getIntent().getIntExtra("to_shop",0);
+        int tosome = getIntent().getIntExtra("to_gl",0);
         vpDingdan.setCurrentItem(tosome);
     }
 

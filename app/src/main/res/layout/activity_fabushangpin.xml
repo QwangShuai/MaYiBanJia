@@ -529,8 +529,61 @@
                     android:maxLength="2"
                     android:textSize="15sp" />
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="12dp"
+                android:background="@color/cutoff"
+                />
             <LinearLayout
-                android:visibility="gone"
+                android:id="@+id/ll_tj"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:orientation="horizontal"
+                android:paddingLeft="12dp"
+                android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="是否特价"
+                    android:textColor="#ff666666"
+                    android:textSize="15sp"
+                    />
+                <LinearLayout
+                    android:id="@+id/ll_tejia"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginLeft="20dp">
+                    <TextView
+                        android:id="@+id/tv_tejia"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="请选择"
+                        android:textColor="@color/zicolor"
+                        android:textSize="12sp"
+                        android:paddingLeft="10dp"
+                        android:background="@null"
+                        android:textColorHint="@color/hintcolor"
+                        android:gravity="center_vertical"
+                        android:layout_weight="1"
+                        />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="4dp"
+                        android:src="@mipmap/jinru"/>
+                </LinearLayout>
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/gray_e7e7e7"
+                android:layout_marginLeft="12dp"/>
+            <LinearLayout
                 android:id="@+id/ll_showtejia"
                 android:layout_width="match_parent"
                 android:layout_height="54dp"
@@ -541,12 +594,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="特价"
+                    android:text="特价金额"
                     android:textColor="#ff666666"
                     android:textSize="15sp"
                     />
                 <EditText
-                    android:maxEms="6"
                     android:id="@+id/et_tejia"
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
@@ -555,71 +607,17 @@
                     android:textSize="15sp"
                     android:gravity="center"
                     android:inputType="numberDecimal"
-                    android:maxLength="10"
+                    android:maxLength="6"
                     android:layout_marginLeft="20dp"/>
                 <TextView
+                    android:id="@+id/tv_tj_danwei"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="元/斤"
                     android:textColor="@color/hintcolor"
                     android:textSize="12sp"
                     />
-
             </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="12dp"
-                android:background="@color/cutoff"
-                />
-            <LinearLayout
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="是否特价"
-                    android:textColor="@color/lishisousuo"
-                    android:textSize="15sp"
-                    />
-                <LinearLayout
-                    android:id="@+id/ll_tejia"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_marginLeft="50dp"
-                    android:gravity="center_vertical">
-                    <TextView
-                        android:id="@+id/tv_tejia"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text=""
-                        android:textColor="@color/zicolor"
-                        android:textSize="12sp"
-                        android:hint="请选择"
-                        android:textColorHint="@color/hintcolor"
-                        android:layout_weight="1"
-                        />
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/jinru"/>
-                </LinearLayout>
-            </LinearLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="注：后续填写内容后续填写内容"
-                android:textColor="@color/red_ff3300"
-                android:textSize="12sp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="20dp"
-                />
         </LinearLayout>
     </ScrollView>
 

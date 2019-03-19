@@ -22,6 +22,9 @@ public class WoDeBean {
     private int qiangdan;//抢单
     private String role;//角色
     private String business_state;//营业状态
+    private int shelves;//商品上架数量
+    private int sold_out;//商品下架数量
+    private int wait_audit;//商品待审核
     private int wait_money;
     private int wait_qr;
     private int wait_db;
@@ -33,6 +36,30 @@ public class WoDeBean {
     private int shenhe_sbai;
     private int shenhe_cg;
     private float evaluation;
+
+    public int getShelves() {
+        return shelves;
+    }
+
+    public void setShelves(int shelves) {
+        this.shelves = shelves;
+    }
+
+    public int getSold_out() {
+        return sold_out;
+    }
+
+    public void setSold_out(int sold_out) {
+        this.sold_out = sold_out;
+    }
+
+    public int getWait_audit() {
+        return wait_audit;
+    }
+
+    public void setWait_audit(int wait_audit) {
+        this.wait_audit = wait_audit;
+    }
 
     public float getEvaluation() {
         return evaluation;

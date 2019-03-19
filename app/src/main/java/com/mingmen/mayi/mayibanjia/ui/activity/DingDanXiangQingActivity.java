@@ -136,7 +136,7 @@ public class DingDanXiangQingActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<DdxqListBean>() {
                     @Override
                     public void onNext(DdxqListBean data) {;
-                        btnQuerenShouhuo.setVisibility(View.GONE);
+//                        btnQuerenShouhuo.setVisibility(View.GONE);
                         if (data.getState().equals("401")) {
                             tvState.setText("等待卖家付款");
                             llDaifukuan.setVisibility(View.VISIBLE);
@@ -148,12 +148,12 @@ public class DingDanXiangQingActivity extends BaseActivity {
                         } else if (data.getState().equals("404")) {
                             ivState.setImageResource(R.mipmap.daifahuo_ddxq);
 //                            btnZaiciGoumai.setVisibility(View.VISIBLE);
-                            btnQuerenShouhuo.setVisibility(View.VISIBLE);
+//                            btnQuerenShouhuo.setVisibility(View.VISIBLE);
                             tvState.setText("卖家已发货");
                         } else if (data.getState().equals("406")) {
                             ivState.setImageResource(R.mipmap.yiwancheng);
                             tvState.setText("买家已收货");
-                            btnQuerenShouhuo.setVisibility(View.GONE);
+//                            btnQuerenShouhuo.setVisibility(View.GONE);
                         } else {
                             ivState.setImageResource(R.mipmap.yiwancheng);
                             btnShanchuDingdan.setVisibility(View.VISIBLE);

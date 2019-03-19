@@ -82,6 +82,7 @@ public abstract class BaseShangPinFragment extends BaseFragment {
     @Override
     protected void loadData() {
         stateLayout.showSuccessView();
+        isShow = true;
         initview();
         getData();
     }
@@ -93,7 +94,7 @@ public abstract class BaseShangPinFragment extends BaseFragment {
 
     //数据
     private void getData() {
-        Log.e("getData: ", getZhuangTai());
+        Log.e("getData: ", getZhuangTai()+"----"+ye);
         HttpManager.getInstance()
                 .with(getContext())
                 .setObservable(
@@ -127,7 +128,8 @@ public abstract class BaseShangPinFragment extends BaseFragment {
     }
 
     private void initview() {
-//        ShangPinGuanLiActivity activity = (ShangPinGuanLiActivity) getActivity();
+        ShangPinGuanLiActivity activity = (ShangPinGuanLiActivity) getActivity();
+        goods = activity.getGoods();
         if (StringUtil.isValid(token)) {
             isClick = false;
         } else {
@@ -190,12 +192,21 @@ public abstract class BaseShangPinFragment extends BaseFragment {
                 getData();
             }
         };
-
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                ye = 1;
+                mlist.clear();
+                shangpinguanliadapter.notifyDataSetChanged();
+                getData();
+                refreshLayout.setRefreshing(false);
+            }
+        });
         rvShangpinguanli.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         rvShangpinguanli.useDefaultLoadMore(); // 使用默认的加载更多的View。
         rvShangpinguanli.setLoadMoreListener(mLoadMoreListener); // 加载更多的监听。
         rvShangpinguanli.loadMoreFinish(false, true);
-        shangpinguanliadapter = new ShangPinGuanLiAdapter(getContext(), goods, mlist);
+        shangpinguanliadapter = new ShangPinGuanLiAdapter(getContext(), goods, mlist,BaseShangPinFragment.this);
         shangpinguanliadapter.setClick(isClick);
         rvShangpinguanli.setAdapter(shangpinguanliadapter);
 //        activity.setCallBack(new ShangPinGuanLiActivity.CallBack() {
@@ -216,18 +227,25 @@ public abstract class BaseShangPinFragment extends BaseFragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            Log.e("setUserVisibleHint:yes ", getZhuangTai());
-        } else {
-            Log.e("setUserVisibleHint:no ", getZhuangTai());
+        if(isShow){
+            if (isVisibleToUser) {
+                ye = 1;
+                mlist.clear();
+                shangpinguanliadapter.notifyDataSetChanged();
+                getData();
+                Log.e("setUserVisibleHint:yes ", getZhuangTai());
+            } else {
+                Log.e("setUserVisibleHint:no ", getZhuangTai());
+            }
         }
-        isShow = isVisibleToUser;
+
     }
 
     public abstract String getZhuangTai();
 
     public void onResume() {
         super.onResume();
+        Log.e("onResume: ",getZhuangTai() );
         if (ye != 1) {
             ye = 1;
             mlist.clear();
@@ -238,14 +256,5 @@ public abstract class BaseShangPinFragment extends BaseFragment {
         }
     }
 
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if (hidden) {
-            Log.e("onHiddenChanged: ", "不可见" + getZhuangTai());
 
-        } else {
-            Log.e("onHiddenChanged: ", "当前可见" + getZhuangTai());
-        }
-    }
 }

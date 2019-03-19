@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.View;
 
 import com.mingmen.mayi.mayibanjia.R;
@@ -262,6 +263,7 @@ public abstract class BaseDingDanFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        Log.e("onResume: ", getZhuangTai()+"----");
         ye = 1;
 //        updateList(true);
         getData();

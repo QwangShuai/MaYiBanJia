@@ -120,6 +120,7 @@ public class QuanBuShangPinFragment extends BaseFragment {
 
     private void initview() {
         ShangPinGuanLiActivity activity = (ShangPinGuanLiActivity) getActivity();
+        goods = activity.getGoods();
         if (StringUtil.isValid(token)) {
             isClick = false;
         } else {
@@ -187,7 +188,7 @@ public class QuanBuShangPinFragment extends BaseFragment {
         rvShangpinguanli.useDefaultLoadMore(); // 使用默认的加载更多的View。
         rvShangpinguanli.setLoadMoreListener(mLoadMoreListener); // 加载更多的监听。
         rvShangpinguanli.loadMoreFinish(false, true);
-        shangpinguanliadapter = new ShangPinGuanLiAdapter(getContext(), goods, mlist);
+        shangpinguanliadapter = new ShangPinGuanLiAdapter(getContext(), goods, mlist,QuanBuShangPinFragment.this);
         shangpinguanliadapter.setClick(isClick);
         rvShangpinguanli.setAdapter(shangpinguanliadapter);
         activity.setCallBack(new ShangPinGuanLiActivity.CallBack() {

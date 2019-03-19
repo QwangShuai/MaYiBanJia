@@ -434,7 +434,7 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
                                 //获取之后  改成不需要加载状态
                                 listBean.setNeedLoad(false);
                             } else {
-                                ToastUtil.showToast("该市场下暂无匹配商家");
+//                                ToastUtil.showToast("该市场下暂无匹配商家");
                                 listBeanLevel.add(new CaiGouDanBean.FllistBean.SonorderlistBean.CcListBeanLevel(TYPE_ONE, new XiTongTuiJianBean.CcListBean()));
                             }
                             List<XiTongTuiJianBean.CcListBean> pice = list.getPice();//价格

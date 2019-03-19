@@ -1,6 +1,8 @@
 package com.mingmen.mayi.mayibanjia.ui.activity.dialog;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.ShangPinBean;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
 import butterknife.BindView;
@@ -62,6 +65,25 @@ public class GWCXiuGaiShuLiangDialog extends BaseFragmentDialog {
         Log.e("initinit","initinit");
         shuliang = chushishuliang;
         etShuzi.setText(chushishuliang+"");
+        etShuzi.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(StringUtil.isValid(s.toString().trim())){
+                    shuliang = Integer.valueOf(s.toString().trim());
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         tvJiahao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

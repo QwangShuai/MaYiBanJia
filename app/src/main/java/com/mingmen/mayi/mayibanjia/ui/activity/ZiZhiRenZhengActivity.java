@@ -48,6 +48,8 @@ public class ZiZhiRenZhengActivity extends BaseActivity {
     Button btnSubmit;
     @BindView(R.id.tv_fuzeren)
     TextView tvFuzeren;
+    @BindView(R.id.tv_shenhe_state)
+    TextView tvShenheState;
     @BindView(R.id.rl_xukezheng)
     RelativeLayout rlXukezheng;
     private Context mContext;
@@ -67,6 +69,7 @@ public class ZiZhiRenZhengActivity extends BaseActivity {
         mContext = ZiZhiRenZhengActivity.this;
         yemian = getIntent().getStringExtra("yemian");
         state = getIntent().getStringExtra("state");
+        tvShenheState.setText(state);
         getZizhiShow();
 
     }

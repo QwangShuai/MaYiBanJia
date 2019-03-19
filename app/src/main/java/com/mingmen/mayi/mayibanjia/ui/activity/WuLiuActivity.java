@@ -124,6 +124,7 @@ public class WuLiuActivity extends BaseActivity {
     }
     public void shuaxinWuLiu(final String type){
         mList.clear();
+        adapter.notifyDataSetChanged();
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(RetrofitManager.getService()

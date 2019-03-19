@@ -34,6 +34,8 @@ import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -67,6 +69,8 @@ public class TiXianActivity extends BaseActivity {
     Button btnTixian;
     @BindView(R.id.rl_yinhangka)
     RelativeLayout rlYinhangka;
+    @BindView(R.id.rl_add_yinhangka)
+    RelativeLayout rlAddYinhangka;
 
     private Context mContext;
     private String yue = "0.00";
@@ -109,6 +113,7 @@ public class TiXianActivity extends BaseActivity {
 
             }
         });
+        getBankCardList();
     }
 
     @Override
@@ -181,6 +186,10 @@ public class TiXianActivity extends BaseActivity {
                 tvBankCardType.setText(bean.getBank_branch());
                 cardID = bean.getBank_id();
                 rlYinhangka.setVisibility(View.VISIBLE);
+                rlAddYinhangka.setVisibility(View.GONE);
+            } else {
+                rlYinhangka.setVisibility(View.GONE);
+                rlAddYinhangka.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -198,5 +207,31 @@ public class TiXianActivity extends BaseActivity {
                         finish();
                     }
                 },true);
+    }
+
+    public void getBankCardList(){//获取我的银行卡
+        HttpManager.getInstance().with(mContext)
+                .setObservable(RetrofitManager.getService()
+                        .getMyBankCardList(PreferenceUtils.getString(MyApplication.mContext, "token","")))
+                .setDataListener(new HttpDataListener<List<YinHangKaBean>>() {
+                    @Override
+                    public void onNext(List<YinHangKaBean> data) {
+                        int mysize = data==null?0:data.size();
+                        if(mysize!=0){
+                            YinHangKaBean bean = data.get(0);
+                            Glide.with(mContext).load(bean.getLog_url()).into(ivTubiao);
+                            Glide.with(mContext).load(bean.getReverse_url()).into(ivBg);
+                            tvBankCardName.setText(bean.getBank_name());
+                            tvBankCardNumber.setText(bean.getBank_account());
+                            tvBankCardType.setText(bean.getBank_branch());
+                            cardID = bean.getBank_id();
+                            rlYinhangka.setVisibility(View.VISIBLE);
+                            rlAddYinhangka.setVisibility(View.GONE);
+                        } else {
+                            rlYinhangka.setVisibility(View.GONE);
+                            rlAddYinhangka.setVisibility(View.VISIBLE);
+                        }
+                    }
+                });
     }
 }

@@ -33,6 +33,7 @@
                 android:textColor="@color/zicolor"
                 android:textSize="22dp"
                 android:gravity="center"
+                android:inputType="number"
                 android:background="@mipmap/shuzibeijing"
                 />
             <TextView

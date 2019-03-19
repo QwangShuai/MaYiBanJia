@@ -100,7 +100,12 @@ public class YinHangKaActivity extends BaseActivity {
                     @Override
                     public void onNext(List<YinHangKaBean> data) {
                         mList.clear();
-                        mList.addAll(data);
+                        int mysize = data==null?0:data.size();
+                        if(mysize!=0){
+                            mList.addAll(data);
+                            btnAddCard.setVisibility(View.GONE);
+                        }
+
                         adapter.notifyDataSetChanged();
                     }
                 });

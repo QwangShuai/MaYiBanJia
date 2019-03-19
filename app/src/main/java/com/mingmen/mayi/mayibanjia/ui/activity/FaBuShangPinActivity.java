@@ -14,6 +14,7 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -30,6 +31,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.EditorShangPinBean;
@@ -40,6 +42,7 @@ import com.mingmen.mayi.mayibanjia.bean.ShangPinSousuoMohuBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
+import com.mingmen.mayi.mayibanjia.ui.activity.adapter.XJSPFeiLeiGuigeAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.XinJianSpMohuAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.LianggeXuanXiangDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.PhotoDialog;
@@ -163,6 +166,8 @@ public class FaBuShangPinActivity extends BaseActivity {
     TextView tvXzgg;
     @BindView(R.id.ll_szgg)
     LinearLayout llSzgg;
+    @BindView(R.id.rv_guige)
+    RecyclerView rvGuige;
 
     private Context mContext;
     private String yijiming = "";
@@ -206,7 +211,8 @@ public class FaBuShangPinActivity extends BaseActivity {
     private String yclId = "346926195929448587b078e7fe613530 ";
     private boolean isSelect;
     private int REQUEST_GUIGE = 6;
-
+    private XJSPFeiLeiGuigeAdapter guigeadapter;
+    private List<ShangPinSousuoMohuBean> guigedatas = new ArrayList<>();
 
     @Override
     public int getLayoutId() {
@@ -232,10 +238,11 @@ public class FaBuShangPinActivity extends BaseActivity {
                 getGuige = true;
                 llSzgg.setVisibility(View.VISIBLE);
                 llTeshu.setVisibility(View.GONE);
-                llFenleimingcheng.setEnabled(false);
-                etPpming.setEnabled(false);
                 String id = getIntent().getStringExtra("bean");
                 setDataView(id);
+                llFenleimingcheng.setEnabled(false);
+                etPpming.setEnabled(false);
+//                getGuigeName();
             } else {
                 tvTitle.setText("新建商品");
             }
@@ -306,6 +313,7 @@ public class FaBuShangPinActivity extends BaseActivity {
 //            getguigeXzge();
 //        } else {
             getguige();
+        getZuixiaoGuige();
 //        }
 
     }
@@ -399,7 +407,10 @@ public class FaBuShangPinActivity extends BaseActivity {
                                 if (StringUtil.isValid(item.getAffiliated_spec_name())) {
                                     llDw.setVisibility(View.VISIBLE);
                                     isGuige = true;
-                                    getZuixiaoGuige();
+                                    zxid = item.getAffiliated_spec();
+                                    etNumber.setText(item.getAffiliated_number());
+                                    zxname = item.getAffiliated_spec_name();
+//                                    getZuixiaoGuige();
                                 } else {
                                     llDw.setVisibility(View.GONE);
                                     isGuige = false;
@@ -535,19 +546,24 @@ public class FaBuShangPinActivity extends BaseActivity {
 //                setIntentType();
                 break;
             case R.id.tv_xzgg:
-                if(StringUtil.isValid(sanjiid)){
-                    FbspGuiGeBean bean = new FbspGuiGeBean();
-                    bean.setAffiliated_spec(zxid);
-                    bean.setAffiliated_number(etNumber.getText().toString().trim());
-                    bean.setSpec_id(sanjiid);
-                    Intent it = new Intent(mContext,XuanZeGuiGeActivity.class);
-                    it.putExtra("name",sanjiguigename);
-                    it.putExtra("id",erjiid);
-                    it.putExtra("bean",bean);
-                    startActivityForResult(it,REQUEST_GUIGE);
+                if(rvGuige.getVisibility()==View.VISIBLE){
+                    rvGuige.setVisibility(View.GONE);
                 } else {
-                    ToastUtil.showToastLong("请选择商品的三级分类");
+                    rvGuige.setVisibility(View.VISIBLE);
                 }
+//                if(StringUtil.isValid(sanjiid)){
+//                    FbspGuiGeBean bean = new FbspGuiGeBean();
+//                    bean.setAffiliated_spec(zxid);
+//                    bean.setAffiliated_number(etNumber.getText().toString().trim());
+//                    bean.setSpec_id(sanjiid);
+//                    Intent it = new Intent(mContext,XuanZeGuiGeActivity.class);
+//                    it.putExtra("name",sanjiguigename);
+//                    it.putExtra("id",erjiid);
+//                    it.putExtra("bean",bean);
+//                    startActivityForResult(it,REQUEST_GUIGE);
+//                } else {
+//                    ToastUtil.showToastLong("请选择商品的三级分类");
+//                }
                 break;
         }
     }
@@ -628,33 +644,33 @@ public class FaBuShangPinActivity extends BaseActivity {
                         for (int i = 0; i < data.size(); i++) {
                             sanjiguige.add(data.get(i));
                         }
-                        if (sanjiguige.size() == 0) {
-                            sanjikexuan = false;
-                        } else {
-                            tvSanji.setText(data.get(0).getSpec_name());
-                            sanjiguigeid = data.get(0).getSpec_id();
-                            sanjiguigename = data.get(0).getSpec_name();
-                            tvDanwei.setText("元/" + sanjiguigename);
-                            sanjikexuan = true;
-                            tvYxgg.setText("每" + data.get(0).getSpec_name() + "换算单位为");
+//                        if (sanjiguige.size() == 0) {
+//                            sanjikexuan = false;
+//                        } else {
+//                            tvSanji.setText(data.get(0).getSpec_name());
+//                            sanjiguigeid = data.get(0).getSpec_id();
+//                            sanjiguigename = data.get(0).getSpec_name();
+//                            tvDanwei.setText("元/" + sanjiguigename);
+//                            sanjikexuan = true;
+//                            tvYxgg.setText("每" + data.get(0).getSpec_name() + "换算单位为");
 //                            if(StringUtil.isValid(tvSanji.getText().toString().trim())){
 //                                if(isGuige){
 //                                    getZuixiaoGuige();
 //                                }
 //                            } else {
-                            if (StringUtil.isValid(data.get(0).getAffiliated_spec())) {
-                                Log.e("onNext: ", data.get(0).getAffiliated_spec());
-                                llDw.setVisibility(View.VISIBLE);
-                                isGuige = true;
-                                getZuixiaoGuige();
-                            } else {
-                                llDw.setVisibility(View.GONE);
-                                isGuige = false;
-                            }
+//                            if (StringUtil.isValid(data.get(0).getAffiliated_spec())) {
+//                                Log.e("onNext: ", data.get(0).getAffiliated_spec());
+//                                llDw.setVisibility(View.VISIBLE);
+//                                isGuige = true;
+//                                getZuixiaoGuige();
+//                            } else {
+//                                llDw.setVisibility(View.GONE);
+//                                isGuige = false;
+//                            }
 //                            }
 
 
-                        }
+//                        }
 
                     }
                 });
@@ -699,26 +715,26 @@ public class FaBuShangPinActivity extends BaseActivity {
                     }
                 }
                 break;
-            case 6:
-                if(data!=null){
-                    FbspGuiGeBean bean = (FbspGuiGeBean) data.getSerializableExtra("bean");
-                    tvZxgg.setText(bean.getAffiliated_spec_name());
-                    tvSanji.setText(bean.getSpec_name());
-                    etNumber.setText(bean.getAffiliated_number());
-                    sanjiguigeid = bean.getSpec_id();
-                    zxid = bean.getAffiliated_spec();
-                    sanjiguigename = bean.getSpec_name();
-                    if(StringUtil.isValid(bean.getAffiliated_spec())){
-                        zxname = bean.getAffiliated_spec_name();
-                        llDw.setVisibility(View.VISIBLE);
-                        isGuige = true;
-                    } else {
-                        llDw.setVisibility(View.GONE);
-                        isGuige = false;
-                    }
-
-                }
-                break;
+//            case 6:
+//                if(data!=null){
+//                    FbspGuiGeBean bean = (FbspGuiGeBean) data.getSerializableExtra("bean");
+//                    tvZxgg.setText(bean.getAffiliated_spec_name());
+//                    tvSanji.setText(bean.getSpec_name());
+//                    etNumber.setText(bean.getAffiliated_number());
+//                    sanjiguigeid = bean.getSpec_id();
+//                    zxid = bean.getAffiliated_spec();
+//                    sanjiguigename = bean.getSpec_name();
+//                    if(StringUtil.isValid(bean.getAffiliated_spec())){
+//                        zxname = bean.getAffiliated_spec_name();
+//                        llDw.setVisibility(View.VISIBLE);
+//                        isGuige = true;
+//                    } else {
+//                        llDw.setVisibility(View.GONE);
+//                        isGuige = false;
+//                    }
+//
+//                }
+//                break;
         }
         if (resultCode == 4) {
             if (requestCode == REQUEST_CODE) {
@@ -732,8 +748,31 @@ public class FaBuShangPinActivity extends BaseActivity {
                     yijiid = data.getStringExtra("two_id");
                     erjiid = data.getStringExtra("three_id");
                     sanjiid = data.getStringExtra("five_id");
-                    Log.e("onActivityResult: ", sanjiid + "---aaa");
-                    getguige();
+                    zxid = data.getStringExtra("zxId");
+                    zxname = data.getStringExtra("zxName");
+                    etNumber.setText(data.getStringExtra("zxNumber"));
+                    if(StringUtil.isValid(getIntent().getStringExtra("guige"))){
+                        tvSanji.setEnabled(false);
+                        tvZxgg.setEnabled(false);
+                        etNumber.setEnabled(false);
+                    } else {
+                        tvSanji.setEnabled(true);
+                        tvZxgg.setEnabled(true);
+                        etNumber.setEnabled(true);
+                    }
+
+                    tvSanji.setText(data.getStringExtra("guigeName"));
+                    tvZxgg.setText(data.getStringExtra("zxName"));
+                    tvYxgg.setText("每" + data.getStringExtra("guigeName") + "换算单位为");
+                    if(StringUtil.isValid(data.getStringExtra("zxId"))){
+                        llDw.setVisibility(View.VISIBLE);
+                        isGuige = true;
+                    } else {
+                        llDw.setVisibility(View.GONE);
+                        isGuige = false;
+                    }
+                    Log.e("onActivityResult: ", zxid + "---aaa");
+//                    getguige();
                 }
             }
         }
@@ -899,6 +938,9 @@ public class FaBuShangPinActivity extends BaseActivity {
                         erjiid = bean.getType_tree_id();
                         sanjiid = bean.getType_four_id();
                         ivQingkong.setVisibility(View.VISIBLE);
+                        if(yemian.equals("0")){
+                            getGuigeName();
+                        }
                         if (StringUtil.isValid(bean.getBrand())) {
                             etPpming.setText(bean.getBrand());
                         }
@@ -919,7 +961,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                             llDw.setVisibility(View.VISIBLE);
                             etNumber.setText(bean.getAffiliated_number());
                             tvZxgg.setText(bean.getPackFourName());
-                            tvYxgg.setText("每" + bean.getSpec_name() + "换算单位为");
+                            tvYxgg.setText("每" + bean.getPackThreeName() + "换算单位为");
                             isGuige = true;
                         } else {
                             llDw.setVisibility(View.GONE);
@@ -929,7 +971,7 @@ public class FaBuShangPinActivity extends BaseActivity {
 //                        if(getGuige){
 //                             getguigeXzge();
 //                        } else {
-                            getguige();
+//                            getguige();
 //                        }
 
                     }
@@ -1075,11 +1117,11 @@ public class FaBuShangPinActivity extends BaseActivity {
                         zuixiaoguige.clear();
                         if(mysize!=0){
                             zuixiaoguige.addAll(data);
-                            tvZxgg.setText(data.get(0).getSpec_name());
-                            //zxid = data.get(0).getSpec_id();
-                            zxid = data.get(0).getAffiliated_spec();
-                            zxname = data.get(0).getSpec_name();
-                            etNumber.setText(data.get(0).getAffiliated_number());
+//                            tvZxgg.setText(data.get(0).getSpec_name());
+//                            //zxid = data.get(0).getSpec_id();
+//                            zxid = data.get(0).getAffiliated_spec();
+//                            zxname = data.get(0).getSpec_name();
+//                            etNumber.setText(data.get(0).getAffiliated_number());
                         }
                     }
                 });
@@ -1132,33 +1174,33 @@ public class FaBuShangPinActivity extends BaseActivity {
                         for (int i = 0; i < data.size(); i++) {
                             sanjiguige.add(data.get(i));
                         }
-                        if (sanjiguige.size() == 0) {
-                            sanjikexuan = false;
-                        } else {
-                            tvSanji.setText(data.get(0).getSpec_name());
-                            sanjiguigeid = data.get(0).getSpec_id();
-                            sanjiguigename = data.get(0).getSpec_name();
-                            tvDanwei.setText("元/" + sanjiguigename);
-                            sanjikexuan = true;
-                            tvYxgg.setText("每" + data.get(0).getSpec_name() + "换算单位为");
+//                        if (sanjiguige.size() == 0) {
+//                            sanjikexuan = false;
+//                        } else {
+//                            tvSanji.setText(data.get(0).getSpec_name());
+//                            sanjiguigeid = data.get(0).getSpec_id();
+//                            sanjiguigename = data.get(0).getSpec_name();
+//                            tvDanwei.setText("元/" + sanjiguigename);
+//                            sanjikexuan = true;
+//                            tvYxgg.setText("每" + data.get(0).getSpec_name() + "换算单位为");
 //                            if(StringUtil.isValid(tvSanji.getText().toString().trim())){
 //                                if(isGuige){
 //                                    getZuixiaoGuige();
 //                                }
 //                            } else {
-                            if (StringUtil.isValid(data.get(0).getAffiliated_spec())) {
-                                Log.e("onNext: ", data.get(0).getAffiliated_spec());
-                                llDw.setVisibility(View.VISIBLE);
-                                isGuige = true;
-                                getZuixiaoGuigeXzgg();
-                            } else {
-                                llDw.setVisibility(View.GONE);
-                                isGuige = false;
-                            }
+//                            if (StringUtil.isValid(data.get(0).getAffiliated_spec())) {
+//                                Log.e("onNext: ", data.get(0).getAffiliated_spec());
+//                                llDw.setVisibility(View.VISIBLE);
+//                                isGuige = true;
+//                                getZuixiaoGuigeXzgg();
+//                            } else {
+//                                llDw.setVisibility(View.GONE);
+//                                isGuige = false;
+//                            }
 //                            }
 
 
-                        }
+//                        }
                         int sanjisize = sanjiguige == null ? 0 : sanjiguige.size();
                         if (sanjisize > 0) {
                             final SinglePicker<FbspGuiGeBean> picker = new SinglePicker<FbspGuiGeBean>(FaBuShangPinActivity.this, sanjiguige);
@@ -1208,11 +1250,11 @@ public class FaBuShangPinActivity extends BaseActivity {
                         zuixiaoguige.clear();
                         if(mysize!=0){
                             zuixiaoguige.addAll(data);
-                            tvZxgg.setText(data.get(0).getSpec_name());
-                            //zxid = data.get(0).getSpec_id();
-                            zxid = data.get(0).getAffiliated_spec();
-                            zxname = data.get(0).getSpec_name();
-                            etNumber.setText(data.get(0).getAffiliated_number());
+//                            tvZxgg.setText(data.get(0).getSpec_name());
+//                            //zxid = data.get(0).getSpec_id();
+//                            zxid = data.get(0).getAffiliated_spec();
+//                            zxname = data.get(0).getSpec_name();
+//                            etNumber.setText(data.get(0).getAffiliated_number());
                         }
                         final SinglePicker<FbspGuiGeBean> zuixiaopicker = new SinglePicker<FbspGuiGeBean>(FaBuShangPinActivity.this, zuixiaoguige);
                         zuixiaopicker.setCanceledOnTouchOutside(false);
@@ -1230,5 +1272,50 @@ public class FaBuShangPinActivity extends BaseActivity {
                         zuixiaopicker.show();
                     }
                 });
+    }
+    private void getGuigeName() {
+        Log.e("getGuigeName: ",erjiid+"----"+spname );
+        guigedatas.clear();
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .searchSpname(PreferenceUtils.getString(MyApplication.mContext, "token", ""),erjiid , spname))
+                .setDataListener(new HttpDataListener<List<ShangPinSousuoMohuBean>>() {
+                    @Override
+                    public void onNext(List<ShangPinSousuoMohuBean> data) {
+                        Log.e("onNext:data= ",new Gson().toJson(data));
+                        int mysize = data == null ? 0 : data.size();
+                        if (mysize != 0) {
+                            guigedatas.addAll(data);
+                        }
+                        guigeadapter = new XJSPFeiLeiGuigeAdapter(mContext, guigedatas);
+                        rvGuige.setLayoutManager(new GridLayoutManager(mContext, 2));
+                        rvGuige.setAdapter(guigeadapter);
+                        guigeadapter.setCallBack(new XJSPFeiLeiGuigeAdapter.CallBack() {
+                            @Override
+                            public void xuanzhong(final ShangPinSousuoMohuBean msg) {
+                                guigeadapter.setXuanzhongid(msg.getClassify_id());
+                                tvZxgg.setText(msg.getAffiliated_spec_name());
+                                tvSanji.setText(msg.getSpec_name());
+                                etNumber.setText(msg.getAffiliated_number());
+                                sanjiguigeid = msg.getSpec_idFour();
+                                zxid = msg.getAffiliated_spec();
+                                sanjiguigename = msg.getSpec_name();
+                                if(StringUtil.isValid(msg.getAffiliated_spec())){
+                                    zxname = msg.getAffiliated_spec_name();
+                                    llDw.setVisibility(View.VISIBLE);
+                                    isGuige = true;
+                                } else {
+                                    llDw.setVisibility(View.GONE);
+                                    isGuige = false;
+                                }
+                                guigeadapter.notifyDataSetChanged();
+                            }
+                        });
+//                        guigeadapter.notifyDataSetChanged();
+                    }
+                }, false);
     }
 }

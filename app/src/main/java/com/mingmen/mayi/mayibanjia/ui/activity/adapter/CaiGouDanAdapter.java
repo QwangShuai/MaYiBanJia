@@ -1,7 +1,9 @@
 package com.mingmen.mayi.mayibanjia.ui.activity.adapter;
 
 import android.content.res.Resources;
+import android.support.v7.widget.SwitchCompat;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -82,7 +84,6 @@ public class CaiGouDanAdapter extends BaseQuickAdapter<CaiGouDanBean, BaseViewHo
                 helper.setText(R.id.tv_zhuangtai, "待审核");
                 break;
         }
-
         ivXuanzhong.setSelected(item.isSelect());
         helper.setText(R.id.tv_zongjia, item.getZongjia() == null ? "" : "¥" + item.getZongjia());
         helper.setText(R.id.tv_caigoudanming, item.getPurchase_name() != null ? item.getPurchase_name() : "");

@@ -19,7 +19,9 @@ import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.ChangGouListLevelOneAdapter;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.CaiGouDanTianJiaDailog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
+import com.mingmen.mayi.mayibanjia.utils.AppManager;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
@@ -43,14 +45,12 @@ public class ChangGouActivity extends BaseActivity {
     @BindView(R.id.rv_list)
     RecyclerView rvList;
 
-    private Map<String, ChangYongBean.ListBean> map = new HashMap<>();
     private ChangGouListLevelOneAdapter adapter;
     private List<ChangYongBean> mlist = new ArrayList<>();
     private Context mContext;
     private LinearLayoutManager manager;
     private List<AddSpListBean> list = new ArrayList<>();
     private String id = "";
-    private int count = 0;
 
     @Override
     public int getLayoutId() {
@@ -61,6 +61,7 @@ public class ChangGouActivity extends BaseActivity {
     protected void initData() {
         tvTitle.setText("常购商品");
         tvRight.setText("完成");
+        tvRight.setVisibility(View.GONE);
         mContext = ChangGouActivity.this;
         id = getIntent().getStringExtra("id");
         manager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
@@ -84,27 +85,32 @@ public class ChangGouActivity extends BaseActivity {
                 myBack();
                 break;
             case R.id.tv_right:
-                addSpList();
+//                addSpList();
                 break;
         }
     }
 
-    public void onChangeMap(ChangYongBean.ListBean bean, boolean b) {
-        count = 0;
-        list.clear();
-        if (b) {
-            map.put(bean.getSort_id(), bean);
-        } else {
-            map.remove(bean.getSort_id());
-        }
-        for (ChangYongBean.ListBean mybean : map.values()) {
-            AddSpListBean addSpListBean = new AddSpListBean();
-            addSpListBean.setClassify_id(mybean.getClassify_id());
-            addSpListBean.setPack_standard_id(mybean.getPack_standard_id());
-            addSpListBean.setSort_id(mybean.getSort_id());
-            list.add(addSpListBean);
-            count++;
-        }
+    public void onChangeMap(final ChangYongBean.ListBean bean) {
+            final AddSpListBean addSpListBean = new AddSpListBean();
+            addSpListBean.setClassify_id(bean.getClassify_id());
+            addSpListBean.setPack_standard_id(bean.getPack_standard_id());
+            addSpListBean.setSort_id(bean.getSort_id());
+        CaiGouDanTianJiaDailog dailog = new CaiGouDanTianJiaDailog();
+        dailog.setDate(bean.getClassify_name(),bean.getSpec_name());
+        dailog.setCallBack(new CaiGouDanTianJiaDailog.CallBack() {
+            @Override
+            public void confirm(String count, String tsyq) {
+                addSpListBean.setClassify_id(bean.getClassify_id());
+                addSpListBean.setCount(count);
+                addSpListBean.setSpecial_commodity(tsyq);
+                addSpListBean.setPack_standard_id(bean.getPack_standard_id());
+                addSpListBean.setSort_id(bean.getSort_id());
+                list.add(addSpListBean);
+                addSpList();
+            }
+        });
+        dailog.show(getSupportFragmentManager());
+
     }
 
     public void getList() {
@@ -128,7 +134,6 @@ public class ChangGouActivity extends BaseActivity {
     }
 
     public void addSpList() {
-        if (count != 0) {
             String sort_id = new Gson().toJson(list);
             HttpManager.getInstance()
                     .with(mContext)
@@ -139,12 +144,9 @@ public class ChangGouActivity extends BaseActivity {
                         public void onNext(String data) {
                             id = data;
                             ToastUtil.showToastLong("添加成功");
+                            myBack();
                         }
                     });
-        } else {
-            ToastUtil.showToastLong("请至少选择一项商品");
-        }
-
     }
 
     private void myBack(){

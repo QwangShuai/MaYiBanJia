@@ -112,6 +112,7 @@ public class AddShangPinActivity extends BaseActivity {
     protected void initData() {
         mContext = AddShangPinActivity.this;
         id = getIntent().getStringExtra("id");
+        btnQueren.setVisibility(View.GONE);
         adapter = new AddSpFourAdapter(mContext, yijiFenLei);
         adapter.setActivity(AddShangPinActivity.this);
         setMyManager();
@@ -276,8 +277,8 @@ public class AddShangPinActivity extends BaseActivity {
                         list.add(addSpListBean);
                         guigeadapter.setXuanzhongid(msg.getClassify_id());
                         tvGuige.setText(msg.getClassify_name());
-
                         guigeadapter.notifyDataSetChanged();
+                        addSpList();
                     }
                 });
                 dailog.show(getSupportFragmentManager());
@@ -434,6 +435,7 @@ public class AddShangPinActivity extends BaseActivity {
                             id = data;
                             Log.e("myId", id);
                             ToastUtil.showToastLong("添加成功");
+                            myBack();
                         }
                     });
         } else {

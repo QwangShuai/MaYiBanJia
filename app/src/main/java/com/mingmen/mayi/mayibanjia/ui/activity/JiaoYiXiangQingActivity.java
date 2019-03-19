@@ -30,6 +30,8 @@ public class JiaoYiXiangQingActivity extends BaseActivity {
     TextView tvState;
     @BindView(R.id.tv_dianpu)
     TextView tvDianpu;
+    @BindView(R.id.tv_fukuandianpu)
+    TextView tvFukuandianpu;
     @BindView(R.id.tv_time)
     TextView tvTime;
     @BindView(R.id.tv_number)
@@ -104,7 +106,8 @@ public class JiaoYiXiangQingActivity extends BaseActivity {
                                 tvJine.setText(bean.getPay_money());
                                 break;
                         }
-                        tvDianpu.setText(bean.getCompany_name());
+                        tvFukuandianpu.setText(bean.getCt_company_name());
+                        tvDianpu.setText(bean.getGy_company_name());
                         tvTime.setText(bean.getCreate_time());
                         tvNumber.setText(bean.getPay_number());
                         tvOrderNumber.setText(bean.getOrder_id());

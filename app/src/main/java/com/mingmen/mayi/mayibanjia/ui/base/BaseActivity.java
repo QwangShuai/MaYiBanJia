@@ -25,6 +25,8 @@ import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.ui.activity.GongYingDuanShouYeActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.LoginActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ZhuCeActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmSingleDialog;
 import com.mingmen.mayi.mayibanjia.ui.view.XCFlowLayout;
 import com.mingmen.mayi.mayibanjia.utils.AppManager;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
@@ -152,6 +154,19 @@ public abstract class BaseActivity extends AppCompatActivity {
 //            }
             mContext.startActivity(it);
             AppManager.getAppManager().finishAllActivity();
+    }
+
+    public static void showDialog(final Context mContext, String message){
+        final ConfirmSingleDialog dialog;
+        dialog = new ConfirmSingleDialog(mContext,
+                mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
+        dialog.showDialog(message);
+        dialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
     }
 }
 

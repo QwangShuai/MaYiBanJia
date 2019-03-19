@@ -135,12 +135,17 @@ public class CaiGouDanTianJiaDailog extends BaseFragmentDialog {
         switch (v.getId()) {
             case R.id.bt_queren:
                 huoqushuju();
-                if(Double.valueOf(caigouliang)>=1){
-                    dismiss();
-                    mCallBack.confirm(caigouliang,teshuyaoqiu);
+                if(StringUtil.isValid(caigouliang)){
+                    if(Double.valueOf(caigouliang)>=1){
+                        dismiss();
+                        mCallBack.confirm(caigouliang,teshuyaoqiu);
+                    } else {
+                        ToastUtil.showToastLong("采购数量不能小于1");
+                    }
                 } else {
-                    ToastUtil.showToastLong("采购数量不能小于1");
+                    ToastUtil.showToastLong("采购数量不能为空");
                 }
+
                 break;
             case R.id.bt_quxiao:
                 dismiss();

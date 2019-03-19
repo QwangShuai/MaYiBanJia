@@ -26,6 +26,7 @@ public class ResultMap<T> implements Function<ResultModel<T>, T> {
       Log.e("object", new Gson().toJson(httpResult.getData()) + "---");
       return httpResult.getData();
     } else if("8888".equals(httpResult.getStatus())){
+//      BaseActivity.showDialog(mContext,httpResult.getMsg());
       ToastUtil.showToastLong(httpResult.getMsg());
       BaseActivity.goLogin(mContext,"login");
       throw new RuntimeException(httpResult.getMsg());
@@ -34,6 +35,9 @@ public class ResultMap<T> implements Function<ResultModel<T>, T> {
       ToastUtil.showToastLong(httpResult.getMsg());
 //      BaseActivity.goLogin(mContext,"");
       LoginActivity.instance.setView();
+      throw new RuntimeException(httpResult.getMsg());
+    } else if("6666".equals(httpResult.getStatus())){
+      BaseActivity.showDialog(mContext,httpResult.getMsg());
       throw new RuntimeException(httpResult.getMsg());
     } else {
       Log.e("codecode", httpResult.getStatus());

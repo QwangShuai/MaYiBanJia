@@ -197,7 +197,7 @@ public class EditorShangPinBean implements Serializable{
         private Object create_time;
         private Object acount;
         private int commodity_sales;
-        private Object spec_name;
+        private String spec_name;
         private String pack_standard_one;
         private String pack_standard_two;
         private Object total_weight;
@@ -781,11 +781,11 @@ public class EditorShangPinBean implements Serializable{
             this.commodity_sales = commodity_sales;
         }
 
-        public Object getSpec_name() {
+        public String getSpec_name() {
             return spec_name;
         }
 
-        public void setSpec_name(Object spec_name) {
+        public void setSpec_name(String spec_name) {
             this.spec_name = spec_name;
         }
 

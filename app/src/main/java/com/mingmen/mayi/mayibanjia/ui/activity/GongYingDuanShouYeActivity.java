@@ -457,6 +457,7 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         getwode();
+        getRenzheng();
     }
 
     private void qiehuan() {
@@ -532,9 +533,11 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<ZhangHuRenZhengBean>() {
                     @Override
                     public void onNext(ZhangHuRenZhengBean bean) {
-                        sh_state = bean.getZz().toString();
+                        sh_state = bean.getZz();
+                        Log.e("onNext: ", bean.getZz());
 //                        tvShenhe.setText(bean.getZz().toString());
                     }
                 });
     }
+
 }

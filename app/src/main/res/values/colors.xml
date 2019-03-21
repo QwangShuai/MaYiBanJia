@@ -84,6 +84,7 @@
     <color name="white3">#FFF0FAF9</color>
     <color name="white">#ffffff</color>
     <color name="white_80">#ccffffff</color>
+    <color name="white_no_70">#b3ffffff</color>
     <color name="black">#000000</color>
     <color name="red">#ec0f38</color>
     <color name="blue">#0000FF</color>

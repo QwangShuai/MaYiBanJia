@@ -251,7 +251,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                 String id = getIntent().getStringExtra("bean");
                 setDataView(id);
                 llFenleimingcheng.setEnabled(false);
-                etPpming.setEnabled(false);
+//                etPpming.setEnabled(false);
 //                getGuigeName();
             } else {
                 tvTitle.setText("新建商品");
@@ -288,7 +288,7 @@ public class FaBuShangPinActivity extends BaseActivity {
             tvTitle.setText("编辑商品");
             yemian = "1";
             llFenleimingcheng.setEnabled(false);
-            etPpming.setEnabled(false);
+//            etPpming.setEnabled(false);
             llTeshu.setVisibility(View.GONE);
             String id = getIntent().getStringExtra("bean");
             setDataView(id);
@@ -468,6 +468,9 @@ public class FaBuShangPinActivity extends BaseActivity {
                     return;
                 } else if (!StringUtil.isValid(qidingliang1)) {
                     ToastUtil.showToast("请填写起订量");
+                    return;
+                } else if(Integer.valueOf(qidingliang1)==0||Integer.valueOf(qidingliang1)>Integer.valueOf(etKucun.getText().toString().trim())){
+                    ToastUtil.showToast("起订量不能为0，且必须小于库存");
                     return;
                 }
 //                    else if (xuanzeguige == 0) {
@@ -986,17 +989,21 @@ public class FaBuShangPinActivity extends BaseActivity {
                             llFenleimingcheng.setEnabled(false);
                             llSanjiguige.setEnabled(false);
                             etNumber.setEnabled(false);
-                            etQidingliangdanjia1.setEnabled(false);
                             llZxgg.setEnabled(false);
                             llTeshu.setVisibility(View.GONE);
-                            istejia = true;
-                            llShowTejia.setVisibility(View.VISIBLE);
                             isSelect = true;
                             ivTeshu.setSelected(true);
-                            etSpming.setText(bean.getClassify_name());
-                            if(bean.getPice()>0){
-                                etTejia.setText(bean.getPice()+"");
+                            if(StringUtil.isValid(getIntent().getStringExtra("tejia"))){
+                                etPpming.setEnabled(false);
+                                etQidingliangdanjia1.setEnabled(false);
+                                llShowTejia.setVisibility(View.VISIBLE);
+                                istejia = true;
+                                if(bean.getPice()>0){
+                                    etTejia.setText(bean.getPice()+"");
+                                }
                             }
+                            etSpming.setText(bean.getClassify_name());
+
                         }
 
 //                        etSpming.setText(bean.getClassify_name() + "");
@@ -1029,6 +1036,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                         etSpming.setEnabled(true);
 //                        Log.e( "onNext: ",bean.getPackThreeName() );
                         zxid = bean.getAffiliated_spec();
+                        zxname = bean.getPackFourName();
                         if (StringUtil.isValid(bean.getAffiliated_number()) && Double.valueOf(bean.getAffiliated_number()) != 0) {
                             llDw.setVisibility(View.VISIBLE);
                             etNumber.setText(bean.getAffiliated_number());

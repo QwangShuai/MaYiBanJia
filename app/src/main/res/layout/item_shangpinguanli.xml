@@ -126,9 +126,9 @@
             android:layout_width="70dp"
             android:layout_height="28dp"
             android:layout_marginLeft="12dp"
-            android:background="@drawable/fillet_solid_zangqing_3"
+            android:background="@drawable/fillet_hollow_zangqing_3"
             android:text="上架"
-            android:textColor="@color/white"
+            android:textColor="#ff3c92a3"
             android:textSize="15sp" />
         <Button
             android:layout_marginRight="12dp"
@@ -149,7 +149,7 @@
             android:layout_width="70dp"
             android:layout_height="28dp"
             android:text="转为特价"
-            android:textColor="#ff3c92a3"
+            android:textColor="@color/zangqing"
             android:textSize="15sp"
             android:background="@drawable/fillet_hollow_zangqing_3"
             />

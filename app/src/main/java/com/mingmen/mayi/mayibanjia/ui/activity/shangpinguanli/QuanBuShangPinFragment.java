@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
+import com.mingmen.mayi.mayibanjia.bean.MessageBean;
 import com.mingmen.mayi.mayibanjia.bean.ShangPinGuanLiBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
@@ -25,6 +26,10 @@ import com.yanzhenjie.recyclerview.swipe.SwipeMenuCreator;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuItem;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuItemClickListener;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
@@ -48,6 +53,15 @@ public class QuanBuShangPinFragment extends BaseFragment {
     private boolean isShow;
     private String chaxunzi = "";
     private ArrayList<ShangPinGuanLiBean.GoodsListBean> mlist = new ArrayList<>();
+
+    public String getGoods() {
+        return goods;
+    }
+
+    public void setGoods(String goods) {
+        this.goods = goods;
+    }
+
     private String goods = "0";
     private ShangPinGuanLiAdapter shangpinguanliadapter;
     private SwipeMenuRecyclerView.LoadMoreListener mLoadMoreListener;
@@ -61,8 +75,13 @@ public class QuanBuShangPinFragment extends BaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         isCreate = true;
+        EventBus.getDefault().register(this);
     }
-
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getMyGoods(MessageBean bean) {
+        this.goods =  bean.getMessage();
+        onResume();
+    }
     @Override
     protected View getSuccessView() {
         view = View.inflate(MyApplication.mContext, R.layout.fragment_shangpinguanli, null);
@@ -99,16 +118,18 @@ public class QuanBuShangPinFragment extends BaseFragment {
                             mlist.clear();
                             shangpinguanliadapter.notifyDataSetChanged();
                             rvShangpinguanli.loadMoreFinish(false, true);
-                        } else {
-                            if (data.getGoodsList().size() > 0 && data.getGoodsList().size() < 5) {
+                        }
+                            if (data.getGoodsList().size() == 5) {
+                                rvShangpinguanli.loadMoreFinish(false, true);
+                            }else if (data.getGoodsList().size() > 0) {
                                 rvShangpinguanli.loadMoreFinish(false, false);
-                            } else {
-                                if (data.getGoodsList().size() == 0) {
-                                    rvShangpinguanli.loadMoreFinish(true, false);
-                                } else {
-                                    rvShangpinguanli.loadMoreFinish(false, true);
-                                }
-                            }
+                            } else  {
+                                rvShangpinguanli.loadMoreFinish(true, false);
+//                                if (data.getGoodsList().size() == 0) {
+//                                    rvShangpinguanli.loadMoreFinish(true, false);
+//                                } else {
+//                                    rvShangpinguanli.loadMoreFinish(false, true);
+//                                }
                         }
                         mlist.addAll(data.getGoodsList());
                         shangpinguanliadapter.notifyDataSetChanged();
@@ -222,23 +243,12 @@ public class QuanBuShangPinFragment extends BaseFragment {
 
     }
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            Log.e("setUserVisibleHint:yes ", getZhuangTai());
-        } else {
-            Log.e("setUserVisibleHint:no ", getZhuangTai());
-        }
-        isShow = isVisibleToUser;
-    }
-
-
     public void onResume() {
         super.onResume();
         if (ye != 1) {
             ye = 1;
             mlist.clear();
+            shangpinguanliadapter.setGoods(goods);
             shangpinguanliadapter.notifyDataSetChanged();
 //        updateList(true);
             getData();

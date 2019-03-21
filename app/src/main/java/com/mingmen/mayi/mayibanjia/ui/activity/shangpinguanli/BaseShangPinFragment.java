@@ -11,6 +11,7 @@ import android.view.View;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.DingDanBean;
+import com.mingmen.mayi.mayibanjia.bean.MessageBean;
 import com.mingmen.mayi.mayibanjia.bean.ShangPinGuanLiBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
@@ -33,6 +34,10 @@ import com.yanzhenjie.recyclerview.swipe.SwipeMenuCreator;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuItem;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuItemClickListener;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +75,7 @@ public abstract class BaseShangPinFragment extends BaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         isCreate = true;
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -108,23 +114,35 @@ public abstract class BaseShangPinFragment extends BaseFragment {
                             mlist.clear();
                             shangpinguanliadapter.notifyDataSetChanged();
                             rvShangpinguanli.loadMoreFinish(false, true);
-                        } else {
-                            if (data.getGoodsList().size() > 0 && data.getGoodsList().size() < 5) {
-                                rvShangpinguanli.loadMoreFinish(false, false);
-                            } else {
-                                if (data.getGoodsList().size() == 0) {
-                                    rvShangpinguanli.loadMoreFinish(true, false);
-                                } else {
-                                    rvShangpinguanli.loadMoreFinish(false, true);
-                                }
-                            }
                         }
+                            if (data.getGoodsList().size() == 5) {
+                                Log.e("onNext:emmm= ", data.getGoodsList().size()+"---1");
+                                rvShangpinguanli.loadMoreFinish(false, true);
+                            }else if (data.getGoodsList().size() > 0) {
+                                rvShangpinguanli.loadMoreFinish(false, false);
+                                Log.e("onNext:emmm= ", data.getGoodsList().size()+"---2");
+                            } else  {
+                                rvShangpinguanli.loadMoreFinish(true, false);
+                                Log.e("onNext:emmm= ", data.getGoodsList().size()+"---3");
+//                                if (data.getGoodsList().size() == 0) {
+//                                    rvShangpinguanli.loadMoreFinish(true, false);
+//                                } else {
+//                                    rvShangpinguanli.loadMoreFinish(false, true);
+//                                }
+                            }
+
                         mlist.addAll(data.getGoodsList());
                         shangpinguanliadapter.notifyDataSetChanged();
                         ye++;
                     }
 
                 });
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getMyGoods(MessageBean bean) {
+        this.goods =  bean.getMessage();
+        onResume();
     }
 
     private void initview() {
@@ -232,31 +250,16 @@ public abstract class BaseShangPinFragment extends BaseFragment {
 
     }
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if(isShow){
-            if (isVisibleToUser) {
-                ye = 1;
-                mlist.clear();
-                shangpinguanliadapter.notifyDataSetChanged();
-                getData();
-                Log.e("setUserVisibleHint:yes ", getZhuangTai());
-            } else {
-                Log.e("setUserVisibleHint:no ", getZhuangTai());
-            }
-        }
-
-    }
-
     public abstract String getZhuangTai();
 
     public void onResume() {
         super.onResume();
         Log.e("onResume: ",getZhuangTai() );
+        Log.e("onResume:goods=",goods);
         if (ye != 1) {
             ye = 1;
             mlist.clear();
+            shangpinguanliadapter.setGoods(goods);
             shangpinguanliadapter.notifyDataSetChanged();
 //        updateList(true);
             getData();
@@ -264,5 +267,9 @@ public abstract class BaseShangPinFragment extends BaseFragment {
         }
     }
 
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

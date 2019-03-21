@@ -34,6 +34,8 @@ import com.mingmen.mayi.mayibanjia.utils.PollingService;
 import com.mingmen.mayi.mayibanjia.utils.PollingUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 

@@ -185,11 +185,6 @@
              />
     </LinearLayout>
 
-    <!--<View-->
-        <!--android:layout_marginTop="18dp"-->
-        <!--android:background="@mipmap/bg_dian_ddxq"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="5dp"></View>-->
     <android.support.v7.widget.RecyclerView
         android:visibility="gone"
         android:id="@+id/rv_dianpu"

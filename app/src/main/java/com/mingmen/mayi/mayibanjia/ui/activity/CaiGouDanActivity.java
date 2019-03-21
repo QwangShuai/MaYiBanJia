@@ -438,6 +438,8 @@ public class CaiGouDanActivity extends BaseActivity {
     }
     public void getHedanList(final String status,final String isState,final int myye) {
         if(myye==1){
+            mList.clear();
+            adapter.notifyDataSetChanged();
             ye = myye;
         }
         type = isState;
@@ -464,9 +466,8 @@ public class CaiGouDanActivity extends BaseActivity {
                     public void onNext(List<CaiGouDanBean> list) {
                         String data = gson.toJson(list);
                         Log.e(TAG, data);
-                        mList.clear();
                         mList.addAll(list);
-                        adapter.setNewData(list);
+                        adapter.setNewData(mList);
                         if (list.size() == 5) {
                             rvCaigoudan.loadMoreFinish(false, true);
                         } else if (list.size() > 0) {

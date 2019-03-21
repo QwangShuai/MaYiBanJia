@@ -40,6 +40,15 @@ import butterknife.ButterKnife;
 public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAdapter.ViewHolder> {
     public static final int viewtype_normaldata = 0,viewtype_erpdata = 1;
     private ConfirmDialog confirmDialog;
+
+    public String getGoods() {
+        return goods;
+    }
+
+    public void setGoods(String goods) {
+        this.goods = goods;
+    }
+
     private String goods = "0";
     private ViewHolder viewHolder;
     private List<ShangPinGuanLiBean.GoodsListBean> mList;
@@ -183,7 +192,6 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
                 case "1"://上架
                     holder.btXiajia.setVisibility(View.VISIBLE);
                     holder.btAddGuige.setVisibility(View.VISIBLE);
-                    holder.tvXiajia.setVisibility(View.VISIBLE);
                     holder.btXiajia.setOnClickListener( new OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -200,6 +208,7 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
                     holder.btShangjia.setVisibility(View.VISIBLE);
                     holder.btAddGuige.setVisibility(goods.equals("1")?View.GONE:View.VISIBLE);
                     holder.btBianji.setVisibility(View.VISIBLE);
+                    holder.tvXiajia.setVisibility(View.VISIBLE);
                     holder.btShangjia.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -215,7 +224,6 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
                     holder.btIsTejia.setText(goods.equals("1")?"取消特价":"转为特价");
                     break;
                 case "3"://审核中
-//                    holder.btShangjia.setTextColor(mContext.getResources().getColor(R.color.zangqing));
                     holder.btShangjia.setVisibility(View.VISIBLE);
                     holder.btShangjia.setText("审核中");
                     holder.btIsTejia.setVisibility(goods.equals("1")?View.VISIBLE:View.GONE);
@@ -224,42 +232,17 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
                 case "4"://审核失败
                     holder.btBianji.setVisibility(View.VISIBLE);
                     holder.btShangjia.setVisibility(View.VISIBLE);
-//                    holder.btShangjia.setTextColor(mContext.getResources().getColor(R.color.zangqing));
                     holder.btShangjia.setText("审核失败");
                     holder.btIsTejia.setVisibility(goods.equals("1")?View.VISIBLE:View.GONE);
                     holder.btIsTejia.setText("取消特价");
                     break;
             }
 
-//            switch (bean.getAudit_state()) {
-//                case "2":
-//                    holder.btIsTejia.setVisibility(View.VISIBLE);
-//                    break;
-//                case "1":
-//                    holder.btBianji.setVisibility(View.VISIBLE);
-//                    holder.btAddGuige.setVisibility(View.GONE);
-//                    holder.btShangjia.setVisibility(View.VISIBLE);
-//                    holder.btShangjia.setText("审核失败");
-//                    holder.btXiajia.setVisibility(View.GONE);
-//                    holder.btShangjia.setEnabled(false);
-//                    holder.btIsTejia.setVisibility(View.GONE);
-//                    break;
-//
-//                case "5":
-//                    holder.btBianji.setVisibility(View.GONE);
-//                    holder.btAddGuige.setVisibility(View.GONE);
-//                    holder.btShangjia.setVisibility(View.VISIBLE);
-//                    holder.btShangjia.setText("审核中");
-//                    holder.btXiajia.setVisibility(View.GONE);
-//                    holder.btIsTejia.setVisibility(View.VISIBLE);
-//                    break;
-//
-//            }
 
         if(goods.equals("1")){
             holder.btAddGuige.setVisibility(View.GONE);
             holder.btIsTejia.setText("取消特价");
-            holder.btIsTejia.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+//            holder.btIsTejia.setTextColor(mContext.getResources().getColor(R.color.zangqing));
             holder.btIsTejia.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -1,9 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mingmen.mayi.mayibanjia.ui.activity.GHDXiangQingActivity">
+    android:background="@color/bg_fafafa"
+    android:orientation="vertical">
+    <include layout="@layout/head_zangqing"></include>
+    <LinearLayout
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="12dp"
+        android:id="@+id/ll_dianpu_rongqi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <ImageView
+            android:src="@mipmap/dianpu"
+            android:layout_width="16dp"
+            android:layout_height="15dp" />
+        <TextView
+            android:layout_marginLeft="8dp"
+            android:id="@+id/tv_dianpu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="飘香水果店:"
+            android:textColor="@color/hintcolor"
+            android:textSize="14sp" />
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_dianpu_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:text="18513349775"
+            android:textColor="@color/lishisousuo"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/iv_dianpu_dianhua"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginLeft="12dp"
+            android:src="@mipmap/dianhua_black" />
+    </LinearLayout>
+    <View
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="8dp"
+        android:background="@mipmap/bg_dian_ddxq"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"></View>
+
+</LinearLayout>

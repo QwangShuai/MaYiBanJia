@@ -300,8 +300,10 @@
         <activity android:name=".ui.activity.HuoDongActivity" /> <!-- 活动 -->
         <activity android:name=".ui.activity.JiaoYiLiuShuiActivity" /> <!-- 交易流水 -->
         <activity android:name=".ui.activity.XJSPFeiLeiXuanZeActivity" /> <!-- 新建商品分类选择 -->
-        <activity android:name=".utils.dayinji.DeviceListActivity" />
-        <activity android:name=".ui.activity.XuanZeGuiGeActivity"></activity>
+        <activity android:name=".utils.dayinji.DeviceListActivity" /> <!-- 蓝牙设备列表 -->
+        <activity android:name=".ui.activity.XuanZeGuiGeActivity" /> <!-- 选择规格 -->
+        <activity android:name=".ui.activity.YongHuPingJiaActivity" /> <!-- 供应端用户评价 -->
+        <activity android:name=".ui.activity.GHDXiangQingActivity"></activity> <!-- 供应端订单详情 -->
     </application>
 
 </manifest>

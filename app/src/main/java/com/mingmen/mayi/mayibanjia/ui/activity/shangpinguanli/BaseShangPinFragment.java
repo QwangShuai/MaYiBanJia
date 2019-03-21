@@ -138,14 +138,22 @@ public abstract class BaseShangPinFragment extends BaseFragment {
             SwipeMenuCreator mSwipeMenuCreator = new SwipeMenuCreator() {
                 @Override
                 public void onCreateMenu(SwipeMenu rightMenuleftMenu, SwipeMenu rightMenu, int viewType) {
-                    SwipeMenuItem deleteItem = new SwipeMenuItem(getContext()); // 各种文字和图标属性设置。
-                    deleteItem.setText("删除");
-                    deleteItem.setTextColor(getContext().getResources().getColor(R.color.white));
-                    deleteItem.setTextSize(15);
-                    deleteItem.setHeight(MATCH_PARENT);
-                    deleteItem.setWidth(200);
-                    deleteItem.setBackground(R.color.red_ff3300);
-                    rightMenu.addMenuItem(deleteItem); // 在Item右侧添加一个菜单。
+                    switch (rightMenuleftMenu.getViewType()){
+                        case ShangPinGuanLiAdapter.viewtype_normaldata:
+
+                            break;
+                        case ShangPinGuanLiAdapter.viewtype_erpdata:
+                            SwipeMenuItem deleteItem = new SwipeMenuItem(getContext()); // 各种文字和图标属性设置。
+                            deleteItem.setText("删除");
+                            deleteItem.setTextColor(getContext().getResources().getColor(R.color.white));
+                            deleteItem.setTextSize(15);
+                            deleteItem.setHeight(MATCH_PARENT);
+                            deleteItem.setWidth(200);
+                            deleteItem.setBackground(R.color.red_ff3300);
+                            rightMenu.addMenuItem(deleteItem); // 在Item右侧添加一个菜单。
+                            break;
+                    }
+
                 }
             };
             SwipeMenuItemClickListener mMenuItemClickListener = new SwipeMenuItemClickListener() {

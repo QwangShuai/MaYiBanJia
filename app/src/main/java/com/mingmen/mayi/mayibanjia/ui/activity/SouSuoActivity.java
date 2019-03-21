@@ -109,12 +109,12 @@ public class SouSuoActivity extends BaseActivity {
     ImageView ivLishishanchu;
     @BindView(R.id.iv_clear)
     ImageView ivClear;
+    @BindView(R.id.rl_clear)
+    RelativeLayout rlClear;
     @BindView(R.id.rl_lishisousuo)
     RelativeLayout rlLishisousuo;
     @BindView(R.id.xcf_lishisousuo)
     XCFlowLayout xcfLishisousuo;
-    @BindView(R.id.xcf_remensousuo)
-    XCFlowLayout xcfRemensousuo;
 //    @BindView(R.id.ll_shangpin)
 //    LinearLayout llShangpin;
     @BindView(R.id.ll_wuzi)
@@ -217,7 +217,6 @@ public class SouSuoActivity extends BaseActivity {
         xuanze.add("市场");
         xuanze.add("店铺");
         xuanze.add("商品");
-//        sousuofangxiang = "shichang";
         setViewMoren();
         if (getIntent().getStringExtra("sousuofangxiang") != null) {
             sousuofangxiang = getIntent().getStringExtra("sousuofangxiang");
@@ -299,36 +298,21 @@ public class SouSuoActivity extends BaseActivity {
         etSousuo.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//                if ("".equals(etSousuo.getText().toString().trim()) || etSousuo.getText().toString().trim() == null) {
-//                    if(sousuo_state==0){
-//                        if(!TextUtils.isEmpty(tvPipei.getText().toString().trim())){
-//                            getmohuchaxun(tvPipei.getText().toString().trim());
-//                        }
-//                    } else {
-//                        llWuzi.setVisibility(View.VISIBLE);
-//                        rvYouzi.setVisibility(View.GONE);
-//                    }
-//                }
-//                if(s.length()>0){
-//                    sousuozi=s.toString().trim();
-//                }
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (etSousuo.getText().toString().trim().length() == 0) {
-                    ivClear.setVisibility(View.GONE);
+                    rlClear.setVisibility(View.GONE);
                     if(sousuo_state==0){
                         Log.e(TAG, "onTextChanged: "+"走到这了啊" );
                         if(!TextUtils.isEmpty(tvPipei.getText().toString().trim())){
-//                            etSousuo.setText("");
-//                            getmohuchaxun(tvPipei.getText().toString().trim());
                         }
                     } else {
                         llWuzi.setVisibility(View.VISIBLE);
                         rvYouzi.setVisibility(View.GONE);
                     }
                 } else {
-                    ivClear.setVisibility(View.VISIBLE);
+                    rlClear.setVisibility(View.VISIBLE);
                     if(s.length()>0){
                         sousuozi=s.toString().trim();
                     }
@@ -352,14 +336,6 @@ public class SouSuoActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-//                if(s.length()>0){
-//                    sousuozi=s.toString().trim();
-//                }
-//                if(sousuo_state==2){
-//                    sousuo(sousuozi,true);
-////                    llShangpin.setVisibility(View.VISIBLE);
-//                }
-//
             }
         });
         etSousuo.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -372,12 +348,11 @@ public class SouSuoActivity extends BaseActivity {
                         lastSearch = etSousuo.getText().toString().trim();
                     }
 
-//                    sousuo(lastSearch,false);
                     Intent it = new Intent();
-                        it.putExtra("three_id","");
-                        it.putExtra("four_id","");
-                        it.putExtra("four_name",lastSearch);
-                        setResult(2,it);
+                    it.putExtra("three_id","");
+                    it.putExtra("four_id","");
+                    it.putExtra("four_name",lastSearch);
+                    setResult(2,it);
 
 
                     if (recordsDao.dianpuIsHas(lastSearch)) {
@@ -403,6 +378,7 @@ public class SouSuoActivity extends BaseActivity {
     }
 
     private void getmohuchaxun(String sousuo) {//模糊查询
+        Log.e(TAG, "getmohuchaxun: "+sousuo+"---"+sousuofangxiang );
         if ("shichang".equals(sousuofangxiang)) {
             getfcgname(sousuo);
         } else if ("dianpu".equals(sousuofangxiang)) {
@@ -464,6 +440,11 @@ public class SouSuoActivity extends BaseActivity {
                         mohuAdapter.setOnItemClickListener(new FaCaiGouMohuAdapter.OnItemClickListener() {//下拉弹出点击事件
                             @Override
                             public void onClick(View view, int position) {
+                                if (recordsDao.shangpinIsHas(datas.get(position).getClassify_name())) {
+                                    recordsDao.deleteOneShangpin(datas.get(position).getClassify_name());
+                                }
+                                PreferenceUtils.putString(MyApplication.mContext, "keyword", datas.get(position).getClassify_name());
+                                recordsDao.addShangpin(datas.get(position).getClassify_name());
                                 Intent it = new Intent();
                                 if(datas.get(position).getClassify_grade().equals("3")){
                                     it.putExtra("three_id",datas.get(position).getClassify_id());
@@ -527,7 +508,7 @@ public class SouSuoActivity extends BaseActivity {
         if (dianpuNamelist != null) {
             dianpuNamelist.clear();
         }
-        dianpuNamelist = recordsDao.getdianpu();
+        dianpuNamelist = recordsDao.getshangpin();
         String[] historyNames = new String[dianpuNamelist.size()];
         for (int i = 0; i < dianpuNamelist.size(); i++) {
             historyNames[i] = dianpuNamelist.get(i);
@@ -559,20 +540,26 @@ public class SouSuoActivity extends BaseActivity {
                 @Override
                 public void onClick(View v) {
                     String wenzi = tvs.get(finalI).getText().toString().trim();
-                    sousuo(wenzi,false);
-                    if (recordsDao.dianpuIsHas(wenzi)) {
-                        recordsDao.deleteOneDianpu(wenzi);
+//                    sousuomoren(wenzi);
+                    if (recordsDao.shangpinIsHas(wenzi)) {
+                        recordsDao.deleteOneShangpin(wenzi);
                     }
                     PreferenceUtils.putString(MyApplication.mContext, "keyword", wenzi);
-                    recordsDao.addDianpu(wenzi);
-                    initChildViews();
+                    recordsDao.addShangpin(wenzi);
+//                    initChildViews();
+                    Intent it = new Intent();
+                    it.putExtra("three_id","");
+                    it.putExtra("four_id","");
+                    it.putExtra("four_name",wenzi);
+                    setResult(2,it);
+                    finish();
                 }
             });
 
         }
     }
 
-    @OnClick({R.id.iv_back,R.id.tv_quxiao, R.id.iv_pipei, R.id.iv_lishishanchu, R.id.ll_xiala,R.id.iv_clear})
+    @OnClick({R.id.iv_back,R.id.tv_quxiao, R.id.iv_pipei, R.id.rl_lishishanchu, R.id.ll_xiala,R.id.rl_clear})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -599,12 +586,12 @@ public class SouSuoActivity extends BaseActivity {
                 fenleiid="";
                 fenleiname="";
                 break;
-            case R.id.iv_lishishanchu:
+            case R.id.rl_lishishanchu:
                 confirmDialog.showDialog("是否删除全部历史记录");
                 confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        recordsDao.deleteAllDianpu();
+                        recordsDao.deleteAllShangpin();
                         xcfLishisousuo.removeAllViews();
                         xcfLishisousuo.setVisibility(View.GONE);
 //                        rlLishisousuo.setVisibility(View.GONE);
@@ -671,7 +658,7 @@ public class SouSuoActivity extends BaseActivity {
                     showXialaPopupWindow();
 //                }
                 break;
-            case R.id.iv_clear:
+            case R.id.rl_clear:
                 sousuozi = "";
                 clearText = true;
                 etSousuo.setText(sousuozi);

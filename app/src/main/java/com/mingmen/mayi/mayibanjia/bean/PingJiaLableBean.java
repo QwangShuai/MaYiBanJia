@@ -7,6 +7,15 @@ package com.mingmen.mayi.mayibanjia.bean;
 public class PingJiaLableBean {
     private String son_name;
     private String son_number;
+    private boolean isSelect;
+
+    public boolean isSelect() {
+        return isSelect;
+    }
+
+    public void setSelect(boolean select) {
+        isSelect = select;
+    }
 
     public String getSon_name() {
         return son_name;

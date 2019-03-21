@@ -3,6 +3,7 @@ package com.mingmen.mayi.mayibanjia.ui.activity.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -37,7 +38,7 @@ import butterknife.ButterKnife;
  */
 
 public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAdapter.ViewHolder> {
-    
+    public static final int viewtype_normaldata = 0,viewtype_erpdata = 1;
     private ConfirmDialog confirmDialog;
     private String goods = "0";
     private ViewHolder viewHolder;
@@ -57,7 +58,15 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
 
     private boolean isClick = true;
 
-    public ShangPinGuanLiAdapter(Context mContext,String goods,List<ShangPinGuanLiBean.GoodsListBean> mList,BaseShangPinFragment fragment) {
+    @Override
+    public int getItemViewType(int position) {
+        if(mList.get(position).getSortOrder().equals("3")||mList.get(position).getSortOrder().equals("1"))
+            return viewtype_normaldata;
+        else
+            return viewtype_erpdata;
+    }
+
+    public ShangPinGuanLiAdapter(Context mContext, String goods, List<ShangPinGuanLiBean.GoodsListBean> mList, BaseShangPinFragment fragment) {
         this.mContext = mContext;
         this.goods = goods;
         this.mList = mList;
@@ -164,108 +173,135 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
                 }
             }
         });
-//        holder.btShangjia.setVisibility(View.VISIBLE);
-//        holder.btXiajia.setVisibility(View.VISIBLE);
-        holder.btAddGuige.setVisibility(View.VISIBLE);
-        switch (bean.getApproval_state()) {
-            case "0":
-                //上架
-                holder.tvXiajia.setVisibility(View.GONE);
-                holder.btShangjia.setVisibility(View.GONE);
-                holder.btXiajia.setVisibility(View.VISIBLE);
-                holder.btXiajia.setText("下架");
+        holder.btShangjia.setVisibility(View.GONE);
+        holder.btXiajia.setVisibility(View.GONE);
+        holder.btAddGuige.setVisibility(View.GONE);
+        holder.btIsTejia.setVisibility(View.GONE);
+        holder.btBianji.setVisibility(View.GONE);
+        holder.tvXiajia.setVisibility(View.GONE);
+            switch (bean.getSortOrder()) {
+                case "1"://上架
+                    holder.btXiajia.setVisibility(View.VISIBLE);
+                    holder.btAddGuige.setVisibility(View.VISIBLE);
+                    holder.tvXiajia.setVisibility(View.VISIBLE);
+                    holder.btXiajia.setOnClickListener( new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (isClick()) {
+                                showDialog("是否下架", bean.getCommodity_id(), "4");
+                            } else {
+                                ToastUtil.showToastLong("请注意，您只有阅览权限");
+                            }
 
-                holder.btXiajia.setOnClickListener( new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (isClick()) {
-                            showDialog("是否下架", bean.getCommodity_id(), "4");
-                        } else {
-                            ToastUtil.showToastLong("请注意，您只有阅览权限");
                         }
+                    });
+                    break;
+                case "2"://下架
+                    holder.btShangjia.setVisibility(View.VISIBLE);
+                    holder.btAddGuige.setVisibility(goods.equals("1")?View.GONE:View.VISIBLE);
+                    holder.btBianji.setVisibility(View.VISIBLE);
+                    holder.btShangjia.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (isClick()) {
+                                showDialog("是否上架", bean.getCommodity_id(), "2");
+                            } else {
+                                ToastUtil.showToastLong("请注意，您只有阅览权限");
+                            }
 
-                    }
-                });
-                break;
-            case "2":
-                //上架
-                holder.tvXiajia.setVisibility(View.GONE);
-                holder.btShangjia.setVisibility(View.GONE);
-                holder.btXiajia.setVisibility(View.VISIBLE);
-                holder.btXiajia.setText( "下架");
-
-                holder.btXiajia.setOnClickListener( new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (isClick()) {
-                            showDialog("是否下架", bean.getCommodity_id(), "4");
-                        } else {
-                            ToastUtil.showToastLong("请注意，您只有阅览权限");
                         }
+                    });
+                    holder.btIsTejia.setVisibility(View.VISIBLE);
+                    holder.btIsTejia.setText(goods.equals("1")?"取消特价":"转为特价");
+                    break;
+                case "3"://审核中
+//                    holder.btShangjia.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+                    holder.btShangjia.setVisibility(View.VISIBLE);
+                    holder.btShangjia.setText("审核中");
+                    holder.btIsTejia.setVisibility(goods.equals("1")?View.VISIBLE:View.GONE);
+                    holder.btIsTejia.setText("取消特价");
+                    break;
+                case "4"://审核失败
+                    holder.btBianji.setVisibility(View.VISIBLE);
+                    holder.btShangjia.setVisibility(View.VISIBLE);
+//                    holder.btShangjia.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+                    holder.btShangjia.setText("审核失败");
+                    holder.btIsTejia.setVisibility(goods.equals("1")?View.VISIBLE:View.GONE);
+                    holder.btIsTejia.setText("取消特价");
+                    break;
+            }
 
-                    }
-                });
-                break;
-            case "1":
-                //下架
-                holder.tvXiajia.setVisibility(View.VISIBLE);
-                holder.btShangjia.setVisibility(View.VISIBLE);
-                holder.btXiajia.setVisibility(View.GONE);
-                holder.btShangjia.setText( "上架");
+//            switch (bean.getAudit_state()) {
+//                case "2":
+//                    holder.btIsTejia.setVisibility(View.VISIBLE);
+//                    break;
+//                case "1":
+//                    holder.btBianji.setVisibility(View.VISIBLE);
+//                    holder.btAddGuige.setVisibility(View.GONE);
+//                    holder.btShangjia.setVisibility(View.VISIBLE);
+//                    holder.btShangjia.setText("审核失败");
+//                    holder.btXiajia.setVisibility(View.GONE);
+//                    holder.btShangjia.setEnabled(false);
+//                    holder.btIsTejia.setVisibility(View.GONE);
+//                    break;
+//
+//                case "5":
+//                    holder.btBianji.setVisibility(View.GONE);
+//                    holder.btAddGuige.setVisibility(View.GONE);
+//                    holder.btShangjia.setVisibility(View.VISIBLE);
+//                    holder.btShangjia.setText("审核中");
+//                    holder.btXiajia.setVisibility(View.GONE);
+//                    holder.btIsTejia.setVisibility(View.VISIBLE);
+//                    break;
+//
+//            }
 
-                holder.btShangjia.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (isClick()) {
-                            showDialog("是否上架", bean.getCommodity_id(), "2");
-                        } else {
-                            ToastUtil.showToastLong("请注意，您只有阅览权限");
-                        }
-
-                    }
-                });
-                break;
-            case "4":
-                //下架
-                holder.tvXiajia.setVisibility(View.VISIBLE);
-                holder.btShangjia.setVisibility(View.VISIBLE);
-                holder.btXiajia.setVisibility(View.GONE);
-                holder.btShangjia.setText( "上架");
-                holder.btShangjia.setOnClickListener( new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (isClick()) {
-                            showDialog("是否上架", bean.getCommodity_id(), "2");
-                        } else {
-                            ToastUtil.showToastLong("请注意，您只有阅览权限");
-                        }
-
-                    }
-                });
-                break;
-
-        }
-        switch (bean.getAudit_state()) {
-            case "1":
-                holder.btBianji.setVisibility(View.VISIBLE);
-                holder.btAddGuige.setVisibility(View.GONE);
-                holder.btShangjia.setVisibility(View.VISIBLE);
-                holder.btShangjia.setText("审核失败");
-                holder.btXiajia.setVisibility(View.GONE);
-                holder.btShangjia.setEnabled(false);
-                break;
-
-            case "5":
-                holder.btBianji.setVisibility(View.GONE);
-                holder.btAddGuige.setVisibility(View.GONE);
-                holder.btShangjia.setVisibility(View.VISIBLE);
-                holder.btShangjia.setText("审核中");
-                holder.btXiajia.setVisibility(View.GONE);
-                break;
-
-        }
         if(goods.equals("1")){
             holder.btAddGuige.setVisibility(View.GONE);
+            holder.btIsTejia.setText("取消特价");
+            holder.btIsTejia.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+            holder.btIsTejia.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (isClick()) {
+                        confirmDialog.showDialog("是否取消特价，转化为普通商品");
+                        confirmDialog.getTvSubmit().setOnClickListener(new OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                getData(bean.getCommodity_id(),"0","",bean.getPice_one()+"");
+                            }
+                        });
+                        confirmDialog.getTvCancel().setOnClickListener(new OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                confirmDialog.dismiss();
+                            }
+                        });
+                    } else {
+                        ToastUtil.showToastLong("请注意，您只有阅览权限");
+                    }
+
+
+                }
+            });
+        } else {
+            holder.btIsTejia.setText("转为特价");
+            holder.btIsTejia.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (isClick()) {
+                        Intent it = new Intent(mContext, FaBuShangPinActivity.class);
+                        it.putExtra("state", "1");
+                        it.putExtra("goods", goods);
+                        it.putExtra("tejia","1");
+                        it.putExtra("bean", bean.getCommodity_id());
+                        mContext.startActivity(it);
+                    } else {
+                        ToastUtil.showToastLong("请注意，您只有阅览权限");
+                    }
+
+                }
+            });
         }
     }
 
@@ -295,9 +331,36 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
         Button btXiajia;
         @BindView(R.id.bt_shangjia)
         Button btShangjia;
+        @BindView(R.id.bt_is_tejia)
+        Button btIsTejia;
+
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
+    }
+
+    //数据
+    private void getData(String id,String goods,String price,String pice_one) {
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .shangpinZhuanhuan(PreferenceUtils.getString(MyApplication.mContext,"token",""), id, goods, price, pice_one))
+                .setDataListener(new HttpDataListener<String>() {
+                    @Override
+                    public void onNext(String data) {
+                        ToastUtil.showToastLong("取消特价成功");
+                        confirmDialog.dismiss();
+                        if(isTs){
+                            qb_fragment.onResume();
+                        } else {
+                            fragment.onResume();
+                        }
+                        notifyDataSetChanged();
+                    }
+
+                });
     }
 }

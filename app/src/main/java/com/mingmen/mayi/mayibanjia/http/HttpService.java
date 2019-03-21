@@ -1281,7 +1281,32 @@ public interface HttpService {
                                                   @Query("spec_name") String spec_name,
                                                   @Query("affiliated_number") String affiliated_number,
                                                   @Query("affiliated_spec_name") String affiliated_spec_name);
+
     //获取业务员所在省市区
     @POST("sysQuy/getPlace.do")
     Observable<ResultModel<AddressListBean>> getYwyDiqu(@Query("user_token") String user_token);
+
+    //获取供应端用户评价
+    @POST("gyCommentReply/queryGyping.do")
+    Observable<ResultModel<List<XQPingJiaBean>>> getGydPingjia(@Query("user_token") String user_token,
+                                                               @Query("sortOrder") String sortOrder,
+                                                               @Query("pageNumber") String pageNumber);
+
+    //普通修改特价商品
+    @POST("gyCommodity/updateCommodity.do")
+    Observable<ResultModel<String>> shangpinZhuanhuan(@Query("user_token") String user_token,
+                                                      @Query("commodity_id") String commodity_id,
+                                                      @Query("goods") String goods,
+                                                      @Query("price") String price,
+                                                      @Query("pice_one") String pice_one);
+
+    //评价标签
+    @POST("allDictionary/MjEvaluate.do")
+    Observable<ResultModel<List<PingJiaLableBean>>> getGydPingjiaLable(@Query("user_token") String user_token);
+
+    //供应端回复
+    @POST("gyCommentReply/save.do")
+    Observable<ResultModel<String>> gydHuifu(@Query("user_token") String user_token,
+                                             @Query("comment_text") String comment_text,
+                                             @Query("rowgu_id") String rowgu_id);
 }

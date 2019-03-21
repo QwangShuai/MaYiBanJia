@@ -129,14 +129,21 @@ public class QuanBuShangPinFragment extends BaseFragment {
             SwipeMenuCreator mSwipeMenuCreator = new SwipeMenuCreator() {
                 @Override
                 public void onCreateMenu(SwipeMenu rightMenuleftMenu, SwipeMenu rightMenu, int viewType) {
-                    SwipeMenuItem deleteItem = new SwipeMenuItem(getContext()); // 各种文字和图标属性设置。
-                    deleteItem.setText("删除");
-                    deleteItem.setTextColor(getContext().getResources().getColor(R.color.white));
-                    deleteItem.setTextSize(15);
-                    deleteItem.setHeight(MATCH_PARENT);
-                    deleteItem.setWidth(200);
-                    deleteItem.setBackground(R.color.red_ff3300);
-                    rightMenu.addMenuItem(deleteItem); // 在Item右侧添加一个菜单。
+                    switch (rightMenuleftMenu.getViewType()){
+                        case ShangPinGuanLiAdapter.viewtype_normaldata:
+
+                            break;
+                        case ShangPinGuanLiAdapter.viewtype_erpdata:
+                            SwipeMenuItem deleteItem = new SwipeMenuItem(getContext()); // 各种文字和图标属性设置。
+                            deleteItem.setText("删除");
+                            deleteItem.setTextColor(getContext().getResources().getColor(R.color.white));
+                            deleteItem.setTextSize(15);
+                            deleteItem.setHeight(MATCH_PARENT);
+                            deleteItem.setWidth(200);
+                            deleteItem.setBackground(R.color.red_ff3300);
+                            rightMenu.addMenuItem(deleteItem); // 在Item右侧添加一个菜单。
+                            break;
+                    }
                 }
             };
             SwipeMenuItemClickListener mMenuItemClickListener = new SwipeMenuItemClickListener() {
@@ -183,7 +190,16 @@ public class QuanBuShangPinFragment extends BaseFragment {
                 getData();
             }
         };
-
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                ye = 1;
+                mlist.clear();
+                shangpinguanliadapter.notifyDataSetChanged();
+                getData();
+                refreshLayout.setRefreshing(false);
+            }
+        });
         rvShangpinguanli.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         rvShangpinguanli.useDefaultLoadMore(); // 使用默认的加载更多的View。
         rvShangpinguanli.setLoadMoreListener(mLoadMoreListener); // 加载更多的监听。
@@ -241,7 +257,7 @@ public class QuanBuShangPinFragment extends BaseFragment {
         }
     }
     public String getZhuangTai() {
-        return "";
+        return "0";
     }
 
 }

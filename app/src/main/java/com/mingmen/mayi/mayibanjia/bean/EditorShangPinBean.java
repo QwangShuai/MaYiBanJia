@@ -148,7 +148,7 @@ public class EditorShangPinBean implements Serializable{
         private Object picture_address;
         private int specTwoNum;
         private int specThreeNum;
-        private Object price;
+        private double price;
         private int choose_specifications;
         private double pice_one;
         private String company_id;
@@ -214,7 +214,7 @@ public class EditorShangPinBean implements Serializable{
         private Object sumGoodsSales;
         private Object deputyphoto;
         private Object hostPath;
-        private Object pice;
+        private double pice;
         private Object avgNum;
         private Object companyName;
         private Object commodity_state;
@@ -389,11 +389,11 @@ public class EditorShangPinBean implements Serializable{
             this.specThreeNum = specThreeNum;
         }
 
-        public Object getPrice() {
+        public double getPrice() {
             return price;
         }
 
-        public void setPrice(Object price) {
+        public void setPrice(double price) {
             this.price = price;
         }
 
@@ -917,11 +917,11 @@ public class EditorShangPinBean implements Serializable{
             this.hostPath = hostPath;
         }
 
-        public Object getPice() {
+        public double getPice() {
             return pice;
         }
 
-        public void setPice(Object pice) {
+        public void setPice(double pice) {
             this.pice = pice;
         }
 

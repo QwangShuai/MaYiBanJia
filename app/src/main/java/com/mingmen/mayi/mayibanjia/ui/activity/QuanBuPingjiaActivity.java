@@ -43,7 +43,7 @@ public class QuanBuPingjiaActivity extends BaseActivity {
     @BindView(R.id.btn_bad)
     Button btnBad;
 
-    private Context mContext=QuanBuPingjiaActivity.this;
+    private Context mContext;
     private PingJiaAdapter adapter;
     private int ye=1;
     private List<XQPingJiaBean> mlist = new ArrayList<>();
@@ -58,8 +58,8 @@ public class QuanBuPingjiaActivity extends BaseActivity {
     @Override
     protected void initData() {
         company_id = getIntent().getStringExtra("company_id");
+        mContext=QuanBuPingjiaActivity.this;
         getpingjiaCount();
-        getpingjia();
         adapter = new PingJiaAdapter();
         SwipeMenuRecyclerView.LoadMoreListener mLoadMoreListener = new SwipeMenuRecyclerView.LoadMoreListener() {
             @Override
@@ -72,6 +72,7 @@ public class QuanBuPingjiaActivity extends BaseActivity {
         rvPingjia.setLoadMoreListener(mLoadMoreListener); // 加载更多的监听。
         rvPingjia.loadMoreFinish(false, true);
         rvPingjia.setAdapter(adapter);
+        getpingjia();
     }
 //
     private void getpingjia() {

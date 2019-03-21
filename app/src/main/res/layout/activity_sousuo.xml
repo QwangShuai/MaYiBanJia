@@ -100,14 +100,21 @@
                         android:layout_height="4dp" />
                 </LinearLayout>
             </RelativeLayout>
-            <ImageView
-                android:layout_gravity="center_vertical"
-                android:id="@+id/iv_clear"
+            <RelativeLayout
                 android:visibility="gone"
-                android:src="@mipmap/shanchux"
-                android:layout_marginRight="12dp"
+                android:id="@+id/rl_clear"
+                android:padding="12dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_centerVertical="true"
+                    android:id="@+id/iv_clear"
+                    android:visibility="visible"
+                    android:src="@mipmap/shanchux"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
         </LinearLayout>
         <TextView
             android:id="@+id/tv_quxiao"
@@ -226,20 +233,27 @@
                 android:layout_marginTop="20dp">
 
                 <TextView
+                    android:layout_centerVertical="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
                     android:text="历史搜索"
                     android:textColor="#474747"
                     android:textSize="12sp" />
-
-                <ImageView
-                    android:id="@+id/iv_lishishanchu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <RelativeLayout
+                    android:id="@+id/rl_lishishanchu"
+                    android:layout_centerVertical="true"
+                    android:padding="12dp"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="12dp"
-                    android:src="@mipmap/lajitong" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/iv_lishishanchu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/lajitong" />
+                </RelativeLayout>
+
             </RelativeLayout>
 
             <com.mingmen.mayi.mayibanjia.ui.view.XCFlowLayout
@@ -249,21 +263,6 @@
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"></com.mingmen.mayi.mayibanjia.ui.view.XCFlowLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="28dp"
-                android:text="热门搜索"
-                android:textColor="#474747"
-                android:textSize="12sp" />
-
-            <com.mingmen.mayi.mayibanjia.ui.view.XCFlowLayout
-                android:id="@+id/xcf_remensousuo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"></com.mingmen.mayi.mayibanjia.ui.view.XCFlowLayout>
         </LinearLayout>
         <!--市场-->
         <LinearLayout

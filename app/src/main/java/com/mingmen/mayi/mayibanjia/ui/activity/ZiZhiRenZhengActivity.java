@@ -3,6 +3,7 @@ package com.mingmen.mayi.mayibanjia.ui.activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -69,6 +70,7 @@ public class ZiZhiRenZhengActivity extends BaseActivity {
         mContext = ZiZhiRenZhengActivity.this;
         yemian = getIntent().getStringExtra("yemian");
         state = getIntent().getStringExtra("state");
+        Log.e("state111", state );
         tvShenheState.setText(state);
         getZizhiShow();
 
@@ -111,6 +113,7 @@ public class ZiZhiRenZhengActivity extends BaseActivity {
                         Glide.with(mContext).load(bean.getBusiness_license()).into(ivYingyezhizhao);
                         tvFuzeren.setText(bean.getPrincipal());
                         etName.setText(bean.getLegal_person());
+                        Log.e("审核",state );
                         if(state.equals("审核中")||state.equals("审核通过")){
                             etName.setEnabled(false);
                             etXinyongma.setEnabled(false);

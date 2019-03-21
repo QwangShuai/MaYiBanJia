@@ -109,7 +109,7 @@ public class ZhuCeActivity extends BaseActivity {
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     Log.e("changed",s.toString());
                     String pass1 = etPass1.getText().toString().trim();
-                    if (pass1.length()>=8&&pass1.length()<=16){
+                    if (pass1.length()>=6&&pass1.length()<=16){
                         if (pass1.equals(s.toString().trim())){
                             if (etYanzhengma.getText().toString().trim().length()==6){
                                 btXiayibu.setBackground(getResources().getDrawable(R.drawable.fillet_solid_zangqing_5));
@@ -143,7 +143,7 @@ public class ZhuCeActivity extends BaseActivity {
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     Log.e("changed",s.toString());
                     String pass1 = etPass2.getText().toString().trim();
-                    if (pass1.length()>=8&&pass1.length()<=16){
+                    if (pass1.length()>=6&&pass1.length()<=16){
                         if (pass1.equals(s.toString().trim())){
                             if (etYanzhengma.getText().toString().trim().length()==6){
                                 btXiayibu.setBackground(getResources().getDrawable(R.drawable.fillet_solid_zangqing_5));

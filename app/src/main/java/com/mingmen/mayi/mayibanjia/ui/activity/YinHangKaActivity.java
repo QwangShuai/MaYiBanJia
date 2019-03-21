@@ -157,7 +157,7 @@ public class YinHangKaActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(final String data) {
-                        if(data.equals("审核中")||data.equals("待审核")||data.equals("审核失败")){
+                        if(data.equals("审核中")||data.equals("待审核")||data.equals("审核未通过")){
                             confirmDialog.showDialog("您的资质认证状态暂未通过，是否前去查看");
                             confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
                                 @Override

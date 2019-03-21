@@ -1405,14 +1405,16 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 yijipop.dismiss();
                 if (msg.getClassify_name().equals("全部")) {
                     tvGuige.setTextColor(getResources().getColor(R.color.zicolor));
+                    guigeId = "";
                 } else {
                     tvGuige.setTextColor(getResources().getColor(R.color.zangqing));
+                    guigeId = msg.getSpec_idFour();
                 }
                 guigeadapter.setXuanzhongid(msg.getClassify_id());
                 tvGuige.setText(msg.getClassify_name());
                 guigeName = msg.getClassify_name();
                 xzId_3 = msg.getClassify_id();
-                guigeId = msg.getSpec_idFour();
+
                 Log.e("xuanzhong: guigeId=",guigeId );
                 guigeadapter.notifyDataSetChanged();
                 sousuoshangpin(sousuo, "0");

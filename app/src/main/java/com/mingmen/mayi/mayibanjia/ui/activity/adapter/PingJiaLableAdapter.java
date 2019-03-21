@@ -8,9 +8,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mingmen.mayi.mayibanjia.R;
+import com.mingmen.mayi.mayibanjia.bean.AllShiChangBean;
 import com.mingmen.mayi.mayibanjia.bean.PingJiaLableBean;
 import com.mingmen.mayi.mayibanjia.ui.activity.FaBiaoPingJiaActivity;
+import com.mingmen.mayi.mayibanjia.ui.view.XCFlowLayout;
+import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;

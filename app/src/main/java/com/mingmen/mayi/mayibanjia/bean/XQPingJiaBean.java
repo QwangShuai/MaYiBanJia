@@ -44,6 +44,7 @@ public class XQPingJiaBean {
 
     private String anonymous;
     private String order_id;
+    private String gy_order_id;
     private String creater;
     private Object approval_state;
     private Object company_name;
@@ -61,6 +62,7 @@ public class XQPingJiaBean {
     private Object shop_rowgu;
     private Object satisfaction;
     private String evaluate_state;
+    private String hfStata;
     private Object touser_name;
     private Object comment_date;
     private String commentuserNameId;
@@ -71,8 +73,33 @@ public class XQPingJiaBean {
     private int rows;
     private Object order;
     private Object sort;
+    private boolean isShow;
     private List<ReplyListBean> replyList;
     private List<PjListBeanX> pjList;
+
+    public boolean isShow() {
+        return isShow;
+    }
+
+    public void setShow(boolean show) {
+        isShow = show;
+    }
+
+    public String getGy_order_id() {
+        return gy_order_id;
+    }
+
+    public void setGy_order_id(String gy_order_id) {
+        this.gy_order_id = gy_order_id;
+    }
+
+    public String getHfStata() {
+        return hfStata;
+    }
+
+    public void setHfStata(String hfStata) {
+        this.hfStata = hfStata;
+    }
 
     public String getAnonymous() {
         return anonymous;

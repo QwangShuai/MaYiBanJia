@@ -27,6 +27,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.qiangdan.GongYingDuanQiangDanActi
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.CircleImageView;
 import com.mingmen.mayi.mayibanjia.utils.AppManager;
+import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 import com.mingmen.mayi.mayibanjia.utils.PollingService;
 import com.mingmen.mayi.mayibanjia.utils.PollingUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
@@ -248,6 +249,8 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
                 startActivity(qiangdanchenggong);
                 break;
             case R.id.ll_yonghupingjia:
+                //查看评价
+                Jump_intent(YongHuPingJiaActivity.class,new Bundle());
                 break;
             case R.id.tv_yue://余额
                 Jump_intent(YueActivity.class, new Bundle());

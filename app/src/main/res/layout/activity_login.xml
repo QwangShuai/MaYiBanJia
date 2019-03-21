@@ -39,19 +39,39 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="27dp"
                         />
-                    <EditText
-                        android:id="@+id/et_phone"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@null"
+                    <RelativeLayout
+                        android:layout_marginRight="26dp"
                         android:layout_marginLeft="13dp"
-                        android:gravity="center_vertical"
-                        android:text=""
-                        android:textColor="@color/zicolor"
-                        android:textSize="16sp"
-                        android:hint="请输入账号／手机号"
-                        android:inputType="number"
-                        android:maxLength="11"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <EditText
+                            android:id="@+id/et_phone"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@null"
+                            android:gravity="center_vertical"
+                            android:text=""
+                            android:textColor="@color/zicolor"
+                            android:textSize="16sp"
+                            android:hint="请输入账号／手机号"
+                            android:inputType="number"
+                            android:maxLength="11"/>
+                        <RelativeLayout
+                            android:visibility="gone"
+                            android:id="@+id/rl_phone_clear"
+                            android:paddingLeft="12dp"
+                            android:paddingRight="12dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent">
+                            <ImageView
+                                android:layout_centerVertical="true"
+                                android:src="@mipmap/guanbi_hui"
+                                android:layout_width="13dp"
+                                android:layout_height="13dp" />
+                        </RelativeLayout>
+                    </RelativeLayout>
+
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
@@ -71,18 +91,38 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="27dp"
                         />
-                    <EditText
-                        android:id="@+id/et_pass"
+                    <RelativeLayout
+                        android:layout_marginRight="26dp"
+                        android:layout_marginLeft="13dp"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@null"
-                        android:layout_marginLeft="16dp"
-                        android:gravity="center_vertical"
-                        android:text=""
-                        android:textColor="@color/zicolor"
-                        android:textSize="12sp"
-                        android:hint="请输入密码"
-                        android:inputType="textPassword"/>
+                        android:layout_height="match_parent">
+                        <EditText
+                            android:id="@+id/et_pass"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@null"
+                            android:gravity="center_vertical"
+                            android:text=""
+                            android:textColor="@color/zicolor"
+                            android:textSize="16sp"
+                            android:hint="请输入密码"
+                            android:inputType="textPassword"
+                            android:maxLength="11"/>
+                        <RelativeLayout
+                            android:visibility="gone"
+                            android:id="@+id/rl_pass_clear"
+                            android:paddingLeft="12dp"
+                            android:paddingRight="12dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent">
+                            <ImageView
+                                android:layout_centerVertical="true"
+                                android:src="@mipmap/guanbi_hui"
+                                android:layout_width="13dp"
+                                android:layout_height="13dp" />
+                        </RelativeLayout>
+                    </RelativeLayout>
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"

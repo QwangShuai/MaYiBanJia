@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.mingmen.mayi.mayibanjia.ui.activity.YongHuPingJiaActivity">
+    <include layout="@layout/head_zangqing"></include>
+    <LinearLayout
+        android:background="@color/beijing"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <Button
+            android:id="@+id/bt_quanbu"
+            android:textSize="15sp"
+            android:textColor="@color/zangqing"
+            android:background="@null"
+            android:text="全部"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <View
+            android:layout_gravity="center_vertical"
+            android:background="@color/gray_e7e7e7"
+            android:layout_width="1dp"
+            android:layout_height="15dp"></View>
+        <Button
+            android:id="@+id/bt_weihuifu"
+            android:textSize="15sp"
+            android:textColor="@color/lishisousuo"
+            android:background="@null"
+            android:text="未回复"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <View
+            android:layout_gravity="center_vertical"
+            android:background="@color/gray_e7e7e7"
+            android:layout_width="1dp"
+            android:layout_height="15dp"></View>
+        <Button
+            android:id="@+id/bt_yihuifu"
+            android:textSize="15sp"
+            android:textColor="@color/lishisousuo"
+            android:background="@null"
+            android:text="已回复"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
+        android:id="@+id/rv_pj"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView>
+</LinearLayout>

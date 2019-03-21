@@ -8,12 +8,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.ActivityCompat;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -72,6 +75,10 @@ public class LoginActivity extends BaseActivity {
     LinearLayout llYzm;
     @BindView(R.id.ll_phone)
     LinearLayout llPhone;
+    @BindView(R.id.rl_phone_clear)
+    RelativeLayout rlPhoneClear;
+    @BindView(R.id.rl_pass_clear)
+    RelativeLayout rlPassClear;
 
 
     private Context mContext;
@@ -113,6 +120,46 @@ public class LoginActivity extends BaseActivity {
             type = "2";
             llYzm.setVisibility(View.VISIBLE);
         }
+        etPhone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (etPhone.getText().toString().trim().length() == 0) {
+                    rlPhoneClear.setVisibility(View.GONE);
+                } else {
+                    rlPhoneClear.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        etPass.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (etPass.getText().toString().trim().length() == 0) {
+                    rlPassClear.setVisibility(View.GONE);
+                } else {
+                    rlPassClear.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         if (isLogin) {
             tiaozhuan(PreferenceUtils.getString(MyApplication.mContext, "juese", ""),
                     PreferenceUtils.getInt(MyApplication.mContext, "random_id", 0));
@@ -186,7 +233,8 @@ public class LoginActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.bt_login, R.id.tv_dongtaimimadenglu, R.id.tv_zhuce,R.id.bt_yzm,R.id.bt_youke,R.id.ll_phone})
+    @OnClick({R.id.bt_login, R.id.tv_dongtaimimadenglu, R.id.tv_zhuce,R.id.bt_yzm,
+            R.id.bt_youke,R.id.ll_phone,R.id.rl_phone_clear,R.id.rl_pass_clear})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_login:
@@ -254,6 +302,12 @@ public class LoginActivity extends BaseActivity {
                 break;
             case R.id.ll_phone:
                 CallPhone(UMConfig.PHONE);
+                break;
+            case R.id.rl_phone_clear:
+                etPhone.setText("");
+                break;
+            case R.id.rl_pass_clear:
+                etPass.setText("");
                 break;
         }
     }

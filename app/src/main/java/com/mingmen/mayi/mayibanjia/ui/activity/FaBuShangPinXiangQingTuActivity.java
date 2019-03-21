@@ -296,7 +296,7 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                     if ("".equals(tu1)&"".equals(tu2)&"".equals(tu3)&"".equals(tu4)){
                         canshu.setDeputyPicture(canshu.getHostPicture());
                     }else {
-                        if (!"".equals(tu1)){
+                        if (!"".equals  (tu1)){
                             futu +=tu1+",";
                         }
                         if (!"".equals(tu2)){
@@ -312,7 +312,12 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                     }
                     tianjiashangpin();
                 } else {
-                    updateshangpin();
+//                    if(StringUtil.isValid(canshu.getPrice())&&Double.valueOf(canshu.getPrice())>0){
+//                        tejia();
+//                    } else {
+                        updateshangpin();
+//                    }
+
                 }
 
                 break;
@@ -353,6 +358,24 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                                         canshu.getRation_one(),canshu.getPice_one(),canshu.getInventory(),new Gson().toJson(mlist),canshu.getType_one_id(),canshu.getGoods(),canshu.getCommodity_state(),canshu.getCommodity_name(),
                                         canshu.getType_two_id(),canshu.getType_tree_id(),canshu.getType_four_id(),canshu.getHostPicture(),canshu.getSpec_describe(),
                                         canshu.getPrice(),canshu.getSpec_count(),canshu.getSpec_detal_id(),canshu.getPack_standard_tree_name(),canshu.getSpec_detal_name(),canshu.getBrand()))
+                .setDataListener(new HttpDataListener<String>() {
+                    @Override
+                    public void onNext(String data) {
+                        Log.e("data",data+"---");
+                        ToastUtil.showToast("编辑成功");
+                        finish();
+                        FaBuShangPinActivity.instance.finish();
+                    }
+                });
+    }
+
+    private void tejia() {
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .shangpinZhuanhuan(PreferenceUtils.getString(MyApplication.mContext, "token",""),spID,"","",""))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {

@@ -357,7 +357,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/fillet_hollow_999999_3"
                         android:hint="请输入数量"
-                        android:inputType="number"
+                        android:inputType="numberDecimal"
                         android:maxLength="8"
                         android:paddingLeft="10dp"
                         android:textColor="@color/zicolor"
@@ -441,8 +441,7 @@
                         android:textColor="@color/zicolor"
                         android:textSize="15sp"
                         android:layout_marginLeft="22dp"
-                        android:background="@null"
-                        android:hint=""
+                        android:hint="请输入库存数量"
                         android:inputType="number"
                         android:textColorHint="@color/hintcolor"
                         android:layout_weight="1"
@@ -531,11 +530,12 @@
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="0.5dp"
                 android:layout_marginLeft="12dp"
                 android:background="@color/cutoff"
                 />
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/ll_tj"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
@@ -584,6 +584,7 @@
                 android:background="@color/gray_e7e7e7"
                 android:layout_marginLeft="12dp"/>
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/ll_showtejia"
                 android:layout_width="match_parent"
                 android:layout_height="54dp"

@@ -13,6 +13,15 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="44dp">
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@mipmap/fanhui_bai"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:layout_centerVertical="true"/>
 
             <LinearLayout
                 android:id="@+id/ll_title"

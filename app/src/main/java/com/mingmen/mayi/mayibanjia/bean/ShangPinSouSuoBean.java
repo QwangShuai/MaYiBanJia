@@ -202,7 +202,16 @@ public class ShangPinSouSuoBean  {
             private String picture_url;
             private String classify_name;
             private String spec_describe;//规格描述
+            private String real_time_state;//即时达
             private List<ListGG> listgg;
+
+            public String getReal_time_state() {
+                return real_time_state;
+            }
+
+            public void setReal_time_state(String real_time_state) {
+                this.real_time_state = real_time_state;
+            }
 
             public String getdPicture() {
                 return dPicture;

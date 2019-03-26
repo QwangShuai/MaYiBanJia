@@ -49,10 +49,8 @@ import cn.qqtheme.framework.picker.SinglePicker;
 public class YeWuYuanMainActivity extends BaseActivity {
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.tv_shaixuan)
-    TextView tvShaixuan;
-    @BindView(R.id.iv_sangedian)
-    ImageView ivSangedian;
+    @BindView(R.id.iv_back)
+    ImageView ivBack;
     @BindView(R.id.tv_right)
     TextView tvRight;
     @BindView(R.id.rv_qiyeliebiao)
@@ -98,7 +96,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
     @Override
     protected void initData() {
         tvTitle.setText(PreferenceUtils.getString(MyApplication.mContext,"name",""));
-        ivSangedian.setVisibility(View.VISIBLE);
+        tvRight.setText("筛选");
 //        ivBack.setImageResource(R.mipmap.sousuo_bai);
         mContext = YeWuYuanMainActivity.this;
         confirmDialog = new ConfirmDialog(mContext,
@@ -281,16 +279,19 @@ public class YeWuYuanMainActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.tv_shaixuan, R.id.tv_right, R.id.iv_sangedian, R.id.tv_title,R.id.ll_type, R.id.ll_zhuce})
+    @OnClick({R.id.tv_right, R.id.tv_title,R.id.ll_type, R.id.ll_zhuce,R.id.iv_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.iv_back:
+                finish();
+                break;
             case R.id.ll_type:
                 showTypePop();
                 break;
             case R.id.ll_zhuce:
                 showZhucePop();
                 break;
-            case R.id.tv_shaixuan:
+            case R.id.tv_right:
                 //搜索弹出框
 //dialog
                 sousuodialog = new QiYeSouSUoDialog(mContext,
@@ -346,94 +347,12 @@ public class YeWuYuanMainActivity extends BaseActivity {
 
                 });
                 break;
-            case R.id.tv_right:
-                addDialog = new YeWuYuanAddDialog(mContext,
-                        mContext.getResources().getIdentifier("TouMingDialog", "style", mContext.getPackageName()));
-                addDialog.showDialog();
-                addDialog.getLlBianji().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        addDialog.dismiss();
-                        //添加企业
-                        Intent intent = new Intent(mContext, XinXiLuRuActivity.class);
-                        bundle.putString("rukou", "add");
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-                    }
-                });
-                addDialog.getLlShanchu().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        addDialog.dismiss();
-                        Intent intent = new Intent(mContext, XinXiLuRuGHDActivity.class);
-                        bundle.putString("rukou", "add");
-                        bundle.putString("random_id", "1");
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-                    }
-                });
-                addDialog.getLlHebing().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        addDialog.dismiss();
-                        Intent intent = new Intent(mContext, XinXiLuRuGHDActivity.class);
-                        bundle.putString("rukou", "add");
-                        bundle.putString("random_id", "0");
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-                    }
-                });
-                addDialog.getIvGuanbi().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        addDialog.cancel();
-                    }
-                });
-
-                break;
-            case R.id.iv_sangedian:
-                showTuiChuPop();
-                break;
             case R.id.tv_title:
 //                dialog = new YeWuYuanDialog();
 //                dialog.setTop(AppUtil.dip2px(44)).setActivity(YeWuYuanMainActivity.this);
 //                dialog.show(getSupportFragmentManager());
                 break;
         }
-    }
-
-    private void showTuiChuPop() {
-        View view = View.inflate(mContext, R.layout.pop_tuichu, null);
-        tuichupop = new PopupWindow(view);
-
-        WindowManager wm1 = this.getWindowManager();
-//        int width = wm1.getDefaultDisplay().getWidth();
-//        int height = wm1.getDefaultDisplay().getHeight();
-        tuichupop.setWidth(AppUtil.dip2px(130));
-        tuichupop.setHeight(AppUtil.dip2px(50));
-        LinearLayout ll_tuichu = view.findViewById(R.id.ll_tuichu);
-        ll_tuichu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                confirmDialog.showDialog("是否确定退出当前账号");
-                confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        exitLogin();
-                    }
-                });
-                confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        confirmDialog.dismiss();
-                        tuichupop.dismiss();
-                    }
-                });
-            }
-        });
-        tuichupop.setOutsideTouchable(true);
-        tuichupop.setBackgroundDrawable(new BitmapDrawable());
-        tuichupop.showAsDropDown(ivSangedian);
     }
 
     private void showTypePop() {
@@ -570,11 +489,11 @@ public class YeWuYuanMainActivity extends BaseActivity {
                 });
     }
 
-    @Override
-    public void onBackPressed() {
+//    @Override
+//    public void onBackPressed() {
 //        super.onBackPressed();
-        exit();
-    }
+//        exit();
+//    }
 
     //删除
     private void shanchu(final int position) {

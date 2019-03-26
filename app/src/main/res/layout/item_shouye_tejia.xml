@@ -17,16 +17,33 @@
         android:layout_marginLeft="12dp"
         android:layout_marginStart="12dp" />
     <TextView
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:maxEms="12"
+        android:singleLine="true"
+        android:ellipsize="marquee"
         android:id="@+id/tv_spming"
+        android:marqueeRepeatLimit="marquee_forever"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="甜橙"
+        android:textAllCaps="true"
         android:textColor="#474747"
         android:textSize="15sp"
         app:layout_constraintLeft_toRightOf="@+id/iv_sptu"
         app:layout_constraintTop_toTopOf="@+id/iv_sptu"
         android:layout_marginLeft="12dp"
         android:layout_marginStart="12dp" />
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/iv_jishida"
+        android:layout_marginLeft="4dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="4dp"
+        app:layout_constraintLeft_toRightOf="@+id/tv_spming"
+        android:src="@mipmap/jishida"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/tv_renminbi"
@@ -106,8 +123,8 @@
     </LinearLayout>
     <ImageView
         android:id="@+id/iv_zoushitu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
         android:src="@mipmap/zoushi"
         app:layout_constraintRight_toRightOf="parent"
         android:padding="12dp"

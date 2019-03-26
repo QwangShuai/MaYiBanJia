@@ -304,7 +304,7 @@
         <activity android:name=".ui.activity.XuanZeGuiGeActivity" /> <!-- 选择规格 -->
         <activity android:name=".ui.activity.YongHuPingJiaActivity" /> <!-- 供应端用户评价 -->
         <activity android:name=".ui.activity.GHDXiangQingActivity" /> <!-- 供应端订单详情 -->
-        <activity android:name=".ui.activity.YeWuYuanActivity"></activity>
+        <activity android:name=".ui.activity.YeWuYuanActivity" />
     </application>
 
 </manifest>

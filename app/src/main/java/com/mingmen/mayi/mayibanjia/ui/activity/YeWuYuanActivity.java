@@ -85,6 +85,7 @@ public class YeWuYuanActivity extends BaseActivity {
     private String isSelect = "1";
     private Context mContext;
     private ConfirmDialog confirmDialog;
+    private String type="全部";
 
     @Override
     public int getLayoutId() {
@@ -153,14 +154,17 @@ public class YeWuYuanActivity extends BaseActivity {
                             case "社区市场":
                                 tvYizhuce.setText("已注册:"+bean.getRegistered_she()+"");
                                 tvWeizhuce.setText("未注册:"+bean.getNo_she()+"");
+                                type = "社区市场";
                                 break;
                             case "供货端":
                                 tvYizhuce.setText("已注册:"+bean.getRegistered_gy()+"");
                                 tvWeizhuce.setText("未注册:"+bean.getNo_gy()+"");
+                                type = "供货端";
                                 break;
                             case "餐厅端":
                                 tvYizhuce.setText("已注册:"+bean.getRegistered_ct()+"");
                                 tvWeizhuce.setText("未注册:"+bean.getNo_ct()+"");
+                                type = "餐厅端";
                                 break;
                         }
                         ToastUtil.showToastLong("当前点击了" + value.getLabel());
@@ -173,6 +177,7 @@ public class YeWuYuanActivity extends BaseActivity {
                 ToastUtil.showToastLong("点击了非标签区域");
                 tvYizhuce.setText("已注册:"+bean.getRegistered_all()+"");
                 tvWeizhuce.setText("未注册:"+bean.getNo_all()+"");
+                type = "全部";
             }
         });
     }
@@ -212,6 +217,9 @@ public class YeWuYuanActivity extends BaseActivity {
                 break;
             case R.id.ll_dcldd:
                 ToastUtil.showToastLong("点什么玩意");
+                Intent it_wl = new Intent(mContext,SiJiActivity.class);
+                it_wl.putExtra("ywy","1");
+                startActivity(it_wl);
                 break;
             case R.id.ll_ywy:
                 if (isShow) {

@@ -30,6 +30,7 @@ import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.AppManager;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.qrCode.CaptureActivity;
 
 import java.util.ArrayList;
@@ -45,6 +46,8 @@ public class SiJiActivity extends BaseActivity {
     RecyclerView rv_peisong;
     @BindView(R.id.iv_sangedian)
     ImageView ivSangedian;
+    @BindView(R.id.iv_back)
+    ImageView ivBack;
 
     private Context mContext;
     private SiJiPeiSongDialog titleDialog;
@@ -62,6 +65,10 @@ public class SiJiActivity extends BaseActivity {
     @Override
     protected void initData() {
         mContext = SiJiActivity.this;
+        if(StringUtil.isValid(getIntent().getStringExtra("ywy"))){
+            ivBack.setVisibility(View.VISIBLE);
+            ivSangedian.setVisibility(View.GONE);
+        }
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         getPeiSong("");
@@ -75,6 +82,9 @@ public class SiJiActivity extends BaseActivity {
                 break;
             case R.id.iv_sangedian:
                 showTuiChuPop();
+                break;
+            case R.id.iv_back:
+                finish();
                 break;
         }
     }

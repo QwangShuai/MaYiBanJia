@@ -633,7 +633,9 @@ public interface HttpService {
     @POST("sy/getMarket.do")
     Observable<ResultModel<AllShiChangBean>> getallshichang(@Query("user_token") String user_token,
                                                             @Query("province") String province,
-                                                            @Query("city") String city);
+                                                            @Query("city") String city,
+                                                            @Query("region") String region,
+                                                            @Query("street") String street);
 
     //关注店铺
     @POST("ctAttention/save.do")

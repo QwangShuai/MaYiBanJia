@@ -145,14 +145,13 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
         holder.tvXiaoliang.setText( "已售" + bean.getSumGoodsSales());
         holder.tvKucun.setText( "库存" + bean.getInventory());
         holder.tvDanjia.setText("¥ " + bean.getPrice());
-        holder.btBianji.setVisibility(View.VISIBLE);
         holder.btBianji.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isClick()) {
-                    if (bean.getApproval_state().equals("0") || bean.getApproval_state().equals("2")) {
-                        ToastUtil.showToast("在售商品不能编辑，请先下架");
-                    } else {
+//                    if (bean.getApproval_state().equals("0") || bean.getApproval_state().equals("2")) {
+//                        ToastUtil.showToast("在售商品不能编辑，请先下架");
+//                    } else {
                         Intent it = new Intent(mContext, FaBuShangPinActivity.class);
                         it.putExtra("state", "1");
                         it.putExtra("goods", goods);
@@ -161,7 +160,7 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
                         }
                         it.putExtra("bean", bean.getCommodity_id());
                         mContext.startActivity(it);
-                    }
+//                    }
                     //上下架状态
                 } else {
                     ToastUtil.showToastLong("请注意，您只有阅览权限");

@@ -97,7 +97,6 @@ public class GHOrderAdapter extends RecyclerView.Adapter<GHOrderAdapter.ViewHold
 
 
         if (bean.getState_name().equals("待发货")) {
-            holder.tv_dayin.setVisibility(View.GONE);
             holder.tv_state.setText("待发货");
             holder.rl_wancheng.setVisibility(View.GONE);
             if (TextUtils.isEmpty(String.valueOf(bean.getDriver_name()))) {
@@ -151,6 +150,9 @@ public class GHOrderAdapter extends RecyclerView.Adapter<GHOrderAdapter.ViewHold
             holder.tv_phone.setText(String.valueOf(bean.getDriver_phone()));
             holder.tv_end_time.setText(bean.getMj_sweep_time());
             holder.tvTuikuan.setVisibility(View.GONE);
+        }
+        if(bean.getState_name().equals("待打包")){
+            holder.tv_dayin.setVisibility(View.VISIBLE);
         }
         holder.tvDianpu.setText(bean.getCompany_name() + ":");
         holder.tvDianpuPhone.setText(bean.getTelephone());

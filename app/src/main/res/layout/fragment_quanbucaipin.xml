@@ -372,7 +372,24 @@
                                 android:layout_height="wrap_content"
                                 android:src="@mipmap/jiagepaixu" />
                         </LinearLayout>
-
+                        <TextView
+                            android:id="@+id/tv_tejia"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="特价"
+                            android:textColor="#666666"
+                            android:textSize="12sp" />
+                        <TextView
+                            android:id="@+id/tv_jishida"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="即时达"
+                            android:textColor="#666666"
+                            android:textSize="12sp" />
                         <TextView
                             android:id="@+id/tv_pingfenzuigao"
                             android:layout_width="match_parent"

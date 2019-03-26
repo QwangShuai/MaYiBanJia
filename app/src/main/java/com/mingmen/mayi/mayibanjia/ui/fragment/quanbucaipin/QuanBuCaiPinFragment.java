@@ -135,6 +135,10 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     LinearLayout llPinzhong;
     @BindView(R.id.tv_guige)
     TextView tvGuige;
+    @BindView(R.id.tv_tejia)
+    TextView tvTejia;
+    @BindView(R.id.tv_jishida)
+    TextView tvJishida;
     @BindView(R.id.ll_guige)
     LinearLayout llGuige;
     Unbinder unbinder;
@@ -527,7 +531,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getallshichang(PreferenceUtils.getString(MyApplication.mContext, "token", ""), "230000", "230100"))
+                                .getallshichang(PreferenceUtils.getString(MyApplication.mContext, "token", ""), "230000", "230100","",""))
                 .setDataListener(new HttpDataListener<AllShiChangBean>() {
                     @Override
                     public void onNext(AllShiChangBean data) {
@@ -593,12 +597,19 @@ public class QuanBuCaiPinFragment extends BaseFragment {
 
     //    @OnClick({R.id.ll_diqu, R.id.ll_pinlei, R.id.ll_shaixuan,R.id.iv_shanchuzi, R.id.tv_xiaoliang, R.id.ll_jiage, R.id.tv_pingfenzuigao})
     @OnClick({R.id.ll_shichangjia, R.id.ll_pinzhong, R.id.ll_pinlei, R.id.ll_shichang,
-            R.id.ll_sousuo, R.id.tv_xiaoliang, R.id.ll_jiage, R.id.tv_pingfenzuigao, R.id.ll_guige})
+            R.id.ll_sousuo, R.id.tv_xiaoliang, R.id.ll_jiage, R.id.tv_pingfenzuigao,
+            R.id.ll_guige,R.id.tv_tejia,R.id.tv_jishida})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 //            case R.id.ll_diqu:
 //                //地区
 //                break;
+            case R.id.tv_tejia://特价
+
+                break;
+            case R.id.tv_jishida://即时达
+
+                break;
             case R.id.ll_pinlei:
                 showPopOne();
                 break;

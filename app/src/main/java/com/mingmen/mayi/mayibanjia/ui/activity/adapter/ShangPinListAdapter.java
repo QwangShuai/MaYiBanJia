@@ -22,6 +22,7 @@ import com.mingmen.mayi.mayibanjia.bean.SouSuoJieGuoShangPinBean;
 import com.mingmen.mayi.mayibanjia.ui.activity.SPXiangQingActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.TubiaoActivity;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 
 import java.util.List;
 
@@ -71,6 +72,10 @@ public class ShangPinListAdapter extends RecyclerView.Adapter<ShangPinListAdapte
         holder.tvJiage.setText(data.getPrice()+"");
         //holder.tvGuige.setText(data.getPackStandard()+"");
         holder.tvSpxiaoliang.setText("已售"+data.getCommodity_sales());
+        Log.e("onBindViewHolder: ",data.getReal_time_state()+"---");
+        if(StringUtil.isValid(data.getReal_time_state())&&data.getReal_time_state().equals("0")){
+            holder.ivJishida.setVisibility(View.VISIBLE);
+        }
         Glide.with(mContext).load(data.getPicture_url()).into(holder.ivSptu);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,6 +134,8 @@ public class ShangPinListAdapter extends RecyclerView.Adapter<ShangPinListAdapte
         TextView tvDian;
         @BindView(R.id.iv_addcar)
         ImageView ivAddcar;
+        @BindView(R.id.iv_jishida)
+        ImageView ivJishida;
         @BindView(R.id.cl_kuang)
         ConstraintLayout clKuang;
         @BindView(R.id.iv_zoushitu)

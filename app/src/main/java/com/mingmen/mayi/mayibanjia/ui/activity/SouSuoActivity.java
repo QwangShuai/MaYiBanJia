@@ -272,24 +272,24 @@ public class SouSuoActivity extends BaseActivity {
         rvYouzi.setLoadMoreListener(mLoadMoreListener); // 加载更多的监听。
         rvYouzi.loadMoreFinish(false, true);
 
-        refreshLayout.setColorSchemeResources(R.color.zangqing, R.color.zangqing,
-                R.color.zangqing, R.color.zangqing);
-
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-            if(TextUtils.isEmpty(sousuozi)){
-                ToastUtil.showToast("无搜索字");
-            } else {
-                if(sousuofangxiang.equals("shichang")){
-                    sousuoshichang();
-                } else {
-                    sousuodianpu(sousuozi);
-                }
-            }
-                refreshLayout.setRefreshing(false);
-            }
-        });
+//        refreshLayout.setColorSchemeResources(R.color.zangqing, R.color.zangqing,
+//                R.color.zangqing, R.color.zangqing);
+//
+//        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//            if(TextUtils.isEmpty(sousuozi)){
+//                ToastUtil.showToast("无搜索字");
+//            } else {
+//                if(sousuofangxiang.equals("shichang")){
+//                    sousuoshichang();
+//                } else {
+//                    sousuodianpu(sousuozi);
+//                }
+//            }
+//                refreshLayout.setRefreshing(false);
+//            }
+//        });
         rvYouzi.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         // 2. 实例化数据库SQLiteOpenHelper子类对象
         helper = new RecordSQLiteOpenHelper(mContext);

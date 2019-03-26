@@ -221,6 +221,15 @@ public class ShangPinGuanLiBean {
             private String number;
             private String region;
             private String approval_state;
+            private String fail_reason;
+
+            public String getFail_reason() {
+                return fail_reason;
+            }
+
+            public void setFail_reason(String fail_reason) {
+                this.fail_reason = fail_reason;
+            }
 
             public String getAudit_state() {
                 return audit_state;

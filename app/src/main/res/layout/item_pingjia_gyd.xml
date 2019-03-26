@@ -71,7 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/dingdanxiangqing"
-            android:textColor="@color/blue_3794e5"
+            android:textColor="@color/zangqing"
             android:textSize="12sp"
             />
     </LinearLayout>

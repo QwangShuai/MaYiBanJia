@@ -73,8 +73,8 @@ public class HttpObserver<T> implements Observer<T> {
     private void showProgressDialog() {
         Context context = this.context.get();
         if (dialog == null || context == null) return;
-        if (!dialog.isShowing()) {
-            dialog.show();
+        if (!this.dialog.isShowing()) {
+            this.dialog.show();
         }
     }
 

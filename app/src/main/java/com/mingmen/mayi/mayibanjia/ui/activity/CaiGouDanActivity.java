@@ -234,12 +234,10 @@ public class CaiGouDanActivity extends BaseActivity {
                 // 该加载更多啦。
                 Log.e("jiazaigengduo", "jiazaigengduo");
                 // 请求数据，并更新数据源操作。
-                adapter.notifyDataSetChanged();
 
                 // 数据完更多数据，一定要调用这个方法。
                 // 第一个参数：表示此次数据是否为空。
                 // 第二个参数：表示是否还有更多数据。
-                rvCaigoudan.loadMoreFinish(false, true);
                 getHedanList("0",type,0);
                 // 如果加载失败调用下面的方法，传入errorCode和errorMessage。
                 // errorCode随便传，你自定义LoadMoreView时可以根据errorCode判断错误类型。

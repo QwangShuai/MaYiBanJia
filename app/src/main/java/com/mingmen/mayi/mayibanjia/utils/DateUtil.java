@@ -79,9 +79,9 @@ public class DateUtil {
 	public static Map<String, Integer> genDate(int day) {
 		Map<String, Integer> map = new HashMap<String, Integer>();
 
-		for (int i = 0; i <= day; i++) {
+		for (int i = 0; i < day; i++) {
 			Calendar calendar = Calendar.getInstance();
-			int date = calendar.get(Calendar.DAY_OF_MONTH) - (day - i);
+			int date = calendar.get(Calendar.DAY_OF_MONTH) + i+1;
 
 			calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), date);
 			String d = dateFormat(calendar.getTime(), "yyyy-MM-dd");

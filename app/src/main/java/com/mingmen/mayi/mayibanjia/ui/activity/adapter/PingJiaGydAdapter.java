@@ -23,6 +23,7 @@ import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.DingDanXiangQingActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.GHDXiangQingActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.YongHuPingJiaActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.CircleImageView;
 import com.mingmen.mayi.mayibanjia.ui.view.XCFlowLayout;
@@ -79,7 +80,7 @@ public class PingJiaGydAdapter extends RecyclerView.Adapter<PingJiaGydAdapter.Vi
             holder.tvDingdan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent it = new Intent(mContext, DingDanXiangQingActivity.class);
+                    Intent it = new Intent(mContext, GHDXiangQingActivity.class);
                     it.putExtra("orderID", item.getGy_order_id());
                     mContext.startActivity(it);
                 }

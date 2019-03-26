@@ -25,7 +25,7 @@ public class WoDeBean {
     private int shelves;//商品上架数量
     private int sold_out;//商品下架数量
     private int wait_audit;//商品待审核
-    private int wait_money;
+    private double wait_money;
     private int wait_qr;
     private int wait_db;
     private int qiangdan_z;
@@ -69,11 +69,11 @@ public class WoDeBean {
         this.evaluation = evaluation;
     }
 
-    public int getWait_money() {
+    public double getWait_money() {
         return wait_money;
     }
 
-    public void setWait_money(int wait_money) {
+    public void setWait_money(double wait_money) {
         this.wait_money = wait_money;
     }
 

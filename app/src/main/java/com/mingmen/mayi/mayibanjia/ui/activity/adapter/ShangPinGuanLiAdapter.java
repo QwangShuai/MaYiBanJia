@@ -10,6 +10,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -23,6 +24,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.FaBuShangPinActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShangPinGuanLiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmSingleDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.shangpinguanli.BaseShangPinFragment;
 import com.mingmen.mayi.mayibanjia.ui.activity.shangpinguanli.QuanBuShangPinFragment;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
@@ -149,7 +151,7 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
             public void onClick(View v) {
                 if (isClick()) {
                     if (bean.getApproval_state().equals("0") || bean.getApproval_state().equals("2")) {
-                        ToastUtil.showToast("上架不能编辑，请先下架");
+                        ToastUtil.showToast("在售商品不能编辑，请先下架");
                     } else {
                         Intent it = new Intent(mContext, FaBuShangPinActivity.class);
                         it.putExtra("state", "1");
@@ -189,7 +191,7 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
         holder.btBianji.setVisibility(View.GONE);
         holder.tvXiajia.setVisibility(View.GONE);
             switch (bean.getSortOrder()) {
-                case "1"://上架
+                case "1"://在售商品
                     holder.btXiajia.setVisibility(View.VISIBLE);
                     holder.btAddGuige.setVisibility(View.VISIBLE);
                     holder.btXiajia.setOnClickListener( new OnClickListener() {
@@ -213,7 +215,7 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
                         @Override
                         public void onClick(View v) {
                             if (isClick()) {
-                                showDialog("是否上架", bean.getCommodity_id(), "2");
+                                showDialog("是否发售商品", bean.getCommodity_id(), "2");
                             } else {
                                 ToastUtil.showToastLong("请注意，您只有阅览权限");
                             }
@@ -230,6 +232,22 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
                     holder.btIsTejia.setText("取消特价");
                     break;
                 case "4"://审核失败
+                    holder.llWenhao.setVisibility(View.VISIBLE);
+                    holder.llWenhao.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            final ConfirmSingleDialog dialog;
+                            dialog = new ConfirmSingleDialog(mContext,
+                                    mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
+                            dialog.showDialog(bean.getFail_reason());
+                            dialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.cancel();
+                                }
+                            });
+                        }
+                    });
                     holder.btBianji.setVisibility(View.VISIBLE);
                     holder.btShangjia.setVisibility(View.VISIBLE);
                     holder.btShangjia.setText("审核失败");
@@ -316,6 +334,8 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
         Button btShangjia;
         @BindView(R.id.bt_is_tejia)
         Button btIsTejia;
+        @BindView(R.id.ll_wenhao)
+        LinearLayout llWenhao;
 
         ViewHolder(View view) {
             super(view);

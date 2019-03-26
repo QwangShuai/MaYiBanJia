@@ -384,7 +384,8 @@ public interface HttpService {
     //商品收藏
     @POST("ctCollectCommodity/save.do")
     Observable<ResultModel<String>> shoucang(@Query("user_token") String user_token,
-                                             @Query("commodity_id") String company_id);
+                                             @Query("commodity_id") String company_id,
+                                             @Query("shoppingCartId") String shoppingCartId);
 
     //取消商品收藏
     @POST("ctCollectCommodity/delete.do")
@@ -524,7 +525,8 @@ public interface HttpService {
                                                   @Query("arrival_time") String arrival_time,//到货时间
                                                   @Query("shopping_id") String shopping_id,//shopping_id
                                                   @Query("remarke") String remarke,//留言
-                                                  @Query("feelist") String list);//市场数组
+                                                  @Query("feelist") String list,//市场数组
+                                                  @Query("freight_fee_type") String freight_fee_type);//0标准达1实时达
 
     //提交订单
     @POST("Ordermain/saveUserOrder.do")
@@ -735,6 +737,7 @@ public interface HttpService {
     //查询供货订单列表
     @POST("gyOreder/queryByList.do")
     Observable<ResultModel<List<GHOrderBean>>> getGHOrderList(@Query("user_token") String user_token,
+                                                              @Query("gy_order_id") String gy_order_id,
                                                               @Query("state") String state, @Query("pageNumber") Integer pageNumber);
 
     //删除供货订单
@@ -1309,4 +1312,11 @@ public interface HttpService {
     Observable<ResultModel<String>> gydHuifu(@Query("user_token") String user_token,
                                              @Query("comment_text") String comment_text,
                                              @Query("rowgu_id") String rowgu_id);
+
+    // 准时达运费
+    @POST("Ordermain/qyeryshishidaByFreightFee.do")
+    Observable<ResultModel<List<YunFeiBean>>> getZhunshida(@Query("user_token") String user_token,
+                                                           @Query("commodity_id") String commodity_id,
+                                                           @Query("deliver_address") String deliver_address,
+                                                           @Query("number") String number);
 }

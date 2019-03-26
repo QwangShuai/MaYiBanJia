@@ -54,6 +54,7 @@ public class YongHuPingJiaActivity extends BaseActivity {
     private int ye = 1;
     private List<XQPingJiaBean> mlist = new ArrayList<>();
     private String type = "";
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_yong_hu_ping_jia;

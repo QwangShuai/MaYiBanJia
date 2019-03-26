@@ -275,7 +275,9 @@ public class GouWuCheFragment extends BaseFragment {
                     adapter.allCheck(true);
                     ivQuanxuan.setSelected(true);
                     quanxuanlist(true);
-                    getZongJia();
+                    if(!isGuanli){
+                        getZongJia();
+                    }
                 }
                 isSelect=!isSelect;
                 break;
@@ -304,6 +306,7 @@ public class GouWuCheFragment extends BaseFragment {
                     ToastUtil.showToast("请选择商品后再收藏");
                     return;
                 }
+                shoucang();
                 break;
             case R.id.tv_shanchu:
                 if (selectedId.size()==0){
@@ -334,14 +337,22 @@ public class GouWuCheFragment extends BaseFragment {
         selectedId.clear();
         for (int i = 0; i < gwcdianpushangpin.size(); i++) {
             for (int j = 0; j < gwcdianpushangpin.get(i).getShangPinBeen().size(); j++) {
-                if (isquanxuan){
-                    if(!gwcdianpushangpin.get(i).getShangPinBeen().get(j).getCommodity_state().equals("1")){
+                if(isGuanli){
+                    if (isquanxuan){
                         selectedId.put(gwcdianpushangpin.get(i).getShangPinBeen().get(j).getShopping_id(),gwcdianpushangpin.get(i).getShangPinBeen().get(j).getCompany_id());
                     }
-                }
-                if(!gwcdianpushangpin.get(i).getShangPinBeen().get(j).getCommodity_state().equals("1")){
                     gwcdianpushangpin.get(i).getShangPinBeen().get(j).setSelected(isquanxuan);
+                } else {
+                    if (isquanxuan){
+                        if(!gwcdianpushangpin.get(i).getShangPinBeen().get(j).getCommodity_state().equals("1")){
+                            selectedId.put(gwcdianpushangpin.get(i).getShangPinBeen().get(j).getShopping_id(),gwcdianpushangpin.get(i).getShangPinBeen().get(j).getCompany_id());
+                        }
+                    }
+                    if(!gwcdianpushangpin.get(i).getShangPinBeen().get(j).getCommodity_state().equals("1")){
+                        gwcdianpushangpin.get(i).getShangPinBeen().get(j).setSelected(isquanxuan);
+                    }
                 }
+
 
             }
 
@@ -394,5 +405,26 @@ public class GouWuCheFragment extends BaseFragment {
                         setShuaxin();
                     }
                 },false);
+    }
+
+    //收藏此商品
+    private void shoucang() {
+        String id = "";
+        for (String myid : selectedId.keySet()){
+            id+=","+myid;
+        }
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .shoucang(PreferenceUtils.getString(MyApplication.mContext, "token", ""), id,""))
+                .setDataListener(new HttpDataListener<String>() {
+                    @Override
+                    public void onNext(String data) {
+                        ToastUtil.showToast("收藏成功");
+                        setShuaxin();
+                    }
+                });
     }
 }

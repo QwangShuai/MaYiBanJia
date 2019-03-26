@@ -15,13 +15,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.mingmen.mayi.mayibanjia.MainActivity;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.AddressListBean;
 import com.mingmen.mayi.mayibanjia.bean.AllMarket;
-import com.mingmen.mayi.mayibanjia.bean.GWCDianPuShangPinBean;
+import com.mingmen.mayi.mayibanjia.bean.MessageBean;
 import com.mingmen.mayi.mayibanjia.bean.QueRenDingDanShangPinBean;
 import com.mingmen.mayi.mayibanjia.bean.ReUserOrder;
 import com.mingmen.mayi.mayibanjia.bean.SongDaShiJianBean;
@@ -31,15 +29,17 @@ import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 
 
-import com.mingmen.mayi.mayibanjia.ui.activity.adapter.HeDanShiChangAdapter;
-import com.mingmen.mayi.mayibanjia.ui.activity.adapter.TiJiaoDingDanDianPuAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.TiJiaoDingDanShichangAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.DateDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
-import com.mingmen.mayi.mayibanjia.utils.MyMath;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -93,6 +93,10 @@ public class QueRenDingDanActivity extends BaseActivity {
     TextView tvTijiaodingdan;
     @BindView(R.id.tv_hdmc)
     TextView tvHdmc;
+    @BindView(R.id.tv_biaozhunda)
+    TextView tvBiaozhunda;
+    @BindView(R.id.tv_zhunshida)
+    TextView tvZhushida;
     //    @BindView(R.id.tv_yue)
 //    TextView tvYue;
 //    @BindView(R.id.iv_xuanzeyue)
@@ -130,7 +134,8 @@ public class QueRenDingDanActivity extends BaseActivity {
     private List<AllMarket> shichangList = new ArrayList<>();
     private List<String> commodity_id_list = new ArrayList<>();
     private List<String> son_order_id_list = new ArrayList<>();
-
+    private String isTime;
+    private String isZhunshi;
     @Override
     public int getLayoutId() {
         return R.layout.activity_querendingdan;
@@ -142,7 +147,7 @@ public class QueRenDingDanActivity extends BaseActivity {
         tvTitle.setText("确认订单");
         lujingtype = getIntent().getStringExtra("lujingtype");
         instance = QueRenDingDanActivity.this;
-
+        EventBus.getDefault().register(this);
         ct_buy_final_id = getIntent().getStringExtra("ct_buy_final_id");
         company_id = getIntent().getStringExtra("company_id");
         company_id = company_id.substring(0, company_id.length() - 1);
@@ -201,7 +206,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .tijiaodingdan(PreferenceUtils.getString(MyApplication.mContext, "token", ""), hejijine+"", "", yunfei+"", yue, dizhi.getAddress_id(), songdashijianid, shopping_id, remarke,new Gson().toJson(shichangList)))
+                                .tijiaodingdan(PreferenceUtils.getString(MyApplication.mContext, "token", ""), hejijine+"", "", yunfei+"", yue, dizhi.getAddress_id(), songdashijianid, shopping_id, remarke,new Gson().toJson(shichangList),isZhunshi))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
@@ -217,7 +222,13 @@ public class QueRenDingDanActivity extends BaseActivity {
                 });
 //
     }
-
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getMyGoods(SongDaShiJianBean bean) {
+        tvSongdashijian.setText(bean.getSon_name());
+        songdashijianid = bean.getSon_name();
+//        this.goods =  bean.getMessage();
+        getYunFei();
+    }
     private void caigoutijiaodingdan() {
         if(!StringUtil.isValid(ct_buy_final_id)){
             List<QueRenDingDanShangPinBean.MarketlistBean> list = shichangdata;
@@ -282,7 +293,15 @@ public class QueRenDingDanActivity extends BaseActivity {
                                         }
 
                                         if (i == data.getMarketlist().size() - 1 && j == data.getMarketlist().get(i).getCgzhulist().size() - 1&&m==data.getMarketlist().get(i).getCgzhulist().get(j).getCgzilist().size()-1) {
-                                            getYunFei();
+                                            if(StringUtil.isValid(isTime)){
+                                                if(isTime.equals("准时达")){//准时达
+
+                                                } else {//标准达
+                                                    getYunFei();
+                                                }
+                                            }
+
+
                                         }
                                     }
                                 }
@@ -302,7 +321,13 @@ public class QueRenDingDanActivity extends BaseActivity {
                                             number += "," + data.getMarketlist().get(k).getDplist().get(i).getList().get(j).getCount();
                                         }
                                         if (k == data.getMarketlist().size() - 1 && i == data.getMarketlist().get(k).getDplist().size() - 1&&j==data.getMarketlist().get(k).getDplist().get(i).getList().size()-1) {
-                                            getYunFei();
+                                            if(StringUtil.isValid(isTime)){
+                                                if(isTime.equals("准时达")){//准时达
+
+                                                } else {//标准达
+                                                    getYunFei();
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -391,7 +416,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                                 @Override
                                 public void onItemPicked(int index, SongDaShiJianBean item) {
                                     songdashijianname = item.getSon_name();
-                                    songdashijianid = item.getSon_number();
+                                    songdashijianid = item.getSon_name();
                                     Log.e("songdashijianname", songdashijianname + "===" + songdashijianid);
                                     tvSongdashijian.setText(songdashijianname);
                                     picker.dismiss();
@@ -407,15 +432,55 @@ public class QueRenDingDanActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.iv_back, R.id.ll_songdashijian, R.id.ll_xuanzedizhi, R.id.tv_tijiaodingdan})
+    @OnClick({R.id.iv_back, R.id.ll_songdashijian, R.id.ll_xuanzedizhi,
+            R.id.tv_tijiaodingdan,R.id.tv_biaozhunda,R.id.tv_zhunshida})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
                 finish();
                 break;
+            case R.id.tv_biaozhunda:
+                shichangList.clear();
+                hejijine = 0.0;
+                zongzhong = 0.0;
+                yunfei = 0.0;
+                isZhunshi = "0";
+                isTime = "标准达";
+                tvBiaozhunda.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_zangqing_3));
+                tvBiaozhunda.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+                tvZhushida.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_999999_3));
+                tvZhushida.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+                new DateDialog().setData(mContext).show(getSupportFragmentManager());
+                tvSongdashijian.setText("");
+                for (int i=0;i<shichangdata.size();i++) {
+                    shichangdata.get(i).setYunfei(BigDecimal.valueOf(0));
+                }
+                tvHejijine.setText("0");
+                tvYunfei.setText("0");
+                tvYunfei.setText("0");
+                tvHejijine.setText("0");
+                adapter.notifyDataSetChanged();
+                break;
+            case R.id.tv_zhunshida:
+                shichangList.clear();
+                hejijine = 0.0;
+                zongzhong = 0.0;
+                yunfei = 0.0;
+                songdashijianid = "您的订单将于下单后的2小时内送达";
+                isZhunshi = "1";
+                getZhunshidaYunFei();
+                isTime = "准时达";
+                tvZhushida.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_zangqing_3));
+                tvZhushida.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+                tvBiaozhunda.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_999999_3));
+                tvBiaozhunda.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+                tvSongdashijian.setText("您的订单将于下单后的2小时内送达");
+                break;
             case R.id.ll_songdashijian:
+                ToastUtil.showToastLong("时间由送达状态选择");
+//                new DateDialog(mContext).show(getSupportFragmentManager());
                 //选择送达时间
-                getsongdashijian();
+//                getsongdashijian();
                 break;
 //            case R.id.iv_xuanzeyue:
 //                //选择使用yue付款
@@ -436,7 +501,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                 break;
             case R.id.tv_tijiaodingdan:
                 if (yunfei==0.00) {
-                    ToastUtil.showToast("超重,暂无物流接单,请联系客服");
+                    ToastUtil.showToast("运费获取失败,请联系客服");
                 } else {
                     //提交订单
                     Calendar calendar = Calendar.getInstance();
@@ -576,10 +641,39 @@ public class QueRenDingDanActivity extends BaseActivity {
                             tvZhongliang.setText(+zongzhong+"斤)");
                             tvYunfei.setText(yunfei+"");
                         }
-                    });
+                    },false);
         }
     }
-
+    public void getZhunshidaYunFei() {
+        if(count==0){
+            ToastUtil.showToast("请添加收货地址");
+        } else {
+            HttpManager.getInstance()
+                    .with(mContext)
+                    .setObservable(RetrofitManager.getService()
+                            .getZhunshida(PreferenceUtils.getString(MyApplication.mContext, "token", ""),spID, dizhi.getAddress_id(), number))
+                    .setDataListener(new HttpDataListener<List<YunFeiBean>>() {
+                        @Override
+                        public void onNext(List<YunFeiBean> o) {
+                            adapter.setYunfei(o);
+                            hejijine = Double.valueOf(zongjia);
+                            for (int i=0;i<o.size();i++ ){
+                                hejijine += o.get(i).getMoney();
+                                yunfei +=o.get(i).getMoney();
+                                zongzhong += o.get(i).getSumZL();
+                                AllMarket bean = new AllMarket();
+                                bean.setMarket_id(o.get(i).getMark_id());
+                                bean.setFreight_fee(o.get(i).getMoney());
+                                bean.setTotal_weight(o.get(i).getSumZL());
+                                shichangList.add(bean);
+                            }
+                            tvHejijine.setText(hejijine + "");
+                            tvZhongliang.setText(+zongzhong+"斤)");
+                            tvYunfei.setText(yunfei+"");
+                        }
+                    },false);
+        }
+    }
     public String getJson(String data){
         List<String> list = new ArrayList<>();
         for (int i = 0;i<data.split(",").length;i++){
@@ -587,4 +681,6 @@ public class QueRenDingDanActivity extends BaseActivity {
         }
         return new Gson().toJson(list);
     }
+
+
 }

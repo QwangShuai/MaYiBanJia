@@ -99,7 +99,7 @@ public abstract class BaseGHOrderFragment extends BaseFragment {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getGHOrderList(token, getZhuangTai(), ye))
+                                .getGHOrderList(token,"", getZhuangTai(), ye))
                 .setDataListener(new HttpDataListener<List<GHOrderBean>>() {
                     @Override
                     public void onNext(List<GHOrderBean> data) {
@@ -127,7 +127,7 @@ public abstract class BaseGHOrderFragment extends BaseFragment {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getGHOrderList(token, getZhuangTai(), ye))
+                                .getGHOrderList(token,"", getZhuangTai(), ye))
                 .setDataListener(new HttpDataListener<List<GHOrderBean>>() {
                     @Override
                     public void onNext(List<GHOrderBean> data) {
@@ -201,7 +201,7 @@ public abstract class BaseGHOrderFragment extends BaseFragment {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getGHOrderList(token, getZhuangTai(), ye))
+                                .getGHOrderList(token,"", getZhuangTai(), ye))
                 .setDataListener(new HttpDataListener<List<GHOrderBean>>() {
                     @Override
                     public void onNext(List<GHOrderBean> data) {

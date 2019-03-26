@@ -468,6 +468,7 @@ public class DianPuActivity extends BaseActivity implements View.OnClickListener
                     @Override
                     public void onNext(List<DianPuZhanShiBean.CompanyListBean> list) {
                         mlist.clear();
+                        adapter.notifyDataSetChanged();
                         if (list!=null){
 //                            if (list.size() == 5) {
 //                                rvSplist.loadMoreFinish(false, true);

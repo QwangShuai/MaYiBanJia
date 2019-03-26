@@ -186,7 +186,7 @@ public class SPXiangQingBean {
             private String specOneNum;
             private String inventory;
             private String goods;
-            private int pice;
+            private double pice;
             private String user_token;
             private String packTwoName;
             private String packThreeName;
@@ -690,11 +690,11 @@ public class SPXiangQingBean {
                 this.goods = goods;
             }
 
-            public int getPice() {
+            public double getPice() {
                 return pice;
             }
 
-            public void setPice(int pice) {
+            public void setPice(double pice) {
                 this.pice = pice;
             }
 
@@ -788,7 +788,7 @@ public class SPXiangQingBean {
             private String company_id;
             private String company_name;
             private String commodity_id;
-            private int pice;
+            private double pice;
             private String price;
             private String classify_name;
 
@@ -920,11 +920,11 @@ public class SPXiangQingBean {
                 this.commodity_id = commodity_id;
             }
 
-            public int getPice() {
+            public double getPice() {
                 return pice;
             }
 
-            public void setPice(int pice) {
+            public void setPice(double pice) {
                 this.pice = pice;
             }
         }

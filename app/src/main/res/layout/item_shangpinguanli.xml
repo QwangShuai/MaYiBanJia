@@ -79,15 +79,18 @@
 
     </LinearLayout>
     <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/ll_wenhao"
+        android:padding="12dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginRight="12dp"
-        android:layout_marginBottom="20dp">
-
-
+        android:layout_marginTop="8dp">
+        <ImageView
+            android:src="@mipmap/wenhao_zangqing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
     <LinearLayout
 
@@ -127,7 +130,7 @@
             android:layout_height="28dp"
             android:layout_marginLeft="12dp"
             android:background="@drawable/fillet_hollow_zangqing_3"
-            android:text="上架"
+            android:text="发售"
             android:textColor="#ff3c92a3"
             android:textSize="15sp" />
         <Button

@@ -112,6 +112,47 @@
                   android:scaleType="centerCrop"
                   />
           </LinearLayout>
+
+          <LinearLayout
+              android:id="@+id/ll_songdazhuangtai"
+              android:layout_width="match_parent"
+              android:layout_height="51dp"
+              android:layout_marginBottom="10dp"
+              android:layout_marginTop="10dp"
+              android:gravity="center_vertical"
+              android:orientation="horizontal"
+              android:paddingLeft="12dp"
+              android:paddingRight="12dp">
+
+              <TextView
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_weight="1"
+                  android:text="配送方式"
+                  android:textColor="#ff474747"
+                  android:textSize="12sp" />
+
+              <TextView
+                  android:gravity="center"
+                  android:background="@drawable/fillet_hollow_999999_3"
+                  android:id="@+id/tv_biaozhunda"
+                  android:layout_width="90dp"
+                  android:layout_height="28dp"
+                  android:text="标准达"
+                  android:textColor="@color/hintcolor"
+                  android:textSize="12sp" />
+              <TextView
+                  android:layout_marginLeft="12dp"
+                  android:gravity="center"
+                  android:background="@drawable/fillet_hollow_999999_3"
+                  android:id="@+id/tv_zhunshida"
+                  android:layout_width="90dp"
+                  android:layout_height="28dp"
+                  android:text="准时达"
+                  android:textColor="@color/hintcolor"
+                  android:textSize="12sp" />
+          </LinearLayout>
+
           <LinearLayout
               android:id="@+id/ll_songdashijian"
               android:layout_width="match_parent"
@@ -134,7 +175,8 @@
                   android:id="@+id/tv_songdashijian"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="请选择送达时间"
+                  android:hint="请选择送达时间"
+                  android:textColorHint="#ff3c92a3"
                   android:textColor="#ff3c92a3"
                   android:textSize="12sp"
                   />

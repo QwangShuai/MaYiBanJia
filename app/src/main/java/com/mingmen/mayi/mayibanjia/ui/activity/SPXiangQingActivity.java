@@ -533,7 +533,7 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .shoucang(PreferenceUtils.getString(MyApplication.mContext, "token", ""), spid))
+                                .shoucang(PreferenceUtils.getString(MyApplication.mContext, "token", ""), spid,""))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {

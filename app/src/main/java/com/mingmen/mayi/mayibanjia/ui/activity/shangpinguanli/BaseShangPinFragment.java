@@ -100,7 +100,6 @@ public abstract class BaseShangPinFragment extends BaseFragment {
 
     //数据
     private void getData() {
-        Log.e("getData: ", getZhuangTai()+"----"+ye);
         HttpManager.getInstance()
                 .with(getContext())
                 .setObservable(
@@ -116,19 +115,11 @@ public abstract class BaseShangPinFragment extends BaseFragment {
                             rvShangpinguanli.loadMoreFinish(false, true);
                         }
                             if (data.getGoodsList().size() == 5) {
-                                Log.e("onNext:emmm= ", data.getGoodsList().size()+"---1");
                                 rvShangpinguanli.loadMoreFinish(false, true);
                             }else if (data.getGoodsList().size() > 0) {
                                 rvShangpinguanli.loadMoreFinish(false, false);
-                                Log.e("onNext:emmm= ", data.getGoodsList().size()+"---2");
                             } else  {
                                 rvShangpinguanli.loadMoreFinish(true, false);
-                                Log.e("onNext:emmm= ", data.getGoodsList().size()+"---3");
-//                                if (data.getGoodsList().size() == 0) {
-//                                    rvShangpinguanli.loadMoreFinish(true, false);
-//                                } else {
-//                                    rvShangpinguanli.loadMoreFinish(false, true);
-//                                }
                             }
 
                         mlist.addAll(data.getGoodsList());

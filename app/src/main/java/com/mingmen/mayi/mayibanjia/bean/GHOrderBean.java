@@ -24,7 +24,7 @@ public class GHOrderBean {
     private String create_time;
     private Object gy_company_id;
     private Object driver_name;
-    private Object driver_phone;
+    private String driver_phone;
     private Object wl_order_state;
     private Object plate_number;
     private Object ct_company_id;
@@ -236,11 +236,11 @@ public class GHOrderBean {
         this.driver_name = driver_name;
     }
 
-    public Object getDriver_phone() {
+    public String getDriver_phone() {
         return driver_phone;
     }
 
-    public void setDriver_phone(Object driver_phone) {
+    public void setDriver_phone(String driver_phone) {
         this.driver_phone = driver_phone;
     }
 

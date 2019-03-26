@@ -141,6 +141,7 @@
             android:orientation="horizontal"
             android:visibility="gone">
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tv_shoucang"
                 android:layout_width="100dp"
                 android:layout_height="28dp"

@@ -76,6 +76,7 @@ import com.mingmen.mayi.mayibanjia.bean.YinHangKaBean;
 import com.mingmen.mayi.mayibanjia.bean.YinHangKaRzBean;
 import com.mingmen.mayi.mayibanjia.bean.YunFeiBean;
 import com.mingmen.mayi.mayibanjia.bean.YunFeiJieSuanBean;
+import com.mingmen.mayi.mayibanjia.bean.YwyBean;
 import com.mingmen.mayi.mayibanjia.bean.ZhangHuRenZhengBean;
 import com.mingmen.mayi.mayibanjia.bean.ZhuCeChengGongBean;
 import com.mingmen.mayi.mayibanjia.bean.ZiZhangHuBean;
@@ -1319,4 +1320,9 @@ public interface HttpService {
                                                            @Query("commodity_id") String commodity_id,
                                                            @Query("deliver_address") String deliver_address,
                                                            @Query("number") String number);
+
+    // 业务员统计
+    @POST("allCompany/YWcount.do")
+    Observable<ResultModel<YwyBean>> getYwyCount(@Query("user_token") String user_token,
+                                                  @Query("typeA") String typeA);
 }

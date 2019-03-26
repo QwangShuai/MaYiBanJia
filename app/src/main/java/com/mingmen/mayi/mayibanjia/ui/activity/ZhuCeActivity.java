@@ -363,7 +363,8 @@ public class ZhuCeActivity extends BaseActivity {
             startActivity(intent);
             AppManager.getAppManager().finishActivity();
         } else if ("4".equals(juese)) {//业务员
-            Intent intent = new Intent(mContext, YeWuYuanMainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            Intent intent = new Intent(mContext, YeWuYuanMainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            Intent intent = new Intent(mContext, YeWuYuanActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             AppManager.getAppManager().finishActivity();
         } else if ("3".equals(juese)) {//物流司机

@@ -1,6 +1,9 @@
 package com.mingmen.mayi.mayibanjia.ui.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -15,7 +18,17 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.mingmen.mayi.mayibanjia.R;
+import com.mingmen.mayi.mayibanjia.app.MyApplication;
+import com.mingmen.mayi.mayibanjia.bean.YwyBean;
+import com.mingmen.mayi.mayibanjia.bean.ZhuCeChengGongBean;
+import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
+import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
+import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
+import com.mingmen.mayi.mayibanjia.utils.MyMath;
+import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -53,6 +66,8 @@ public class YeWuYuanActivity extends BaseActivity {
     LinearLayout llYwy;
     @BindView(R.id.tv_phone)
     TextView tvPhone;
+    @BindView(R.id.tv_order_number)
+    TextView tvOrderNumber;
     @BindView(R.id.ll_phone)
     LinearLayout llPhone;
     @BindView(R.id.tv_dizhi)
@@ -61,11 +76,15 @@ public class YeWuYuanActivity extends BaseActivity {
     LinearLayout llDizhi;
     @BindView(R.id.ll_pwd)
     LinearLayout llPwd;
+    @BindView(R.id.ll_show)
+    LinearLayout llShow;
     @BindView(R.id.btn_exit)
     Button btnExit;
 
     private boolean isShow;
-    private boolean isSelect;
+    private String isSelect = "1";
+    private Context mContext;
+    private ConfirmDialog confirmDialog;
 
     @Override
     public int getLayoutId() {
@@ -75,8 +94,12 @@ public class YeWuYuanActivity extends BaseActivity {
     @Override
     protected void initData() {
         ivBack.setVisibility(View.GONE);
+        mContext = this;
         tvTitle.setText("业务员");
-        showPieChat();
+        confirmDialog = new ConfirmDialog(mContext,
+                mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
+        showYwy();
+
     }
 
     @Override
@@ -86,22 +109,32 @@ public class YeWuYuanActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    private void showPieChat() {
+    private void showPieChat(final YwyBean bean) {
         final List<PieEntry> strings = new ArrayList<>();
-        strings.add(new PieEntry(30f, "社区市场"));
-        strings.add(new PieEntry(50f, "供货端"));
-        strings.add(new PieEntry(20f, "餐厅端"));
-        PieDataSet dataSet = new PieDataSet(strings, "");
         ArrayList<Integer> colors = new ArrayList<Integer>();
-        colors.add(getResources().getColor(R.color.zangqing));
-        colors.add(getResources().getColor(R.color.yellow_fbb03b));
-        colors.add(getResources().getColor(R.color.blue_3794e5));
-        pcBing.setUsePercentValues(true);
+
+
+
+        PieDataSet dataSet = new PieDataSet(strings, "");
+        if(bean.getAll_she()!=0){
+            strings.add(new PieEntry(Float.valueOf(bean.getAll_she()), "社区市场"));
+            colors.add(getResources().getColor(R.color.zangqing));
+        }
+        if(bean.getAll_gy()!=0){
+            strings.add(new PieEntry(Float.valueOf(bean.getAll_gy()), "供货端"));
+            colors.add(getResources().getColor(R.color.yellow_fbb03b));
+        }
+        if(bean.getAll_ct()!=0){
+            strings.add(new PieEntry(Float.valueOf(bean.getAll_ct()), "餐厅端"));
+            colors.add(getResources().getColor(R.color.blue_3794e5));
+        }
+
+        pcBing.setUsePercentValues(false);
         pcBing.setDrawEntryLabels(false);
         pcBing.getDescription().setEnabled(false);
         dataSet.setColors(colors);
         pcBing.setDrawCenterText(true);
-        pcBing.setCenterText("3000\n已录入企业");
+        pcBing.setCenterText(bean.getAll_count()+"\n已录入企业");
         pcBing.setRotationEnabled(false);
         PieData pieData = new PieData(dataSet);
         pieData.setDrawValues(true);
@@ -116,6 +149,20 @@ public class YeWuYuanActivity extends BaseActivity {
                     return;
                 for (PieEntry value : strings) {
                     if (value.getValue() == e.getY()) {
+                        switch (value.getLabel()){
+                            case "社区市场":
+                                tvYizhuce.setText("已注册:"+bean.getRegistered_she()+"");
+                                tvWeizhuce.setText("未注册:"+bean.getNo_she()+"");
+                                break;
+                            case "供货端":
+                                tvYizhuce.setText("已注册:"+bean.getRegistered_gy()+"");
+                                tvWeizhuce.setText("未注册:"+bean.getNo_gy()+"");
+                                break;
+                            case "餐厅端":
+                                tvYizhuce.setText("已注册:"+bean.getRegistered_ct()+"");
+                                tvWeizhuce.setText("未注册:"+bean.getNo_ct()+"");
+                                break;
+                        }
                         ToastUtil.showToastLong("当前点击了" + value.getLabel());
                     }
                 }
@@ -124,6 +171,8 @@ public class YeWuYuanActivity extends BaseActivity {
             @Override
             public void onNothingSelected() {
                 ToastUtil.showToastLong("点击了非标签区域");
+                tvYizhuce.setText("已注册:"+bean.getRegistered_all()+"");
+                tvWeizhuce.setText("未注册:"+bean.getNo_all()+"");
             }
         });
     }
@@ -138,36 +187,39 @@ public class YeWuYuanActivity extends BaseActivity {
             case R.id.tv_right:
                 break;
             case R.id.btn_quanbu:
-                if (isSelect) {
-                    isSelect = false;
+                if (isSelect.equals("2")) {
+                    isSelect = "1";
                     btnQuanbu.setTextColor(getResources().getColor(R.color.zangqing));
                     btnWode.setTextColor(getResources().getColor(R.color.hintcolor));
                     btnQuanbu.setBackground(getResources().getDrawable(R.drawable.fillet_hollow_zangqing_3));
                     btnWode.setBackground(getResources().getDrawable(R.drawable.fillet_hollow_999999_3));
+                    showYwy();
                 }
                 break;
             case R.id.btn_wode:
-                if (!isSelect) {
-                    isSelect = true;
+                if (isSelect.equals("1")) {
+                    isSelect = "2";
                     btnQuanbu.setTextColor(getResources().getColor(R.color.hintcolor));
                     btnWode.setTextColor(getResources().getColor(R.color.zangqing));
                     btnQuanbu.setBackground(getResources().getDrawable(R.drawable.fillet_hollow_999999_3));
                     btnWode.setBackground(getResources().getDrawable(R.drawable.fillet_hollow_zangqing_3));
+                    showYwy();
                 }
                 break;
             case R.id.ll_qygl:
+                Intent intent = new Intent(mContext, YeWuYuanMainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
                 break;
             case R.id.ll_dcldd:
+                ToastUtil.showToastLong("点什么玩意");
                 break;
             case R.id.ll_ywy:
                 if (isShow) {
                     isShow = false;
-                    llPhone.setVisibility(View.VISIBLE);
-                    llDizhi.setVisibility(View.VISIBLE);
+                    llShow.setVisibility(View.GONE);
                 } else {
                     isShow = true;
-                    llPhone.setVisibility(View.GONE);
-                    llDizhi.setVisibility(View.GONE);
+                    llShow.setVisibility(View.VISIBLE);
                 }
                 break;
             case R.id.ll_phone:
@@ -175,9 +227,64 @@ public class YeWuYuanActivity extends BaseActivity {
             case R.id.ll_dizhi:
                 break;
             case R.id.ll_pwd:
+                Intent it = new Intent(mContext, WoDeZhangHuActivity.class);
+                startActivity(it);
                 break;
             case R.id.btn_exit:
+                confirmDialog.showDialog("是否确定退出当前账号");
+                confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        exitLogin();
+                    }
+                });
+                confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        confirmDialog.dismiss();
+                    }
+                });
                 break;
         }
+    }
+    private void showYwy() {
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .getYwyCount(PreferenceUtils.getString(MyApplication.mContext, "token", ""),isSelect))
+                .setDataListener(new HttpDataListener<YwyBean>() {
+                    @Override
+                    public void onNext(YwyBean bean) {
+                        tvYwy.setText(bean.getName());
+                        tvPhone.setText(bean.getTelephone());
+                        tvDizhi.setText(bean.getSpecific_address());
+                        tvOrderNumber.setVisibility(bean.getOrder_count()==0?View.GONE:View.VISIBLE);
+                        tvOrderNumber.setText(bean.getOrder_count()+"");
+                        tvYizhuce.setText("已注册:"+bean.getRegistered_all());
+                        tvWeizhuce.setText("未注册:"+bean.getNo_all());
+                        showPieChat(bean);
+                    }
+                },false);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showYwy();
+    }
+    private void exitLogin() {
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(RetrofitManager.getService()
+                        .exitLogin(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
+                .setDataListener(new HttpDataListener<String>() {
+                    @Override
+                    public void onNext(String data) {
+                        confirmDialog.dismiss();
+                        goLogin(mContext,"login");
+                    }
+                });
     }
 }

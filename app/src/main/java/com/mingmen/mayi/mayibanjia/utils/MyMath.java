@@ -85,6 +85,11 @@ public class MyMath {
         BigDecimal b2 = new BigDecimal(d2);
         return b1.divide(b2,len,BigDecimal.ROUND_HALF_UP).doubleValue();
     }
+    public static float divFloat(float d1,float d2,int len) {
+        BigDecimal b1 = new BigDecimal(d1);
+        BigDecimal b2 = new BigDecimal(d2);
+        return b1.divide(b2,len,BigDecimal.ROUND_HALF_UP).floatValue();
+    }
     public static BigDecimal divBigDec(double d1,double d2,int len) {
         BigDecimal b1 = new BigDecimal(d1);
         BigDecimal b2 = new BigDecimal(d2);

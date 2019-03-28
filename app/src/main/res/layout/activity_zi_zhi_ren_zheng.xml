@@ -28,12 +28,12 @@
                     <TextView
                         android:textSize="14sp"
                         android:textColor="@color/zicolor"
-                        android:text="营业执照"
+                        android:text="统一社会信用代码"
                         android:layout_gravity="center_vertical"
-                        android:layout_width="wrap_content"
+                        android:layout_width="59dp"
                         android:layout_height="wrap_content" />
                     <RelativeLayout
-                        android:layout_marginLeft="65dp"
+                        android:layout_marginLeft="20dp"
                         android:background="@drawable/fillet_hollow_999999_3"
                         android:paddingLeft="13dp"
                         android:paddingRight="13dp"

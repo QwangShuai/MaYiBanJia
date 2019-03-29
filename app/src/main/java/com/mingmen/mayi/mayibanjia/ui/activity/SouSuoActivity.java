@@ -810,6 +810,7 @@ public class SouSuoActivity extends BaseActivity {
                                     case R.id.tv_chakan://点击查看
                                         Intent intent=new Intent(mContext,ShiChangSouSuoShangPinActivity.class);
                                         bundle.putString("type_tree_id",fenleiid);
+                                        bundle.putString("type_tree_name",fenleiname);
                                         bundle.putString("son_number",shichanglist.get(position).getSon_number());
                                         intent.putExtras(bundle);
                                         startActivity(intent);

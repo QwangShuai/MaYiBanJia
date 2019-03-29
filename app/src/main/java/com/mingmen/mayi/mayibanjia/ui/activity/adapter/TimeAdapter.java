@@ -74,8 +74,10 @@ public class TimeAdapter extends RecyclerView.Adapter<TimeAdapter.ViewHolder> {
         Log.e("onBindViewHolder: ",data.getSon_name()+"==="+ xztype.getSon_name());
         if (data.getSon_name().equals(xztype.getSon_name())&&xzId.equals(dqId)){
             holder.llKuang.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_zangqing_3));
+            holder.tvMing.setTextColor(mContext.getResources().getColor(R.color.zangqing));
         } else {
             holder.llKuang.setBackgroundColor(mContext.getResources().getColor(R.color.white));
+            holder.tvMing.setTextColor(mContext.getResources().getColor(R.color.zicolor));
         }
         holder.tvMing.setText(data.getSon_name() + "");
         if (mOnItemClickListener != null) {

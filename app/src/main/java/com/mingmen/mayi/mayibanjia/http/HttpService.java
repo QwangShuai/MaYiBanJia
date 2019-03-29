@@ -210,7 +210,7 @@ public interface HttpService {
     //全部菜品默认list，搜索也调用此方法
     @POST("gyCommodity/queryByCommodity_name.do")
     Observable<ResultModel<ShangPinSouSuoBean>> shichangsousuoshangpin(@Query("user_token") String user_token,
-                                                                       @Query("type_four_id") String type_four_id,
+                                                                       @Query("type_four_name") String type_four_name,
                                                                        @Query("son_number") String son_number,
                                                                        @Query("sortOrder") String sortOrder);
 

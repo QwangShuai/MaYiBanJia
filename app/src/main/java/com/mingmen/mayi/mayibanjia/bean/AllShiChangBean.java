@@ -53,28 +53,14 @@ public class AllShiChangBean {
              * province : 230000
              */
 
-            private Object state;
             private String region;
-            private Object update_time;
-            private Object create_time;
             private String classify_id;
-            private Object create_by;
-            private Object levelState;
-            private Object update_by;
             private String mark_id;
             private String specific_address;
-            private Object parent_number;
             private String market_name;
             private String city;
             private String province;
 
-            public Object getState() {
-                return state;
-            }
-
-            public void setState(Object state) {
-                this.state = state;
-            }
 
             public String getRegion() {
                 return region;
@@ -84,21 +70,11 @@ public class AllShiChangBean {
                 this.region = region;
             }
 
-            public Object getUpdate_time() {
-                return update_time;
-            }
 
             public void setUpdate_time(Object update_time) {
-                this.update_time = update_time;
             }
 
-            public Object getCreate_time() {
-                return create_time;
-            }
 
-            public void setCreate_time(Object create_time) {
-                this.create_time = create_time;
-            }
 
             public String getClassify_id() {
                 return classify_id;
@@ -108,29 +84,7 @@ public class AllShiChangBean {
                 this.classify_id = classify_id;
             }
 
-            public Object getCreate_by() {
-                return create_by;
-            }
 
-            public void setCreate_by(Object create_by) {
-                this.create_by = create_by;
-            }
-
-            public Object getLevelState() {
-                return levelState;
-            }
-
-            public void setLevelState(Object levelState) {
-                this.levelState = levelState;
-            }
-
-            public Object getUpdate_by() {
-                return update_by;
-            }
-
-            public void setUpdate_by(Object update_by) {
-                this.update_by = update_by;
-            }
 
             public String getMark_id() {
                 return mark_id;
@@ -146,14 +100,6 @@ public class AllShiChangBean {
 
             public void setSpecific_address(String specific_address) {
                 this.specific_address = specific_address;
-            }
-
-            public Object getParent_number() {
-                return parent_number;
-            }
-
-            public void setParent_number(Object parent_number) {
-                this.parent_number = parent_number;
             }
 
             public String getMarket_name() {

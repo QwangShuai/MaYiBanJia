@@ -10,10 +10,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mingmen.mayi.mayibanjia.R;
+import com.mingmen.mayi.mayibanjia.bean.JsonBean;
 import com.mingmen.mayi.mayibanjia.bean.SongDaShiJianBean;
 
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,22 +22,22 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2018/7/13/013.
  */
 
-public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
+public class QuAdapter extends RecyclerView.Adapter<QuAdapter.ViewHolder> {
 
     private ViewHolder viewHolder;
     private Context mContext;
-    private List<SongDaShiJianBean> mList;
+    private List<JsonBean.CitylistBean.QulistBean> mList;
 
-    public void setXztype(SongDaShiJianBean xztype) {
+    public void setXztype(JsonBean.CitylistBean.QulistBean xztype) {
         this.xztype = xztype;
         notifyDataSetChanged();
     }
 
-    private SongDaShiJianBean xztype = new SongDaShiJianBean();
+    private JsonBean.CitylistBean.QulistBean xztype = new JsonBean.CitylistBean.QulistBean();
 
     private OnItemClickListener mOnItemClickListener;
 
-    public DataAdapter(Context mContext, List<SongDaShiJianBean> list) {
+    public QuAdapter(Context mContext, List<JsonBean.CitylistBean.QulistBean> list) {
         this.mContext = mContext;
         this.mList = list;
     }
@@ -59,16 +59,16 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     //    item_sousuomohuchaxun
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        SongDaShiJianBean data = mList.get(position);
-        Log.e("onBindViewHolder: ",data.getSon_name()+"==="+ xztype.getSon_name());
-        if (data.getSon_name().equals(xztype.getSon_name())){
+        JsonBean.CitylistBean.QulistBean data = mList.get(position);
+        Log.e("onBindViewHolder: ",data.getQuymc()+"==="+ xztype.getQuybm());
+        if (data.getQuybm()==xztype.getQuybm()){
             holder.llKuang.setBackgroundColor(mContext.getResources().getColor(R.color.white));
             holder.tvMing.setTextColor(mContext.getResources().getColor(R.color.zangqing));
         } else {
             holder.llKuang.setBackgroundColor(mContext.getResources().getColor(R.color.gray_e7e7e7));
             holder.tvMing.setTextColor(mContext.getResources().getColor(R.color.zicolor));
         }
-        holder.tvMing.setText(data.getSon_name() + "");
+        holder.tvMing.setText(data.getQuymc() + "");
         if (mOnItemClickListener != null) {
             holder.tvMing.setOnClickListener(new View.OnClickListener() {
                 @Override

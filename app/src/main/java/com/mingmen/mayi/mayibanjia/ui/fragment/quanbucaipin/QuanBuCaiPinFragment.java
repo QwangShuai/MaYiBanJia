@@ -33,6 +33,7 @@ import com.mingmen.mayi.mayibanjia.app.UMConfig;
 import com.mingmen.mayi.mayibanjia.bean.AllShiChangBean;
 import com.mingmen.mayi.mayibanjia.bean.FCGName;
 import com.mingmen.mayi.mayibanjia.bean.FenLeiBean;
+import com.mingmen.mayi.mayibanjia.bean.PostShichangBean;
 import com.mingmen.mayi.mayibanjia.bean.ShangPinSouSuoBean;
 import com.mingmen.mayi.mayibanjia.bean.ShangPinSousuoMohuBean;
 import com.mingmen.mayi.mayibanjia.bean.ShiChangSouSuoShangPinBean;
@@ -40,6 +41,7 @@ import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShiChangSouSuoShangPinActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.ShichangXuanzeActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.SouSuoActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.ShangPinListAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.ShangPinMohuAdapter;
@@ -589,7 +591,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 }
                 updateAdapter();
                 break;
-            case R.id.tv_jishida://即时达
+            case R.id.tv_jishida://实时达
                 if(isZhunshida){
                     isZhunshida = false;
                     iszhunshida = "";
@@ -647,7 +649,8 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 startActivityForResult(it, REQUEST_CODE);
                 break;
             case R.id.ll_shichang:
-                showYiJiPop(3);
+//                showYiJiPop(3);
+                startActivityForResult(new Intent(mContext, ShichangXuanzeActivity.class),REQUEST_CODE);
                 break;
             case R.id.ll_pinzhong:
                 showPopTwo();
@@ -920,6 +923,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                                     case R.id.tv_chakan://点击查看
                                         Intent intent = new Intent(mContext, ShiChangSouSuoShangPinActivity.class);
                                         intent.putExtra("type_tree_id", sanjipinleiid);
+                                        intent.putExtra("type_tree_name", sanjipinleiname);
                                         intent.putExtra("son_number", shichanglist.get(position).getSon_number());
                                         intent.putExtras(intent);
                                         startActivity(intent);
@@ -1394,5 +1398,18 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getMarketId(AllShiChangBean.Bean bean) {
+        shichangid = bean.getMark_id();
+        shichangname = bean.getMarket_name();
+        tvShichang.setText(bean.getMarket_name());
+        if (bean.getMarket_name().equals("全部")) {
+            tvShichang.setTextColor(getResources().getColor(R.color.zicolor));
+        } else {
+            tvShichang.setTextColor(getResources().getColor(R.color.zangqing));
+        }
+        updateAdapter();
     }
 }

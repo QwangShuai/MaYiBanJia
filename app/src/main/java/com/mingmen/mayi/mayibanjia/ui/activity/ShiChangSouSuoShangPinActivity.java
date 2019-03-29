@@ -59,6 +59,7 @@ public class ShiChangSouSuoShangPinActivity extends BaseActivity {
     private ShangPinListAdapter shangpinadapter;
     private JiaRuGouWuCheDialog jiarugouwuchedialog;
     private String type_tree_id;
+    private String type_tree_name;
     private String son_number;
 
     @Override
@@ -70,6 +71,7 @@ public class ShiChangSouSuoShangPinActivity extends BaseActivity {
     protected void initData() {
         mContext=ShiChangSouSuoShangPinActivity.this;
         type_tree_id = getIntent().getStringExtra("type_tree_id");
+        type_tree_name = getIntent().getStringExtra("type_tree_name");
         son_number =getIntent().getStringExtra("son_number");
         Log.e("type_tree_id",type_tree_id+"==");
         Log.e("son_number",son_number+"===");
@@ -86,7 +88,7 @@ public class ShiChangSouSuoShangPinActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .shichangsousuoshangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""),type_tree_id, son_number,type))
+                                .shichangsousuoshangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""),type_tree_name, son_number,type))
                 .setDataListener(new HttpDataListener<ShangPinSouSuoBean>() {
                     @Override
                     public void onNext(final ShangPinSouSuoBean shangpin) {

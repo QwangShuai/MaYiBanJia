@@ -387,7 +387,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="即时达"
+                            android:text="实时达"
                             android:textColor="#666666"
                             android:textSize="12sp" />
                         <TextView

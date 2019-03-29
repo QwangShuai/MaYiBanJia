@@ -685,7 +685,7 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
                     @Override
                     public void onNext(String data) {
                         Log.e("2222",data);
-                        ToastUtil.showToast("添加成功");
+                        ToastUtil.showToast("添加购物车成功");
                     }
 
                 });

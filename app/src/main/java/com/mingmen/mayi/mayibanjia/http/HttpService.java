@@ -116,7 +116,7 @@ public interface HttpService {
     @POST("allCompanyAccount/get_verification_code.do")
     Observable<ResultModel<String>> getcode(@Query("yzmType") String yzmType, @Query("telephone") String telephone);
 
-    //确认验证码输入是否正确
+    //更换手机号绑定
     @POST("allCompanyAccount/updateByTelephone.do")
     Observable<ResultModel<String>> changePhone(@Query("user_token") String user_token, @Query("telephone") String telephone);
 
@@ -175,7 +175,7 @@ public interface HttpService {
 
     //市场搜索商品
     @POST("sy/csave.do")
-    Observable<ResultModel<List<ShiChangSouSuoShangPinBean>>> shichangsousuoshangpin(@Query("user_token") String user_token, @Query("type_four_id") String type_tree_id);
+    Observable<ResultModel<List<ShiChangSouSuoShangPinBean>>> shichangsousuoshangpin(@Query("user_token") String user_token, @Query("type_four_name") String type_tree_name);
 
     //店铺搜索
     @POST("sy/queryDp.do")
@@ -191,13 +191,15 @@ public interface HttpService {
                                                                @Query("type_one_id") String type_one_id,
                                                                @Query("type_two_id") String type_two_id,
                                                                @Query("type_tree_id") String type_tree_id,
-                                                               @Query("type_four_id") String type_four_id,
+                                                               @Query("type_four_name") String type_four_name,
                                                                @Query("market_id") String market_id,
                                                                @Query("big") String big,
                                                                @Query("small") String small,
                                                                @Query("sortOrder") String sortOrder,
                                                                @Query("pageNumber") Integer pageNumber,
-                                                               @Query("pack_standard_tree") String pack_standard_tree);//0:默认查询（搜索），1：销量最高 2，评分最高 3.价格最高 4.价格最低
+                                                               @Query("pack_standard_tree") String pack_standard_tree,//0:默认查询（搜索），1：销量最高 2，评分最高 3.价格最高 4.价格最低
+                                                               @Query("real_time_state") String real_time_state,
+                                                               @Query("goods") String goods);
 
     //全部菜品默认list，搜索也调用此方法
     @POST("gyCommodity/queryByCommodity_name.do")
@@ -854,6 +856,7 @@ public interface HttpService {
     @POST("qyBankCard/save.do")
     Observable<ResultModel<String>> addBankCard(@Query("user_token") String user_token,
                                                 @Query("bank_account") String bank_account,
+                                                @Query("bank_address") String bank_address,
                                                 @Query("account_person") String account_person,
                                                 @Query("id_number") String id_number,
                                                 @Query("phone") String phone,
@@ -1327,4 +1330,9 @@ public interface HttpService {
     @POST("allCompany/YWcount.do")
     Observable<ResultModel<YwyBean>> getYwyCount(@Query("user_token") String user_token,
                                                   @Query("typeA") String typeA);
+
+    // 切换实时达
+    @POST("allCompany/updateCompanyRealtime.do")
+    Observable<ResultModel<String>> qiehuanSsd(@Query("user_token") String user_token,
+                                                  @Query("realtime") String realtime);
 }

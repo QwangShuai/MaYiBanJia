@@ -502,7 +502,7 @@ public class DianPuActivity extends BaseActivity implements View.OnClickListener
                             }
                         }
                         adapter.notifyDataSetChanged();
-                        ToastUtil.showToast("添加成功");
+                        ToastUtil.showToast("添加购物车成功");
 
                     }
                 });

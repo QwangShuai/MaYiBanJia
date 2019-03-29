@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_marginTop="12dp"
     android:layout_marginBottom="45dp"
     android:background="@color/white"
     android:id="@+id/ll_kuang">
@@ -19,12 +18,33 @@
             android:layout_height="14dp"
             android:background="@color/zangqing"></View>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="特价商品"
             android:textColor="#474747"
             android:textSize="15sp"
             android:layout_marginLeft="10dp"/>
+        <LinearLayout
+            android:id="@+id/ll_more"
+            android:paddingRight="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="12sp"
+                android:textColor="@color/hintcolor"
+                android:text="更多"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:layout_marginLeft="4dp"
+                android:src="@mipmap/more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
     </LinearLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_tejia"

@@ -3,66 +3,79 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
         <ImageView
             android:id="@+id/iv_danxuan"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/selectr_gouwuche_danxuan"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
-            />
+            android:src="@drawable/selectr_gouwuche_danxuan" />
+
         <LinearLayout
             android:id="@+id/ll_jindian"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
             android:gravity="center_vertical"
+            android:orientation="horizontal"
             android:paddingRight="12dp"
             android:weightSum="1">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/dianputubiao"
-                />
+                android:src="@mipmap/dianputubiao" />
+
             <TextView
                 android:id="@+id/tv_dianming"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:text="无忧肉店"
                 android:textColor="#ff666666"
-                android:textSize="12sp"
-                android:layout_marginLeft="8dp"
-                />
+                android:textSize="12sp" />
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/jinru"
-                android:layout_marginLeft="12dp"/>
+                android:layout_marginLeft="12dp"
+                android:src="@mipmap/jinru" />
 
         </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_dianpushichang"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="150dp"
-                android:layout_marginRight="10dp"
-                android:layout_weight="0.02"
-                android:text="市场"
-                android:textColor="#ff3300"
-                android:textSize="12sp" />
+        <ImageView
+            android:id="@+id/iv_jishida"
+            android:layout_width="43dp"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/jishida"
+            android:visibility="gone" />
+        <View
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></View>
+        <TextView
+            android:singleLine="true"
+            android:id="@+id/tv_dianpushichang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="市场"
+            android:textColor="#ff3300"
+            android:textSize="12sp" />
 
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/cutoff"
-        android:layout_marginLeft="12dp"/>
+        android:layout_marginLeft="12dp"
+        android:background="@color/cutoff" />
 
     <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
         android:id="@+id/rv_shangpin"

@@ -167,7 +167,7 @@ public class ShiChangSouSuoShangPinActivity extends BaseActivity {
                             }
                         }
                         shangpinadapter.notifyDataSetChanged();
-                        ToastUtil.showToast("添加成功");
+                        ToastUtil.showToast("添加购物车成功");
 
                     }
                 });

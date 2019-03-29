@@ -31,6 +31,7 @@ import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 import com.mingmen.mayi.mayibanjia.utils.PollingService;
 import com.mingmen.mayi.mayibanjia.utils.PollingUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -139,6 +140,7 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
     private WoDeBean woDeBean;
     private ConfirmDialog confirmDialog;
     private String type = "0";
+    private String close_type = "0";
     public static GongYingDuanShouYeActivity instance = null;
     private long exitTime = 0;
     private String sh_state = "待审核";
@@ -167,7 +169,7 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
     }
 
 
-    @OnClick({ R.id.ll_yonghupingjia,
+    @OnClick({ R.id.ll_yonghupingjia,R.id.tv_gy,
             R.id.ll_daidabao, R.id.ll_daiqueren, R.id.tv_yue, R.id.ll_daifahuo,
             R.id.ll_yishouhuo, R.id.ll_yiwancheng, R.id.ll_qiehuan, R.id.iv_touxiang,
             R.id.tv_dianming, R.id.ll_state_qiehuan, R.id.ll_daiqiangdan, R.id.ll_qiangdanzhong,
@@ -177,6 +179,9 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
             R.id.ll_shangjia,R.id.ll_xiajia,R.id.ll_daishenhe,R.id.ll_tejiashangpin_gyd})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.tv_gy:
+                qiehuan();
+                break;
             case R.id.ll_tianjiashangpin:
                 //添加商品
                 Intent intent = new Intent(mContext, FaBuShangPinActivity.class);
@@ -289,7 +294,27 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
                 startActivity(yiwancheng);
                 break;
             case R.id.ll_qiehuan:
-                qiehuan();
+//                qiehuan();
+                String tiShi = "";
+                if (close_type.equals("0")) {
+                    tiShi = "是否关闭实时达";
+                } else {
+                    tiShi = "是否开启实时达";
+                }
+                confirmDialog.showDialog(tiShi);
+                confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        confirmDialog.dismiss();
+                        qiehuanSsd();
+                    }
+                });
+                confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        confirmDialog.dismiss();
+                    }
+                });
                 break;
             case R.id.iv_touxiang:
                 Intent shezhi = new Intent(mContext, GongYingDuanSheZhiActivity.class);
@@ -302,13 +327,13 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
 //                finish();
                 break;
             case R.id.ll_state_qiehuan:
-                String tiShi = "";
+                String close_tiShi = "";
                 if (type.equals("0")) {
-                    tiShi = "是否关店";
+                    close_tiShi = "是否关店";
                 } else {
-                    tiShi = "是否开始营业";
+                    close_tiShi = "是否开始营业";
                 }
-                confirmDialog.showDialog(tiShi);
+                confirmDialog.showDialog(close_tiShi);
                 confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -379,6 +404,13 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
         tvState.setText(type.equals("0") ? "营业中" : "已关店");
         tvYue.setText(woDeBean.getMoney() + "");
         yue = woDeBean.getMoney() + "";
+        if(StringUtil.isValid(woDeBean.getRealtime())&&woDeBean.getRealtime().equals("0")){
+            tvQiehuan.setText("已开启实时达");
+            close_type = "0";
+        } else {
+            tvQiehuan.setText("已关闭实时达");
+            close_type = "1";
+        }
         tvDfh.setVisibility(woDeBean.getStay_delivery() == 0 ? View.GONE : View.VISIBLE);
         tvDfh.setText(woDeBean.getStay_delivery() + "");
         tvYsh.setVisibility(woDeBean.getAlready_delivery() == 0 ? View.GONE : View.VISIBLE);
@@ -488,6 +520,22 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
                         Log.e("我的数据", bean);
                         tvState.setText(bean.equals("0") ? "营业中" : "以关店");
                         type = bean;
+                    }
+                });
+    }
+
+    private void qiehuanSsd() {
+        final String state = close_type.equals("0") ? "1" : "0";
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(RetrofitManager.getService()
+                        .qiehuanSsd(PreferenceUtils.getString(MyApplication.mContext, "token", ""), state))
+                .setDataListener(new HttpDataListener<String>() {
+                    @Override
+                    public void onNext(String bean) {
+                        Log.e("我的数据", bean);
+                        tvQiehuan.setText(bean.equals("0") ? "已开启实时达" : "已关闭实时达");
+                        close_type = bean;
                     }
                 });
     }

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -23,6 +24,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.SPXiangQingActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.TubiaoActivity;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
+import com.mingmen.mayi.mayibanjia.utils.custom.MarqueeTextView;
 
 import java.util.List;
 
@@ -66,7 +68,9 @@ public class ShangPinListAdapter extends RecyclerView.Adapter<ShangPinListAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final ShangPinSouSuoBean.ZhengchangBean data = mList.get(position);
+        holder.ivJishida.setVisibility(View.GONE);
         //holder.tvSpming.setText(data.getClassify_name());
+        holder.tvSpming.setMarqueeEnable(true);
         holder.tvSpming.setText(data.getClassify_name());
         holder.tvDianming.setText(data.getCompany_name()+"("+data.getMarket_name()+")");
         holder.tvJiage.setText(data.getPrice()+"");
@@ -117,7 +121,7 @@ public class ShangPinListAdapter extends RecyclerView.Adapter<ShangPinListAdapte
         @BindView(R.id.iv_sptu)
         ImageView ivSptu;
         @BindView(R.id.tv_spming)
-        TextView tvSpming;
+        MarqueeTextView tvSpming;
         @BindView(R.id.tv_dianming)
         TextView tvDianming;
 /*        @BindView(R.id.tv_guige)
@@ -137,7 +141,7 @@ public class ShangPinListAdapter extends RecyclerView.Adapter<ShangPinListAdapte
         @BindView(R.id.iv_jishida)
         ImageView ivJishida;
         @BindView(R.id.cl_kuang)
-        ConstraintLayout clKuang;
+        RelativeLayout clKuang;
         @BindView(R.id.iv_zoushitu)
         ImageView ivZoushitu;
         ViewHolder(View view) {

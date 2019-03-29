@@ -72,6 +72,8 @@ public class YeWuYuanActivity extends BaseActivity {
     LinearLayout llPhone;
     @BindView(R.id.tv_dizhi)
     TextView tvDizhi;
+    @BindView(R.id.tv_qiye)
+    TextView tvQiye;
     @BindView(R.id.ll_dizhi)
     LinearLayout llDizhi;
     @BindView(R.id.ll_pwd)
@@ -85,7 +87,7 @@ public class YeWuYuanActivity extends BaseActivity {
     private String isSelect = "1";
     private Context mContext;
     private ConfirmDialog confirmDialog;
-    private String type="全部";
+    private String type="全部企业";
 
     @Override
     public int getLayoutId() {
@@ -135,6 +137,7 @@ public class YeWuYuanActivity extends BaseActivity {
         pcBing.getDescription().setEnabled(false);
         dataSet.setColors(colors);
         pcBing.setDrawCenterText(true);
+        pcBing.setHighlightPerTapEnabled(true);
         pcBing.setCenterText(bean.getAll_count()+"\n已录入企业");
         pcBing.setRotationEnabled(false);
         PieData pieData = new PieData(dataSet);
@@ -168,6 +171,7 @@ public class YeWuYuanActivity extends BaseActivity {
                                 break;
                         }
                         ToastUtil.showToastLong("当前点击了" + value.getLabel());
+                        tvQiye.setText(type);
                     }
                 }
             }
@@ -177,7 +181,8 @@ public class YeWuYuanActivity extends BaseActivity {
                 ToastUtil.showToastLong("点击了非标签区域");
                 tvYizhuce.setText("已注册:"+bean.getRegistered_all()+"");
                 tvWeizhuce.setText("未注册:"+bean.getNo_all()+"");
-                type = "全部";
+                type = "全部企业";
+                tvQiye.setText(type);
             }
         });
     }
@@ -216,7 +221,6 @@ public class YeWuYuanActivity extends BaseActivity {
                 startActivity(intent);
                 break;
             case R.id.ll_dcldd:
-                ToastUtil.showToastLong("点什么玩意");
                 Intent it_wl = new Intent(mContext,SiJiActivity.class);
                 it_wl.putExtra("ywy","1");
                 startActivity(it_wl);
@@ -265,13 +269,18 @@ public class YeWuYuanActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<YwyBean>() {
                     @Override
                     public void onNext(YwyBean bean) {
+                        pcBing.clear();
+                        pcBing.notifyDataSetChanged();
+                        pcBing.invalidate();
                         tvYwy.setText(bean.getName());
                         tvPhone.setText(bean.getTelephone());
                         tvDizhi.setText(bean.getSpecific_address());
                         tvOrderNumber.setVisibility(bean.getOrder_count()==0?View.GONE:View.VISIBLE);
                         tvOrderNumber.setText(bean.getOrder_count()+"");
+                        type = "全部企业";
                         tvYizhuce.setText("已注册:"+bean.getRegistered_all());
                         tvWeizhuce.setText("未注册:"+bean.getNo_all());
+                        tvQiye.setText(type);
                         showPieChat(bean);
                     }
                 },false);

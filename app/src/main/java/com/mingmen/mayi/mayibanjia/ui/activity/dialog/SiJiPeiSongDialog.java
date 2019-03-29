@@ -89,7 +89,7 @@ public class SiJiPeiSongDialog extends BaseFragmentDialog implements View.OnClic
         int color=getContext().getResources().getColor(textView.getId()==chooseView.getId()?R.color.caigoudanxuanzhong:R.color.zicolor);
         textView.setTextColor(color);
         if (textView.getId()==chooseView.getId())
-            activity.getShuaXinPeiSong(s);
+//            activity.getShuaXinPeiSong(s);
         this.dismiss();
     }
 

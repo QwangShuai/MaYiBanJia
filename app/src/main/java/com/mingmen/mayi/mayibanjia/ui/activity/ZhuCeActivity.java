@@ -91,15 +91,17 @@ public class ZhuCeActivity extends BaseActivity {
         yemian = getIntent().getStringExtra("yemian");
         if(yemian.equals("1")){
             tvTitle.setText("注册");
-        } else {
+        } else if(yemian.equals("2")) {
             tvTitle.setText("登录");
             llZhuce.setVisibility(View.GONE);
             if(StringUtil.isValid(getIntent().getStringExtra("phone"))){
                 etPhone.setText(getIntent().getStringExtra("phone"));
             }
+        } else {
+            tvTitle.setText("忘记密码");
         }
         mContext=ZhuCeActivity.this;
-        if(yemian.equals("1")){
+        if(yemian.equals("1")||yemian.equals("3")){
             etPass2.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -177,7 +179,7 @@ public class ZhuCeActivity extends BaseActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 Log.e("changed",s.toString());
-                if(yemian.equals("1")){
+                if(yemian.equals("1")||yemian.equals("3")){
                     String pass1 = etPass1.getText().toString().trim();
                     String pass2 = etPass2.getText().toString().trim();
                     if (pass1.length()>=8&&pass1.length()<=16){
@@ -237,7 +239,7 @@ public class ZhuCeActivity extends BaseActivity {
             case R.id.bt_xiayibu:
                 //下一步
 //                btXiayibu.setEnabled(false);
-                if(yemian.equals("1")){
+                if(yemian.equals("1")||yemian.equals("3")){
                     querenYanzhengma();
                 } else {
                     login();
@@ -290,20 +292,25 @@ public class ZhuCeActivity extends BaseActivity {
                                     return ;
                                 }else if (AppUtil.isMobile(etPhone.getText().toString().trim())){
 //                                    Intent intent=new Intent(mContext,GHDWanShanXinXiActivity.class);
-                                    Intent intent=new Intent(mContext,XuanZeJueSeActivity.class);
-                                    Bundle bundle=new Bundle();
-                                    bundle.putString("phone",phone);
-                                    bundle.putString("pass1",pass1);
-                                    bundle.putString("pass2",pass2);
-                                    bundle.putString("yanzhengma",yanzhengma);
-                                    intent.putExtras(bundle);
-                                    startActivity(intent);
+                                    if(yemian.equals("1")){
+                                        Intent intent=new Intent(mContext,XuanZeJueSeActivity.class);
+                                        Bundle bundle=new Bundle();
+                                        bundle.putString("phone",phone);
+                                        bundle.putString("pass1",pass1);
+                                        bundle.putString("pass2",pass2);
+                                        bundle.putString("yanzhengma",yanzhengma);
+                                        intent.putExtras(bundle);
+                                        startActivity(intent);
+                                    } else {
+                                        changPwd();
+                                    }
+
                                 }else{
                                     ToastUtil.showToast("手机格式不正确，请重新填写");
                                 }
                             }
                         }
-                    },true);
+                    },false);
 
 
     }
@@ -406,5 +413,19 @@ public class ZhuCeActivity extends BaseActivity {
                 AppManager.getAppManager().finishActivity();
             }
         }
+    }
+    private void changPwd() {
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(RetrofitManager.getService()
+                        .changePwd(PreferenceUtils.getString(MyApplication.mContext, "token", ""),etPhone.getText().toString().trim(), etPass1.getText().toString().trim(),
+                                "2", etPass2.getText().toString().trim(), etYanzhengma.getText().toString().trim()))
+                .setDataListener(new HttpDataListener<String>() {
+                    @Override
+                    public void onNext(String data) {
+                        ToastUtil.showToastLong("密码重置成功");
+                        finish();
+                    }
+                }, true);
     }
 }

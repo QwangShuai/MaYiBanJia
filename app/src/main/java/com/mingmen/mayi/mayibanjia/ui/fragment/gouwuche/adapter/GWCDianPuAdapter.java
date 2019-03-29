@@ -24,6 +24,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.DianPuActivity;
 import com.mingmen.mayi.mayibanjia.ui.fragment.gouwuche.GouWuCheFragment;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenu;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuBridge;
@@ -89,10 +90,14 @@ public class GWCDianPuAdapter extends  RecyclerView.Adapter<GWCDianPuAdapter.Vie
 //        holder.tv_laizi.setText(string.getCat_name());
 //        Glide.with(mContext).load("http://www.zhenlvw.com/"+string.getFile_url())
 //                .into(holder.iv_danxuan);
+        holder.iv_jishida.setVisibility(View.GONE);
         holder.tv_dianming.setText(datas.getCompany_name());
         holder.tv_dianpushichang.setText(datas.getMarket_name());
         holder.iv_danxuan.setSelected(isSelected);
         shangpinlist = datas.getShangPinBeen();
+        if(StringUtil.isValid(datas.getRealtime())&&datas.getRealtime().equals("0")){
+            holder.iv_jishida.setVisibility(View.VISIBLE);
+        }
         final GWCShangPinAdapter shangpinadapter = new GWCShangPinAdapter(mContext, shangpinlist, isSelected, gouWuCheFragment);
 
         holder.ll_jindian.setOnClickListener(new View.OnClickListener() {
@@ -245,6 +250,7 @@ public class GWCDianPuAdapter extends  RecyclerView.Adapter<GWCDianPuAdapter.Vie
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView iv_danxuan;
+        ImageView iv_jishida;
         TextView tv_dianming;
         TextView tv_dianpushichang;
         LinearLayout ll_jindian;
@@ -254,6 +260,7 @@ public class GWCDianPuAdapter extends  RecyclerView.Adapter<GWCDianPuAdapter.Vie
             ButterKnife.bind(this, view);
             ll_jindian=view.findViewById(R.id.ll_jindian);
             iv_danxuan=(ImageView) view.findViewById(R.id.iv_danxuan);
+            iv_jishida=(ImageView) view.findViewById(R.id.iv_jishida);
             tv_dianming=(TextView)view.findViewById(R.id.tv_dianming);
             tv_dianpushichang=(TextView)view.findViewById(R.id.tv_dianpushichang);
             rv_shangpin=(SwipeMenuRecyclerView)view.findViewById(R.id.rv_shangpin);

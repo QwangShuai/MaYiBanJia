@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,9 +42,12 @@ import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerListener;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/10/18.
@@ -53,25 +57,28 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public static final int BANNER = 0xff00;
     public static final int BIAOQIAN = 0xff02;
     public static final int SHANGJIA = 0xff01;
-    public static final int TEJIA = 0xff03;
+    public static final int SHISHIDA = 0xff03;
+    public static final int TEJIA = 0xff04;
     private Handler mHandler = new Handler(Looper.getMainLooper()); //获取主线程的Handler
 
     private ZiXun myHolder;
+    private Shishida ssdHolder;
     private ShangJia mMyViewHolder;
     private Context mContext;
     private View inflate;
     private ArrayList<String> shijilist;
     private ShouYeTeJiaAdapter shiJiBiaoQianAdapter;
     private List<String> imgs = new ArrayList<>();
-    private  List<ShouYeBannerBean> bannerBean;
-    private  List<FCGName> leiBean;
-    private  List<ShouYeTeJiaBean> teJiaBean;
-    private  List<ShouYeShangChangBean> shangJiaBean;
+    private List<ShouYeBannerBean> bannerBean;
+    private List<FCGName> leiBean;
+    private List<ShouYeTeJiaBean> teJiaBean;
+    private List<ShouYeShangChangBean> shangJiaBean;
     private MainActivity activity;
     private String dingwei = "";
     private String province = "";
-//    public ShouYeAdapter(Context context, List<ShouYeBannerBean> bannerBean,List<ShouYeLeiBean> leiBean,List<ShouYeTeJiaBean> teJiaBean,MainActivity activity) {
-    public ShouYeAdapter(Context context, List<ShouYeBannerBean> bannerBean,List<ShouYeShangChangBean> shangJiaBean,List<FCGName> leiBean,List<ShouYeTeJiaBean> teJiaBean,MainActivity activity,String dingwei,String province) {
+
+    //    public ShouYeAdapter(Context context, List<ShouYeBannerBean> bannerBean,List<ShouYeLeiBean> leiBean,List<ShouYeTeJiaBean> teJiaBean,MainActivity activity) {
+    public ShouYeAdapter(Context context, List<ShouYeBannerBean> bannerBean, List<ShouYeShangChangBean> shangJiaBean, List<FCGName> leiBean, List<ShouYeTeJiaBean> teJiaBean, MainActivity activity, String dingwei, String province) {
         this.mContext = context;
         this.bannerBean = bannerBean;
         this.leiBean = leiBean;
@@ -80,8 +87,8 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         this.activity = activity;
         this.dingwei = dingwei;
         this.province = province;
-        shijilist=new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
+        shijilist = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
             shijilist.add(i + "");
         }
     }
@@ -98,6 +105,9 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             case BIAOQIAN:
                 myHolder = new ZiXun(LayoutInflater.from(parent.getContext()).inflate(R.layout.shouye_item_biaoqian, parent, false));
                 return myHolder;
+            case SHISHIDA:
+                ssdHolder = new Shishida(LayoutInflater.from(parent.getContext()).inflate(R.layout.shouye_item_shishida, parent, false));
+                return ssdHolder;
             case TEJIA:
                 inflate = LayoutInflater.from(parent.getContext()).inflate(R.layout.shouye_item_tejia, parent, false);
                 return new TeJia(inflate);
@@ -110,25 +120,22 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof Banner) {
             bindBanner((Banner) holder, position);
-        }
-        else if (holder instanceof ShangJia) {
+        } else if (holder instanceof ShangJia) {
             bindShangjia((ShangJia) holder, position);
-        }
-        else if (holder instanceof ZiXun) {
-            bindZiXun ((ZiXun) holder, position);
-        }
-        else if (holder instanceof TeJia) {
+        } else if (holder instanceof ZiXun) {
+            bindZiXun((ZiXun) holder, position);
+        } else if (holder instanceof Shishida) {
+            bindShishida((Shishida) holder, position);
+        }  else if (holder instanceof TeJia) {
             bindTejia((TeJia) holder, position);
-        }
-
-        else {
+        } else {
 
         }
     }
 
     @Override
     public int getItemViewType(int position) {
-        switch (position){
+        switch (position) {
             case 0:
                 return BANNER;
             case 1:
@@ -136,6 +143,8 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             case 2:
                 return BIAOQIAN;
             case 3:
+                return SHISHIDA;
+            case 4:
                 return TEJIA;
             default:
                 return TEJIA;
@@ -144,13 +153,13 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemCount() {
-        return shijilist==null?0:shijilist.size();
+        return shijilist == null ? 0 : shijilist.size();
     }
 
 
-//banner
+    //banner
     private void bindBanner(Banner holder, int position) {
-        Log.e("sssss","banner");
+        Log.e("sssss", "banner");
         for (int i = 0; i < bannerBean.size(); i++) {
             imgs.add(bannerBean.get(i).getPicture_address());
         }
@@ -173,7 +182,7 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             @Override
             public void OnBannerClick(int position) {
                 Intent it = new Intent(mContext, HuoDongActivity.class);
-                it.putExtra("url",bannerBean.get(position).getAddress());
+                it.putExtra("url", bannerBean.get(position).getAddress());
                 mContext.startActivity(it);
 //                Log.e("bannerzt",mHomeBean.getBanner().get(position).getZt()+"zt");
 //                Log.e("bannerlink",mHomeBean.getBanner().get(position).getAp_link()+"link");
@@ -181,24 +190,25 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             }
         });
     }
+
     //标签
     private void bindZiXun(final ZiXun holder, int position) {
-        Log.e("sssss","zixun");
+        Log.e("sssss", "zixun");
 //        if(shiJiBean.getZixun().size()!=0){
         //滑动卡片
         List<List<FCGName>> datas = new ArrayList<>();
 //        datas.addAll(leiBean);
-        int count=0;
+        int count = 0;
         int mysize = 0;
         int minsize = 0;
-        mysize = leiBean.size()/8;
-        minsize = leiBean.size()%8;
-        if(minsize!=0){
+        mysize = leiBean.size() / 8;
+        minsize = leiBean.size() % 8;
+        if (minsize != 0) {
             mysize++;
         }
         for (int i = 0; i < mysize; i++) {
-            List<FCGName> list=new ArrayList<>();
-            if(i<mysize-1){
+            List<FCGName> list = new ArrayList<>();
+            if (i < mysize - 1) {
                 for (int j = 0; j < 8; j++) {
                     list.add(leiBean.get(count));
                     count++;
@@ -211,18 +221,18 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             }
 
             datas.add(list);
-            Log.e("长度",datas.size()+"");
+            Log.e("长度", datas.size() + "");
         }
 
         final int horizontal = LinearLayoutManager.HORIZONTAL;
         holder.recycler_view.setLayoutManager(new LinearLayoutManager(mContext, horizontal, false));
-        ShouYeLeiAdapter adapter = new ShouYeLeiAdapter(mContext,datas,activity);
+        ShouYeLeiAdapter adapter = new ShouYeLeiAdapter(mContext, datas, activity);
         holder.recycler_view.setAdapter(adapter);
         holder.recycler_view.setHasFixedSize(true);
         ZiXunPagingScrollHelper rp = new ZiXunPagingScrollHelper();
         rp.setIndicator(holder.indicator);
         rp.setUpRecycleView(holder.recycler_view);
-        rp.setAdapter(adapter,0);
+        rp.setAdapter(adapter, 0);
         rp.setOnPageChangeListener(new ZiXunPagingScrollHelper.onPageChangeListener() {
             @Override
             public void onPageChange(int index) {
@@ -231,113 +241,147 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         });
 
     }
-private void bindShangjia(final ShangJia holder, int position) {
-    holder.tvGys.setText(shangJiaBean.get(0).getCompany_gy_sum()+"");
-    holder.tvCt.setText(shangJiaBean.get(0).getCompany_ct_sum()+"");
-    holder.tvSc.setText(shangJiaBean.get(0).getMarket_count()+"");
-    final Bundle bundle = new Bundle();
-    bundle.putString("province",province);
-    bundle.putString("city",dingwei);
-    holder.llGys.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            JumpUtil.Jump_intent(mContext, ShangJiaActivity.class,bundle);
-        }
-    });
-    holder.llSc.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            JumpUtil.Jump_intent(mContext, QuanBuShiChangActivity.class,bundle);
-        }
-    });
-    holder.llCt.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            JumpUtil.Jump_intent(mContext, ZhuCeCanTingActivity.class,bundle);
-        }
-    });
+
+    private void bindShangjia(final ShangJia holder, int position) {
+        holder.tvGys.setText(shangJiaBean.get(0).getCompany_gy_sum() + "");
+        holder.tvCt.setText(shangJiaBean.get(0).getCompany_ct_sum() + "");
+        holder.tvSc.setText(shangJiaBean.get(0).getMarket_count() + "");
+        final Bundle bundle = new Bundle();
+        bundle.putString("province", province);
+        bundle.putString("city", dingwei);
+        holder.llGys.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                JumpUtil.Jump_intent(mContext, ShangJiaActivity.class, bundle);
+            }
+        });
+        holder.llSc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                JumpUtil.Jump_intent(mContext, QuanBuShiChangActivity.class, bundle);
+            }
+        });
+        holder.llCt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                JumpUtil.Jump_intent(mContext, ZhuCeCanTingActivity.class, bundle);
+            }
+        });
 //    holder.btnCaigou.setOnClickListener(new View.OnClickListener() {
 //        @Override
 //        public void onClick(View v) {
 //            activity.gaibianye(1);
 //        }
 //    });
-}
+    }
+
     //特价
     private void bindTejia(TeJia holder, int position) {
-        Log.e("sssss","tejia");
+        Log.e("sssss", "tejia");
 //
 
-        if (teJiaBean.size()==0){
+        if (teJiaBean.size() == 0) {
             holder.ll_kuang.setVisibility(View.GONE);
-        }else{
+        } else {
             if (shiJiBiaoQianAdapter == null) {
                 shiJiBiaoQianAdapter = new ShouYeTeJiaAdapter(mContext, teJiaBean);
             }
-            holder.rv_tejia.setLayoutManager(new GridLayoutManager(mContext,3));
+            holder.rv_tejia.setLayoutManager(new GridLayoutManager(mContext, 3));
             holder.rv_tejia.setAdapter(shiJiBiaoQianAdapter);
             holder.rv_tejia.setFocusable(false);
+            holder.ll_more.setOnClickListener(new View.OnClickListener() {//更多特价
+                @Override
+                public void onClick(View v) {
+//                    Map<String,Boolean> map = new HashMap<>();
+//                    map.put("isTejia",true);
+//                    EventBus.getDefault().post(map);
+                    activity.setTejia(true);
+                    activity.gaibianye(1);
+                }
+            });
         }
 
     }
-
+    private void bindShishida(Shishida holder, int position) {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {//筛选实时达
+//                Map<String,Boolean> map = new HashMap<>();
+//                map.put("isZhunshida",true);
+//                EventBus.getDefault().post(map);
+                activity.setZhunshida(true);
+                activity.gaibianye(1);
+            }
+        });
+    }
     public class TeJia extends RecyclerView.ViewHolder {
 
         public RecyclerView rv_tejia;
         public LinearLayout ll_kuang;
+        public LinearLayout ll_more;
 
         public TeJia(final View itemView) {
             super(itemView);
             rv_tejia = (RecyclerView) itemView.findViewById(R.id.rv_tejia);
-            ll_kuang =  itemView.findViewById(R.id.ll_kuang);
-        }
-    }
-    public class Banner extends RecyclerView.ViewHolder{
-        private com.youth.banner.Banner banner_home_lunbo;
-        public Banner(View itemView) {
-            super(itemView);
-            banner_home_lunbo=(com.youth.banner.Banner) itemView.findViewById(R.id.shouye_banner);
+            ll_kuang = itemView.findViewById(R.id.ll_kuang);
+            ll_more = itemView.findViewById(R.id.ll_more);
         }
     }
 
-    public class ZiXun extends RecyclerView.ViewHolder{
+    public class Banner extends RecyclerView.ViewHolder {
+        private com.youth.banner.Banner banner_home_lunbo;
+
+        public Banner(View itemView) {
+            super(itemView);
+            banner_home_lunbo = (com.youth.banner.Banner) itemView.findViewById(R.id.shouye_banner);
+        }
+    }
+
+    public class ZiXun extends RecyclerView.ViewHolder {
         private RecyclerView recycler_view;
         private PageIndicatorView indicator;
 
         public ZiXun(View itemView) {
             super(itemView);
-            indicator=(PageIndicatorView)itemView.findViewById(R.id.indicator);
-            recycler_view=(RecyclerView) itemView.findViewById(R.id.recycler_view);
+            indicator = (PageIndicatorView) itemView.findViewById(R.id.indicator);
+            recycler_view = (RecyclerView) itemView.findViewById(R.id.recycler_view);
 
         }
     }
-public class ShangJia extends RecyclerView.ViewHolder{
-    private TextView tvGys;
-    private TextView tvCt;
-    private TextView tvSc;
-    private LinearLayout llSc;
-    private LinearLayout llCt;
-    private LinearLayout llGys;
+
+    public class ShangJia extends RecyclerView.ViewHolder {
+        private TextView tvGys;
+        private TextView tvCt;
+        private TextView tvSc;
+        private LinearLayout llSc;
+        private LinearLayout llCt;
+        private LinearLayout llGys;
 //    private Button btnCaigou;
 
-    public ShangJia(View itemView) {
-        super(itemView);
-        tvGys=(TextView)itemView.findViewById(R.id.tv_gys);
-        tvCt=(TextView)itemView.findViewById(R.id.tv_ct);
-        tvSc=(TextView)itemView.findViewById(R.id.tv_sc);
-        llSc=(LinearLayout)itemView.findViewById(R.id.ll_sc);
-        llCt=(LinearLayout)itemView.findViewById(R.id.ll_ct);
-        llGys=(LinearLayout)itemView.findViewById(R.id.ll_gys);
+        public ShangJia(View itemView) {
+            super(itemView);
+            tvGys = (TextView) itemView.findViewById(R.id.tv_gys);
+            tvCt = (TextView) itemView.findViewById(R.id.tv_ct);
+            tvSc = (TextView) itemView.findViewById(R.id.tv_sc);
+            llSc = (LinearLayout) itemView.findViewById(R.id.ll_sc);
+            llCt = (LinearLayout) itemView.findViewById(R.id.ll_ct);
+            llGys = (LinearLayout) itemView.findViewById(R.id.ll_gys);
 //        btnCaigou=(Button) itemView.findViewById(R.id.btn_caigou);
 
+        }
     }
-}
 
+    public class Shishida extends RecyclerView.ViewHolder{
+        public Shishida(View itemView) {
+            super(itemView);
+        }
+    }
     public interface OnItemClickLitener {
         void onItemClick(View view, int position);
 
         void onItemLongClick(View view, int position);
     }
+
     private OnItemClickLitener mOnItemClickLitener;
 
     public void setOnItemClickLitener(OnItemClickLitener mOnItemClickLitener) {

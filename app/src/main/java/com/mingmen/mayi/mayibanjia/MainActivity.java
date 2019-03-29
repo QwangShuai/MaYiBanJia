@@ -66,6 +66,25 @@ public class MainActivity extends BaseActivity {
     public static MainActivity instance = null;
     private String sp_type = "";
     private String sp_id = "";
+    private boolean isTejia;
+    private boolean isZhunshida;
+
+    public boolean isTejia() {
+        return isTejia;
+    }
+
+    public void setTejia(boolean tejia) {
+        isTejia = tejia;
+    }
+
+    public boolean isZhunshida() {
+        return isZhunshida;
+    }
+
+    public void setZhunshida(boolean zhunshida) {
+        isZhunshida = zhunshida;
+    }
+
     private String zzh = "";
     private ConfirmDialog confirmDialog;
     private Context mContext;

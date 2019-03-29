@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:gravity="center_horizontal">
+    android:padding="10dp">
     <LinearLayout
-        android:layout_marginTop="20dp"
+        android:paddingTop="2dp"
         android:background="@drawable/fillet_hollow_e7e7e7_10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,15 +17,19 @@
             android:layout_width="109dp"
             android:layout_height="109dp"
             android:background="@drawable/fillet_soild_e7e7e7_10"/>
-
-        <TextView
-            android:layout_marginLeft="5dp"
+        <com.mingmen.mayi.mayibanjia.utils.custom.MarqueeTextView
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:singleLine="true"
+            android:layout_marginTop="8dp"
+            android:ellipsize="marquee"
             android:id="@+id/tv_spming"
+            android:marqueeRepeatLimit="marquee_forever"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="农种巨甘甜 甜橙"
-            android:textColor="#ff474747"
+            android:text="甜橙"
+            android:textAllCaps="true"
+            android:textColor="@color/zicolor"
             android:textSize="15sp" />
         <LinearLayout
             android:layout_marginLeft="5dp"
@@ -69,4 +73,10 @@
 
         </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+    <ImageView
+        android:layout_alignParentRight="true"
+        android:id="@+id/iv_ssd"
+        android:src="@mipmap/jishida"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

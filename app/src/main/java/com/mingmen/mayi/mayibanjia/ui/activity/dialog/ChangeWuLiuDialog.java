@@ -34,6 +34,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.WuLiuActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.ChePaiMohuAdapter;
+import com.mingmen.mayi.mayibanjia.ui.activity.wuliujingli.BaseJingliFragment;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
@@ -57,18 +58,17 @@ public class ChangeWuLiuDialog extends Dialog {
     private Button bt_sure,bt_cancle;
     private WuLiuBean bean;
     private String car_type_name = "",car_type_id="";
-    private String type = "";
     private RecyclerView rv_mohu;
     private PopupWindow mPopWindow;
     private ChePaiMohuAdapter mohuAdapter;
     private ArrayList<ChePaiBean> datas = new ArrayList<>();
     private String chepai="";
-    public ChangeWuLiuDialog(@NonNull Context context,WuLiuBean bean,WuLiuActivity activity,String type) {
+    private  BaseJingliFragment fragment;
+    public ChangeWuLiuDialog(@NonNull Context context,WuLiuBean bean,WuLiuActivity activity, BaseJingliFragment fragment) {
         super(context);
         this.context = context;
         this.bean = bean;
         this.activity = activity;
-        this.type =type;
     }
 
     @Override
@@ -179,7 +179,7 @@ public class ChangeWuLiuDialog extends Dialog {
                                 @Override
                                 public void onNext(String s) {
                                     dismiss();
-                                    activity.shuaxinWuLiu(type);
+                                    fragment.onResume();
                                 }
                             });
                 }

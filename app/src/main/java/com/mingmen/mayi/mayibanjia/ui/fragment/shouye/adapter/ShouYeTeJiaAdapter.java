@@ -16,6 +16,7 @@ import com.mingmen.mayi.mayibanjia.bean.ShouYeTeJiaBean;
 import com.mingmen.mayi.mayibanjia.ui.activity.SPXiangQingActivity;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 import com.mingmen.mayi.mayibanjia.utils.custom.GlideRoundTransform;
+import com.mingmen.mayi.mayibanjia.utils.custom.MarqueeTextView;
 
 import java.util.List;
 
@@ -48,6 +49,7 @@ public class ShouYeTeJiaAdapter extends RecyclerView.Adapter<ShouYeTeJiaAdapter.
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final ShouYeTeJiaBean data = mList.get(position);
         holder.tvSpming.setText(data.getClassify_name());
+        holder.tvSpming.setMarqueeEnable(true);
         holder.tvDanjia.setText(data.getPice()+"");
         holder.tvYuandanjia.setText("￥ "+ data.getPrice());
         holder.tvYuandanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
@@ -73,7 +75,7 @@ public class ShouYeTeJiaAdapter extends RecyclerView.Adapter<ShouYeTeJiaAdapter.
         @BindView(R.id.iv_sptu)
         ImageView ivSptu;
         @BindView(R.id.tv_spming)
-        TextView tvSpming;
+        MarqueeTextView tvSpming;
         @BindView(R.id.tv_danjia)
         TextView tvDanjia;
         @BindView(R.id.tv_yuandanjia)

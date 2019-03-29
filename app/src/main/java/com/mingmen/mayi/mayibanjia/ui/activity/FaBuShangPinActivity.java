@@ -241,7 +241,7 @@ public class FaBuShangPinActivity extends BaseActivity {
         instance = this;
         goods = getIntent().getStringExtra("goods");
         if ("0".equals(getIntent().getStringExtra("state"))) {
-            llTj.setVisibility(View.GONE);
+//            llTj.setVisibility(View.GONE);
             llShowTejia.setVisibility(View.GONE);
             if (StringUtil.isValid(getIntent().getStringExtra("guige"))) {
                 tvTitle.setText("新增规格");
@@ -507,7 +507,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                         } else if (Double.valueOf(etTejia.getText().toString().trim()) <= 0) {
                             ToastUtil.showToast("特价必须大于0");
                         } else {
-                            if (goods.equals("1") || StringUtil.isValid(getIntent().getStringExtra("guige"))) {
+                            if (StringUtil.isValid(getIntent().getStringExtra("guige"))) {
                                 guigeYanzheng();
                             } else {
                                 tiaozhuan();
@@ -521,7 +521,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                         return;
                     }
                 } else {
-                    if (goods.equals("1") || StringUtil.isValid(getIntent().getStringExtra("guige"))) {
+                    if (StringUtil.isValid(getIntent().getStringExtra("guige"))) {
                         guigeYanzheng();
                     } else {
                         tiaozhuan();
@@ -985,7 +985,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                             spname = bean.getClassify_name() + "";
                             tvFenleimingcheng.setText(bean.getType_one_name());
                         }
-                        if (StringUtil.isValid(getIntent().getStringExtra("tejia"))||yemian.equals("1")) {//转换为特价
+                        if (StringUtil.isValid(getIntent().getStringExtra("tejia"))||yemian.equals("1")||goods.equals("1")) {//转换为特价
                             llFenleimingcheng.setEnabled(false);
                             llSanjiguige.setEnabled(false);
                             etNumber.setEnabled(false);
@@ -993,7 +993,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                             llTeshu.setVisibility(View.GONE);
                             isSelect = true;
                             ivTeshu.setSelected(true);
-                            if(StringUtil.isValid(getIntent().getStringExtra("tejia"))){
+                            if(StringUtil.isValid(getIntent().getStringExtra("tejia"))||goods.equals("1")){
                                 etPpming.setEnabled(false);
                                 etQidingliangdanjia1.setEnabled(false);
                                 llShowTejia.setVisibility(View.VISIBLE);
@@ -1001,6 +1001,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                                 if(bean.getPice()>0){
                                     etTejia.setText(bean.getPice()+"");
                                 }
+//                                llTj.setVisibility(View.VISIBLE);
                             }
                             etSpming.setText(bean.getClassify_name());
 

@@ -34,6 +34,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.WuLiuActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.ChePaiMohuAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.FaCaiGouMohuAdapter;
+import com.mingmen.mayi.mayibanjia.ui.activity.wuliujingli.BaseJingliFragment;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
@@ -64,14 +65,14 @@ public class FenPeiWuLiuCheDialog extends Dialog {
     private ChePaiMohuAdapter mohuAdapter;
     private ArrayList<ChePaiBean> datas = new ArrayList<>();
     String car_type_name = "",car_type_id="";
-    String type = "";
     private String chepai="";
-    public FenPeiWuLiuCheDialog(@NonNull Context context,WuLiuBean bean,WuLiuActivity activity,String type) {
+    private BaseJingliFragment fragment;
+    public FenPeiWuLiuCheDialog(@NonNull Context context, WuLiuBean bean, WuLiuActivity activity, BaseJingliFragment fragment) {
         super(context);
         this.context = context;
         this.bean = bean;
         this.activity = activity;
-        this.type = type;
+        this.fragment = fragment;
     }
 
     @Override
@@ -176,7 +177,7 @@ public class FenPeiWuLiuCheDialog extends Dialog {
                                 @Override
                                 public void onNext(String s) {
                                     dismiss();
-                                    activity.shuaxinWuLiu("");
+                                    fragment.onResume();
                                 }
                             });
                 }

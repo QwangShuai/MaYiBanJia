@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.DdxqBean;
 import com.mingmen.mayi.mayibanjia.bean.DdxqListBean;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 
 import java.util.List;
 
@@ -81,7 +82,12 @@ public class DdXqShichangAdapter extends RecyclerView.Adapter<DdXqShichangAdapte
                 holder.tvPeisongyuan.setText("配送员:" + item0.getDriver_name());
                 holder.tvPhone.setText(item0.getDriver_phone());
                 holder.tvChepaihao.setText("车牌号:" + item0.getPlate_number());
-                holder.tvFahuoshijian.setText("发货时间:" + item0.getUpdate_time());
+                if(StringUtil.isValid(item0.getUpdate_time())){
+                    holder.tvFahuoshijian.setText("发货时间:" + item0.getUpdate_time());
+                } else {
+                    holder.tvFahuoshijian.setVisibility(View.GONE);
+                }
+
 
             }
             if(item0.getOrderState().equals("405") || item0.getOrderState().equals("406")){

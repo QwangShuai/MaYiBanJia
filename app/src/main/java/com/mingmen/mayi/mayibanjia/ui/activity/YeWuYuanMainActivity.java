@@ -279,7 +279,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.tv_right, R.id.tv_title,R.id.ll_type, R.id.ll_zhuce,R.id.iv_back})
+    @OnClick({R.id.tv_right, R.id.tv_title,R.id.ll_type, R.id.ll_zhuce,R.id.iv_back,R.id.tv_add})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -290,6 +290,50 @@ public class YeWuYuanMainActivity extends BaseActivity {
                 break;
             case R.id.ll_zhuce:
                 showZhucePop();
+                break;
+            case R.id.tv_add:
+                addDialog = new YeWuYuanAddDialog(mContext,
+                        mContext.getResources().getIdentifier("TouMingDialog", "style", mContext.getPackageName()));
+                addDialog.showDialog();
+                addDialog.getLlBianji().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        addDialog.dismiss();
+                        //添加企业
+                        Intent intent = new Intent(mContext, XinXiLuRuActivity.class);
+                        bundle.putString("rukou", "add");
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                });
+                addDialog.getLlShanchu().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        addDialog.dismiss();
+                        Intent intent = new Intent(mContext, XinXiLuRuGHDActivity.class);
+                        bundle.putString("rukou", "add");
+                        bundle.putString("random_id", "1");
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                });
+                addDialog.getLlHebing().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        addDialog.dismiss();
+                        Intent intent = new Intent(mContext, XinXiLuRuGHDActivity.class);
+                        bundle.putString("rukou", "add");
+                        bundle.putString("random_id", "0");
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                });
+                addDialog.getIvGuanbi().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        addDialog.cancel();
+                    }
+                });
                 break;
             case R.id.tv_right:
                 //搜索弹出框

@@ -14,6 +14,7 @@ import com.mingmen.mayi.mayibanjia.bean.WuLiuBean;
 import com.mingmen.mayi.mayibanjia.ui.activity.WuLiuActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ChangeWuLiuDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.FenPeiWuLiuCheDialog;
+import com.mingmen.mayi.mayibanjia.ui.activity.wuliujingli.BaseJingliFragment;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
 import java.util.List;
@@ -28,13 +29,13 @@ public class WuLiuFenPeiAdapter extends  RecyclerView.Adapter<WuLiuFenPeiAdapter
     private ViewHolder viewHolder;
     private Context mContext;
     private List<WuLiuBean> mList;
+    private BaseJingliFragment fragment;
     private WuLiuActivity activity;
-    private String type="0";
-    public WuLiuFenPeiAdapter(Context context,List<WuLiuBean> list,WuLiuActivity activity,String type){
+    public WuLiuFenPeiAdapter(Context context,List<WuLiuBean> list,WuLiuActivity activity,BaseJingliFragment fragment){
         this.mContext = context;
         this.mList = list;
+        this.fragment = fragment;
         this.activity = activity;
-        this.type = type;
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -57,7 +58,7 @@ public class WuLiuFenPeiAdapter extends  RecyclerView.Adapter<WuLiuFenPeiAdapter
             @Override
             public void onClick(View v) {//分配物流车
                 if(data.getWl_cars_state().equals("0")){
-                    FenPeiWuLiuCheDialog dialog = new FenPeiWuLiuCheDialog(mContext,mList.get(position),activity,type);
+                    FenPeiWuLiuCheDialog dialog = new FenPeiWuLiuCheDialog(mContext,mList.get(position),activity,fragment);
                     dialog.show();
                 } else {
                     ToastUtil.showToast("此单已分配物流车");
@@ -69,7 +70,7 @@ public class WuLiuFenPeiAdapter extends  RecyclerView.Adapter<WuLiuFenPeiAdapter
             @Override
             public void onClick(View v) {//变更
                 if(data.getWl_cars_state().equals("1")){
-                    ChangeWuLiuDialog   dialog = new ChangeWuLiuDialog(mContext,mList.get(position),activity,type);
+                    ChangeWuLiuDialog   dialog = new ChangeWuLiuDialog(mContext,mList.get(position),activity,fragment);
                     dialog.show();
                 } else {
                     ToastUtil.showToast("此状态不可变更");

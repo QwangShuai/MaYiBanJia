@@ -136,7 +136,7 @@ public class ShouCangAdapter extends BaseQuickAdapter<ShouCangBean,BaseViewHolde
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
-                        ToastUtil.showToast("添加成功");
+                        ToastUtil.showToast("添加购物车成功");
 
                     }
                 });

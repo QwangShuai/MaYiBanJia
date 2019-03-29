@@ -80,6 +80,8 @@
                     android:layout_marginLeft="26dp"
                     android:layout_marginRight="26dp"/>
                 <LinearLayout
+                    android:gravity="center"
+                    android:layout_marginRight="26dp"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:orientation="horizontal"
@@ -92,6 +94,7 @@
                         android:layout_marginLeft="27dp"
                         />
                     <RelativeLayout
+                        android:layout_weight="1"
                         android:layout_marginRight="26dp"
                         android:layout_marginLeft="13dp"
                         android:layout_width="match_parent"
@@ -123,6 +126,13 @@
                                 android:layout_height="13dp" />
                         </RelativeLayout>
                     </RelativeLayout>
+                    <TextView
+                        android:id="@+id/tv_forget_pwd"
+                        android:textSize="12sp"
+                        android:textColor="@color/zicolor"
+                        android:text="忘记密码"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"

@@ -304,7 +304,9 @@
         <activity android:name=".ui.activity.XuanZeGuiGeActivity" /> <!-- 选择规格 -->
         <activity android:name=".ui.activity.YongHuPingJiaActivity" /> <!-- 供应端用户评价 -->
         <activity android:name=".ui.activity.GHDXiangQingActivity" /> <!-- 供应端订单详情 -->
-        <activity android:name=".ui.activity.YeWuYuanActivity" />
+        <activity android:name=".ui.activity.YeWuYuanActivity" /> <!-- 业务员饼状图首页 -->
+        <activity android:name=".ui.activity.ShichangJiageActivity" /> <!-- 各市场价格 -->
+        <activity android:name=".ui.activity.ShichangXuanzeActivity"></activity>
     </application>
 
 </manifest>

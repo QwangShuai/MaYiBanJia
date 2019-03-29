@@ -73,9 +73,9 @@
                 android:layout_height="20dp" />
         </RelativeLayout>
         <View
-            android:background="@color/cutoff"
+            android:background="@color/gray_e7e7e7"
             android:layout_width="match_parent"
-            android:layout_height="1dp" />
+            android:layout_height="0.5dp" />
         <RelativeLayout
             android:id="@+id/rl_yinhang"
             android:gravity="center_vertical"
@@ -136,9 +136,38 @@
                 android:layout_height="match_parent" />
         </RelativeLayout>
         <View
-            android:background="@color/cutoff"
+            android:background="@color/gray_e7e7e7"
             android:layout_width="match_parent"
-            android:layout_height="1dp" />
+            android:layout_height="0.5dp" />
+        <RelativeLayout
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="54dp">
+            <TextView
+                android:layout_centerVertical="true"
+                android:id="@+id/kaihuhang"
+                android:textSize="15sp"
+                android:text="开户行"
+                android:textColor="@color/zicolor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:inputType="phone"
+                android:textColorHint="@color/hintcolor"
+                android:background="@null"
+                android:id="@+id/et_kaihuhang"
+                android:layout_marginLeft="36dp"
+                android:layout_toRightOf="@id/kaihuhang"
+                android:textSize="15sp"
+                android:hint="请输入开户行（支行）名称"
+                android:textColor="@color/hintcolor"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </RelativeLayout>
+        <View
+            android:background="@color/gray_e7e7e7"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp" />
         <RelativeLayout
             android:gravity="center_vertical"
             android:layout_width="match_parent"
@@ -165,9 +194,9 @@
                 android:layout_height="match_parent" />
         </RelativeLayout>
         <View
-            android:background="@color/cutoff"
+            android:background="@color/gray_e7e7e7"
             android:layout_width="match_parent"
-            android:layout_height="1dp" />
+            android:layout_height="0.5dp" />
         <RelativeLayout
             android:gravity="center_vertical"
             android:layout_width="match_parent"

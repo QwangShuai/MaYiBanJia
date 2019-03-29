@@ -44,6 +44,8 @@ public class YinHangKaTianJiaActivity extends BaseActivity {
     ImageView ivJinru;
     @BindView(R.id.et_kahao)
     EditText etKahao;
+    @BindView(R.id.et_kaihuhang)
+    EditText etKaihuhang;
     @BindView(R.id.rl_kahao)
     RelativeLayout rlKahao;
     @BindView(R.id.et_shenfenzheng)
@@ -56,6 +58,7 @@ public class YinHangKaTianJiaActivity extends BaseActivity {
     private String son_number = "";
     private String phone = "";
     private String bank_account = "";
+    private String bank_address = "";
     private String id_number = "";
     private String principal = "";
 
@@ -117,6 +120,7 @@ public class YinHangKaTianJiaActivity extends BaseActivity {
         phone = etShoujihao.getText().toString().trim();
         id_number = etShenfenzheng.getText().toString().trim();
         bank_account = etKahao.getText().toString().trim();
+        bank_address = etKaihuhang.getText().toString().trim();
         if (!AppUtil.isMobile(phone)) {
             ToastUtil.showToast("请检查手机号");
         } else if (!StringUtil.isLegalId(id_number)) {
@@ -125,6 +129,8 @@ public class YinHangKaTianJiaActivity extends BaseActivity {
             ToastUtil.showToast("银行账号不能为空");
         } else if (TextUtils.isEmpty(son_number)) {
             ToastUtil.showToast("请选择开户行");
+        } else if(TextUtils.isEmpty(bank_address)){
+            ToastUtil.showToastLong("请输入开户行（支行）名称");
         } else {
             b = true;
         }
@@ -134,12 +140,12 @@ public class YinHangKaTianJiaActivity extends BaseActivity {
     public void addBankCard() {//添加银行卡
         HttpManager.getInstance().with(mContext)
                 .setObservable(RetrofitManager.getService()
-                        .addBankCard(PreferenceUtils.getString(MyApplication.mContext, "token", ""), bank_account, principal,
+                        .addBankCard(PreferenceUtils.getString(MyApplication.mContext, "token", ""), bank_account,bank_address, principal,
                                 id_number, phone, son_number))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
-                        ToastUtil.showToast("成功");
+                        ToastUtil.showToast("添加银行卡成功");
                         finish();
                     }
                 });

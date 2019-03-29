@@ -27,6 +27,15 @@ public class GWCDianPuShangPinBean {
     private String market_id;
     private String son_number;
     private String type_tree_id;
+    private String realtime;
+
+    public String getRealtime() {
+        return realtime;
+    }
+
+    public void setRealtime(String realtime) {
+        this.realtime = realtime;
+    }
 
     public String getSon_number() {
         return son_number;

@@ -253,7 +253,7 @@ public class GouWuCheAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
-                        ToastUtil.showToast("添加成功");
+                        ToastUtil.showToast("添加购物车成功");
                         gouWuCheFragment.setShuaxin();
                     }
                 });

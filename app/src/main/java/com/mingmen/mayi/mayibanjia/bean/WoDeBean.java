@@ -36,6 +36,15 @@ public class WoDeBean {
     private int shenhe_sbai;
     private int shenhe_cg;
     private float evaluation;
+    private String realtime;
+
+    public String getRealtime() {
+        return realtime;
+    }
+
+    public void setRealtime(String realtime) {
+        this.realtime = realtime;
+    }
 
     public int getShelves() {
         return shelves;

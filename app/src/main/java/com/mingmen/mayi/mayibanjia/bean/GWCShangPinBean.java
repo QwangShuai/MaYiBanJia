@@ -58,6 +58,15 @@ public class GWCShangPinBean {
             private String pack_standard_tree;
             private String market_name;
             private String market_id;
+            private String realtime;
+
+            public String getRealtime() {
+                return realtime;
+            }
+
+            public void setRealtime(String realtime) {
+                this.realtime = realtime;
+            }
 
             public String getMarket_name() {
                 return market_name;

@@ -89,7 +89,7 @@ public class WuLiuDialog extends BaseFragmentDialog implements View.OnClickListe
         int color=getContext().getResources().getColor(textView.getId()==chooseView.getId()?R.color.caigoudanxuanzhong:R.color.zicolor);
         textView.setTextColor(color);
         if (textView.getId()==chooseView.getId())
-            activity.shuaxinWuLiu(s);
+//            activity.shuaxinWuLiu(s);
         this.dismiss();
     }
 

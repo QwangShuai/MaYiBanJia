@@ -195,6 +195,7 @@
             android:layout_width="0.5dp"
             android:layout_height="match_parent"></View>
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/ll_shichang_pop"
             android:orientation="vertical"
             android:layout_weight="1"

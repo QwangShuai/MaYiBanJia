@@ -234,9 +234,15 @@ public class LoginActivity extends BaseActivity {
 
 
     @OnClick({R.id.bt_login, R.id.tv_dongtaimimadenglu, R.id.tv_zhuce,R.id.bt_yzm,
-            R.id.bt_youke,R.id.ll_phone,R.id.rl_phone_clear,R.id.rl_pass_clear})
+            R.id.bt_youke,R.id.ll_phone,R.id.rl_phone_clear,
+            R.id.rl_pass_clear,R.id.tv_forget_pwd})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.tv_forget_pwd:
+                Intent it_pwd = new Intent(mContext, ZhuCeActivity.class);
+                it_pwd.putExtra("yemian", "3");
+                startActivity(it_pwd);
+                break;
             case R.id.bt_login:
                 if(ISLOGIN==1){
                     pass = etPass.getText().toString().trim();

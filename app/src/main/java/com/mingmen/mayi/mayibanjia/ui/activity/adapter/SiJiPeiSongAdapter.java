@@ -27,6 +27,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.SiJiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.WeiYiQrCodeActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.DiTuDialog;
+import com.mingmen.mayi.mayibanjia.ui.activity.wuliusiji.BaseSijiFragment;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
@@ -49,11 +50,12 @@ public class SiJiPeiSongAdapter extends RecyclerView.Adapter<SiJiPeiSongAdapter.
     private String type = "0";
     private SmsManager manager;
     private ConfirmDialog confirmDialog;
+    private BaseSijiFragment fragment;
 
-    public SiJiPeiSongAdapter(Context context, List<WuLiuBean> list, SiJiActivity activity, String type) {
+    public SiJiPeiSongAdapter(Context context, List<WuLiuBean> list, BaseSijiFragment fragment, String type) {
         this.mContext = context;
         this.mList = list;
-        this.activity = activity;
+        this.fragment = fragment;
         this.type = type;
     }
 
@@ -71,10 +73,15 @@ public class SiJiPeiSongAdapter extends RecyclerView.Adapter<SiJiPeiSongAdapter.
         Log.e("ceshi----",String.valueOf(data.getWl_order_state()));
         if (data.getWl_order_state().equals("待送货")) {
             holder.btnTongzhi.setVisibility(View.GONE);
-        }
-        if (data.getWl_order_state().equals("待取货")) {
+            holder.llSaoma.setVisibility(View.GONE);
+            holder.tvQuhuoma.setVisibility(View.GONE);
+        }else if (data.getWl_order_state().equals("待取货")) {
 
-        } else {
+        }
+//        else if(data.getWl_order_state().equals("待送达")){
+//
+//        }
+        else {
             holder.tv_state.setTextColor(R.color.zicolor);
         }
         holder.tv_state.setText(String.valueOf(data.getWl_order_state()));
@@ -121,7 +128,7 @@ public class SiJiPeiSongAdapter extends RecyclerView.Adapter<SiJiPeiSongAdapter.
                 if (data.getScanCount().equals(data.getPackCount())) {
                     ToastUtil.showToast("装车完成");
                 } else {
-                    activity.saomiaoQrCode();
+                    fragment.saomiaoQrCode();
                 }
             }
         });
@@ -148,10 +155,15 @@ public class SiJiPeiSongAdapter extends RecyclerView.Adapter<SiJiPeiSongAdapter.
         holder.tvQuhuoma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent it = new Intent(mContext, WeiYiQrCodeActivity.class);
-                it.putExtra("type", "gyID");
-                it.putExtra("gyID", String.valueOf(mList.get(position).getGy_order_id()));
-                mContext.startActivity(it);
+                if (data.getScanCount().equals(data.getPackCount())) {
+                    ToastUtil.showToast("装车完成");
+                } else {
+                    Intent it = new Intent(mContext, WeiYiQrCodeActivity.class);
+                    it.putExtra("type", "gyID");
+                    it.putExtra("gyID", String.valueOf(mList.get(position).getGy_order_id()));
+                    mContext.startActivity(it);
+                }
+
             }
         });
     }

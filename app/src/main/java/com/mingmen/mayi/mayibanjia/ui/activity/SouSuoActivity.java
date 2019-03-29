@@ -173,35 +173,27 @@ public class SouSuoActivity extends BaseActivity {
     private JiaRuGouWuCheDialog jiarugouwuchedialog;
     private String spguige;
     private ArrayList<ShangPinSouSuoBean.ZhengchangBean> shangpinlist = new ArrayList<>();
-    private ArrayList<FenLeiBean> allFenLei = new ArrayList<>();
-    private ArrayList<FenLeiBean> yijiFenLei;
-    private ArrayList<FenLeiBean> erjiFenLei;
-    private ArrayList<FenLeiBean> sanjiFenLei;
-    private boolean isLodeFenLei = false;
     private YiJiFenLeiAdapter yijiadapter;
     private String yijipinleiid = "";
     private String erjipinleiid = "";
+    private String sanjipinleiname = "";
     private String sanjipinleiid = "";
-    private String erjipinleiname = "";
     private String shichangid="";
-    private AllShiChangBean shiChangBean;
-    private ToolLocation location;
     String zuigaojia="";
     String zuidijia="";
-    private PopupWindow shaixuanpop;
     private boolean isdi;
-    private String shichangname = "";
     private ArrayList<ShiChangSouSuoShangPinBean> shichanglist = new ArrayList<>();
     private ArrayList<DianPuBean> dianpulist = new ArrayList<>();
     private SwipeMenuRecyclerView.LoadMoreListener mLoadMoreListener;
     private String sousuozi="";
-    private ArrayList<FenLeiBean> dangqianerji;
     private int ye=1;
     private String type="0";
     private List<String> xuanze = new ArrayList<>();
     private PopupWindow pop;
     private RecyclerView rv;
     private StringAdapter adapter;
+    private String iszhunshida = "";
+    private String istejia = "";
     @Override
     public int getLayoutId() {
         return R.layout.activity_sousuo;
@@ -243,7 +235,9 @@ public class SouSuoActivity extends BaseActivity {
                             .setObservable(
                                     RetrofitManager
                                             .getService()
-                                            .sousuoshangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""), sousuozi,"","",UMConfig.YCL_ID,yijipinleiid,erjipinleiid,sanjipinleiid,shichangid,zuigaojia,zuidijia,type,ye,""))
+                                            .sousuoshangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""), sousuozi,"","",
+                                                    UMConfig.YCL_ID,yijipinleiid,erjipinleiid,sanjipinleiid,shichangid,zuigaojia,
+                                                    zuidijia,type,ye,"",iszhunshida,istejia))
                             .setDataListener(new HttpDataListener<ShangPinSouSuoBean>() {
                                 @Override
                                 public void onNext(final ShangPinSouSuoBean shangpin) {
@@ -867,7 +861,9 @@ public class SouSuoActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .sousuoshangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""), sousuo,"","", UMConfig.YCL_ID,yijipinleiid,erjipinleiid,sanjipinleiid,shichangid,zuigaojia,zuidijia,type,1,""))
+                                .sousuoshangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""),
+                                        sousuo,"","", UMConfig.YCL_ID,yijipinleiid,erjipinleiid,
+                                        sanjipinleiid,shichangid,zuigaojia,zuidijia,type,1,"",iszhunshida,istejia))
                 .setDataListener(new HttpDataListener<ShangPinSouSuoBean>() {
                     @Override
                     public void onNext(final ShangPinSouSuoBean shangpin) {
@@ -951,7 +947,7 @@ public class SouSuoActivity extends BaseActivity {
                             }
                         }
                         shangpinadapter.notifyDataSetChanged();
-                        ToastUtil.showToast("添加成功");
+                        ToastUtil.showToast("添加购物车成功");
 
                     }
                 });

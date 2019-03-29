@@ -55,17 +55,18 @@
                     android:gravity="center"
                     />
                 <EditText
+                    android:paddingLeft="5dp"
                     android:id="@+id/et_qiyemingcheng"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="35dp"
                     android:text=""
                     android:textColor="#474747"
                     android:textSize="12sp"
-                    android:hint="请填写"
+                    android:hint="请填写企业名称"
                     android:textColorHint="@color/hintcolor"
                     android:gravity="center_vertical"
                     android:layout_marginLeft="36dp"
-                    android:background="@null"
+                    android:background="@drawable/fillet_hollow_999999_3"
                     />
             </LinearLayout>
             <LinearLayout

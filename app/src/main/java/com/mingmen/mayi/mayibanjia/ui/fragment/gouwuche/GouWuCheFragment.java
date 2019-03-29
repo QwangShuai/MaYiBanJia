@@ -200,6 +200,7 @@ public class GouWuCheFragment extends BaseFragment {
                                     gwcDianPuShangPinBean.setType(gwcShangPinBean.getDianpu().get(i).getType());
                                     gwcDianPuShangPinBean.setUser_token(gwcShangPinBean.getDianpu().get(i).getUser_token());
                                     gwcDianPuShangPinBean.setMarket_name(gwcShangPinBean.getDianpu().get(i).getMarket_name());
+                                    gwcDianPuShangPinBean.setRealtime(gwcShangPinBean.getDianpu().get(i).getRealtime());
 //                                    gwcDianPuShangPinBean.setSon_number(gwcShangPinBean.getShopping().get(i).getSon_number());
 //                                    gwcDianPuShangPinBean.setType_tree_id(gwcShangPinBean.getShopping().get(i).getType_tree_id());
 

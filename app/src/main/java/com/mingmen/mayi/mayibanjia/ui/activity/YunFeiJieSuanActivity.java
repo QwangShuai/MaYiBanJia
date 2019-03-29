@@ -204,11 +204,14 @@ public class YunFeiJieSuanActivity extends BaseActivity {
 
     public void addItem(YunFeiJieSuanBean.DdListBean bean) {
         xuanzhong.put(bean.getWl_cars_order_number(), bean);
+
         shuaxin();
     }
 
     public void delItem(YunFeiJieSuanBean.DdListBean bean) {
         xuanzhong.remove(bean.getWl_cars_order_number());
+        b = false;
+        ivQuanxuan.setSelected(false);
         shuaxin();
     }
 
@@ -233,6 +236,16 @@ public class YunFeiJieSuanActivity extends BaseActivity {
 //                adapter.notifyDataSetChanged();
             }
         }
+//        for (YunFeiJieSuanBean.DdListBean mybean:list) {
+//            if (mybean.isXuanzhong()){
+//                b = true;
+//                ivQuanxuan.setSelected(true);
+//            } else {
+//                b = false;
+//                ivQuanxuan.setSelected(false);
+//            }
+//
+//        }
         tvZongjia.setText(zj+"");
     }
 }

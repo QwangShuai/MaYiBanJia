@@ -133,6 +133,7 @@ public abstract class BaseShangPinFragment extends BaseFragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getMyGoods(MessageBean bean) {
         this.goods =  bean.getMessage();
+        shangpinguanliadapter.setGoods(goods);
         onResume();
     }
 

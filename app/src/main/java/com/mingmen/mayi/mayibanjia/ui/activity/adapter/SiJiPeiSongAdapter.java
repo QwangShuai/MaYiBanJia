@@ -52,11 +52,12 @@ public class SiJiPeiSongAdapter extends RecyclerView.Adapter<SiJiPeiSongAdapter.
     private ConfirmDialog confirmDialog;
     private BaseSijiFragment fragment;
 
-    public SiJiPeiSongAdapter(Context context, List<WuLiuBean> list, BaseSijiFragment fragment, String type) {
+    public SiJiPeiSongAdapter(Context context, List<WuLiuBean> list, BaseSijiFragment fragment, String type,SiJiActivity activity) {
         this.mContext = context;
         this.mList = list;
         this.fragment = fragment;
         this.type = type;
+        this.activity = activity;
     }
 
     @Override

@@ -47,9 +47,11 @@ import com.mingmen.mayi.mayibanjia.ui.view.XCFlowLayout;
 import com.mingmen.mayi.mayibanjia.ui.view.xiangqing.IdeaScrollView;
 import com.mingmen.mayi.mayibanjia.ui.view.xiangqing.IdeaViewPager;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
+import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
+import com.mingmen.mayi.mayibanjia.utils.custom.MarqueeTextView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -92,7 +94,7 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
     @BindView(R.id.civ_touxiang)
     CircleImageView civTouxiang;
     @BindView(R.id.tv_shangpinming)
-    TextView tvShangpinming;
+    MarqueeTextView tvShangpinming;
     @BindView(R.id.iv_zoushi)
     ImageView ivZoushi;
     @BindView(R.id.tv_guige)
@@ -139,6 +141,8 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
     Button btLijigoumai;
     @BindView(R.id.iv_sangedian)
     ImageView ivSangedian;
+    @BindView(R.id.iv_jishida)
+    ImageView ivJishida;
     @BindView(R.id.iv_shoucang)
     ImageView iv_shoucang;
     @BindView(R.id.xiangqing_banner)
@@ -304,7 +308,9 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
         dianhua = spxinxi.getTelePhone();
         tvKucun.setText("库存："+xq.getInventory());
         //tvShangpinming.setText(xq.getClassify_name());
+        tvShangpinming.setMarqueeEnable(true);
         tvShangpinming.setText(xq.getClassify_name());
+        ivJishida.setVisibility(xq.getReal_time_state().equals("0")?View.VISIBLE:View.GONE);
         tvDianming.setText(xq.getCompanyName());
         Glide.with(mContext).load(xq.getCompanyPhoto()).into(ivDiantu);
         tvDizhi.setText(xq.getCompanyAddress());
@@ -627,9 +633,14 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
                 break;
             case R.id.ll_gouwuche:
                 //购物车
-                Intent intent = new Intent(mContext, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("tosome", 2);
-                startActivity(intent);
+                if(getIntent().getBooleanExtra("teshu",false)){
+                    JumpUtil.Jump_intent(mContext,GouWuCheActivity.class,new Bundle());
+                } else {
+                    Intent intent = new Intent(mContext, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.putExtra("tosome", 2);
+                    startActivity(intent);
+                }
+
                 break;
             case R.id.bt_addcar:
                 //添加购物车

@@ -405,8 +405,8 @@ public class LoginActivity extends BaseActivity {
             startActivity(intent);
             AppManager.getAppManager().finishAllActivity();
         } else if ("2".equals(juese)) {//供应端
-            if (random_id == 1) {
-                Intent intent = new Intent(mContext, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            if (random_id != 3) {
+                Intent intent = new Intent(mContext, SqscWodeActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 AppManager.getAppManager().finishAllActivity();
             } else {

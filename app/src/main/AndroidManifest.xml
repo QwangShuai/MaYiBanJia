@@ -306,7 +306,19 @@
         <activity android:name=".ui.activity.GHDXiangQingActivity" /> <!-- 供应端订单详情 -->
         <activity android:name=".ui.activity.YeWuYuanActivity" /> <!-- 业务员饼状图首页 -->
         <activity android:name=".ui.activity.ShichangJiageActivity" /> <!-- 各市场价格 -->
-        <activity android:name=".ui.activity.ShichangXuanzeActivity"></activity>
+        <activity android:name=".ui.activity.ShichangXuanzeActivity" />
+        <activity android:name=".ui.activity.SqscWodeActivity">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity android:name=".ui.activity.QuanBuCaiPinActivity" />
+        <activity android:name=".ui.activity.GouWuCheActivity" />
+        <activity android:name=".ui.activity.SqscShezhiActivity"></activity>
     </application>
 
 </manifest>

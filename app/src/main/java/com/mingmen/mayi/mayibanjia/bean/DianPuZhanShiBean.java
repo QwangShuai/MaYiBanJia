@@ -112,6 +112,15 @@ public class DianPuZhanShiBean {
     private String remark;
     private String goodsCount;
     private String telephone;
+    private String realtime;
+
+    public String getRealtime() {
+        return realtime;
+    }
+
+    public void setRealtime(String realtime) {
+        this.realtime = realtime;
+    }
 
     public String getTelephone() {
         return telephone;

@@ -93,7 +93,7 @@ public abstract class BaseGHOrderFragment extends BaseFragment {
         } else {
             token = PreferenceUtils.getString(MyApplication.mContext, "token", "");
         }
-
+        Log.e("getData: ",token+"----"+getZhuangTai()+"----"+ ye );
         HttpManager.getInstance()
                 .with(getActivity())
                 .setObservable(

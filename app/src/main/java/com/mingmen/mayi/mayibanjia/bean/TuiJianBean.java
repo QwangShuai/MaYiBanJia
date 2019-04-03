@@ -63,6 +63,15 @@ public class TuiJianBean {
         private String shopping_id;
         private String spec_describe;
         private String classify_name;//三级分类名称
+        private String real_time_state;
+
+    public String getReal_time_state() {
+        return real_time_state;
+    }
+
+    public void setReal_time_state(String real_time_state) {
+        this.real_time_state = real_time_state;
+    }
 
     public String getClassify_name() {
         return classify_name;

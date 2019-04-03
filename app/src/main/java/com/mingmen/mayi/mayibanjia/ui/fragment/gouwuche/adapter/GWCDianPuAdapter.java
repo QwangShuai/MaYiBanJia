@@ -18,10 +18,12 @@ import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.GWCDianPuShangPinBean;
 import com.mingmen.mayi.mayibanjia.bean.GWCShangPinBean;
+import com.mingmen.mayi.mayibanjia.bean.GouwucheDianpuBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.DianPuActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.GouWuCheActivity;
 import com.mingmen.mayi.mayibanjia.ui.fragment.gouwuche.GouWuCheFragment;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
@@ -44,39 +46,39 @@ import static android.widget.ListPopupWindow.MATCH_PARENT;
  * Created by Administrator on 2018/7/5/005.
  */
 
-public class GWCDianPuAdapter extends  RecyclerView.Adapter<GWCDianPuAdapter.ViewHolder>{
+public class GWCDianPuAdapter extends RecyclerView.Adapter<GWCDianPuAdapter.ViewHolder> {
     private ViewHolder viewHolder;
     private Context mContext;
-    private List<GWCDianPuShangPinBean> dianpulist;
+    private List<GouwucheDianpuBean> dianpulist;
     private OnItemClickListener mOnItemClickListener;
     private GouWuCheFragment gouWuCheFragment;
-    Gson gson=new Gson();
-    private boolean isSelected;
-    private List<GWCShangPinBean.ShoppingBean> shangpinlist;
+    private GouWuCheActivity activity;
+    private boolean isTeshu;
+    private GWCShangPinAdapter shangpinadapter;
+    private List<GouwucheDianpuBean.SplistBean> shangpinlist;
 
-    public boolean isSelected() {
-        return isSelected;
-    }
-
-    public void setSelected(boolean selected) {
-        isSelected = selected;
-    }
-
-    public GWCDianPuAdapter(Context mContext, List<GWCDianPuShangPinBean> list, boolean isSelected, GouWuCheFragment gouWuCheFragment) {
+    public GWCDianPuAdapter(Context mContext, List<GouwucheDianpuBean> list, GouWuCheFragment gouWuCheFragment) {
         this.mContext = mContext;
         this.dianpulist = list;
-        this.isSelected = isSelected;
         this.gouWuCheFragment = gouWuCheFragment;
     }
 
-    public interface OnItemClickListener{
-        void onClick(View view, int position, List<GWCDianPuShangPinBean> dianpulist);
+    public GWCDianPuAdapter(Context mContext, List<GouwucheDianpuBean> list, GouWuCheActivity activity) {
+        this.mContext = mContext;
+        this.dianpulist = list;
+        this.isTeshu = true;
+        this.activity = activity;
+    }
+
+    public interface OnItemClickListener {
+        void onClick(View view, int position, List<GouwucheDianpuBean> dianpulist);
     }
 
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener ){
-        this. mOnItemClickListener=onItemClickListener;
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.mOnItemClickListener = onItemClickListener;
     }
+
     @Override
     public GWCDianPuAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         viewHolder = new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_gouwuche_dianpu, parent, false));
@@ -85,7 +87,7 @@ public class GWCDianPuAdapter extends  RecyclerView.Adapter<GWCDianPuAdapter.Vie
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        final GWCDianPuShangPinBean datas = dianpulist.get(position);
+        final GouwucheDianpuBean datas = dianpulist.get(position);
 //        holder.tv_name.setText(string.getTitle());
 //        holder.tv_laizi.setText(string.getCat_name());
 //        Glide.with(mContext).load("http://www.zhenlvw.com/"+string.getFile_url())
@@ -93,19 +95,24 @@ public class GWCDianPuAdapter extends  RecyclerView.Adapter<GWCDianPuAdapter.Vie
         holder.iv_jishida.setVisibility(View.GONE);
         holder.tv_dianming.setText(datas.getCompany_name());
         holder.tv_dianpushichang.setText(datas.getMarket_name());
-        holder.iv_danxuan.setSelected(isSelected);
-        shangpinlist = datas.getShangPinBeen();
-        if(StringUtil.isValid(datas.getRealtime())&&datas.getRealtime().equals("0")){
+        holder.iv_danxuan.setSelected(datas.isSelect());
+        shangpinlist = datas.getSplist();
+        if (StringUtil.isValid(datas.getRealtime()) && datas.getRealtime().equals("0")) {
             holder.iv_jishida.setVisibility(View.VISIBLE);
         }
-        final GWCShangPinAdapter shangpinadapter = new GWCShangPinAdapter(mContext, shangpinlist, isSelected, gouWuCheFragment);
+        if (isTeshu) {
+            shangpinadapter = new GWCShangPinAdapter(mContext, shangpinlist,  activity);
+        } else {
+            shangpinadapter = new GWCShangPinAdapter(mContext, shangpinlist, gouWuCheFragment);
+        }
+
 
         holder.ll_jindian.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent jindian=new Intent(mContext,DianPuActivity.class);
-                Bundle bundle=new Bundle();
-                bundle.putString("dianpuid",datas.getCompany_id());
+                Intent jindian = new Intent(mContext, DianPuActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("dianpuid", datas.getCompany_id());
                 jindian.putExtras(bundle);
                 mContext.startActivity(jindian);
             }
@@ -148,13 +155,18 @@ public class GWCDianPuAdapter extends  RecyclerView.Adapter<GWCDianPuAdapter.Vie
                         .setObservable(
                                 RetrofitManager
                                         .getService()
-                                        .delgwc(PreferenceUtils.getString(MyApplication.mContext, "token",""),"1",datas.getShangPinBeen().get(adapterPosition).getShopping_id()))
+                                        .delgwc(PreferenceUtils.getString(MyApplication.mContext, "token", ""), "1", datas.getSplist().get(adapterPosition).getShopping_id()))
                         .setDataListener(new HttpDataListener<String>() {
                             @Override
                             public void onNext(String data) {
-                                gouWuCheFragment.setShuaxin();
+                                if (isTeshu) {
+                                    activity.setShuaxin();
+                                } else {
+                                    gouWuCheFragment.setShuaxin();
+                                }
+
                             }
-                        },false);
+                        }, false);
             }
         };
 
@@ -164,67 +176,136 @@ public class GWCDianPuAdapter extends  RecyclerView.Adapter<GWCDianPuAdapter.Vie
         holder.rv_shangpin.setSwipeMenuItemClickListener(mMenuItemClickListener);
         holder.rv_shangpin.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         holder.rv_shangpin.setAdapter(shangpinadapter);
-        if (mOnItemClickListener!=null){
+        if (mOnItemClickListener != null) {
             holder.iv_danxuan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    datas.setSelected(!datas.isSelected());
-                    holder.iv_danxuan.setSelected(datas.isSelected());
-                    dianpulist.get(position).setSelected(datas.isSelected());
-                    shangpinadapter.setSelected(datas.isSelected());
-                    List<GWCShangPinBean.ShoppingBean> splist = shangpinadapter.getmList();
-                    for (int i = 0; i <splist.size() ; i++) {
-                        if(!splist.get(i).getCommodity_state().equals("1")){
-                            if (datas.isSelected()){
-                                splist.get(i).setSelected(true);
-                            }else{
-                                splist.get(i).setSelected(false);
+                    datas.setSelect(!datas.isSelect());
+                    holder.iv_danxuan.setSelected(datas.isSelect());
+                    dianpulist.get(position).setSelect(datas.isSelect());
+                    if (isTeshu) {
+                        for (int i = 0; i < shangpinlist.size(); i++) {
+                            if (activity.isGuanli()) {
+                                if (datas.isSelect()) {
+                                    shangpinlist.get(i).setSelect(true);
+                                } else {
+                                    shangpinlist.get(i).setSelect(false);
+                                }
                             }
+                            else {
+                                if (!shangpinlist.get(i).getCommodity_state().equals("1")) {
+                                    if (datas.isSelect()) {
+                                        shangpinlist.get(i).setSelect(true);
+                                    } else {
+                                        shangpinlist.get(i).setSelect(false);
+                                    }
+                                } else {
+                                    ToastUtil.showToastLong("包含已下架商品，请及时删除");
+                                }
+                            }
+                        }
+                    } else {
+                        for (int i = 0; i < shangpinlist.size(); i++) {
+                            if (gouWuCheFragment.isGuanli()) {
+                                if (datas.isSelect()) {
+                                    shangpinlist.get(i).setSelect(true);
+                                } else {
+                                    shangpinlist.get(i).setSelect(false);
+                                }
+                            } else {
+                                if (!shangpinlist.get(i).getCommodity_state().equals("1")) {
+                                    if (datas.isSelect()) {
+                                        shangpinlist.get(i).setSelect(true);
+                                    } else {
+                                        shangpinlist.get(i).setSelect(false);
+                                    }
+                                } else {
+                                    ToastUtil.showToastLong("包含已下架商品，请及时删除");
+                                }
+                            }
+                        }
+//
+//
+                    }
+                    shangpinadapter.notifyDataSetChanged();
+                    mOnItemClickListener.onClick(v, position, dianpulist);
+                    if (isTeshu) {
+                        activity.getalllist();
+                        if(!activity.isGuanli()){
+                            activity.getZongJia();
                         } else {
-                            ToastUtil.showToastLong("包含已下架商品，请及时删除");
+                            return;
+                        }
+
+                    } else {
+                        gouWuCheFragment.getalllist();
+                        if(!gouWuCheFragment.isGuanli()){
+                            gouWuCheFragment.getZongJia();
+                        } else {
+                            return;
                         }
 
                     }
-                    shangpinadapter.setmList(splist);
-                    gouWuCheFragment.getalllist();
-                    gouWuCheFragment.getZongJia();
-                    mOnItemClickListener.onClick(v,position,dianpulist);
+
                 }
             });
         }
         shangpinadapter.setOnItemClickListener(new GWCShangPinAdapter.OnItemClickListener() {
             @Override
-            public void onClick(View view, int position1, List<GWCShangPinBean.ShoppingBean> mList) {
-                dianpulist.get(position).setShangPinBeen(mList);
-                gouWuCheFragment.getalllist();
-                gouWuCheFragment.getZongJia();
-                for (int i = 0; i < mList.size(); i++) {
-                    if (!mList.get(i).isSelected()) {
+            public void onClick(View view, int position1, List<GouwucheDianpuBean.SplistBean> mList) {
+                if (isTeshu) {
+                    activity.getalllist();
+                    if (!activity.isGuanli()) {
+                        activity.getZongJia();
+                    }
+                    for (int i = 0; i < mList.size(); i++) {
+                        if (!mList.get(i).isSelect()) {
 //                        //遍历一级列表数据
 //                            //有一个未被选中,则全选按钮不会被选中
-                        isSelected = false;
-                        holder.iv_danxuan.setSelected(false);
-                        dianpulist.get(position).setSelected(isSelected);
-                        gouWuCheFragment.setSelect(false);
-                        gouWuCheFragment.getIvQuanxuan().setSelected(false);
-                        return;
+                            holder.iv_danxuan.setSelected(false);
+                            dianpulist.get(position).setSelect(false);
+                            activity.setSelect(false);
+                            activity.getIvQuanxuan().setSelected(false);
+                            return;
+                        }
                     }
+                    //如果都被选中,则全选按钮选中
+                    holder.iv_danxuan.setSelected(true);
+                    dianpulist.get(position).setSelect(true);
+                    activity.setSelect(isquanxuan());
+                    activity.getIvQuanxuan().setSelected(isquanxuan());
+                } else {
+                    gouWuCheFragment.getalllist();
+                    if (!gouWuCheFragment.isGuanli()) {
+                        gouWuCheFragment.getZongJia();
+                    }
+                    for (int i = 0; i < mList.size(); i++) {
+                        if (!mList.get(i).isSelect()) {
+//                        //遍历一级列表数据
+//                            //有一个未被选中,则全选按钮不会被选中
+                            holder.iv_danxuan.setSelected(false);
+                            dianpulist.get(position).setSelect(false);
+                            gouWuCheFragment.setSelect(false);
+                            gouWuCheFragment.getIvQuanxuan().setSelected(false);
+                            return;
+                        }
+                    }
+                    //如果都被选中,则全选按钮选中
+                    holder.iv_danxuan.setSelected(true);
+                    dianpulist.get(position).setSelect(true);
+                    gouWuCheFragment.setSelect(isquanxuan());
+                    gouWuCheFragment.getIvQuanxuan().setSelected(isquanxuan());
                 }
-                //如果都被选中,则全选按钮选中
-                isSelected=true;
-                holder.iv_danxuan.setSelected(isSelected);
-                dianpulist.get(position).setSelected(isSelected);
-                gouWuCheFragment.setSelect(isquanxuan());
-                gouWuCheFragment.getIvQuanxuan().setSelected(isquanxuan());
+
 
             }
         });
     }
 
     //全选
-    public boolean isquanxuan(){
-        for (int i = 0; i <dianpulist.size(); i++) {
-            if (!dianpulist.get(i).isSelected()) {
+    public boolean isquanxuan() {
+        for (int i = 0; i < dianpulist.size(); i++) {
+            if (!dianpulist.get(i).isSelect()) {
                 return false;
             } else {
 
@@ -232,20 +313,10 @@ public class GWCDianPuAdapter extends  RecyclerView.Adapter<GWCDianPuAdapter.Vie
         }
         return true;
     }
-    //选中的商品
-
-    public List<GWCDianPuShangPinBean> getdianpulist() {
-        return dianpulist;
-    }
-
-    public void setdianpulist(List<GWCDianPuShangPinBean> dianpulist) {
-        this.dianpulist = dianpulist;
-        notifyDataSetChanged();
-    }
 
     @Override
     public int getItemCount() {
-        return  dianpulist.size();
+        return dianpulist.size();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -255,15 +326,16 @@ public class GWCDianPuAdapter extends  RecyclerView.Adapter<GWCDianPuAdapter.Vie
         TextView tv_dianpushichang;
         LinearLayout ll_jindian;
         SwipeMenuRecyclerView rv_shangpin;
+
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
-            ll_jindian=view.findViewById(R.id.ll_jindian);
-            iv_danxuan=(ImageView) view.findViewById(R.id.iv_danxuan);
-            iv_jishida=(ImageView) view.findViewById(R.id.iv_jishida);
-            tv_dianming=(TextView)view.findViewById(R.id.tv_dianming);
-            tv_dianpushichang=(TextView)view.findViewById(R.id.tv_dianpushichang);
-            rv_shangpin=(SwipeMenuRecyclerView)view.findViewById(R.id.rv_shangpin);
+            ll_jindian = view.findViewById(R.id.ll_jindian);
+            iv_danxuan = (ImageView) view.findViewById(R.id.iv_danxuan);
+            iv_jishida = (ImageView) view.findViewById(R.id.iv_jishida);
+            tv_dianming = (TextView) view.findViewById(R.id.tv_dianming);
+            tv_dianpushichang = (TextView) view.findViewById(R.id.tv_dianpushichang);
+            rv_shangpin = (SwipeMenuRecyclerView) view.findViewById(R.id.rv_shangpin);
         }
     }
 

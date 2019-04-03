@@ -62,6 +62,7 @@ import com.mingmen.mayi.mayibanjia.bean.ShouYeShangChangBean;
 import com.mingmen.mayi.mayibanjia.bean.ShouYeTeJiaBean;
 import com.mingmen.mayi.mayibanjia.bean.SiJiWLXQBean;
 import com.mingmen.mayi.mayibanjia.bean.SongDaShiJianBean;
+import com.mingmen.mayi.mayibanjia.bean.SqscWodeBean;
 import com.mingmen.mayi.mayibanjia.bean.TuiJianBean;
 import com.mingmen.mayi.mayibanjia.bean.WXPayBean;
 import com.mingmen.mayi.mayibanjia.bean.WeiYiQrCodeBean;
@@ -545,7 +546,8 @@ public interface HttpService {
                                                         @Query("remarke") String remarke,//留言
                                                         @Query("feelist") String list,//市场数组
                                                         @Query("special_commodity") String special_commodity,//特殊要求
-                                                        @Query("ct_buy_final_id") String ct_buy_final_id);
+                                                        @Query("ct_buy_final_id") String ct_buy_final_id,
+                                                        @Query("freight_fee_type") String freight_fee_type);
 
     //查询余额
     @POST("payHistory/getBalance.do")
@@ -1335,4 +1337,8 @@ public interface HttpService {
     @POST("allCompany/updateCompanyRealtime.do")
     Observable<ResultModel<String>> qiehuanSsd(@Query("user_token") String user_token,
                                                   @Query("realtime") String realtime);
+
+    // 获取社区市场我的数据
+    @POST("allCompanyAccount/querySqToken.do")
+    Observable<ResultModel<SqscWodeBean>> getSqscWode(@Query("user_token") String user_token);
 }

@@ -42,6 +42,16 @@ public class ShangPinListAdapter extends RecyclerView.Adapter<ShangPinListAdapte
     private List<ShangPinSouSuoBean.ZhengchangBean> mList;
     private OnItemClickListener mOnItemClickListener;
 
+    public boolean isTeshu() {
+        return isTeshu;
+    }
+
+    public void setTeshu(boolean teshu) {
+        isTeshu = teshu;
+    }
+
+    private boolean isTeshu;
+
     public ShangPinListAdapter(Context mContext, List<ShangPinSouSuoBean.ZhengchangBean> list) {
         this.mContext = mContext;
         this.mList = list;
@@ -85,6 +95,7 @@ public class ShangPinListAdapter extends RecyclerView.Adapter<ShangPinListAdapte
             @Override
             public void onClick(View v) {
                 Bundle bundle=new Bundle();
+                bundle.putBoolean("teshu",isTeshu);
                 bundle.putString("spid",data.getCommodity_id());
                 JumpUtil.Jump_intent(mContext, SPXiangQingActivity.class,bundle);
             }

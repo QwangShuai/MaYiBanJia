@@ -93,14 +93,39 @@
                         android:orientation="vertical"
                         android:layout_weight="1"
                         android:layout_marginLeft="12dp">
-                        <TextView
-                            android:id="@+id/tv_dianming"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="绿色天然蔬果店"
-                            android:textColor="#ffffffff"
-                            android:textSize="15sp"
-                            />
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <com.mingmen.mayi.mayibanjia.utils.custom.MarqueeTextView
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
+                                android:singleLine="true"
+                                android:ellipsize="marquee"
+                                android:id="@+id/tv_dianming"
+                                android:marqueeRepeatLimit="marquee_forever"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="甜橙"
+                                android:textAllCaps="true"
+                                android:textColor="#474747"
+                                android:textSize="15sp" />
+                            <LinearLayout
+                                android:gravity="left|center_vertical"
+                                android:layout_weight="1"
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                                <ImageView
+                                    android:visibility="gone"
+                                    android:id="@+id/iv_jishida"
+                                    android:src="@mipmap/jishida"
+                                    android:layout_width="43dp"
+                                    android:layout_height="wrap_content" />
+                            </LinearLayout>
+                        </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

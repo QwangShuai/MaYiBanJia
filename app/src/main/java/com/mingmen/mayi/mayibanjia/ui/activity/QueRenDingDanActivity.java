@@ -245,7 +245,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                         RetrofitManager
                                 .getService()
                                 .caigoutijiaodingdan(PreferenceUtils.getString(MyApplication.mContext, "token", ""), hejijine+"", "", yunfei+"", yue, dizhi.getAddress_id(), songdashijianid,
-                                        son_order_id, commodity_id, remarke,new Gson().toJson(shichangList),tsyq,ct_buy_final_id))
+                                        son_order_id, commodity_id, remarke,new Gson().toJson(shichangList),tsyq,ct_buy_final_id,"0"))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {

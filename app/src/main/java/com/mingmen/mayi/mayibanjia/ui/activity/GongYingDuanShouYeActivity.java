@@ -518,7 +518,7 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
                     @Override
                     public void onNext(String bean) {
                         Log.e("我的数据", bean);
-                        tvState.setText(bean.equals("0") ? "营业中" : "以关店");
+                        tvState.setText(bean.equals("0") ? "营业中" : "已关店");
                         type = bean;
                     }
                 });

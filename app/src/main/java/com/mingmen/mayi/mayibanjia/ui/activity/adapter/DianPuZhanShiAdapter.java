@@ -16,6 +16,7 @@ import com.mingmen.mayi.mayibanjia.bean.DianPuZhanShiBean;
 import com.mingmen.mayi.mayibanjia.bean.DingDanBean;
 import com.mingmen.mayi.mayibanjia.ui.activity.SPXiangQingActivity;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
+import com.mingmen.mayi.mayibanjia.utils.custom.MarqueeTextView;
 
 import java.util.List;
 
@@ -58,6 +59,7 @@ public class DianPuZhanShiAdapter extends RecyclerView.Adapter<DianPuZhanShiAdap
     public void onBindViewHolder(ViewHolder holder, final int position) {//店铺商品列表
         final DianPuZhanShiBean.CompanyListBean data = mList.get(position);
         Glide.with(mContext).load(data.getHostphoto()).into(holder.ivSptu);
+        holder.tvSpming.setMarqueeEnable(true);
         holder.tvSpming.setText(data.getClassify_name());
         holder.tvJiage.setText(data.getPice_one());
 //        holder.tvDianpuming.setText(data.getCompany_name());
@@ -97,7 +99,7 @@ public class DianPuZhanShiAdapter extends RecyclerView.Adapter<DianPuZhanShiAdap
         @BindView(R.id.iv_sptu)
         ImageView ivSptu;
         @BindView(R.id.tv_spming)
-        TextView tvSpming;
+        MarqueeTextView tvSpming;
         @BindView(R.id.tv_renminbi)
         TextView tvRenminbi;
         @BindView(R.id.tv_jiage)

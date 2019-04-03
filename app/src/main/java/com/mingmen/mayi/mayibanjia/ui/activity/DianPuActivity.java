@@ -32,6 +32,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.adapter.DianPuZhanShiAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.JiaRuGouWuCheDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
@@ -91,6 +92,8 @@ public class DianPuActivity extends BaseActivity implements View.OnClickListener
     LinearLayout llWeizhi;
     @BindView(R.id.iv_bg)
     ImageView iv_bg;
+    @BindView(R.id.iv_jishida)
+    ImageView ivJishida;
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout refreshLayout;
 
@@ -330,6 +333,7 @@ public class DianPuActivity extends BaseActivity implements View.OnClickListener
         tvDianming.setText(dianpuxinxi.getCompany_name()+"("+dianpuxinxi.getMarket_name()+")");
         tvPingfen.setText(dianpuxinxi.getEvaluation()+"");
         rbPingfen.setRating((float) dianpuxinxi.getEvaluation());
+        ivJishida.setVisibility(dianpuxinxi.getRealtime().equals("1")?View.GONE:View.VISIBLE);
         guanzhuid=dianpuxinxi.getAttention_id()!=null?dianpuxinxi.getAttention_id():"";
         tvGuanzhu.setText(dianpuxinxi.getAttention_number()==null?"0人关注":dianpuxinxi.getAttention_number()+"人关注");
         dianhua = dianpuxinxi.getPhone();

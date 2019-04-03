@@ -120,10 +120,10 @@ public abstract class BaseDingDanFragment extends BaseFragment {
                             }
                             adapter.notifyDataSetChanged();
                         }
-
+                        ye++;
                     }
                 });
-        ye++;
+
     }
 
     private void initview() {

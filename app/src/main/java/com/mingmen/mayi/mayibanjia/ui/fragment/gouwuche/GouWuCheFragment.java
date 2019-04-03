@@ -73,7 +73,12 @@ public class GouWuCheFragment extends BaseFragment {
     SwipeRefreshLayout srlShuaxin;
     private View viewSPYXFragment;
     private Context mContext;
-    private boolean isGuanli=false;
+
+    public boolean isGuanli() {
+        return isGuanli;
+    }
+
+    private boolean isGuanli;
     private GouWuCheAdapter adapter;
     private ArrayList<String> weinituijian;
     private Gson gson=new Gson();

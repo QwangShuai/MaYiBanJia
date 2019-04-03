@@ -205,30 +205,17 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     private TextView tvPinleiPop;
     private TextView tvPinzhongLablePop;
     private TextView tvPinzhongPop;
-    private TextView tvShichangLablePop;
-    private TextView tvShichangPop;
     private TextView tvGuigeLablePop;
     private TextView tvGuigePop;
     private TextView tvYiji;
     private TextView tvErji;
     private TextView tvSanji;
-    private TextView tvAllShichang;
     private LinearLayout llPinleiPop;
     private LinearLayout llPinzhongPop;
-    private LinearLayout llShichangPop;
-    private LinearLayout llShichangjiaPop;
     private LinearLayout llSousuoPop;
     private LinearLayout llGuigePop;
-    private ScrollView svShichang;
-    private RecyclerView rvYiji;
-    private RecyclerView rvErji;
-    private RecyclerView rvSanji;
     private RecyclerView rv_yijifenlei;
     private RecyclerView rvGuige;
-
-    private ShiChangAdapter yijiAdapter = new ShiChangAdapter();
-    private ShiChangAdapter erjiAdapter = new ShiChangAdapter();
-    private ShiChangAdapter sanjiAdapter = new ShiChangAdapter();
 
     private int viewHeight;
     private int mystate = 0;
@@ -450,9 +437,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
             showYiji();
         } else if (state == 2) {
             showErji();
-        } else if (state == 3) {
-            showShichang();
-        } else if (state == 4) {
+        }else if (state == 4) {
             showThreePop();
         }
 //        recyclerView.setVisibility(View.GONE);
@@ -499,75 +484,6 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     }
 
 
-    private void getshichang() {
-        HttpManager.getInstance()
-                .with(mContext)
-                .setObservable(
-                        RetrofitManager
-                                .getService()
-                                .getallshichang(PreferenceUtils.getString(MyApplication.mContext, "token", ""), "230000", "230100", "", ""))
-                .setDataListener(new HttpDataListener<AllShiChangBean>() {
-                    @Override
-                    public void onNext(AllShiChangBean data) {
-                        shiChangBean = data;
-                        if (shiChangBean.getOneList() != null) {
-                            yijiAdapter.setNewData(shiChangBean.getOneList());
-                        } else {
-                            tvYiji.setVisibility(View.GONE);
-                        }
-                        yijiAdapter.setXuanZhongId(shichangid)
-                                .setCallBack(new ShiChangAdapter.CallBack() {
-                                    @Override
-                                    public void xuanzhong(AllShiChangBean.Bean msg) {
-                                        shuaxinAdapter(msg);
-                                        ye = 1;
-                                        sousuoshangpin(sousuo, "0");
-                                    }
-                                });
-                        rvYiji.setLayoutManager(new GridLayoutManager(mContext, 2));
-                        rvYiji.setAdapter(yijiAdapter);
-
-                        if (shiChangBean.getTwoList() != null) {
-                            erjiAdapter.setNewData(shiChangBean.getTwoList());
-                            Log.e("erji", "erji");
-                        } else {
-                            tvErji.setVisibility(View.GONE);
-                        }
-                        erjiAdapter
-                                .setXuanZhongId(shichangid)
-                                .setCallBack(new ShiChangAdapter.CallBack() {
-                                    @Override
-                                    public void xuanzhong(AllShiChangBean.Bean msg) {
-                                        ye = 1;
-                                        shuaxinAdapter(msg);
-                                        sousuoshangpin(sousuo, "0");
-                                    }
-                                });
-                        rvErji.setLayoutManager(new GridLayoutManager(mContext, 2));
-                        rvErji.setAdapter(erjiAdapter);
-
-
-                        if (shiChangBean.getThreeList() != null) {
-                            Log.e("sanji", "sanji");
-                            sanjiAdapter.setNewData(shiChangBean.getThreeList());
-                        } else {
-                            tvSanji.setVisibility(View.GONE);
-                        }
-                        sanjiAdapter
-                                .setXuanZhongId(shichangid)
-                                .setCallBack(new ShiChangAdapter.CallBack() {
-                                    @Override
-                                    public void xuanzhong(AllShiChangBean.Bean msg) {
-                                        ye = 1;
-                                        shuaxinAdapter(msg);
-                                        sousuoshangpin(sousuo, "0");
-                                    }
-                                });
-                        rvSanji.setLayoutManager(new GridLayoutManager(mContext, 2));
-                        rvSanji.setAdapter(sanjiAdapter);
-                    }
-                }, false);
-    }
 
     //    @OnClick({R.id.ll_diqu, R.id.ll_pinlei, R.id.ll_shaixuan,R.id.iv_shanchuzi, R.id.tv_xiaoliang, R.id.ll_jiage, R.id.tv_pingfenzuigao})
     @OnClick({R.id.ll_shichangjia, R.id.ll_pinzhong, R.id.ll_pinlei, R.id.ll_shichang,
@@ -946,25 +862,15 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         tvGuigeLablePop = (TextView) view.findViewById(R.id.tv_guige_lable_pop);
         llPinleiPop = (LinearLayout) view.findViewById(R.id.ll_pinlei_pop);
         llPinzhongPop = (LinearLayout) view.findViewById(R.id.ll_pinzhong_pop);
-        llShichangPop = (LinearLayout) view.findViewById(R.id.ll_shichang_pop);
-        llShichangjiaPop = (LinearLayout) view.findViewById(R.id.ll_shichangjia_pop);
         llSousuoPop = (LinearLayout) view.findViewById(R.id.ll_sousuo_pop);
         llGuigePop = (LinearLayout) view.findViewById(R.id.ll_guige_pop);
         tvPinzhongLablePop = (TextView) view.findViewById(R.id.tv_pinzhong_lable_pop);
         tvPinzhongPop = (TextView) view.findViewById(R.id.tv_pinzhong_pop);
-        tvShichangLablePop = (TextView) view.findViewById(R.id.tv_shichang_lable_pop);
-        tvShichangPop = (TextView) view.findViewById(R.id.tv_shichang_pop);
-        svShichang = (ScrollView) view.findViewById(R.id.sv_shichang);
-        rvYiji = (RecyclerView) view.findViewById(R.id.rv_yijishichang);
-        rvErji = (RecyclerView) view.findViewById(R.id.rv_erjishichang);
-        rvSanji = (RecyclerView) view.findViewById(R.id.rv_sanjishichang);
         tvYiji = (TextView) view.findViewById(R.id.tv_yiji);
         tvErji = (TextView) view.findViewById(R.id.tv_yiji);
-        tvAllShichang = (TextView) view.findViewById(R.id.tv_all_shichang);
         rv_yijifenlei = view.findViewById(R.id.rv_yijifenlei);
         rvGuige = view.findViewById(R.id.rv_guige);
 
-        getshichang();
 
         llPinleiPop.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -984,12 +890,6 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 showPopThree();
             }
         });
-        llShichangPop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showShichang();
-            }
-        });
         ivBackPop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1001,32 +901,6 @@ public class QuanBuCaiPinFragment extends BaseFragment {
             public void onClick(View v) {
                 yijipop.dismiss();
                 startActivityForResult(new Intent(mContext, SouSuoActivity.class), REQUEST_CODE);
-            }
-        });
-        llShichangjiaPop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                yijipop.dismiss();
-                if (StringUtil.isValid(sanjipinleiid)) {
-                    if (rvShichangjia.getVisibility() == View.VISIBLE ? true : false) {
-                        shichanglist.clear();
-                        rvShichangjia.setVisibility(View.GONE);
-                    } else {
-                        sousuoshichang();
-                    }
-                } else {
-                    ToastUtil.showToastLong("您还没有选择商品的品种");
-                }
-            }
-        });
-        tvAllShichang.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AllShiChangBean.Bean msg = new AllShiChangBean.Bean();
-                msg.setMark_id("");
-                msg.setMarket_name("全部");
-                shuaxinAdapter(msg);
-                sousuoshangpin(sousuo, "0");
             }
         });
         WindowManager wm1 = getActivity().getWindowManager();
@@ -1044,7 +918,6 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         setPopColor();
         tvLablePop.setTextColor(mContext.getResources().getColor(R.color.zangqing));
         rv_yijifenlei.setVisibility(View.VISIBLE);
-        svShichang.setVisibility(View.GONE);
         refreshView();
         setMyManager();
         rv_yijifenlei.setLayoutManager(manager);
@@ -1078,7 +951,6 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     private void showErji() {
         setPopColor();
         rv_yijifenlei.setVisibility(View.VISIBLE);
-        svShichang.setVisibility(View.GONE);
         tvPinzhongLablePop.setTextColor(mContext.getResources().getColor(R.color.zangqing));
         refreshView();
         rv_yijifenlei.setLayoutManager(manager);
@@ -1108,15 +980,6 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         setMyManager();
     }
 
-    private void showShichang() {
-        setPopColor();
-        rv_yijifenlei.setVisibility(View.GONE);
-        svShichang.setVisibility(View.VISIBLE);
-        tvShichangLablePop.setTextColor(mContext.getResources().getColor(R.color.zangqing));
-        refreshView();
-
-    }
-
     private void shuaxinAdapter(AllShiChangBean.Bean msg) {
         yijipop.dismiss();
         Log.e("item", new Gson().toJson(msg));
@@ -1129,12 +992,6 @@ public class QuanBuCaiPinFragment extends BaseFragment {
             tvShichang.setTextColor(getResources().getColor(R.color.zangqing));
         }
         refreshView();
-        yijiAdapter.setXuanZhongId(shichangid);
-        erjiAdapter.setXuanZhongId(shichangid);
-        sanjiAdapter.setXuanZhongId(shichangid);
-        yijiAdapter.notifyDataSetChanged();
-        erjiAdapter.notifyDataSetChanged();
-        sanjiAdapter.notifyDataSetChanged();
     }
 
     private void setPopColor() {
@@ -1145,7 +1002,6 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         ye = 1;
         tvLablePop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
         tvPinzhongLablePop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
-        tvShichangLablePop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
         tvGuigeLablePop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
     }
 
@@ -1218,14 +1074,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         tvPinzhongPop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
         erjiadapter.setXuanzhongid("");
         erjiadapter.notifyDataSetChanged();
-        tvShichangPop.setText("全部");
         tvPinzhongPop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
-        yijiAdapter.setXuanZhongId("");
-        erjiAdapter.setXuanZhongId("");
-        sanjiAdapter.setXuanZhongId("");
-        yijiAdapter.notifyDataSetChanged();
-        erjiAdapter.notifyDataSetChanged();
-        sanjiAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -1280,7 +1129,6 @@ public class QuanBuCaiPinFragment extends BaseFragment {
 
     private void showThreePop() {
         setPopColor();
-        svShichang.setVisibility(View.GONE);
         refreshView();
         rvGuige.setLayoutManager(new GridLayoutManager(mContext, 3));
         rvGuige.setAdapter(guigeadapter);
@@ -1359,16 +1207,6 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         } else {
             tvGuigePop.setText("全部");
             tvGuigePop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
-        }
-
-        if (StringUtil.isValid(shichangname)) {
-            tvShichangPop.setText(shichangname);
-            tvShichangPop.setTextColor(mContext.getResources().getColor(R.color.zangqing));
-            tvAllShichang.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_999999_3));
-        } else {
-            tvShichangPop.setText("全部");
-            tvShichangPop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
-            tvAllShichang.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_zangqing_3));
         }
     }
     @Subscribe(threadMode = ThreadMode.MAIN)

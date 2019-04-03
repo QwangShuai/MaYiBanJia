@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -126,7 +127,7 @@ public class LiuLanJiLuAdapter extends RecyclerView.Adapter<LiuLanJiLuAdapter.Vi
         @BindView(R.id.iv_addcar)
         ImageView ivAddcar;
         @BindView(R.id.cl_kuang)
-        ConstraintLayout clKuang;
+        RelativeLayout clKuang;
         @BindView(R.id.iv_zoushitu)
         ImageView ivZoushitu;
         ViewHolder(View view) {

@@ -136,7 +136,7 @@ public abstract class BaseSijiFragment extends BaseFragment {
         rvShangpinguanli.useDefaultLoadMore(); // 使用默认的加载更多的View。
         rvShangpinguanli.setLoadMoreListener(mLoadMoreListener); // 加载更多的监听。
         rvShangpinguanli.loadMoreFinish(false, true);
-        adapter = new SiJiPeiSongAdapter(getContext(),mlist,this,getZhuangTai());
+        adapter = new SiJiPeiSongAdapter(getContext(),mlist,this,getZhuangTai(),activity);
         rvShangpinguanli.setAdapter(adapter);
         getPeiSong();
 

@@ -46,33 +46,20 @@ public class XQPingJiaBean {
     private String order_id;
     private String gy_order_id;
     private String creater;
-    private Object approval_state;
-    private Object company_name;
-    private Object head_shot;
     private String company_id;
-    private Object user_token;
     private float star_evaluation;
     private String rowgu_id;
     private String pjCompanyName;
     private String headPhoto;
-    private Object parentgu_id;
     private String comment_text;
-    private Object file_name;
     private String create_time;
-    private Object shop_rowgu;
-    private Object satisfaction;
     private String evaluate_state;
     private String hfStata;
-    private Object touser_name;
-    private Object comment_date;
     private String commentuserNameId;
-    private Object orderList;
     private String bpCompanyName;
     private int page;
     private PagerBean pager;
     private int rows;
-    private Object order;
-    private Object sort;
     private boolean isShow;
     private List<ReplyListBean> replyList;
     private List<PjListBeanX> pjList;
@@ -125,29 +112,6 @@ public class XQPingJiaBean {
         this.creater = creater;
     }
 
-    public Object getApproval_state() {
-        return approval_state;
-    }
-
-    public void setApproval_state(Object approval_state) {
-        this.approval_state = approval_state;
-    }
-
-    public Object getCompany_name() {
-        return company_name;
-    }
-
-    public void setCompany_name(Object company_name) {
-        this.company_name = company_name;
-    }
-
-    public Object getHead_shot() {
-        return head_shot;
-    }
-
-    public void setHead_shot(Object head_shot) {
-        this.head_shot = head_shot;
-    }
 
     public String getCompany_id() {
         return company_id;
@@ -157,13 +121,6 @@ public class XQPingJiaBean {
         this.company_id = company_id;
     }
 
-    public Object getUser_token() {
-        return user_token;
-    }
-
-    public void setUser_token(Object user_token) {
-        this.user_token = user_token;
-    }
 
     public float getStar_evaluation() {
         return star_evaluation;
@@ -197,13 +154,6 @@ public class XQPingJiaBean {
         this.headPhoto = headPhoto;
     }
 
-    public Object getParentgu_id() {
-        return parentgu_id;
-    }
-
-    public void setParentgu_id(Object parentgu_id) {
-        this.parentgu_id = parentgu_id;
-    }
 
     public String getComment_text() {
         return comment_text;
@@ -211,14 +161,6 @@ public class XQPingJiaBean {
 
     public void setComment_text(String comment_text) {
         this.comment_text = comment_text;
-    }
-
-    public Object getFile_name() {
-        return file_name;
-    }
-
-    public void setFile_name(Object file_name) {
-        this.file_name = file_name;
     }
 
     public String getCreate_time() {
@@ -229,22 +171,6 @@ public class XQPingJiaBean {
         this.create_time = create_time;
     }
 
-    public Object getShop_rowgu() {
-        return shop_rowgu;
-    }
-
-    public void setShop_rowgu(Object shop_rowgu) {
-        this.shop_rowgu = shop_rowgu;
-    }
-
-    public Object getSatisfaction() {
-        return satisfaction;
-    }
-
-    public void setSatisfaction(Object satisfaction) {
-        this.satisfaction = satisfaction;
-    }
-
     public String getEvaluate_state() {
         return evaluate_state;
     }
@@ -253,36 +179,12 @@ public class XQPingJiaBean {
         this.evaluate_state = evaluate_state;
     }
 
-    public Object getTouser_name() {
-        return touser_name;
-    }
-
-    public void setTouser_name(Object touser_name) {
-        this.touser_name = touser_name;
-    }
-
-    public Object getComment_date() {
-        return comment_date;
-    }
-
-    public void setComment_date(Object comment_date) {
-        this.comment_date = comment_date;
-    }
-
     public String getCommentuserNameId() {
         return commentuserNameId;
     }
 
     public void setCommentuserNameId(String commentuserNameId) {
         this.commentuserNameId = commentuserNameId;
-    }
-
-    public Object getOrderList() {
-        return orderList;
-    }
-
-    public void setOrderList(Object orderList) {
-        this.orderList = orderList;
     }
 
     public String getBpCompanyName() {
@@ -315,22 +217,6 @@ public class XQPingJiaBean {
 
     public void setRows(int rows) {
         this.rows = rows;
-    }
-
-    public Object getOrder() {
-        return order;
-    }
-
-    public void setOrder(Object order) {
-        this.order = order;
-    }
-
-    public Object getSort() {
-        return sort;
-    }
-
-    public void setSort(Object sort) {
-        this.sort = sort;
     }
 
     public List<ReplyListBean> getReplyList() {

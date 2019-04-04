@@ -77,7 +77,7 @@ public class GHOrderAdapter extends RecyclerView.Adapter<GHOrderAdapter.ViewHold
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final GHOrderBean bean = mList.get(position);
-        holder.tv_time.setText("客户要求送达时间:" + bean.getArrival_time());
+        holder.tv_time.setText("要求送达时间:" + bean.getArrival_time());
         final LinearLayoutManager manager = new LinearLayoutManager(mContext);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         holder.rv_shangpin.setLayoutManager(manager);
@@ -180,6 +180,12 @@ public class GHOrderAdapter extends RecyclerView.Adapter<GHOrderAdapter.ViewHold
                 @Override
                 public void onClick(View v) {
                     CallPhone(bean.getTelephone());
+                }
+            });
+            holder.iv_dianhua.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CallPhone(bean.getDriver_phone());
                 }
             });
             holder.tvTuikuan.setOnClickListener(new View.OnClickListener() {

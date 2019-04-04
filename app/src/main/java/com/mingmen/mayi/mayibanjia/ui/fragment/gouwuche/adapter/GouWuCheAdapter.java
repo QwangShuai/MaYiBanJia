@@ -134,14 +134,55 @@ public class GouWuCheAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     {
 //        //通过遍历所有的集合,修改bean类来控制CheckBox的选中状态
         isSelected=isCheck;
-//        dianpuadapter.setSelected(isSelected);
-        for (int i=0;i<shangpindata.size();i++){
-            shangpindata.get(i).setSelect(isSelected);
-            for (int j=0;j<shangpindata.get(i).getSplist().size();j++){
-                shangpindata.get(i).getSplist().get(j).setSelect(isSelected);
+        if(isTeshu){
+            if(activity.isGuanli()){
+                for (int i=0;i<shangpindata.size();i++){
+                    shangpindata.get(i).setSelect(isSelected);
+                    for (int j=0;j<shangpindata.get(i).getSplist().size();j++){
+                        shangpindata.get(i).getSplist().get(j).setSelect(isSelected);
+                    }
+                    dianpuadapter.notifyDataSetChanged();
+                }
+            } else {
+                for (int i=0;i<shangpindata.size();i++){
+                    shangpindata.get(i).setSelect(isSelected);
+                    for (int j=0;j<shangpindata.get(i).getSplist().size();j++){
+                        if( shangpindata.get(i).getSplist().get(j).getCommodity_state().equals("1")){
+                            ToastUtil.showToastLong("请及时删除下架商品");
+                        } else {
+                            shangpindata.get(i).getSplist().get(j).setSelect(isSelected);
+                        }
+
+                    }
+                    dianpuadapter.notifyDataSetChanged();
+                }
             }
-            dianpuadapter.notifyDataSetChanged();
+        } else {
+            if(gouWuCheFragment.isGuanli()){
+                for (int i=0;i<shangpindata.size();i++){
+                    shangpindata.get(i).setSelect(isSelected);
+                    for (int j=0;j<shangpindata.get(i).getSplist().size();j++){
+                        shangpindata.get(i).getSplist().get(j).setSelect(isSelected);
+                    }
+                    dianpuadapter.notifyDataSetChanged();
+                }
+            } else {
+                for (int i=0;i<shangpindata.size();i++){
+                    shangpindata.get(i).setSelect(isSelected);
+                    for (int j=0;j<shangpindata.get(i).getSplist().size();j++){
+                        if( shangpindata.get(i).getSplist().get(j).getCommodity_state().equals("1")){
+                            ToastUtil.showToastLong("请及时删除下架商品");
+                        } else {
+                            shangpindata.get(i).getSplist().get(j).setSelect(isSelected);
+                        }
+
+                    }
+                    dianpuadapter.notifyDataSetChanged();
+                }
+            }
         }
+//        dianpuadapter.setSelected(isSelected);
+
 
         //刷新适配器
         notifyDataSetChanged();

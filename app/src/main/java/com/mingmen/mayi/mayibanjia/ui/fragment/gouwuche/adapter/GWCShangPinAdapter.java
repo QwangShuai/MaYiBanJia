@@ -36,6 +36,7 @@ import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
+import com.mingmen.mayi.mayibanjia.utils.custom.MarqueeTextView;
 import com.qiniu.android.utils.Json;
 import com.qiniu.android.utils.StringUtils;
 
@@ -75,7 +76,12 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
         this.mList = list;
         this.gouWuCheFragment = gouWuCheFragment;
     }
-
+    public void setAllCheck(boolean b){
+        for(int i=0;i<mList.size();i++){
+            mList.get(i).setSelect(b);
+            notifyDataSetChanged();
+        }
+    }
     public GWCShangPinAdapter(Context mContext, List<GouwucheDianpuBean.SplistBean> list, GouWuCheActivity activity) {
         this.mContext = mContext;
         this.mList = list;
@@ -96,6 +102,7 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
         //holder.tvGuige.setText(shoppingBean.getPack_standard());
         holder.tvPrice.setText(shoppingBean.getPrice() + "");
         holder.tvNumber.setText(shoppingBean.getNumber() + "");
+        holder.tvName.setMarqueeEnable(true);
         if (shoppingBean.getCommodity_state().equals("1")) {
             holder.tvName.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
             holder.tvName.setText(shoppingBean.getClassify_name() + "(已下架)");
@@ -312,7 +319,7 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
         @BindView(R.id.iv_tu)
         ImageView ivTu;
         @BindView(R.id.tv_name)
-        TextView tvName;
+        MarqueeTextView tvName;
         /*        @BindView(R.id.tv_guige)
                 TextView tvGuige;*/
         @BindView(R.id.tv_price)

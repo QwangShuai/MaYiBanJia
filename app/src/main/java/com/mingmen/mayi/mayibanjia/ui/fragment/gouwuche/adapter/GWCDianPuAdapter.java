@@ -35,6 +35,7 @@ import com.yanzhenjie.recyclerview.swipe.SwipeMenuItem;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuItemClickListener;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -88,6 +89,7 @@ public class GWCDianPuAdapter extends RecyclerView.Adapter<GWCDianPuAdapter.View
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final GouwucheDianpuBean datas = dianpulist.get(position);
+        shangpinlist = datas.getSplist();
 //        holder.tv_name.setText(string.getTitle());
 //        holder.tv_laizi.setText(string.getCat_name());
 //        Glide.with(mContext).load("http://www.zhenlvw.com/"+string.getFile_url())
@@ -96,7 +98,7 @@ public class GWCDianPuAdapter extends RecyclerView.Adapter<GWCDianPuAdapter.View
         holder.tv_dianming.setText(datas.getCompany_name());
         holder.tv_dianpushichang.setText(datas.getMarket_name());
         holder.iv_danxuan.setSelected(datas.isSelect());
-        shangpinlist = datas.getSplist();
+
         if (StringUtil.isValid(datas.getRealtime()) && datas.getRealtime().equals("0")) {
             holder.iv_jishida.setVisibility(View.VISIBLE);
         }
@@ -176,58 +178,30 @@ public class GWCDianPuAdapter extends RecyclerView.Adapter<GWCDianPuAdapter.View
         holder.rv_shangpin.setSwipeMenuItemClickListener(mMenuItemClickListener);
         holder.rv_shangpin.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         holder.rv_shangpin.setAdapter(shangpinadapter);
-        if (mOnItemClickListener != null) {
+//        if (mOnItemClickListener != null) {
             holder.iv_danxuan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     datas.setSelect(!datas.isSelect());
                     holder.iv_danxuan.setSelected(datas.isSelect());
-                    dianpulist.get(position).setSelect(datas.isSelect());
+                    Log.e("onClick: ",position+"---" );
+//                    dianpulist.get(position).setSelect(datas.isSelect());
                     if (isTeshu) {
-                        for (int i = 0; i < shangpinlist.size(); i++) {
-                            if (activity.isGuanli()) {
-                                if (datas.isSelect()) {
-                                    shangpinlist.get(i).setSelect(true);
-                                } else {
-                                    shangpinlist.get(i).setSelect(false);
-                                }
-                            }
-                            else {
-                                if (!shangpinlist.get(i).getCommodity_state().equals("1")) {
-                                    if (datas.isSelect()) {
-                                        shangpinlist.get(i).setSelect(true);
-                                    } else {
-                                        shangpinlist.get(i).setSelect(false);
-                                    }
-                                } else {
-                                    ToastUtil.showToastLong("包含已下架商品，请及时删除");
-                                }
-                            }
-                        }
+//                        for (int i = 0; i < dianpulist.get(position).getSplist().size(); i++) {
+//                            if (activity.isGuanli()) {
+//                                activity.allCheck(datas.isSelect(),position);
+//                            } else {
+//                                if (!dianpulist.get(position).getSplist().get(i).getCommodity_state().equals("1")) {
+                                    activity.allCheck(datas.isSelect(),position);
+//                                } else {
+//                                    ToastUtil.showToastLong("包含已下架商品，请及时删除");
+//                                }
+//                            }
+//                        }
+
                     } else {
-                        for (int i = 0; i < shangpinlist.size(); i++) {
-                            if (gouWuCheFragment.isGuanli()) {
-                                if (datas.isSelect()) {
-                                    shangpinlist.get(i).setSelect(true);
-                                } else {
-                                    shangpinlist.get(i).setSelect(false);
-                                }
-                            } else {
-                                if (!shangpinlist.get(i).getCommodity_state().equals("1")) {
-                                    if (datas.isSelect()) {
-                                        shangpinlist.get(i).setSelect(true);
-                                    } else {
-                                        shangpinlist.get(i).setSelect(false);
-                                    }
-                                } else {
-                                    ToastUtil.showToastLong("包含已下架商品，请及时删除");
-                                }
-                            }
-                        }
-//
-//
+                        gouWuCheFragment.allCheck(datas.isSelect(),position);
                     }
-                    shangpinadapter.notifyDataSetChanged();
                     mOnItemClickListener.onClick(v, position, dianpulist);
                     if (isTeshu) {
                         activity.getalllist();
@@ -249,7 +223,7 @@ public class GWCDianPuAdapter extends RecyclerView.Adapter<GWCDianPuAdapter.View
 
                 }
             });
-        }
+//        }
         shangpinadapter.setOnItemClickListener(new GWCShangPinAdapter.OnItemClickListener() {
             @Override
             public void onClick(View view, int position1, List<GouwucheDianpuBean.SplistBean> mList) {

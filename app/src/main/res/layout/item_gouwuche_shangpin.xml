@@ -40,36 +40,21 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.mingmen.mayi.mayibanjia.utils.custom.MarqueeTextView
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:singleLine="true"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
                     android:id="@+id/tv_name"
+                    android:textAllCaps="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="利木赞牛 自繁自养"
-                    android:textColor="#ff474747"
+                    android:textColor="@color/zicolor"
                     android:textSize="18sp" />
 
-                <!--<LinearLayout
-                   android:id="@+id/ll_qidingliang"
-                   android:layout_width="wrap_content"
-                   android:layout_height="match_parent"
-                   android:orientation="horizontal"
-                   android:layout_marginTop="8dp">
-                   <ImageView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:layout_marginRight="4dp"
-                       android:src="@mipmap/qidingliang"
-                       android:layout_marginLeft="20dp"/>
-
-                   <TextView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:text="起订量"
-                       android:textColor="#ff999999"
-                       android:textSize="10sp"
-                       />
-               </LinearLayout>-->
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

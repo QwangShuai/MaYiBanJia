@@ -20,6 +20,8 @@ import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.GWCDianPuShangPinBean;
 import com.mingmen.mayi.mayibanjia.bean.GWCShangPinBean;
+import com.mingmen.mayi.mayibanjia.bean.GouwucheBean;
+import com.mingmen.mayi.mayibanjia.bean.GouwucheDianpuBean;
 import com.mingmen.mayi.mayibanjia.bean.TuiJianBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
@@ -83,10 +85,9 @@ public class GouWuCheFragment extends BaseFragment {
     private ArrayList<String> weinituijian;
     private Gson gson=new Gson();
     private boolean isSelect=false;
-    private List<GWCDianPuShangPinBean> gwcdianpushangpin;
+    private List<GouwucheDianpuBean> gwcdianpushangpin = new ArrayList<>();
     private Map<String,String> selectedId;
     private String zongjia;
-    private  GWCShangPinBean gwcShangPinBeanlist;
 
     @Override
     protected View getSuccessView() {
@@ -124,7 +125,9 @@ public class GouWuCheFragment extends BaseFragment {
                 srlShuaxin.setRefreshing(true);
                 // 重置adapter的数据源为空
                 // 获取第第0条到第PAGE_COUNT（值为10）条的数据
+                gwcdianpushangpin.clear();
                 getGouWuChe(true);
+                quanxuanlist(false);
                 ivQuanxuan.setSelected(false);
                 tvZongjia.setText("0");
                 selectedId.clear();
@@ -176,50 +179,21 @@ public class GouWuCheFragment extends BaseFragment {
                     .setObservable(
                             RetrofitManager
                                     .getService()
-                                    .getgouwuche(PreferenceUtils.getString(MyApplication.mContext, "token","")))
-                    .setDataListener(new HttpDataListener<GWCShangPinBean>() {
+                                    .getgouwuche(PreferenceUtils.getString(MyApplication.mContext, "token",""),"1"))
+                    .setDataListener(new HttpDataListener<GouwucheBean>() {
 
 
                         @Override
-                        public void onNext(GWCShangPinBean gwcShangPinBean) {
-                            gwcShangPinBeanlist=gwcShangPinBean;
-                            gwcdianpushangpin = new ArrayList<GWCDianPuShangPinBean>();
-                            if (gwcShangPinBean.getDianpu()==null){
+                        public void onNext(GouwucheBean data) {
+                            int mysize = data.getDianpu()==null?0:data.getDianpu().size();
+                            if (mysize==0){
                                 rlDibu.setVisibility(View.GONE);
                                 tvGuanli.setText("");
                             }else{
                                 rlDibu.setVisibility(View.VISIBLE);
                                 tvGuanli.setText("管理");
-                                for (int i = 0; i <  gwcShangPinBean.getDianpu().size(); i++) {
-                                    GWCDianPuShangPinBean gwcDianPuShangPinBean = new GWCDianPuShangPinBean();
-                                    gwcDianPuShangPinBean.setAccount_id(gwcShangPinBean.getDianpu().get(i).getAccount_id());
-                                    gwcDianPuShangPinBean.setCommodity_id(gwcShangPinBean.getDianpu().get(i).getCommodity_id());
-                                    gwcDianPuShangPinBean.setCommodity_name(gwcShangPinBean.getDianpu().get(i).getCommodity_name());
-                                    gwcDianPuShangPinBean.setCompany_id(gwcShangPinBean.getDianpu().get(i).getCompany_id());
-                                    gwcDianPuShangPinBean.setCompany_name(gwcShangPinBean.getDianpu().get(i).getCompany_name());
-                                    gwcDianPuShangPinBean.setNumber(gwcShangPinBean.getDianpu().get(i).getNumber());
-                                    gwcDianPuShangPinBean.setPack_standard(gwcShangPinBean.getDianpu().get(i).getPack_standard());
-                                    gwcDianPuShangPinBean.setPack_standard_tree(gwcShangPinBean.getDianpu().get(i).getPack_standard_tree());
-                                    gwcDianPuShangPinBean.setPice(gwcShangPinBean.getDianpu().get(i).getPice());
-                                    gwcDianPuShangPinBean.setShopping_id(gwcShangPinBean.getDianpu().get(i).getShopping_id());
-                                    gwcDianPuShangPinBean.setType(gwcShangPinBean.getDianpu().get(i).getType());
-                                    gwcDianPuShangPinBean.setUser_token(gwcShangPinBean.getDianpu().get(i).getUser_token());
-                                    gwcDianPuShangPinBean.setMarket_name(gwcShangPinBean.getDianpu().get(i).getMarket_name());
-                                    gwcDianPuShangPinBean.setRealtime(gwcShangPinBean.getDianpu().get(i).getRealtime());
-//                                    gwcDianPuShangPinBean.setSon_number(gwcShangPinBean.getShopping().get(i).getSon_number());
-//                                    gwcDianPuShangPinBean.setType_tree_id(gwcShangPinBean.getShopping().get(i).getType_tree_id());
-
-                                    List<GWCShangPinBean.ShoppingBean> shoppingBeenlist=new ArrayList<GWCShangPinBean.ShoppingBean>();
-                                    for (int j = 0; j < gwcShangPinBean.getShopping().size(); j++) {
-                                        if (gwcShangPinBean.getDianpu().get(i).getCompany_id().equals(gwcShangPinBean.getShopping().get(j).getCompany_id())) {
-                                            shoppingBeenlist.add(gwcShangPinBean.getShopping().get(j));
-                                            Log.e("我的数据",new Gson().toJson(gwcShangPinBean.getShopping().get(j)));
-                                        }
-                                    }
-                                    gwcDianPuShangPinBean.setShangPinBeen(shoppingBeenlist);
-                                    gwcdianpushangpin.add(gwcDianPuShangPinBean);
-
-                                }
+                                gwcdianpushangpin.addAll(data.getDianpu());
+                                adapter.notifyDataSetChanged();
                             }
                             getweinituijian();
                         }
@@ -272,13 +246,13 @@ public class GouWuCheFragment extends BaseFragment {
                 break;
             case R.id.ll_quanxuan:
                 if (isSelect){
-                    adapter.allCheck(false);
+//                    adapter.allCheck(false);
                     ivQuanxuan.setSelected(false);
                     tvZongjia.setText("0");
                     selectedId.clear();
                     quanxuanlist(false);
                 }else{
-                    adapter.allCheck(true);
+//                    adapter.allCheck(true);
                     ivQuanxuan.setSelected(true);
                     quanxuanlist(true);
                     if(!isGuanli){
@@ -328,11 +302,10 @@ public class GouWuCheFragment extends BaseFragment {
     //获取选中的id
     public void getalllist(){
         selectedId.clear();
-        List<GWCDianPuShangPinBean> gouwuchelist = adapter.getgouwuchelist();
-        for (int i = 0; i < gouwuchelist.size(); i++) {
-            for (int j = 0; j < gouwuchelist.get(i).getShangPinBeen().size(); j++) {
-                if (gouwuchelist.get(i).getShangPinBeen().get(j).isSelected()){
-                    selectedId.put(gouwuchelist.get(i).getShangPinBeen().get(j).getShopping_id(),gouwuchelist.get(i).getShangPinBeen().get(j).getCompany_id());
+        for (int i = 0; i < gwcdianpushangpin.size(); i++) {
+            for (int j = 0; j < gwcdianpushangpin.get(i).getSplist().size(); j++) {
+                if (gwcdianpushangpin.get(i).getSplist().get(j).isSelect()){
+                    selectedId.put(gwcdianpushangpin.get(i).getSplist().get(j).getShopping_id(),gwcdianpushangpin.get(i).getSplist().get(j).getCompany_id());
                 }
             }
         }
@@ -342,20 +315,20 @@ public class GouWuCheFragment extends BaseFragment {
     private void quanxuanlist(boolean isquanxuan) {
         selectedId.clear();
         for (int i = 0; i < gwcdianpushangpin.size(); i++) {
-            for (int j = 0; j < gwcdianpushangpin.get(i).getShangPinBeen().size(); j++) {
+            for (int j = 0; j < gwcdianpushangpin.get(i).getSplist().size(); j++) {
                 if(isGuanli){
                     if (isquanxuan){
-                        selectedId.put(gwcdianpushangpin.get(i).getShangPinBeen().get(j).getShopping_id(),gwcdianpushangpin.get(i).getShangPinBeen().get(j).getCompany_id());
+                        selectedId.put(gwcdianpushangpin.get(i).getSplist().get(j).getShopping_id(),gwcdianpushangpin.get(i).getSplist().get(j).getCompany_id());
                     }
-                    gwcdianpushangpin.get(i).getShangPinBeen().get(j).setSelected(isquanxuan);
+                    gwcdianpushangpin.get(i).getSplist().get(j).setSelect(isquanxuan);
                 } else {
                     if (isquanxuan){
-                        if(!gwcdianpushangpin.get(i).getShangPinBeen().get(j).getCommodity_state().equals("1")){
-                            selectedId.put(gwcdianpushangpin.get(i).getShangPinBeen().get(j).getShopping_id(),gwcdianpushangpin.get(i).getShangPinBeen().get(j).getCompany_id());
+                        if(!gwcdianpushangpin.get(i).getSplist().get(j).getCommodity_state().equals("1")){
+                            selectedId.put(gwcdianpushangpin.get(i).getSplist().get(j).getShopping_id(),gwcdianpushangpin.get(i).getSplist().get(j).getCompany_id());
                         }
                     }
-                    if(!gwcdianpushangpin.get(i).getShangPinBeen().get(j).getCommodity_state().equals("1")){
-                        gwcdianpushangpin.get(i).getShangPinBeen().get(j).setSelected(isquanxuan);
+                    if(!gwcdianpushangpin.get(i).getSplist().get(j).getCommodity_state().equals("1")){
+                        gwcdianpushangpin.get(i).getSplist().get(j).setSelect(isquanxuan);
                     }
                 }
 
@@ -411,6 +384,24 @@ public class GouWuCheFragment extends BaseFragment {
                         setShuaxin();
                     }
                 },false);
+    }
+    public void allCheck(boolean b,int pos){
+        if(isGuanli){
+            for (int j=0;j<gwcdianpushangpin.get(pos).getSplist().size();j++){
+                gwcdianpushangpin.get(pos).getSplist().get(j).setSelect(b);
+            }
+        } else {
+            for (int j=0;j<gwcdianpushangpin.get(pos).getSplist().size();j++){
+                if(!gwcdianpushangpin.get(pos).getSplist().get(j).getCommodity_state().equals("1")){
+                    gwcdianpushangpin.get(pos).getSplist().get(j).setSelect(b);
+                } else {
+                    ToastUtil.showToastLong("请及时删除下架商品");
+                }
+
+            }
+        }
+
+        adapter.notifyDataSetChanged();
     }
 
     //收藏此商品

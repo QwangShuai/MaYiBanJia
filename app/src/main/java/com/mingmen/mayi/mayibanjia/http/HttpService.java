@@ -27,6 +27,8 @@ import com.mingmen.mayi.mayibanjia.bean.GHOrderBean;
 import com.mingmen.mayi.mayibanjia.bean.GWCShangPinBean;
 import com.mingmen.mayi.mayibanjia.bean.GetMenDianBean;
 import com.mingmen.mayi.mayibanjia.bean.GetZiZhiBean;
+import com.mingmen.mayi.mayibanjia.bean.GouwucheBean;
+import com.mingmen.mayi.mayibanjia.bean.GouwucheDianpuBean;
 import com.mingmen.mayi.mayibanjia.bean.JYMXBean;
 import com.mingmen.mayi.mayibanjia.bean.JYMXItemBean;
 import com.mingmen.mayi.mayibanjia.bean.JiaoYiMingXiBean;
@@ -217,7 +219,8 @@ public interface HttpService {
 
     //查询购物车
     @POST("ctShoppingCart/list.do")
-    Observable<ResultModel<GWCShangPinBean>> getgouwuche(@Query("user_token") String user_token);
+    Observable<ResultModel<GouwucheBean>> getgouwuche(@Query("user_token") String user_token,
+                                                      @Query("type") String type);
 
     //查询购物车内选中的商品总价
     @POST("ctShoppingCart/conntMoney.do")

@@ -34,6 +34,7 @@ import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
+import com.mingmen.mayi.mayibanjia.utils.custom.MarqueeTextView;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import java.util.ArrayList;
@@ -59,7 +60,7 @@ public class DianPuActivity extends BaseActivity implements View.OnClickListener
     @BindView(R.id.iv_diantu)
     ImageView ivDiantu;
     @BindView(R.id.tv_dianming)
-    TextView tvDianming;
+    MarqueeTextView tvDianming;
     @BindView(R.id.tv_focus)
     TextView tvFocus;
     @BindView(R.id.rb_pingfen)
@@ -330,6 +331,7 @@ public class DianPuActivity extends BaseActivity implements View.OnClickListener
 
     private void initView() {
         Glide.with(mContext).load(dianpuxinxi.getFile_path()+"").into(ivDiantu);
+        tvDianming.setMarqueeEnable(true);
         tvDianming.setText(dianpuxinxi.getCompany_name()+"("+dianpuxinxi.getMarket_name()+")");
         tvPingfen.setText(dianpuxinxi.getEvaluation()+"");
         rbPingfen.setRating((float) dianpuxinxi.getEvaluation());

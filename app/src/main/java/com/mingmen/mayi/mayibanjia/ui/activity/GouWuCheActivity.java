@@ -18,6 +18,7 @@ import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.GWCDianPuShangPinBean;
 import com.mingmen.mayi.mayibanjia.bean.GWCShangPinBean;
+import com.mingmen.mayi.mayibanjia.bean.GouwucheBean;
 import com.mingmen.mayi.mayibanjia.bean.GouwucheDianpuBean;
 import com.mingmen.mayi.mayibanjia.bean.TuiJianBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
@@ -84,7 +85,7 @@ public class GouWuCheActivity extends BaseActivity {
     private List<GouwucheDianpuBean> gwcdianpushangpin = new ArrayList<>();
     private Map<String,String> selectedId;
     private String zongjia;
-    private GWCShangPinBean gwcShangPinBeanlist;
+    private boolean isCreate;
 
     @Override
     public int getLayoutId() {
@@ -108,17 +109,15 @@ public class GouWuCheActivity extends BaseActivity {
                 srlShuaxin.setRefreshing(true);
                 // 重置adapter的数据源为空
                 // 获取第第0条到第PAGE_COUNT（值为10）条的数据
-                getGouWuChe(true);
-                ivQuanxuan.setSelected(false);
-                tvZongjia.setText("0");
-                selectedId.clear();
-                srlShuaxin.setRefreshing(false);
+                setShuaxin();
+
             }
         });
         weinituijian = new ArrayList<>();
         for (int i = 0; i <10 ; i++) {
             weinituijian.add("i"+i);
         }
+        isCreate = true;
     }
 
     @Override
@@ -132,14 +131,18 @@ public class GouWuCheActivity extends BaseActivity {
         selectedId.clear();
         isGuanli = false;
         isSelect = false;
+        quanxuanlist(false);
+        gwcdianpushangpin.clear();
         rlGuanli.setVisibility(View.GONE);
         rlZhengchang.setVisibility(View.VISIBLE);
         ivQuanxuan.setSelected(isSelect);
         getGouWuChe(true);
+        srlShuaxin.setRefreshing(false);
     }
     @Override
     public void onResume() {
-        setShuaxin();
+        if(isCreate)
+            setShuaxin();
         super.onResume();
     }
 
@@ -166,18 +169,21 @@ public class GouWuCheActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getgouwuche(PreferenceUtils.getString(MyApplication.mContext, "token","")))
-                .setDataListener(new HttpDataListener<List<GouwucheDianpuBean>>() {
+                                .getgouwuche(PreferenceUtils.getString(MyApplication.mContext, "token",""),"1"))
+                .setDataListener(new HttpDataListener<GouwucheBean>() {
                     @Override
-                    public void onNext(List<GouwucheDianpuBean> list) {
-                        int mysize = list==null?0:list.size();
+                    public void onNext(GouwucheBean data) {
+                        if(isCreate){
+                            gwcdianpushangpin.clear();
+                        }
+                        int mysize = data.getDianpu()==null?0:data.getDianpu().size();
                         if (mysize==0){
                             rlDibu.setVisibility(View.GONE);
                             tvRight.setText("");
                         }else{
                             rlDibu.setVisibility(View.VISIBLE);
                             tvRight.setText("管理");
-                            gwcdianpushangpin.addAll(list);
+                            gwcdianpushangpin.addAll(data.getDianpu());
 
                         }
                         getweinituijian();
@@ -394,5 +400,24 @@ public class GouWuCheActivity extends BaseActivity {
                         setShuaxin();
                     }
                 });
+    }
+
+    public void allCheck(boolean b,int pos){
+        if(isGuanli){
+            for (int j=0;j<gwcdianpushangpin.get(pos).getSplist().size();j++){
+                gwcdianpushangpin.get(pos).getSplist().get(j).setSelect(b);
+            }
+        } else {
+            for (int j=0;j<gwcdianpushangpin.get(pos).getSplist().size();j++){
+                if(!gwcdianpushangpin.get(pos).getSplist().get(j).getCommodity_state().equals("1")){
+                    gwcdianpushangpin.get(pos).getSplist().get(j).setSelect(b);
+                } else {
+                    ToastUtil.showToastLong("请及时删除下架商品");
+                }
+
+            }
+        }
+
+        adapter.notifyDataSetChanged();
     }
 }

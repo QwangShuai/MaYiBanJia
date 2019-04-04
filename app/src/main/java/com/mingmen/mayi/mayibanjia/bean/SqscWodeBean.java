@@ -75,7 +75,7 @@ public class SqscWodeBean {
     private int wait_audit;
     private int qiangdan_z;
     private int shelves;
-    private int money;
+    private double money;
     private int audit_shibai;
     private int wait_fh;
 
@@ -351,11 +351,11 @@ public class SqscWodeBean {
         this.shelves = shelves;
     }
 
-    public int getMoney() {
+    public double getMoney() {
         return money;
     }
 
-    public void setMoney(int money) {
+    public void setMoney(double money) {
         this.money = money;
     }
 }

@@ -143,9 +143,12 @@ public class YeWuYuanActivity extends BaseActivity {
         PieData pieData = new PieData(dataSet);
         pieData.setDrawValues(true);
         pieData.setValueTextColor(getResources().getColor(R.color.white));
+        pieData.setValueTextSize(15f);//外围数据字体大小
         pcBing.setHoleRadius(60f);
         pcBing.setData(pieData);
         pcBing.invalidate();
+        //pcBing.setEntryLabelTextSize(120f);
+
         pcBing.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {

@@ -264,7 +264,7 @@
                     android:id="@+id/tv_mingcheng_lable"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="商品名称"
+                    android:text="名称"
                     android:textColor="@color/hintcolor" />
 
                 <ImageView

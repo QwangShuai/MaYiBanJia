@@ -39,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:hint="搜索商品名称 品种"
+                android:hint="搜索商品名称 品类"
                 android:textColorHint="@color/hintcolor"
                 android:textColor="#474747"
                 android:textSize="12sp"

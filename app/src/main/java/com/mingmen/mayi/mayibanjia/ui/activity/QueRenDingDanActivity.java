@@ -500,6 +500,13 @@ public class QueRenDingDanActivity extends BaseActivity {
                 startActivityForResult(intent, 1);
                 break;
             case R.id.tv_tijiaodingdan:
+                if ("".equals(songdashijianid)) {
+                    ToastUtil.showToast("请选择送达时间后再提交订单");
+                    return;
+                } else if (dizhi == null) {
+                    ToastUtil.showToast("请选择收货地址后提交订单");
+                    return;
+                }
                 if (yunfei==0.00) {
                     ToastUtil.showToast("运费获取失败,请联系客服");
                 } else {

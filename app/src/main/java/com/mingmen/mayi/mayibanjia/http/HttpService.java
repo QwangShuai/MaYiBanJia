@@ -64,6 +64,7 @@ import com.mingmen.mayi.mayibanjia.bean.ShouYeShangChangBean;
 import com.mingmen.mayi.mayibanjia.bean.ShouYeTeJiaBean;
 import com.mingmen.mayi.mayibanjia.bean.SiJiWLXQBean;
 import com.mingmen.mayi.mayibanjia.bean.SongDaShiJianBean;
+import com.mingmen.mayi.mayibanjia.bean.SqscFuzeren;
 import com.mingmen.mayi.mayibanjia.bean.SqscWodeBean;
 import com.mingmen.mayi.mayibanjia.bean.TuiJianBean;
 import com.mingmen.mayi.mayibanjia.bean.WXPayBean;
@@ -91,6 +92,7 @@ import com.mingmen.mayi.mayibanjia.http.result.ResultModel;
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -716,6 +718,14 @@ public interface HttpService {
                                                               @Query("pageNumber") String count,
                                                               @Query("wl_order_state") String wl_order_state);
 
+    //查询全部物流信息(市场负责人)
+    @POST("wl/list.do")
+    Observable<ResultModel<WuLiuObjBean<WuLiuBean>>> getWuliu(@Query("user_token") String user_token,
+                                                              @Query("wl_cars_state") String wl_cars_state,
+                                                              @Query("pageNumber") String count,
+                                                              @Query("wl_order_state") String wl_order_state,
+                                                              @Query("is_true_market") String is_true_market);
+
     //查询车辆类型
     @POST("wl/carsTypeList.do")
     Observable<ResultModel<List<CarsTypeBean>>> getCarsType(@Query("user_token") String user_token,
@@ -1334,14 +1344,28 @@ public interface HttpService {
     // 业务员统计
     @POST("allCompany/YWcount.do")
     Observable<ResultModel<YwyBean>> getYwyCount(@Query("user_token") String user_token,
-                                                  @Query("typeA") String typeA);
+                                                 @Query("typeA") String typeA);
 
     // 切换实时达
     @POST("allCompany/updateCompanyRealtime.do")
     Observable<ResultModel<String>> qiehuanSsd(@Query("user_token") String user_token,
-                                                  @Query("realtime") String realtime);
+                                               @Query("realtime") String realtime);
 
     // 获取社区市场我的数据
     @POST("allCompanyAccount/querySqToken.do")
     Observable<ResultModel<SqscWodeBean>> getSqscWode(@Query("user_token") String user_token);
+
+    // 获取社区市场负责人
+    @POST("allCompanyAccount/ScToken.do")
+    Observable<ResultModel<SqscFuzeren>> getSqscFuzeren(@Query("user_token") String user_token);
+
+    // 市场负责人确认订单
+    @POST("allMarket/manageOrder.do")
+    Observable<ResultModel<String>> postOrder(@Query("user_token") String user_token,
+                                              @Query("wl_cars_order_id") String wl_cars_order_id);
+
+    // 市场负责人解决异常
+    @POST("allMarket/updatemanage.do")
+    Observable<ResultModel<String>> postError(@Query("user_token") String user_token,
+                                              @Query("wl_cars_order_id") String wl_cars_order_id);
 }

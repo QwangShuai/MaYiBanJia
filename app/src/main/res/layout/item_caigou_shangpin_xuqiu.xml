@@ -25,7 +25,7 @@
         <LinearLayout
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:layout_width="148dp"
+            android:layout_width="100dp"
             android:layout_height="35dp"
             android:background="@drawable/fillet_hollow_e7e7e7_3"
             android:gravity="center_vertical"
@@ -33,7 +33,7 @@
             >
             <EditText
                 android:maxLength="3"
-                android:maxEms="6"
+                android:maxEms="3"
                 android:id="@+id/et_caigouliang"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

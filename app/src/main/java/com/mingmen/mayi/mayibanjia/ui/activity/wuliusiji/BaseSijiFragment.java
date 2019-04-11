@@ -116,7 +116,7 @@ public abstract class BaseSijiFragment extends BaseFragment {
 
     private void initview() {
         SiJiActivity activity = (SiJiActivity) getActivity();
-        SwipeMenuRecyclerView.LoadMoreListener mLoadMoreListener = new SwipeMenuRecyclerView.LoadMoreListener() {
+        mLoadMoreListener = new SwipeMenuRecyclerView.LoadMoreListener() {
             @Override
             public void onLoadMore() {
                 getPeiSong();

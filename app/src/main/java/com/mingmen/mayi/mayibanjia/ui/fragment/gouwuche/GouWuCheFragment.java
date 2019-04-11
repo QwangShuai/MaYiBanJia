@@ -88,6 +88,7 @@ public class GouWuCheFragment extends BaseFragment {
     private List<GouwucheDianpuBean> gwcdianpushangpin = new ArrayList<>();
     private Map<String,String> selectedId;
     private String zongjia;
+    private boolean isCreate;
 
     @Override
     protected View getSuccessView() {
@@ -115,6 +116,7 @@ public class GouWuCheFragment extends BaseFragment {
             }
         }
         getGouWuChe(true);
+        isCreate = true;
         selectedId=new HashMap<>();
         srlShuaxin.setColorSchemeResources(R.color.zangqing, R.color.zangqing,
                 R.color.zangqing, R.color.zangqing);
@@ -138,6 +140,7 @@ public class GouWuCheFragment extends BaseFragment {
         for (int i = 0; i <10 ; i++) {
             weinituijian.add("i"+i);
         }
+
     }
 
     public void setShuaxin(){
@@ -152,7 +155,8 @@ public class GouWuCheFragment extends BaseFragment {
     }
     @Override
     public void onResume() {
-        setShuaxin();
+        if(isCreate)
+            setShuaxin();
         super.onResume();
     }
 
@@ -186,6 +190,9 @@ public class GouWuCheFragment extends BaseFragment {
                         @Override
                         public void onNext(GouwucheBean data) {
                             int mysize = data.getDianpu()==null?0:data.getDianpu().size();
+                            if(isCreate){
+                                gwcdianpushangpin.clear();
+                            }
                             if (mysize==0){
                                 rlDibu.setVisibility(View.GONE);
                                 tvGuanli.setText("");
@@ -193,7 +200,7 @@ public class GouWuCheFragment extends BaseFragment {
                                 rlDibu.setVisibility(View.VISIBLE);
                                 tvGuanli.setText("管理");
                                 gwcdianpushangpin.addAll(data.getDianpu());
-                                adapter.notifyDataSetChanged();
+//                                adapter.notifyDataSetChanged();
                             }
                             getweinituijian();
                         }
@@ -246,13 +253,13 @@ public class GouWuCheFragment extends BaseFragment {
                 break;
             case R.id.ll_quanxuan:
                 if (isSelect){
-//                    adapter.allCheck(false);
+                    adapter.allCheck(false);
                     ivQuanxuan.setSelected(false);
                     tvZongjia.setText("0");
                     selectedId.clear();
                     quanxuanlist(false);
                 }else{
-//                    adapter.allCheck(true);
+                    adapter.allCheck(true);
                     ivQuanxuan.setSelected(true);
                     quanxuanlist(true);
                     if(!isGuanli){

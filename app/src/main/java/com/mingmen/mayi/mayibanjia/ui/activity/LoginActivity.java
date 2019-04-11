@@ -391,7 +391,11 @@ public class LoginActivity extends BaseActivity {
     }
     private void tiaozhuan(String juese, int random_id) {
         //登录成功后  跳转
-        if ("5".equals(juese)) {
+        if ("6".equals(juese)) {
+            Intent intent = new Intent(mContext, ShichangFuzerenActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            AppManager.getAppManager().finishAllActivity();
+        } else if ("5".equals(juese)) {
             Intent intent = new Intent(mContext, WuLiuActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             AppManager.getAppManager().finishAllActivity();

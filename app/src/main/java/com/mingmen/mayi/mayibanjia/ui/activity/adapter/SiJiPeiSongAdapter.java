@@ -82,7 +82,31 @@ public class SiJiPeiSongAdapter extends RecyclerView.Adapter<SiJiPeiSongAdapter.
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final WuLiuBean data = mList.get(position);
         Log.e("ceshi----",String.valueOf(data.getWl_order_state()));
-        if (data.getWl_order_state().equals("待送货")) {
+        if (data.getWl_order_state().equals("待处理")) {
+            holder.btnTongzhi.setVisibility(View.GONE);
+            holder.llSaoma.setVisibility(View.GONE);
+            holder.tvQuhuoma.setVisibility(View.GONE);
+            holder.btnSure.setText("自行处理");
+            holder.btnSure.setVisibility(View.VISIBLE);
+            holder.btnSure.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    confirmDialog.showDialog("是否进行自行处理");
+                    confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            changeOrder(data.getWl_cars_order_id());
+                        }
+                    });
+                    confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            confirmDialog.dismiss();
+                        }
+                    });
+                }
+            });
+        }else if (data.getWl_order_state().equals("待送货")) {
             holder.btnTongzhi.setVisibility(View.GONE);
             holder.llSaoma.setVisibility(View.GONE);
             holder.tvQuhuoma.setVisibility(View.GONE);
@@ -180,15 +204,15 @@ public class SiJiPeiSongAdapter extends RecyclerView.Adapter<SiJiPeiSongAdapter.
         holder.llSaoma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (data.getScanCount().equals(data.getPackCount())) {
-                    ToastUtil.showToast("装车完成");
-                } else {
+//                if (data.getScanCount().equals(data.getPackCount())) {
+//                    ToastUtil.showToast("装车完成");
+//                } else {
                     if(isTeshu){
                         scwlActivity.saomiaoQrCode();
                     } else {
                         fragment.saomiaoQrCode();
                     }
-                }
+//                }
             }
         });
 
@@ -216,14 +240,14 @@ public class SiJiPeiSongAdapter extends RecyclerView.Adapter<SiJiPeiSongAdapter.
         holder.tvQuhuoma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (data.getScanCount().equals(data.getPackCount())) {
-                    ToastUtil.showToast("装车完成");
-                } else {
+//                if (data.getScanCount().equals(data.getPackCount())) {
+//                    ToastUtil.showToast("装车完成");
+//                } else {
                     Intent it = new Intent(mContext, WeiYiQrCodeActivity.class);
                     it.putExtra("type", "gyID");
                     it.putExtra("gyID", String.valueOf(mList.get(position).getGy_order_id()));
                     mContext.startActivity(it);
-                }
+//                }
 
             }
         });
@@ -331,6 +355,21 @@ public class SiJiPeiSongAdapter extends RecyclerView.Adapter<SiJiPeiSongAdapter.
                     @Override
                     public void onNext(String data) {
                         ToastUtil.showToastLong("确认解决异常成功");
+                        confirmDialog.dismiss();
+                        scwlActivity.onResume();
+                    }
+                });
+    }
+
+    private void changeOrder(String id){
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(RetrofitManager.getService()
+                        .changeOrder(PreferenceUtils.getString(mContext,"token",""),id,"0"))
+                .setDataListener(new HttpDataListener<String>() {
+                    @Override
+                    public void onNext(String data) {
+                        ToastUtil.showToastLong("转换成功");
                         confirmDialog.dismiss();
                         scwlActivity.onResume();
                     }

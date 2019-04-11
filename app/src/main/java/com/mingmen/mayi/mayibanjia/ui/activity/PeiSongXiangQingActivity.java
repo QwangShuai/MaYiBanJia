@@ -80,4 +80,10 @@ public class PeiSongXiangQingActivity extends BaseActivity {
                 break;
         }
     }
+
+    @Override
+    protected void onResume() {
+        getWLXQ(wlID);
+        super.onResume();
+    }
 }

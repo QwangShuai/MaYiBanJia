@@ -63,6 +63,12 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="9048b4f8d6d23eb426dddbd54e7ffde5" />
+        <meta-data
+            android:name="design_width_in_dp"
+            android:value="375"/>
+        <meta-data
+            android:name="design_height_in_dp"
+            android:value="667"/>
 
         <!-- 定位需要的服务 -->
         <service android:name="com.amap.api.location.APSService" />
@@ -76,13 +82,11 @@
             android:name=".ui.activity.LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
-
-
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".ui.activity.ZhuCeActivity"
@@ -314,7 +318,7 @@
         <activity android:name=".ui.activity.GouWuCheActivity" /> <!-- 购物车 -->
         <activity android:name=".ui.activity.SqscShezhiActivity" /> <!-- 社区市场设置 -->
         <activity android:name=".ui.activity.ShichangFuzerenActivity" /> <!-- 市场负责人 -->
-        <activity android:name=".ui.activity.ShichangWuliuActivity"></activity> <!-- 市场负责人物流信息 -->
+        <activity android:name=".ui.activity.ShichangWuliuActivity" /> <!-- 市场负责人物流信息 -->
     </application>
 
 </manifest>

@@ -249,7 +249,7 @@ public class SqscWodeActivity extends BaseActivity {
             R.id.rl_tongguo, R.id.rl_daifukuan_ct, R.id.rl_daifahuo_ct, R.id.rl_daishouhuo_ct,
             R.id.rl_yishouhuo_ct, R.id.rl_yiwancheng_ct, R.id.ll_daidabao, R.id.ll_tejiashangpin_gyd,
             R.id.ll_daifahuo, R.id.ll_yishouhuo, R.id.ll_daiqueren, R.id.ll_yiwancheng, R.id.rl_tj,
-            R.id.rl_qbcp, R.id.rl_gwc})
+            R.id.rl_qbcp, R.id.rl_gwc, R.id.ll_putongshangpin_gyd})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_shezhi:
@@ -326,6 +326,11 @@ public class SqscWodeActivity extends BaseActivity {
                 break;
             case R.id.tv_yue:
                 Jump_intent(YueActivity.class, new Bundle());
+                break;
+            case R.id.ll_putongshangpin_gyd:
+                Intent  it_pt = new Intent(mContext, ShangPinGuanLiActivity.class);
+                it_pt.putExtra("goods","0");
+                startActivity(it_pt);
                 break;
             case R.id.tv_tixian:
                 Bundle bundle = new Bundle();

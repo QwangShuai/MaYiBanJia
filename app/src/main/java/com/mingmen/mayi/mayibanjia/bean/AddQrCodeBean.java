@@ -11,6 +11,15 @@ public class AddQrCodeBean {
     private String acount;
     private String url;
     private String number;
+    private String all_price;
+
+    public String getAll_price() {
+        return all_price;
+    }
+
+    public void setAll_price(String all_price) {
+        this.all_price = all_price;
+    }
 
     public String getCommodity_id() {
         return commodity_id;

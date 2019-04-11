@@ -88,6 +88,7 @@ dependencies {
     compile 'com.android.support:multidex:1.0.0'
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
     compile 'id.zelory:compressor:1.0.4'
+    compile 'me.jessyan:autosize:0.9.5'
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
 }

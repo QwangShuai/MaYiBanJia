@@ -938,7 +938,35 @@
                             </LinearLayout>
 
                         </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
 
+                            <LinearLayout
+                                android:id="@+id/ll_putongshangpin_gyd"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="25dp"
+                                    android:src="@mipmap/putongshangpin_gyd" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="普通商品"
+                                    android:textColor="#ff666666"
+                                    android:textSize="12sp" />
+
+                            </LinearLayout>
+
+                        </RelativeLayout>
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -971,9 +999,10 @@
 
                     </LinearLayout>
 
-                    <include layout="@layout/view_cutoff_e7e7e7_match"></include>
+                    <include android:visibility="gone"  layout="@layout/view_cutoff_e7e7e7_match"></include>
 
                     <LinearLayout
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
                         android:orientation="horizontal">

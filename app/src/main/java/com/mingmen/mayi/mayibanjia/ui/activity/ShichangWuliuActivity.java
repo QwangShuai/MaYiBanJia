@@ -65,7 +65,9 @@ public class ShichangWuliuActivity extends BaseActivity {
         isShichang = getIntent().getStringExtra("isShichang");
         switch (type){
             case "1401":
-                if(isShichang.equals("1")){
+                if(isShichang.equals("2")){
+                    tvTitle.setText("待处理");
+                }else if(isShichang.equals("1")){
                     tvTitle.setText("待确认");
                 }else {
                     tvTitle.setText("待取货");

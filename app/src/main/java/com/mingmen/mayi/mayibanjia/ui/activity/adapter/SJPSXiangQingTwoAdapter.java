@@ -1,6 +1,7 @@
 package com.mingmen.mayi.mayibanjia.ui.activity.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,9 @@ import android.widget.TextView;
 
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.SiJiWLXQBean;
+import com.mingmen.mayi.mayibanjia.ui.activity.AddQrCodeActivity;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
+import com.mingmen.mayi.mayibanjia.utils.custom.MarqueeTextView;
 
 import java.util.List;
 
@@ -40,9 +44,22 @@ public class SJPSXiangQingTwoAdapter extends RecyclerView.Adapter<SJPSXiangQingT
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final SiJiWLXQBean.GyMsgListBean bean = mList.get(position);
         holder.tvQuhuotanwei.setText(bean.getGyAddress());
+        holder.tvQuhuotanwei.setMarqueeEnable(true);
         holder.tvGonghuodianhua.setText(bean.getGyPhone());
         holder.tvBaozhuanggeshu.setText(bean.getPackCount());
         holder.tvSaomageshu.setText(bean.getScanCount());
+        if(StringUtil.isValid(bean.getBusiness_state())&&bean.getBusiness_state().equals("3")&&bean.getStandthree().equals("3")){
+            holder.tvDabao.setVisibility(View.VISIBLE);
+            holder.tvDabao.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent it = new Intent(mContext, AddQrCodeActivity.class);
+                    it.putExtra("id", bean.getGy_order_id());
+                    mContext.startActivity(it);
+                }
+            });
+        }
+
     }
 
     @Override
@@ -52,13 +69,15 @@ public class SJPSXiangQingTwoAdapter extends RecyclerView.Adapter<SJPSXiangQingT
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_quhuotanwei)
-        TextView tvQuhuotanwei;
+        MarqueeTextView tvQuhuotanwei;
         @BindView(R.id.tv_gonghuodianhua)
         TextView tvGonghuodianhua;
         @BindView(R.id.tv_baozhuanggeshu)
         TextView tvBaozhuanggeshu;
         @BindView(R.id.tv_saomageshu)
         TextView tvSaomageshu;
+        @BindView(R.id.tv_chakan)
+        TextView tvDabao;
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);

@@ -642,6 +642,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                                 bean.setMarket_id(o.get(i).getMark_id());
                                 bean.setFreight_fee(o.get(i).getMoney());
                                 bean.setTotal_weight(o.get(i).getSumZL());
+                                bean.setGonglishu(o.get(i).getGonglishu());
                                 shichangList.add(bean);
                             }
                             tvHejijine.setText(hejijine + "");
@@ -672,6 +673,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                                 bean.setMarket_id(o.get(i).getMark_id());
                                 bean.setFreight_fee(o.get(i).getMoney());
                                 bean.setTotal_weight(o.get(i).getSumZL());
+                                bean.setGonglishu(o.get(i).getGonglishu());
                                 shichangList.add(bean);
                             }
                             tvHejijine.setText(hejijine + "");

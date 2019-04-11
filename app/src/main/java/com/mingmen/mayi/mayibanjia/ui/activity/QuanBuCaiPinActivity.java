@@ -259,14 +259,14 @@ public class QuanBuCaiPinActivity extends BaseActivity {
 
                 if (dy + viewHeight < 0) {
 //                    mystate = 1;
-                    if (rlLei.getVisibility() == View.VISIBLE ? false : true) {
-                        rlLei.setVisibility(View.VISIBLE);
-                    }
+//                    if (rlLei.getVisibility() == View.VISIBLE ? false : true) {
+//                        rlLei.setVisibility(View.VISIBLE);
+//                    }
                 } else if (dy - viewHeight > 0) {
 //                    mystate = 2;
-                    if (rlLei.getVisibility() == View.VISIBLE ? true : false) {
-                        rlLei.setVisibility(View.GONE);
-                    }
+//                    if (rlLei.getVisibility() == View.VISIBLE ? true : false) {
+//                        rlLei.setVisibility(View.GONE);
+//                    }
                 }
             }
         });

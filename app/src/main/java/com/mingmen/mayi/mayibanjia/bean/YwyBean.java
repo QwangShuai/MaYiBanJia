@@ -39,6 +39,51 @@ public class YwyBean {
     private int registered_she;
     private int registered_all;
     private int no_all;
+    private int yjcount;//预警订单数量
+    private int waitQh_count;//待取货订单数量
+    private int waitSH_count;//待送货订单数量
+    private int waitWC_count;//已完成订单数量
+    private int zcl_count;//自处理订单数量
+
+    public int getYjcount() {
+        return yjcount;
+    }
+
+    public void setYjcount(int yjcount) {
+        this.yjcount = yjcount;
+    }
+
+    public int getWaitQh_count() {
+        return waitQh_count;
+    }
+
+    public void setWaitQh_count(int waitQh_count) {
+        this.waitQh_count = waitQh_count;
+    }
+
+    public int getWaitSH_count() {
+        return waitSH_count;
+    }
+
+    public void setWaitSH_count(int waitSH_count) {
+        this.waitSH_count = waitSH_count;
+    }
+
+    public int getWaitWC_count() {
+        return waitWC_count;
+    }
+
+    public void setWaitWC_count(int waitWC_count) {
+        this.waitWC_count = waitWC_count;
+    }
+
+    public int getZcl_count() {
+        return zcl_count;
+    }
+
+    public void setZcl_count(int zcl_count) {
+        this.zcl_count = zcl_count;
+    }
 
     public int getRegistered_all() {
         return registered_all;

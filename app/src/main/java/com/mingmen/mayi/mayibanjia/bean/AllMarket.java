@@ -10,6 +10,15 @@ public class AllMarket {
     private String market_id;
     private Double freight_fee;
     private Double total_weight;
+    private Double gonglishu;
+
+    public Double getGonglishu() {
+        return gonglishu;
+    }
+
+    public void setGonglishu(Double gonglishu) {
+        this.gonglishu = gonglishu;
+    }
 
     public String getMarket_id() {
         return market_id;

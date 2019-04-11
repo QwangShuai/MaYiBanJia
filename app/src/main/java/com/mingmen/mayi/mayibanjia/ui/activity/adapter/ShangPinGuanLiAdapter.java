@@ -30,6 +30,8 @@ import com.mingmen.mayi.mayibanjia.ui.activity.shangpinguanli.QuanBuShangPinFrag
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -57,7 +59,7 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
     private Context mContext;
     private BaseShangPinFragment fragment;
     private QuanBuShangPinFragment qb_fragment;
-    private boolean isTs;
+//    private boolean isTs;
 
     public boolean isClick() {
         return isClick;
@@ -82,14 +84,14 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
         this.goods = goods;
         this.mList = mList;
         this.fragment = fragment;
-        isTs = false;
+//        isTs = false;
     }
     public ShangPinGuanLiAdapter(Context mContext,String goods,List<ShangPinGuanLiBean.GoodsListBean> mList,QuanBuShangPinFragment qb_fragment) {
         this.mContext = mContext;
         this.goods = goods;
         this.mList = mList;
         this.qb_fragment = qb_fragment;
-        isTs = true;
+//        isTs = true;
     }
     public void updateState(String id, final String type) {
         HttpManager.getInstance()
@@ -102,13 +104,15 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
                     @Override
                     public void onNext(String data) {
                         confirmDialog.dismiss();
-                        if(isTs){
-                            qb_fragment.onResume();
-                        } else {
-                            fragment.onResume();
-                        }
-
-                        notifyDataSetChanged();
+//                        if(isTs){
+//                            EventBus.getDefault().post("update");
+//                            qb_fragment.onResume();
+//                        } else {
+//                            fragment.onResume();
+//                            EventBus.getDefault().post("update");
+//                        }
+                        EventBus.getDefault().post("update");
+//                        notifyDataSetChanged();
                     }
                 }, false);
     }
@@ -355,12 +359,13 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
                     public void onNext(String data) {
                         ToastUtil.showToastLong("取消特价成功");
                         confirmDialog.dismiss();
-                        if(isTs){
-                            qb_fragment.onResume();
-                        } else {
-                            fragment.onResume();
-                        }
-                        notifyDataSetChanged();
+//                        if(isTs){
+//                            qb_fragment.onResume();
+//                        } else {
+//                            fragment.onResume();
+//                        }
+//                        notifyDataSetChanged();
+                        EventBus.getDefault().post("update");
                     }
 
                 });

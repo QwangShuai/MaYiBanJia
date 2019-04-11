@@ -89,10 +89,10 @@ public abstract class BaseDaBaoFragment extends BaseFragment {
                 .setDataListener(new HttpDataListener<List<AddQrCodeBean>>() {
                     @Override
                     public void onNext(final List<AddQrCodeBean> data) {
-                        ye++;
                         int size = data==null?0:data.size();
                         if(b){
                             mlist.clear();
+                            adapter.notifyDataSetChanged();
                         }
                         if(size!=0){
                             mlist.addAll(data);
@@ -105,6 +105,7 @@ public abstract class BaseDaBaoFragment extends BaseFragment {
                             }
                             adapter.notifyDataSetChanged();
                         }
+                        ye++;
                     }
                 });
     }
@@ -133,6 +134,8 @@ public abstract class BaseDaBaoFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 ye = 1;
+                mlist.clear();
+                adapter.notifyDataSetChanged();
                 updateList();
                 refreshLayout.setRefreshing(false);
             }
@@ -151,8 +154,6 @@ public abstract class BaseDaBaoFragment extends BaseFragment {
     }
 
     public void updateList() {
-        ye = 1;
-        mlist.clear();
         HttpManager.getInstance()
                 .with(getContext())
                 .setObservable(
@@ -162,7 +163,6 @@ public abstract class BaseDaBaoFragment extends BaseFragment {
                 .setDataListener(new HttpDataListener<List<AddQrCodeBean>>() {
                     @Override
                     public void onNext(final List<AddQrCodeBean> data) {
-                        ye++;
                         int size = data==null?0:data.size();
                         mlist.addAll(data);
                         if(size!=0){
@@ -175,6 +175,7 @@ public abstract class BaseDaBaoFragment extends BaseFragment {
                             }
                         }
                         adapter.notifyDataSetChanged();
+                        ye++;
                     }
                 });
     }

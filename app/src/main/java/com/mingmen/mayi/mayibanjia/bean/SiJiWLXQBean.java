@@ -83,6 +83,7 @@ public class SiJiWLXQBean {
     private Object ct_address_id;
     private Object qy_company_id;
     private String ct_order_id;
+    private String gonglishu;
     private Object driverPhone;
     private Object plateNumber;
     private Object carTypeName;
@@ -90,6 +91,14 @@ public class SiJiWLXQBean {
     private Object totalWeight;
     private Object driverName;
     private List<GyMsgListBean> gyMsgList;
+
+    public String getGonglishu() {
+        return gonglishu;
+    }
+
+    public void setGonglishu(String gonglishu) {
+        this.gonglishu = gonglishu;
+    }
 
     public Object getCompany_id() {
         return company_id;
@@ -426,7 +435,7 @@ public class SiJiWLXQBean {
         private Object order_id;
         private Object market_id;
         private Object identifying;
-        private Object gy_order_id;
+        private String gy_order_id;
         private Object twocode_id;
         private Object wl_order_number;
         private Object is_loading;
@@ -436,7 +445,16 @@ public class SiJiWLXQBean {
         private String packCount;
         private String gyAddress;
         private String gyPhone;
+        private String business_state;
         private Object standthree;
+
+        public String getBusiness_state() {
+            return business_state;
+        }
+
+        public void setBusiness_state(String business_state) {
+            this.business_state = business_state;
+        }
 
         public Object getCompany_id() {
             return company_id;
@@ -470,11 +488,11 @@ public class SiJiWLXQBean {
             this.identifying = identifying;
         }
 
-        public Object getGy_order_id() {
+        public String getGy_order_id() {
             return gy_order_id;
         }
 
-        public void setGy_order_id(Object gy_order_id) {
+        public void setGy_order_id(String gy_order_id) {
             this.gy_order_id = gy_order_id;
         }
 

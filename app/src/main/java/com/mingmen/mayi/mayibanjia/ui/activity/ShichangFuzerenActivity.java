@@ -215,8 +215,8 @@ public class ShichangFuzerenActivity extends BaseActivity {
         tvDshNo.setText(bean.getWaitSH_count() + "");
         tvYwcshNo.setVisibility(bean.getWaitWC_count() == 0 ? View.GONE : View.VISIBLE);
         tvYwcshNo.setText(bean.getWaitWC_count() + "");
-        tvYwcshNo.setVisibility(bean.getWaitWC_count() == 0 ? View.GONE : View.VISIBLE);
-        tvYwcshNo.setText(bean.getWaitWC_count() + "");
+        tvZclddNo.setVisibility(bean.getZcl_count() == 0 ? View.GONE : View.VISIBLE);
+        tvZclddNo.setText(bean.getZcl_count() + "");
     }
 
     private void JumpScwl(String state,String teshu){

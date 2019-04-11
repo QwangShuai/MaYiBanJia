@@ -16,6 +16,7 @@ import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.AddQrCodeBean;
 import com.mingmen.mayi.mayibanjia.ui.activity.AddQrCodeActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.DaYinQrCodeActivity;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 
 import java.util.List;
 
@@ -91,6 +92,12 @@ public class AddQrCodeAdapter extends RecyclerView.Adapter<AddQrCodeAdapter.View
         holder.tvSpming.setText(bean.getClassify_name());
         holder.tvSpnumber.setText("数量："+bean.getAcount());
         holder.tvSpbaozhuang.setText("包装个数："+bean.getNumber());
+        if(StringUtil.isValid(bean.getAll_price())){
+            holder.tvJiage.setVisibility(View.VISIBLE);
+            holder.tvJiage.setText("总价："+bean.getAll_price());
+        } else {
+            holder.tvJiage.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -105,6 +112,8 @@ public class AddQrCodeAdapter extends RecyclerView.Adapter<AddQrCodeAdapter.View
         TextView tvSpming;
         @BindView(R.id.tv_spnumber)
         TextView tvSpnumber;
+        @BindView(R.id.tv_jiage)
+        TextView tvJiage;
         @BindView(R.id.tv_spbaozhuang)
         TextView tvSpbaozhuang;
         @BindView(R.id.btn_state)

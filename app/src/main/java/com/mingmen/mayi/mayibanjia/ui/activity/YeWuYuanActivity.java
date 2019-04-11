@@ -3,7 +3,6 @@ package com.mingmen.mayi.mayibanjia.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,15 +19,12 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.YwyBean;
-import com.mingmen.mayi.mayibanjia.bean.ZhuCeChengGongBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
-import com.mingmen.mayi.mayibanjia.utils.MyMath;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
-import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -82,12 +78,22 @@ public class YeWuYuanActivity extends BaseActivity {
     LinearLayout llShow;
     @BindView(R.id.btn_exit)
     Button btnExit;
+    @BindView(R.id.tv_yjdd_no)
+    TextView tvYjddNo;
+    @BindView(R.id.tv_dqh_no)
+    TextView tvDqhNo;
+    @BindView(R.id.tv_dsh_no)
+    TextView tvDshNo;
+    @BindView(R.id.tv_zcldd_no)
+    TextView tvZclddNo;
+    @BindView(R.id.tv_ywcsh_no)
+    TextView tvYwcshNo;
 
     private boolean isShow;
     private String isSelect = "1";
     private Context mContext;
     private ConfirmDialog confirmDialog;
-    private String type="全部企业";
+    private String type = "全部企业";
 
     @Override
     public int getLayoutId() {
@@ -117,17 +123,16 @@ public class YeWuYuanActivity extends BaseActivity {
         ArrayList<Integer> colors = new ArrayList<Integer>();
 
 
-
         PieDataSet dataSet = new PieDataSet(strings, "");
-        if(bean.getAll_she()!=0){
+        if (bean.getAll_she() != 0) {
             strings.add(new PieEntry(Float.valueOf(bean.getAll_she()), "社区市场"));
             colors.add(getResources().getColor(R.color.zangqing));
         }
-        if(bean.getAll_gy()!=0){
+        if (bean.getAll_gy() != 0) {
             strings.add(new PieEntry(Float.valueOf(bean.getAll_gy()), "供货端"));
             colors.add(getResources().getColor(R.color.yellow_fbb03b));
         }
-        if(bean.getAll_ct()!=0){
+        if (bean.getAll_ct() != 0) {
             strings.add(new PieEntry(Float.valueOf(bean.getAll_ct()), "餐厅端"));
             colors.add(getResources().getColor(R.color.blue_3794e5));
         }
@@ -138,7 +143,7 @@ public class YeWuYuanActivity extends BaseActivity {
         dataSet.setColors(colors);
         pcBing.setDrawCenterText(true);
         pcBing.setHighlightPerTapEnabled(true);
-        pcBing.setCenterText(bean.getAll_count()+"\n已录入企业");
+        pcBing.setCenterText(bean.getAll_count() + "\n已录入企业");
         pcBing.setRotationEnabled(false);
         PieData pieData = new PieData(dataSet);
         pieData.setDrawValues(true);
@@ -156,20 +161,20 @@ public class YeWuYuanActivity extends BaseActivity {
                     return;
                 for (PieEntry value : strings) {
                     if (value.getValue() == e.getY()) {
-                        switch (value.getLabel()){
+                        switch (value.getLabel()) {
                             case "社区市场":
-                                tvYizhuce.setText("已注册:"+bean.getRegistered_she()+"");
-                                tvWeizhuce.setText("未注册:"+bean.getNo_she()+"");
+                                tvYizhuce.setText("已注册:" + bean.getRegistered_she() + "");
+                                tvWeizhuce.setText("未注册:" + bean.getNo_she() + "");
                                 type = "社区市场";
                                 break;
                             case "供货端":
-                                tvYizhuce.setText("已注册:"+bean.getRegistered_gy()+"");
-                                tvWeizhuce.setText("未注册:"+bean.getNo_gy()+"");
+                                tvYizhuce.setText("已注册:" + bean.getRegistered_gy() + "");
+                                tvWeizhuce.setText("未注册:" + bean.getNo_gy() + "");
                                 type = "供货端";
                                 break;
                             case "餐厅端":
-                                tvYizhuce.setText("已注册:"+bean.getRegistered_ct()+"");
-                                tvWeizhuce.setText("未注册:"+bean.getNo_ct()+"");
+                                tvYizhuce.setText("已注册:" + bean.getRegistered_ct() + "");
+                                tvWeizhuce.setText("未注册:" + bean.getNo_ct() + "");
                                 type = "餐厅端";
                                 break;
                         }
@@ -182,8 +187,8 @@ public class YeWuYuanActivity extends BaseActivity {
             @Override
             public void onNothingSelected() {
                 ToastUtil.showToastLong("点击了非标签区域");
-                tvYizhuce.setText("已注册:"+bean.getRegistered_all()+"");
-                tvWeizhuce.setText("未注册:"+bean.getNo_all()+"");
+                tvYizhuce.setText("已注册:" + bean.getRegistered_all() + "");
+                tvWeizhuce.setText("未注册:" + bean.getNo_all() + "");
                 type = "全部企业";
                 tvQiye.setText(type);
             }
@@ -192,7 +197,8 @@ public class YeWuYuanActivity extends BaseActivity {
 
     @OnClick({R.id.iv_back, R.id.tv_right, R.id.btn_quanbu, R.id.btn_wode, R.id.ll_qygl,
             R.id.ll_dcldd, R.id.ll_ywy, R.id.ll_phone, R.id.ll_dizhi,
-            R.id.ll_pwd, R.id.btn_exit})
+            R.id.ll_pwd, R.id.btn_exit, R.id.ll_zcldd, R.id.ll_yjdd, R.id.ll_dqh,
+            R.id.ll_dsh, R.id.ll_ywcsh})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -224,9 +230,7 @@ public class YeWuYuanActivity extends BaseActivity {
                 startActivity(intent);
                 break;
             case R.id.ll_dcldd:
-                Intent it_wl = new Intent(mContext,SiJiActivity.class);
-                it_wl.putExtra("ywy","1");
-                startActivity(it_wl);
+                JumpScwl("1401","2");
                 break;
             case R.id.ll_ywy:
                 if (isShow) {
@@ -260,15 +264,31 @@ public class YeWuYuanActivity extends BaseActivity {
                     }
                 });
                 break;
+            case R.id.ll_zcldd:
+                JumpScwl("1407","0");
+                break;
+            case R.id.ll_yjdd:
+                JumpScwl("1406","");
+                break;
+            case R.id.ll_dqh:
+                JumpScwl("1401","");
+                break;
+            case R.id.ll_dsh:
+                JumpScwl("1402","");
+                break;
+            case R.id.ll_ywcsh:
+                JumpScwl("1403","");
+                break;
         }
     }
+
     private void showYwy() {
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getYwyCount(PreferenceUtils.getString(MyApplication.mContext, "token", ""),isSelect))
+                                .getYwyCount(PreferenceUtils.getString(MyApplication.mContext, "token", ""), isSelect))
                 .setDataListener(new HttpDataListener<YwyBean>() {
                     @Override
                     public void onNext(YwyBean bean) {
@@ -278,15 +298,27 @@ public class YeWuYuanActivity extends BaseActivity {
                         tvYwy.setText(bean.getName());
                         tvPhone.setText(bean.getTelephone());
                         tvDizhi.setText(bean.getSpecific_address());
-                        tvOrderNumber.setVisibility(bean.getOrder_count()==0?View.GONE:View.VISIBLE);
-                        tvOrderNumber.setText(bean.getOrder_count()+"");
+                        tvOrderNumber.setVisibility(bean.getOrder_count() == 0 ? View.GONE : View.VISIBLE);
+                        tvOrderNumber.setText(bean.getOrder_count() + "");
                         type = "全部企业";
-                        tvYizhuce.setText("已注册:"+bean.getRegistered_all());
-                        tvWeizhuce.setText("未注册:"+bean.getNo_all());
+                        tvYizhuce.setText("已注册:" + bean.getRegistered_all());
+                        tvWeizhuce.setText("未注册:" + bean.getNo_all());
                         tvQiye.setText(type);
+
+                        tvYjddNo.setVisibility(bean.getYjcount() == 0 ? View.GONE : View.VISIBLE);
+                        tvYjddNo.setText(bean.getYjcount() + "");
+                        tvDqhNo.setVisibility(bean.getWaitQh_count() == 0 ? View.GONE : View.VISIBLE);
+                        tvDqhNo.setText(bean.getWaitQh_count() + "");
+                        tvDshNo.setVisibility(bean.getWaitSH_count() == 0 ? View.GONE : View.VISIBLE);
+                        tvDshNo.setText(bean.getWaitSH_count() + "");
+                        tvYwcshNo.setVisibility(bean.getWaitWC_count() == 0 ? View.GONE : View.VISIBLE);
+                        tvYwcshNo.setText(bean.getWaitWC_count() + "");
+                        tvZclddNo.setVisibility(bean.getZcl_count() == 0 ? View.GONE : View.VISIBLE);
+                        tvZclddNo.setText(bean.getZcl_count() + "");
+
                         showPieChat(bean);
                     }
-                },false);
+                }, false);
     }
 
     @Override
@@ -294,6 +326,7 @@ public class YeWuYuanActivity extends BaseActivity {
         super.onResume();
         showYwy();
     }
+
     private void exitLogin() {
         HttpManager.getInstance()
                 .with(mContext)
@@ -303,8 +336,14 @@ public class YeWuYuanActivity extends BaseActivity {
                     @Override
                     public void onNext(String data) {
                         confirmDialog.dismiss();
-                        goLogin(mContext,"login");
+                        goLogin(mContext, "login");
                     }
                 });
+    }
+    private void JumpScwl(String state,String teshu){
+        Intent it = new Intent(mContext,ShichangWuliuActivity.class);
+        it.putExtra("type",state);
+        it.putExtra("isShichang",teshu);
+        startActivity(it);
     }
 }

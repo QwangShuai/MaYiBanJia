@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <View
@@ -115,38 +116,52 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
-            <RelativeLayout
-                android:id="@+id/rl_lei"
+            <android.support.design.widget.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:paddingTop="8dp">
-
-                <LinearLayout
-                    android:id="@+id/ll_rv"
+                android:fitsSystemWindows="true">
+                <android.support.design.widget.CollapsingToolbarLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recycler_view"
+                    android:layout_height="wrap_content"
+                    android:fitsSystemWindows="true"
+                    app:contentScrim="?attr/colorPrimary"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                    app:titleEnabled="false">
+                    <RelativeLayout
+                        android:id="@+id/rl_lei"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:paddingTop="8dp">
 
-                <com.mingmen.mayi.mayibanjia.ui.view.PageIndicatorView
-                    android:id="@+id/indicator"
-                    android:layout_width="match_parent"
-                    android:layout_height="6dp"
-                    android:layout_alignBottom="@id/ll_rv"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="4dp" />
-            </RelativeLayout>
+                        <LinearLayout
+                            android:id="@+id/ll_rv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="@color/gray_e7e7e7"></View>
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/recycler_view"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+
+                        <com.mingmen.mayi.mayibanjia.ui.view.PageIndicatorView
+                            android:id="@+id/indicator"
+                            android:layout_width="match_parent"
+                            android:layout_height="6dp"
+                            android:layout_alignBottom="@id/ll_rv"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="4dp" />
+                    </RelativeLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/gray_e7e7e7"></View>
+                </android.support.design.widget.CollapsingToolbarLayout>
+            </android.support.design.widget.AppBarLayout>
+
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"

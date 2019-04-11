@@ -1368,4 +1368,10 @@ public interface HttpService {
     @POST("allMarket/updatemanage.do")
     Observable<ResultModel<String>> postError(@Query("user_token") String user_token,
                                               @Query("wl_cars_order_id") String wl_cars_order_id);
+
+    // 业务员决定是否自行处理订单
+    @POST("wl/updateWlType.do")
+    Observable<ResultModel<String>> changeOrder(@Query("user_token") String user_token,
+                                              @Query("wl_cars_order_id") String wl_cars_order_id,
+                                              @Query("person_name") String person_name);
 }

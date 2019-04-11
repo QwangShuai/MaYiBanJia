@@ -227,18 +227,6 @@ public abstract class BaseShangPinFragment extends BaseFragment {
         shangpinguanliadapter = new ShangPinGuanLiAdapter(getContext(), goods, mlist,BaseShangPinFragment.this);
         shangpinguanliadapter.setClick(isClick);
         rvShangpinguanli.setAdapter(shangpinguanliadapter);
-//        activity.setCallBack(new ShangPinGuanLiActivity.CallBack() {
-//            @Override
-//            public void setMsg(String msg) {
-//                chaxunzi = msg;
-//                ye = 1;
-//                mlist.clear();
-//                shangpinguanliadapter.notifyDataSetChanged();
-////                if(isShow){
-//                    getData();
-////                }
-//            }
-//        });
 
     }
 
@@ -258,7 +246,10 @@ public abstract class BaseShangPinFragment extends BaseFragment {
 
         }
     }
-
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void update(String message) {
+        onResume();
+    }
     @Override
     public void onDestroy() {
         super.onDestroy();

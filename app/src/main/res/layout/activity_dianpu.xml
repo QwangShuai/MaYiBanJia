@@ -103,12 +103,12 @@
                                 android:focusableInTouchMode="true"
                                 android:singleLine="true"
                                 android:ellipsize="marquee"
-                                android:id="@+id/tv_dianming"
+                                android:textAllCaps="true"
                                 android:marqueeRepeatLimit="marquee_forever"
+                                android:id="@+id/tv_dianming"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="甜橙"
-                                android:textAllCaps="true"
                                 android:textColor="#474747"
                                 android:textSize="15sp" />
                             <LinearLayout

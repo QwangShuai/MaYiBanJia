@@ -255,6 +255,10 @@ public class QuanBuShangPinFragment extends BaseFragment {
 
         }
     }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void update(String message) {
+        onResume();
+    }
 
     @Override
     public void onHiddenChanged(boolean hidden) {
@@ -270,4 +274,9 @@ public class QuanBuShangPinFragment extends BaseFragment {
         return "0";
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

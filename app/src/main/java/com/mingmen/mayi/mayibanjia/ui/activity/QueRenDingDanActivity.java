@@ -466,7 +466,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                 hejijine = 0.0;
                 zongzhong = 0.0;
                 yunfei = 0.0;
-                songdashijianid = "您的订单将于下单后的2小时内送达";
+                songdashijianid = "您的订单将于下单后的尽快送达";
                 isZhunshi = "1";
                 getZhunshidaYunFei();
                 isTime = "准时达";
@@ -474,7 +474,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                 tvZhushida.setTextColor(mContext.getResources().getColor(R.color.zangqing));
                 tvBiaozhunda.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_999999_3));
                 tvBiaozhunda.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
-                tvSongdashijian.setText("您的订单将于下单后的2小时内送达");
+                tvSongdashijian.setText("您的订单将于下单后的尽快送达");
                 break;
             case R.id.ll_songdashijian:
                 ToastUtil.showToastLong("时间由送达状态选择");

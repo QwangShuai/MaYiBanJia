@@ -330,7 +330,7 @@ public class ShouYeFragment extends BaseFragment {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getTuijianShouye(PreferenceUtils.getString(MyApplication.mContext, "token",""),"601"))
+                                .getTuijianShouye(PreferenceUtils.getString(MyApplication.mContext, "token",""),"602"))
                 .setDataListener(new HttpDataListener<List<ShouYeTeJiaBean>>() {
                     @Override
                     public void onNext(List<ShouYeTeJiaBean> data) {

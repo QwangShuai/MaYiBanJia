@@ -15,6 +15,7 @@ import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.ShouYeTeJiaBean;
 import com.mingmen.mayi.mayibanjia.ui.activity.SPXiangQingActivity;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.custom.GlideRoundTransform;
 import com.mingmen.mayi.mayibanjia.utils.custom.MarqueeTextView;
 
@@ -51,7 +52,13 @@ public class ShouYeTeJiaAdapter extends RecyclerView.Adapter<ShouYeTeJiaAdapter.
         holder.tvSpming.setText(data.getClassify_name());
         holder.tvSpming.setMarqueeEnable(true);
         holder.tvDanjia.setText(data.getPice()+"");
-        holder.tvYuandanjia.setText("￥ "+ data.getPrice());
+        if(StringUtil.isValid(data.getPrice())){
+            holder.tvYuandanjia.setText("￥ "+ data.getPrice());
+            holder.tvYuandanjia.setVisibility(View.VISIBLE);
+        } else {
+            holder.tvYuandanjia.setVisibility(View.INVISIBLE);
+        }
+
         holder.tvYuandanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         Glide.with(mContext).load("" + data.getPicture_url()).transform(new GlideRoundTransform(mContext,10))
                 .into(holder.ivSptu);

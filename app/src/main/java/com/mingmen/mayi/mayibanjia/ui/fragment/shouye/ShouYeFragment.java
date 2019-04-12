@@ -26,12 +26,15 @@ import com.mingmen.mayi.mayibanjia.bean.ShouYeBannerBean;
 import com.mingmen.mayi.mayibanjia.bean.ShouYeLeiBean;
 import com.mingmen.mayi.mayibanjia.bean.ShouYeShangChangBean;
 import com.mingmen.mayi.mayibanjia.bean.ShouYeTeJiaBean;
+import com.mingmen.mayi.mayibanjia.bean.TuiJianBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.FCGDiQuXuanZeActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.SouSuoActivity;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseFragment;
+import com.mingmen.mayi.mayibanjia.ui.fragment.gouwuche.GouWuCheFragment;
+import com.mingmen.mayi.mayibanjia.ui.fragment.gouwuche.adapter.GouWuCheAdapter;
 import com.mingmen.mayi.mayibanjia.ui.fragment.shouye.adapter.ShouYeAdapter;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
@@ -67,6 +70,7 @@ public class ShouYeFragment extends BaseFragment {
     private List<ShouYeBannerBean> bannerBean = new ArrayList<>();
     private List<FCGName> leiBean = new ArrayList<>();
     private List<ShouYeTeJiaBean> teJiaBean = new ArrayList<>();
+    private List<ShouYeTeJiaBean> tuijianBean = new ArrayList<>();
     private List<ShouYeShangChangBean> shangJiaBean = new ArrayList<>();
     private AMapLocationClient locationClient = null;
     private AMapLocationClientOption locationOption = null;
@@ -134,12 +138,9 @@ public class ShouYeFragment extends BaseFragment {
                     public void onNext(List<ShouYeTeJiaBean> list) {
                         teJiaBean=new ArrayList<ShouYeTeJiaBean>();
                         teJiaBean.addAll(list);
+                        getweinituijian();
                         Log.e("tejiatejia",teJiaBean.size()+"---");
 //                        adapter = new ShouYeAdapter(getActivity(), bannerBean, leiBean, teJiaBean,(MainActivity) getActivity());
-                        adapter = new ShouYeAdapter(getActivity(), bannerBean, shangJiaBean,leiBean, teJiaBean,(MainActivity) getActivity(),city,sheng);
-                        rvShouye.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-                        rvShouye.setAdapter(adapter);
-                        rvShouye.setFocusable(false);
 
                     }
                 });
@@ -316,14 +317,33 @@ public class ShouYeFragment extends BaseFragment {
 
                     @Override
                     public void onNext(List<ShouYeBannerBean> list) {
-                        bannerBean=new ArrayList<ShouYeBannerBean>();
+                        bannerBean.clear();
                         bannerBean.addAll(list);
                         getShouyeShangJia();
                     }
                 },false);
 
     }
+    private void getweinituijian() {
+        HttpManager.getInstance()
+                .with(getContext())
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .getTuijianShouye(PreferenceUtils.getString(MyApplication.mContext, "token",""),"601"))
+                .setDataListener(new HttpDataListener<List<ShouYeTeJiaBean>>() {
+                    @Override
+                    public void onNext(List<ShouYeTeJiaBean> data) {
+                        tuijianBean.clear();
+                        tuijianBean.addAll(data);
 
+                        adapter = new ShouYeAdapter(getActivity(), bannerBean, shangJiaBean,leiBean, teJiaBean,tuijianBean,(MainActivity) getActivity(),city,sheng);
+                        rvShouye.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+                        rvShouye.setAdapter(adapter);
+                        rvShouye.setFocusable(false);
+                    }
+                },false);
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();

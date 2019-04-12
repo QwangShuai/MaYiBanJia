@@ -433,6 +433,11 @@ public interface HttpService {
     Observable<ResultModel<List<TuiJianBean>>> getweinituijian(@Query("user_token") String user_token,
                                                                @Query("comend_address") String comend_address);
 
+    //推荐商品首页
+    @POST("gyCommodity/queryCommend.do")
+    Observable<ResultModel<List<ShouYeTeJiaBean>>> getTuijianShouye(@Query("user_token") String user_token,
+                                                               @Query("comend_address") String comend_address);
+
     //店铺展示
     @POST("allCompany/selectdpsy.do")
     Observable<ResultModel<DianPuZhanShiBean>> getdianpuzhanshi(@Query("user_token") String user_token,

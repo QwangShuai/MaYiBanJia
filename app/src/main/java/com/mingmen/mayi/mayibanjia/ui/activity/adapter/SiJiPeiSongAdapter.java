@@ -161,6 +161,7 @@ public class SiJiPeiSongAdapter extends RecyclerView.Adapter<SiJiPeiSongAdapter.
         holder.tv_state.setText(String.valueOf(data.getWl_order_state()));
         holder.tv_order_number.setText("订单编号：" + data.getWl_cars_order_number());
         holder.tv_songdashijian.setText(data.getArrival_time());
+        holder.tvChuangjiashijian.setText(data.getCreate_time());
         holder.tv_shichang.setText(data.getMarketName());
         holder.tv_dizhi.setText(data.getSpecific_address());
         holder.tvBaozhuanggeshu.setText(data.getPackCount());
@@ -271,6 +272,8 @@ public class SiJiPeiSongAdapter extends RecyclerView.Adapter<SiJiPeiSongAdapter.
         TextView tv_songdashijian0;
         @BindView(R.id.tv_songdashijian)
         TextView tv_songdashijian;
+        @BindView(R.id.tv_chuangjiashijian)
+        TextView tvChuangjiashijian;
         @BindView(R.id.tv_shichang0)
         TextView tv_shichang0;
         @BindView(R.id.tv_shichang)

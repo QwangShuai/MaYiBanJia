@@ -59,36 +59,43 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public static final int SHANGJIA = 0xff01;
     public static final int SHISHIDA = 0xff03;
     public static final int TEJIA = 0xff04;
+    public static final int TUIJIAN = 0xff05;
     private Handler mHandler = new Handler(Looper.getMainLooper()); //获取主线程的Handler
 
     private ZiXun myHolder;
+    private TuiJian tuijianHolder;
     private Shishida ssdHolder;
     private ShangJia mMyViewHolder;
     private Context mContext;
     private View inflate;
     private ArrayList<String> shijilist;
     private ShouYeTeJiaAdapter shiJiBiaoQianAdapter;
+    private ShouYeTeJiaAdapter tuijianAdapter;
     private List<String> imgs = new ArrayList<>();
     private List<ShouYeBannerBean> bannerBean;
     private List<FCGName> leiBean;
     private List<ShouYeTeJiaBean> teJiaBean;
+    private List<ShouYeTeJiaBean> tuijianBean;
     private List<ShouYeShangChangBean> shangJiaBean;
     private MainActivity activity;
     private String dingwei = "";
     private String province = "";
 
     //    public ShouYeAdapter(Context context, List<ShouYeBannerBean> bannerBean,List<ShouYeLeiBean> leiBean,List<ShouYeTeJiaBean> teJiaBean,MainActivity activity) {
-    public ShouYeAdapter(Context context, List<ShouYeBannerBean> bannerBean, List<ShouYeShangChangBean> shangJiaBean, List<FCGName> leiBean, List<ShouYeTeJiaBean> teJiaBean, MainActivity activity, String dingwei, String province) {
+    public ShouYeAdapter(Context context, List<ShouYeBannerBean> bannerBean, List<ShouYeShangChangBean> shangJiaBean,
+                         List<FCGName> leiBean, List<ShouYeTeJiaBean> teJiaBean,List<ShouYeTeJiaBean> tuijianBean, MainActivity activity,
+                         String dingwei, String province) {
         this.mContext = context;
         this.bannerBean = bannerBean;
         this.leiBean = leiBean;
         this.shangJiaBean = shangJiaBean;
         this.teJiaBean = teJiaBean;
+        this.tuijianBean = tuijianBean;
         this.activity = activity;
         this.dingwei = dingwei;
         this.province = province;
         shijilist = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
             shijilist.add(i + "");
         }
     }
@@ -108,6 +115,9 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             case SHISHIDA:
                 ssdHolder = new Shishida(LayoutInflater.from(parent.getContext()).inflate(R.layout.shouye_item_shishida, parent, false));
                 return ssdHolder;
+            case TUIJIAN:
+                 tuijianHolder = new TuiJian(LayoutInflater.from(parent.getContext()).inflate(R.layout.shouye_item_tuijian, parent, false));
+                return tuijianHolder;
             case TEJIA:
                 inflate = LayoutInflater.from(parent.getContext()).inflate(R.layout.shouye_item_tejia, parent, false);
                 return new TeJia(inflate);
@@ -129,7 +139,7 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }  else if (holder instanceof TeJia) {
             bindTejia((TeJia) holder, position);
         } else {
-
+            bindTuiJian((TuiJian) holder,position);
         }
     }
 
@@ -146,6 +156,8 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 return SHISHIDA;
             case 4:
                 return TEJIA;
+            case 5:
+                return TUIJIAN;
             default:
                 return TEJIA;
         }
@@ -302,6 +314,19 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
 
     }
+    //推荐
+    private void bindTuiJian(TuiJian holder, int position) {
+
+        if (tuijianBean.size() != 0) {
+            if (tuijianAdapter == null) {
+                tuijianAdapter = new ShouYeTeJiaAdapter(mContext, tuijianBean);
+            }
+            holder.rv_tuijian.setLayoutManager(new GridLayoutManager(mContext, 3));
+            holder.rv_tuijian.setAdapter(tuijianAdapter);
+            holder.rv_tuijian.setFocusable(false);
+        }
+
+    }
     private void bindShishida(Shishida holder, int position) {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -327,7 +352,15 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             ll_more = itemView.findViewById(R.id.ll_more);
         }
     }
+    public class TuiJian extends RecyclerView.ViewHolder {
 
+        public RecyclerView rv_tuijian;
+
+        public TuiJian(final View itemView) {
+            super(itemView);
+            rv_tuijian = (RecyclerView) itemView.findViewById(R.id.rv_tuijian);
+        }
+    }
     public class Banner extends RecyclerView.ViewHolder {
         private com.youth.banner.Banner banner_home_lunbo;
 

@@ -731,5 +731,30 @@
         </LinearLayout>
     </LinearLayout>
 
-
+    <RelativeLayout
+        android:id="@+id/rl_gwc"
+        android:layout_marginBottom="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_width="52dp"
+        android:layout_height="52dp">
+        <ImageView
+            android:layout_marginTop="8dp"
+            android:src="@mipmap/gouwuche_qbcp"
+            android:layout_width="44dp"
+            android:layout_height="44dp" />
+        <TextView
+            android:layout_alignParentRight="true"
+            android:id="@+id/tv_gwc_no"
+            android:gravity="center"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:text="1"
+            android:background="@drawable/fillet_solid_zangqing_tuoyuan"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp" />
+    </RelativeLayout>
 </RelativeLayout>

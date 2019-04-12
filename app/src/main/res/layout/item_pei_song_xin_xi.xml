@@ -24,40 +24,65 @@
         android:background="@color/cutoff"
         android:layout_width="match_parent"
         android:layout_height="1dp"></View>
+
     <RelativeLayout
-        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="13dp"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/tv_order_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="订单编号：1794633446547"
+            android:textColor="@color/lishisousuo"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:id="@+id/ll_saoma"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginRight="9dp"
+                android:src="@mipmap/saoma" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="13dp"
+                android:text="扫码"
+                android:textColor="@color/zangqing"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="13dp"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:id="@+id/tv_order_number"
             android:textSize="15sp"
             android:textColor="@color/lishisousuo"
-            android:text="订单编号：1794633446547"
+            android:text="创建时间："
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <LinearLayout
-            android:id="@+id/ll_saoma"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:orientation="horizontal"
+        <TextView
+            android:id="@+id/tv_chuangjiashijian"
+            android:textSize="15sp"
+            android:textColor="@color/zangqing"
+            android:text="2018-08-20 07:30"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_marginRight="9dp"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:src="@mipmap/saoma"/>
-            <TextView
-                android:text="扫码"
-                android:textSize="14sp"
-                android:textColor="@color/zangqing"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="13dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-    </RelativeLayout>
+            android:layout_height="wrap_content" />
+    </LinearLayout>
     <LinearLayout
         android:layout_marginTop="12dp"
         android:layout_marginLeft="13dp"

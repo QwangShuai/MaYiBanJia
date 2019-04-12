@@ -9,8 +9,10 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -122,6 +124,8 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
     TextView tvJishida;
     @BindView(R.id.tv_pingfenzuigao)
     TextView tvPingfenzuigao;
+    @BindView(R.id.tv_gwc_no)
+    TextView tvGwcNo;
     @BindView(R.id.rv_shangpin)
     SwipeMenuRecyclerView rvShangpin;
     @BindView(R.id.refresh_layout)
@@ -130,6 +134,8 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
     LinearLayout llShangpin;
     @BindView(R.id.rv_shichangjia)
     RecyclerView rvShichangjia;
+    @BindView(R.id.rl_gwc)
+    RelativeLayout rlGwc;
 //    @BindView(R.id.scrv)
 //    FixedHeadScrollView scrv;
 
@@ -208,6 +214,8 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
 
     private int viewHeight;
     private int mystate = 0;
+    private int screenWidth;
+    private int screenHeight;
     private boolean isResult;
     private XJSPFeiLeiGuigeAdapter guigeadapter;
     private List<ShangPinSousuoMohuBean> mlist = new ArrayList<>();
@@ -222,7 +230,7 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
     protected void initData() {
         mContext = this;
         EventBus.getDefault().register(this);
-        if(StringUtil.isValid(getIntent().getStringExtra("tejia"))){
+        if (StringUtil.isValid(getIntent().getStringExtra("tejia"))) {
             isTejia = true;
             tvTejia.setTextColor(getResources().getColor(R.color.zangqing));
             istejia = "1";
@@ -233,7 +241,7 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
         mLoadMoreListener = new SwipeMenuRecyclerView.LoadMoreListener() {
             @Override
             public void onLoadMore() {
-                sousuoshangpin(sousuo,type);
+                sousuoshangpin(sousuo, type);
             }
         };
         viewHeight = rlLei.getHeight();
@@ -336,11 +344,90 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
         erjiadapter = new YiJiFenLeiAdapter();
         guigeadapter = new XJSPFeiLeiGuigeAdapter(mContext, mlist);
         sousuoshangpin("", "0");
-//        scrv.setFixedHeadScrollViewListener(this);
+        DisplayMetrics dm = getResources().getDisplayMetrics();
+        screenWidth = dm.widthPixels;
+        screenHeight = dm.heightPixels;
+        rlGwc.setOnTouchListener(new View.OnTouchListener() {
+            int lastX, lastY;
+            // 记录移动的最后的位置
+            private int btnHeight;
+
+            public boolean onTouch(View v, MotionEvent event) {
+                // 获取Action
+                int ea = event.getAction();
+                switch (ea) {
+                    case MotionEvent.ACTION_DOWN: // 按下
+                        lastX = (int) event.getRawX();
+                        lastY = (int) event.getRawY();
+                        screenWidth = view.getWidth();
+                        screenHeight = view.getHeight();
+                        btnHeight = rlGwc.getHeight();
+                        // Toast.makeText(getActivity(), "ACTION_DOWN：" + lastX + ",					// " + lastY, 0).show();
+                        break;
+                    case MotionEvent.ACTION_MOVE: // 移动					// 移动中动态设置位置
+                        int dx = (int) event.getRawX() - lastX;
+                        int dy = (int) event.getRawY() - lastY;
+                        int left = v.getLeft() + dx;
+                        int top = v.getTop() + dy;
+                        int right = v.getRight() + dx;
+                        int bottom = v.getBottom() + dy;
+                        if (left < 0) {
+                            left = 0;
+                            right = left + v.getWidth();
+                        }
+                        if (right > screenWidth) {
+                            right = screenWidth;
+                            left = right - v.getWidth();
+                        }
+                        if (top < 0) {
+                            top = 0;
+                            bottom = top + v.getHeight();
+                        }
+                        if (bottom > screenHeight) {
+                            bottom = screenHeight;
+                            top = bottom - v.getHeight();
+                        }
+                        v.layout(left, top, right, bottom);
+                        // 将当前的位置再次设置
+                        lastX = (int) event.getRawX();
+                        lastY = (int) event.getRawY();
+                        break;
+                    case MotionEvent.ACTION_UP: // 抬起					// 向四周吸附//
+                        // int dx1 = (int) event.getRawX() - lastX;
+                        // 					int dy1 = (int) event.getRawY() - lastY;
+                        // 					int left1 = v.getLeft() + dx1;
+                        // 					int top1 = v.getTop() + dy1;
+                        // 					int right1 = v.getRight() + dx1;
+                        // 					int bottom1 = v.getBottom() + dy1;
+                        // 					if (left1 < (screenWidth / 2)) {
+                        // 						if (top1 < 100) {
+                        // 							v.layout(left1, 0, right1, btnHeight);
+                        // 						} else if (bottom1 > (screenHeight - 200)) {
+                        // 							v.layout(left1, (screenHeight - btnHeight), right1, screenHeight);
+                        // 						} else {
+                        // 							v.layout(0, top1, btnHeight, bottom1);
+                        // 						}
+                        // 					} else {
+                        // 						if (top1 < 100) {
+                        // 							v.layout(left1, 0, right1, btnHeight);
+                        // 						} else if (bottom1 > (screenHeight - 200)) {
+                        // 							v.layout(left1, (screenHeight - btnHeight), right1, screenHeight);
+                        // 						} else {
+                        // 							v.layout((screenWidth - btnHeight), top1, screenWidth, bottom1);
+                        // 						}
+                        // 					}
+                        // 					break;
+
+                }
+                return false;
+            }
+        });
     }
+
+
     @OnClick({R.id.ll_shichangjia, R.id.ll_pinzhong, R.id.ll_pinlei, R.id.ll_shichang,
             R.id.ll_sousuo, R.id.tv_xiaoliang, R.id.ll_jiage, R.id.tv_pingfenzuigao,
-            R.id.ll_guige, R.id.tv_tejia, R.id.tv_jishida,R.id.iv_back})
+            R.id.ll_guige, R.id.tv_tejia, R.id.tv_jishida, R.id.iv_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 //            case R.id.ll_diqu:
@@ -350,7 +437,7 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
                 finish();
                 break;
             case R.id.tv_tejia://特价
-                if(isTejia){
+                if (isTejia) {
                     isTejia = false;
                     istejia = "";
                     tvTejia.setTextColor(getResources().getColor(R.color.lishisousuo));
@@ -363,7 +450,7 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
                 updateAdapter();
                 break;
             case R.id.tv_jishida://实时达
-                if(isZhunshida){
+                if (isZhunshida) {
                     isZhunshida = false;
                     iszhunshida = "";
                     tvJishida.setTextColor(getResources().getColor(R.color.lishisousuo));
@@ -421,7 +508,7 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
                 break;
             case R.id.ll_shichang:
 //                showYiJiPop(3);
-                startActivityForResult(new Intent(mContext, ShichangXuanzeActivity.class),REQUEST_CODE);
+                startActivityForResult(new Intent(mContext, ShichangXuanzeActivity.class), REQUEST_CODE);
                 break;
             case R.id.ll_pinzhong:
                 showPopTwo();
@@ -445,12 +532,14 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
                 break;
         }
     }
-    private void updateAdapter(){
+
+    private void updateAdapter() {
         ye = 1;
         shangpinlist.clear();
         shangpinadapter.notifyDataSetChanged();
-        sousuoshangpin(sousuo,type);
+        sousuoshangpin(sousuo, type);
     }
+
     private void bindPop() {
         view = View.inflate(mContext, R.layout.pop_pinlei, null);
         yijipop = new PopupWindow(view);
@@ -536,6 +625,7 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
             ToastUtil.showToastLong("请先选择商品的一级分类");
         }
     }
+
     private void showPopTwo() {
         //品类
         if (StringUtil.isValid(erjipinleiid)) {
@@ -676,6 +766,7 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
         tvPinzhongLablePop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
         tvGuigeLablePop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
     }
+
     private void getShouyeFenLei(String id, final String type) {
         HttpManager.getInstance()
                 .with(mContext)
@@ -758,6 +849,7 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
         });
         leiAdapter.notifyDataSetChanged();
     }
+
     private void setMyManager() {
         manager = new GridLayoutManager(mContext, 3);
 
@@ -772,9 +864,10 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
             }
         });
     }
+
     //商品搜索
     private void sousuoshangpin(final String sousuo, final String type) {
-        Log.e(TAG, "sousuoshangpin: 我是特价"+istejia+"---我是准时达"+iszhunshida );
+        Log.e(TAG, "sousuoshangpin: 我是特价" + istejia + "---我是准时达" + iszhunshida);
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
@@ -784,7 +877,7 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
                 .setDataListener(new HttpDataListener<ShangPinSouSuoBean>() {
                     @Override
                     public void onNext(final ShangPinSouSuoBean shangpin) {
-                        if(ye == 1 ){
+                        if (ye == 1) {
                             shangpinlist.clear();
                             shangpinadapter.notifyDataSetChanged();
                         }
@@ -808,7 +901,7 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
                         shangpinadapter.notifyDataSetChanged();
                         ye++;
                     }
-                },true);
+                }, true);
     }
 
     private void clearGuige() {
@@ -828,6 +921,7 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
         tvPingfenzuigao.setTextColor(getResources().getColor(R.color.lishisousuo));
         bianseview.setTextColor(getResources().getColor(R.color.zangqing));
     }
+
     //市场搜索
     private void sousuoshichang() {
         HttpManager.getInstance()
@@ -1020,6 +1114,7 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
         guigeId = "";
         guigeName = "";
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -1039,7 +1134,7 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
                     if (StringUtil.isValid(sanjipinleiid)) {
                         sousuoshangpin("", type);
                     } else {
-                        sousuoshangpin(sousuo,type);
+                        sousuoshangpin(sousuo, type);
                     }
 
                 } else {
@@ -1069,6 +1164,7 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
             }
         }
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getMarketId(AllShiChangBean.Bean bean) {
         shichangid = bean.getMark_id();
@@ -1081,12 +1177,14 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
         }
         updateAdapter();
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -1095,19 +1193,20 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
 
     @Override
     public void sendDistanceY(int distance) {
-        if(distance>=topDistance){
+        if (distance >= topDistance) {
             llHead.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             llHead.setVisibility(View.GONE);
         }
 
     }
+
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        if(hasFocus){
-            topDistance=refreshLayout.getTop();
-            Log.i("msg","topDistance="+topDistance);
+        if (hasFocus) {
+            topDistance = refreshLayout.getTop();
+            Log.i("msg", "topDistance=" + topDistance);
         }
     }
 }

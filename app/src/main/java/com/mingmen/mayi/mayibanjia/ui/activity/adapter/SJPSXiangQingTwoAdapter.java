@@ -58,6 +58,8 @@ public class SJPSXiangQingTwoAdapter extends RecyclerView.Adapter<SJPSXiangQingT
                     mContext.startActivity(it);
                 }
             });
+        } else {
+            holder.tvDabao.setVisibility(View.GONE);
         }
 
     }

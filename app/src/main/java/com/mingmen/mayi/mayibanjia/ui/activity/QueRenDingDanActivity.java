@@ -33,6 +33,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.adapter.TiJiaoDingDanShichangAdap
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.DateDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
+import com.mingmen.mayi.mayibanjia.utils.MyMath;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
@@ -159,6 +160,7 @@ public class QueRenDingDanActivity extends BaseActivity {
             son_order_id = son_order_id.substring(0, son_order_id.length() - 1);
             commodity_id = getIntent().getStringExtra("commodity_id");
             commodity_id = commodity_id.substring(0, commodity_id.length() - 1);
+            tvZhushida.setVisibility(View.GONE);
         } else {
             shopping_id = getIntent().getStringExtra("shopping_id");
             shopping_id = shopping_id.substring(0, shopping_id.length() - 1);
@@ -466,7 +468,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                 hejijine = 0.0;
                 zongzhong = 0.0;
                 yunfei = 0.0;
-                songdashijianid = "您的订单将于下单后的尽快送达";
+                songdashijianid = "您的订单将尽快送达";
                 isZhunshi = "1";
                 getZhunshidaYunFei();
                 isTime = "准时达";
@@ -474,7 +476,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                 tvZhushida.setTextColor(mContext.getResources().getColor(R.color.zangqing));
                 tvBiaozhunda.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_999999_3));
                 tvBiaozhunda.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
-                tvSongdashijian.setText("您的订单将于下单后的尽快送达");
+                tvSongdashijian.setText("您的订单将尽快送达");
                 break;
             case R.id.ll_songdashijian:
                 ToastUtil.showToastLong("时间由送达状态选择");
@@ -632,12 +634,12 @@ public class QueRenDingDanActivity extends BaseActivity {
                         @Override
                         public void onNext(List<YunFeiBean> o) {
                             adapter.setYunfei(o);
-                            Log.e("21212","走不到了啊");
                             hejijine = Double.valueOf(zongjia);
                             for (int i=0;i<o.size();i++ ){
                                 hejijine += o.get(i).getMoney();
                                 yunfei +=o.get(i).getMoney();
                                 zongzhong += o.get(i).getSumZL();
+                                Log.e("21212","走不到了啊"+o.get(i).getSumZL());
                                 AllMarket bean = new AllMarket();
                                 bean.setMarket_id(o.get(i).getMark_id());
                                 bean.setFreight_fee(o.get(i).getMoney());
@@ -646,7 +648,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                                 shichangList.add(bean);
                             }
                             tvHejijine.setText(hejijine + "");
-                            tvZhongliang.setText(+zongzhong+"斤)");
+                            tvZhongliang.setText(+MyMath.getDouble(zongzhong)+"斤)");
                             tvYunfei.setText(yunfei+"");
                         }
                     },false);
@@ -669,6 +671,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                                 hejijine += o.get(i).getMoney();
                                 yunfei +=o.get(i).getMoney();
                                 zongzhong += o.get(i).getSumZL();
+                                Log.e("onNext: 1122", o.get(i).getSumZL()+"---");
                                 AllMarket bean = new AllMarket();
                                 bean.setMarket_id(o.get(i).getMark_id());
                                 bean.setFreight_fee(o.get(i).getMoney());
@@ -677,7 +680,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                                 shichangList.add(bean);
                             }
                             tvHejijine.setText(hejijine + "");
-                            tvZhongliang.setText(+zongzhong+"斤)");
+                            tvZhongliang.setText(+MyMath.getDouble(zongzhong)+"斤)");
                             tvYunfei.setText(yunfei+"");
                         }
                     },false);

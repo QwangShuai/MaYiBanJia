@@ -2,6 +2,7 @@ package com.mingmen.mayi.mayibanjia.ui.activity;
 
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,6 +25,7 @@ import com.mingmen.mayi.mayibanjia.bean.WXPayBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dingdan.DingDanActivity;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.ClickUtil;
@@ -82,6 +84,9 @@ public class XuanZeZhiFuFangShiActivity extends BaseActivity {
 //    private String zhifujine;
     private IWXAPI api;
     public static XuanZeZhiFuFangShiActivity instance = null;
+    public Context mContext;
+    private ConfirmDialog confirmDialog;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_xuanzezhifufangshi;
@@ -91,6 +96,9 @@ public class XuanZeZhiFuFangShiActivity extends BaseActivity {
     protected void initData() {
 
         tvTitle.setText("在线支付");
+        mContext = this;
+        confirmDialog = new ConfirmDialog(mContext,
+                mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         api = WXAPIFactory.createWXAPI(this, null);
         dingdanid = getIntent().getStringExtra("dingdanid");
         zongjia = getIntent().getStringExtra("zongjia");
@@ -167,6 +175,21 @@ public class XuanZeZhiFuFangShiActivity extends BaseActivity {
                 if (!ClickUtil.isFastDoubleClick()) {
                     if (zhifufangshi == 0) {
                         ToastUtil.showToast("请选择支付方式");
+                    } else if(zhifufangshi == 1){
+                        confirmDialog.showDialog("是否确认使用余额支付");
+                        confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                confirmDialog.dismiss();
+                                tijiaozhifu();
+                            }
+                        });
+                        confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                confirmDialog.dismiss();
+                            }
+                        });
                     } else {
                         tijiaozhifu();
                     }

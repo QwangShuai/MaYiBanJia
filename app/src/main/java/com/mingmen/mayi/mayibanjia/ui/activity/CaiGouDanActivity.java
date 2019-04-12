@@ -19,6 +19,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.CaiGouDanBean;
+import com.mingmen.mayi.mayibanjia.bean.SPTGBean;
 import com.mingmen.mayi.mayibanjia.bean.ShangpinidAndDianpuidBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
@@ -133,6 +134,7 @@ public class CaiGouDanActivity extends BaseActivity {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, final int position) {
                 final CaiGouDanBean item = (CaiGouDanBean) adapter.getItem(position);
+                final String data1 = gson.toJson(item);
                 switch (view.getId()) {
                     case R.id.bt_xiangqing:
 //                        if(item.getOrder_audit_state().equals("902")){
@@ -143,30 +145,54 @@ public class CaiGouDanActivity extends BaseActivity {
                         }
 
                         //审批页
-                        Intent intent = new Intent(CaiGouDanActivity.this, ShenPiActivity.class);
+                        final Intent intent = new Intent(CaiGouDanActivity.this, ShenPiActivity.class);
                         if (item.getOrder_audit_state().equals("901")) {
-                            intent.setClass(CaiGouDanActivity.this, ShenPiChengGongActivity.class);
-                            intent.putExtra("id", item.getPurchase_id());
-                            intent.putExtra("caigouming",item.getPurchase_name());
+                            HttpManager.getInstance()
+                                    .with(mContext)
+                                    .setObservable(RetrofitManager.getService()
+                                            .getShenhechenggong(PreferenceUtils.getString(MyApplication.mContext, "token", ""), item.getPurchase_id()))
+                                    .setDataListener(new HttpDataListener<SPTGBean>() {
+                                        @Override
+                                        public void onNext(SPTGBean data) {
+                                            intent.setClass(CaiGouDanActivity.this, ShenPiChengGongActivity.class);
+                                            intent.putExtra("id", item.getPurchase_id());
+                                            intent.putExtra("caigouming",item.getPurchase_name());
+                                            intent.putExtra("data", data1);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    });
                         } else if (item.getOrder_audit_state().equals("903")) {
                             intent.setClass(CaiGouDanActivity.this, ShenPiShiBaiActivity.class);
                             intent.putExtra("id", item.getPurchase_id());
                             intent.putExtra("caigouming",item.getPurchase_name());
+                            startActivity(intent);
+                            finish();
+
                         } else if(item.getOrder_audit_state().equals("904")){
                             intent.setClass(CaiGouDanActivity.this, CaiGouXuQiuActivity.class);
                             intent.putExtra("id", item.getPurchase_id());
                             intent.putExtra("caigouming",item.getPurchase_name());
+                            intent.putExtra("data", data1);
+                            startActivity(intent);
+                            finish();
+                        } else if(item.getOrder_audit_state().equals("902")){
+                            if(StringUtil.isValid(item.getCt_buy_final_id())){
+                                intent.putExtra("ct_buy_final_id",item.getCt_buy_final_id());
+                                intent.putExtra("data", data1);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                intent.putExtra("purchase_id",item.getPurchase_id());
+                                intent.putExtra("caigouming",item.getPurchase_name());
+                                intent.putExtra("data", data1);
+                                startActivity(intent);
+                                finish();
+                            }
                         }
-                        String data1 = gson.toJson(item);
-                        if(StringUtil.isValid(item.getCt_buy_final_id())){
-                            intent.putExtra("ct_buy_final_id",item.getCt_buy_final_id());
-                        } else {
-                            intent.putExtra("purchase_id",item.getPurchase_id());
-                            intent.putExtra("caigouming",item.getPurchase_name());
-                        }
-                        intent.putExtra("data", data1);
-                        startActivity(intent);
-                        finish();
+
+
+
 //                        }
                         break;
                     case R.id.iv_xuanzhong://是否选中

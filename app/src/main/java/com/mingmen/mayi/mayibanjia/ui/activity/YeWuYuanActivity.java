@@ -3,6 +3,7 @@ package com.mingmen.mayi.mayibanjia.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -160,7 +161,7 @@ public class YeWuYuanActivity extends BaseActivity {
                 if (e == null)
                     return;
                 for (PieEntry value : strings) {
-                    if (value.getValue() == e.getY()) {
+                    if (value.getLabel() == ((PieEntry) e).getLabel()) {
                         switch (value.getLabel()) {
                             case "社区市场":
                                 tvYizhuce.setText("已注册:" + bean.getRegistered_she() + "");
@@ -230,7 +231,7 @@ public class YeWuYuanActivity extends BaseActivity {
                 startActivity(intent);
                 break;
             case R.id.ll_dcldd:
-                JumpScwl("1401","2");
+                JumpScwl("1401","2","");
                 break;
             case R.id.ll_ywy:
                 if (isShow) {
@@ -265,19 +266,19 @@ public class YeWuYuanActivity extends BaseActivity {
                 });
                 break;
             case R.id.ll_zcldd:
-                JumpScwl("1407","0");
+                JumpScwl("1407","0","0");
                 break;
             case R.id.ll_yjdd:
-                JumpScwl("1406","");
+                JumpScwl("1406","","0");
                 break;
             case R.id.ll_dqh:
-                JumpScwl("1401","");
+                JumpScwl("1401","","");
                 break;
             case R.id.ll_dsh:
-                JumpScwl("1402","");
+                JumpScwl("1402","","0");
                 break;
             case R.id.ll_ywcsh:
-                JumpScwl("1403","");
+                JumpScwl("1403","","0");
                 break;
         }
     }
@@ -340,10 +341,11 @@ public class YeWuYuanActivity extends BaseActivity {
                     }
                 });
     }
-    private void JumpScwl(String state,String teshu){
+    private void JumpScwl(String state,String teshu,String person_name){
         Intent it = new Intent(mContext,ShichangWuliuActivity.class);
         it.putExtra("type",state);
         it.putExtra("isShichang",teshu);
+        it.putExtra("person_name",person_name);
         startActivity(it);
     }
 }

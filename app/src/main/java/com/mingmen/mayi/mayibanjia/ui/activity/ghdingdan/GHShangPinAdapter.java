@@ -14,6 +14,7 @@ import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.GHOrderBean;
 import com.mingmen.mayi.mayibanjia.ui.activity.AddQrCodeActivity;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
+import com.mingmen.mayi.mayibanjia.utils.custom.MarqueeTextView;
 
 import java.util.List;
 
@@ -49,6 +50,7 @@ public class GHShangPinAdapter extends RecyclerView.Adapter<GHShangPinAdapter.Vi
             holder.tv_teshushangpin.setVisibility(View.GONE);
             holder.tv_shangpinbeizhu.setVisibility(View.GONE);
         }
+        holder.tv_shangpinming.setMarqueeEnable(true);
         holder.tv_shangpinming.setText(bean.getClassify_name());
         holder.tv_jiliang.setText(bean.getAcount_spec());
         holder.tv_jiage.setText("￥:"+String.valueOf(bean.getAll_price())+"元");
@@ -64,7 +66,7 @@ public class GHShangPinAdapter extends RecyclerView.Adapter<GHShangPinAdapter.Vi
         @BindView(R.id.tv_teshushangpin)
         TextView tv_teshushangpin;
         @BindView(R.id.tv_shangpinming)
-        TextView tv_shangpinming;
+        MarqueeTextView tv_shangpinming;
         @BindView(R.id.tv_jiliang)
         TextView tv_jiliang;
         @BindView(R.id.tv_jiage)

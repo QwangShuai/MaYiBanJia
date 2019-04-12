@@ -178,7 +178,14 @@
         android:layout_marginLeft="13dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
+        <com.mingmen.mayi.mayibanjia.utils.custom.MarqueeTextView
+            android:layout_weight="1"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:textAllCaps="true"
+            android:marqueeRepeatLimit="marquee_forever"
             android:id="@+id/tv_shangpin"
             android:layout_centerVertical="true"
             android:textSize="15sp"

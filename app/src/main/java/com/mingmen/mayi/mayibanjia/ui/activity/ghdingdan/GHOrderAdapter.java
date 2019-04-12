@@ -30,6 +30,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.dialog.TuikuanDialog;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
+import com.mingmen.mayi.mayibanjia.utils.custom.MarqueeTextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -156,6 +157,7 @@ public class GHOrderAdapter extends RecyclerView.Adapter<GHOrderAdapter.ViewHold
         }
         holder.tvDianpu.setText(bean.getCompany_name() + ":");
         holder.tvDianpuPhone.setText(bean.getTelephone());
+        holder.tv_shangpin.setMarqueeEnable(true);
         holder.tv_shangpin.setText(bean.getCountname());
         holder.tv_zongjia.setText("￥:" + bean.getTotal_price());
         holder.tv_order_number.setText("订单编号:" + bean.getGy_order_number());
@@ -273,7 +275,7 @@ public class GHOrderAdapter extends RecyclerView.Adapter<GHOrderAdapter.ViewHold
         @BindView(R.id.iv_dianhua)
         ImageView iv_dianhua;
         @BindView(R.id.tv_shangpin)
-        TextView tv_shangpin;
+        MarqueeTextView tv_shangpin;
         @BindView(R.id.btn_more)
         Button btn_more;
         @BindView(R.id.rv_shangpin)

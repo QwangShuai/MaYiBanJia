@@ -724,7 +724,8 @@ public interface HttpService {
                                                               @Query("wl_cars_state") String wl_cars_state,
                                                               @Query("pageNumber") String count,
                                                               @Query("wl_order_state") String wl_order_state,
-                                                              @Query("is_true_market") String is_true_market);
+                                                              @Query("is_true_market") String is_true_market,
+                                                              @Query("person_name") String person_name);
 
     //查询车辆类型
     @POST("wl/carsTypeList.do")

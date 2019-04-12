@@ -51,6 +51,7 @@ public class ShichangWuliuActivity extends BaseActivity {
     private Context mContext;
     private String type="";
     private String isShichang="";
+    private String person_name="";
     private final static int SCANNIN_GREQUEST_CODE = 1;
 
     @Override
@@ -63,6 +64,7 @@ public class ShichangWuliuActivity extends BaseActivity {
         mContext = this;
         type = getIntent().getStringExtra("type");
         isShichang = getIntent().getStringExtra("isShichang");
+        person_name = getIntent().getStringExtra("person_name");
         switch (type){
             case "1401":
                 if(isShichang.equals("2")){
@@ -115,7 +117,7 @@ public class ShichangWuliuActivity extends BaseActivity {
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(RetrofitManager.getService()
-                        .getWuliu(PreferenceUtils.getString(MyApplication.mContext, "token", ""), "", ye + "", type,isShichang))
+                        .getWuliu(PreferenceUtils.getString(MyApplication.mContext, "token", ""), "", ye + "", type,isShichang,person_name))
                 .setDataListener(new HttpDataListener<WuLiuObjBean<WuLiuBean>>() {
                     @Override
                     public void onNext(WuLiuObjBean<WuLiuBean> bean) {

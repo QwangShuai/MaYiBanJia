@@ -78,6 +78,7 @@ public class WuLiuFenPeiAdapter extends  RecyclerView.Adapter<WuLiuFenPeiAdapter
 
             }
         });
+        holder.tv_chuangjianshijian.setText(data.getCreate_time());
         holder.tv_dingdanbianhao.setText(data.getWl_cars_order_number().toString());
         if(!TextUtils.isEmpty(String.valueOf(data.getArrival_time()))){
             holder.tv_songhuoshijian.setText(String.valueOf(data.getArrival_time()));
@@ -110,7 +111,7 @@ public class WuLiuFenPeiAdapter extends  RecyclerView.Adapter<WuLiuFenPeiAdapter
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tv_orfenche,tv_biangeng,tv_fenpeiwuliuche,tv_dingdanbianhao,tv_songhuoshijian,
                 tv_zongzhongliang,tv_yunfei,tv_cheliangleixing,tv_chepaihao,tv_lianxiren,
-                tv_lianxifangshi,tv_shichang,tv_dizhi;
+                tv_lianxifangshi,tv_shichang,tv_dizhi,tv_chuangjianshijian;
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
@@ -127,6 +128,7 @@ public class WuLiuFenPeiAdapter extends  RecyclerView.Adapter<WuLiuFenPeiAdapter
             tv_lianxifangshi=(TextView)view.findViewById(R.id.tv_lianxifangshi);
             tv_shichang=(TextView)view.findViewById(R.id.tv_shichang);
             tv_dizhi=(TextView)view.findViewById(R.id.tv_dizhi);
+            tv_chuangjianshijian=(TextView)view.findViewById(R.id.tv_chuangjianshijian);
         }
     }
 }

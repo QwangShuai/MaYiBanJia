@@ -60,7 +60,7 @@ public class WuLiuBean {
     private String wl_cars_order_number;
     private String wl_cars_order_id;
     private int freight_fee;
-    private Object create_time;
+    private String create_time;
     private String scanCount;
     private String packCount;
     private String wl_cars_state;
@@ -184,11 +184,11 @@ public class WuLiuBean {
         this.freight_fee = freight_fee;
     }
 
-    public Object getCreate_time() {
+    public String getCreate_time() {
         return create_time;
     }
 
-    public void setCreate_time(Object create_time) {
+    public void setCreate_time(String create_time) {
         this.create_time = create_time;
     }
 

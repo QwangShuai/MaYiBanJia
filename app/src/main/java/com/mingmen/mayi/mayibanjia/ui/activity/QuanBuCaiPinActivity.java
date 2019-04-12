@@ -47,6 +47,7 @@ import com.mingmen.mayi.mayibanjia.ui.view.ZiXunPagingScrollHelper;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
+import com.mingmen.mayi.mayibanjia.utils.custom.FixedHeadScrollView;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -61,7 +62,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class QuanBuCaiPinActivity extends BaseActivity {
+public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrollView.FixedHeadScrollViewListener {
 
     @BindView(R.id.view_zhanwei)
     View viewZhanwei;
@@ -111,6 +112,10 @@ public class QuanBuCaiPinActivity extends BaseActivity {
     TextView tvJiage;
     @BindView(R.id.ll_jiage)
     LinearLayout llJiage;
+    @BindView(R.id.ll_head)
+    LinearLayout llHead;
+    @BindView(R.id.ll_head_gd)
+    LinearLayout llHeadGd;
     @BindView(R.id.tv_tejia)
     TextView tvTejia;
     @BindView(R.id.tv_jishida)
@@ -125,6 +130,8 @@ public class QuanBuCaiPinActivity extends BaseActivity {
     LinearLayout llShangpin;
     @BindView(R.id.rv_shichangjia)
     RecyclerView rvShichangjia;
+//    @BindView(R.id.scrv)
+//    FixedHeadScrollView scrv;
 
     private ShiChangSouSuoShangPinListAdapter shichangadapter;
     private ArrayList<ShiChangSouSuoShangPinBean> shichanglist = new ArrayList<>();
@@ -204,6 +211,7 @@ public class QuanBuCaiPinActivity extends BaseActivity {
     private boolean isResult;
     private XJSPFeiLeiGuigeAdapter guigeadapter;
     private List<ShangPinSousuoMohuBean> mlist = new ArrayList<>();
+    private int topDistance;
 
     @Override
     public int getLayoutId() {
@@ -259,14 +267,14 @@ public class QuanBuCaiPinActivity extends BaseActivity {
 
                 if (dy + viewHeight < 0) {
 //                    mystate = 1;
-//                    if (rlLei.getVisibility() == View.VISIBLE ? false : true) {
-//                        rlLei.setVisibility(View.VISIBLE);
-//                    }
+                    if (rlLei.getVisibility() == View.VISIBLE ? false : true) {
+                        rlLei.setVisibility(View.VISIBLE);
+                    }
                 } else if (dy - viewHeight > 0) {
 //                    mystate = 2;
-//                    if (rlLei.getVisibility() == View.VISIBLE ? true : false) {
-//                        rlLei.setVisibility(View.GONE);
-//                    }
+                    if (rlLei.getVisibility() == View.VISIBLE ? true : false) {
+                        rlLei.setVisibility(View.GONE);
+                    }
                 }
             }
         });
@@ -328,6 +336,7 @@ public class QuanBuCaiPinActivity extends BaseActivity {
         erjiadapter = new YiJiFenLeiAdapter();
         guigeadapter = new XJSPFeiLeiGuigeAdapter(mContext, mlist);
         sousuoshangpin("", "0");
+//        scrv.setFixedHeadScrollViewListener(this);
     }
     @OnClick({R.id.ll_shichangjia, R.id.ll_pinzhong, R.id.ll_pinlei, R.id.ll_shichang,
             R.id.ll_sousuo, R.id.tv_xiaoliang, R.id.ll_jiage, R.id.tv_pingfenzuigao,
@@ -1082,5 +1091,23 @@ public class QuanBuCaiPinActivity extends BaseActivity {
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void sendDistanceY(int distance) {
+        if(distance>=topDistance){
+            llHead.setVisibility(View.VISIBLE);
+        }else{
+            llHead.setVisibility(View.GONE);
+        }
+
+    }
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if(hasFocus){
+            topDistance=refreshLayout.getTop();
+            Log.i("msg","topDistance="+topDistance);
+        }
     }
 }

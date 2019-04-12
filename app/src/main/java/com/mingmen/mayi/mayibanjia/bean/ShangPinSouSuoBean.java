@@ -203,6 +203,16 @@ public class ShangPinSouSuoBean  {
             private String classify_name;
             private String spec_describe;//规格描述
             private String real_time_state;//实时达
+            private String type_four_id;//四级分类id
+
+            public String getType_four_id() {
+                return type_four_id;
+            }
+
+            public void setType_four_id(String type_four_id) {
+                this.type_four_id = type_four_id;
+            }
+
             private List<ListGG> listgg;
 
             public String getReal_time_state() {

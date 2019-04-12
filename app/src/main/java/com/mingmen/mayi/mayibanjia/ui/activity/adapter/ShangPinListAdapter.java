@@ -106,9 +106,9 @@ public class ShangPinListAdapter extends RecyclerView.Adapter<ShangPinListAdapte
                 Intent zoushi=new Intent(mContext,TubiaoActivity.class);
                 zoushi.putExtra("mark_id",data.getSon_number());//市场id
                 zoushi.putExtra("market_name",data.getMarket_name());//市场名
-                zoushi.putExtra("classify_id",data.getType_tree_id());//三级分类名称
+                zoushi.putExtra("classify_id",data.getType_four_id());//三级分类名称
                 zoushi.putExtra("classify_name",data.getClassify_name());//三级分类名称
-                Log.e("classify_name",data.getSon_number()+"="+data.getClassify_name()+"="+data.getMarket_name()+"="+data.getType_tree_id());
+                //Log.e("classify_name",data.getSon_number()+"="+data.getClassify_name()+"="+data.getMarket_name()+"="+data.getType_tree_id());
                 mContext.startActivity(zoushi);
             }
         });

@@ -95,10 +95,10 @@ public class ChangGouListLevelTwoAdapter extends RecyclerView.Adapter<ChangGouLi
                         }
                     });
                 } else {
-                    boolean b = !bean.isSelect();
-                    mList.get(position).setSelect(b);
+//                    boolean b = !bean.isSelect();
+//                    mList.get(position).setSelect(b);
                     activity.onChangeMap(bean);
-                    notifyDataSetChanged();
+//                    notifyDataSetChanged();
                 }
             }
         });

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
 import com.google.gson.Gson;
+import com.lzj.pass.dialog.PayPassDialog;
+import com.lzj.pass.dialog.PayPassView;
 import com.mingmen.mayi.mayibanjia.MainActivity;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
@@ -176,12 +179,32 @@ public class XuanZeZhiFuFangShiActivity extends BaseActivity {
                     if (zhifufangshi == 0) {
                         ToastUtil.showToast("请选择支付方式");
                     } else if(zhifufangshi == 1){
+
+
+
                         confirmDialog.showDialog("是否确认使用余额支付");
                         confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 confirmDialog.dismiss();
-                                tijiaozhifu();
+                                final PayPassDialog payDialog = new PayPassDialog(mContext);
+                                payDialog.getPayViewPass()
+                                        .setPayClickListener(new PayPassView.OnPayClickListener() {
+                                            @Override
+                                            public void onPassFinish(String s) {
+                                                tijiaozhifu();
+                                            }
+                                            @Override
+                                            public void onPayClose() {
+                                                payDialog.dismiss();
+                                            }
+
+                                            @Override
+                                            public void onPayForget() {
+                                                ToastUtil.showToastLong("你是个傻子吧");
+                                            }
+                                        });
+//                                tijiaozhifu();
                             }
                         });
                         confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
@@ -230,13 +253,14 @@ public class XuanZeZhiFuFangShiActivity extends BaseActivity {
                      对于支付结果，请商户依赖服务端的异步通知结果。同步通知结果，仅作为支付结束的通知。
                      */
                     String resultInfo = payResult.getResult();// 同步返回需要验证的信息
-                    PostZFBBean bean = new Gson().fromJson(resultInfo,PostZFBBean.class);
+                    Log.e( "handleMessage: ", resultInfo );
+//                    PostZFBBean bean = new Gson().fromJson(resultInfo,PostZFBBean.class);
                     String resultStatus = payResult.getResultStatus();
                     // 判断resultStatus 为9000则代表支付成功
                     if (TextUtils.equals(resultStatus, "9000")) {
                         // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
                         Toast.makeText(XuanZeZhiFuFangShiActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
-                        postZFB(bean.getOut_trade_no(),bean.getTrade_no(),bean.getAmount(),bean.getTrade_status());
+                        postZFB(resultInfo);
 
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
@@ -323,17 +347,20 @@ public class XuanZeZhiFuFangShiActivity extends BaseActivity {
                     }
                 }, false);
     }
-    public void postZFB(String out_trade_no,String trade_no,String amount,String trade_status){
+    public void postZFB(String message){
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
                         RetrofitManager
                                 .getService()//支付方式  1余额支付 2微信支付 3支付宝支付
-                                .postZFB(PreferenceUtils.getString(MyApplication.mContext, "token", ""), out_trade_no , trade_no, amount,trade_status))
+                                .postZFB(PreferenceUtils.getString(MyApplication.mContext, "token", ""), message))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
-
+                        Intent intent = new Intent(mContext, DingDanActivity.class);
+                        intent.putExtra("to_shop", 0);
+                        startActivity(intent);
+                        finish();
                     }
                 }, false);
     }

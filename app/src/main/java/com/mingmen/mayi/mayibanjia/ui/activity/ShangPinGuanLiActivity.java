@@ -1,6 +1,7 @@
 package com.mingmen.mayi.mayibanjia.ui.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -109,12 +110,16 @@ public class ShangPinGuanLiActivity extends BaseActivity {
         } else {
             token = PreferenceUtils.getString(MyApplication.mContext, "token", "");
         }
+        tvTitleTj.setTextColor(mContext.getResources().getColor(R.color.white_no_70));
+        tvTitleTj.setText("添加商品");
+        tvTitle.setTextColor(mContext.getResources().getColor(R.color.white));
         if(goods.equals("0")){
-            tvTitle.setTextColor(mContext.getResources().getColor(R.color.white));
-            tvTitleTj.setTextColor(mContext.getResources().getColor(R.color.white_no_70));
+            tvTitle.setText("普通商品");
         } else {
-            tvTitle.setTextColor(mContext.getResources().getColor(R.color.white_no_70));
-            tvTitleTj.setTextColor(mContext.getResources().getColor(R.color.white));
+            tvTitle.setText("特价商品");
+//            tvTitle.setTextColor(mContext.getResources().getColor(R.color.white_no_70));
+//            tvTitle.setVisibility(View.GONE);
+//            tvTitleTj.setTextColor(mContext.getResources().getColor(R.color.white));
         }
         vpDingdan.setAdapter(adapter);
         vpDingdan.setScanScroll(false);
@@ -133,26 +138,31 @@ public class ShangPinGuanLiActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_title:
-                if(goods.equals("1")){
-                    tvTitle.setTextColor(mContext.getResources().getColor(R.color.white));
-                    tvTitleTj.setTextColor(mContext.getResources().getColor(R.color.gray_e7e7e7));
-                    ToastUtil.showToastLong("切换为普通");
-                    isShow =false;
-                    goods = "0";
-                    adapter.notifyDataSetChanged();
-                    EventBus.getDefault().post(new MessageBean(goods));
-                }
+//                if(goods.equals("1")){
+//                    tvTitle.setTextColor(mContext.getResources().getColor(R.color.white));
+//                    tvTitleTj.setTextColor(mContext.getResources().getColor(R.color.gray_e7e7e7));
+//                    ToastUtil.showToastLong("切换为普通");
+//                    isShow =false;
+//                    goods = "0";
+//                    adapter.notifyDataSetChanged();
+//                    EventBus.getDefault().post(new MessageBean(goods));
+//                }
                 break;
             case R.id.tv_title_tj:
-                if(goods.equals("0")){
-                    tvTitle.setTextColor(mContext.getResources().getColor(R.color.gray_e7e7e7));
-                    tvTitleTj.setTextColor(mContext.getResources().getColor(R.color.white));
-                    ToastUtil.showToastLong("切换为特价");
-                    isShow = true;
-                    goods = "1";
-                    adapter.notifyDataSetChanged();
-                    EventBus.getDefault().post(new MessageBean(goods));
-                }
+//                if(goods.equals("0")){
+//                    tvTitle.setTextColor(mContext.getResources().getColor(R.color.gray_e7e7e7));
+//                    tvTitleTj.setTextColor(mContext.getResources().getColor(R.color.white));
+//                    ToastUtil.showToastLong("切换为特价");
+//                    isShow = true;
+//                    goods = "1";
+//                    adapter.notifyDataSetChanged();
+//                    EventBus.getDefault().post(new MessageBean(goods));
+//                }
+                //添加商品
+                Intent intent = new Intent(mContext, FaBuShangPinActivity.class);
+                intent.putExtra("state", "0");
+                intent.putExtra("goods", goods);
+                startActivity(intent);
                 break;
             case R.id.iv_back:
                 finish();

@@ -293,6 +293,11 @@ public class FaBuShangPinActivity extends BaseActivity {
             String id = getIntent().getStringExtra("bean");
             setDataView(id);
         }
+
+        if(goods.equals("1")){
+            istejia = true;
+            llShowTejia.setVisibility(View.VISIBLE);
+        }
         ivQingkong.setVisibility(View.GONE);
         etKucun.addTextChangedListener(new TextWatcher() {
             @Override
@@ -358,6 +363,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                         tejiadialog.cancel();
                         istejia = true;
                         tvTejia.setText("是");
+                        llShowTejia.setVisibility(View.VISIBLE);
                     }
                 });
                 tejiadialog.getTvXuanxiang2().setOnClickListener(new View.OnClickListener() {
@@ -366,6 +372,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                         tejiadialog.cancel();
                         istejia = false;
                         tvTejia.setText("否");
+                        llShowTejia.setVisibility(View.GONE);
                     }
                 });
                 break;
@@ -985,27 +992,27 @@ public class FaBuShangPinActivity extends BaseActivity {
                             spname = bean.getClassify_name() + "";
                             tvFenleimingcheng.setText(bean.getType_one_name());
                         }
-                        if (StringUtil.isValid(getIntent().getStringExtra("tejia"))||yemian.equals("1")||goods.equals("1")) {//转换为特价
-                            llFenleimingcheng.setEnabled(false);
-                            llSanjiguige.setEnabled(false);
-                            etNumber.setEnabled(false);
-                            llZxgg.setEnabled(false);
-                            llTeshu.setVisibility(View.GONE);
-                            isSelect = true;
-                            ivTeshu.setSelected(true);
-                            if(StringUtil.isValid(getIntent().getStringExtra("tejia"))||goods.equals("1")){
-                                etPpming.setEnabled(false);
-                                etQidingliangdanjia1.setEnabled(false);
-                                llShowTejia.setVisibility(View.VISIBLE);
-                                istejia = true;
-                                if(bean.getPice()>0){
-                                    etTejia.setText(bean.getPice()+"");
-                                }
-//                                llTj.setVisibility(View.VISIBLE);
-                            }
-                            etSpming.setText(bean.getClassify_name());
-
-                        }
+//                        if (StringUtil.isValid(getIntent().getStringExtra("tejia"))||yemian.equals("1")||goods.equals("1")) {//转换为特价
+//                            llFenleimingcheng.setEnabled(false);
+//                            llSanjiguige.setEnabled(false);
+//                            etNumber.setEnabled(false);
+//                            llZxgg.setEnabled(false);
+//                            llTeshu.setVisibility(View.GONE);
+//                            isSelect = true;
+//                            ivTeshu.setSelected(true);
+//                            if(StringUtil.isValid(getIntent().getStringExtra("tejia"))||goods.equals("1")){
+//                                etPpming.setEnabled(false);
+//                                etQidingliangdanjia1.setEnabled(false);
+//                                llShowTejia.setVisibility(View.VISIBLE);
+//                                istejia = true;
+//                                if(bean.getPice()>0){
+//                                    etTejia.setText(bean.getPice()+"");
+//                                }
+////                                llTj.setVisibility(View.VISIBLE);
+//                            }
+//                            etSpming.setText(bean.getClassify_name());
+//
+//                        }
 
 //                        etSpming.setText(bean.getClassify_name() + "");
 
@@ -1033,7 +1040,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                         }
 
 
-                        tvTejia.setText(bean.getGoods().equals("1") ? "是" : "否");
+//                        tvTejia.setText(bean.getGoods().equals("1") ? "是" : "否");
                         etSpming.setEnabled(true);
 //                        Log.e( "onNext: ",bean.getPackThreeName() );
                         zxid = bean.getAffiliated_spec();

@@ -98,6 +98,8 @@ public class QueRenDingDanActivity extends BaseActivity {
     TextView tvBiaozhunda;
     @BindView(R.id.tv_zhunshida)
     TextView tvZhushida;
+    @BindView(R.id.tv_hint)
+    TextView tvHint;
     //    @BindView(R.id.tv_yue)
 //    TextView tvYue;
 //    @BindView(R.id.iv_xuanzeyue)
@@ -137,6 +139,7 @@ public class QueRenDingDanActivity extends BaseActivity {
     private List<String> son_order_id_list = new ArrayList<>();
     private String isTime;
     private String isZhunshi;
+    private Integer cs_money;
     @Override
     public int getLayoutId() {
         return R.layout.activity_querendingdan;
@@ -154,7 +157,7 @@ public class QueRenDingDanActivity extends BaseActivity {
         company_id = company_id.substring(0, company_id.length() - 1);
 
         zongjia = getIntent().getStringExtra("zongjia");
-
+        getChMoney();
         if (Integer.parseInt(lujingtype) == 2) {
             son_order_id = getIntent().getStringExtra("son_order_id");
             son_order_id = son_order_id.substring(0, son_order_id.length() - 1);
@@ -208,7 +211,10 @@ public class QueRenDingDanActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .tijiaodingdan(PreferenceUtils.getString(MyApplication.mContext, "token", ""), hejijine+"", "", yunfei+"", yue, dizhi.getAddress_id(), songdashijianid, shopping_id, remarke,new Gson().toJson(shichangList),isZhunshi))
+                                .tijiaodingdan(PreferenceUtils.getString(MyApplication.mContext, "token", ""),
+                                        hejijine+"", "", yunfei+"", yue, dizhi.getAddress_id(),
+                                        songdashijianid, shopping_id, remarke,new Gson().toJson(shichangList),
+                                        isZhunshi,cs_money+""))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
@@ -246,8 +252,10 @@ public class QueRenDingDanActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .caigoutijiaodingdan(PreferenceUtils.getString(MyApplication.mContext, "token", ""), hejijine+"", "", yunfei+"", yue, dizhi.getAddress_id(), songdashijianid,
-                                        son_order_id, commodity_id, remarke,new Gson().toJson(shichangList),tsyq,ct_buy_final_id,"0"))
+                                .caigoutijiaodingdan(PreferenceUtils.getString(MyApplication.mContext, "token", ""),
+                                        hejijine+"", "", yunfei+"", yue, dizhi.getAddress_id(), songdashijianid,
+                                        son_order_id, commodity_id, remarke,new Gson().toJson(shichangList),
+                                        tsyq,ct_buy_final_id,"0",cs_money+""))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
@@ -693,6 +701,27 @@ public class QueRenDingDanActivity extends BaseActivity {
         }
         return new Gson().toJson(list);
     }
-
+    private void getChMoney() {
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .getChMoney(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
+                .setDataListener(new HttpDataListener<Integer>() {
+                    @Override
+                    public void onNext(Integer money) {
+                        cs_money = money;
+                        if(money==0){
+                            tvHint.setVisibility(View.GONE);
+                        } else {
+                            tvHint.setText("18:00后下订单，平台收取相应的服务费"+money+"元");
+                            tvHint.setVisibility(View.VISIBLE);
+                           Double jiage = Double.valueOf(zongjia)+money;
+                            zongjia = jiage+"";
+                        }
+                    }
+                });
+    }
 
 }

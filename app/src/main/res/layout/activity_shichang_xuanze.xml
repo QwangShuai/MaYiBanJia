@@ -98,7 +98,6 @@
                 android:layout_weight="1"
                 />
             <android.support.v7.widget.RecyclerView
-                android:layout_marginTop="12dp"
                 android:id="@+id/rv_yijishichang"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -121,7 +120,6 @@
                 android:textSize="15sp" />
 
             <android.support.v7.widget.RecyclerView
-                android:layout_marginTop="12dp"
                 android:id="@+id/rv_erjishichang"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -145,7 +143,6 @@
                 android:layout_weight="1"
                 />
             <android.support.v7.widget.RecyclerView
-                android:layout_marginTop="12dp"
                 android:id="@+id/rv_sanjishichang"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -146,14 +146,16 @@ public class ShichangXuanzeActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<AllShiChangBean>() {
                     @Override
                     public void onNext(AllShiChangBean data) {
-
                         shiChangBean = data;
                         if(StringUtil.isValid(sq_id)){
-                            if (shiChangBean.getTwoList() != null) {
+                            int two = shiChangBean.getTwoList()==null?0:shiChangBean.getTwoList().size();
+                            if (two!=0) {
                                 erjiAdapter.setNewData(shiChangBean.getTwoList());
+                                tvErji.setVisibility(View.VISIBLE);
                                 Log.e("erji", "erji");
                             } else {
                                 tvErji.setVisibility(View.GONE);
+                                erjiAdapter.setNewData(null);
                             }
                             erjiAdapter
                                     .setXuanZhongId(shichangid)
@@ -168,12 +170,14 @@ public class ShichangXuanzeActivity extends BaseActivity {
                             rvErjishichang.setLayoutManager(new GridLayoutManager(mContext, 2));
                             rvErjishichang.setAdapter(erjiAdapter);
 
-
-                            if (shiChangBean.getThreeList() != null) {
+                            int three = shiChangBean.getThreeList()==null?0:shiChangBean.getThreeList().size();
+                            if (three != 0) {
                                 Log.e("sanji", "sanji");
+                                tvSanji.setVisibility(View.VISIBLE);
                                 sanjiAdapter.setNewData(shiChangBean.getThreeList());
                             } else {
                                 tvSanji.setVisibility(View.GONE);
+                                sanjiAdapter.setNewData(null);
                             }
                             sanjiAdapter
                                     .setXuanZhongId(shichangid)
@@ -188,10 +192,13 @@ public class ShichangXuanzeActivity extends BaseActivity {
                             rvSanjishichang.setLayoutManager(new GridLayoutManager(mContext, 2));
                             rvSanjishichang.setAdapter(sanjiAdapter);
                         } else {
-                            if (shiChangBean.getOneList() != null) {
+                            int one = shiChangBean.getOneList()==null?0:shiChangBean.getOneList().size();
+                            if (one != 0) {
                                 yijiAdapter.setNewData(shiChangBean.getOneList());
+                                tvYiji.setVisibility(View.VISIBLE);
                             } else {
                                 tvYiji.setVisibility(View.GONE);
+                                yijiAdapter.setNewData(null);
                             }
                             yijiAdapter.setXuanZhongId(shichangid)
                                     .setCallBack(new ShiChangAdapter.CallBack() {

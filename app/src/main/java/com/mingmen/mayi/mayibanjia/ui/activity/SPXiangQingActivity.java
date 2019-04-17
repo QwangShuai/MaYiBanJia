@@ -200,6 +200,7 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
         StatusBarCompat.translucentStatusBar(this);
         ButterKnife.bind(this);
         mContext = SPXiangQingActivity.this;
+        ivSangedian.setVisibility(View.GONE);
         initData();
         jiarugouwuchedialog = new JiaRuGouWuCheDialog(mContext,
                 mContext.getResources().getIdentifier("BottomDialog", "style", mContext.getPackageName()));

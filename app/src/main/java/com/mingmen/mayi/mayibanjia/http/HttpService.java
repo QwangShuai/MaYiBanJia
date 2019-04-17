@@ -540,7 +540,8 @@ public interface HttpService {
                                                   @Query("shopping_id") String shopping_id,//shopping_id
                                                   @Query("remarke") String remarke,//留言
                                                   @Query("feelist") String list,//市场数组
-                                                  @Query("freight_fee_type") String freight_fee_type);//0标准达1实时达
+                                                  @Query("freight_fee_type") String freight_fee_type,//0标准达1实时达
+                                                  @Query("app_money") String app_money);//超时费
 
     //提交订单
     @POST("Ordermain/saveUserOrder.do")
@@ -557,7 +558,8 @@ public interface HttpService {
                                                         @Query("feelist") String list,//市场数组
                                                         @Query("special_commodity") String special_commodity,//特殊要求
                                                         @Query("ct_buy_final_id") String ct_buy_final_id,
-                                                        @Query("freight_fee_type") String freight_fee_type);
+                                                        @Query("freight_fee_type") String freight_fee_type,
+                                                        @Query("app_money") String app_money);
 
     //查询余额
     @POST("payHistory/getBalance.do")
@@ -1277,10 +1279,7 @@ public interface HttpService {
     //支付宝返回数据回传
     @POST("notify/getPayNotify.do")
     Observable<ResultModel<String>> postZFB(@Query("user_token") String user_token,
-                                            @Query("out_trade_no") String out_trade_no,
-                                            @Query("trade_no") String trade_no,
-                                            @Query("amount") String amount,
-                                            @Query("trade_status") String trade_status);
+                                            @Query("alipay_message") String alipay_message);
 
     //获取商品4级
     @POST("ctObserver/queryThree")
@@ -1380,4 +1379,12 @@ public interface HttpService {
     Observable<ResultModel<String>> changeOrder(@Query("user_token") String user_token,
                                               @Query("wl_cars_order_id") String wl_cars_order_id,
                                               @Query("person_name") String person_name);
+
+    // 购物车数量
+    @POST("ctShoppingCart/selectByCount.do")
+    Observable<ResultModel<String>> getGwcNo(@Query("user_token") String user_token);
+
+    // 获取超时费
+    @POST("Ordermain/querybytime.do")
+    Observable<ResultModel<Integer>> getChMoney(@Query("user_token") String user_token);
 }

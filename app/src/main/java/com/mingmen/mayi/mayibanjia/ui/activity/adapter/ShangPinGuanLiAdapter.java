@@ -211,7 +211,8 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
                     break;
                 case "2"://下架
                     holder.btShangjia.setVisibility(View.VISIBLE);
-                    holder.btAddGuige.setVisibility(goods.equals("1")?View.GONE:View.VISIBLE);
+//                    holder.btAddGuige.setVisibility(goods.equals("1")?View.GONE:View.VISIBLE);
+                    holder.btAddGuige.setVisibility(View.VISIBLE);
                     holder.btBianji.setVisibility(View.VISIBLE);
                     holder.tvXiajia.setVisibility(View.VISIBLE);
                     holder.btShangjia.setOnClickListener(new OnClickListener() {
@@ -225,14 +226,14 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
 
                         }
                     });
-                    holder.btIsTejia.setVisibility(View.VISIBLE);
-                    holder.btIsTejia.setText(goods.equals("1")?"取消特价":"转为特价");
+//                    holder.btIsTejia.setVisibility(View.VISIBLE);
+//                    holder.btIsTejia.setText(goods.equals("1")?"取消特价":"转为特价");
                     break;
                 case "3"://审核中
                     holder.btShangjia.setVisibility(View.VISIBLE);
                     holder.btShangjia.setText("审核中");
-                    holder.btIsTejia.setVisibility(goods.equals("1")?View.VISIBLE:View.GONE);
-                    holder.btIsTejia.setText("取消特价");
+//                    holder.btIsTejia.setVisibility(goods.equals("1")?View.VISIBLE:View.GONE);
+//                    holder.btIsTejia.setText("取消特价");
                     break;
                 case "4"://审核失败
                     holder.llWenhao.setVisibility(View.VISIBLE);
@@ -254,59 +255,59 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
                     holder.btBianji.setVisibility(View.VISIBLE);
                     holder.btShangjia.setVisibility(View.VISIBLE);
                     holder.btShangjia.setText("审核失败");
-                    holder.btIsTejia.setVisibility(goods.equals("1")?View.VISIBLE:View.GONE);
-                    holder.btIsTejia.setText("取消特价");
+//                    holder.btIsTejia.setVisibility(goods.equals("1")?View.VISIBLE:View.GONE);
+//                    holder.btIsTejia.setText("取消特价");
                     break;
             }
 
 
-        if(goods.equals("1")){
-            holder.btAddGuige.setVisibility(View.GONE);
-            holder.btIsTejia.setText("取消特价");
-//            holder.btIsTejia.setTextColor(mContext.getResources().getColor(R.color.zangqing));
-            holder.btIsTejia.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (isClick()) {
-                        confirmDialog.showDialog("是否取消特价，转化为普通商品");
-                        confirmDialog.getTvSubmit().setOnClickListener(new OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                getData(bean.getCommodity_id(),"0","",bean.getPice_one()+"");
-                            }
-                        });
-                        confirmDialog.getTvCancel().setOnClickListener(new OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                confirmDialog.dismiss();
-                            }
-                        });
-                    } else {
-                        ToastUtil.showToastLong("请注意，您只有阅览权限");
-                    }
-
-
-                }
-            });
-        } else {
-            holder.btIsTejia.setText("转为特价");
-            holder.btIsTejia.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (isClick()) {
-                        Intent it = new Intent(mContext, FaBuShangPinActivity.class);
-                        it.putExtra("state", "1");
-                        it.putExtra("goods", goods);
-                        it.putExtra("tejia","1");
-                        it.putExtra("bean", bean.getCommodity_id());
-                        mContext.startActivity(it);
-                    } else {
-                        ToastUtil.showToastLong("请注意，您只有阅览权限");
-                    }
-
-                }
-            });
-        }
+//        if(goods.equals("1")){
+//            holder.btAddGuige.setVisibility(View.GONE);
+//            holder.btIsTejia.setText("取消特价");
+////            holder.btIsTejia.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+//            holder.btIsTejia.setOnClickListener(new OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if (isClick()) {
+//                        confirmDialog.showDialog("是否取消特价，转化为普通商品");
+//                        confirmDialog.getTvSubmit().setOnClickListener(new OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                getData(bean.getCommodity_id(),"0","",bean.getPice_one()+"");
+//                            }
+//                        });
+//                        confirmDialog.getTvCancel().setOnClickListener(new OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                confirmDialog.dismiss();
+//                            }
+//                        });
+//                    } else {
+//                        ToastUtil.showToastLong("请注意，您只有阅览权限");
+//                    }
+//
+//
+//                }
+//            });
+//        } else {
+//            holder.btIsTejia.setText("转为特价");
+//            holder.btIsTejia.setOnClickListener(new OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if (isClick()) {
+//                        Intent it = new Intent(mContext, FaBuShangPinActivity.class);
+//                        it.putExtra("state", "1");
+//                        it.putExtra("goods", goods);
+//                        it.putExtra("tejia","1");
+//                        it.putExtra("bean", bean.getCommodity_id());
+//                        mContext.startActivity(it);
+//                    } else {
+//                        ToastUtil.showToastLong("请注意，您只有阅览权限");
+//                    }
+//
+//                }
+//            });
+//        }
     }
 
     @Override

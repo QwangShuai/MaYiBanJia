@@ -49,6 +49,7 @@ import com.mingmen.mayi.mayibanjia.ui.view.ZiXunPagingScrollHelper;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
+import com.mingmen.mayi.mayibanjia.utils.custom.ChatView;
 import com.mingmen.mayi.mayibanjia.utils.custom.FixedHeadScrollView;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
@@ -124,8 +125,8 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
     TextView tvJishida;
     @BindView(R.id.tv_pingfenzuigao)
     TextView tvPingfenzuigao;
-    @BindView(R.id.tv_gwc_no)
-    TextView tvGwcNo;
+//    @BindView(R.id.tv_gwc_no)
+//    TextView tvGwcNo;
     @BindView(R.id.rv_shangpin)
     SwipeMenuRecyclerView rvShangpin;
     @BindView(R.id.refresh_layout)
@@ -134,8 +135,10 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
     LinearLayout llShangpin;
     @BindView(R.id.rv_shichangjia)
     RecyclerView rvShichangjia;
-    @BindView(R.id.rl_gwc)
-    RelativeLayout rlGwc;
+//    @BindView(R.id.rl_gwc)
+//    RelativeLayout rlGwc;
+//    @BindView(R.id.cv_xuanfu)
+//    ChatView cvXuanfu;
 //    @BindView(R.id.scrv)
 //    FixedHeadScrollView scrv;
 
@@ -220,7 +223,7 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
     private XJSPFeiLeiGuigeAdapter guigeadapter;
     private List<ShangPinSousuoMohuBean> mlist = new ArrayList<>();
     private int topDistance;
-
+    private ChatView cvXuanfu;
     @Override
     public int getLayoutId() {
         return R.layout.activity_quan_bu_cai_pin;
@@ -235,6 +238,30 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
             tvTejia.setTextColor(getResources().getColor(R.color.zangqing));
             istejia = "1";
         }
+        cvXuanfu = new ChatView(this);
+        cvXuanfu.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return false;
+            }
+        });
+        cvXuanfu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("onTouchEvent: ","点击" );
+                //购物车
+                Intent intent=new Intent(mContext, GouWuCheActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
+//        cvXuanfu.setChatViewOnClick(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
+        cvXuanfu.show();
+        getGwcNo();
         bindPop();
         leiAdapter = new QuanBuCaiPinLeiAdapter(mContext, lei_datas, this);
         getShouyeFenLei(yclId, "2");
@@ -347,81 +374,81 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
         DisplayMetrics dm = getResources().getDisplayMetrics();
         screenWidth = dm.widthPixels;
         screenHeight = dm.heightPixels;
-        rlGwc.setOnTouchListener(new View.OnTouchListener() {
-            int lastX, lastY;
-            // 记录移动的最后的位置
-            private int btnHeight;
-
-            public boolean onTouch(View v, MotionEvent event) {
-                // 获取Action
-                int ea = event.getAction();
-                switch (ea) {
-                    case MotionEvent.ACTION_DOWN: // 按下
-                        lastX = (int) event.getRawX();
-                        lastY = (int) event.getRawY();
-                        screenWidth = view.getWidth();
-                        screenHeight = view.getHeight();
-                        btnHeight = rlGwc.getHeight();
-                        // Toast.makeText(getActivity(), "ACTION_DOWN：" + lastX + ",					// " + lastY, 0).show();
-                        break;
-                    case MotionEvent.ACTION_MOVE: // 移动					// 移动中动态设置位置
-                        int dx = (int) event.getRawX() - lastX;
-                        int dy = (int) event.getRawY() - lastY;
-                        int left = v.getLeft() + dx;
-                        int top = v.getTop() + dy;
-                        int right = v.getRight() + dx;
-                        int bottom = v.getBottom() + dy;
-                        if (left < 0) {
-                            left = 0;
-                            right = left + v.getWidth();
-                        }
-                        if (right > screenWidth) {
-                            right = screenWidth;
-                            left = right - v.getWidth();
-                        }
-                        if (top < 0) {
-                            top = 0;
-                            bottom = top + v.getHeight();
-                        }
-                        if (bottom > screenHeight) {
-                            bottom = screenHeight;
-                            top = bottom - v.getHeight();
-                        }
-                        v.layout(left, top, right, bottom);
-                        // 将当前的位置再次设置
-                        lastX = (int) event.getRawX();
-                        lastY = (int) event.getRawY();
-                        break;
-                    case MotionEvent.ACTION_UP: // 抬起					// 向四周吸附//
-                        // int dx1 = (int) event.getRawX() - lastX;
-                        // 					int dy1 = (int) event.getRawY() - lastY;
-                        // 					int left1 = v.getLeft() + dx1;
-                        // 					int top1 = v.getTop() + dy1;
-                        // 					int right1 = v.getRight() + dx1;
-                        // 					int bottom1 = v.getBottom() + dy1;
-                        // 					if (left1 < (screenWidth / 2)) {
-                        // 						if (top1 < 100) {
-                        // 							v.layout(left1, 0, right1, btnHeight);
-                        // 						} else if (bottom1 > (screenHeight - 200)) {
-                        // 							v.layout(left1, (screenHeight - btnHeight), right1, screenHeight);
-                        // 						} else {
-                        // 							v.layout(0, top1, btnHeight, bottom1);
-                        // 						}
-                        // 					} else {
-                        // 						if (top1 < 100) {
-                        // 							v.layout(left1, 0, right1, btnHeight);
-                        // 						} else if (bottom1 > (screenHeight - 200)) {
-                        // 							v.layout(left1, (screenHeight - btnHeight), right1, screenHeight);
-                        // 						} else {
-                        // 							v.layout((screenWidth - btnHeight), top1, screenWidth, bottom1);
-                        // 						}
-                        // 					}
-                        // 					break;
-
-                }
-                return false;
-            }
-        });
+//        rlGwc.setOnTouchListener(new View.OnTouchListener() {
+//            int lastX, lastY;
+//            // 记录移动的最后的位置
+//            private int btnHeight;
+//
+//            public boolean onTouch(View v, MotionEvent event) {
+//                // 获取Action
+//                int ea = event.getAction();
+//                switch (ea) {
+//                    case MotionEvent.ACTION_DOWN: // 按下
+//                        lastX = (int) event.getRawX();
+//                        lastY = (int) event.getRawY();
+//                        screenWidth = view.getWidth();
+//                        screenHeight = view.getHeight();
+//                        btnHeight = rlGwc.getHeight();
+//                        // Toast.makeText(getActivity(), "ACTION_DOWN：" + lastX + ",					// " + lastY, 0).show();
+//                        break;
+//                    case MotionEvent.ACTION_MOVE: // 移动					// 移动中动态设置位置
+//                        int dx = (int) event.getRawX() - lastX;
+//                        int dy = (int) event.getRawY() - lastY;
+//                        int left = v.getLeft() + dx;
+//                        int top = v.getTop() + dy;
+//                        int right = v.getRight() + dx;
+//                        int bottom = v.getBottom() + dy;
+//                        if (left < 0) {
+//                            left = 0;
+//                            right = left + v.getWidth();
+//                        }
+//                        if (right > screenWidth) {
+//                            right = screenWidth;
+//                            left = right - v.getWidth();
+//                        }
+//                        if (top < 0) {
+//                            top = 0;
+//                            bottom = top + v.getHeight();
+//                        }
+//                        if (bottom > screenHeight) {
+//                            bottom = screenHeight;
+//                            top = bottom - v.getHeight();
+//                        }
+//                        v.layout(left, top, right, bottom);
+//                        // 将当前的位置再次设置
+//                        lastX = (int) event.getRawX();
+//                        lastY = (int) event.getRawY();
+//                        break;
+//                    case MotionEvent.ACTION_UP: // 抬起					// 向四周吸附//
+//                        // int dx1 = (int) event.getRawX() - lastX;
+//                        // 					int dy1 = (int) event.getRawY() - lastY;
+//                        // 					int left1 = v.getLeft() + dx1;
+//                        // 					int top1 = v.getTop() + dy1;
+//                        // 					int right1 = v.getRight() + dx1;
+//                        // 					int bottom1 = v.getBottom() + dy1;
+//                        // 					if (left1 < (screenWidth / 2)) {
+//                        // 						if (top1 < 100) {
+//                        // 							v.layout(left1, 0, right1, btnHeight);
+//                        // 						} else if (bottom1 > (screenHeight - 200)) {
+//                        // 							v.layout(left1, (screenHeight - btnHeight), right1, screenHeight);
+//                        // 						} else {
+//                        // 							v.layout(0, top1, btnHeight, bottom1);
+//                        // 						}
+//                        // 					} else {
+//                        // 						if (top1 < 100) {
+//                        // 							v.layout(left1, 0, right1, btnHeight);
+//                        // 						} else if (bottom1 > (screenHeight - 200)) {
+//                        // 							v.layout(left1, (screenHeight - btnHeight), right1, screenHeight);
+//                        // 						} else {
+//                        // 							v.layout((screenWidth - btnHeight), top1, screenWidth, bottom1);
+//                        // 						}
+//                        // 					}
+//                        // 					break;
+//
+//                }
+//                return false;
+//            }
+//        });
     }
 
 
@@ -964,6 +991,12 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
                 });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getGwcNo();
+    }
+
     private void getGuige() {
         mlist.clear();
         HttpManager.getInstance()
@@ -1208,5 +1241,22 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
             topDistance = refreshLayout.getTop();
             Log.i("msg", "topDistance=" + topDistance);
         }
+    }
+
+    //商品搜索
+    private void getGwcNo() {
+        Log.e(TAG, "sousuoshangpin: 我是特价" + istejia + "---我是准时达" + iszhunshida);
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .getGwcNo(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
+                .setDataListener(new HttpDataListener<String>() {
+                    @Override
+                    public void onNext(final String no) {
+                        cvXuanfu.setTextNo(no);
+                    }
+                }, false);
     }
 }

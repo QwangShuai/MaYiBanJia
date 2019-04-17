@@ -249,11 +249,14 @@ public class SqscWodeActivity extends BaseActivity {
             R.id.rl_tongguo, R.id.rl_daifukuan_ct, R.id.rl_daifahuo_ct, R.id.rl_daishouhuo_ct,
             R.id.rl_yishouhuo_ct, R.id.rl_yiwancheng_ct, R.id.ll_daidabao, R.id.ll_tejiashangpin_gyd,
             R.id.ll_daifahuo, R.id.ll_yishouhuo, R.id.ll_daiqueren, R.id.ll_yiwancheng, R.id.rl_tj,
-            R.id.rl_qbcp, R.id.rl_gwc, R.id.ll_putongshangpin_gyd})
+            R.id.rl_qbcp, R.id.rl_gwc, R.id.ll_putongshangpin_gyd, R.id.btn_go_main})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_shezhi:
                 Jump_intent(SqscShezhiActivity.class,new Bundle());
+                break;
+            case R.id.btn_go_main:
+                Jump_intent(MainActivity.class,new Bundle());
                 break;
             case R.id.ll_daidabao:
                 Intent daidabao = new Intent(mContext, GHDOrderActivity.class);

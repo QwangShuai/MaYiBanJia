@@ -17,6 +17,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.lzj.pass.dialog.PayPassDialog;
+import com.lzj.pass.dialog.PayPassView;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.WuLiuBean;
@@ -78,6 +80,7 @@ public class TiXianActivity extends BaseActivity {
     private boolean isClick = false;
     private String cardID = "";
     private ConfirmDialog confirmDialog;
+    private PayPassDialog payDialog;
     @Override
     public int getLayoutId() {
         return R.layout.activity_ti_xian;
@@ -153,7 +156,8 @@ public class TiXianActivity extends BaseActivity {
                         confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                tixian();
+                                confirmDialog.dismiss();
+                                selectPayPwd();
                             }
                         });
                         confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
@@ -194,15 +198,16 @@ public class TiXianActivity extends BaseActivity {
         }
     }
 
-    private void tixian(){
+    private void tixian(String s){
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(RetrofitManager.getService()
                         .tixian(PreferenceUtils.getString(MyApplication.mContext, "token", ""),etJine.getText().toString(),
-                                cardID))
+                                cardID,s))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
+                        payDialog.dismiss();
                         ToastUtil.showToast("申请提现成功,请等待耐心等待3-7个工作日");
                         finish();
                     }
@@ -230,6 +235,56 @@ public class TiXianActivity extends BaseActivity {
                         } else {
                             rlYinhangka.setVisibility(View.GONE);
                             rlAddYinhangka.setVisibility(View.VISIBLE);
+                        }
+                    }
+                });
+    }
+
+    private void selectPayPwd() {
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .selectPayPwd(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
+                .setDataListener(new HttpDataListener<String>() {
+
+                    @Override
+                    public void onNext(String data) {
+                        if (data.equals("0")) {
+                            payDialog = new PayPassDialog(mContext);
+                            payDialog.getPayViewPass()
+                                    .setPayClickListener(new PayPassView.OnPayClickListener() {
+                                        @Override
+                                        public void onPassFinish(String s) {
+                                            tixian(s);
+                                        }
+
+                                        @Override
+                                        public void onPayClose() {
+                                            payDialog.dismiss();
+                                        }
+
+                                        @Override
+                                        public void onPayForget() {
+                                            ToastUtil.showToastLong("你是个傻子吧");
+                                        }
+                                    });
+                        } else {
+                            confirmDialog.showDialog("您还没有设置支付密码，是否前去设置？");
+                            confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    confirmDialog.dismiss();
+                                    startActivity(new Intent(mContext,SetPayPwdActivity.class));
+                                }
+                            });
+                            confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    confirmDialog.dismiss();
+                                }
+                            });
                         }
                     }
                 });

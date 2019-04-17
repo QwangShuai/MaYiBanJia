@@ -20,6 +20,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.CaiGouXuQiuActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.FCGDiQuXuanZeActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.LoginActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.SqscWodeActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.myinterface.MainCallBack;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
@@ -246,7 +247,13 @@ public class MainActivity extends BaseActivity {
                 if(PreferenceUtils.getBoolean(MyApplication.mContext,"youke",false)){
                     ToastUtil.showToastLong("游客无权限进入");
                 } else {
-                    gaibianye(3);
+                    if(PreferenceUtils.getString(MyApplication.mContext,"juese","").equals("2")
+                            &&PreferenceUtils.getInt(MyApplication.mContext,"random_id",3)!=3){
+                        startActivity(new Intent(mContext, SqscWodeActivity.class));
+                    } else {
+                        gaibianye(3);
+                    }
+
                 }
 
                 break;

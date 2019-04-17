@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+    <include layout="@layout/head_zangqing"></include>
+    <LinearLayout
+        android:id="@+id/ll_zhuce"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:inputType="textPassword"
+            android:id="@+id/et_pass1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="12dp"
+            android:background="@null"
+            android:hint="请输入6位支付密码"
+            android:text=""
+            android:textColor="#333333"
+            android:textColorHint="#cccccc"
+            android:maxLength="6"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="351dp"
+            android:layout_height="0.5dp"
+            android:background="#e7e7e7"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            />
+        <EditText
+            android:inputType="textPassword"
+            android:id="@+id/et_pass2"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="12dp"
+            android:background="@null"
+            android:hint="请确认6位支付密码"
+            android:text=""
+            android:textColor="#333333"
+            android:textColorHint="#cccccc"
+            android:maxLength="6"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="351dp"
+            android:layout_height="0.5dp"
+            android:background="#e7e7e7"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            />
+    </LinearLayout>
+    <Button
+        android:id="@+id/bt_xiayibu"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="35dp"
+        android:text="确认"
+        android:textColor="#fffaf4"
+        android:textSize="18sp"
+        android:background="@drawable/fillet_solid_buliang_5"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        />
+</LinearLayout>

@@ -53,7 +53,7 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
             case 0:
                 ToastUtil.showToastLong("支付成功");
 //                Intent it = new Intent(WXPayEntryActivity.this,XuanZeZhiFuFangShiActivity.class);
-                XuanZeZhiFuFangShiActivity.instance.updateZhifu();
+                XuanZeZhiFuFangShiActivity.instance.updateZhifu("");
                 break;
             case -1:
                 ToastUtil.showToastLong("支付失败");

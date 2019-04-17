@@ -84,12 +84,12 @@ public class XuanZeZhiFuFangShiActivity extends BaseActivity {
     private String dingdanid;
     private String yue;
     private String zongjia;
-//    private String zhifujine;
+    //    private String zhifujine;
     private IWXAPI api;
     public static XuanZeZhiFuFangShiActivity instance = null;
     public Context mContext;
     private ConfirmDialog confirmDialog;
-
+    private PayPassDialog payDialog;
     @Override
     public int getLayoutId() {
         return R.layout.activity_xuanzezhifufangshi;
@@ -178,57 +178,24 @@ public class XuanZeZhiFuFangShiActivity extends BaseActivity {
                 if (!ClickUtil.isFastDoubleClick()) {
                     if (zhifufangshi == 0) {
                         ToastUtil.showToast("请选择支付方式");
-                    } else if(zhifufangshi == 1){
-
-
-
-                        confirmDialog.showDialog("是否确认使用余额支付");
-                        confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                confirmDialog.dismiss();
-                                final PayPassDialog payDialog = new PayPassDialog(mContext);
-                                payDialog.getPayViewPass()
-                                        .setPayClickListener(new PayPassView.OnPayClickListener() {
-                                            @Override
-                                            public void onPassFinish(String s) {
-                                                tijiaozhifu();
-                                            }
-                                            @Override
-                                            public void onPayClose() {
-                                                payDialog.dismiss();
-                                            }
-
-                                            @Override
-                                            public void onPayForget() {
-                                                ToastUtil.showToastLong("你是个傻子吧");
-                                            }
-                                        });
-//                                tijiaozhifu();
-                            }
-                        });
-                        confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                confirmDialog.dismiss();
-                            }
-                        });
+                    } else if (zhifufangshi == 1) {
+                        selectPayPwd();
                     } else {
-                        tijiaozhifu();
+                        tijiaozhifu("");
                     }
                 }
                 break;
         }
     }
 
-    private void tijiaozhifu() {
+    private void tijiaozhifu(String s) {
         if (zhifufangshi == 2) {
             HttpManager.getInstance()
                     .with(mContext)
                     .setObservable(
                             RetrofitManager
                                     .getService()//支付方式  1余额支付 2微信支付 3支付宝支付
-                                    .getWXPay(PreferenceUtils.getString(MyApplication.mContext, "token", ""),dingdanid, Double.valueOf(zongjia)*100+""))
+                                    .getWXPay(PreferenceUtils.getString(MyApplication.mContext, "token", ""), dingdanid, Double.valueOf(zongjia) * 100 + ""))
                     .setDataListener(new HttpDataListener<WXPayBean>() {
                         @Override
                         public void onNext(WXPayBean data) {
@@ -236,7 +203,7 @@ public class XuanZeZhiFuFangShiActivity extends BaseActivity {
                         }
                     }, false);
         } else {
-            updateZhifu();
+            updateZhifu(s);
         }
     }
 
@@ -253,7 +220,7 @@ public class XuanZeZhiFuFangShiActivity extends BaseActivity {
                      对于支付结果，请商户依赖服务端的异步通知结果。同步通知结果，仅作为支付结束的通知。
                      */
                     String resultInfo = payResult.getResult();// 同步返回需要验证的信息
-                    Log.e( "handleMessage: ", resultInfo );
+                    Log.e("handleMessage: ", resultInfo);
 //                    PostZFBBean bean = new Gson().fromJson(resultInfo,PostZFBBean.class);
                     String resultStatus = payResult.getResultStatus();
                     // 判断resultStatus 为9000则代表支付成功
@@ -309,26 +276,27 @@ public class XuanZeZhiFuFangShiActivity extends BaseActivity {
 //        finish();
     }
 
-    public void updateZhifu(){
+    public void updateZhifu(String pwd) {
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
                         RetrofitManager
                                 .getService()//支付方式  1余额支付 2微信支付 3支付宝支付
-                                .tijiaozhifu(PreferenceUtils.getString(MyApplication.mContext, "token", ""), zhifufangshi + "", dingdanid, dingdanleixing))
+                                .tijiaozhifu(PreferenceUtils.getString(MyApplication.mContext, "token", ""), zhifufangshi + "", dingdanid,pwd, dingdanleixing))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
                         switch (zhifufangshi) {
                             case 1:
                                 if (Double.parseDouble(yue) > Double.parseDouble(zongjia)) {
+                                    payDialog.dismiss();
                                     ToastUtil.showToast("支付成功");
                                     Intent intent = new Intent(mContext, DingDanActivity.class);
                                     intent.putExtra("to_shop", 0);
                                     startActivity(intent);
                                     finish();
 //                                       QueRenDingDanActivity.instance.finish();
-                                }else{
+                                } else {
                                     ToastUtil.showToast("余额不足请选择其他支付方式");
                                 }
                                 break;
@@ -347,7 +315,8 @@ public class XuanZeZhiFuFangShiActivity extends BaseActivity {
                     }
                 }, false);
     }
-    public void postZFB(String message){
+
+    public void postZFB(String message) {
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
@@ -363,5 +332,55 @@ public class XuanZeZhiFuFangShiActivity extends BaseActivity {
                         finish();
                     }
                 }, false);
+    }
+
+    private void selectPayPwd() {
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .selectPayPwd(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
+                .setDataListener(new HttpDataListener<String>() {
+
+                    @Override
+                    public void onNext(String data) {
+                        if (data.equals("0")) {
+                            payDialog = new PayPassDialog(mContext);
+                            payDialog.getPayViewPass()
+                                    .setPayClickListener(new PayPassView.OnPayClickListener() {
+                                        @Override
+                                        public void onPassFinish(String s) {
+                                            tijiaozhifu(s);
+                                        }
+
+                                        @Override
+                                        public void onPayClose() {
+                                            payDialog.dismiss();
+                                        }
+
+                                        @Override
+                                        public void onPayForget() {
+                                            ToastUtil.showToastLong("你是个傻子吧");
+                                        }
+                                    });
+                        } else {
+                            confirmDialog.showDialog("您还没有设置支付密码，是否前去设置？");
+                            confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    confirmDialog.dismiss();
+                                    startActivity(new Intent(mContext,SetPayPwdActivity.class));
+                                }
+                            });
+                            confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    confirmDialog.dismiss();
+                                }
+                            });
+                        }
+                    }
+                });
     }
 }

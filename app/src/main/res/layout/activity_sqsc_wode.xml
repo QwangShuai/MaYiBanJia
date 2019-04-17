@@ -1244,8 +1244,21 @@
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
                         android:background="@color/gray_e7e7e7" />
-
                     <LinearLayout
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="89dp">
+                        <Button
+                            android:id="@+id/btn_go_main"
+                            android:textSize="16sp"
+                            android:textColor="@color/white"
+                            android:text="去首页"
+                            android:background="@mipmap/go_main_bg"
+                            android:layout_width="161dp"
+                            android:layout_height="39dp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
                         android:orientation="horizontal">
@@ -1463,6 +1476,7 @@
                             android:orientation="horizontal">
 
                             <RelativeLayout
+                                android:visibility="gone"
                                 android:id="@+id/rl_facaigou"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"

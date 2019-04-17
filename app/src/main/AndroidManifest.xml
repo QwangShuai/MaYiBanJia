@@ -63,12 +63,13 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="9048b4f8d6d23eb426dddbd54e7ffde5" />
-        <!--<meta-data-->
-            <!--android:name="design_width_in_dp"-->
-            <!--android:value="375"/>-->
-        <!--<meta-data-->
-            <!--android:name="design_height_in_dp"-->
-            <!--android:value="667"/>-->
+        <!-- <meta-data -->
+        <!-- android:name="design_width_in_dp" -->
+        <!-- android:value="375"/> -->
+        <!-- <meta-data -->
+        <!-- android:name="design_height_in_dp" -->
+        <!-- android:value="667"/> -->
+
 
         <!-- 定位需要的服务 -->
         <service android:name="com.amap.api.location.APSService" />
@@ -296,7 +297,8 @@
         <activity android:name=".ui.activity.ShangJiaActivity" /> <!-- 注册商家 -->
         <activity android:name=".ui.activity.QuanBuShiChangActivity" /> <!-- 注册市场 -->
         <activity android:name=".ui.activity.ZhuCeCanTingActivity" /> <!-- 注册餐厅 -->
-        <activity android:name=".ui.activity.XinXiLuRuGHDActivity" /> <!-- 信息录入供货端 -->
+        <activity android:name=".ui.activity.XinXiLuRuGHDActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize"/> <!-- 信息录入供货端 -->
         <activity android:name=".ui.activity.AddQrCodeActivity" /> <!-- 添加二维码 -->
         <activity android:name=".ui.activity.ShangPinChangeActivity" /> <!-- 商品修改 -->
         <activity android:name=".ui.activity.ShangPinGuanLiTeJiaActivity" /> <!-- 特价商品管理 -->
@@ -319,6 +321,8 @@
         <activity android:name=".ui.activity.SqscShezhiActivity" /> <!-- 社区市场设置 -->
         <activity android:name=".ui.activity.ShichangFuzerenActivity" /> <!-- 市场负责人 -->
         <activity android:name=".ui.activity.ShichangWuliuActivity" /> <!-- 市场负责人物流信息 -->
+        <activity android:name=".ui.activity.ChangePayPwdActivity" />
+        <activity android:name=".ui.activity.SetPayPwdActivity"></activity>
     </application>
 
 </manifest>

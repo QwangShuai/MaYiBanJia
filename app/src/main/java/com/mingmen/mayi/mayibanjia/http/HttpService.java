@@ -574,21 +574,21 @@ public interface HttpService {
                                                               @Query("type") String type
     );
 
-    /// /采购单审批失败
+    //采购单审批失败
     @POST("ctBuyHostorder/updateByPurchaseId.do")
     Observable<ResultModel<String>> shenpishibai(@Query("user_token") String user_token,
                                                  @Query("audit_ps") String audit_ps,
                                                  @Query("purchase_id") String purchase_id,
                                                  @Query("ct_buy_final_id") String ct_buy_final_id);
 
-    /// /获取更多商家
+    //获取更多商家
     @POST("ctBuyHostorder/queryByCompany.do")
     Observable<ResultModel<List<XiTongTuiJianBean.CcListBean>>> getgengduoshangjia(@Query("user_token") String user_token,
                                                                                    @Query("son_order_id") String son_order_id,
                                                                                    @Query("market_id") String market_id
     );
 
-    /// /获取订单商品信息
+    //获取订单商品信息
     @POST("ctBuyHostorder/order.do")
     Observable<ResultModel<QueRenDingDanShangPinBean>> getsplist(@Query("user_token") String user_token,
                                                                  @Query("son_order_id") String son_order_id,
@@ -599,17 +599,18 @@ public interface HttpService {
                                                                  @Query("ct_buy_final_id") String ct_buy_final_id);
 
 
-    /// /采购单价格
+    //采购单价格
     @POST("ctBuyHostorder/queryMoney.do")
     Observable<ResultModel<String>> getcaigoudanjiage(@Query("user_token") String user_token,
                                                       @Query("son_order_id") String son_order_id,
                                                       @Query("commodity_id") String commodity_id);
 
-    /// /提交支付
+    //提交支付
     @POST("payHistory/save.do")
     Observable<ResultModel<String>> tijiaozhifu(@Query("user_token") String user_token,
                                                 @Query("typeA") String typeA,//支付方式 1为余额支付 2微信支付 3支付宝支付 4当余额不足时支付
                                                 @Query("order_id") String order_id,
+                                                @Query("pay_password") String pay_password,
                                                 @Query("typeB") String typeB);//1为采购单 2为订单 /// /提交支付
 
     //重发抢单
@@ -965,7 +966,8 @@ public interface HttpService {
     @POST("payHistory/withdrawCash.do")
     Observable<ResultModel<String>> tixian(@Query("user_token") String user_token,
                                            @Query("pay_money") String pay_money,
-                                           @Query("collect_bank_id") String collect_bank_id);
+                                           @Query("collect_bank_id") String collect_bank_id,
+                                           @Query("pay_password") String pay_password);
 
     //确认收货
     @POST("payHistory/ture.do")
@@ -1387,4 +1389,22 @@ public interface HttpService {
     // 获取超时费
     @POST("Ordermain/querybytime.do")
     Observable<ResultModel<Integer>> getChMoney(@Query("user_token") String user_token);
+
+    // 设置支付密码
+    @POST("allCompanyAccount/addPayPassWord.do")
+    Observable<ResultModel<String>> setPayPwd(@Query("user_token") String user_token,
+                                               @Query("pay_password") String pay_password);
+
+    // 重置支付密码
+    @POST("allCompanyAccount/uodatePayPassWord.do")
+    Observable<ResultModel<String>> updatePayPwd(@Query("user_token") String user_token,
+                                               @Query("pay_password") String pay_password,
+                                               @Query("new_pay_password") String new_pay_password,
+                                               @Query("type") String type,
+                                               @Query("yzm") String yzm,
+                                               @Query("telephone") String telephone);
+
+    // 查询是否设置支付密码
+    @POST("allCompanyAccount/payPassWordISTrue.do")
+    Observable<ResultModel<String>> selectPayPwd(@Query("user_token") String user_token);
 }

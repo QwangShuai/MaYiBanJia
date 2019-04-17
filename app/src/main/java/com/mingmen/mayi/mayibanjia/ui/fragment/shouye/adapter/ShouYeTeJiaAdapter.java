@@ -51,13 +51,19 @@ public class ShouYeTeJiaAdapter extends RecyclerView.Adapter<ShouYeTeJiaAdapter.
         final ShouYeTeJiaBean data = mList.get(position);
         holder.tvSpming.setText(data.getClassify_name());
         holder.tvSpming.setMarqueeEnable(true);
-        holder.tvDanjia.setText(data.getPice()+"");
-        if(StringUtil.isValid(data.getPrice())){
-            holder.tvYuandanjia.setText("￥ "+ data.getPrice());
-            holder.tvYuandanjia.setVisibility(View.VISIBLE);
+        if(StringUtil.isValid(data.getPice())){
+            holder.tvDanjia.setText(data.getPice()+"");
+            if(StringUtil.isValid(data.getPrice())){
+                holder.tvYuandanjia.setText("￥ "+ data.getPrice());
+                holder.tvYuandanjia.setVisibility(View.VISIBLE);
+            } else {
+                holder.tvYuandanjia.setVisibility(View.INVISIBLE);
+            }
         } else {
             holder.tvYuandanjia.setVisibility(View.INVISIBLE);
+            holder.tvDanjia.setText(data.getPrice());
         }
+
 
         holder.tvYuandanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         Glide.with(mContext).load("" + data.getPicture_url()).transform(new GlideRoundTransform(mContext,10))

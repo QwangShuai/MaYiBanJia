@@ -7,33 +7,7 @@
     android:orientation="vertical"
     tools:context="com.mingmen.mayi.mayibanjia.ui.activity.WoDeZhangHuActivity">
     <include layout="@layout/head_zangqing"></include>
-    <LinearLayout
-        android:id="@+id/ll_pwd"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingLeft="12dp">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="修改密码"
-            android:textColor="@color/zicolor"
-            android:textSize="15sp"
-            android:layout_weight="1"
-            />
-        <ImageView
-            android:id="@+id/iv_xiugai_pwd"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@mipmap/jinru"
-            android:padding="12dp"/>
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/cutoff"
-        android:layout_marginLeft="12dp"/>
+
 
     <LinearLayout
         android:id="@+id/ll_phone"
@@ -69,5 +43,90 @@
         android:layout_height="1dp"
         android:background="@color/cutoff"
         android:layout_marginLeft="12dp"/>
+    <LinearLayout
+        android:id="@+id/ll_set_paypwd"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingLeft="12dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="设置支付密码"
+            android:textColor="@color/zicolor"
+            android:textSize="15sp"
+            android:layout_weight="1"
+            />
+        <TextView
+
+            android:id="@+id/tv_set_paypwd"
+            android:textSize="14sp"
+            android:textColor="@color/green_6dd46d"
+            android:text="已设置"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@mipmap/jinru"
+            android:padding="12dp"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/cutoff"
+        android:layout_marginLeft="12dp"/>
+
+    <LinearLayout
+        android:id="@+id/ll_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingLeft="12dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="重置登录密码"
+            android:textColor="@color/zicolor"
+            android:textSize="15sp"
+            android:layout_weight="1"
+            />
+        <ImageView
+            android:id="@+id/iv_xiugai_pwd"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@mipmap/jinru"
+            android:padding="12dp"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/cutoff"
+        android:layout_marginLeft="12dp"/>
+
+    <LinearLayout
+        android:id="@+id/ll_pwd_zf"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingLeft="12dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="重置支付密码"
+            android:textColor="@color/zicolor"
+            android:textSize="15sp"
+            android:layout_weight="1"
+            />
+        <ImageView
+            android:id="@+id/iv_xiugai_pwd_zf"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@mipmap/jinru"
+            android:padding="12dp"/>
+    </LinearLayout>
 
 </LinearLayout>

@@ -34,7 +34,7 @@
             <TextView
                 android:textColor="@color/zicolor"
                 android:textColorHint="@color/zicolor"
-                android:hint="请选择商圈"
+                android:hint="根据商圈筛选市场"
                 android:id="@+id/tv_shangquan"
                 android:text=""
                 android:gravity="center"

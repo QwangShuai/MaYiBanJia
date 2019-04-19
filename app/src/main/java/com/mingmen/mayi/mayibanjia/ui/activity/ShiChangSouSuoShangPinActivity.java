@@ -23,6 +23,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.dialog.JiaRuGouWuCheDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import java.util.ArrayList;
 
@@ -51,17 +52,19 @@ public class ShiChangSouSuoShangPinActivity extends BaseActivity {
     @BindView(R.id.tv_pingfenzuigao)
     TextView tvPingfenzuigao;
     @BindView(R.id.rv_shichangshangpin)
-    RecyclerView rvShichangshangpin;
+    SwipeMenuRecyclerView rvShichangshangpin;
 
     private Context mContext;
     private boolean isdi;
-    private ArrayList<ShangPinSouSuoBean.ZhengchangBean> shangpinlist;
+    private ArrayList<ShangPinSouSuoBean.ZhengchangBean> shangpinlist = new ArrayList<>();
     private ShangPinListAdapter shangpinadapter;
     private JiaRuGouWuCheDialog jiarugouwuchedialog;
+    private String type;
     private String type_tree_id;
     private String type_tree_name;
     private String son_number;
-
+    private int ye = 1;
+    private SwipeMenuRecyclerView.LoadMoreListener mLoadMoreListener;
     @Override
     public int getLayoutId() {
         return R.layout.activity_shichangsousuo;
@@ -73,79 +76,91 @@ public class ShiChangSouSuoShangPinActivity extends BaseActivity {
         type_tree_id = getIntent().getStringExtra("type_tree_id");
         type_tree_name = getIntent().getStringExtra("type_tree_name");
         son_number =getIntent().getStringExtra("son_number");
-        Log.e("type_tree_id",type_tree_id+"==");
-        Log.e("son_number",son_number+"===");
         jiarugouwuchedialog = new JiaRuGouWuCheDialog(mContext,
                 mContext.getResources().getIdentifier("BottomDialog", "style", mContext.getPackageName()));
         jiarugouwuchedialog.getWindow().setGravity(Gravity.BOTTOM | Gravity.LEFT | Gravity.RIGHT);
+
+        mLoadMoreListener = new SwipeMenuRecyclerView.LoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                sousuoshangpin(type);
+            }
+        };
+
+        shangpinadapter = new ShangPinListAdapter(mContext, shangpinlist);
+        rvShichangshangpin.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+        rvShichangshangpin.setAdapter(shangpinadapter);
+        rvShichangshangpin.useDefaultLoadMore(); // 使用默认的加载更多的View。
+        rvShichangshangpin.setLoadMoreListener(mLoadMoreListener); // 加载更多的监听。
+        rvShichangshangpin.loadMoreFinish(false, true);
+        shangpinadapter.setOnItemClickListener(new ShangPinListAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                switch (view.getId()) {
+                    case R.id.iv_addcar:
+                        //添加购物车
+                        final ShangPinSouSuoBean.ZhengchangBean data = shangpinlist.get(position);
+                        String spguige = "";
+                        jiarugouwuchedialog.showDialog(data.getInventory(),data.getClassify_name(), spguige, data.getRation_one() + "", data.getPrice() + ""
+                                , data.getPicture_url());
+                        final String finalSpguige = spguige;
+                        jiarugouwuchedialog.getBtQueding().setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                String shuliang = jiarugouwuchedialog.getEtShuliang().getText().toString().trim();
+                                Log.e("data.getShopping_id()", data.getShopping_id() + "---");
+                                if (Integer.parseInt(shuliang) >= Integer.parseInt(data.getRation_one())) {
+                                    addcar(data.getCommodity_id(), shuliang, data.getCompany_id(), "", finalSpguige);
+                                } else {
+                                    ToastUtil.showToast("不够起订量");
+                                }
+                                Log.e("jiarugouwuche", jiarugouwuchedialog.getEtShuliang().getText().toString().trim());
+                                jiarugouwuchedialog.getEtShuliang().setText("0");
+                                jiarugouwuchedialog.cancel();
+                            }
+                        });
+                        break;
+                }
+            }
+        });
         sousuoshangpin("0");
     }
 
     //商品搜索
     private void sousuoshangpin(final String type) {
+        this.type = type;
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .shichangsousuoshangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""),type_tree_name, son_number,type))
+                                .shichangsousuoshangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""),type_tree_name, son_number,type,ye))
                 .setDataListener(new HttpDataListener<ShangPinSouSuoBean>() {
                     @Override
                     public void onNext(final ShangPinSouSuoBean shangpin) {
-                        Log.e("sousuoshangpin", "sousuoshangpin");
-                        if ("3".equals(type)){
-                            isdi =true;
-                        }else if ("4".equals(type)){
-                            isdi =false;
+                        if (ye == 1) {
+                            shangpinlist.clear();
+                            shangpinadapter.notifyDataSetChanged();
                         }
-                        shangpinlist = new ArrayList<>();
-                        shangpinlist.addAll(shangpin.getZhengchang());
-                        shangpinadapter = new ShangPinListAdapter(mContext, shangpinlist);
-                        rvShichangshangpin.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
-                        rvShichangshangpin.setAdapter(shangpinadapter);
-                        shangpinadapter.setOnItemClickListener(new ShangPinListAdapter.OnItemClickListener() {
-                            @Override
-                            public void onClick(View view, int position) {
-                                switch (view.getId()) {
-                                    case R.id.iv_addcar:
-                                        //添加购物车
-                                        final ShangPinSouSuoBean.ZhengchangBean data = shangpinlist.get(position);
-                                        String spguige = "";
-//                                        switch (Integer.parseInt(data.getChoose_specifications())) {
-//                                            case 1:
-//                                                spguige = data.getPack_standard_one();
-//                                                break;
-//                                            case 2:
-//                                                spguige = data.getPack_standard_two();
-//                                                break;
-//                                            case 3:
-//                                                spguige = data.getPack_standard_tree();
-//                                                break;
-//                                        }
-                                        jiarugouwuchedialog.showDialog(data.getInventory(),data.getClassify_name(), spguige, data.getRation_one() + "", data.getPrice() + ""
-                                                , data.getPicture_url());
-                                        final String finalSpguige = spguige;
-                                        jiarugouwuchedialog.getBtQueding().setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                String shuliang = jiarugouwuchedialog.getEtShuliang().getText().toString().trim();
-                                                Log.e("data.getShopping_id()", data.getShopping_id() + "---");
-                                                    if (Integer.parseInt(shuliang) >= Integer.parseInt(data.getRation_one())) {
-                                                        addcar(data.getCommodity_id(), shuliang, data.getCompany_id(), "", finalSpguige);
-                                                    } else {
-                                                        ToastUtil.showToast("不够起订量");
-                                                    }
-                                                Log.e("jiarugouwuche", jiarugouwuchedialog.getEtShuliang().getText().toString().trim());
-                                                jiarugouwuchedialog.getEtShuliang().setText("0");
-                                                jiarugouwuchedialog.cancel();
-                                            }
-                                        });
-                                        break;
-                                }
+                        if ("3".equals(type)) {
+                            isdi = true;
+                        } else if ("4".equals(type)) {
+                            isdi = false;
+                        }
+                        if (shangpin.getZhengchang() != null) {
+                            if (shangpin.getZhengchang().size() == 5) {
+                                rvShichangshangpin.loadMoreFinish(false, true);
+                            } else if (shangpin.getZhengchang().size() > 0) {
+                                rvShichangshangpin.loadMoreFinish(false, false);
+                            } else {
+                                rvShichangshangpin.loadMoreFinish(true, false);
                             }
-                        });
-
-
+                            shangpinlist.addAll(shangpin.getZhengchang());
+                        } else {
+                            ToastUtil.showToast("没有商品");
+                        }
+                        shangpinadapter.notifyDataSetChanged();
+                        ye++;
                     }
                 });
     }

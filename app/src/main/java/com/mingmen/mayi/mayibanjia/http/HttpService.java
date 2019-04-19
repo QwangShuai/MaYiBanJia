@@ -213,7 +213,8 @@ public interface HttpService {
     Observable<ResultModel<ShangPinSouSuoBean>> shichangsousuoshangpin(@Query("user_token") String user_token,
                                                                        @Query("type_four_name") String type_four_name,
                                                                        @Query("son_number") String son_number,
-                                                                       @Query("sortOrder") String sortOrder);
+                                                                       @Query("sortOrder") String sortOrder,
+                                                                       @Query("pageNumber") Integer pageNumber);
 
     //查询购物车
     @POST("ctShoppingCart/list.do")

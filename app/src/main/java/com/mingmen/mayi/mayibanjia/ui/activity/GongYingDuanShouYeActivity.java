@@ -176,7 +176,8 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
             R.id.ll_qiangdanshibai, R.id.ll_qiangdanchenggong, R.id.ll_zhanghuyuanquan,
             R.id.ll_lianxikefu, R.id.ll_bangzhuyufankui, R.id.ll_yinhangzhanghao,
             R.id.ll_zizhirenzheng, R.id.tv_cwbb, R.id.tv_tixian, R.id.ll_tianjiashangpin,
-            R.id.ll_shangjia,R.id.ll_xiajia,R.id.ll_daishenhe,R.id.ll_tejiashangpin_gyd})
+            R.id.ll_shangjia,R.id.ll_xiajia,R.id.ll_daishenhe,R.id.ll_tejiashangpin_gyd,
+            R.id.ll_putongshangpin_gyd})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_gy:
@@ -205,6 +206,11 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
                 Intent  it_tj = new Intent(mContext, ShangPinGuanLiActivity.class);
                 it_tj.putExtra("goods","1");
                 startActivity(it_tj);
+                break;
+            case R.id.ll_putongshangpin_gyd:
+                Intent  it_pt = new Intent(mContext, ShangPinGuanLiActivity.class);
+                it_pt.putExtra("goods","0");
+                startActivity(it_pt);
                 break;
             case R.id.ll_daishenhe:
                 Intent  it_daishenhe = new Intent(mContext, ShangPinGuanLiActivity.class);

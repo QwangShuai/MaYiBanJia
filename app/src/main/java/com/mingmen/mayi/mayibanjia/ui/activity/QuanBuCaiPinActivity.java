@@ -272,7 +272,9 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
             }
         };
         viewHeight = rlLei.getHeight();
-        rvShangpin.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+        Log.e(TAG, "initData: "+viewHeight );
+        final LinearLayoutManager manager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
+        rvShangpin.setLayoutManager(manager);
         rvShangpin.useDefaultLoadMore(); // 使用默认的加载更多的View。
         rvShangpin.setLoadMoreListener(mLoadMoreListener); // 加载更多的监听。
         rvShangpin.loadMoreFinish(false, true);
@@ -281,35 +283,39 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
 
-//                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-//                    if (mystate == 1) {
-//                        if (rlLei.getVisibility() == View.VISIBLE ? false : true) {
-//                            rlLei.setVisibility(View.VISIBLE);
-//                        }
-//                        mystate = 0;
-//                    } else if (mystate == 2) {
-//                        if (rlLei.getVisibility() == View.VISIBLE ? true : false) {
-//                            rlLei.setVisibility(View.GONE);
-//                        }
-//                        mystate = 0;
-//                    }
-//                }
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    if (mystate == 1) {
+                        if(manager.findFirstCompletelyVisibleItemPosition()==0){
+                            if (rlLei.getVisibility() == View.VISIBLE ? false : true) {
+                                rlLei.setVisibility(View.VISIBLE);
+                            }
+                            mystate = 0;
+                        }
+                    } else if (mystate == 2) {
+                        if(manager.findFirstCompletelyVisibleItemPosition()>0) {
+                            if (rlLei.getVisibility() == View.VISIBLE ? true : false) {
+                                rlLei.setVisibility(View.GONE);
+                            }
+                            mystate = 0;
+                        }
+                    }
+                }
             }
 
             @Override
             public void onScrolled(RecyclerView r, int dx, int dy) {
                 super.onScrolled(r, dx, dy);
-
+                Log.e(TAG, "onScrolled: "+manager.findFirstCompletelyVisibleItemPosition());
                 if (dy + viewHeight < 0) {
-//                    mystate = 1;
-                    if (rlLei.getVisibility() == View.VISIBLE ? false : true) {
-                        rlLei.setVisibility(View.VISIBLE);
-                    }
+                    mystate = 1;
+//                    if (rlLei.getVisibility() == View.VISIBLE ? false : true) {
+//                        rlLei.setVisibility(View.VISIBLE);
+//                    }
                 } else if (dy - viewHeight > 0) {
-//                    mystate = 2;
-                    if (rlLei.getVisibility() == View.VISIBLE ? true : false) {
-                        rlLei.setVisibility(View.GONE);
-                    }
+                    mystate = 2;
+//                    if (rlLei.getVisibility() == View.VISIBLE ? true : false) {
+//                        rlLei.setVisibility(View.GONE);
+//                    }
                 }
             }
         });

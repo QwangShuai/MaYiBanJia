@@ -147,7 +147,7 @@ public class ShichangXuanzeActivity extends BaseActivity {
                     @Override
                     public void onNext(AllShiChangBean data) {
                         shiChangBean = data;
-                        if(StringUtil.isValid(sq_id)){
+//                        if(StringUtil.isValid(sq_id)){
                             int two = shiChangBean.getTwoList()==null?0:shiChangBean.getTwoList().size();
                             if (two!=0) {
                                 erjiAdapter.setNewData(shiChangBean.getTwoList());
@@ -191,7 +191,7 @@ public class ShichangXuanzeActivity extends BaseActivity {
                                     });
                             rvSanjishichang.setLayoutManager(new GridLayoutManager(mContext, 2));
                             rvSanjishichang.setAdapter(sanjiAdapter);
-                        } else {
+//                        } else {
                             int one = shiChangBean.getOneList()==null?0:shiChangBean.getOneList().size();
                             if (one != 0) {
                                 yijiAdapter.setNewData(shiChangBean.getOneList());
@@ -211,9 +211,7 @@ public class ShichangXuanzeActivity extends BaseActivity {
                                     });
                             rvYijishichang.setLayoutManager(new GridLayoutManager(mContext, 2));
                             rvYijishichang.setAdapter(yijiAdapter);
-                            tvErji.setVisibility(View.GONE);
-                            tvSanji.setVisibility(View.GONE);
-                        }
+//                        }
                     }
                 }, false);
     }

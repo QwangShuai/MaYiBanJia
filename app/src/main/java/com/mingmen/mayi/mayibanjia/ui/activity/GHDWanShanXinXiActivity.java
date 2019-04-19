@@ -94,7 +94,7 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
     @BindView(R.id.tv_right)
     TextView tvRight;
     @BindView(R.id.et_dianpuming)
-    EditText etDianpuming;
+    TextView etDianpuming;
     @BindView(R.id.textView)
     TextView textView;
     @BindView(R.id.iv_yingyezhizhao)
@@ -104,13 +104,15 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
     @BindView(R.id.et_fuzeren)
     EditText etFuzeren;
     @BindView(R.id.et_yaoqingma)
-    EditText etYaoqingma;
+    TextView etYaoqingma;
     @BindView(R.id.bt_tijiao)
     Button btTijiao;
     @BindView(R.id.tv_xieyi)
     TextView tvXieyi;
     @BindView(R.id.tv_dianhua)
     TextView tvDianhua;
+    @BindView(R.id.et_only_code)
+    EditText etOnlyCode;
     @BindView(R.id.ll_xia)
     LinearLayout llXia;
     @BindView(R.id.ll_xukezheng)
@@ -150,7 +152,7 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
     private int shengid;
     private int shiid;
     private int quid;
-    private String type="1";
+//    private String type="1";
     private int city=0;
     private int[] pos= new int[3];
 
@@ -172,12 +174,12 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
         phone = bundle.getString("phone");
         pass = bundle.getString("pass1");
         yanzhengma = bundle.getString("yanzhengma");
-        if(getIntent().getStringExtra("jueseid").equals("2")){
-            type = "1";
-        } else {
-            type = "2";
-        }
-        etDianpuming.addTextChangedListener(new TextWatcher() {
+//        if(getIntent().getStringExtra("jueseid").equals("2")){
+//            type = "1";
+//        } else {
+//            type = "2";
+//        }
+        etOnlyCode.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -193,21 +195,12 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 String chaxun = s.toString().trim();
-                if (chaxun.length()>0){
-                    if (chaxun.equals(dianpuming)){
-                        rvDianpu.setVisibility(View.GONE);
-                        llXia.setVisibility(View.VISIBLE);
-                    }else{
-                        getdianpuming(chaxun);
-                    }
-                }else{
-                    llXukezheng.setVisibility(View.GONE);
-                    llXia.setVisibility(View.VISIBLE);
-                    rvDianpu.setVisibility(View.GONE);
+                if (chaxun.length()==4){
+                    getdianpuming(chaxun);
                 }
             }
         });
-        etDianpuming.setEnabled(false);
+//        etDianpuming.setEnabled(false);
         initJsonData();
 
     }
@@ -354,7 +347,7 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
                 } else if(!StringUtil.isValid(fuzeren)){
                     ToastUtil.showToastLong("负责人不可以为空");
                 } else if(!StringUtil.isValid(yaoqingma)){
-                    ToastUtil.showToastLong("邀请码不可以为空");
+                    ToastUtil.showToastLong("业务员手机号不可以为空");
                 } else if(!StringUtil.isValid(yingyezhizhao)){
                     ToastUtil.showToastLong("营业执照不可以为空");
                 } else{
@@ -391,7 +384,7 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .zhuce(fuzeren,phone,pass,yingyezhizhao,xukezheng,dianpuid, yaoqingma,yanzhengma,"1", StringUtil.getMyUUID(mContext)))
+                                .zhuce(fuzeren,phone,pass,yingyezhizhao,xukezheng,dianpuid,yanzhengma,"1", StringUtil.getMyUUID(mContext)))
                 .setDataListener(new HttpDataListener<ZhuCeChengGongBean>() {
                     @Override
                     public void onNext(ZhuCeChengGongBean list) {
@@ -428,7 +421,6 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
                 }
                 break;
             case REQUEST_PICTURE_CUT://裁剪完成
-//
                 if (data!=null) {
                     Log.e("裁剪完成","裁剪完成");
                     try {
@@ -693,40 +685,28 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .dianpuchaxun(PreferenceUtils.getString(MyApplication.mContext, "token", ""),shengid+"",shiid+"",quid+"","2",type,chaxun))
+                                .dianpuchaxun(PreferenceUtils.getString(MyApplication.mContext, "token", ""),chaxun))
                 .setDataListener(new HttpDataListener<List<DianMingChaXunBean>>() {
                     @Override
-                    public void onNext(final List<DianMingChaXunBean> data) {
-                        if (chaxun.equals(dianpuming)){
-                            rvDianpu.setVisibility(View.GONE);
-                            llXia.setVisibility(View.VISIBLE);
-                        }else{
-                            rvDianpu.setVisibility(View.VISIBLE);
-                            llXia.setVisibility(View.GONE);
-                            dianpuming="";
-                            dianpuid="";
-                        }
-                        adapter = new DianPuMingAdapter(mContext, data,chaxun);
-                        rvDianpu.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
-                        rvDianpu.setAdapter(adapter);
-                        adapter.setOnItemClickListener(new DianPuMingAdapter.OnItemClickListener() {
-                            @Override
-                            public void onClick(View view, int position) {
-                                role = data.get(position).getRole()+"";
+                    public void onNext(final List<DianMingChaXunBean> bean) {
+                        int mysize = bean==null?0:bean.size();
+                            if(mysize!=0){
+                                role = bean.get(0).getRole();
+                                dianpuid = bean.get(0).getCompany_id();
+                                dianpuming = bean.get(0).getCompany_name();
+                                etDianpuming.setText(dianpuming);
+                                etYaoqingma.setText(bean.get(0).getTelephone());
                                 if(role.equals("1")){
                                     llXukezheng.setVisibility(View.GONE);
                                 } else {
                                     llXukezheng.setVisibility(View.VISIBLE);
                                 }
-                                etDianpuming.setText(data.get(position).getCompany_name());
-                                dianpuming=data.get(position).getCompany_name();
-                                dianpuid=data.get(position).getCompany_id();
-                                rvDianpu.setVisibility(View.GONE);
-                                llXia.setVisibility(View.VISIBLE);
+                            } else {
+                                ToastUtil.showToastLong("很抱歉，暂未查到此唯一码关联的企业");
+                                dianpuming="";
+                                dianpuid="";
+                                etDianpuming.setText(dianpuming);
                             }
-                        });
-
-
                     }
                 });
 
@@ -769,7 +749,7 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
                     for (int d=0; d < jsonBean.get(i).getCitylist().get(c).getQulist().size(); d++) {//该城市对应地区所有数据
                         String AreaName = jsonBean.get(i).getCitylist().get(c).getQulist().get(d).getQuymc();
 
-                        City_AreaList.add(AreaName);//添加该城市所有地区数据
+                        if(!AreaName.equals("市辖区")){                                 City_AreaList.add(AreaName);                             }
                     }
                 }
                 Province_AreaList.add(City_AreaList);//添加该省所有地区数据

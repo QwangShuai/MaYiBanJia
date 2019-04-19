@@ -32,16 +32,17 @@ public class GengDuoShangJiaDialog extends BaseFragmentDialog {
     private GengDuoShangJiaAdapter adapter;
     private String son_order_id;
     private String maket_id;
+    private String type;
     private CallBack mCallBack;
 
 
     public GengDuoShangJiaDialog() {
 
     }
-    public  GengDuoShangJiaDialog setId(String son_order_id,String maket_id)
-    {
+    public  GengDuoShangJiaDialog setId(String son_order_id,String maket_id,String type) {
         this.son_order_id=son_order_id;
         this.maket_id=maket_id;
+        this.type = type;
       return this;
     }
     @Override
@@ -66,7 +67,7 @@ public class GengDuoShangJiaDialog extends BaseFragmentDialog {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getgengduoshangjia(PreferenceUtils.getString(MyApplication.mContext, "token",""),son_order_id,maket_id))
+                                .getgengduoshangjia(PreferenceUtils.getString(MyApplication.mContext, "token",""),son_order_id,maket_id,type))
                 .setDataListener(new HttpDataListener<List<XiTongTuiJianBean.CcListBean>>() {
                     @Override
                     public void onNext(List<XiTongTuiJianBean.CcListBean> data) {

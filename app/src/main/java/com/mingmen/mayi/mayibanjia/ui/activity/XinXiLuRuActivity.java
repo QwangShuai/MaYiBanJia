@@ -791,7 +791,7 @@ public class XinXiLuRuActivity extends BaseActivity {
                     for (int d=0; d < jsonBean.get(i).getCitylist().get(c).getQulist().size(); d++) {//该城市对应地区所有数据
                         String AreaName = jsonBean.get(i).getCitylist().get(c).getQulist().get(d).getQuymc();
 
-                        City_AreaList.add(AreaName);//添加该城市所有地区数据
+                        if(!AreaName.equals("市辖区")){                                 City_AreaList.add(AreaName);                             }
                     }
                 }
                 Province_AreaList.add(City_AreaList);//添加该省所有地区数据
@@ -859,7 +859,7 @@ public class XinXiLuRuActivity extends BaseActivity {
                         shengid = Integer.valueOf(bean.getProvince());
                         shiid = Integer.valueOf(bean.getCity());
                         quid = Integer.valueOf(bean.getRegion());
-
+                        city= Integer.parseInt(bean.getRegion());
                         tvQuyuxuanze.setText(bean.getProvince_name()+"-"+
                                 bean.getCity_name()+"-"+
                                 bean.getRegion_name());

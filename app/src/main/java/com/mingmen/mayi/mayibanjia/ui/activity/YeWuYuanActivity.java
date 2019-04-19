@@ -61,6 +61,10 @@ public class YeWuYuanActivity extends BaseActivity {
     TextView tvYwy;
     @BindView(R.id.ll_ywy)
     LinearLayout llYwy;
+    @BindView(R.id.ll_yqm)
+    LinearLayout llYqm;
+    @BindView(R.id.tv_yqm)
+    TextView tvYqm;
     @BindView(R.id.tv_phone)
     TextView tvPhone;
     @BindView(R.id.tv_order_number)
@@ -247,7 +251,7 @@ public class YeWuYuanActivity extends BaseActivity {
             case R.id.ll_dizhi:
                 break;
             case R.id.ll_pwd:
-                Intent it = new Intent(mContext, WoDeZhangHuActivity.class);
+                Intent it = new Intent(mContext, ChangePwdActivity.class);
                 startActivity(it);
                 break;
             case R.id.btn_exit:
@@ -297,6 +301,7 @@ public class YeWuYuanActivity extends BaseActivity {
                         pcBing.notifyDataSetChanged();
                         pcBing.invalidate();
                         tvYwy.setText(bean.getName());
+                        tvYqm.setText("邀请码："+bean.getSalesman_code());
                         tvPhone.setText(bean.getTelephone());
                         tvDizhi.setText(bean.getSpecific_address());
                         tvOrderNumber.setVisibility(bean.getOrder_count() == 0 ? View.GONE : View.VISIBLE);

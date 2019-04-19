@@ -100,6 +100,7 @@
                     </RelativeLayout>
                     <!--规格-->
                     <LinearLayout
+                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -590,6 +591,19 @@
                             android:text=""
                             android:textColor="#474747"
                             android:textSize="13sp"/>
+                        <TextView
+                            android:layout_marginTop="12dp"
+                            android:layout_marginLeft="12dp"
+                            android:id="@+id/tv_spgg"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="商品规格"
+                            android:textColor="#474747"
+                            android:textSize="18sp"/>
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rv_xiangqing"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/rv_xiangqingtu"
                             android:layout_width="match_parent"

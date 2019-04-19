@@ -157,7 +157,7 @@ public class ChangePhoneBindActivity extends BaseActivity {
                                 .setObservable(
                                         RetrofitManager
                                                 .getService()
-                                                . changePhone(PreferenceUtils.getString(MyApplication.mContext,"token",""),etPhone.getText().toString().trim()))
+                                                . changePhone(PreferenceUtils.getString(MyApplication.mContext,"token",""),PreferenceUtils.getString(MyApplication.mContext,"phone",""),etPhone.getText().toString().trim()))
                                 .setDataListener(new HttpDataListener<String>() {
                                     @Override
                                     public void onNext(String data) {

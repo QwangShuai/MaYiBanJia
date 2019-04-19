@@ -236,26 +236,26 @@
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="72dp">
-                <TextView
-                    android:layout_marginTop="12dp"
-                    android:layout_marginLeft="14dp"
-                    android:textSize="15sp"
-                    android:gravity="center"
-                    android:background="@drawable/fillet_hollow_zangqing_3"
-                    android:textColor="@color/zangqing"
-                    android:text="选择规格"
-                    android:id="@+id/tv_xzgg"
-                    android:layout_width="90dp"
-                    android:layout_height="28dp" />
-                <TextView
-                    android:text="注：选择已有商品规格不需要审核"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginRight="12dp"
-                    android:layout_marginTop="8dp"
-                    android:textSize="12sp"
-                    android:textColor="@color/hintcolor"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_marginTop="12dp"
+                        android:layout_marginLeft="14dp"
+                        android:textSize="15sp"
+                        android:gravity="center"
+                        android:background="@drawable/fillet_hollow_zangqing_3"
+                        android:textColor="@color/zangqing"
+                        android:text="选择规格"
+                        android:id="@+id/tv_xzgg"
+                        android:layout_width="90dp"
+                        android:layout_height="28dp" />
+                    <TextView
+                        android:text="注：选择已有商品规格不需要审核"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="12dp"
+                        android:layout_marginTop="8dp"
+                        android:textSize="12sp"
+                        android:textColor="@color/hintcolor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -525,7 +525,7 @@
                     android:text=""
                     android:inputType="number"
                     android:textColor="@color/zicolor"
-                    android:maxLength="4"
+                    android:maxLength="2"
                     android:textSize="15sp" />
             </LinearLayout>
             <View

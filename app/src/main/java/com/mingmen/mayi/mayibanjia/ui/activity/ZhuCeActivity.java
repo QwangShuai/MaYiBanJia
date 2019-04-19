@@ -293,7 +293,7 @@ public class ZhuCeActivity extends BaseActivity {
                                 }else if (AppUtil.isMobile(etPhone.getText().toString().trim())){
 //                                    Intent intent=new Intent(mContext,GHDWanShanXinXiActivity.class);
                                     if(yemian.equals("1")){
-                                        Intent intent=new Intent(mContext,XuanZeJueSeActivity.class);
+                                        Intent intent=new Intent(mContext,GHDWanShanXinXiActivity.class);
                                         Bundle bundle=new Bundle();
                                         bundle.putString("phone",phone);
                                         bundle.putString("pass1",pass1);

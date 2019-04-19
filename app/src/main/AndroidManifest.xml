@@ -245,43 +245,154 @@
             android:name=".ui.activity.WuLiuActivity"
             android:label="@string/title_activity_wu_liu"
             android:theme="@style/NoTitle" /> <!-- 物流 -->
-        <activity android:name=".ui.activity.ghdingdan.GHDOrderActivity" /> <!-- 供货订单 -->
-        <activity android:name=".ui.activity.DaYinQrCodeActivity" /> <!-- 打印二维码 -->
-        <activity android:name=".ui.activity.SiJiActivity" /> <!-- 司机配送 -->
-        <activity android:name=".ui.activity.PeiSongXiangQingActivity" /> <!-- 司机配送详情 -->
-        <activity android:name=".utils.qrCode.CaptureActivity" /> <!-- 扫码页面 -->
-        <activity android:name=".ui.activity.YiJianFanKuiActivity" /> <!-- 意见反馈 -->
-        <activity android:name=".ui.activity.DianPuGuanZhuActivity" /> <!-- 店铺关注 -->
-        <activity android:name=".ui.activity.LiuLanJiLuActivity" /> <!-- 浏览记录 -->
-        <activity android:name=".ui.activity.WeiYiQrCodeActivity" /> <!-- 唯一取货码 -->
-        <activity android:name=".ui.activity.YinHangKaActivity" /> <!-- 银行卡 -->
-        <activity android:name=".ui.activity.YinHangKaTianJiaActivity" /> <!-- 添加银行卡 -->
-        <activity android:name=".ui.activity.XuanZeYinHangActivity" /> <!-- 选择银行 -->
-        <activity android:name=".ui.activity.DingDanXiangQingActivity" /> <!-- 订单详情 -->
-        <activity android:name=".ui.activity.ZiZhiRenZhengActivity" /> <!-- 资质认证 -->
-        <activity android:name=".ui.activity.TiXianActivity" /> <!-- 提现 -->
-        <activity android:name=".ui.activity.YueActivity" /> <!-- 余额 -->
-        <activity android:name=".ui.activity.jiaoyiliushui.JiaoYiMingXiActivity" /> <!-- 交易明细 -->
-        <activity android:name=".ui.activity.JiaoYiXiangQingActivity" /> <!-- 交易详情 -->
-        <activity android:name=".ui.activity.FaBiaoPingJiaActivity" /> <!-- 发表评价 -->
-        <activity android:name=".ui.activity.YunFeiJieSuanActivity" /> <!-- 运费结算 -->
-        <activity android:name=".ui.activity.JieSuanJieGuoActivity" /> <!-- 结算结果 -->
-        <activity android:name=".ui.activity.WoDePingJiaActivity" /> <!-- 我的评价 -->
-        <activity android:name=".ui.activity.JieSuanXiangQingActivity" /> <!-- 结算结果详情 -->
-        <activity android:name=".ui.activity.ZiZhangHuActivity" /> <!-- 子账户 -->
-        <activity android:name=".ui.activity.AddZiZhuangHuActivity" /> <!-- 添加子账户 -->
-        <activity android:name=".ui.activity.JueSeGuanLiActivity" /> <!-- 角色管理 -->
-        <activity android:name=".ui.activity.qiangdan.GongYingDuanQiangDanActivity" /> <!-- 供应端抢单 -->
-        <activity android:name=".ui.activity.CaiGouListActivity" /> <!-- 采购单列表 -->
-        <activity android:name=".ui.activity.DetailsZiZhangHuActivity" /> <!-- 子账户详情 -->
-        <activity android:name=".ui.activity.ShenPiChengGongActivity" /> <!-- 审批成功 -->
-        <activity android:name=".ui.activity.ShenPiShiBaiActivity" /> <!-- 审批失败 -->
-        <activity android:name=".ui.activity.WoDeZhangHuActivity" /> <!-- 我的账户 -->
-        <activity android:name=".ui.activity.ChangePwdActivity" /> <!-- 修改密码 -->
-        <activity android:name=".ui.activity.ChangePhoneActivity" /> <!-- 选择修改手机绑定 -->
-        <activity android:name=".ui.activity.YanZhengPhoneActivity" /> <!-- 验证手机 -->
-        <activity android:name=".ui.activity.ChangePhoneBindActivity" /> <!-- 修改手机绑定 -->
-        <activity android:name=".ui.activity.MenDianXinXiActivity" /> <!-- 门店信息 -->
+        <activity
+            android:name=".ui.activity.ghdingdan.GHDOrderActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 供货订单 -->
+        <activity
+            android:name=".ui.activity.DaYinQrCodeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 打印二维码 -->
+        <activity
+            android:name=".ui.activity.SiJiActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 司机配送 -->
+        <activity
+            android:name=".ui.activity.PeiSongXiangQingActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 司机配送详情 -->
+        <activity
+            android:name=".utils.qrCode.CaptureActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 扫码页面 -->
+        <activity
+            android:name=".ui.activity.YiJianFanKuiActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 意见反馈 -->
+        <activity
+            android:name=".ui.activity.DianPuGuanZhuActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 店铺关注 -->
+        <activity
+            android:name=".ui.activity.LiuLanJiLuActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 浏览记录 -->
+        <activity
+            android:name=".ui.activity.WeiYiQrCodeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 唯一取货码 -->
+        <activity
+            android:name=".ui.activity.YinHangKaActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 银行卡 -->
+        <activity
+            android:name=".ui.activity.YinHangKaTianJiaActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 添加银行卡 -->
+        <activity
+            android:name=".ui.activity.XuanZeYinHangActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 选择银行 -->
+        <activity
+            android:name=".ui.activity.DingDanXiangQingActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 订单详情 -->
+        <activity
+            android:name=".ui.activity.ZiZhiRenZhengActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 资质认证 -->
+        <activity
+            android:name=".ui.activity.TiXianActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 提现 -->
+        <activity
+            android:name=".ui.activity.YueActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 余额 -->
+        <activity
+            android:name=".ui.activity.jiaoyiliushui.JiaoYiMingXiActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 交易明细 -->
+        <activity
+            android:name=".ui.activity.JiaoYiXiangQingActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 交易详情 -->
+        <activity
+            android:name=".ui.activity.FaBiaoPingJiaActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 发表评价 -->
+        <activity
+            android:name=".ui.activity.YunFeiJieSuanActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 运费结算 -->
+        <activity
+            android:name=".ui.activity.JieSuanJieGuoActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 结算结果 -->
+        <activity
+            android:name=".ui.activity.WoDePingJiaActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 我的评价 -->
+        <activity
+            android:name=".ui.activity.JieSuanXiangQingActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 结算结果详情 -->
+        <activity
+            android:name=".ui.activity.ZiZhangHuActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 子账户 -->
+        <activity
+            android:name=".ui.activity.AddZiZhuangHuActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 添加子账户 -->
+        <activity
+            android:name=".ui.activity.JueSeGuanLiActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 角色管理 -->
+        <activity
+            android:name=".ui.activity.qiangdan.GongYingDuanQiangDanActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 供应端抢单 -->
+        <activity
+            android:name=".ui.activity.CaiGouListActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 采购单列表 -->
+        <activity
+            android:name=".ui.activity.DetailsZiZhangHuActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 子账户详情 -->
+        <activity
+            android:name=".ui.activity.ShenPiChengGongActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 审批成功 -->
+        <activity
+            android:name=".ui.activity.ShenPiShiBaiActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 审批失败 -->
+        <activity
+            android:name=".ui.activity.WoDeZhangHuActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 我的账户 -->
+        <activity
+            android:name=".ui.activity.ChangePwdActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 修改密码 -->
+        <activity
+            android:name=".ui.activity.ChangePhoneActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 选择修改手机绑定 -->
+        <activity
+            android:name=".ui.activity.YanZhengPhoneActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 验证手机 -->
+        <activity
+            android:name=".ui.activity.ChangePhoneBindActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 修改手机绑定 -->
+        <activity
+            android:name=".ui.activity.MenDianXinXiActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 门店信息 -->
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
@@ -294,35 +405,119 @@
                 <data android:scheme="wx77762a8eab365cf1" />
             </intent-filter>
         </activity> <!-- 微信回调 -->
-        <activity android:name=".ui.activity.ShangJiaActivity" /> <!-- 注册商家 -->
-        <activity android:name=".ui.activity.QuanBuShiChangActivity" /> <!-- 注册市场 -->
-        <activity android:name=".ui.activity.ZhuCeCanTingActivity" /> <!-- 注册餐厅 -->
-        <activity android:name=".ui.activity.XinXiLuRuGHDActivity"
-            android:windowSoftInputMode="stateVisible|adjustResize"/> <!-- 信息录入供货端 -->
-        <activity android:name=".ui.activity.AddQrCodeActivity" /> <!-- 添加二维码 -->
-        <activity android:name=".ui.activity.ShangPinChangeActivity" /> <!-- 商品修改 -->
-        <activity android:name=".ui.activity.ShangPinGuanLiTeJiaActivity" /> <!-- 特价商品管理 -->
-        <activity android:name=".ui.activity.CaiGouXuQiuActivity" /> <!-- 采购需求 -->
-        <activity android:name=".ui.activity.ChangGouActivity" /> <!-- 常购 -->
-        <activity android:name=".ui.activity.AddShangPinActivity" /> <!-- 添加商品 -->
-        <activity android:name=".ui.activity.HuoDongActivity" /> <!-- 活动 -->
-        <activity android:name=".ui.activity.JiaoYiLiuShuiActivity" /> <!-- 交易流水 -->
-        <activity android:name=".ui.activity.XJSPFeiLeiXuanZeActivity" /> <!-- 新建商品分类选择 -->
-        <activity android:name=".utils.dayinji.DeviceListActivity" /> <!-- 蓝牙设备列表 -->
-        <activity android:name=".ui.activity.XuanZeGuiGeActivity" /> <!-- 选择规格 -->
-        <activity android:name=".ui.activity.YongHuPingJiaActivity" /> <!-- 供应端用户评价 -->
-        <activity android:name=".ui.activity.GHDXiangQingActivity" /> <!-- 供应端订单详情 -->
-        <activity android:name=".ui.activity.YeWuYuanActivity" /> <!-- 业务员饼状图首页 -->
-        <activity android:name=".ui.activity.ShichangJiageActivity" /> <!-- 各市场价格 -->
-        <activity android:name=".ui.activity.ShichangXuanzeActivity" /> <!-- 选择市场 -->
-        <activity android:name=".ui.activity.SqscWodeActivity" /> <!-- 社区市场 -->
-        <activity android:name=".ui.activity.QuanBuCaiPinActivity" /> <!-- 全部菜品 -->
-        <activity android:name=".ui.activity.GouWuCheActivity" /> <!-- 购物车 -->
-        <activity android:name=".ui.activity.SqscShezhiActivity" /> <!-- 社区市场设置 -->
-        <activity android:name=".ui.activity.ShichangFuzerenActivity" /> <!-- 市场负责人 -->
-        <activity android:name=".ui.activity.ShichangWuliuActivity" /> <!-- 市场负责人物流信息 -->
-        <activity android:name=".ui.activity.ChangePayPwdActivity" />
-        <activity android:name=".ui.activity.SetPayPwdActivity"></activity>
+        <activity
+            android:name=".ui.activity.ShangJiaActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 注册商家 -->
+        <activity
+            android:name=".ui.activity.QuanBuShiChangActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 注册市场 -->
+        <activity
+            android:name=".ui.activity.ZhuCeCanTingActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 注册餐厅 -->
+        <activity
+            android:name=".ui.activity.XinXiLuRuGHDActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 信息录入供货端 -->
+        <activity
+            android:name=".ui.activity.AddQrCodeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 添加二维码 -->
+        <activity
+            android:name=".ui.activity.ShangPinChangeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 商品修改 -->
+        <activity
+            android:name=".ui.activity.ShangPinGuanLiTeJiaActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 特价商品管理 -->
+        <activity
+            android:name=".ui.activity.CaiGouXuQiuActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 采购需求 -->
+        <activity
+            android:name=".ui.activity.ChangGouActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 常购 -->
+        <activity
+            android:name=".ui.activity.AddShangPinActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 添加商品 -->
+        <activity
+            android:name=".ui.activity.HuoDongActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 活动 -->
+        <activity
+            android:name=".ui.activity.JiaoYiLiuShuiActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 交易流水 -->
+        <activity
+            android:name=".ui.activity.XJSPFeiLeiXuanZeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 新建商品分类选择 -->
+        <activity
+            android:name=".utils.dayinji.DeviceListActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 蓝牙设备列表 -->
+        <activity
+            android:name=".ui.activity.XuanZeGuiGeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 选择规格 -->
+        <activity
+            android:name=".ui.activity.YongHuPingJiaActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 供应端用户评价 -->
+        <activity
+            android:name=".ui.activity.GHDXiangQingActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 供应端订单详情 -->
+        <activity
+            android:name=".ui.activity.YeWuYuanActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 业务员饼状图首页 -->
+        <activity
+            android:name=".ui.activity.ShichangJiageActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 各市场价格 -->
+        <activity
+            android:name=".ui.activity.ShichangXuanzeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 选择市场 -->
+        <activity
+            android:name=".ui.activity.SqscWodeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 社区市场 -->
+        <activity
+            android:name=".ui.activity.QuanBuCaiPinActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 全部菜品 -->
+        <activity
+            android:name=".ui.activity.GouWuCheActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 购物车 -->
+        <activity
+            android:name=".ui.activity.SqscShezhiActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 社区市场设置 -->
+        <activity
+            android:name=".ui.activity.ShichangFuzerenActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 市场负责人 -->
+        <activity
+            android:name=".ui.activity.ShichangWuliuActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 市场负责人物流信息 -->
+        <activity
+            android:name=".ui.activity.ChangePayPwdActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 修改支付密码 -->
+        <activity
+            android:name=".ui.activity.SetPayPwdActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 设置支付密码 -->
+        <activity android:name=".ui.activity.SpsbChangeActivity"></activity>
     </application>
 
 </manifest>

@@ -18,6 +18,7 @@
             android:paddingRight="12dp">
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_marginTop="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
@@ -69,21 +70,51 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="店铺名称"
+                    android:text="店铺唯一码"
                     android:textColor="#474747"
                     android:textSize="14sp"/>
                 <EditText
+                    android:maxLines="1"
+                    android:maxLength="4"
+                    android:id="@+id/et_only_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:background="@drawable/fillet_hollow_999999_3"
+                    android:text=""
+                    android:hint="请输入4位唯一码"
+                    android:textColorHint="#999999"
+                    android:paddingLeft="5dp"
+                    android:textSize="15sp"
+                    android:textColor="#474747"
+                    android:layout_marginLeft="42dp"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="店铺名称"
+                    android:textColor="#474747"
+                    android:textSize="14sp"/>
+                <TextView
+                    android:gravity="center_vertical"
                     android:id="@+id/et_dianpuming"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@null"
                     android:text=""
-                    android:hint="请选择区域后方可填写"
+                    android:hint="输入店铺唯一码后自动获取"
                     android:textColorHint="#999999"
                     android:paddingLeft="5dp"
                     android:textSize="15sp"
                     android:textColor="#474747"
-                    android:layout_marginLeft="35dp"
+                    android:layout_marginLeft="55dp"
                     />
             </LinearLayout>
             <android.support.v7.widget.RecyclerView
@@ -211,7 +242,7 @@
                         android:textColorHint="#999999"
                         android:textSize="15sp"
                         android:textColor="#474747"
-                        android:layout_marginLeft="35dp"
+                        android:layout_marginLeft="55dp"
                         />
                 </LinearLayout>
                 <LinearLayout
@@ -224,20 +255,21 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="邀请码"
+                        android:text="业务员联系方式"
                         android:textColor="#474747"
                         android:textSize="14sp"/>
-                    <EditText
+                    <TextView
+                        android:gravity="center_vertical"
                         android:id="@+id/et_yaoqingma"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
                         android:text=""
-                        android:hint="必填"
+                        android:hint="输入店铺唯一码后自动获取"
                         android:textColorHint="#999999"
                         android:textSize="15sp"
                         android:textColor="#474747"
-                        android:layout_marginLeft="35dp"
+                        android:layout_marginLeft="10dp"
                         android:maxLines="4"
                         />
                 </LinearLayout>

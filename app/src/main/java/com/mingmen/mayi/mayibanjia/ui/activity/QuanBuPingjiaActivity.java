@@ -124,11 +124,11 @@ public class QuanBuPingjiaActivity extends BaseActivity {
                 setViewShow();
                 break;
             case R.id.btn_good:
-                type = "1";
+                type = "2";
                 setViewShow();
                 break;
             case R.id.btn_bad:
-                type = "2";
+                type = "1";
                 setViewShow();
                 break;
         }
@@ -147,12 +147,12 @@ public class QuanBuPingjiaActivity extends BaseActivity {
                 btnAll.setTextColor(mContext.getResources().getColor(R.color.white));
                 break;
             case "1":
-                btnGood.setBackgroundResource(R.drawable.fillet_solid_zangqing_40);
-                btnGood.setTextColor(mContext.getResources().getColor(R.color.white));
-                break;
-            case "2":
                 btnBad.setBackgroundResource(R.drawable.fillet_solid_zangqing_40);
                 btnBad.setTextColor(mContext.getResources().getColor(R.color.white));
+                break;
+            case "2":
+                btnGood.setBackgroundResource(R.drawable.fillet_solid_zangqing_40);
+                btnGood.setTextColor(mContext.getResources().getColor(R.color.white));
                 break;
         }
         ye = 1;

@@ -47,6 +47,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </RelativeLayout>
+                <TextView
+                    android:textSize="13sp"
+                    android:textColor="@color/blue_3794e5"
+                    android:id="@+id/tv_only_code"
+                    android:text="店铺唯一码："
+                    android:layout_marginTop="6dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
                 <LinearLayout
                     android:layout_marginTop="6dp"
                     android:layout_width="match_parent"
@@ -60,6 +68,7 @@
                         android:text="烧烤"
                         android:textColor="#ff474747"
                         android:textSize="13sp"
+                        android:layout_marginRight="20dp"
                         />
                     <TextView
                         android:id="@+id/tv_guimo"
@@ -68,7 +77,6 @@
                         android:text="20桌"
                         android:textColor="#ff474747"
                         android:textSize="13sp"
-                        android:layout_marginLeft="20dp"
                         />
                 </LinearLayout>
                 <LinearLayout

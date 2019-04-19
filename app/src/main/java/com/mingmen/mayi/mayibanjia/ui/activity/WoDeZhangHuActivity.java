@@ -64,7 +64,7 @@ public class WoDeZhangHuActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.iv_back, R.id.ll_pwd, R.id.tv_phone, R.id.ll_pwd_zf, R.id.ll_set_paypwd})
+    @OnClick({R.id.iv_back, R.id.ll_pwd, R.id.ll_phone, R.id.ll_pwd_zf, R.id.ll_set_paypwd})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:

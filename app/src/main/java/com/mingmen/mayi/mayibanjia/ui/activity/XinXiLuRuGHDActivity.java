@@ -530,7 +530,7 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
                     for (int d=0; d < jsonBean.get(i).getCitylist().get(c).getQulist().size(); d++) {//该城市对应地区所有数据
                         String AreaName = jsonBean.get(i).getCitylist().get(c).getQulist().get(d).getQuymc();
 
-                        City_AreaList.add(AreaName);//添加该城市所有地区数据
+                        if(!AreaName.equals("市辖区")){                                 City_AreaList.add(AreaName);                             }
                     }
                 }
                 Province_AreaList.add(City_AreaList);//添加该省所有地区数据

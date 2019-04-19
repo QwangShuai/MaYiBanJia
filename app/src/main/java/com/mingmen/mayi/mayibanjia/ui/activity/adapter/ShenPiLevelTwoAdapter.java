@@ -92,7 +92,8 @@ public class ShenPiLevelTwoAdapter extends RecyclerView.Adapter<ShenPiLevelTwoAd
             @Override
             public void onClick(View v) {
                 new GengDuoShangJiaDialog()
-                        .setId(mList.get(position).getCcListBean().getSon_order_id(), mList.get(position).getCcListBean().getMarket_id())
+                        .setId(mList.get(position).getCcListBean().getSon_order_id(), mList.get(position).getCcListBean().getMarket_id(),
+                                mList.get(position).getType()+"")
                         .setCallBack(new GengDuoShangJiaDialog.CallBack() {
                             @Override
                             public void xuanzhong(XiTongTuiJianBean.CcListBean msg) {

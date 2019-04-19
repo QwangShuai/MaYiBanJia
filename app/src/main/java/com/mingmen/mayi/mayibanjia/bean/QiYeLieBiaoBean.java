@@ -90,6 +90,15 @@ public class QiYeLieBiaoBean {
     private String random_id;
     private String one_classify_id;
     private String one_classify_name;
+    private String only_num;
+
+    public String getOnly_num() {
+        return only_num;
+    }
+
+    public void setOnly_num(String only_num) {
+        this.only_num = only_num;
+    }
 
     public String getOne_classify_id() {
         return one_classify_id;

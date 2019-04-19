@@ -38,6 +38,7 @@ import com.mingmen.mayi.mayibanjia.bean.XQPingJiaBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
+import com.mingmen.mayi.mayibanjia.ui.activity.adapter.SpFenLeiLableAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.WeiNiTuiJianAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.XiangQTuAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.JiaRuGouWuCheDialog;
@@ -165,8 +166,12 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
     XCFlowLayout xcfPingjia;
     @BindView(R.id.tv_tejia)
     TextView tvTejia;
+    @BindView(R.id.tv_spgg)
+    TextView tvSpgg;
     @BindView(R.id.ll_tejia)
     LinearLayout llTejia;
+    @BindView(R.id.rv_xiangqing)
+    RecyclerView rvXiangqing;
 //    @BindView(R.id.ll_qidingliang3)
 //    LinearLayout llQidingliang3;
     private boolean isNeedScrollTo = true;
@@ -192,6 +197,7 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
     private String guigeid = "";
     private JiaRuGouWuCheDialog jiarugouwuchedialog;
     private String guigename;
+    private SpFenLeiLableAdapter spfllAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -357,6 +363,18 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
                 tvQidingliangjiage1.setText(xq.getPice_one());
             }*/
         }
+
+        int mysize = spxinxi.getParameteList()==null?0:spxinxi.getParameteList().size();
+        if(mysize!=0){
+            rvXiangqing.setVisibility(View.VISIBLE);
+            rvXiangqing.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false));
+            spfllAdapter = new SpFenLeiLableAdapter(mContext,spxinxi.getParameteList());
+            rvXiangqing.setAdapter(spfllAdapter);
+        } else {
+            rvXiangqing.setVisibility(View.GONE);
+            tvSpgg.setVisibility(View.GONE);
+        }
+
 //        if (!StringUtil.isEmpty(xq.getRation_two())){
 //            tvQidingliang2.setText(!StringUtil.isEmpty(xq.getRation_three())?xq.getRation_two()+"-"+xq.getRation_three()+guigename:xq.getRation_two()+guigename+"以上");
 //            if (!StringUtil.isEmpty(xq.getPice_two())){
@@ -399,8 +417,11 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
             }
         };
         Log.e("xiangqingkaishi11111111", xq.getDpicture() + "-+++++++++++++++++++++==-");
-        if (xq.getDpicture() != null) {
+        int tusize = xq.getDpicture()==null?0:xq.getDpicture().size();
+        if (tusize != 0) {
             tulist.addAll(xq.getDpicture());
+        } else {
+            rvXiangqingtu.setVisibility(View.GONE);
         }
         tuadapter = new XiangQTuAdapter(mContext, tulist);
         rvXiangqingtu.setLayoutManager(layoutManager);

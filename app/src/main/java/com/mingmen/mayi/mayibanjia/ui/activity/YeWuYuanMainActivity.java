@@ -178,6 +178,11 @@ public class YeWuYuanMainActivity extends BaseActivity {
 
     //查询企业列表
     public void getQiyeLiebiao() {
+        if (type.equals("1")) {
+            adapter.setShow(true);
+        }  else {
+            adapter.setShow(false);
+        }
         if(ye==1){
             mlist.clear();
         }
@@ -214,12 +219,16 @@ public class YeWuYuanMainActivity extends BaseActivity {
         this.role = role;
         if (type.equals("1") && role.equals("1")) {
             tvTitle.setText("我的餐厅");
+            adapter.setShow(true);
         } else if (type.equals("1") && role.equals("2")) {
             tvTitle.setText("我的商家");
+            adapter.setShow(true);
         } else if (type.equals("2") && role.equals("1")) {
             tvTitle.setText("全部餐厅");
+            adapter.setShow(false);
         } else if (type.equals("2") && role.equals("2")) {
             tvTitle.setText("全部商家");
+            adapter.setShow(false);
         }
         mlist.clear();
         adapter.notifyDataSetChanged();
@@ -299,6 +308,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         addDialog.dismiss();
+                        setShowList("1");
                         //添加企业
                         Intent intent = new Intent(mContext, XinXiLuRuActivity.class);
                         bundle.putString("rukou", "add");
@@ -310,6 +320,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         addDialog.dismiss();
+                        setShowList("2");
                         Intent intent = new Intent(mContext, XinXiLuRuGHDActivity.class);
                         bundle.putString("rukou", "add");
                         bundle.putString("random_id", "1");
@@ -321,6 +332,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         addDialog.dismiss();
+                        setShowList("2");
                         Intent intent = new Intent(mContext, XinXiLuRuGHDActivity.class);
                         bundle.putString("rukou", "add");
                         bundle.putString("random_id", "0");
@@ -591,5 +603,21 @@ public class YeWuYuanMainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+    }
+
+    private void setShowList(String new_role){
+        type = "1";
+        role = new_role;
+        zctype = "1";
+        switch (role){
+            case "1":
+                tvType.setText("我的餐厅");
+                break;
+            case "2":
+                tvType.setText("我的供货商");
+                break;
+        }
+        tvZhuce.setText("未注册");
+        getQiyeLiebiao();
     }
 }

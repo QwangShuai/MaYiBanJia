@@ -140,7 +140,7 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         final ShangPinGuanLiBean.GoodsListBean bean = mList.get(position);
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
@@ -159,7 +159,7 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
                         Intent it = new Intent(mContext, FaBuShangPinActivity.class);
                         it.putExtra("state", "1");
                         it.putExtra("goods", goods);
-                        if(bean.getAudit_state().equals("5")){
+                        if(bean.getSortOrder().equals("4")){
                             it.putExtra("shsb", "1");
                         }
                         it.putExtra("bean", bean.getCommodity_id());
@@ -236,25 +236,81 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
 //                    holder.btIsTejia.setText("取消特价");
                     break;
                 case "4"://审核失败
-                    holder.llWenhao.setVisibility(View.VISIBLE);
-                    holder.llWenhao.setOnClickListener(new OnClickListener() {
+//                    holder.llWenhao.setVisibility(View.VISIBLE);
+//                    holder.llWenhao.setOnClickListener(new OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            final ConfirmSingleDialog dialog;
+//                            dialog = new ConfirmSingleDialog(mContext,
+//                                    mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
+//                            dialog.showDialog(bean.getFail_reason());
+//                            dialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View v) {
+//                                    dialog.cancel();
+//                                }
+//                            });
+//                        }
+//                    });
+                    holder.btIsTejia.setVisibility(View.VISIBLE);
+                    holder.btIsTejia.setText("删除");
+                    holder.btIsTejia.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            final ConfirmSingleDialog dialog;
-                            dialog = new ConfirmSingleDialog(mContext,
-                                    mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
-                            dialog.showDialog(bean.getFail_reason());
-                            dialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+                            confirmDialog.showDialog("是否删除此商品");
+                            confirmDialog.getTvSubmit().setOnClickListener(new OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    dialog.cancel();
+                                    confirmDialog.dismiss();
+                                    //删除
+                                    HttpManager.getInstance()
+                                            .with(mContext)
+                                            .setObservable(
+                                                    RetrofitManager
+                                                            .getService()
+                                                            .ghdspdel(PreferenceUtils.getString(MyApplication.mContext,"token",""),
+                                                                    bean.getCommodity_id(), "3"))
+                                            .setDataListener(new HttpDataListener<String>() {
+                                                @Override
+                                                public void onNext(String data) {
+                                                    ToastUtil.showToastLong("删除审核失败商品成功");
+                                                    mList.remove(position);
+                                                    notifyDataSetChanged();
+                                                }
+                                            }, false);
+                                }
+                            });
+                            confirmDialog.getTvCancel().setOnClickListener(new OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    confirmDialog.dismiss();
                                 }
                             });
                         }
                     });
                     holder.btBianji.setVisibility(View.VISIBLE);
                     holder.btShangjia.setVisibility(View.VISIBLE);
-                    holder.btShangjia.setText("审核失败");
+                    holder.btShangjia.setText("失败原因");
+                    holder.btShangjia.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (isClick()) {
+                                final ConfirmSingleDialog dialog;
+                                dialog = new ConfirmSingleDialog(mContext,
+                                        mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
+                                dialog.showDialog(bean.getFail_reason());
+                                dialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        dialog.cancel();
+                                    }
+                                });
+                            } else {
+                                ToastUtil.showToastLong("请注意，您只有阅览权限");
+                            }
+
+                        }
+                    });
 //                    holder.btIsTejia.setVisibility(goods.equals("1")?View.VISIBLE:View.GONE);
 //                    holder.btIsTejia.setText("取消特价");
                     break;

@@ -360,11 +360,29 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
             <LinearLayout
-                android:visibility="gone"
+                android:visibility="visible"
                 android:id="@+id/ll_show"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+                <include layout="@layout/view_cutoff_e7e7e7"></include>
+                <LinearLayout
+                    android:id="@+id/ll_yqm"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="43dp">
+                    <TextView
+                        android:id="@+id/tv_yqm"
+                        android:text="111"
+                        android:textSize="14sp"
+                        android:textColor="@color/zicolor"
+                        android:layout_marginLeft="37dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
                 <include layout="@layout/view_cutoff_e7e7e7"></include>
                 <LinearLayout
                     android:id="@+id/ll_phone"

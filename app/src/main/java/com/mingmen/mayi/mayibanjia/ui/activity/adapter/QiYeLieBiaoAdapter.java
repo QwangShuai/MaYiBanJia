@@ -38,6 +38,14 @@ public class QiYeLieBiaoAdapter extends RecyclerView.Adapter<QiYeLieBiaoAdapter.
     private List<QiYeLieBiaoBean> mList;
     private OnItemClickListener mOnItemClickListener;
     private Intent it;
+
+
+    public void setShow(boolean show) {
+        isShow = show;
+        notifyDataSetChanged();
+    }
+
+    private boolean isShow;
     private YeWuYuanMainActivity activity;
 //    public QiYeLieBiaoAdapter(Context mContext, List<QiYeLieBiaoBean> list, YeWuYuanMainActivity activity, BaseYeWuYuanFragment fragment) {
     public QiYeLieBiaoAdapter(Context mContext, List<QiYeLieBiaoBean> list) {
@@ -88,8 +96,15 @@ public class QiYeLieBiaoAdapter extends RecyclerView.Adapter<QiYeLieBiaoAdapter.
 //            holder.tvMoren.setVisibility(View.VISIBLE);
 //        }
         holder.tvMingzi.setText(data.getCompany_name());
-        holder.tvLeibie.setText(data.getLeiBieName());
-        holder.tvGuimo.setText(data.getGuiMoId());
+        if(StringUtil.isValid(data.getLeiBieName())){
+            holder.tvLeibie.setText(data.getLeiBieName());
+            holder.tvLeibie.setVisibility(View.VISIBLE);
+        } else {
+            holder.tvLeibie.setVisibility(View.GONE);
+        }
+        holder.tvOnlyCode.setVisibility(isShow?View.VISIBLE:View.GONE);
+        holder.tvOnlyCode.setText("店铺唯一码："+data.getOnly_num());
+        holder.tvGuimo.setText("餐位数：" + data.getGuiMoId());
         holder.tvYewuyuan.setText("业务员:"+data.getPrincipal());
         Glide.with(mContext).load(data.getPhoto()).into(holder.ivTouxiang);
 //        if (data.getSpecific_address() != null) {
@@ -210,6 +225,8 @@ public class QiYeLieBiaoAdapter extends RecyclerView.Adapter<QiYeLieBiaoAdapter.
         TextView tvShangpinPt;
         @BindView(R.id.tv_shangpin_tj)
         TextView tvShangpinTj;
+        @BindView(R.id.tv_only_code)
+        TextView tvOnlyCode;
         @BindView(R.id.ll_phone)
         LinearLayout llPhone;
         @BindView(R.id.tv_yewuyuan)

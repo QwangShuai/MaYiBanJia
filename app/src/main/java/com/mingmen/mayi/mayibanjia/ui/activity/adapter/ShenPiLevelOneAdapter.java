@@ -430,20 +430,20 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
                                 XiTongTuiJianBean.CcListBean xiaoliang = list.getCommodity_sales().get(0);
                                 Log.e("xiaoliang", xiaoliang.getSon_order_id());
                                 xiaoliang.setBiaoqian("销量最高");
-                                listBeanLevel.add(new CaiGouDanBean.FllistBean.SonorderlistBean.CcListBeanLevel(TYPE_ONE, xiaoliang));
+                                listBeanLevel.add(new CaiGouDanBean.FllistBean.SonorderlistBean.CcListBeanLevel(TYPE_TWO, xiaoliang));
                                 //获取之后  改成不需要加载状态
                                 listBean.setNeedLoad(false);
                             } else {
 //                                ToastUtil.showToast("该市场下暂无匹配商家");
-                                listBeanLevel.add(new CaiGouDanBean.FllistBean.SonorderlistBean.CcListBeanLevel(TYPE_ONE, new XiTongTuiJianBean.CcListBean()));
+                                listBeanLevel.add(new CaiGouDanBean.FllistBean.SonorderlistBean.CcListBeanLevel(TYPE_TWO, new XiTongTuiJianBean.CcListBean()));
                             }
                             List<XiTongTuiJianBean.CcListBean> pice = list.getPice();//价格
                             if (pice != null && pice.size() > 0) {
                                 XiTongTuiJianBean.CcListBean jiage = list.getPice().get(0);
                                 jiage.setBiaoqian("价格最低");
-                                listBeanLevel.add(new CaiGouDanBean.FllistBean.SonorderlistBean.CcListBeanLevel(TYPE_TWO, jiage));
+                                listBeanLevel.add(new CaiGouDanBean.FllistBean.SonorderlistBean.CcListBeanLevel(TYPE_ONE, jiage));
                             } else {
-                                listBeanLevel.add(new CaiGouDanBean.FllistBean.SonorderlistBean.CcListBeanLevel(TYPE_TWO, new XiTongTuiJianBean.CcListBean()));
+                                listBeanLevel.add(new CaiGouDanBean.FllistBean.SonorderlistBean.CcListBeanLevel(TYPE_ONE, new XiTongTuiJianBean.CcListBean()));
                             }
                             listBeanLevel.add(new CaiGouDanBean.FllistBean.SonorderlistBean.CcListBeanLevel(TYPE_FOUR, new XiTongTuiJianBean.CcListBean()));
                             listBeanLevel.add(new CaiGouDanBean.FllistBean.SonorderlistBean.CcListBeanLevel(TYPE_FIVE, new XiTongTuiJianBean.CcListBean()));

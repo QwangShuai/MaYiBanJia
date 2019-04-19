@@ -179,7 +179,7 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .dianpuchaxun(PreferenceUtils.getString(MyApplication.mContext, "token", ""),shengid+"",shiid+"",quid+"","1","",chaxun))
+                                .dianpuchaxun(PreferenceUtils.getString(MyApplication.mContext, "token", ""),chaxun))
                 .setDataListener(new HttpDataListener<List<DianMingChaXunBean>>() {
                     @Override
                     public void onNext(final List<DianMingChaXunBean> data) {
@@ -218,7 +218,7 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .zhuce(fuzeren,phone,pass,yingyezhizhao,"",dianpuid,yaoqingma,yanzhengma,"1", StringUtil.getMyUUID(mContext)))
+                                .zhuce(fuzeren,phone,pass,yingyezhizhao,"",dianpuid,yanzhengma,"1", StringUtil.getMyUUID(mContext)))
                 .setDataListener(new HttpDataListener<ZhuCeChengGongBean>() {
                     @Override
                     public void onNext(ZhuCeChengGongBean list) {
@@ -508,9 +508,11 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
                 }else {
 
                     for (int d=0; d < jsonBean.get(i).getCitylist().get(c).getQulist().size(); d++) {//该城市对应地区所有数据
-                        String AreaName = jsonBean.get(i).getCitylist().get(c).getQulist().get(d).getQuymc();
+                        if(d!=0){
+                            String AreaName = jsonBean.get(i).getCitylist().get(c).getQulist().get(d).getQuymc();
 
-                        City_AreaList.add(AreaName);//添加该城市所有地区数据
+                            if(!AreaName.equals("市辖区")){                                 City_AreaList.add(AreaName);                             }
+                        }
                     }
                 }
                 Province_AreaList.add(City_AreaList);//添加该省所有地区数据

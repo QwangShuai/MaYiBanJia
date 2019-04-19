@@ -33,6 +33,7 @@ public class YwyBean {
     private int all_count;
     private String telephone;
     private String specific_address;
+    private String salesman_code;
     private int order_count;
     private int registered_ct;
     private int registered_gy;
@@ -44,6 +45,14 @@ public class YwyBean {
     private int waitSH_count;//待送货订单数量
     private int waitWC_count;//已完成订单数量
     private int zcl_count;//自处理订单数量
+
+    public String getSalesman_code() {
+        return salesman_code;
+    }
+
+    public void setSalesman_code(String salesman_code) {
+        this.salesman_code = salesman_code;
+    }
 
     public int getYjcount() {
         return yjcount;

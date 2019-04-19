@@ -123,7 +123,9 @@ public interface HttpService {
 
     //更换手机号绑定
     @POST("allCompanyAccount/updateByTelephone.do")
-    Observable<ResultModel<String>> changePhone(@Query("user_token") String user_token, @Query("telephone") String telephone);
+    Observable<ResultModel<String>> changePhone(@Query("user_token") String user_token,
+                                                @Query("telephone") String telephone,
+                                                @Query("new_telephone") String new_telephone);
 
     //确认验证码输入是否正确
     @POST("allCompanyAccount/code.do")
@@ -137,7 +139,6 @@ public interface HttpService {
                                                       @Query("business_license") String business_license,//营业执照
                                                       @Query("circulation_permit") String circulation_permit,//食品流通许可证
                                                       @Query("company_id") String company_id,//企业id
-                                                      @Query("salesman_code") String salesman_code,//邀请码
                                                       @Query("yzm") String yzm,//验证码
                                                       @Query("device_name") String device_name,
                                                       @Query("deviceid") String deviceid);
@@ -145,12 +146,7 @@ public interface HttpService {
     //门店名称模糊查询
     @POST("allCompany/getname.do")
     Observable<ResultModel<List<DianMingChaXunBean>>> dianpuchaxun(@Query("user_token") String user_token,
-                                                                   @Query("province") String province,
-                                                                   @Query("city") String city,
-                                                                   @Query("region") String region,
-                                                                   @Query("role") String role,
-                                                                   @Query("random_id") String random_id,
-                                                                   @Query("company_name") String company_name);
+                                                                   @Query("only_num") String only_num);
 
     //供货端获取省
     @POST("sysQuy/querychina.do")
@@ -585,8 +581,8 @@ public interface HttpService {
     @POST("ctBuyHostorder/queryByCompany.do")
     Observable<ResultModel<List<XiTongTuiJianBean.CcListBean>>> getgengduoshangjia(@Query("user_token") String user_token,
                                                                                    @Query("son_order_id") String son_order_id,
-                                                                                   @Query("market_id") String market_id
-    );
+                                                                                   @Query("market_id") String market_id,
+                                                                                   @Query("type") String type);
 
     //获取订单商品信息
     @POST("ctBuyHostorder/order.do")

@@ -124,7 +124,7 @@ public class SiJiActivity extends BaseActivity {
         ll_change_pwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent it = new Intent(mContext, WoDeZhangHuActivity.class);
+                Intent it = new Intent(mContext, ChangePwdActivity.class);
                 startActivity(it);
                 tuichupop.dismiss();
             }

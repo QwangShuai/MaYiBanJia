@@ -135,8 +135,8 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
     private boolean isClickCamera;
     private QiNiuPhoto qiNiuPhoto;
     private boolean isYingYe;
-    private String yingyezhizhao="";
-    private String xukezheng="";
+    private String yingyezhizhao = "";
+    private String xukezheng = "";
     private String fuzeren;
     private String yaoqingma;
     private String dianpuming;
@@ -152,9 +152,9 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
     private int shengid;
     private int shiid;
     private int quid;
-//    private String type="1";
-    private int city=0;
-    private int[] pos= new int[3];
+    //    private String type="1";
+    private int city = 0;
+    private int[] pos = new int[3];
 
 
     @Override
@@ -164,13 +164,13 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        mContext=GHDWanShanXinXiActivity.this;
+        mContext = GHDWanShanXinXiActivity.this;
         tvTitle.setText("完善信息");
-        qiNiuPhoto=new QiNiuPhoto(this);
+        qiNiuPhoto = new QiNiuPhoto(this);
         photoDialog = new PhotoDialog(mContext,
                 mContext.getResources().getIdentifier("BottomDialog", "style", mContext.getPackageName()));
         photoDialog.getWindow().setGravity(Gravity.BOTTOM | Gravity.LEFT | Gravity.RIGHT);
-        bundle=getIntent().getExtras();
+        bundle = getIntent().getExtras();
         phone = bundle.getString("phone");
         pass = bundle.getString("pass1");
         yanzhengma = bundle.getString("yanzhengma");
@@ -195,7 +195,7 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 String chaxun = s.toString().trim();
-                if (chaxun.length()==4){
+                if (chaxun.length() == 4) {
                     getdianpuming(chaxun);
                 }
             }
@@ -215,66 +215,70 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String list) {
-                        Log.e("fenleifenlei",list+"---");
-                        Log.e("imageUri",imageUri+"---");
+                        Log.e("fenleifenlei", list + "---");
+                        Log.e("imageUri", imageUri + "---");
 
 //                        String qiniudata = getRealPathFromUri(GHDWanShanXinXiActivity.this, imageUri);
                         String qiniudata = getRealFilePath(GHDWanShanXinXiActivity.this, outputUri);
 //
 //                        File file=new File(imageUri.getPath());
                         String key = null;
-                        String token =list ;
-                        Log.e("qiniudata",qiniudata+"--");
-                        MyApplication.uploadManager.put(qiniudata, key, token,
-                                new UpCompletionHandler() {
-                                    @Override
-                                    public void complete(String key, ResponseInfo info, JSONObject res) {
-                                        //res包含hash、key等信息，具体字段取决于上传策略的设置
-                                        if(info.isOK()) {
+                        String token = list;
+                        File file = StringUtil.luban(mContext, qiniudata);
+                        if (StringUtil.isValid(file.getPath())) {
+                            bitmap = BitmapFactory.decodeFile(file.getPath());
+                            Log.e("qiniudata", qiniudata + "--");
+                            MyApplication.uploadManager.put(qiniudata, key, token,
+                                    new UpCompletionHandler() {
+                                        @Override
+                                        public void complete(String key, ResponseInfo info, JSONObject res) {
+                                            //res包含hash、key等信息，具体字段取决于上传策略的设置
+                                            if (info.isOK()) {
 //                                            getImageAbsolutePath(CTDWanShanXinXiActivity.this,outputUri)
-                                            Log.e("qiniu", "Upload Success");
+                                                Log.e("qiniu", "Upload Success");
 
-                                            try {
-                                                if (isYingYe){
-                                                    yingyezhizhao = res.getString("key");
-                                                    Log.e("keykey", yingyezhizhao+"yingyezhizhao");
-                                                }else{
-                                                    xukezheng = res.getString("key");
-                                                    Log.e("keykey", xukezheng+"xukezheng");
+                                                try {
+                                                    if (isYingYe) {
+                                                        yingyezhizhao = res.getString("key");
+                                                        Log.e("keykey", yingyezhizhao + "yingyezhizhao");
+                                                    } else {
+                                                        xukezheng = res.getString("key");
+                                                        Log.e("keykey", xukezheng + "xukezheng");
+                                                    }
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
                                                 }
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
+
+                                            } else {
+                                                Log.e("qiniu", "Upload Fail");
+                                                //如果失败，这里可以把info信息上报自己的服务器，便于后面分析上传错误原因
                                             }
-
-                                        } else {
-                                            Log.e("qiniu", "Upload Fail");
-                                            //如果失败，这里可以把info信息上报自己的服务器，便于后面分析上传错误原因
+                                            Log.e("qiniu", key + ",\r\n " + info + ",\r\n " + res);
                                         }
-                                        Log.e("qiniu", key + ",\r\n " + info + ",\r\n " + res);
-                                    }
-                                }, null);
-                        if (isYingYe){
-                            ivYingyezhizhao.setImageBitmap(bitmap);
-                            Log.e("setImageBitmap", "ivYingyezhizhao");
-                        }else{
-                            ivXukezheng.setImageBitmap(bitmap);
-                            Log.e("setImageBitmap", "ivXukezheng");
-                        }
+                                    }, null);
+                            if (isYingYe) {
+                                ivYingyezhizhao.setImageBitmap(bitmap);
+                                Log.e("setImageBitmap", "ivYingyezhizhao");
+                            } else {
+                                ivXukezheng.setImageBitmap(bitmap);
+                                Log.e("setImageBitmap", "ivXukezheng");
+                            }
 
-                       
+                        }
                     }
                 });
+
     }
 
     @OnClick({R.id.iv_back, R.id.iv_yingyezhizhao, R.id.iv_xukezheng, R.id.bt_tijiao,
-            R.id.tv_xieyi, R.id.tv_dianhua,R.id.tv_quyuxuanze})
+            R.id.tv_xieyi, R.id.tv_dianhua, R.id.tv_quyuxuanze})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
                 finish();
                 break;
             case R.id.iv_yingyezhizhao:
-                isYingYe=true;
+                isYingYe = true;
                 //上传图片
                 photoDialog.showDialog();
                 photoDialog.getIvXiangce().setOnClickListener(new View.OnClickListener() {
@@ -301,7 +305,7 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
                 });
                 break;
             case R.id.iv_xukezheng:
-                isYingYe=false;
+                isYingYe = false;
                 //上传图片
                 photoDialog.showDialog();
                 photoDialog.getIvXiangce().setOnClickListener(new View.OnClickListener() {
@@ -320,7 +324,7 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
                                 .choose(MimeType.allOf()) // 选择 mime 的类型
                                 .countable(true)
                                 .capture(true)
-                                .captureStrategy(new CaptureStrategy(true,"com.mingmen.mayi.mayibanjia.fileProvider"))
+                                .captureStrategy(new CaptureStrategy(true, "com.mingmen.mayi.mayibanjia.fileProvider"))
                                 .maxSelectable(1) // 图片选择的最多数量
 //                                .gridExpectedSize(getResources().getDimensionPixelSize(25))
                                 .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
@@ -339,26 +343,26 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
                 });
                 break;
             case R.id.bt_tijiao:
-                fuzeren =etFuzeren.getText().toString().trim();
-                yaoqingma =etYaoqingma.getText().toString().trim();
+                fuzeren = etFuzeren.getText().toString().trim();
+                yaoqingma = etYaoqingma.getText().toString().trim();
 //                dianpuming=etDianpuming.getText().toString().trim();
-                if(!StringUtil.isValid(etDianpuming.getText().toString().trim())){
+                if (!StringUtil.isValid(etDianpuming.getText().toString().trim())) {
                     ToastUtil.showToastLong("店铺名不可以为空");
-                } else if(!StringUtil.isValid(fuzeren)){
+                } else if (!StringUtil.isValid(fuzeren)) {
                     ToastUtil.showToastLong("负责人不可以为空");
-                } else if(!StringUtil.isValid(yaoqingma)){
+                } else if (!StringUtil.isValid(yaoqingma)) {
                     ToastUtil.showToastLong("业务员手机号不可以为空");
-                } else if(!StringUtil.isValid(yingyezhizhao)){
+                } else if (!StringUtil.isValid(yingyezhizhao)) {
                     ToastUtil.showToastLong("营业执照不可以为空");
-                } else{
-                    if(StringUtil.isValid(dianpuid)&&etDianpuming.getText().toString().trim().equals(dianpuming)){
-                        if(role.equals("2")){
-                            if(StringUtil.isValid(xukezheng)){
+                } else {
+                    if (StringUtil.isValid(dianpuid) && etDianpuming.getText().toString().trim().equals(dianpuming)) {
+                        if (role.equals("2")) {
+                            if (StringUtil.isValid(xukezheng)) {
                                 zhuce();
                             } else {
                                 ToastUtil.showToastLong("食品流通许可证不可以为空");
                             }
-                        }else {
+                        } else {
                             zhuce();
                         }
                     } else {
@@ -384,51 +388,52 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .zhuce(fuzeren,phone,pass,yingyezhizhao,xukezheng,dianpuid,yanzhengma,"1", StringUtil.getMyUUID(mContext)))
+                                .zhuce(fuzeren, phone, pass, yingyezhizhao, xukezheng, dianpuid, yanzhengma, "1", StringUtil.getMyUUID(mContext)))
                 .setDataListener(new HttpDataListener<ZhuCeChengGongBean>() {
                     @Override
                     public void onNext(ZhuCeChengGongBean list) {
-                        Log.e("token",list.getToken()+"===");
-                        PreferenceUtils.putString(MyApplication.mContext,"token",list.getToken());
-                        PreferenceUtils.putString(MyApplication.mContext,"juese",list.getRole());
-                        PreferenceUtils.putBoolean(MyApplication.mContext,"isLogin",false);
+                        Log.e("token", list.getToken() + "===");
+                        PreferenceUtils.putString(MyApplication.mContext, "token", list.getToken());
+                        PreferenceUtils.putString(MyApplication.mContext, "juese", list.getRole());
+                        PreferenceUtils.putBoolean(MyApplication.mContext, "isLogin", false);
                         //注册成功后  跳转
 //                        Intent intent = new Intent(mContext, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         Intent intent = new Intent(mContext, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
-                       
+
                     }
                 });
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case REQUEST_PICK_IMAGE://从相册选择
-                Log.e("xiangce","xiangce");
-                if (data!=null){
+                Log.e("xiangce", "xiangce");
+                if (data != null) {
                     if (Build.VERSION.SDK_INT >= 19) {
-                        imagePath=handleImageOnKitKat(data);
+                        imagePath = handleImageOnKitKat(data);
                     } else {
-                        imagePath=handleImageBeforeKitKat(data);
+                        imagePath = handleImageBeforeKitKat(data);
                     }
                 }
                 break;
             case REQUEST_CAPTURE://拍照
-                Log.e("拍照","拍照");
+                Log.e("拍照", "拍照");
                 if (resultCode == RESULT_OK) {
                     cropPhoto();
 //                    xianshi();
                 }
                 break;
             case REQUEST_PICTURE_CUT://裁剪完成
-                if (data!=null) {
-                    Log.e("裁剪完成","裁剪完成");
+                if (data != null) {
+                    Log.e("裁剪完成", "裁剪完成");
                     try {
                         if (isClickCamera) {
-                            Log.e("裁剪完成","裁剪完成111");
+                            Log.e("裁剪完成", "裁剪完成111");
                             bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(outputUri));
                         } else {
-                            Log.e("裁剪完成","裁剪完成222");
+                            Log.e("裁剪完成", "裁剪完成222");
                             bitmap = BitmapFactory.decodeFile(imagePath);
 //                            bitmap = BitmapFactory.decodeFile(imagePath);
                         }
@@ -441,6 +446,7 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
                 break;
         }
     }
+
     /**
      * 从相册选择
      */
@@ -502,19 +508,20 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
                 Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.valueOf(documentId));
                 filePath = getDataColumn(context, contentUri, null, null);
             }
-        } else if ("content".equalsIgnoreCase(uri.getScheme())){
+        } else if ("content".equalsIgnoreCase(uri.getScheme())) {
             // 如果是 content 类型的 Uri
             filePath = getDataColumn(context, uri, null, null);
         } else if ("file".equals(uri.getScheme())) {
             // 如果是 file 类型的 Uri,直接获取图片对应的路径
             filePath = uri.getPath();
         }
-        Log.e("filePath",filePath+"-");
+        Log.e("filePath", filePath + "-");
         return filePath;
     }
 
     /**
      * 获取数据库表中的 _data 列，即返回Uri对应的文件路径
+     *
      * @return
      */
     private static String getDataColumn(Context context, Uri uri, String selection, String[] selectionArgs) {
@@ -558,7 +565,7 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
     public void openCamera() {
         File file = new FileStorage().createIconFile();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            imageUri = FileProvider.getUriForFile(this, mContext.getApplicationContext().getPackageName()+".fileProvider", file);//通过FileProvider创建一个content类型的Uri
+            imageUri = FileProvider.getUriForFile(this, mContext.getApplicationContext().getPackageName() + ".fileProvider", file);//通过FileProvider创建一个content类型的Uri
         } else {
             imageUri = Uri.fromFile(file);
         }
@@ -570,6 +577,7 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);//将拍取的照片保存到指定URI
         startActivityForResult(intent, REQUEST_CAPTURE);
     }
+
     /**
      * 裁剪
      */
@@ -577,7 +585,7 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
         File file = new FileStorage().createCropFile();
         //缩略图保存地址
         outputUri = Uri.fromFile(file);
-        Log.e("我的图片地址",outputUri+"");
+        Log.e("我的图片地址", outputUri + "");
         Intent intent = new Intent("com.android.camera.action.CROP");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -594,14 +602,14 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
         startActivityForResult(intent, REQUEST_PICTURE_CUT);
     }
 
-    private void xianshi(){
+    private void xianshi() {
         bitmap = null;
         try {
             if (isClickCamera) {
                 bitmap = BitmapFactory.decodeFile(imagePath);
-                Log.e("裁剪完成","裁剪完成111");
+                Log.e("裁剪完成", "裁剪完成111");
             } else {
-                Log.e("裁剪完成","裁剪完成222");
+                Log.e("裁剪完成", "裁剪完成222");
                 bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
             }
             qiniushangchuan();
@@ -610,6 +618,7 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
         }
 
     }
+
     @TargetApi(19)
     public String handleImageOnKitKat(Intent data) {
         imagePath = null;
@@ -646,7 +655,6 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
     }
 
 
-
     //https://blog.csdn.net/qq_34476727/article/details/55506508 Android 读取拍照或相册uri 转换成图片的绝对路径
 
     /**
@@ -656,21 +664,21 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
      * @param uri
      * @return the file path or null
      */
-    public static String getRealFilePath( final Context context, final Uri uri ) {
-        if ( null == uri ) return null;
+    public static String getRealFilePath(final Context context, final Uri uri) {
+        if (null == uri) return null;
         final String scheme = uri.getScheme();
         String data = null;
-        if ( scheme == null )
+        if (scheme == null)
             data = uri.getPath();
-        else if ( ContentResolver.SCHEME_FILE.equals( scheme ) ) {
+        else if (ContentResolver.SCHEME_FILE.equals(scheme)) {
             data = uri.getPath();
-        } else if ( ContentResolver.SCHEME_CONTENT.equals( scheme ) ) {
-            Cursor cursor = context.getContentResolver().query( uri, new String[] { MediaStore.Images.ImageColumns.DATA }, null, null, null );
-            if ( null != cursor ) {
-                if ( cursor.moveToFirst() ) {
-                    int index = cursor.getColumnIndex( MediaStore.Images.ImageColumns.DATA );
-                    if ( index > -1 ) {
-                        data = cursor.getString( index );
+        } else if (ContentResolver.SCHEME_CONTENT.equals(scheme)) {
+            Cursor cursor = context.getContentResolver().query(uri, new String[]{MediaStore.Images.ImageColumns.DATA}, null, null, null);
+            if (null != cursor) {
+                if (cursor.moveToFirst()) {
+                    int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                    if (index > -1) {
+                        data = cursor.getString(index);
                     }
                 }
                 cursor.close();
@@ -678,39 +686,41 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
         }
         return data;
     }
+
     private void getdianpuming(final String chaxun) {
-        Log.e("chaxun",chaxun);
+        Log.e("chaxun", chaxun);
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .dianpuchaxun(PreferenceUtils.getString(MyApplication.mContext, "token", ""),chaxun))
+                                .dianpuchaxun(PreferenceUtils.getString(MyApplication.mContext, "token", ""), chaxun))
                 .setDataListener(new HttpDataListener<List<DianMingChaXunBean>>() {
                     @Override
                     public void onNext(final List<DianMingChaXunBean> bean) {
-                        int mysize = bean==null?0:bean.size();
-                            if(mysize!=0){
-                                role = bean.get(0).getRole();
-                                dianpuid = bean.get(0).getCompany_id();
-                                dianpuming = bean.get(0).getCompany_name();
-                                etDianpuming.setText(dianpuming);
-                                etYaoqingma.setText(bean.get(0).getTelephone());
-                                if(role.equals("1")){
-                                    llXukezheng.setVisibility(View.GONE);
-                                } else {
-                                    llXukezheng.setVisibility(View.VISIBLE);
-                                }
+                        int mysize = bean == null ? 0 : bean.size();
+                        if (mysize != 0) {
+                            role = bean.get(0).getRole();
+                            dianpuid = bean.get(0).getCompany_id();
+                            dianpuming = bean.get(0).getCompany_name();
+                            etDianpuming.setText(dianpuming);
+                            etYaoqingma.setText(bean.get(0).getTelephone());
+                            if (role.equals("1")) {
+                                llXukezheng.setVisibility(View.GONE);
                             } else {
-                                ToastUtil.showToastLong("很抱歉，暂未查到此唯一码关联的企业");
-                                dianpuming="";
-                                dianpuid="";
-                                etDianpuming.setText(dianpuming);
+                                llXukezheng.setVisibility(View.VISIBLE);
                             }
+                        } else {
+                            ToastUtil.showToastLong("很抱歉，暂未查到此唯一码关联的企业");
+                            dianpuming = "";
+                            dianpuid = "";
+                            etDianpuming.setText(dianpuming);
+                        }
                     }
                 });
 
     }
+
     private void initJsonData() {//解析数据
 
         /**
@@ -718,7 +728,7 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
          * 关键逻辑在于循环体
          *
          * */
-        String JsonData = StringUtil.getJson(this,"province.json");//获取assets目录下的json文件数据
+        String JsonData = StringUtil.getJson(this, "province.json");//获取assets目录下的json文件数据
 
         ArrayList<JsonBean> jsonBean = StringUtil.parseData(JsonData);//用Gson 转成实体
 
@@ -730,11 +740,11 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
          */
         options1Items = jsonBean;
 
-        for (int i=0;i<jsonBean.size();i++){//遍历省份
+        for (int i = 0; i < jsonBean.size(); i++) {//遍历省份
             ArrayList<String> CityList = new ArrayList<>();//该省的城市列表（第二级）
             ArrayList<ArrayList<String>> Province_AreaList = new ArrayList<>();//该省的所有地区列表（第三极）
 
-            for (int c=0; c<jsonBean.get(i).getCitylist().size(); c++){//遍历该省份的所有城市
+            for (int c = 0; c < jsonBean.get(i).getCitylist().size(); c++) {//遍历该省份的所有城市
                 String CityName = jsonBean.get(i).getCitylist().get(c).getQuymc();
                 CityList.add(CityName);//添加城市
 
@@ -742,14 +752,16 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
 
                 //如果无地区数据，建议添加空字符串，防止数据为null 导致三个选项长度不匹配造成崩溃
                 if (jsonBean.get(i).getCitylist().get(c).getQulist() == null
-                        ||jsonBean.get(i).getCitylist().get(c).getQulist().size()==0) {
+                        || jsonBean.get(i).getCitylist().get(c).getQulist().size() == 0) {
                     City_AreaList.add("");
-                }else {
+                } else {
 
-                    for (int d=0; d < jsonBean.get(i).getCitylist().get(c).getQulist().size(); d++) {//该城市对应地区所有数据
+                    for (int d = 0; d < jsonBean.get(i).getCitylist().get(c).getQulist().size(); d++) {//该城市对应地区所有数据
                         String AreaName = jsonBean.get(i).getCitylist().get(c).getQulist().get(d).getQuymc();
 
-                        if(!AreaName.equals("市辖区")){                                 City_AreaList.add(AreaName);                             }
+                        if (!AreaName.equals("市辖区")) {
+                            City_AreaList.add(AreaName);
+                        }
                     }
                 }
                 Province_AreaList.add(City_AreaList);//添加该省所有地区数据
@@ -766,13 +778,14 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
             options3Items.add(Province_AreaList);
         }
     }
-    private void showCityPicker(){
+
+    private void showCityPicker() {
         OptionsPickerView pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
                 //返回的分别是三个级别的选中位置
-                String tx = options1Items.get(options1).getPickerViewText()+"-"+
-                        options2Items.get(options1).get(options2)+"-"+
+                String tx = options1Items.get(options1).getPickerViewText() + "-" +
+                        options2Items.get(options1).get(options2) + "-" +
                         options3Items.get(options1).get(options2).get(options3);
                 tvQuyuxuanze.setText(tx);
                 shengid = options1Items.get(options1).getQuybm();
@@ -786,7 +799,7 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
                 pos[1] = options2;
                 pos[2] = options3;
 
-                Log.e("我的区域编号",city+"");
+                Log.e("我的区域编号", city + "");
             }
         })
                 .setTitleText("城市选择")
@@ -797,8 +810,8 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
 
         /*pvOptions.setPicker(options1Items);//一级选择器
         pvOptions.setPicker(options1Items, options2Items);//二级选择器*/
-        pvOptions.setPicker(options1Items, options2Items,options3Items);//三级选择器
-        pvOptions.setSelectOptions(pos[0],pos[1],pos[2]);
+        pvOptions.setPicker(options1Items, options2Items, options3Items);//三级选择器
+        pvOptions.setSelectOptions(pos[0], pos[1], pos[2]);
         pvOptions.show();
     }
 }

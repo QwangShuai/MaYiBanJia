@@ -78,7 +78,7 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
     ImageView ivXq3;
     @BindView(R.id.iv_xq4)
     ImageView ivXq4;
-//    @BindView(R.id.et_chandi)
+    //    @BindView(R.id.et_chandi)
 //    EditText etChandi;
 //    @BindView(R.id.et_dengji)
 //    EditText etDengji;
@@ -108,13 +108,13 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
     private QiNiuPhoto qiNiuPhoto;
     private Context mContext;
     private int tuji;
-    private String tu1="",tu2="",tu3="",tu4="";
+    private String tu1 = "", tu2 = "", tu3 = "", tu4 = "";
     private FbspCanShuBean canshu;
     private String futu = "";
     private String yemian = "0";
     private String pipei = "0";
     private String spID;
-    private List<String> picList = Arrays.asList("","","","");
+    private List<String> picList = Arrays.asList("", "", "", "");
     private FenLeiLableAdapter adapter;
     private List<FeiLeiLableSubmitBean> mlist = new ArrayList<>();
 
@@ -126,18 +126,18 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        mContext=FaBuShangPinXiangQingTuActivity.this;
+        mContext = FaBuShangPinXiangQingTuActivity.this;
         yemian = getIntent().getStringExtra("yemian");
         setRvAdapter();
-        if(yemian.equals("0")){
-            if(StringUtil.isValid(getIntent().getStringExtra("guige"))){
+        if (yemian.equals("0")) {
+            if (StringUtil.isValid(getIntent().getStringExtra("guige"))) {
                 tvTitle.setText("新增规格");
                 setDataView();
             } else {
                 tvTitle.setText("新建商品");
                 getFenLeiLable();
                 pipei = getIntent().getStringExtra("pipei");
-                if(!pipei.equals("0")){
+                if (!pipei.equals("0")) {
                     setDataView();
                 }
             }
@@ -147,7 +147,7 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
             setDataView();
         }
 
-        qiNiuPhoto=new QiNiuPhoto(FaBuShangPinXiangQingTuActivity.this);
+        qiNiuPhoto = new QiNiuPhoto(FaBuShangPinXiangQingTuActivity.this);
         photoDialog = new PhotoDialog(mContext,
                 mContext.getResources().getIdentifier("BottomDialog", "style", mContext.getPackageName()));
         photoDialog.getWindow().setGravity(Gravity.BOTTOM | Gravity.LEFT | Gravity.RIGHT);
@@ -172,14 +172,14 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.iv_back, R.id.iv_xq1, R.id.iv_xq2, R.id.iv_xq3, R.id.iv_xq4,R.id.bt_baocun})
+    @OnClick({R.id.iv_back, R.id.iv_xq1, R.id.iv_xq2, R.id.iv_xq3, R.id.iv_xq4, R.id.bt_baocun})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
                 finish();
                 break;
             case R.id.iv_xq1:
-                tuji=1;
+                tuji = 1;
                 //上传图片
                 photoDialog.showDialog();
                 photoDialog.getIvXiangce().setOnClickListener(new View.OnClickListener() {
@@ -206,7 +206,7 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                 });
                 break;
             case R.id.iv_xq2:
-                tuji=2;
+                tuji = 2;
                 //上传图片
                 photoDialog.showDialog();
                 photoDialog.getIvXiangce().setOnClickListener(new View.OnClickListener() {
@@ -233,7 +233,7 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                 });
                 break;
             case R.id.iv_xq3:
-                tuji=3;
+                tuji = 3;
                 //上传图片
                 photoDialog.showDialog();
                 photoDialog.getIvXiangce().setOnClickListener(new View.OnClickListener() {
@@ -260,7 +260,7 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                 });
                 break;
             case R.id.iv_xq4:
-                tuji=4;
+                tuji = 4;
                 //上传图片
                 photoDialog.showDialog();
                 photoDialog.getIvXiangce().setOnClickListener(new View.OnClickListener() {
@@ -292,21 +292,21 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
 //                canshu.setApply(etShiyong.getText().toString().trim());
 //                canshu.setProportion(etBili.getText().toString().trim());
                 canshu.setSpec_describe(etMiaoshu.getText().toString().trim());
-                if(yemian.equals("0")){
-                    if ("".equals(tu1)&"".equals(tu2)&"".equals(tu3)&"".equals(tu4)){
+                if (yemian.equals("0")) {
+                    if ("".equals(tu1) & "".equals(tu2) & "".equals(tu3) & "".equals(tu4)) {
                         canshu.setDeputyPicture(canshu.getHostPicture());
-                    }else {
-                        if (!"".equals  (tu1)){
-                            futu +=tu1+",";
+                    } else {
+                        if (!"".equals(tu1)) {
+                            futu += tu1 + ",";
                         }
-                        if (!"".equals(tu2)){
-                            futu +=tu2+",";
+                        if (!"".equals(tu2)) {
+                            futu += tu2 + ",";
                         }
-                        if (!"".equals(tu3)){
-                            futu +=tu3+",";
+                        if (!"".equals(tu3)) {
+                            futu += tu3 + ",";
                         }
-                        if (!"".equals(tu4)){
-                            futu +=tu4+",";
+                        if (!"".equals(tu4)) {
+                            futu += tu4 + ",";
                         }
                         canshu.setDeputyPicture(futu);
                     }
@@ -315,7 +315,7 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
 //                    if(StringUtil.isValid(canshu.getPrice())&&Double.valueOf(canshu.getPrice())>0){
 //                        tejia();
 //                    } else {
-                        updateshangpin();
+                    updateshangpin();
 //                    }
 
                 }
@@ -325,43 +325,44 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
     }
 
     private void tianjiashangpin() {
-        Log.e("canshu",gson.toJson(canshu));
-     HttpManager.getInstance()
-             .with(mContext)
-                    .setObservable(
-                RetrofitManager
-                        .getService()
-                        .fabushangpin(PreferenceUtils.getString(MyApplication.mContext, "token",""),canshu.getClassify_name(),spID,"",canshu.getDeputyPicture(),
-                                canshu.getPack_standard_two(),canshu.getPack_standard_tree(),
-                                canshu.getRation_one(),canshu.getPice_one(),canshu.getInventory(),new Gson().toJson(mlist),canshu.getType_one_id(),canshu.getGoods(),canshu.getCommodity_state(),canshu.getCommodity_name(),
-                                canshu.getType_two_id(),canshu.getType_tree_id(),canshu.getType_four_id(),canshu.getHostPicture(),
-                                canshu.getSpec_describe(),canshu.getPrice(),canshu.getSpec_count(),canshu.getSpec_detal_id(),canshu.getPack_standard_tree_name(),canshu.getSpec_detal_name(),canshu.getBrand()))
-                .setDataListener(new HttpDataListener<String>() {
-            @Override
-            public void onNext(String data) {
-                Log.e("data",data+"---");
-                ToastUtil.showToast("添加成功");
-                finish();
-                FaBuShangPinActivity.instance.finish();
-            }
-        });
-    }
-    private void updateshangpin() {
-        Log.e("canshu",gson.toJson(canshu));
+        Log.e("canshu", gson.toJson(canshu));
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .updateshangpin(PreferenceUtils.getString(MyApplication.mContext, "token",""),spID,"",picList,
-                                        canshu.getPack_standard_two(),canshu.getPack_standard_tree(),
-                                        canshu.getRation_one(),canshu.getPice_one(),canshu.getInventory(),new Gson().toJson(mlist),canshu.getType_one_id(),canshu.getGoods(),canshu.getCommodity_state(),canshu.getCommodity_name(),
-                                        canshu.getType_two_id(),canshu.getType_tree_id(),canshu.getType_four_id(),canshu.getHostPicture(),canshu.getSpec_describe(),
-                                        canshu.getPrice(),canshu.getSpec_count(),canshu.getSpec_detal_id(),canshu.getPack_standard_tree_name(),canshu.getSpec_detal_name(),canshu.getBrand()))
+                                .fabushangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""), canshu.getClassify_name(), spID, "", canshu.getDeputyPicture(),
+                                        canshu.getPack_standard_two(), canshu.getPack_standard_tree(),
+                                        canshu.getRation_one(), canshu.getPice_one(), canshu.getInventory(), new Gson().toJson(mlist), canshu.getType_one_id(), canshu.getGoods(), canshu.getCommodity_state(), canshu.getCommodity_name(),
+                                        canshu.getType_two_id(), canshu.getType_tree_id(), canshu.getType_four_id(), canshu.getHostPicture(),
+                                        canshu.getSpec_describe(), canshu.getPrice(), canshu.getSpec_count(), canshu.getSpec_detal_id(), canshu.getPack_standard_tree_name(), canshu.getSpec_detal_name(), canshu.getBrand()))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
-                        Log.e("data",data+"---");
+                        Log.e("data", data + "---");
+                        ToastUtil.showToast("添加成功");
+                        finish();
+                        FaBuShangPinActivity.instance.finish();
+                    }
+                });
+    }
+
+    private void updateshangpin() {
+        Log.e("canshu", gson.toJson(canshu));
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .updateshangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""), spID, "", picList,
+                                        canshu.getPack_standard_two(), canshu.getPack_standard_tree(),
+                                        canshu.getRation_one(), canshu.getPice_one(), canshu.getInventory(), new Gson().toJson(mlist), canshu.getType_one_id(), canshu.getGoods(), canshu.getCommodity_state(), canshu.getCommodity_name(),
+                                        canshu.getType_two_id(), canshu.getType_tree_id(), canshu.getType_four_id(), canshu.getHostPicture(), canshu.getSpec_describe(),
+                                        canshu.getPrice(), canshu.getSpec_count(), canshu.getSpec_detal_id(), canshu.getPack_standard_tree_name(), canshu.getSpec_detal_name(), canshu.getBrand()))
+                .setDataListener(new HttpDataListener<String>() {
+                    @Override
+                    public void onNext(String data) {
+                        Log.e("data", data + "---");
                         ToastUtil.showToast("编辑成功");
                         finish();
                         FaBuShangPinActivity.instance.finish();
@@ -375,46 +376,47 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .shangpinZhuanhuan(PreferenceUtils.getString(MyApplication.mContext, "token",""),spID,"","",""))
+                                .shangpinZhuanhuan(PreferenceUtils.getString(MyApplication.mContext, "token", ""), spID, "", "", ""))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
-                        Log.e("data",data+"---");
+                        Log.e("data", data + "---");
                         ToastUtil.showToast("编辑成功");
                         finish();
                         FaBuShangPinActivity.instance.finish();
                     }
                 });
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case REQUEST_PICK_IMAGE://从相册选择
-                Log.e("xiangce","xiangce");
-                if (data!=null){
+                Log.e("xiangce", "xiangce");
+                if (data != null) {
                     if (Build.VERSION.SDK_INT >= 19) {
-                        imagePath=handleImageOnKitKat(data);
+                        imagePath = handleImageOnKitKat(data);
                     } else {
-                        imagePath=handleImageBeforeKitKat(data);
+                        imagePath = handleImageBeforeKitKat(data);
                     }
                 }
                 break;
             case REQUEST_CAPTURE://拍照
-                Log.e("拍照","拍照");
+                Log.e("拍照", "拍照");
                 if (resultCode == RESULT_OK) {
                     cropPhoto();
                 }
                 break;
             case REQUEST_PICTURE_CUT://裁剪完成
 
-                if (data!=null) {
-                    Log.e("裁剪完成","裁剪完成");
+                if (data != null) {
+                    Log.e("裁剪完成", "裁剪完成");
                     try {
                         if (isClickCamera) {
-                            Log.e("裁剪完成","裁剪完成111");
+                            Log.e("裁剪完成", "裁剪完成111");
                             bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(outputUri));
                         } else {
-                            Log.e("裁剪完成","裁剪完成222");
+                            Log.e("裁剪完成", "裁剪完成222");
                             bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(outputUri));
 //                            bitmap = BitmapFactory.decodeFile(imagePath);
                         }
@@ -427,6 +429,7 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                 break;
         }
     }
+
     private void qiniushangchuan() {
         HttpManager.getInstance()
                 .with(mContext)
@@ -437,56 +440,61 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(final String list) {
-                        Log.e("fenleifenlei",list+"---");
+                        Log.e("fenleifenlei", list + "---");
                         String qiniudata = qiNiuPhoto.getImageAbsolutePath(FaBuShangPinXiangQingTuActivity.this, outputUri);
                         String key = null;
-                        String token =list ;
-                        MyApplication.uploadManager.put(qiniudata, key, token,
-                                new UpCompletionHandler() {
-                                    @Override
-                                    public void complete(String key, ResponseInfo info, JSONObject res) {
-                                        //res包含hash、key等信息，具体字段取决于上传策略的设置
-                                        if(info.isOK()) {
+                        String token = list;
+                        File file = StringUtil.luban(mContext, qiniudata);
+                        if (StringUtil.isValid(file.getPath())) {
+                            bitmap = BitmapFactory.decodeFile(file.getPath());
+                            MyApplication.uploadManager.put(qiniudata, key, token,
+                                    new UpCompletionHandler() {
+                                        @Override
+                                        public void complete(String key, ResponseInfo info, JSONObject res) {
+                                            //res包含hash、key等信息，具体字段取决于上传策略的设置
+                                            if (info.isOK()) {
 //                                            getImageAbsolutePath(CTDWanShanXinXiActivity.this,outputUri)
-                                            Log.e("qiniu", "Upload Success");
-                                            try {
-                                                switch(tuji){
-                                                    case 1:
-                                                        tu1 = res.getString("key");
-                                                        ivXq1.setImageBitmap(bitmap);
-                                                        picList.set(0,tu1);
-                                                        break;
-                                                    case 2:
-                                                        tu2 = res.getString("key");
-                                                        ivXq2.setImageBitmap(bitmap);
-                                                        picList.set(1,tu2);
-                                                        break;
-                                                    case 3:
-                                                        tu3 = res.getString("key");
-                                                        ivXq3.setImageBitmap(bitmap);
-                                                        picList.set(2,tu3);
-                                                        break;
-                                                    case 4:
-                                                        tu4 = res.getString("key");
-                                                        ivXq4.setImageBitmap(bitmap);
-                                                        picList.set(3,tu4);
-                                                        break;
+                                                Log.e("qiniu", "Upload Success");
+                                                try {
+                                                    switch (tuji) {
+                                                        case 1:
+                                                            tu1 = res.getString("key");
+                                                            ivXq1.setImageBitmap(bitmap);
+                                                            picList.set(0, tu1);
+                                                            break;
+                                                        case 2:
+                                                            tu2 = res.getString("key");
+                                                            ivXq2.setImageBitmap(bitmap);
+                                                            picList.set(1, tu2);
+                                                            break;
+                                                        case 3:
+                                                            tu3 = res.getString("key");
+                                                            ivXq3.setImageBitmap(bitmap);
+                                                            picList.set(2, tu3);
+                                                            break;
+                                                        case 4:
+                                                            tu4 = res.getString("key");
+                                                            ivXq4.setImageBitmap(bitmap);
+                                                            picList.set(3, tu4);
+                                                            break;
+                                                    }
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
                                                 }
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
+                                            } else {
+                                                Log.e("qiniu", "Upload Fail");
+                                                //如果失败，这里可以把info信息上报自己的服务器，便于后面分析上传错误原因
                                             }
-                                        } else {
-                                            Log.e("qiniu", "Upload Fail");
-                                            //如果失败，这里可以把info信息上报自己的服务器，便于后面分析上传错误原因
+                                            Log.e("qiniu", key + ",\r\n " + info + ",\r\n " + res);
                                         }
-                                        Log.e("qiniu", key + ",\r\n " + info + ",\r\n " + res);
-                                    }
-                                }, null);
+                                    }, null);
+                        }
 
-                        
+
                     }
                 });
     }
+
     /**
      * 从相册选择
      */
@@ -502,7 +510,7 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
     public void openCamera() {
         File file = new FileStorage().createIconFile();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            imageUri = FileProvider.getUriForFile(this, mContext.getApplicationContext().getPackageName()+".fileProvider", file);//通过FileProvider创建一个content类型的Uri
+            imageUri = FileProvider.getUriForFile(this, mContext.getApplicationContext().getPackageName() + ".fileProvider", file);//通过FileProvider创建一个content类型的Uri
         } else {
             imageUri = Uri.fromFile(file);
         }
@@ -514,6 +522,7 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);//将拍取的照片保存到指定URI
         startActivityForResult(intent, REQUEST_CAPTURE);
     }
+
     /**
      * 裁剪
      */
@@ -570,23 +579,23 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
         return imagePath;
     }
 
-    public void setDataView(){//编辑展示
+    public void setDataView() {//编辑展示
         EditorShangPinBean bean = PreferenceUtils.getEditorShangPinBean(MyApplication.mContext, "");
         spID = bean.getXq().getCommodity_id();
         etMiaoshu.setText(bean.getXq().getSpec_describe());
 //        picList.addAll(bean.getXq().getFtPicture());
-        if(!"null".equals(String.valueOf(bean.getXq().getFtPicture()))){
-            for (int i=0;i<bean.getXq().getFtPicture().size();i++){
-                picList.set(i,bean.getXq().getFtPicture().get(i));
+        if (!"null".equals(String.valueOf(bean.getXq().getFtPicture()))) {
+            for (int i = 0; i < bean.getXq().getFtPicture().size(); i++) {
+                picList.set(i, bean.getXq().getFtPicture().get(i));
             }
-            for(int i = 0;i<bean.getXq().getDpicture().size();i++){
-                if(i==0){
+            for (int i = 0; i < bean.getXq().getDpicture().size(); i++) {
+                if (i == 0) {
                     Glide.with(FaBuShangPinXiangQingTuActivity.this).load(bean.getXq().getDpicture().get(i)).into(ivXq1);
                     tu1 = bean.getXq().getDpicture().get(i);
-                } else if(i==1){
+                } else if (i == 1) {
                     Glide.with(FaBuShangPinXiangQingTuActivity.this).load(bean.getXq().getDpicture().get(i)).into(ivXq2);
                     tu2 = bean.getXq().getDpicture().get(i);
-                } else if(i==2){
+                } else if (i == 2) {
                     Glide.with(FaBuShangPinXiangQingTuActivity.this).load(bean.getXq().getDpicture().get(i)).into(ivXq3);
                     tu3 = bean.getXq().getDpicture().get(i);
                 } else {
@@ -595,9 +604,9 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                 }
             }
         }
-        int mysize = bean.getParameteList()==null?0:bean.getParameteList().size();
-        if(mysize!=0){
-            for (int i=0;i<mysize;i++){
+        int mysize = bean.getParameteList() == null ? 0 : bean.getParameteList().size();
+        if (mysize != 0) {
+            for (int i = 0; i < mysize; i++) {
                 FeiLeiLableSubmitBean mybean = new FeiLeiLableSubmitBean();
                 mybean.setParamete_name(bean.getParameteList().get(i).getParamete_name());
                 mybean.setParamete_name_id(bean.getParameteList().get(i).getParamete_name_id());
@@ -626,24 +635,24 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
 //        }
     }
 
-    public void changeList(int pos,String text){
-        if(!text.equals(mlist.get(pos).getParamete_content())){
+    public void changeList(int pos, String text) {
+        if (!text.equals(mlist.get(pos).getParamete_content())) {
             mlist.get(pos).setParamete_content(text);
         }
     }
 
-    private void getFenLeiLable(){
+    private void getFenLeiLable() {
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getFenLeiCanShu(PreferenceUtils.getString(MyApplication.mContext,"token","")))
+                                .getFenLeiCanShu(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
                 .setDataListener(new HttpDataListener<List<FeiLeiLableSubmitBean>>() {
                     @Override
                     public void onNext(List<FeiLeiLableSubmitBean> data) {
-                        int mysize = data==null?0:data.size();
-                        if(mysize!=0){
+                        int mysize = data == null ? 0 : data.size();
+                        if (mysize != 0) {
                             mlist.addAll(data);
                             adapter.notifyDataSetChanged();
                         }
@@ -651,9 +660,9 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                 });
     }
 
-    private void setRvAdapter(){
-        rvFlcs.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false));
-        adapter = new FenLeiLableAdapter(mContext,mlist,FaBuShangPinXiangQingTuActivity.this);
+    private void setRvAdapter() {
+        rvFlcs.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+        adapter = new FenLeiLableAdapter(mContext, mlist, FaBuShangPinXiangQingTuActivity.this);
         rvFlcs.setAdapter(adapter);
     }
 }

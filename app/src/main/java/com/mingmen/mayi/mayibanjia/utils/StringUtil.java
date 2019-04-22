@@ -2,6 +2,7 @@ package com.mingmen.mayi.mayibanjia.utils;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.net.Uri;
 import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -10,12 +11,19 @@ import android.util.Log;
 import android.widget.EditText;
 
 import com.google.gson.Gson;
+import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.JsonBean;
+import com.mingmen.mayi.mayibanjia.ui.activity.FaBuShangPinActivity;
+import com.qiniu.android.http.ResponseInfo;
+import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.utils.StringUtils;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -28,6 +36,9 @@ import java.util.StringTokenizer;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import rx.functions.Action1;
+import top.zibin.luban.Luban;
 
 
 /*import sun.io.ByteToCharConverter;
@@ -1267,5 +1278,25 @@ public class StringUtil {
         });
     }
 
-
+    public static File luban(final Context mContext, final String data) {
+        final File[] refile = {new File("")};
+        File myfile = new File(data);
+        Luban.get(mContext)
+                .load(myfile)
+                .putGear(Luban.THIRD_GEAR)
+                .asObservable()
+                .subscribe(new Action1<File>() {
+                    @Override
+                    public void call(final File file) {
+                        Log.e("onNext: ","压缩后图片:"+file.length()/1024+"KB" );
+                        if(file.length()/1024>500){
+                            luban(mContext,data);
+                        } else {
+                            refile[0] = file;
+                        }
+                        ToastUtil.showToastLong("图片压缩成功");
+                    }
+                });
+        return refile[0];
+    }
 }

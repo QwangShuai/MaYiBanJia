@@ -58,6 +58,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import rx.functions.Action1;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 /**
  * Created by Administrator on 2018/7/10/010.
@@ -118,8 +121,8 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
     private int shengid;
     private int shiid;
     private int quid;
-    int city=0;
-    int[] pos= new int[3];
+    int city = 0;
+    int[] pos = new int[3];
 
     @Override
     public int getLayoutId() {
@@ -128,17 +131,17 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        mContext=CTDWanShanXinXiActivity.this;
+        mContext = CTDWanShanXinXiActivity.this;
         tvTitle.setText("完善信息");
         tvRight.setText("帮助");
-           photoDialog = new PhotoDialog(mContext,
+        photoDialog = new PhotoDialog(mContext,
                 mContext.getResources().getIdentifier("BottomDialog", "style", mContext.getPackageName()));
         photoDialog.getWindow().setGravity(Gravity.BOTTOM | Gravity.LEFT | Gravity.RIGHT);
-        bundle=getIntent().getExtras();
+        bundle = getIntent().getExtras();
         phone = bundle.getString("phone");
         pass = bundle.getString("pass1");
         yanzhengma = bundle.getString("yanzhengma");
-        qiNiuPhoto=new QiNiuPhoto(CTDWanShanXinXiActivity.this);
+        qiNiuPhoto = new QiNiuPhoto(CTDWanShanXinXiActivity.this);
         etDianpuming.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -155,14 +158,14 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 String chaxun = s.toString().trim();
-                if (chaxun.length()>0){
-                    if (chaxun.equals(dianpuming)){
+                if (chaxun.length() > 0) {
+                    if (chaxun.equals(dianpuming)) {
                         rvDianpu.setVisibility(View.GONE);
                         llXia.setVisibility(View.VISIBLE);
-                    }else{
+                    } else {
                         getdianpuming(chaxun);
                     }
-                }else{
+                } else {
                     llXia.setVisibility(View.VISIBLE);
                     rvDianpu.setVisibility(View.GONE);
                 }
@@ -173,34 +176,34 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
     }
 
     private void getdianpuming(final String chaxun) {
-        Log.e("chaxun",chaxun);
+        Log.e("chaxun", chaxun);
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .dianpuchaxun(PreferenceUtils.getString(MyApplication.mContext, "token", ""),chaxun))
+                                .dianpuchaxun(PreferenceUtils.getString(MyApplication.mContext, "token", ""), chaxun))
                 .setDataListener(new HttpDataListener<List<DianMingChaXunBean>>() {
                     @Override
                     public void onNext(final List<DianMingChaXunBean> data) {
-                        if (chaxun.equals(dianpuming)){
+                        if (chaxun.equals(dianpuming)) {
                             rvDianpu.setVisibility(View.GONE);
                             llXia.setVisibility(View.VISIBLE);
-                        }else{
+                        } else {
                             rvDianpu.setVisibility(View.VISIBLE);
                             llXia.setVisibility(View.GONE);
-                            dianpuming="";
-                            dianpuid="";
+                            dianpuming = "";
+                            dianpuid = "";
                         }
-                        adapter = new DianPuMingAdapter(mContext, data,chaxun);
+                        adapter = new DianPuMingAdapter(mContext, data, chaxun);
                         rvDianpu.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
                         rvDianpu.setAdapter(adapter);
                         adapter.setOnItemClickListener(new DianPuMingAdapter.OnItemClickListener() {
                             @Override
                             public void onClick(View view, int position) {
                                 etDianpuming.setText(data.get(position).getCompany_name());
-                                dianpuming=data.get(position).getCompany_name();
-                                dianpuid=data.get(position).getCompany_id();
+                                dianpuming = data.get(position).getCompany_name();
+                                dianpuid = data.get(position).getCompany_id();
                                 rvDianpu.setVisibility(View.GONE);
                                 llXia.setVisibility(View.VISIBLE);
                             }
@@ -218,21 +221,23 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .zhuce(fuzeren,phone,pass,yingyezhizhao,"",dianpuid,yanzhengma,"1", StringUtil.getMyUUID(mContext)))
+                                .zhuce(fuzeren, phone, pass, yingyezhizhao, "", dianpuid, yanzhengma, "1", StringUtil.getMyUUID(mContext)))
                 .setDataListener(new HttpDataListener<ZhuCeChengGongBean>() {
                     @Override
                     public void onNext(ZhuCeChengGongBean list) {
                         ToastUtil.showToastLong("注册成功");
-                        PreferenceUtils.putString(MyApplication.mContext,"token",list.getToken());
-                        PreferenceUtils.putString(MyApplication.mContext,"juese",list.getRole());
-                        PreferenceUtils.putBoolean(MyApplication.mContext,"isLogin",false);
+                        PreferenceUtils.putString(MyApplication.mContext, "token", list.getToken());
+                        PreferenceUtils.putString(MyApplication.mContext, "juese", list.getRole());
+                        PreferenceUtils.putBoolean(MyApplication.mContext, "isLogin", false);
                         //注册成功后  跳转
-                        Intent intent = new Intent(mContext, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);  ;
+                        Intent intent = new Intent(mContext, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        ;
                         startActivity(intent);
 
                     }
                 });
     }
+
     private void qiniushangchuan() {
 
         HttpManager.getInstance()
@@ -244,34 +249,41 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String list) {
-                        String qiniudata = qiNiuPhoto.getImageAbsolutePath(CTDWanShanXinXiActivity.this, outputUri);
-                        String key = null;
-                        String token =list ;
-                        MyApplication.uploadManager.put(qiniudata, key, token,
-                                new UpCompletionHandler() {
-                                    @Override
-                                    public void complete(String key, ResponseInfo info, JSONObject res) {
-                                        //res包含hash、key等信息，具体字段取决于上传策略的设置
-                                        if(info.isOK()) {
+                        final String qiniudata = qiNiuPhoto.getImageAbsolutePath(CTDWanShanXinXiActivity.this, outputUri);
+                        final String key = null;
+                        final String token = list;
+                        File file = StringUtil.luban(mContext, qiniudata);
+                        if (StringUtil.isValid(file.getPath())) {
+                            bitmap = BitmapFactory.decodeFile(file.getPath());
+                            String mydata = qiNiuPhoto.getImageAbsolutePath(CTDWanShanXinXiActivity.this, Uri.parse(file.getPath()));
+                            MyApplication.uploadManager.put(qiniudata, key, token,
+                                    new UpCompletionHandler() {
+                                        @Override
+                                        public void complete(String key, ResponseInfo info, JSONObject res) {
+                                            //res包含hash、key等信息，具体字段取决于上传策略的设置
+                                            if (info.isOK()) {
 //                                            getImageAbsolutePath(CTDWanShanXinXiActivity.this,outputUri)
-                                            try {
-                                                yingyezhizhao = res.getString("key");
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
+                                                try {
+                                                    yingyezhizhao = res.getString("key");
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            } else {
+                                                //如果失败，这里可以把info信息上报自己的服务器，便于后面分析上传错误原因
                                             }
-                                        } else {
-                                            //如果失败，这里可以把info信息上报自己的服务器，便于后面分析上传错误原因
                                         }
-                                    }
-                                }, null);
-                        ivYingyezhizhao.setImageBitmap(bitmap);
+                                    }, null);
+                            ivYingyezhizhao.setImageBitmap(bitmap);
+                        } else {
+                            ToastUtil.showToastLong("您选择的图片解析失败");
+                        }
 
                     }
                 });
     }
 
     @OnClick({R.id.iv_back, R.id.tv_right, R.id.iv_yingyezhizhao, R.id.bt_submit,
-            R.id.tv_xieyi, R.id.tv_dianhua,R.id.tv_quyuxuanze})
+            R.id.tv_xieyi, R.id.tv_dianhua, R.id.tv_quyuxuanze})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -309,11 +321,11 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
                 break;
             case R.id.bt_submit:
                 //提交
-                fuzeren =etFuzeren.getText().toString().trim();
-                yaoqingma =etYaoqingma.getText().toString().trim();
-                if (dianpuming!=null&&yingyezhizhao!=null&& fuzeren !=null&& yaoqingma !=null){
+                fuzeren = etFuzeren.getText().toString().trim();
+                yaoqingma = etYaoqingma.getText().toString().trim();
+                if (dianpuming != null && yingyezhizhao != null && fuzeren != null && yaoqingma != null) {
                     zhuce();
-                }else{
+                } else {
                     ToastUtil.showToast("请确认信息填写无误后，再提交");
                 }
 
@@ -336,24 +348,24 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case REQUEST_PICK_IMAGE://从相册选择
-                Log.e("xiangce","xiangce");
-                if (data!=null){
+                Log.e("xiangce", "xiangce");
+                if (data != null) {
                     if (Build.VERSION.SDK_INT >= 19) {
-                        imagePath=handleImageOnKitKat(data);
+                        imagePath = handleImageOnKitKat(data);
                     } else {
-                        imagePath=handleImageBeforeKitKat(data);
+                        imagePath = handleImageBeforeKitKat(data);
                     }
                 }
                 break;
             case REQUEST_CAPTURE://拍照
-                Log.e("拍照","拍照");
+                Log.e("拍照", "拍照");
                 if (resultCode == RESULT_OK) {
 //                    xianshi();
                     cropPhoto();
                 }
                 break;
             case REQUEST_PICTURE_CUT://裁剪完成
-                if (data!=null) {
+                if (data != null) {
                     try {
                         if (isClickCamera) {
                             bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(outputUri));
@@ -370,22 +382,23 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
     }
 
 
-    private void xianshi(){
+    private void xianshi() {
         try {
-        if (isClickCamera) {
-            Log.e("裁剪完成","裁剪完成111");
+            if (isClickCamera) {
+                Log.e("裁剪完成", "裁剪完成111");
                 bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
-        } else {
-            Log.e("裁剪完成","裁剪完成222");
+            } else {
+                Log.e("裁剪完成", "裁剪完成222");
 
-            bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
-            Log.e("outputUri", String.valueOf(imageUri));
-        }
+                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
+                Log.e("outputUri", String.valueOf(imageUri));
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         qiniushangchuan();
     }
+
     /**
      * 从相册选择
      */
@@ -401,7 +414,7 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
     public void openCamera() {
         File file = new FileStorage().createIconFile();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            imageUri = FileProvider.getUriForFile(this, mContext.getApplicationContext().getPackageName()+".fileProvider", file);//通过FileProvider创建一个content类型的Uri
+            imageUri = FileProvider.getUriForFile(this, mContext.getApplicationContext().getPackageName() + ".fileProvider", file);//通过FileProvider创建一个content类型的Uri
         } else {
             imageUri = Uri.fromFile(file);
         }
@@ -472,6 +485,7 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
         xianshi();
         return imagePath;
     }
+
     private void initJsonData() {//解析数据
 
         /**
@@ -479,7 +493,7 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
          * 关键逻辑在于循环体
          *
          * */
-        String JsonData = StringUtil.getJson(this,"province.json");//获取assets目录下的json文件数据
+        String JsonData = StringUtil.getJson(this, "province.json");//获取assets目录下的json文件数据
 
         ArrayList<JsonBean> jsonBean = StringUtil.parseData(JsonData);//用Gson 转成实体
 
@@ -491,11 +505,11 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
          */
         options1Items = jsonBean;
 
-        for (int i=0;i<jsonBean.size();i++){//遍历省份
+        for (int i = 0; i < jsonBean.size(); i++) {//遍历省份
             ArrayList<String> CityList = new ArrayList<>();//该省的城市列表（第二级）
             ArrayList<ArrayList<String>> Province_AreaList = new ArrayList<>();//该省的所有地区列表（第三极）
 
-            for (int c=0; c<jsonBean.get(i).getCitylist().size(); c++){//遍历该省份的所有城市
+            for (int c = 0; c < jsonBean.get(i).getCitylist().size(); c++) {//遍历该省份的所有城市
                 String CityName = jsonBean.get(i).getCitylist().get(c).getQuymc();
                 CityList.add(CityName);//添加城市
 
@@ -503,15 +517,17 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
 
                 //如果无地区数据，建议添加空字符串，防止数据为null 导致三个选项长度不匹配造成崩溃
                 if (jsonBean.get(i).getCitylist().get(c).getQulist() == null
-                        ||jsonBean.get(i).getCitylist().get(c).getQulist().size()==0) {
+                        || jsonBean.get(i).getCitylist().get(c).getQulist().size() == 0) {
                     City_AreaList.add("");
-                }else {
+                } else {
 
-                    for (int d=0; d < jsonBean.get(i).getCitylist().get(c).getQulist().size(); d++) {//该城市对应地区所有数据
-                        if(d!=0){
+                    for (int d = 0; d < jsonBean.get(i).getCitylist().get(c).getQulist().size(); d++) {//该城市对应地区所有数据
+                        if (d != 0) {
                             String AreaName = jsonBean.get(i).getCitylist().get(c).getQulist().get(d).getQuymc();
 
-                            if(!AreaName.equals("市辖区")){                                 City_AreaList.add(AreaName);                             }
+                            if (!AreaName.equals("市辖区")) {
+                                City_AreaList.add(AreaName);
+                            }
                         }
                     }
                 }
@@ -529,13 +545,14 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
             options3Items.add(Province_AreaList);
         }
     }
-    private void showCityPicker(){
+
+    private void showCityPicker() {
         OptionsPickerView pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
                 //返回的分别是三个级别的选中位置
-                String tx = options1Items.get(options1).getPickerViewText()+"-"+
-                        options2Items.get(options1).get(options2)+"-"+
+                String tx = options1Items.get(options1).getPickerViewText() + "-" +
+                        options2Items.get(options1).get(options2) + "-" +
                         options3Items.get(options1).get(options2).get(options3);
                 tvQuyuxuanze.setText(tx);
                 shengid = options1Items.get(options1).getQuybm();
@@ -549,7 +566,7 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
                 pos[1] = options2;
                 pos[2] = options3;
 
-                Log.e("我的区域编号",city+"");
+                Log.e("我的区域编号", city + "");
             }
         })
                 .setTitleText("城市选择")
@@ -560,8 +577,8 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
 
         /*pvOptions.setPicker(options1Items);//一级选择器
         pvOptions.setPicker(options1Items, options2Items);//二级选择器*/
-        pvOptions.setPicker(options1Items, options2Items,options3Items);//三级选择器
-        pvOptions.setSelectOptions(pos[0],pos[1],pos[2]);
+        pvOptions.setPicker(options1Items, options2Items, options3Items);//三级选择器
+        pvOptions.setSelectOptions(pos[0], pos[1], pos[2]);
         pvOptions.show();
     }
 }

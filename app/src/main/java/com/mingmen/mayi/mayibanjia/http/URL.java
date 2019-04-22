@@ -7,7 +7,7 @@ package com.mingmen.mayi.mayibanjia.http;
 public class URL {
 //    public static String url = "http://192.168.0.21:8080/ant/"; //李岩
 //    public static String url = "https://192.168.3.14:8091/"; //李岩
-//     public static String url = "http://192.168.0.179:8080/ant/"; //毕森
+//     public static String url = "http://192.168.0.7:8080/ant/"; //毕森
 //    public static String url = "http://172.16.1.64:8080/"; //毕森--0
 //    public static String url = "http://192.168.3.29:8080/"; //春波
 //    public static String url = "http://1 92.168.1.151:8080/"; //刘哥

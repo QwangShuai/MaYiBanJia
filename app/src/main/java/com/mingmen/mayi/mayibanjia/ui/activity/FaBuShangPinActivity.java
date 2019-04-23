@@ -1034,7 +1034,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                             shangpintu = bean.getHostPicture();
                         }
                         ming = bean.getClassify_name() + "";
-                        if (StringUtil.isValid(getIntent().getStringExtra("shsb"))) {//审核失败编辑
+//                        if (StringUtil.isValid(getIntent().getStringExtra("shsb"))) {//审核失败编辑
                             if (StringUtil.isValid(bean.getType_tree_id())) {
                                 tvFenleimingcheng.setText(bean.getType_one_name());
                                 llShangpin.setVisibility(View.GONE);
@@ -1045,6 +1045,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                                 ivTeshu.setSelected(false);
                                 etSpming.setText(bean.getClassify_name());
                                 spname = bean.getClassify_name() + "";
+                                tvShangpinmingcheng.setText(bean.getClassify_name() + "");
                             } else {
                                 spname = bean.getCommodity_name() + "";
                                 etSpming.setText(bean.getCommodity_name());
@@ -1055,8 +1056,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                                 isSelect = true;
                                 ivTeshu.setSelected(true);
                             }
-
-                        }
+//                        }
                         if (bean.getPice() > 0) {
                             llShowTejia.setVisibility(View.VISIBLE);
                             istejia = true;
@@ -1093,7 +1093,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                         lingjiid = bean.getType_one_id();
                         yijiid = bean.getType_two_id();
                         erjiid = bean.getType_tree_id();
-                        spname = bean.getClassify_name();
+//                        spname = bean.getClassify_name();
                         sanjiid = bean.getType_four_id();
                         ivQingkong.setVisibility(View.VISIBLE);
                         if (yemian.equals("0")) {

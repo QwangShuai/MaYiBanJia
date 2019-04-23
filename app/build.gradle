@@ -80,6 +80,7 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava2:+'
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    compile 'com.qianwen:okhttp-utils:3.8.0'
     compile 'com.contrarywind:Android-PickerView:4.1.6'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.42'
     compile 'com.github.lzjin:AlipayPassDialog:1.1'
@@ -90,6 +91,7 @@ dependencies {
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
     compile 'id.zelory:compressor:1.0.4'
     compile 'top.zibin:Luban:1.0.5'
+    compile 'com.github.xuexiangjys:XUpdate:1.0.0'
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
 }

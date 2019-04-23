@@ -11,12 +11,17 @@ import android.os.Handler;
 import android.support.multidex.MultiDexApplication;
 
 import com.mingmen.mayi.mayibanjia.utils.CrashHandler;
+import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 import com.qiniu.android.common.FixedZone;
 import com.qiniu.android.storage.Configuration;
 import com.qiniu.android.storage.UploadManager;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
+import com.xuexiang.xupdate.XUpdate;
+import com.xuexiang.xupdate.entity.UpdateError;
+import com.xuexiang.xupdate.listener.OnUpdateFailureListener;
+import com.xuexiang.xupdate.utils.UpdateUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,50 +87,48 @@ public class MyApplication extends MultiDexApplication {
         {
             PlatformConfig.setWeixin(UMConfig.WECHAT_APPID, UMConfig.WECHAT_APPSECRET);
         }
+        initUpdate();
 //        CrashHandler crashHandler = CrashHandler.getInstance();
 //        crashHandler.init(getApplicationContext());
         doInit();
-//        registerToWX();
-//        oList = new ArrayList<Activity>();
     }
 
     private void doInit() {
 
-
-//        KSConfig.init(this, "VsxTFFv8kZig+mxJF1dRbYFzLO0+kFxB", new KsInitListener(){
-//            @Override
-//            public void onSuccess() {
-//            }
-//
-//            @Override
-//            public void onError(int code, String message) {
-//            }
-//        });
     }
 
-//    private void registerToWX() {
-//        //第二个参数是指你应用在微信开放平台上的AppID
-//        mWxApi = WXAPIFactory.createWXAPI(this, Constants.APP_ID, false);
-//        // 将该app注册到微信
-//        mWxApi.registerApp(Constants.APP_ID);
-//    }
-//    public void addActivity_(Activity activity) {
-//    // 判断当前集合中不存在该Activity
-//    if (!oList.contains(activity)) {
-//        oList.add(activity);//把当前Activity添加到集合中
-//    }
-//}
-//    public void removeActivity_(Activity activity) {
-//        if (oList.contains(activity)) {
-//            oList.remove(activity);//从集合中移除
-//            activity.finish();//销毁当前Activity
-//        }
-//    }
-//    public void removeALLActivity_() {
-//        //通过循环，把集合中的所有Activity销毁
-//        for (Activity activity : oList) {
-//            activity.finish();
-//        }
-//    }
+    private void initUpdate() {
+
+        XUpdate.get()
+
+                .debug(true)
+
+                .isWifiOnly(true)     //默认设置只在wifi下检查版本更新
+
+                .isGet(true)          //默认设置使用get请求检查版本
+
+                .isAutoMode(false)    //默认设置非自动模式，可根据具体使用配置
+
+                .param("versionCode", UpdateUtils.getVersionCode(this)) //设置默认公共请求参数
+
+                .param("appKey", getPackageName())
+
+                .setOnUpdateFailureListener(new OnUpdateFailureListener() { //设置版本更新出错的监听
+
+                    @Override
+
+                    public void onFailure(UpdateError error) {
+                            ToastUtil.showToastLong(error.toString());
+                    }
+
+                })
+
+                .setIUpdateHttpService(new OKHttpUpdateHttpService()) //这个必须设置！实现网络请求功能。
+
+                .init(this);   //这个必须初始化
+
+
+
+    }
 
 }

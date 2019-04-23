@@ -517,7 +517,13 @@
             android:name=".ui.activity.SetPayPwdActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" /> <!-- 设置支付密码 -->
-        <activity android:name=".ui.activity.SpsbChangeActivity"></activity>
+        <activity android:name=".ui.activity.SpsbChangeActivity">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
     </application>
 
 </manifest>

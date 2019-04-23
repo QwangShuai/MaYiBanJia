@@ -286,22 +286,22 @@ public class XuanZeZhiFuFangShiActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
+                        Intent intent = new Intent(mContext, DingDanActivity.class);
                         switch (zhifufangshi) {
                             case 1:
-                                if (Double.parseDouble(yue) > Double.parseDouble(zongjia)) {
+//                                if (Double.parseDouble(yue) > Double.parseDouble(zongjia)) {
                                     payDialog.dismiss();
                                     ToastUtil.showToast("支付成功");
-                                    Intent intent = new Intent(mContext, DingDanActivity.class);
                                     intent.putExtra("to_shop", 0);
                                     startActivity(intent);
                                     finish();
 //                                       QueRenDingDanActivity.instance.finish();
-                                } else {
-                                    ToastUtil.showToast("余额不足请选择其他支付方式");
-                                }
+//                                }
+//                                else {
+//                                    ToastUtil.showToast("余额不足请选择其他支付方式");
+//                                }
                                 break;
                             case 2:
-                                Intent intent = new Intent(mContext, DingDanActivity.class);
                                 intent.putExtra("to_shop", 0);
                                 startActivity(intent);
                                 finish();
@@ -361,7 +361,7 @@ public class XuanZeZhiFuFangShiActivity extends BaseActivity {
 
                                         @Override
                                         public void onPayForget() {
-                                            ToastUtil.showToastLong("你是个傻子吧");
+                                            startActivity(new Intent(mContext,ChangePayPwdActivity.class));
                                         }
                                     });
                         } else {

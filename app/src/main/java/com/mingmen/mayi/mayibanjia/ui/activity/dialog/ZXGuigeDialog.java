@@ -3,7 +3,6 @@ package com.mingmen.mayi.mayibanjia.ui.activity.dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
@@ -16,14 +15,11 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
-import com.mingmen.mayi.mayibanjia.bean.FCGGuige;
 import com.mingmen.mayi.mayibanjia.bean.FbspGuiGeBean;
-import com.mingmen.mayi.mayibanjia.bean.ShangPinSousuoMohuBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.GuigeAdapter;
-import com.mingmen.mayi.mayibanjia.ui.activity.adapter.XJSPFeiLeiGuigeAdapter;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
@@ -42,7 +38,7 @@ import butterknife.Unbinder;
  * Created by Administrator on 2018/10/19.
  */
 
-public class GuigeDialog extends BaseFragmentDialog implements View.OnClickListener {
+public class ZXGuigeDialog extends BaseFragmentDialog implements View.OnClickListener {
 
 
     Unbinder unbinder;
@@ -60,7 +56,7 @@ public class GuigeDialog extends BaseFragmentDialog implements View.OnClickListe
     private List<FbspGuiGeBean> songdashijianlist = new ArrayList<FbspGuiGeBean>();
     private FbspGuiGeBean bean = new FbspGuiGeBean();
 
-    public GuigeDialog setData(Context mContext) {
+    public ZXGuigeDialog setData(Context mContext) {
         this.mContext = mContext;
         return this;
     }
@@ -110,6 +106,7 @@ public class GuigeDialog extends BaseFragmentDialog implements View.OnClickListe
                 if (StringUtil.isValid(dqId)) {
                     this.dismiss();
 //                    bean.se(dqId + " / " + bean.getSon_name());
+                    bean.setType("zxgg");
                     EventBus.getDefault().post(bean);
                 } else {
                     ToastUtil.showToastLong("请选择一个规格");
@@ -141,7 +138,7 @@ public class GuigeDialog extends BaseFragmentDialog implements View.OnClickListe
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getguige(PreferenceUtils.getString(MyApplication.mContext, "token", ""), ""))
+                                .getZxgg(PreferenceUtils.getString(MyApplication.mContext, "token", ""), ""))
                 .setDataListener(new HttpDataListener<List<FbspGuiGeBean>>() {
                     @Override
                     public void onNext(List<FbspGuiGeBean> data) {

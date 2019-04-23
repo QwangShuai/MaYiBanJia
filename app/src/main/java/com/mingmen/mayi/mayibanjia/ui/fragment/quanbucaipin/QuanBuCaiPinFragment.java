@@ -400,7 +400,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
 
     //商品搜索
     private void sousuoshangpin(final String sousuo, final String type) {
-        Log.e(TAG, "sousuoshangpin: 我是特价"+istejia+"---我是准时达"+iszhunshida );
+        Log.e(TAG, "sousuoshangpin: 我是特价"+istejia+"---我是实时达"+iszhunshida );
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
@@ -777,15 +777,16 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 setState();
                 clearPopXuanzhong();
                 erjipinleiid = data.getStringExtra("three_id");
+                Log.e(TAG, "onActivityResult: "+erjipinleiid );
                 if (StringUtil.isValid(data.getStringExtra("four_name"))) {
                     sanjipinleiid = data.getStringExtra("four_id");
                     sousuo = data.getStringExtra("four_name");
                     tvSousuozi.setText(sousuo);
-                    if (StringUtil.isValid(sanjipinleiid)) {
-                        sousuoshangpin("", type);
-                    } else {
+//                    if (StringUtil.isValid(sanjipinleiid)) {
+//                        sousuoshangpin(sousuo, type);
+//                    } else {
                         sousuoshangpin(sousuo,type);
-                    }
+//                    }
 
                 } else {
                     erjipinleiname = data.getStringExtra("three_name");

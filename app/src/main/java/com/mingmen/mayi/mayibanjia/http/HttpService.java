@@ -1338,7 +1338,7 @@ public interface HttpService {
                                              @Query("comment_text") String comment_text,
                                              @Query("rowgu_id") String rowgu_id);
 
-    // 准时达运费
+    // 实时达运费
     @POST("Ordermain/qyeryshishidaByFreightFee.do")
     Observable<ResultModel<List<YunFeiBean>>> getZhunshida(@Query("user_token") String user_token,
                                                            @Query("commodity_id") String commodity_id,

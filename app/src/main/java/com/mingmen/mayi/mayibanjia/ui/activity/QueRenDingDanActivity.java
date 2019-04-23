@@ -304,7 +304,7 @@ public class QueRenDingDanActivity extends BaseActivity {
 
                                         if (i == data.getMarketlist().size() - 1 && j == data.getMarketlist().get(i).getCgzhulist().size() - 1&&m==data.getMarketlist().get(i).getCgzhulist().get(j).getCgzilist().size()-1) {
                                             if(StringUtil.isValid(isTime)){
-                                                if(isTime.equals("准时达")){//准时达
+                                                if(isTime.equals("实时达")){//实时达
 
                                                 } else {//标准达
                                                     getYunFei();
@@ -332,7 +332,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                                         }
                                         if (k == data.getMarketlist().size() - 1 && i == data.getMarketlist().get(k).getDplist().size() - 1&&j==data.getMarketlist().get(k).getDplist().get(i).getList().size()-1) {
                                             if(StringUtil.isValid(isTime)){
-                                                if(isTime.equals("准时达")){//准时达
+                                                if(isTime.equals("实时达")){//实时达
 
                                                 } else {//标准达
                                                     getYunFei();
@@ -476,15 +476,13 @@ public class QueRenDingDanActivity extends BaseActivity {
                 hejijine = 0.0;
                 zongzhong = 0.0;
                 yunfei = 0.0;
-                songdashijianid = "尽快送达";
                 isZhunshi = "1";
                 getZhunshidaYunFei();
-                isTime = "准时达";
+                isTime = "实时达";
                 tvZhushida.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_zangqing_3));
                 tvZhushida.setTextColor(mContext.getResources().getColor(R.color.zangqing));
                 tvBiaozhunda.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_999999_3));
                 tvBiaozhunda.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
-                tvSongdashijian.setText("尽快送达");
                 break;
             case R.id.ll_songdashijian:
                 ToastUtil.showToastLong("时间由送达状态选择");
@@ -690,6 +688,8 @@ public class QueRenDingDanActivity extends BaseActivity {
                             tvHejijine.setText(hejijine + "");
                             tvZhongliang.setText(+MyMath.getDouble(zongzhong)+"斤)");
                             tvYunfei.setText(yunfei+"");
+                            tvSongdashijian.setText("尽快送达");
+                            songdashijianid = "尽快送达";
                         }
                     },false);
         }

@@ -148,7 +148,7 @@
                   android:id="@+id/tv_zhunshida"
                   android:layout_width="90dp"
                   android:layout_height="28dp"
-                  android:text="准时达"
+                  android:text="实时达"
                   android:textColor="@color/hintcolor"
                   android:textSize="12sp" />
           </LinearLayout>

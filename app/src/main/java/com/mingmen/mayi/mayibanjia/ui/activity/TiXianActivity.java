@@ -267,7 +267,7 @@ public class TiXianActivity extends BaseActivity {
 
                                         @Override
                                         public void onPayForget() {
-                                            ToastUtil.showToastLong("你是个傻子吧");
+                                            startActivity(new Intent(mContext,ChangePayPwdActivity.class));
                                         }
                                     });
                         } else {

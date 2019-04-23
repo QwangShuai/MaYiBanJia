@@ -63,6 +63,7 @@ public class YunFeiDialog extends BaseFragmentDialog {
         lp.width = (int) (d.widthPixels * 0.8); // 高度设置为屏幕的0.6
         dialogWindow.setAttributes(lp);
         tvYunfei.setText(yunfei+"");
+        etYunfei.setText(yunfei+"");
     }
 
     @Override

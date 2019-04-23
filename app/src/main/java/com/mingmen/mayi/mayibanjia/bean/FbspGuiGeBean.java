@@ -1,6 +1,7 @@
 package com.mingmen.mayi.mayibanjia.bean;
 
 import java.io.Serializable;
+import java.io.StringReader;
 
 /**
  * Created by Administrator on 2018/8/8.
@@ -26,6 +27,15 @@ public class FbspGuiGeBean implements Serializable {
         private String affiliated_spec;
         private String affiliated_number;
         private String affiliated_spec_name;
+        private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getAffiliated_spec_name() {
         return affiliated_spec_name;

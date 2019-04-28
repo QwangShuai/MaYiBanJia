@@ -25,7 +25,13 @@ import com.mingmen.mayi.mayibanjia.utils.custom.SwipeRecyclerView;
 import com.mingmen.mayi.mayibanjia.utils.qrCode.CaptureActivity;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,6 +55,7 @@ public abstract class BaseJingliFragment extends BaseFragment {
     private boolean b = false;
     protected boolean isCreate = false;
     private final static int SCANNIN_GREQUEST_CODE = 1;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,12 +107,15 @@ public abstract class BaseJingliFragment extends BaseFragment {
 
     private void initview() {
         WuLiuActivity activity = (WuLiuActivity) getActivity();
+        EventBus.getDefault().register(this);
         mLoadMoreListener = new SwipeMenuRecyclerView.LoadMoreListener() {
             @Override
             public void onLoadMore() {
                 getPeiSong();
             }
         };
+        refreshLayout.setColorSchemeResources(R.color.zangqing, R.color.zangqing,
+                R.color.zangqing, R.color.zangqing);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -143,6 +153,7 @@ public abstract class BaseJingliFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     public void updateQrCode(String id) {
@@ -171,6 +182,14 @@ public abstract class BaseJingliFragment extends BaseFragment {
         startActivityForResult(intent, SCANNIN_GREQUEST_CODE);
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void updateTimer(String message){
+        ye = 1;
+        mlist.clear();
+        adapter.notifyDataSetChanged();
+        getPeiSong();
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -182,4 +201,6 @@ public abstract class BaseJingliFragment extends BaseFragment {
             updateQrCode(scanResult);
         }
     }
+
+
 }

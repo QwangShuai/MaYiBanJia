@@ -243,6 +243,15 @@ public class SPXiangQingBean {
         private String tjprice;
         private String type_four_id;
         private String real_time_state;
+        private String spms;
+
+        public String getSpms() {
+            return spms;
+        }
+
+        public void setSpms(String spms) {
+            this.spms = spms;
+        }
 
         public String getReal_time_state() {
             return real_time_state;

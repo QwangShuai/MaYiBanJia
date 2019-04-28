@@ -193,7 +193,7 @@ public class GHOrderAdapter extends RecyclerView.Adapter<GHOrderAdapter.ViewHold
             holder.tvTuikuan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    new TuikuanDialog(mContext,bean.getGy_order_id(),bean.getGy_order_number(),fragment).show();
+                    new TuikuanDialog(mContext,bean.getGy_order_id(),bean.getGy_order_number(),bean.getTotal_price(),fragment).show();
                 }
             });
             holder.iv_del.setOnClickListener(new View.OnClickListener() {

@@ -36,6 +36,15 @@ public class DdxqListBean {
     private int total_price;
     private String dianhua;
     private String append_money;
+    private String app_money;
+
+    public String getApp_money() {
+        return app_money;
+    }
+
+    public void setApp_money(String app_money) {
+        this.app_money = app_money;
+    }
 
     public String getAppend_money() {
         return append_money;

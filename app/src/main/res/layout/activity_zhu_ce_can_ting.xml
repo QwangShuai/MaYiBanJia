@@ -84,6 +84,7 @@
 
     </LinearLayout>
     <LinearLayout
+        android:visibility="gone"
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
         android:orientation="horizontal"

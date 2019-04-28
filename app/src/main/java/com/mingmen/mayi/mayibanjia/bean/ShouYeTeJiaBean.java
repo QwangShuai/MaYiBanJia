@@ -54,14 +54,23 @@ public class ShouYeTeJiaBean {
         private Object market_name;
         private Object ration_one;
         private Object ration_two;
-        private int pice_one;
-        private int pice_two;
-        private int pice_three;
+        private Double pice_one;
+        private Double pice_two;
+        private Double pice_three;
         private Object market_id;
         private String classify_name;
     private String pice;
     private String price;
     private String pack_standard;
+    private String real_time_state;
+
+    public String getReal_time_state() {
+        return real_time_state;
+    }
+
+    public void setReal_time_state(String real_time_state) {
+        this.real_time_state = real_time_state;
+    }
 
     public String getClassify_name() {
         return classify_name;
@@ -263,28 +272,12 @@ public class ShouYeTeJiaBean {
             this.ration_two = ration_two;
         }
 
-        public int getPice_one() {
+        public Double getPice_one() {
             return pice_one;
         }
 
-        public void setPice_one(int pice_one) {
+        public void setPice_one(Double pice_one) {
             this.pice_one = pice_one;
-        }
-
-        public int getPice_two() {
-            return pice_two;
-        }
-
-        public void setPice_two(int pice_two) {
-            this.pice_two = pice_two;
-        }
-
-        public int getPice_three() {
-            return pice_three;
-        }
-
-        public void setPice_three(int pice_three) {
-            this.pice_three = pice_three;
         }
 
         public Object getMarket_id() {

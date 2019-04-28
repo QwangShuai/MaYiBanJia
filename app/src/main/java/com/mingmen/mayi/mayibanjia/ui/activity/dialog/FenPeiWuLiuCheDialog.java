@@ -103,8 +103,10 @@ public class FenPeiWuLiuCheDialog extends Dialog {
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().length() > 0) {
-                    if(!s.toString().trim().equals(chepai)){
-                        getChepaihao(s.toString().trim());
+                    if(StringUtil.isValid(car_type_id)){
+                        if(!s.toString().trim().equals(chepai)){
+                            getChepaihao(s.toString().trim());
+                        }
                     }
                 }
 

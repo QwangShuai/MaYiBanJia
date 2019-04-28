@@ -182,6 +182,8 @@ public class FaBuShangPinActivity extends BaseActivity {
     RecyclerView rvGuige;
     @BindView(R.id.tv_ppname)
     TextView tvPpname;
+    @BindView(R.id.tv_ggms)
+    TextView tvGgms;
     @BindView(R.id.ll_pinpai)
     LinearLayout llPinpai;
     @BindView(R.id.ll_tj)
@@ -876,6 +878,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                     sanjiguigeid = data.getStringExtra("guigeId");
                     tvZxgg.setText(data.getStringExtra("zxName"));
                     tvYxgg.setText("每" + data.getStringExtra("guigeName") + "换算单位为");
+                    tvGgms.setText(data.getStringExtra("guigeName"));
                     if (StringUtil.isValid(data.getStringExtra("zxId"))) {
                         llDw.setVisibility(View.VISIBLE);
                         isGuige = true;
@@ -1037,7 +1040,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<EditorShangPinBean>() {
                     @Override
                     public void onNext(EditorShangPinBean data) {
-                        EditorShangPinBean.XqBean bean = data.getXq();
+                        final EditorShangPinBean.XqBean bean = data.getXq();
                         PreferenceUtils.setEditorShangPinBean(MyApplication.mContext, data);
                         if (StringUtil.isValid(bean.getHostPicture())) {
                             Glide.with(FaBuShangPinActivity.this).load(bean.getHostPicture()).into(ivSptu);
@@ -1131,17 +1134,38 @@ public class FaBuShangPinActivity extends BaseActivity {
                             etNumber.setText(bean.getAffiliated_number());
                             tvZxgg.setText(bean.getPackFourName());
                             tvYxgg.setText("每" + bean.getPackThreeName() + "换算单位为");
+                            tvGgms.setText(bean.getPackThreeName());
                             isGuige = true;
                         } else {
                             llDw.setVisibility(View.GONE);
                             isGuige = false;
                         }
                         tvSanji.setText(bean.getPackThreeName());
+                        tvGgms.setText(bean.getPackThreeName());
 //                        if(getGuige){
 //                             getguigeXzge();
 //                        } else {
 //                            getguige();
 //                        }
+                        etTejia.addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                            }
+
+                            @Override
+                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                if(Double.valueOf(s.toString().trim())>=Double.valueOf(etQidingliangdanjia1.getText().toString().trim())){
+                                    ToastUtil.showToastLong("特价金额必须小于原价");
+                                    etTejia.setText("0");
+                                }
+                            }
+
+                            @Override
+                            public void afterTextChanged(Editable s) {
+
+                            }
+                        });
 
                     }
                 });
@@ -1303,7 +1327,6 @@ public class FaBuShangPinActivity extends BaseActivity {
     }
 
     private void guigeYanzheng() {
-        Log.e("guigeYanzheng: ", zxname);
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
@@ -1389,6 +1412,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                                     sanjiguigeid = item.getSpec_id() + "";
                                     tvSanji.setText(sanjiguigename);
                                     tvYxgg.setText("每" + item.getSpec_name() + "换算单位为");
+                                    tvGgms.setText(item.getSpec_name());
                                     if (StringUtil.isValid(item.getAffiliated_spec_name())) {
                                         llDw.setVisibility(View.VISIBLE);
                                         isGuige = true;
@@ -1474,11 +1498,13 @@ public class FaBuShangPinActivity extends BaseActivity {
                                 guigeadapter.setXuanzhongid(msg.getClassify_id());
                                 tvZxgg.setText(msg.getAffiliated_spec_name());
                                 tvSanji.setText(msg.getSpec_name());
+                                tvGgms.setText(msg.getSpec_name());
                                 etNumber.setText(msg.getAffiliated_number());
                                 sanjiguigeid = msg.getSpec_idFour();
                                 zxid = msg.getAffiliated_spec();
                                 zxname = msg.getAffiliated_spec_name();
                                 sanjiguigename = msg.getSpec_name();
+                                tvDanwei.setText("元/" + sanjiguigename);
                                 if (StringUtil.isValid(msg.getAffiliated_spec())) {
                                     zxname = msg.getAffiliated_spec_name();
                                     llDw.setVisibility(View.VISIBLE);
@@ -1506,6 +1532,7 @@ public class FaBuShangPinActivity extends BaseActivity {
             sanjiguigeid = item.getSpec_id() + "";
             tvSanji.setText(sanjiguigename);
             tvYxgg.setText("每" + item.getSpec_name() + "换算单位为");
+            tvGgms.setText(item.getSpec_name());
             if (StringUtil.isValid(item.getAffiliated_spec())) {
                 llDw.setVisibility(View.VISIBLE);
                 isGuige = true;

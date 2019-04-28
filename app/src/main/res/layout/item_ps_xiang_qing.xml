@@ -110,6 +110,7 @@
 
     </LinearLayout>
     <LinearLayout
+        android:layout_marginBottom="12dp"
         android:layout_marginTop="12dp"
         android:layout_marginLeft="13dp"
         android:orientation="horizontal"
@@ -129,6 +130,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
+    <include layout="@layout/view_cutoff_e7e7e7_match"></include>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="53dp">
+        <Button
+            android:id="@+id/btn_xiangqing"
+            android:textSize="12sp"
+            android:textColor="@color/lishisousuo"
+            android:background="@drawable/fillet_solid_999999_14"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:layout_alignParentRight="true"
+            android:text="查看详情"
+            android:layout_width="70dp"
+            android:layout_height="28dp" />
+    </RelativeLayout>
     <!--<View-->
         <!--android:layout_marginTop="20dp"-->
         <!--android:layout_width="match_parent"-->

@@ -32,8 +32,12 @@ import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -53,6 +57,8 @@ public class WuLiuActivity extends BaseActivity {
     private ConfirmDialog confirmDialog;
     private JingliAdapter adapter;
 
+    private Timer timer;
+    private int i = 1;
 
     @Override
     public int getLayoutId() {
@@ -69,6 +75,19 @@ public class WuLiuActivity extends BaseActivity {
         tabsDingdan.setViewPager(vpDingdan);
         vpDingdan.setOffscreenPageLimit(0);
         vpDingdan.setCurrentItem(0);
+
+        timer = new Timer();
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Log.e("run: ","走"+ i );
+                i++;
+                EventBus.getDefault().post("update");
+
+            }
+        },0,60*1000);
+
     }
     @OnClick({R.id.ll_title,R.id.iv_sangedian})
     public void OnClick(View v){

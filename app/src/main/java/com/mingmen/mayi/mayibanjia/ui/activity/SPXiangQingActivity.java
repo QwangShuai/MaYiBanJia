@@ -166,6 +166,8 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
     XCFlowLayout xcfPingjia;
     @BindView(R.id.tv_tejia)
     TextView tvTejia;
+    @BindView(R.id.tv_miaoshu)
+    TextView tvMiaoshu;
     @BindView(R.id.tv_spgg)
     TextView tvSpgg;
     @BindView(R.id.ll_tejia)
@@ -333,9 +335,17 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
         }else{
             tvGuige.setText(xq.getSpec_describe());
         }
+
+        if(StringUtil.isValid(xq.getSpms())){
+            tvMiaoshu.setText("备注:" + xq.getSpms());
+        } else {
+            tvMiaoshu.setVisibility(View.GONE);
+        }
+
         tvXiaoliang.setText(xq.getCommodity_sales());
         tvFuwufen.setText(spxinxi.getAvgNum() + "");
         dianpuid = xq.getCompany_id();
+
 /*        if (xq.getChoose_specifications() != null) {
             switch (Integer.parseInt(xq.getChoose_specifications())) {
                 case 1:

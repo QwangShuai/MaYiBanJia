@@ -365,4 +365,12 @@ public class ShouYeFragment extends BaseFragment {
 //                break;
         }
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        getShouyeBanner();
+        getShouyeFenLei();
+        adapter.setPosition(0);
+    }
 }

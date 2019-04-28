@@ -482,7 +482,7 @@ public class WoDeFragment extends BaseFragment {
             case R.id.ll_guanzhu://店铺关注列表
                 Jump_intent(DianPuGuanZhuActivity.class, new Bundle());
                 break;
-            case R.id.ll_liulanjilu://店铺关注列表
+            case R.id.ll_liulanjilu://浏览记录
                 Jump_intent(LiuLanJiLuActivity.class, new Bundle());
                 break;
             case R.id.rl_yinhang:

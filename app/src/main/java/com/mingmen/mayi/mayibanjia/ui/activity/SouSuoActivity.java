@@ -1351,7 +1351,11 @@ public class SouSuoActivity extends BaseActivity {
 
     public void myBack(){
         Intent it = new Intent();
-        it.putExtra("clearType",clearText);
+        if(StringUtil.isValid(etSousuo.getText().toString().trim())){
+            it.putExtra("clearType",clearText);
+        } else {
+            it.putExtra("clearType",true);
+        }
         Log.e("clearType",clearText+"");
         setResult(3,it);
         finish();

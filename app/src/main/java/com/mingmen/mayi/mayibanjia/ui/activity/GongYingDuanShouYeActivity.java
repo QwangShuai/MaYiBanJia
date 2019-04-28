@@ -158,9 +158,9 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
         if (!PollingUtils.isOpen) {
             PollingUtils.startPollingService(GongYingDuanShouYeActivity.instance, 1, PollingService.class, PollingService.ACTION);
         }
-        if (PreferenceUtils.getInt(mContext, "random_id", 1) == 3) {
-            llQiehuan.setVisibility(View.GONE);
-        }
+//        if (PreferenceUtils.getInt(mContext, "random_id", 1) == 3) {
+//            llQiehuan.setVisibility(View.GONE);
+//        }
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         getwode();

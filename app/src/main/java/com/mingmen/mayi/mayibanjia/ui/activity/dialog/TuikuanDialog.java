@@ -25,6 +25,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.ghdingdan.BaseGHOrderFragment;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
 import butterknife.BindView;
@@ -54,12 +55,14 @@ public class TuikuanDialog extends Dialog{
     private String order_number;
     private Context context;
     private BaseGHOrderFragment fragment;
+    private Double num;
 
-    public TuikuanDialog(@NonNull Context context,String order_id,String order_number,BaseGHOrderFragment fragment) {
+    public TuikuanDialog(@NonNull Context context,String order_id,String order_number,Double num,BaseGHOrderFragment fragment) {
         super(context);
         this.context = context;
         this.order_id = order_id;
         this.order_number = order_number;
+        this.num = num;
         this.fragment = fragment;
     }
 
@@ -72,6 +75,8 @@ public class TuikuanDialog extends Dialog{
             case R.id.btn_confirm:
                 if(TextUtils.isEmpty(etTuikuan.getText().toString())){
                     ToastUtil.showToast("退款金额不可以为空");
+                } else if(Double.valueOf(etTuikuan.getText().toString().trim())<=0){
+                    ToastUtil.showToast("退款金额不可以为0");
                 } else {
                     orderTuikuan();
                 }
@@ -95,6 +100,26 @@ public class TuikuanDialog extends Dialog{
         lp.width = (int) (d.widthPixels * 0.8); // 高度设置为屏幕的0.6
         dialogWindow.setAttributes(lp);
         tvOrderNumber.setText("订单编号:"+order_number);
+        StringUtil.setPricePoint(etTuikuan);
+//        etTuikuan.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                if(Double.valueOf(s.toString().trim())>=num){
+//                    ToastUtil.showToastLong("退款金额不能超过订单金额");
+//                    etTuikuan.setText(num+"");
+//                }
+//            }
+//        });
         etYuanyin.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

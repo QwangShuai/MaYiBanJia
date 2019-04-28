@@ -83,8 +83,22 @@ public class DingDanXiangQingAdapter extends RecyclerView.Adapter<DingDanXiangQi
             holder.tvZongjia1.setText(zongjia);
             holder.tvZongjia2.setText("00");
         }
+
+        if (StringUtil.isValid(dingdan.getApp_money()) && Double.valueOf(dingdan.getApp_money()) != 0) {
+            holder.llChaoshifei.setVisibility(View.VISIBLE);
+            if (dingdan.getApp_money().contains(".")) {
+                holder.tvChaoshifei1.setText(dingdan.getApp_money().split("\\.")[0]);
+                holder.tvChaoshifei2.setText(dingdan.getApp_money().split("\\.")[1]);
+            } else {
+                holder.tvChaoshifei1.setText(dingdan.getApp_money());
+                holder.tvChaoshifei2.setText("00");
+            }
+        } else {
+            holder.llChaoshifei.setVisibility(View.GONE);
+        }
         if (dingdan.getState().equals("404")) {
             if (dingdan.getScanState().equals("1")) {
+                holder.ll_baozhuang.setVisibility(View.VISIBLE);
                 holder.tv_baozhuanggeshu.setText(dingdan.getPackCount());
                 holder.tv_saomageshu.setText(dingdan.getScanCount());
             } else {
@@ -294,12 +308,18 @@ public class DingDanXiangQingAdapter extends RecyclerView.Adapter<DingDanXiangQi
         TextView tvTishi;
         @BindView(R.id.ll_state)
         LinearLayout llState;
+        @BindView(R.id.ll_chaoshifei)
+        LinearLayout llChaoshifei;
         @BindView(R.id.ll_shanchu)
         LinearLayout llShanchu;
         @BindView(R.id.btn_more)
         Button btnMore;
         @BindView(R.id.tv_shijian)
         TextView tvShijian;
+        @BindView(R.id.tv_chaoshifei1)
+        TextView tvChaoshifei1;
+        @BindView(R.id.tv_chaoshifei2)
+        TextView tvChaoshifei2;
 
         ViewHolder(View view) {
             super(view);

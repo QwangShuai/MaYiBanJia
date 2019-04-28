@@ -1363,6 +1363,7 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
+                            android:id="@+id/ll_spll_ct"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -1393,6 +1394,7 @@
                             android:background="@color/gray_e7e7e7"></View>
 
                         <LinearLayout
+                            android:id="@+id/ll_spsc_ct"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -1423,7 +1425,7 @@
                             android:background="@color/gray_e7e7e7"></View>
 
                         <LinearLayout
-
+                            android:id="@+id/ll_dpgz_ct"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"

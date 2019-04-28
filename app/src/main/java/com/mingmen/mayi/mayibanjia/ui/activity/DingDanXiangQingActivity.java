@@ -14,17 +14,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.entity.MultiItemEntity;
-import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
-import com.mingmen.mayi.mayibanjia.bean.DdxqBean;
 import com.mingmen.mayi.mayibanjia.bean.DdxqListBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.DdXqShichangAdapter;
-import com.mingmen.mayi.mayibanjia.ui.activity.adapter.XqShichangAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.AppManager;
@@ -99,12 +95,18 @@ public class DingDanXiangQingActivity extends BaseActivity {
     Button btnQuerenFukuan;
     @BindView(R.id.rl_fujiafei)
     RelativeLayout rlFujiafei;
+    @BindView(R.id.tv_chaoshifei0)
+    TextView tvChaoshifei0;
+    @BindView(R.id.tv_chaoshifei1)
+    TextView tvChaoshifei1;
+    @BindView(R.id.rl_chaoshifei)
+    RelativeLayout rlChaoshifei;
 
     private Context mContext;
     private String order_id = "";
-//    private List<MultiItemEntity> mList = new ArrayList<>();
+    //    private List<MultiItemEntity> mList = new ArrayList<>();
     private List<DdxqListBean.MarketBean> mList = new ArrayList<>();
-//    private XqShichangAdapter adapter;
+    //    private XqShichangAdapter adapter;
     private DdXqShichangAdapter adapter;
     private ConfirmDialog dialog;
     private String zongjia = "0";
@@ -135,10 +137,11 @@ public class DingDanXiangQingActivity extends BaseActivity {
                                 .getOrderXiangqing(PreferenceUtils.getString(MyApplication.mContext, "token", ""), order_id))
                 .setDataListener(new HttpDataListener<DdxqListBean>() {
                     @Override
-                    public void onNext(DdxqListBean data) {;
+                    public void onNext(DdxqListBean data) {
+                        ;
 //                        btnQuerenShouhuo.setVisibility(View.GONE);
                         if (data.getState().equals("401")) {
-                            tvState.setText("等待卖家付款");
+                            tvState.setText("等待买家付款");
                             llDaifukuan.setVisibility(View.VISIBLE);
                             ivState.setImageResource(R.mipmap.daifukuan_ddxq);
                         } else if (data.getState().equals("402")) {
@@ -166,15 +169,19 @@ public class DingDanXiangQingActivity extends BaseActivity {
 //                        tvSpNumber.setText(data.getSp() + "    合计:");
                         tvDingdanBianhao.setText("订单编号:" + data.getOrder_number());
                         tvXiadanRiqi.setText("下单日期:" + data.getCreate_time());
-                        zongjia = data.getTotal()+"";
+                        zongjia = data.getTotal() + "";
                         setJiaGeShowView(tvZong0, tvZong1, data.getTotal_price() + "");
                         setJiaGeShowView(tvYunfei0, tvYunfei1, data.getFreight_fee() + "");
-                        if (TextUtils.isEmpty(data.getAppend_money()+"") || Double.valueOf(data.getAppend_money()) == 0) {
+                        if (TextUtils.isEmpty(data.getAppend_money() + "") || Double.valueOf(data.getAppend_money()) == 0) {
                             rlFujiafei.setVisibility(View.GONE);
                         } else {
                             setJiaGeShowView(tvFujiafei, tvFujiafei1, data.getAppend_money() + "");
                         }
-
+                        if (TextUtils.isEmpty(data.getApp_money() + "") || Double.valueOf(data.getApp_money()) == 0) {
+                            rlChaoshifei.setVisibility(View.GONE);
+                        } else {
+                            setJiaGeShowView(tvChaoshifei0, tvChaoshifei1, data.getApp_money() + "");
+                        }
                         setJiaGeShowView(tvHeji0, tvHeji1, data.getTotal() + "");
 //                        mList.clear();
 //                        mList.addAll(data.getMarket());
@@ -186,7 +193,7 @@ public class DingDanXiangQingActivity extends BaseActivity {
 //                        };
 //                        adapter = new XqShichangAdapter(mList, DingDanXiangQingActivity.this);
 //                        adapter.expandAll();
-                        adapter = new DdXqShichangAdapter(mContext,data.getMarket());
+                        adapter = new DdXqShichangAdapter(mContext, data.getMarket());
                         rvShichang.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
                         rvShichang.setAdapter(adapter);
                         //解决数据加载不完的问题
@@ -287,12 +294,12 @@ public class DingDanXiangQingActivity extends BaseActivity {
     }
 
     public void setJiaGeShowView(TextView tv1, TextView tv2, String zongjia) {
-        Log.e("总价",zongjia);
+        Log.e("总价", zongjia);
         if (zongjia.contains(".")) {
             tv1.setText(zongjia.split("\\.")[0] + ".");
             tv2.setText(zongjia.split("\\.")[1]);
         } else {
-            Log.e("总价",zongjia+"不包含");
+            Log.e("总价", zongjia + "不包含");
             tv1.setText(zongjia + ".");
             tv2.setText("00");
         }
@@ -313,6 +320,7 @@ public class DingDanXiangQingActivity extends BaseActivity {
                     }
                 });
     }
+
     private void querenshouhuo() {
         HttpManager.getInstance()
                 .with(mContext)
@@ -328,13 +336,14 @@ public class DingDanXiangQingActivity extends BaseActivity {
                     }
                 });
     }
+
     public void confirmOrder(String company_id) {
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .confirmOrder(PreferenceUtils.getString(MyApplication.mContext, "token", ""), order_id,company_id))
+                                .confirmOrder(PreferenceUtils.getString(MyApplication.mContext, "token", ""), order_id, company_id))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String s) {

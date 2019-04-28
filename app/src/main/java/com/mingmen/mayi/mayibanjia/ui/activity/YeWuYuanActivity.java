@@ -3,6 +3,7 @@ package com.mingmen.mayi.mayibanjia.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -30,6 +31,8 @@ import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -93,6 +96,8 @@ public class YeWuYuanActivity extends BaseActivity {
     TextView tvZclddNo;
     @BindView(R.id.tv_ywcsh_no)
     TextView tvYwcshNo;
+    @BindView(R.id.refresh_layout)
+    SwipeRefreshLayout refreshLayout;
 
     private boolean isShow;
     private String isSelect = "1";
@@ -100,6 +105,8 @@ public class YeWuYuanActivity extends BaseActivity {
     private ConfirmDialog confirmDialog;
     private String type = "全部企业";
 
+    private Timer timer;
+    private int i = 1;
     @Override
     public int getLayoutId() {
         return R.layout.activity_ye_wu_yuan;
@@ -112,8 +119,26 @@ public class YeWuYuanActivity extends BaseActivity {
         tvTitle.setText("业务员");
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
+        refreshLayout.setColorSchemeResources(R.color.zangqing, R.color.zangqing,
+                R.color.zangqing, R.color.zangqing);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                showYwy();
+                refreshLayout.setRefreshing(false);
+            }
+        });
         showYwy();
+        timer = new Timer();
 
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Log.e("run: ","走"+ i );
+                i++;
+                showYwy();
+            }
+        },0,60*1000);
     }
 
     @Override
@@ -352,5 +377,11 @@ public class YeWuYuanActivity extends BaseActivity {
         it.putExtra("isShichang",teshu);
         it.putExtra("person_name",person_name);
         startActivity(it);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        timer.cancel();
     }
 }

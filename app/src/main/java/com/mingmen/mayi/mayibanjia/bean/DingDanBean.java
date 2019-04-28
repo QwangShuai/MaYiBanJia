@@ -63,6 +63,7 @@ public class DingDanBean {
     private Object change_time;
     private String status_type;
     private String order_number;
+    private String app_money;
     private String total_price;
     private int balance_pice;
     private int freight_fee;
@@ -71,6 +72,14 @@ public class DingDanBean {
     private String packCount;//包装个数
     private String scanCount;//扫码个数
     private String shichang;//市场商品数量
+
+    public String getApp_money() {
+        return app_money;
+    }
+
+    public void setApp_money(String app_money) {
+        this.app_money = app_money;
+    }
 
     public String getShichang() {
         return shichang;

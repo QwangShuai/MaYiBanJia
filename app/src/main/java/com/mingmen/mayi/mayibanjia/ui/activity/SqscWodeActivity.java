@@ -241,8 +241,8 @@ public class SqscWodeActivity extends BaseActivity {
     }
 
     @OnClick({R.id.rl_shezhi, R.id.ll_state_qiehuan, R.id.ll_qiehuan, R.id.tv_yue, R.id.tv_tixian,
-            R.id.tv_daishoukuan, R.id.tv_cwbb, R.id.tv_spll, R.id.tv_spsc, R.id.tv_dpgz,
-            R.id.ll_daiqiangdan, R.id.ll_qiangdanzhong,
+            R.id.tv_daishoukuan, R.id.tv_cwbb, R.id.ll_spll, R.id.ll_spsc, R.id.ll_spgz,
+            R.id.ll_spll_ct, R.id.ll_spsc_ct, R.id.ll_dpgz_ct, R.id.ll_daiqiangdan, R.id.ll_qiangdanzhong,
             R.id.ll_qiangdanshibai, R.id.ll_qiangdanchenggong, R.id.ll_tianjiashangpin,
             R.id.ll_shangjia, R.id.ll_xiajia, R.id.ll_daishenhe, R.id.ll_shenheshibai,
             R.id.rl_facaigou, R.id.rl_daitijiao, R.id.rl_daishenhe, R.id.rl_weitongguo,
@@ -345,11 +345,23 @@ public class SqscWodeActivity extends BaseActivity {
             case R.id.tv_cwbb:
                 Jump_intent(JiaoYiLiuShuiActivity.class, new Bundle());
                 break;
-            case R.id.tv_spll:
+//            case R.id.ll_spll://商品被浏览
+//                Jump_intent(LiuLanJiLuActivity.class, new Bundle());
+//                break;
+//            case R.id.ll_spsc://商品被收藏
+//                Jump_intent(ShouCangListActivity.class, new Bundle());
+//                break;
+//            case R.id.ll_spgz://店铺被关注
+//                Jump_intent(DianPuGuanZhuActivity.class, new Bundle());
+//                break;
+            case R.id.ll_spll_ct:
+                Jump_intent(LiuLanJiLuActivity.class, new Bundle());
                 break;
-            case R.id.tv_spsc:
+            case R.id.ll_spsc_ct:
+                Jump_intent(ShouCangListActivity.class, new Bundle());
                 break;
-            case R.id.tv_dpgz:
+            case R.id.ll_dpgz_ct:
+                Jump_intent(DianPuGuanZhuActivity.class, new Bundle());
                 break;
             case R.id.rl_tj:
                 Bundle bd = new Bundle();
@@ -502,6 +514,9 @@ public class SqscWodeActivity extends BaseActivity {
             tvQiehuan.setText("已关闭实时达");
             close_type = "1";
         }
+        tvSpllCt.setText(bean.getLiulan()+"");
+        tvSpscCt.setText(bean.getSc()+"");
+        tvDpgzCt.setText(bean.getGuanzhu()+"");
         tvDfh.setVisibility(bean.getWait_fh() == 0 ? View.GONE : View.VISIBLE);
         tvDfh.setText(bean.getWait_fh() + "");
         tvYsh.setVisibility(bean.getAlready_delivery() == 0 ? View.GONE : View.VISIBLE);
@@ -515,7 +530,7 @@ public class SqscWodeActivity extends BaseActivity {
         tvQdz.setVisibility(bean.getQiangdan_z() == 0 ? View.GONE : View.VISIBLE);
         tvQdz.setText(bean.getQiangdan_z() + "");
         tvQdcg.setVisibility(bean.getQiangdan_cg() == 0 ? View.GONE : View.VISIBLE);
-        tvQdz.setText(bean.getQiangdan_cg() + "");
+        tvQdcg.setText(bean.getQiangdan_cg() + "");
         tvQdsb.setVisibility(bean.getQiangdan_sbai() == 0 ? View.GONE : View.VISIBLE);
         tvQdsb.setText(bean.getQiangdan_sbai() + "");
 //        tvDaishoukuan.setVisibility(bean.getWait_money() == 0 ? View.GONE : View.VISIBLE);
@@ -570,10 +585,6 @@ public class SqscWodeActivity extends BaseActivity {
             close_type = "1";
         }
         tvDdb.setText(bean.getWait_db() + "");
-        tvQdz.setVisibility(bean.getQiangdan_z() == 0 ? View.GONE : View.VISIBLE);
-        tvQdz.setText(bean.getQiangdan_z() + "");
-        tvQdcg.setVisibility(bean.getQiangdan_cg() == 0 ? View.GONE : View.VISIBLE);
-        tvQdz.setText(bean.getQiangdan_cg() + "");
         tvQdsb.setVisibility(bean.getQiangdan_sbai() == 0 ? View.GONE : View.VISIBLE);
         tvQdsb.setText(bean.getQiangdan_sbai() + "");
         tvSpll.setText(bean.getLiulan() + "");

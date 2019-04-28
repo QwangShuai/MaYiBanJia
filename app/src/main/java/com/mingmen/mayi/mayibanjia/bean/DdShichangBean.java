@@ -8,6 +8,15 @@ public class DdShichangBean {
     private String market_name;
     private String freight_fee;
     private String price;
+    private String app_money;
+
+    public String getApp_money() {
+        return app_money;
+    }
+
+    public void setApp_money(String app_money) {
+        this.app_money = app_money;
+    }
 
     public String getMarket_name() {
         return market_name;

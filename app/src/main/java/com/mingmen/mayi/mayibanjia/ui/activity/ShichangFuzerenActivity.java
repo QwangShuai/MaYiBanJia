@@ -3,6 +3,8 @@ package com.mingmen.mayi.mayibanjia.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -19,6 +21,9 @@ import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -72,11 +77,15 @@ public class ShichangFuzerenActivity extends BaseActivity {
     LinearLayout llPwd;
     @BindView(R.id.btn_exit)
     Button btnExit;
-
+    @BindView(R.id.refresh_layout)
+    SwipeRefreshLayout refreshLayout;
 
     private boolean isShow;
     private Context mContext;
     private ConfirmDialog confirmDialog;
+
+    private Timer timer;
+    private int i = 1;
 
     @Override
     public int getLayoutId() {
@@ -90,6 +99,25 @@ public class ShichangFuzerenActivity extends BaseActivity {
         tvTitle.setText("市场负责人");
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
+        refreshLayout.setColorSchemeResources(R.color.zangqing, R.color.zangqing,
+                R.color.zangqing, R.color.zangqing);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                showScfzr();
+                refreshLayout.setRefreshing(false);
+            }
+        });
+        timer = new Timer();
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Log.e("run: ","走"+ i );
+                i++;
+                showScfzr();
+            }
+        },0,60*1000);
     }
 
     @Override
@@ -224,5 +252,11 @@ public class ShichangFuzerenActivity extends BaseActivity {
         it.putExtra("type",state);
         it.putExtra("isShichang",teshu);
         startActivity(it);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        timer.cancel();
     }
 }

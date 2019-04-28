@@ -188,7 +188,18 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                if(StringUtil.isValid(s.toString().trim())){
+                    role = "1";
+                    dianpuid = "";
+                    dianpuming = "";
+                    etDianpuming.setText("");
+                    etYaoqingma.setText("");
+                    if (role.equals("1")) {
+                        llXukezheng.setVisibility(View.GONE);
+                    } else {
+                        llXukezheng.setVisibility(View.VISIBLE);
+                    }
+                }
 
             }
 
@@ -392,6 +403,7 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<ZhuCeChengGongBean>() {
                     @Override
                     public void onNext(ZhuCeChengGongBean list) {
+                        ToastUtil.showToastLong("注册成功，请重新登录");
                         Log.e("token", list.getToken() + "===");
                         PreferenceUtils.putString(MyApplication.mContext, "token", list.getToken());
                         PreferenceUtils.putString(MyApplication.mContext, "juese", list.getRole());

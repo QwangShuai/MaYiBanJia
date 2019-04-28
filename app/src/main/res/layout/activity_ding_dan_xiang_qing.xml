@@ -271,6 +271,51 @@
                         </LinearLayout>
                     </RelativeLayout>
                     <RelativeLayout
+                        android:id="@+id/rl_chaoshifei"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="超时费用"
+                            android:textColor="@color/lishisousuo"
+                            android:textSize="13sp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="￥"
+                                android:textColor="@color/zicolor"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/tv_chaoshifei0"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="4dp"
+                                android:text="137."
+                                android:textColor="@color/zicolor"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/tv_chaoshifei1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="00"
+                                android:textColor="@color/zicolor"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+                    </RelativeLayout>
+                    <RelativeLayout
                         android:id="@+id/rl_fujiafei"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

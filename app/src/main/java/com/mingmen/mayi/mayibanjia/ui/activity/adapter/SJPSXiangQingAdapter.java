@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.mingmen.mayi.mayibanjia.R;
@@ -16,7 +17,9 @@ import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.PeiSongXiangQingActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.DiTuDialog;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.PeiSongLableDialog;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 
 import java.util.List;
@@ -34,6 +37,7 @@ public class SJPSXiangQingAdapter extends RecyclerView.Adapter<SJPSXiangQingAdap
     private List<SiJiWLXQBean> mList;
     private PeiSongXiangQingActivity activity;
     private SJPSXiangQingTwoAdapter adapter;
+    private PeiSongLableDialog dialog;
     private boolean[] b;
     public SJPSXiangQingAdapter(Context context, List<SiJiWLXQBean> list, PeiSongXiangQingActivity activity) {
         this.mContext = context;
@@ -50,6 +54,8 @@ public class SJPSXiangQingAdapter extends RecyclerView.Adapter<SJPSXiangQingAdap
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
+        dialog = new PeiSongLableDialog(mContext,
+                mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         final SiJiWLXQBean data = mList.get(position);
         if (data.getWl_order_state().equals("待取货")) {
 
@@ -70,6 +76,16 @@ public class SJPSXiangQingAdapter extends RecyclerView.Adapter<SJPSXiangQingAdap
         holder.tv_cantingdianhua.setText(data.getCtPhone());
         holder.tvLable.setText(data.getIdentifying());
         holder.tv_juli.setText(data.getGonglishu()+"公里");
+        holder.btnXiangqing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.showDialog();
+                dialog.getTvLable().setText(data.getIdentifying());
+                dialog.getRvXiangqing().setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+                dialog.getRvXiangqing().setAdapter(adapter);
+                dialog.getRvXiangqing().setFocusable(false);
+            }
+        });
         holder.tv_ditu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,18 +103,18 @@ public class SJPSXiangQingAdapter extends RecyclerView.Adapter<SJPSXiangQingAdap
                         });
             }
         });
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(b[position]){
-                    holder.rvList.setVisibility(View.GONE);
-                    b[position] = false;
-                } else {
-                    holder.rvList.setVisibility(View.VISIBLE);
-                    b[position] = true;
-                }
-            }
-        });
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(b[position]){
+//                    holder.rvList.setVisibility(View.GONE);
+//                    b[position] = false;
+//                } else {
+//                    holder.rvList.setVisibility(View.VISIBLE);
+//                    b[position] = true;
+//                }
+//            }
+//        });
     }
 
     @Override
@@ -123,6 +139,8 @@ public class SJPSXiangQingAdapter extends RecyclerView.Adapter<SJPSXiangQingAdap
         TextView tv_ditu;
         @BindView(R.id.tv_juli)
         TextView tv_juli;
+        @BindView(R.id.btn_xiangqing)
+        Button btnXiangqing;
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);

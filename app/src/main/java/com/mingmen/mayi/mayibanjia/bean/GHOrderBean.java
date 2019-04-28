@@ -13,7 +13,7 @@ public class GHOrderBean {
     private Object remarke;
     private Object user_token;
     private Object order_id;
-    private String total_price;
+    private Double total_price;
     private String arrival_time;
     private Object order_number;
     private Object deliver_address;
@@ -148,11 +148,11 @@ public class GHOrderBean {
         this.order_id = order_id;
     }
 
-    public String getTotal_price() {
+    public Double getTotal_price() {
         return total_price;
     }
 
-    public void setTotal_price(String total_price) {
+    public void setTotal_price(Double total_price) {
         this.total_price = total_price;
     }
 

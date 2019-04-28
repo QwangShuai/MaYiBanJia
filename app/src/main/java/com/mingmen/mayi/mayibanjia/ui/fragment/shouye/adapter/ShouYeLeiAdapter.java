@@ -33,10 +33,10 @@ import butterknife.ButterKnife;
 public class ShouYeLeiAdapter extends RecyclerView.Adapter<ShouYeLeiAdapter.ViewHolder> {
     private ViewHolder viewHolder;
     private Context mContext;
-    private List<List<FCGName>> mList;
+    private List<FCGName> mList;
     private MainActivity activity;
 
-    public ShouYeLeiAdapter(Context mContext, List<List<FCGName>> list, MainActivity activity) {
+    public ShouYeLeiAdapter(Context mContext, List<FCGName> list, MainActivity activity) {
         this.mContext = mContext;
         this.mList = list;
         this.activity = activity;
@@ -50,96 +50,28 @@ public class ShouYeLeiAdapter extends RecyclerView.Adapter<ShouYeLeiAdapter.View
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        final List<FCGName> data = mList.get(position);
-        if (data.size()>0&&data.get(0) != null) {
-            Glide.with(mContext).load(data.get(0).getPicture_url()).into(holder.iv1);
-            holder.tv1.setText(data.get(0).getClassify_name());
+        final FCGName data = mList.get(position);
+            Glide.with(mContext).load(data.getPicture_url()).into(holder.iv1);
+            holder.tv1.setText(data.getClassify_name());
             holder.ll1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    activity.changeView(data.get(0).getClassify_name(),data.get(0).getClassify_id());
+                    activity.changeView(data.getClassify_name(),data.getClassify_id());
                 }
             });
-        }
-        if (data.size()>1&&data.get(1) != null) {
-            Glide.with(mContext).load(data.get(1).getPicture_url()).into(holder.iv2);
-            holder.tv2.setText(data.get(1).getClassify_name());
-            holder.ll2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    activity.changeView(data.get(1).getClassify_name(),data.get(1).getClassify_id());
-                }
-            });
-        }
-        if (data.size()>2&&data.get(2) != null) {
-            Glide.with(mContext).load(data.get(2).getPicture_url()).into(holder.iv3);
-            holder.tv3.setText(data.get(2).getClassify_name());
-            holder.ll3.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    activity.changeView(data.get(2).getClassify_name(),data.get(2).getClassify_id());
-                }
-            });
-        }
-        if (data.size()>3&&data.get(3) != null) {
-            Glide.with(mContext).load(data.get(3).getPicture_url()).into(holder.iv4);
-            holder.tv4.setText(data.get(3).getClassify_name());
-            holder.ll4.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    activity.changeView(data.get(3).getClassify_name(),data.get(3).getClassify_id());
-                }
-            });
-        }
-        if (data.size()>4&&data.get(4) != null) {
-            Glide.with(mContext).load(data.get(4).getPicture_url()).into(holder.iv5);
-            holder.tv5.setText(data.get(4).getClassify_name());
-            holder.ll5.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    activity.changeView(data.get(4).getClassify_name(),data.get(4).getClassify_id());
-                }
-            });
-        }
-        if (data.size()>5&&data.get(5) != null) {
-            Glide.with(mContext).load(data.get(5).getPicture_url()).into(holder.iv6);
-            holder.tv6.setText(data.get(5).getClassify_name());
-            holder.ll6.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    activity.changeView(data.get(5).getClassify_name(),data.get(5).getClassify_id());
-                }
-            });
-        }
-        if (data.size()>6&&data.get(6) != null) {
-            Glide.with(mContext).load(data.get(6).getPicture_url()).into(holder.iv7);
-            holder.tv7.setText(data.get(6).getClassify_name());
-            holder.ll7.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    activity.changeView(data.get(6).getClassify_name(),data.get(6).getClassify_id());
-                }
-            });
-        }
-        if (data.size()>7&&data.get(7) != null) {
-            Glide.with(mContext).load(data.get(7).getPicture_url()).into(holder.iv8);
-            holder.tv8.setText(data.get(7).getClassify_name());
-            holder.ll8.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    activity.changeView(data.get(7).getClassify_name(),data.get(7).getClassify_id());
-                }
-            });
-        }
-
-
-//        Glide.with(mContext).load(""+string.getFile_url())
-//                .into(holder.iv1);
     }
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return mList==null?0:mList.size();
+    }
+
+    public int getPageCount(){
+        if(mList.size()%8==0){
+            return mList.size()/8;
+        } else {
+            return mList.size()/8+1;
+        }
     }
 
 
@@ -150,49 +82,6 @@ public class ShouYeLeiAdapter extends RecyclerView.Adapter<ShouYeLeiAdapter.View
         TextView tv1;
         @BindView(R.id.ll1)
         LinearLayout ll1;
-        @BindView(R.id.iv2)
-        CircleImageView iv2;
-        @BindView(R.id.tv2)
-        TextView tv2;
-        @BindView(R.id.ll2)
-        LinearLayout ll2;
-        @BindView(R.id.iv3)
-        CircleImageView iv3;
-        @BindView(R.id.tv3)
-        TextView tv3;
-        @BindView(R.id.ll3)
-        LinearLayout ll3;
-        @BindView(R.id.iv4)
-        CircleImageView iv4;
-        @BindView(R.id.tv4)
-        TextView tv4;
-        @BindView(R.id.ll4)
-        LinearLayout ll4;
-        @BindView(R.id.iv5)
-        CircleImageView iv5;
-        @BindView(R.id.tv5)
-        TextView tv5;
-        @BindView(R.id.ll5)
-        LinearLayout ll5;
-        @BindView(R.id.iv6)
-        CircleImageView iv6;
-        @BindView(R.id.tv6)
-        TextView tv6;
-        @BindView(R.id.ll6)
-        LinearLayout ll6;
-        @BindView(R.id.iv7)
-        CircleImageView iv7;
-        @BindView(R.id.tv7)
-        TextView tv7;
-        @BindView(R.id.ll7)
-        LinearLayout ll7;
-        @BindView(R.id.iv8)
-        CircleImageView iv8;
-        @BindView(R.id.tv8)
-        TextView tv8;
-        @BindView(R.id.ll8)
-        LinearLayout ll8;
-
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);

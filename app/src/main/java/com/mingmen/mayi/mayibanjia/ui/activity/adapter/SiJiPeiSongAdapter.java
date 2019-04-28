@@ -171,6 +171,11 @@ public class SiJiPeiSongAdapter extends RecyclerView.Adapter<SiJiPeiSongAdapter.
             holder.llBaozhuang.setVisibility(View.GONE);
             holder.llSaomageshu.setVisibility(View.GONE);
             holder.tvQuhuoma.setVisibility(View.GONE);
+        } else {
+            holder.llSaoma.setVisibility(View.VISIBLE);
+            holder.llBaozhuang.setVisibility(View.VISIBLE);
+            holder.llSaomageshu.setVisibility(View.VISIBLE);
+            holder.tvQuhuoma.setVisibility(View.VISIBLE);
         }
         holder.ll_rongqi.setOnClickListener(new View.OnClickListener() {
             @Override

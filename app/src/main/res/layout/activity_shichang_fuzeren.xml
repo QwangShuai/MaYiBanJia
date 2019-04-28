@@ -6,8 +6,12 @@
     android:orientation="vertical">
     <include android:id="@+id/ll_head"
         layout="@layout/head_zangqing"></include>
-    <ScrollView
+    <android.support.v4.widget.SwipeRefreshLayout
         android:layout_below="@+id/ll_head"
+        android:id="@+id/refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
@@ -328,6 +332,7 @@
 
         </LinearLayout>
     </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
     <Button
         android:layout_marginBottom="12dp"
         android:layout_alignParentBottom="true"

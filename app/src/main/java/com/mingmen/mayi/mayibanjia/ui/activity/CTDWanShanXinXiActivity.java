@@ -225,7 +225,7 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<ZhuCeChengGongBean>() {
                     @Override
                     public void onNext(ZhuCeChengGongBean list) {
-                        ToastUtil.showToastLong("注册成功");
+                        ToastUtil.showToastLong("注册成功，请重新登录");
                         PreferenceUtils.putString(MyApplication.mContext, "token", list.getToken());
                         PreferenceUtils.putString(MyApplication.mContext, "juese", list.getRole());
                         PreferenceUtils.putBoolean(MyApplication.mContext, "isLogin", false);
@@ -275,7 +275,7 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
                                     }, null);
                             ivYingyezhizhao.setImageBitmap(bitmap);
                         } else {
-                            ToastUtil.showToastLong("您选择的图片解析失败");
+                            ToastUtil.showToastLong("您选择的图片低于50像素，不够清晰");
                         }
 
                     }

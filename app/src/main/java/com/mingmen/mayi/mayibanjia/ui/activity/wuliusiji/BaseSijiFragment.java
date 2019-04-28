@@ -2,6 +2,7 @@ package com.mingmen.mayi.mayibanjia.ui.activity.wuliusiji;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -38,6 +39,8 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -63,6 +66,7 @@ public abstract class BaseSijiFragment extends BaseFragment {
     private boolean b = false;
     protected boolean isCreate = false;
     private final static int SCANNIN_GREQUEST_CODE = 1;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,12 +120,15 @@ public abstract class BaseSijiFragment extends BaseFragment {
 
     private void initview() {
         SiJiActivity activity = (SiJiActivity) getActivity();
+        EventBus.getDefault().register(this);
         mLoadMoreListener = new SwipeMenuRecyclerView.LoadMoreListener() {
             @Override
             public void onLoadMore() {
                 getPeiSong();
             }
         };
+        refreshLayout.setColorSchemeResources(R.color.zangqing, R.color.zangqing,
+                R.color.zangqing, R.color.zangqing);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -139,7 +146,13 @@ public abstract class BaseSijiFragment extends BaseFragment {
         adapter = new SiJiPeiSongAdapter(getContext(),mlist,this,getZhuangTai(),activity);
         rvShangpinguanli.setAdapter(adapter);
         getPeiSong();
-
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void updateTimer(String message){
+        ye = 1;
+        mlist.clear();
+        adapter.notifyDataSetChanged();
+        getPeiSong();
     }
 
     public abstract String getZhuangTai();
@@ -159,6 +172,7 @@ public abstract class BaseSijiFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     public void updateQrCode(String id) {

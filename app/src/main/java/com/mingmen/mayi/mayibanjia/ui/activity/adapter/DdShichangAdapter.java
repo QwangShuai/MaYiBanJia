@@ -67,7 +67,6 @@ public class DdShichangAdapter extends RecyclerView.Adapter<DdShichangAdapter.Vi
         TextView tvYunfei;
         @BindView(R.id.ll_yunfei)
         LinearLayout llYunfei;
-
         ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);

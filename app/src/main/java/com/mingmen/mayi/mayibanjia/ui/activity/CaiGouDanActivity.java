@@ -25,6 +25,7 @@ import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.CaiGouDanAdapter;
+import com.mingmen.mayi.mayibanjia.ui.activity.adapter.ShangPinGuanLiAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.CaiGouDanHeDanDailog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.SiGeXuanXiangDialog;
@@ -171,7 +172,7 @@ public class CaiGouDanActivity extends BaseActivity {
 
                         } else if(item.getOrder_audit_state().equals("904")){
                             intent.setClass(CaiGouDanActivity.this, CaiGouXuQiuActivity.class);
-                            intent.putExtra("id", item.getPurchase_id());
+                            intent.putExtra("purchase_id", item.getPurchase_id());
                             intent.putExtra("caigouming",item.getPurchase_name());
                             intent.putExtra("data", data1);
                             startActivity(intent);
@@ -215,14 +216,21 @@ public class CaiGouDanActivity extends BaseActivity {
         SwipeMenuCreator mSwipeMenuCreator = new SwipeMenuCreator() {
             @Override
             public void onCreateMenu(SwipeMenu rightMenuleftMenu, SwipeMenu rightMenu, int viewType) {
-                SwipeMenuItem deleteItem = new SwipeMenuItem(mContext); // 各种文字和图标属性设置。
-                deleteItem.setText("删除");
-                deleteItem.setTextColor(getResources().getColor(R.color.white));
-                deleteItem.setTextSize(15);
-                deleteItem.setHeight(MATCH_PARENT);
-                deleteItem.setWidth(getWindowManager().getDefaultDisplay().getWidth() * 1 / 6);
-                deleteItem.setBackground(R.color.red_ff3300);
-                rightMenu.addMenuItem(deleteItem); // 在Item左侧添加一个菜单。
+                switch (rightMenuleftMenu.getViewType()){
+                    case ShangPinGuanLiAdapter.viewtype_normaldata:
+
+                        break;
+                    case ShangPinGuanLiAdapter.viewtype_erpdata:
+                        SwipeMenuItem deleteItem = new SwipeMenuItem(mContext); // 各种文字和图标属性设置。
+                        deleteItem.setText("删除");
+                        deleteItem.setTextColor(mContext.getResources().getColor(R.color.white));
+                        deleteItem.setTextSize(15);
+                        deleteItem.setHeight(MATCH_PARENT);
+                        deleteItem.setWidth(200);
+                        deleteItem.setBackground(R.color.red_ff3300);
+                        rightMenu.addMenuItem(deleteItem); // 在Item右侧添加一个菜单。
+                        break;
+                }
             }
         };
         SwipeMenuItemClickListener mMenuItemClickListener = new SwipeMenuItemClickListener() {

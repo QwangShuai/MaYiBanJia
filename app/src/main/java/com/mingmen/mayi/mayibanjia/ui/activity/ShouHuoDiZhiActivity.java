@@ -163,7 +163,8 @@ public class ShouHuoDiZhiActivity extends BaseActivity {
     }
 
     private void myBack(){
-        Intent fanhui=new Intent(mContext,QueRenDingDanActivity.class);
+//        Intent fanhui=new Intent(mContext,QueRenDingDanActivity.class);
+        Intent fanhui=new Intent();
         fanhui.putExtra("size",mysize);
         fanhui.putExtra("dizhi",myDizhi);
         setResult(1,fanhui);

@@ -302,17 +302,21 @@ public class QueRenDingDanActivity extends BaseActivity {
                                             number += ","+  data.getMarketlist().get(i).getCgzhulist().get(j).getCgzilist().get(m).getCount();
                                         }
 
-                                        if (i == data.getMarketlist().size() - 1 && j == data.getMarketlist().get(i).getCgzhulist().size() - 1&&m==data.getMarketlist().get(i).getCgzhulist().get(j).getCgzilist().size()-1) {
-                                            if(StringUtil.isValid(isTime)){
-                                                if(isTime.equals("实时达")){//实时达
-
-                                                } else {//标准达
-                                                    getYunFei();
-                                                }
-                                            }
-
-
-                                        }
+//                                        if (i == data.getMarketlist().size() - 1 && j ==
+//                                                data.getMarketlist().get(data.getMarketlist().size() - 1).
+//                                                        getCgzhulist().size() - 1&&m==data.getMarketlist().
+//                                                get(data.getMarketlist().size() - 1).getCgzhulist().
+//                                                get(data.getMarketlist().get(data.getMarketlist().size() - 1).
+//                                                        getCgzhulist().size() - 1).getCgzilist().size()-1) {
+//                                            if(StringUtil.isValid(isTime)){
+//                                                if(isTime.equals("实时达")){//实时达
+//                                                } else {//标准达
+//                                                    getYunFei();
+//                                                }
+//                                            }
+//
+//
+//                                        }
                                     }
                                 }
                             }
@@ -330,15 +334,17 @@ public class QueRenDingDanActivity extends BaseActivity {
                                             spID += "," + data.getMarketlist().get(k).getDplist().get(i).getList().get(j).getCommodity_id();
                                             number += "," + data.getMarketlist().get(k).getDplist().get(i).getList().get(j).getCount();
                                         }
-                                        if (k == data.getMarketlist().size() - 1 && i == data.getMarketlist().get(k).getDplist().size() - 1&&j==data.getMarketlist().get(k).getDplist().get(i).getList().size()-1) {
-                                            if(StringUtil.isValid(isTime)){
-                                                if(isTime.equals("实时达")){//实时达
-
-                                                } else {//标准达
-                                                    getYunFei();
-                                                }
-                                            }
-                                        }
+//                                        if (k == data.getMarketlist().size() - 1 && i == data.getMarketlist().get(data.getMarketlist().size()-1).
+//                                                getDplist().size() - 1&&j==data.getMarketlist().get(data.getMarketlist().size()-1).getDplist().
+//                                                get(data.getMarketlist().get(data.getMarketlist().size()-1).getDplist().size()-1).getList().size()-1) {
+//                                            if(StringUtil.isValid(isTime)){
+//                                                if(isTime.equals("实时达")){//实时达
+//
+//                                                } else {//标准达
+//                                                    getYunFei();
+//                                                }
+//                                            }
+//                                        }
                                     }
                                 }
                             }
@@ -574,6 +580,13 @@ public class QueRenDingDanActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        songdashijianid = "";
+        tvSongdashijian.setText("");
+        isTime = "";
+        tvBiaozhunda.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_999999_3));
+        tvBiaozhunda.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+        tvZhushida.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_999999_3));
+        tvZhushida.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
         switch (requestCode) {
             case 1:
                 if (resultCode == 1 && data != null) {
@@ -591,6 +604,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                         getsplist();
                         adapter.notifyDataSetChanged();
                     } else {
+                        count = 1;
                         llYoudizhi.setVisibility(View.VISIBLE);
                         tvWudizhi.setVisibility(View.GONE);
                         number = "";
@@ -599,7 +613,6 @@ public class QueRenDingDanActivity extends BaseActivity {
                         String dizhijson = data.getStringExtra("dizhi");
                         Log.e("dizhijson", dizhijson);
                         dizhi = gson.fromJson(dizhijson, AddressListBean.class);
-                        count = 1;
                         initdizhi();
                         getsplist();
                         adapter.notifyDataSetChanged();
@@ -629,7 +642,9 @@ public class QueRenDingDanActivity extends BaseActivity {
     }
 
     public void getYunFei() {
-        if(count==0){
+        Log.e("getYunFei: ", new Gson().toJson(PreferenceUtils.getString(MyApplication.mContext, "token", "")+"---"+
+                spID+"---"+dizhi.getAddress_id()+"---"+number+"---"+lujingtype));
+        if(dizhi==null||!StringUtil.isValid(dizhi.getAddress_id())){
             ToastUtil.showToast("请添加收货地址");
         } else {
             HttpManager.getInstance()
@@ -641,18 +656,28 @@ public class QueRenDingDanActivity extends BaseActivity {
                         public void onNext(List<YunFeiBean> o) {
                             adapter.setYunfei(o);
                             hejijine = Double.valueOf(zongjia);
-                            for (int i=0;i<o.size();i++ ){
-                                hejijine += o.get(i).getMoney();
-                                yunfei +=o.get(i).getMoney();
-                                zongzhong += o.get(i).getSumZL();
-                                Log.e("21212","走不到了啊"+o.get(i).getSumZL());
-                                AllMarket bean = new AllMarket();
-                                bean.setMarket_id(o.get(i).getMark_id());
-                                bean.setFreight_fee(o.get(i).getMoney());
-                                bean.setTotal_weight(o.get(i).getSumZL());
-                                bean.setGonglishu(o.get(i).getGonglishu());
-                                shichangList.add(bean);
+                            for (YunFeiBean bean:o) {
+                                hejijine += bean.getMoney();
+                                yunfei +=bean.getMoney();
+                                zongzhong += bean.getSumZL();
+                                AllMarket ambean = new AllMarket();
+                                ambean.setMarket_id(bean.getMark_id());
+                                ambean.setFreight_fee(bean.getMoney());
+                                ambean.setTotal_weight(bean.getSumZL());
+                                ambean.setGonglishu(bean.getGonglishu());
+                                shichangList.add(ambean);
                             }
+//                            for (int i=0;i<o.size();i++ ){
+//                                hejijine += o.get(i).getMoney();
+//                                yunfei +=o.get(i).getMoney();
+//                                zongzhong += o.get(i).getSumZL();
+//                                AllMarket bean = new AllMarket();
+//                                bean.setMarket_id(o.get(i).getMark_id());
+//                                bean.setFreight_fee(o.get(i).getMoney());
+//                                bean.setTotal_weight(o.get(i).getSumZL());
+//                                bean.setGonglishu(o.get(i).getGonglishu());
+//                                shichangList.add(bean);
+//                            }
                             tvHejijine.setText(hejijine + "");
                             tvZhongliang.setText(+MyMath.getDouble(zongzhong)+"斤)");
                             tvYunfei.setText(yunfei+"");
@@ -661,8 +686,8 @@ public class QueRenDingDanActivity extends BaseActivity {
         }
     }
     public void getZhunshidaYunFei() {
-        if(count==0){
-            ToastUtil.showToast("请添加收货地址");
+        if(dizhi==null||!StringUtil.isValid(dizhi.getAddress_id())){
+            ToastUtil.showToast("请添加准时达收货地址");
         } else {
             HttpManager.getInstance()
                     .with(mContext)

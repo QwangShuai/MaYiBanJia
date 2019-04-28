@@ -1294,7 +1294,7 @@ public class StringUtil {
                         } else {
                             refile[0] = file;
                         }
-                        ToastUtil.showToastLong("图片压缩成功");
+//                        ToastUtil.showToastLong("图片压缩成功");
                     }
                 });
         return refile[0];

@@ -82,11 +82,16 @@ public class ZhuceShangjiaAdapter extends RecyclerView.Adapter<ZhuceShangjiaAdap
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                Intent jindian = new Intent(mContext, DianPuActivity.class);
-                bundle.putString("dianpuid", data.getCompany_id());
-                jindian.putExtras(bundle);
-                mContext.startActivity(jindian);
+                if(data.getRole().equals("1")){
+
+                } else {
+                    Bundle bundle = new Bundle();
+                    Intent jindian = new Intent(mContext, DianPuActivity.class);
+                    bundle.putString("dianpuid", data.getCompany_id());
+                    jindian.putExtras(bundle);
+                    mContext.startActivity(jindian);
+                }
+
             }
         });
         if(StringUtil.isValid(data.getPhoto())){

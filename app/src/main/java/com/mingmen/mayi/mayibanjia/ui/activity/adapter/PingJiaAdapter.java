@@ -16,6 +16,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.XQPingJiaBean;
+import com.mingmen.mayi.mayibanjia.ui.activity.DianPuActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.DingDanXiangQingActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.AutoLineFeedLayoutManager;
 import com.mingmen.mayi.mayibanjia.ui.view.XCFlowLayout;
@@ -57,6 +58,14 @@ public class PingJiaAdapter extends BaseQuickAdapter<XQPingJiaBean,BaseViewHolde
                 }
             });
         }
+        helper.getView(R.id.ll_dianpu).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent jindian = new Intent(mContext, DianPuActivity.class);
+                jindian.putExtra("dianpuid",item.getCompany_id());
+                mContext.startActivity(jindian);
+            }
+        });
         if (item.getReplyList()!=null&&item.getReplyList().size()!=0){
             helper.setText(R.id.tv_huifushijian,item.getReplyList().get(0).getCreate_time());
             String[] huifuarray = new String[item.getReplyList().get(0).getPjList()==null?0:item.getReplyList().get(0).getPjList().size()];

@@ -108,6 +108,18 @@
         android:gravity="right"
         android:paddingTop="12dp"
         android:paddingBottom="20dp">
+
+        <Button
+            android:id="@+id/bt_shanchu"
+            android:layout_width="70dp"
+            android:layout_height="28dp"
+            android:background="@drawable/fillet_hollow_999999_14"
+            android:text="删除"
+            android:textColor="@color/lishisousuo"
+            android:textSize="12sp"
+            android:layout_marginRight="12dp"
+            />
+
         <Button
             android:id="@+id/bt_xiangqing"
             android:layout_width="70dp"

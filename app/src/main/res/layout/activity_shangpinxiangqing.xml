@@ -71,7 +71,7 @@
                                 android:layout_weight="1"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="甜橙"
+                                android:text=""
                                 android:textAllCaps="true"
                                 android:textColor="#474747"
                                 android:textSize="18sp" />
@@ -154,7 +154,7 @@
                             android:id="@+id/tv_danjia"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="5.5"
+                            android:text="0"
                             android:textColor="#ffff3300"
                             android:textSize="23sp"
                             android:layout_marginLeft="4dp"
@@ -168,142 +168,36 @@
                             android:textSize="14sp"
                             android:layout_marginLeft="30dp"/>
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_marginLeft="12dp"
+                            android:id="@+id/tv_qidingliang1"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="1000"
-                            android:visibility="gone"
-                            android:textColor="@color/zicolor"
-                            android:textSize="14sp"
+                            android:text=""
+                            android:textColor="#ff666666"
+                            android:textSize="12sp"
                             />
                     </LinearLayout>
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="起订量："-->
-                        <!--android:textColor="@color/zicolor"-->
-                        <!--android:textSize="18sp"-->
-                        <!--android:layout_marginLeft="12dp"-->
-                        <!--android:layout_marginTop="12dp"/>-->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginLeft="12dp"
-                        android:layout_marginTop="8dp">
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_weight="1">
-                           <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-<!--                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="¥"
-                                    android:textColor="@color/red_ff3300"
-                                    android:textSize="12sp"
-                                    />-->
-                            </LinearLayout>
-
-                            <TextView
-                                android:id="@+id/tv_qidingliang1"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="1个起"
-                                android:textColor="#ff666666"
-                                android:textSize="12sp"
-                                android:layout_marginTop="4dp"
-                                />
-
-                        </LinearLayout>
-                        <!--<LinearLayout-->
-                            <!--android:id="@+id/ll_qidingliang2"-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:orientation="vertical"-->
-                            <!--android:layout_weight="1">-->
-
-                            <!--<LinearLayout-->
-                                <!--android:layout_width="wrap_content"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:orientation="horizontal">-->
-                                <!--<TextView-->
-                                    <!--android:layout_width="match_parent"-->
-                                    <!--android:layout_height="wrap_content"-->
-                                    <!--android:text="¥"-->
-                                    <!--android:textColor="@color/red_ff3300"-->
-                                    <!--android:textSize="12sp"-->
-                                    <!--/>-->
-                                <!--<TextView-->
-                                    <!--android:id="@+id/tv_qidingliangjiage2"-->
-                                    <!--android:layout_width="match_parent"-->
-                                    <!--android:layout_height="wrap_content"-->
-                                    <!--android:text=""-->
-                                    <!--android:textColor="@color/red_ff3300"-->
-                                    <!--android:textSize="18sp"-->
-                                    <!--/>-->
-                            <!--</LinearLayout>-->
-
-                            <!--<TextView-->
-                                <!--android:id="@+id/tv_qidingliang2"-->
-                                <!--android:layout_width="match_parent"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:text="1个起"-->
-                                <!--android:textColor="#ff666666"-->
-                                <!--android:textSize="12sp"-->
-                                <!--android:layout_marginTop="4dp"-->
-                                <!--/>-->
-
-                        <!--</LinearLayout>-->
-                        <!--<LinearLayout-->
-                            <!--android:id="@+id/ll_qidingliang3"-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:orientation="vertical"-->
-                            <!--android:layout_weight="1"-->
-                            <!--&gt;-->
-                            <!--<LinearLayout-->
-                                <!--android:layout_width="wrap_content"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:orientation="horizontal">-->
-                                <!--<TextView-->
-                                    <!--android:layout_width="match_parent"-->
-                                    <!--android:layout_height="wrap_content"-->
-                                    <!--android:text="¥"-->
-                                    <!--android:textColor="@color/red_ff3300"-->
-                                    <!--android:textSize="12sp"-->
-                                    <!--/>-->
-                                <!--<TextView-->
-                                    <!--android:id="@+id/tv_qidingliangjiage3"-->
-                                    <!--android:layout_width="match_parent"-->
-                                    <!--android:layout_height="wrap_content"-->
-                                    <!--android:text=""-->
-                                    <!--android:textColor="@color/red_ff3300"-->
-                                    <!--android:textSize="18sp"-->
-                                    <!--/>-->
-                            <!--</LinearLayout>-->
-
-                            <!--<TextView-->
-                                <!--android:id="@+id/tv_qidingliang3"-->
-                                <!--android:layout_width="match_parent"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:text="1个起"-->
-                                <!--android:textColor="#ff666666"-->
-                                <!--android:textSize="12sp"-->
-                                <!--android:layout_marginTop="4dp"-->
-                                <!--/>-->
-
-                        <!--</LinearLayout>-->
-
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_marginTop="12dp"
+                            android:visibility="visible"
+                            android:id="@+id/tv_miaoshu"
+                            android:paddingLeft="12dp"
+                            android:paddingRight="12dp"
+                            android:textSize="12sp"
+                            android:text="备注:"
+                            android:textColor="@color/lishisousuo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
                     </LinearLayout>
                     <!--店铺-->
                     <LinearLayout
+                        android:layout_marginTop="12dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
                         android:orientation="vertical">
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -328,7 +222,7 @@
                                     android:layout_height="match_parent"
                                     android:gravity="center_vertical"
                                     android:layout_weight="1"
-                                    android:text="绿色天然蔬果店"
+                                    android:text=""
                                     android:textColor="#474747"
                                     android:textSize="15sp"/>
                                 <LinearLayout
@@ -345,7 +239,7 @@
                                         android:id="@+id/tv_dizhi"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="海河东路信恒现代城B区底商"
+                                        android:text=""
                                         android:textColor="#ff666666"
                                         android:textSize="12sp"
                                         android:layout_marginLeft="5dp"
@@ -399,7 +293,7 @@
                                     android:id="@+id/tv_fuwufen"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="4.7"
+                                    android:text="0"
                                     android:textColor="#2FC22F"
                                     android:textSize="12sp"
                                     android:layout_marginLeft="10dp"
@@ -422,7 +316,7 @@
                                     android:id="@+id/tv_xiaoliang"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="2329"
+                                    android:text="0"
                                     android:textColor="#2FC22F"
                                     android:textSize="12sp"
                                     android:layout_marginLeft="10dp"
@@ -754,6 +648,7 @@
                android:orientation="horizontal">
 
                <Button
+                   android:visibility="visible"
                    android:id="@+id/bt_addcar"
                    android:layout_width="match_parent"
                    android:layout_height="40dp"
@@ -764,6 +659,7 @@
                    android:textSize="15sp" />
 
                <Button
+                   android:visibility="gone"
                    android:id="@+id/bt_lijigoumai"
                    android:layout_width="match_parent"
                    android:layout_height="40dp"

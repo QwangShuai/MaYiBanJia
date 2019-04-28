@@ -16,4 +16,3 @@ public class URL {
   public static String url = "https://www.canchengxiang.com/";//服务器
 //  public static String url = "http://ceshi.canchengxiang.com/";//测试服务器
 }
-  ;

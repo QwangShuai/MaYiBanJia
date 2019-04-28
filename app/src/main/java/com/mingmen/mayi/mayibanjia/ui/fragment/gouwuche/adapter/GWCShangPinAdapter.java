@@ -40,6 +40,8 @@ import com.mingmen.mayi.mayibanjia.utils.custom.MarqueeTextView;
 import com.qiniu.android.utils.Json;
 import com.qiniu.android.utils.StringUtils;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -195,7 +197,6 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
                     if (shoppingBean.getCommodity_state().equals("1")) {
                         ToastUtil.showToastLong("已过期商品，请及时删除");
                     } else {
-
                         new GWCXiuGaiShuLiangDialog()
                                 .setKuCun(shoppingBean.getInventory(), qidingliang1, Integer.parseInt(holder.tvNumber.getText().toString().trim()))
                                 .setCallBack(new GWCXiuGaiShuLiangDialog.CallBack() {
@@ -212,6 +213,11 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
                                                     public void onNext(String data) {
                                                         holder.tvNumber.setText(msg);
                                                         mList.get(position).setNumber(Integer.parseInt(msg));
+                                                        if(isTeshu){
+
+                                                        } else {
+                                                            gouWuCheFragment.updatejiage();
+                                                        }
                                                     }
                                                 }, false);
 
@@ -243,6 +249,11 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
                                             shuliang[0]++;
                                             holder.tvNumber.setText(shuliang[0] + "");
                                             mList.get(position).setNumber(shuliang[0]);
+                                            if(isTeshu){
+
+                                            } else {
+                                                gouWuCheFragment.updatejiage();
+                                            }
 //                        ToastUtil.showToast("修改成功");
                                         }
                                     }, false);
@@ -277,7 +288,11 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
                                             shuliang[0]--;
                                             holder.tvNumber.setText(shuliang[0] + "");
                                             mList.get(position).setNumber(shuliang[0]);
+                                            if(isTeshu){
 
+                                            } else {
+                                                gouWuCheFragment.updatejiage();
+                                            }
 //                        ToastUtil.showToast("修改成功");
                                         }
                                     }, false);

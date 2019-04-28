@@ -22,6 +22,7 @@ import com.mingmen.mayi.mayibanjia.bean.GWCDianPuShangPinBean;
 import com.mingmen.mayi.mayibanjia.bean.GWCShangPinBean;
 import com.mingmen.mayi.mayibanjia.bean.GouwucheBean;
 import com.mingmen.mayi.mayibanjia.bean.GouwucheDianpuBean;
+import com.mingmen.mayi.mayibanjia.bean.MessageBean;
 import com.mingmen.mayi.mayibanjia.bean.TuiJianBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
@@ -32,6 +33,10 @@ import com.mingmen.mayi.mayibanjia.ui.fragment.gouwuche.adapter.GouWuCheAdapter;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -239,6 +244,11 @@ public class GouWuCheFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_guanli:
+                adapter.allCheck(false);
+                ivQuanxuan.setSelected(false);
+                tvZongjia.setText("0");
+                selectedId.clear();
+                quanxuanlist(false);
                 if (isGuanli){
                     isGuanli=false;
                     rlGuanli.setVisibility(View.GONE);
@@ -371,7 +381,7 @@ public class GouWuCheFragment extends BaseFragment {
                             tvZongjia.setText(data);
                             tvJiesuan.setEnabled(true);
                         }
-                    });
+                    },true);
     }
 
     private void delGouwucheList(){
@@ -430,5 +440,14 @@ public class GouWuCheFragment extends BaseFragment {
                         setShuaxin();
                     }
                 });
+    }
+    public void updatejiage() {
+        if(!isGuanli){
+            getZongJia();
+        }
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

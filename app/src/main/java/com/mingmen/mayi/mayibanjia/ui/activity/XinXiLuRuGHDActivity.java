@@ -410,6 +410,8 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
                                         }
                                     }, null);
                             ivTu.setImageBitmap(bitmap);
+                        } else {
+                            ToastUtil.showToastLong("您选择的图片低于50像素，不够清晰");
                         }
                     }
                 });

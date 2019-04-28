@@ -104,7 +104,13 @@ public class QiYeLieBiaoAdapter extends RecyclerView.Adapter<QiYeLieBiaoAdapter.
         }
         holder.tvOnlyCode.setVisibility(isShow?View.VISIBLE:View.GONE);
         holder.tvOnlyCode.setText("店铺唯一码："+data.getOnly_num());
-        holder.tvGuimo.setText("餐位数：" + data.getGuiMoId());
+        if(StringUtil.isValid(data.getGuiMoId())&&Integer.valueOf(data.getGuiMoId())!=0){
+            holder.tvGuimo.setText("餐位数：" + data.getGuiMoId());
+            holder.tvGuimo.setVisibility(View.VISIBLE);
+        } else {
+            holder.tvGuimo.setVisibility(View.GONE);
+        }
+
         holder.tvYewuyuan.setText("业务员:"+data.getPrincipal());
         Glide.with(mContext).load(data.getPhoto()).into(holder.ivTouxiang);
 //        if (data.getSpecific_address() != null) {

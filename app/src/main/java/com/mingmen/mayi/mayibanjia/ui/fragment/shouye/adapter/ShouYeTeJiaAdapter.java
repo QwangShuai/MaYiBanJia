@@ -63,7 +63,11 @@ public class ShouYeTeJiaAdapter extends RecyclerView.Adapter<ShouYeTeJiaAdapter.
             holder.tvYuandanjia.setVisibility(View.INVISIBLE);
             holder.tvDanjia.setText(data.getPrice());
         }
-
+        if(data.getReal_time_state().equals("0")){
+            holder.ivSsd.setVisibility(View.VISIBLE);
+        } else {
+            holder.ivSsd.setVisibility(View.GONE);
+        }
 
         holder.tvYuandanjia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         Glide.with(mContext).load("" + data.getPicture_url()).transform(new GlideRoundTransform(mContext,10))
@@ -87,6 +91,8 @@ public class ShouYeTeJiaAdapter extends RecyclerView.Adapter<ShouYeTeJiaAdapter.
     static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.iv_sptu)
         ImageView ivSptu;
+        @BindView(R.id.iv_ssd)
+        ImageView ivSsd;
         @BindView(R.id.tv_spming)
         MarqueeTextView tvSpming;
         @BindView(R.id.tv_danjia)

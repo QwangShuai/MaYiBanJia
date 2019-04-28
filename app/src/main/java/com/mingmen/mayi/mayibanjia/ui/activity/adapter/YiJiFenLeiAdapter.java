@@ -72,7 +72,6 @@ public class YiJiFenLeiAdapter extends BaseQuickAdapter<FCGName,BaseViewHolder> 
                     yijifenlei.setTextColor(mContext.getResources().getColor(R.color.zicolor));
                 }
             }
-
         helper.setText(R.id.tv_yijifenlei,item.getClassify_name());
         helper.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

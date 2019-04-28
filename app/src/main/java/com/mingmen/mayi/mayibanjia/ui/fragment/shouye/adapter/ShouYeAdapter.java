@@ -37,6 +37,8 @@ import com.mingmen.mayi.mayibanjia.ui.view.GlideImageYuanLoader;
 import com.mingmen.mayi.mayibanjia.ui.view.PageIndicatorView;
 import com.mingmen.mayi.mayibanjia.ui.view.ZiXunPagingScrollHelper;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
+import com.mingmen.mayi.mayibanjia.utils.custom.zixun.HorizontalPageLayoutManager;
+import com.mingmen.mayi.mayibanjia.utils.custom.zixun.PagingScrollHelper;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -205,52 +207,68 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     //标签
     private void bindZiXun(final ZiXun holder, int position) {
-        Log.e("sssss", "zixun");
-//        if(shiJiBean.getZixun().size()!=0){
-        //滑动卡片
-        List<List<FCGName>> datas = new ArrayList<>();
-//        datas.addAll(leiBean);
-        int count = 0;
-        int mysize = 0;
-        int minsize = 0;
-        mysize = leiBean.size() / 8;
-        minsize = leiBean.size() % 8;
-        if (minsize != 0) {
-            mysize++;
-        }
-        for (int i = 0; i < mysize; i++) {
-            List<FCGName> list = new ArrayList<>();
-            if (i < mysize - 1) {
-                for (int j = 0; j < 8; j++) {
-                    list.add(leiBean.get(count));
-                    count++;
-                }
-            } else {
-                for (int j = 0; j < minsize; j++) {
-                    list.add(leiBean.get(count));
-                    count++;
-                }
-            }
-
-            datas.add(list);
-            Log.e("长度", datas.size() + "");
-        }
-
-        final int horizontal = LinearLayoutManager.HORIZONTAL;
-        holder.recycler_view.setLayoutManager(new LinearLayoutManager(mContext, horizontal, false));
-        ShouYeLeiAdapter adapter = new ShouYeLeiAdapter(mContext, datas, activity);
+//        Log.e("sssss", "zixun");
+////        if(shiJiBean.getZixun().size()!=0){
+//        //滑动卡片
+//        List<List<FCGName>> datas = new ArrayList<>();
+////        datas.addAll(leiBean);
+//        int count = 0;
+//        int mysize = 0;
+//        int minsize = 0;
+//        mysize = leiBean.size() / 8;
+//        minsize = leiBean.size() % 8;
+//        if (minsize != 0) {
+//            mysize++;
+//        }
+//        for (int i = 0; i < mysize; i++) {
+//            List<FCGName> list = new ArrayList<>();
+//            if (i < mysize - 1) {
+//                for (int j = 0; j < 8; j++) {
+//                    list.add(leiBean.get(count));
+//                    count++;
+//                }
+//            } else {
+//                for (int j = 0; j < minsize; j++) {
+//                    list.add(leiBean.get(count));
+//                    count++;
+//                }
+//            }
+//
+//            datas.add(list);
+//            Log.e("长度", datas.size() + "");
+//        }
+        PagingScrollHelper scrollHelper = new PagingScrollHelper();
+        HorizontalPageLayoutManager hLinearLayoutManager = null;
+//        final int horizontal = LinearLayoutManager.HORIZONTAL;
+        hLinearLayoutManager = new HorizontalPageLayoutManager(2, 5);
+//        holder.recycler_view.setLayoutManager(new LinearLayoutManager(mContext, horizontal, false));
+        holder.recycler_view.setLayoutManager(hLinearLayoutManager);
+        ShouYeLeiAdapter adapter = new ShouYeLeiAdapter(mContext, leiBean, activity);
         holder.recycler_view.setAdapter(adapter);
         holder.recycler_view.setHasFixedSize(true);
-        ZiXunPagingScrollHelper rp = new ZiXunPagingScrollHelper();
-        rp.setIndicator(holder.indicator);
-        rp.setUpRecycleView(holder.recycler_view);
-        rp.setAdapter(adapter, 0);
-        rp.setOnPageChangeListener(new ZiXunPagingScrollHelper.onPageChangeListener() {
+        scrollHelper.setUpRecycleView(holder.recycler_view);
+        scrollHelper.setIndicator(holder.indicator);
+        scrollHelper.setOnPageChangeListener(new PagingScrollHelper.onPageChangeListener() {
             @Override
             public void onPageChange(int index) {
                 holder.indicator.setSelectedPage(index);
             }
         });
+        holder.recycler_view.setHorizontalScrollBarEnabled(true);
+        scrollHelper.setAdapter(adapter,0);
+        scrollHelper.updateLayoutManger();
+        scrollHelper.scrollToPosition(0);
+        adapter.notifyDataSetChanged();
+//        ZiXunPagingScrollHelper rp = new ZiXunPagingScrollHelper();
+//        rp.setIndicator(holder.indicator);
+//        rp.setUpRecycleView(holder.recycler_view);
+//        rp.setAdapter(adapter, 0);
+//        rp.setOnPageChangeListener(new ZiXunPagingScrollHelper.onPageChangeListener() {
+//            @Override
+//            public void onPageChange(int index) {
+//                holder.indicator.setSelectedPage(index);
+//            }
+//        });
 
     }
 
@@ -419,6 +437,10 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     public void setOnItemClickLitener(OnItemClickLitener mOnItemClickLitener) {
         this.mOnItemClickLitener = mOnItemClickLitener;
+    }
+
+    public void setPosition(int pos){
+        myHolder.indicator.setSelectedPage(pos);
     }
 
 }

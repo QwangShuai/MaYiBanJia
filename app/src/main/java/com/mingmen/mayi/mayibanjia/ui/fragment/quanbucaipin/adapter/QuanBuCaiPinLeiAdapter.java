@@ -34,7 +34,7 @@ public class QuanBuCaiPinLeiAdapter extends RecyclerView.Adapter<QuanBuCaiPinLei
     private QuanBuCaiPinFragment fragment;
     private QuanBuCaiPinActivity activity;
     private String xuanzhongId="";
-    private boolean isteshu;
+//    private boolean isteshu;
     public String getXuanzhongId() {
         return xuanzhongId;
     }
@@ -54,7 +54,7 @@ public class QuanBuCaiPinLeiAdapter extends RecyclerView.Adapter<QuanBuCaiPinLei
         this.mContext = mContext;
         this.mList = list;
         this.activity = activity;
-        isteshu = true;
+//        isteshu = true;
     }
 
     @Override
@@ -72,11 +72,11 @@ public class QuanBuCaiPinLeiAdapter extends RecyclerView.Adapter<QuanBuCaiPinLei
             holder.rl1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (isteshu){
-                        activity.setXuanzhongId(data.get(0).getClassify_id());
-                    } else {
+//                    if (isteshu){
+//                        activity.setXuanzhongId(data.get(0).getClassify_id());
+//                    } else {
                         fragment.setXuanzhongId(data.get(0).getClassify_id());
-                    }
+//                    }
 
                 }
             });
@@ -89,11 +89,11 @@ public class QuanBuCaiPinLeiAdapter extends RecyclerView.Adapter<QuanBuCaiPinLei
             holder.rl2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (isteshu){
-                        activity.setXuanzhongId(data.get(1).getClassify_id());
-                    } else {
+//                    if (isteshu){
+//                        activity.setXuanzhongId(data.get(1).getClassify_id());
+//                    } else {
                         fragment.setXuanzhongId(data.get(1).getClassify_id());
-                    }
+//                    }
                 }
             });
         } else {
@@ -105,11 +105,11 @@ public class QuanBuCaiPinLeiAdapter extends RecyclerView.Adapter<QuanBuCaiPinLei
             holder.rl3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (isteshu){
-                        activity.setXuanzhongId(data.get(2).getClassify_id());
-                    } else {
+//                    if (isteshu){
+//                        activity.setXuanzhongId(data.get(2).getClassify_id());
+//                    } else {
                         fragment.setXuanzhongId(data.get(2).getClassify_id());
-                    }
+//                    }
                 }
             });
         } else {
@@ -121,11 +121,11 @@ public class QuanBuCaiPinLeiAdapter extends RecyclerView.Adapter<QuanBuCaiPinLei
             holder.rl4.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (isteshu){
-                        activity.setXuanzhongId(data.get(3).getClassify_id());
-                    } else {
+//                    if (isteshu){
+//                        activity.setXuanzhongId(data.get(3).getClassify_id());
+//                    } else {
                         fragment.setXuanzhongId(data.get(3).getClassify_id());
-                    }
+//                    }
                 }
             });
         } else {
@@ -137,11 +137,11 @@ public class QuanBuCaiPinLeiAdapter extends RecyclerView.Adapter<QuanBuCaiPinLei
             holder.rl5.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (isteshu){
-                        activity.setXuanzhongId(data.get(4).getClassify_id());
-                    } else {
+//                    if (isteshu){
+//                        activity.setXuanzhongId(data.get(4).getClassify_id());
+//                    } else {
                         fragment.setXuanzhongId(data.get(4).getClassify_id());
-                    }
+//                    }
                 }
             });
         } else {
@@ -153,11 +153,11 @@ public class QuanBuCaiPinLeiAdapter extends RecyclerView.Adapter<QuanBuCaiPinLei
             holder.rl6.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (isteshu){
-                        activity.setXuanzhongId(data.get(5).getClassify_id());
-                    } else {
+//                    if (isteshu){
+//                        activity.setXuanzhongId(data.get(5).getClassify_id());
+//                    } else {
                         fragment.setXuanzhongId(data.get(5).getClassify_id());
-                    }
+//                    }
                 }
             });
         } else {
@@ -169,11 +169,11 @@ public class QuanBuCaiPinLeiAdapter extends RecyclerView.Adapter<QuanBuCaiPinLei
             holder.rl7.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (isteshu){
-                        activity.setXuanzhongId(data.get(6).getClassify_id());
-                    } else {
+//                    if (isteshu){
+//                        activity.setXuanzhongId(data.get(6).getClassify_id());
+//                    } else {
                         fragment.setXuanzhongId(data.get(6).getClassify_id());
-                    }
+//                    }
                 }
             });
         } else {
@@ -185,11 +185,11 @@ public class QuanBuCaiPinLeiAdapter extends RecyclerView.Adapter<QuanBuCaiPinLei
             holder.rl8.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (isteshu){
-                        activity.setXuanzhongId(data.get(7).getClassify_id());
-                    } else {
+//                    if (isteshu){
+//                        activity.setXuanzhongId(data.get(7).getClassify_id());
+//                    } else {
                         fragment.setXuanzhongId(data.get(7).getClassify_id());
-                    }
+//                    }
                 }
             });
         } else {
@@ -201,11 +201,11 @@ public class QuanBuCaiPinLeiAdapter extends RecyclerView.Adapter<QuanBuCaiPinLei
             holder.rl9.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (isteshu){
-                        activity.setXuanzhongId(data.get(8).getClassify_id());
-                    } else {
+//                    if (isteshu){
+//                        activity.setXuanzhongId(data.get(8).getClassify_id());
+//                    } else {
                         fragment.setXuanzhongId(data.get(8).getClassify_id());
-                    }
+//                    }
                 }
             });
         } else {
@@ -217,11 +217,11 @@ public class QuanBuCaiPinLeiAdapter extends RecyclerView.Adapter<QuanBuCaiPinLei
             holder.rl10.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (isteshu){
-                        activity.setXuanzhongId(data.get(9).getClassify_id());
-                    } else {
+//                    if (isteshu){
+//                        activity.setXuanzhongId(data.get(9).getClassify_id());
+//                    } else {
                         fragment.setXuanzhongId(data.get(9).getClassify_id());
-                    }
+//                    }
                 }
             });
         } else {
@@ -233,7 +233,7 @@ public class QuanBuCaiPinLeiAdapter extends RecyclerView.Adapter<QuanBuCaiPinLei
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return mList==null?0:mList.size();
     }
 
 

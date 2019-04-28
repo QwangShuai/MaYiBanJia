@@ -73,7 +73,7 @@ public class JiaoYiLiuShuiActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        tvTitle.setText("交易明细");
+        tvTitle.setText("交易流水");
         mContext = JiaoYiLiuShuiActivity.this;
         ca = Calendar.getInstance();
         ca.setTime(Calendar.getInstance().getTime());

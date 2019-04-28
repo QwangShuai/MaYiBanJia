@@ -846,7 +846,7 @@ public interface HttpService {
     @POST("ctBrowseHistory/delete.do")
     Observable<ResultModel<String>> delLiuLanJiLu(@Query("user_token") String user_token, @Query("browse_id") String browse_id);
 
-    //获取二维码列表
+    //获取二维码唯一码列表
     @POST("twocode/queryOnlyCode.do")
     Observable<ResultModel<List<WeiYiQrCodeBean>>> getWeiYiQrCodeList(@Query("user_token") String user_token, @Query("gy_order_id") String gy_order_id,
                                                                       @Query("order_id") String order_id);

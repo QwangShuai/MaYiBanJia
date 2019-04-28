@@ -2,6 +2,7 @@ package com.mingmen.mayi.mayibanjia.ui.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -23,7 +24,7 @@ public class PageIndicatorView extends LinearLayout {
     private Context mContext = null;
     private int dotSize = 2; // 指示器的大小（dp）
     private int margins = 4; // 指示器间距（dp）
-    private List<View> indicatorViews = null; // 存放指示器
+    private List<View> indicatorViews = new ArrayList<>(); // 存放指示器
 
     public PageIndicatorView(Context context) {
         this(context, null);

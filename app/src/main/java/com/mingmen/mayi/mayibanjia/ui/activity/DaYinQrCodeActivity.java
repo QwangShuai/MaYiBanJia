@@ -25,6 +25,7 @@ import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.QrCodeAdapter;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
@@ -56,7 +57,7 @@ public class DaYinQrCodeActivity extends BaseActivity {
     private String type = "2";
     private QrCodeAdapter adapter;
     private int count = 0;
-
+    private ConfirmDialog confirmDialog;
 
     @Override
     public int getLayoutId() {
@@ -66,6 +67,8 @@ public class DaYinQrCodeActivity extends BaseActivity {
     @Override
     protected void initData() {
         mContext = DaYinQrCodeActivity.this;
+        confirmDialog = new ConfirmDialog(mContext,
+                mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         id = getIntent().getStringExtra("id");
         sp_id = getIntent().getStringExtra("sp_id");
         type = getIntent().getStringExtra("type");
@@ -89,7 +92,21 @@ public class DaYinQrCodeActivity extends BaseActivity {
                 if (count == 0) {
                     ToastUtil.showToast("暂无二维码");
                 } else {
-                    packageEnd();
+                    confirmDialog.showDialog("点击确认按钮后所有商品二维码标签将不可编辑，请慎重操作");
+                    confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            packageEnd();
+                            confirmDialog.cancel();
+                        }
+                    });
+                    confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            confirmDialog.cancel();
+                        }
+                    });
+
                 }
                 break;
         }

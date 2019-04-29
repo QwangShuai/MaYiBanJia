@@ -403,13 +403,6 @@ public abstract class BaseFragmentDialog extends DialogFragment {
             this.width = WindowManager.LayoutParams.MATCH_PARENT;
             return this;
         }
-        /**
-         * 宽度3分之2
-         */
-        public Configuration twoToThreeWidth() {
-            this.width = WindowManager.LayoutParams.MATCH_PARENT*2;
-            return this;
-        }
 
         /**
          * 高度全屏

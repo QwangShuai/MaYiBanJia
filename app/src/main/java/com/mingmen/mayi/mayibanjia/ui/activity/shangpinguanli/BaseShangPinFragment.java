@@ -7,6 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
@@ -18,6 +19,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.DingDanXiangQingActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.FaBiaoPingJiaActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.FaBuShangPinActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShangPinGuanLiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.WeiYiQrCodeActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.DingDanXiangQingAdapter;
@@ -57,6 +59,8 @@ public abstract class BaseShangPinFragment extends BaseFragment {
     SwipeRecyclerView rvShangpinguanli;
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout refreshLayout;
+    @BindView(R.id.ll_list_null)
+    LinearLayout llListNull;
     View view;
 
     private boolean isShow;
@@ -109,10 +113,19 @@ public abstract class BaseShangPinFragment extends BaseFragment {
                 .setDataListener(new HttpDataListener<ShangPinGuanLiBean>() {
                     @Override
                     public void onNext(ShangPinGuanLiBean data) {
+                        int mysize = data==null||data.getGoodsList()==null?0:data.getGoodsList().size();
+                        Log.e("onNext: ",ye+"?????" );
                         if (ye == 1) {
                             mlist.clear();
                             shangpinguanliadapter.notifyDataSetChanged();
                             rvShangpinguanli.loadMoreFinish(false, true);
+                            if(mysize==0){
+                                rvShangpinguanli.setVisibility(View.GONE);
+                                llListNull.setVisibility(View.VISIBLE);
+                            } else {
+                                rvShangpinguanli.setVisibility(View.VISIBLE);
+                                llListNull.setVisibility(View.GONE);
+                            }
                         }
                             if (data.getGoodsList().size() == 5) {
                                 rvShangpinguanli.loadMoreFinish(false, true);
@@ -227,7 +240,16 @@ public abstract class BaseShangPinFragment extends BaseFragment {
         shangpinguanliadapter = new ShangPinGuanLiAdapter(getContext(), goods, mlist,BaseShangPinFragment.this);
         shangpinguanliadapter.setClick(isClick);
         rvShangpinguanli.setAdapter(shangpinguanliadapter);
-
+        llListNull.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //添加商品
+                Intent intent = new Intent(getContext(), FaBuShangPinActivity.class);
+                intent.putExtra("state", "0");
+                intent.putExtra("goods", goods);
+                getContext().startActivity(intent);
+            }
+        });
     }
 
     public abstract String getZhuangTai();

@@ -5,11 +5,54 @@
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <com.mingmen.mayi.mayibanjia.utils.custom.SwipeRecyclerView
-            android:id="@+id/rv_dingdan"
+        android:layout_height="match_parent">
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"></com.mingmen.mayi.mayibanjia.utils.custom.SwipeRecyclerView>
+            android:layout_height="match_parent">
+            <com.mingmen.mayi.mayibanjia.utils.custom.SwipeRecyclerView
+                android:visibility="visible"
+                android:id="@+id/rv_dingdan"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"></com.mingmen.mayi.mayibanjia.utils.custom.SwipeRecyclerView>
+            <include layout="@layout/view_list_null"></include>
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/ll_list_null"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:src="@mipmap/list_null_spgl"
+                    android:layout_width="131dp"
+                    android:layout_height="118dp" />
+                <LinearLayout
+                    android:layout_marginTop="49dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:textColor="@color/hintcolor"
+                        android:textSize="15sp"
+                        android:text="哇~列表里是空的，快去"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:textColor="@color/zangqing"
+                        android:textSize="15sp"
+                        android:text="新建商品"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:textColor="@color/hintcolor"
+                        android:textSize="15sp"
+                        android:text="~吧"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

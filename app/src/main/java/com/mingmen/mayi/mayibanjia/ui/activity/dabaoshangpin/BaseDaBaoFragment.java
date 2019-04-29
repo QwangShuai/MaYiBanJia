@@ -5,26 +5,22 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.AddQrCodeBean;
-import com.mingmen.mayi.mayibanjia.bean.DingDanBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.AddQrCodeActivity;
-import com.mingmen.mayi.mayibanjia.ui.activity.DingDanXiangQingActivity;
-import com.mingmen.mayi.mayibanjia.ui.activity.FaBiaoPingJiaActivity;
-import com.mingmen.mayi.mayibanjia.ui.activity.WeiYiQrCodeActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.AddQrCodeAdapter;
-import com.mingmen.mayi.mayibanjia.ui.activity.adapter.DingDanXiangQingAdapter;
-import com.mingmen.mayi.mayibanjia.ui.activity.dingdan.DingDanActivity;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseFragment;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
-import com.mingmen.mayi.mayibanjia.utils.StringUtil;
-import com.mingmen.mayi.mayibanjia.utils.qrCode.CaptureActivity;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import java.util.ArrayList;
@@ -32,6 +28,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Created by Administrator on 2018/7/28/028.
@@ -44,6 +41,15 @@ public abstract class BaseDaBaoFragment extends BaseFragment {
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout refreshLayout;
     View view;
+    @BindView(R.id.tv_tishi_left)
+    TextView tvTishiLeft;
+    @BindView(R.id.tv_tishi_center)
+    TextView tvTishiCenter;
+    @BindView(R.id.tv_tishi_right)
+    TextView tvTishiRight;
+    @BindView(R.id.ll_list_null)
+    LinearLayout llListNull;
+    Unbinder unbinder;
     private ArrayList<AddQrCodeBean> mlist = new ArrayList<AddQrCodeBean>();
     ;
     private AddQrCodeAdapter adapter;
@@ -85,20 +91,20 @@ public abstract class BaseDaBaoFragment extends BaseFragment {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getQrCodeSp(PreferenceUtils.getString(MyApplication.mContext, "token", ""),gy_order_id,getZhuangTai(),ye+""))
+                                .getQrCodeSp(PreferenceUtils.getString(MyApplication.mContext, "token", ""), gy_order_id, getZhuangTai(), ye + ""))
                 .setDataListener(new HttpDataListener<List<AddQrCodeBean>>() {
                     @Override
                     public void onNext(final List<AddQrCodeBean> data) {
-                        int size = data==null?0:data.size();
-                        if(b){
+                        int size = data == null ? 0 : data.size();
+                        if (b) {
                             mlist.clear();
                             adapter.notifyDataSetChanged();
                         }
-                        if(size!=0){
+                        if (size != 0) {
                             mlist.addAll(data);
-                            if(data.size()==10){
+                            if (data.size() == 10) {
                                 rvDingdan.loadMoreFinish(false, true);
-                            }else if(data.size()>0){
+                            } else if (data.size() > 0) {
                                 rvDingdan.loadMoreFinish(false, false);
                             } else {
                                 rvDingdan.loadMoreFinish(true, false);
@@ -113,7 +119,7 @@ public abstract class BaseDaBaoFragment extends BaseFragment {
     private void initview() {
         AddQrCodeActivity activity = (AddQrCodeActivity) getActivity();
         gy_order_id = activity.getGy_order_id();
-        adapter = new AddQrCodeAdapter(getActivity(), mlist,gy_order_id);
+        adapter = new AddQrCodeAdapter(getActivity(), mlist, gy_order_id);
         mLoadMoreListener = new SwipeMenuRecyclerView.LoadMoreListener() {
             @Override
             public void onLoadMore() {
@@ -141,6 +147,9 @@ public abstract class BaseDaBaoFragment extends BaseFragment {
             }
         });
         rvDingdan.setAdapter(adapter);
+//        tvTishiLeft.setText("点击右上角");
+//        tvTishiCenter.setText("新增");
+//        tvTishiRight.setText("生成二维码用于贴在商品外包装");
     }
 
     public abstract String getZhuangTai();
@@ -159,16 +168,25 @@ public abstract class BaseDaBaoFragment extends BaseFragment {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getQrCodeSp(PreferenceUtils.getString(MyApplication.mContext, "token", ""),gy_order_id,getZhuangTai(),ye+""))
+                                .getQrCodeSp(PreferenceUtils.getString(MyApplication.mContext, "token", ""), gy_order_id, getZhuangTai(), ye + ""))
                 .setDataListener(new HttpDataListener<List<AddQrCodeBean>>() {
                     @Override
                     public void onNext(final List<AddQrCodeBean> data) {
-                        int size = data==null?0:data.size();
+                        int size = data == null ? 0 : data.size();
+//                        if(ye==1){
+//                            if(size==0){
+//                                rvDingdan.setVisibility(View.GONE);
+//                                llListNull.setVisibility(View.VISIBLE);
+//                            } else {
+//                                rvDingdan.setVisibility(View.VISIBLE);
+//                                llListNull.setVisibility(View.GONE);
+//                            }
+//                        }
                         mlist.addAll(data);
-                        if(size!=0){
-                            if(data.size()==10){
+                        if (size != 0) {
+                            if (data.size() == 10) {
                                 rvDingdan.loadMoreFinish(false, true);
-                            }else if(data.size()>0){
+                            } else if (data.size() > 0) {
                                 rvDingdan.loadMoreFinish(false, false);
                             } else {
                                 rvDingdan.loadMoreFinish(true, false);
@@ -192,5 +210,19 @@ public abstract class BaseDaBaoFragment extends BaseFragment {
 //        mlist.clear();
 //        updateList(true);
         getData(true);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

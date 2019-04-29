@@ -19,6 +19,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.SPXiangQingActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShenPiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.GengDuoShangJiaDialog;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
+import com.mingmen.mayi.mayibanjia.utils.custom.MarqueeTextView;
 
 import java.util.List;
 
@@ -79,6 +80,7 @@ public class ShenPiLevelTwoAdapter extends RecyclerView.Adapter<ShenPiLevelTwoAd
         else
             holder.tvFujiafei.setVisibility(View.GONE);
         holder.tvSpming.setText(ccListBeanLevel.getCcListBean().getClassify_name() + "");
+        holder.tvSpming.setMarqueeEnable(true);
         holder.tvDianming.setText(ccListBeanLevel.getCcListBean().getCompany_name() + "");
 //        holder.tvGuige.setText(ccListBeanLevel.getCcListBean().getPack_standard() + "");
         holder.tvDanjia.setText(ccListBeanLevel.getCcListBean().getPrice() + "");
@@ -125,7 +127,7 @@ public class ShenPiLevelTwoAdapter extends RecyclerView.Adapter<ShenPiLevelTwoAd
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_spming)
-        TextView tvSpming;
+        MarqueeTextView tvSpming;
         @BindView(R.id.tv_dian)
         TextView tvDian;
         @BindView(R.id.tv_dianming)

@@ -41,6 +41,7 @@
                 android:orientation="horizontal">
 
                 <com.mingmen.mayi.mayibanjia.utils.custom.MarqueeTextView
+                    android:layout_weight="1"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:singleLine="true"
@@ -48,17 +49,13 @@
                     android:marqueeRepeatLimit="marquee_forever"
                     android:id="@+id/tv_name"
                     android:textAllCaps="true"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="利木赞牛 自繁自养"
                     android:textColor="@color/zicolor"
                     android:textSize="18sp" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"></View>
 
                 <ImageView
                     android:id="@+id/iv_zoushi"

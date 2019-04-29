@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.mingmen.mayi.mayibanjia.MainActivity;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.ShouCangBean;
@@ -89,7 +90,9 @@ public class ShouCangAdapter extends BaseQuickAdapter<ShouCangBean,BaseViewHolde
                     }
                 jiarugouwuchedialog.getEtShuliang().setText("0");
                 jiarugouwuchedialog.cancel();
-
+                if(MainActivity.instance!=null){
+                    MainActivity.instance.getGwcNo();
+                }
             }
         });
             }

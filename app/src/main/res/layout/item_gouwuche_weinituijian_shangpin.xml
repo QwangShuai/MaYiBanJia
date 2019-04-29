@@ -19,33 +19,33 @@
         android:layout_marginBottom="20dp"
         android:layout_weight="1"
         android:layout_marginLeft="12dp">
-        <TextView
-            android:id="@+id/tv_spming"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="甜橙"
-            android:textColor="#474747"
-            android:textSize="14sp"
-            />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:orientation="horizontal"
-           >
-<!--            <TextView
-                android:id="@+id/tv_guige"
-                android:layout_width="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.mingmen.mayi.mayibanjia.utils.custom.MarqueeTextView
+                android:layout_weight="1"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:id="@+id/tv_spming"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="5.5元/斤"
-                android:textColor="#ff999999"
-                android:textSize="12sp"
-                android:layout_marginLeft="4dp"
-                />-->
+                android:text=""
+                android:textColor="#474747"
+                android:textSize="14sp"
+                />
+            <ImageView
+                android:id="@+id/iv_jishida"
+                android:layout_width="43dp"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/jishida"
+                android:visibility="gone" />
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"

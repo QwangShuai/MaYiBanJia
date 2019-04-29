@@ -1,6 +1,5 @@
 package com.mingmen.mayi.mayibanjia.ui.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -20,7 +19,6 @@ import android.widget.TextView;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.DaYinQrCodeBean;
-import com.mingmen.mayi.mayibanjia.bean.GHOrderBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
@@ -28,13 +26,9 @@ import com.mingmen.mayi.mayibanjia.ui.activity.adapter.QrCodeAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
-import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,12 +39,22 @@ public class DaYinQrCodeActivity extends BaseActivity {
     ImageView iv_back;
     @BindView(R.id.tv_add)
     TextView tv_add;
+    @BindView(R.id.tv_no)
+    TextView tvNo;
     @BindView(R.id.rv_qr_code)
     RecyclerView rv_qr_code;
     @BindView(R.id.ll_add)
     LinearLayout llAdd;
     @BindView(R.id.bt_add_qr_code)
     Button btAddQrCode;
+    @BindView(R.id.tv_tishi_left)
+    TextView tvTishiLeft;
+    @BindView(R.id.tv_tishi_center)
+    TextView tvTishiCenter;
+    @BindView(R.id.tv_tishi_right)
+    TextView tvTishiRight;
+    @BindView(R.id.ll_list_null)
+    LinearLayout llListNull;
     private Context mContext;
     private String id = "";
     private String sp_id = "";
@@ -72,10 +76,13 @@ public class DaYinQrCodeActivity extends BaseActivity {
         id = getIntent().getStringExtra("id");
         sp_id = getIntent().getStringExtra("sp_id");
         type = getIntent().getStringExtra("type");
-        if(type.equals("0")){
+        if (type.equals("0")) {
             llAdd.setVisibility(View.GONE);
             btAddQrCode.setVisibility(View.GONE);
         }
+        tvTishiLeft.setText("点击右上角");
+        tvTishiCenter.setText("新增");
+        tvTishiRight.setText("生成二维码用于贴在商品外包装");
         getQrCodeList();
     }
 
@@ -118,7 +125,7 @@ public class DaYinQrCodeActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .createQrCode(PreferenceUtils.getString(MyApplication.mContext, "token", ""), id,sp_id))
+                                .createQrCode(PreferenceUtils.getString(MyApplication.mContext, "token", ""), id, sp_id))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
@@ -133,7 +140,7 @@ public class DaYinQrCodeActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .packageEnd(PreferenceUtils.getString(MyApplication.mContext, "token", ""), id,sp_id))
+                                .packageEnd(PreferenceUtils.getString(MyApplication.mContext, "token", ""), id, sp_id))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
@@ -152,13 +159,21 @@ public class DaYinQrCodeActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getQrCodeList(PreferenceUtils.getString(MyApplication.mContext, "token", ""),id,sp_id))
+                                .getQrCodeList(PreferenceUtils.getString(MyApplication.mContext, "token", ""), id, sp_id))
                 .setDataListener(new HttpDataListener<List<DaYinQrCodeBean>>() {
 
                     @Override
                     public void onNext(List<DaYinQrCodeBean> data) {
-                        count = data==null?0:data.size();
-                        if(count==0)
+                        count = data == null ? 0 : data.size();
+                        tvNo.setText("" + count);
+                        if(count==0){
+                            rv_qr_code.setVisibility(View.GONE);
+                            llListNull.setVisibility(View.VISIBLE);
+                        } else {
+                            rv_qr_code.setVisibility(View.VISIBLE);
+                            llListNull.setVisibility(View.GONE);
+                        }
+                        if (count == 0)
                             return;
 //                        if(StringUtil.isValid(data.getIs_true())&&data.getIs_true().equals("0")){
 //                            llAdd.setVisibility(View.GONE);
@@ -173,7 +188,7 @@ public class DaYinQrCodeActivity extends BaseActivity {
     }
 
     public void dayinQrCode(View v) {
-        Bitmap bitmap = decodeResource(getResources(),R.mipmap.qr_code);
+        Bitmap bitmap = decodeResource(getResources(), R.mipmap.qr_code);
 //        Bitmap bitmap = convertViewToBitmap(v, 400, 240);
     }
 

@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.mingmen.mayi.mayibanjia.MainActivity;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.ui.activity.GongYingDuanShouYeActivity;
@@ -169,6 +170,12 @@ public abstract class BaseActivity extends AppCompatActivity {
                 dialog.cancel();
             }
         });
+    }
+
+    public void updateGwc(){
+        if(MainActivity.instance!=null){
+            MainActivity.instance.getGwcNo();
+        }
     }
 }
 

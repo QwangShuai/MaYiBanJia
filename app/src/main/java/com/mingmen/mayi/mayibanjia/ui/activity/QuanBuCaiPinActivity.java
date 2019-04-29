@@ -369,6 +369,7 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
                                 }
                                 jiarugouwuchedialog.getEtShuliang().setText("0");
                                 jiarugouwuchedialog.cancel();
+                                updateGwc();
                             }
                         });
                         break;
@@ -553,12 +554,16 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
                 break;
             case R.id.ll_shichangjia:
                 if (StringUtil.isValid(sanjipinleiid)) {
-                    if (rvShichangjia.getVisibility() == View.VISIBLE ? true : false) {
-                        shichanglist.clear();
-                        rvShichangjia.setVisibility(View.GONE);
-                    } else {
-                        sousuoshichang();
-                    }
+//                    if (rvShichangjia.getVisibility() == View.VISIBLE ? true : false) {
+//                        shichanglist.clear();
+//                        rvShichangjia.setVisibility(View.GONE);
+//                    } else {
+//                        sousuoshichang();
+//                    }
+                    Intent it_jiage = new Intent(mContext,ShichangJiageActivity.class);
+                    it_jiage.putExtra("id",sanjipinleiid);
+                    it_jiage.putExtra("name",sanjipinleiname);
+                    mContext.startActivity(it_jiage);
                 } else {
                     ToastUtil.showToastLong("您还没有选择商品的品种");
                 }
@@ -1251,7 +1256,7 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
         }
     }
 
-    //商品搜索
+    //购物车数量
     private void getGwcNo() {
         Log.e(TAG, "sousuoshangpin: 我是特价" + istejia + "---我是实时达" + iszhunshida);
         HttpManager.getInstance()

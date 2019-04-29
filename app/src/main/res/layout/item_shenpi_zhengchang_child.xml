@@ -11,6 +11,7 @@
         android:id="@+id/rl_kuang"
         >
         <LinearLayout
+            android:layout_toLeftOf="@+id/ll_right"
             android:id="@+id/ll_sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,11 +33,17 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <TextView
+                    <com.mingmen.mayi.mayibanjia.utils.custom.MarqueeTextView
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:singleLine="true"
+                        android:ellipsize="marquee"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:layout_weight="1"
                         android:id="@+id/tv_spming"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="普罗旺斯甜橙"
+                        android:text=""
                         android:textColor="#ff474747"
                         android:textSize="14sp" />
 
@@ -158,6 +165,7 @@
 
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/ll_right"
             android:layout_width="wrap_content"
             android:layout_height="80dp"
             android:orientation="vertical"
@@ -213,92 +221,4 @@
             android:layout_alignParentBottom="true"/>
     </RelativeLayout>
 
-        <!--<LinearLayout-->
-            <!--android:layout_marginTop="6dp"-->
-            <!--android:orientation="vertical"-->
-            <!--android:id="@+id/ll_qidingliang"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:visibility="visible">-->
-            <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:orientation="horizontal">-->
-                <!--<TextView-->
-                    <!--android:paddingLeft="96dp"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:id="@+id/tv_qidingliang"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="10斤-20斤"-->
-                    <!--android:textColor="#ff666666"-->
-                    <!--android:textSize="12sp"-->
-                    <!--/>-->
-                <!--<TextView-->
-                    <!--android:gravity="right"-->
-                    <!--android:paddingRight="96dp"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:id="@+id/tv_qidingliangdanjia1"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="¥ 3.5元/斤"-->
-                    <!--android:textColor="#ff666666"-->
-                    <!--android:textSize="12sp"-->
-                    <!--/>-->
-            <!--</LinearLayout>-->
-            <!--<LinearLayout-->
-                <!--android:layout_marginTop="6dp"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:orientation="horizontal">-->
-                <!--<TextView-->
-                    <!--android:paddingLeft="96dp"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:id="@+id/tv_qidingliang2"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="10斤-20斤"-->
-                    <!--android:textColor="#ff666666"-->
-                    <!--android:textSize="12sp"-->
-                    <!--/>-->
-                <!--<TextView-->
-                    <!--android:gravity="right"-->
-                    <!--android:paddingRight="96dp"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:id="@+id/tv_qidingliangdanjia2"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="¥ 3.5元/斤"-->
-                    <!--android:textColor="#ff666666"-->
-                    <!--android:textSize="12sp"-->
-                    <!--/>-->
-            <!--</LinearLayout>-->
-            <!--<LinearLayout-->
-                <!--android:layout_marginTop="6dp"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:orientation="horizontal">-->
-                <!--<TextView-->
-                    <!--android:paddingLeft="96dp"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:id="@+id/tv_qidingliang3"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="10斤-20斤"-->
-                    <!--android:textColor="#ff666666"-->
-                    <!--android:textSize="12sp"-->
-                    <!--/>-->
-                <!--<TextView-->
-                    <!--android:gravity="right"-->
-                    <!--android:paddingRight="96dp"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:id="@+id/tv_qidingliangdanjia3"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="¥ 3.5元/斤"-->
-                    <!--android:textColor="#ff666666"-->
-                    <!--android:textSize="12sp"-->
-                    <!--/>-->
-            <!--</LinearLayout>-->
-        <!--</LinearLayout>-->
 </LinearLayout>

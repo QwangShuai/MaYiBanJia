@@ -399,6 +399,7 @@ public class GouWuCheFragment extends BaseFragment {
                     @Override
                     public void onNext(String data) {
                         setShuaxin();
+                        updateGwc();
                     }
                 },false);
     }

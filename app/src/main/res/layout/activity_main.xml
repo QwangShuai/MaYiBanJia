@@ -60,19 +60,35 @@
         app:layout_constraintRight_toLeftOf="@id/iv_wode"
         app:layout_constraintHorizontal_bias="0.316"
         android:layout_marginBottom="0dp" />
-    <ImageView
-        android:id="@+id/iv_gouwuche"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/gouwuche"
+    <RelativeLayout
         android:layout_marginLeft="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/iv_shouye"
         app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="54dp"
+        android:layout_height="wrap_content"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         app:layout_constraintHorizontal_bias="0.655"
-        android:layout_marginBottom="-10dp" />
+        android:layout_marginBottom="-10dp">
+        <ImageView
+            android:id="@+id/iv_gouwuche"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/gouwuche" />
+        <TextView
+            android:id="@+id/tv_gwc_no"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/fillet_hollow_ff3300_10"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="#ff3300"
+            android:textSize="10sp"
+            android:visibility="gone" />
+    </RelativeLayout>
+
     <ImageView
 
         android:visibility="visible"

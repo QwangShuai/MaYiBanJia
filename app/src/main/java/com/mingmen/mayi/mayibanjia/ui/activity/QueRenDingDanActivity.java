@@ -591,7 +591,6 @@ public class QueRenDingDanActivity extends BaseActivity {
             case 1:
                 if (resultCode == 1 && data != null) {
                     if(data.getIntExtra("size",0)==0){
-                        tvSpjine.setText("0");
                         tvYunfei.setText("0");
                         tvHejijine.setText("0");
                         tvWudizhi.setVisibility(View.VISIBLE);

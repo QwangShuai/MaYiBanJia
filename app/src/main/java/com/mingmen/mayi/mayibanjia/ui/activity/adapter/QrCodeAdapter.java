@@ -34,6 +34,7 @@ import com.mingmen.mayi.mayibanjia.utils.LogUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
+import com.mingmen.mayi.mayibanjia.utils.custom.MarqueeTextView;
 import com.mingmen.mayi.mayibanjia.utils.dayinji.DeviceListActivity;
 
 import java.util.List;
@@ -46,12 +47,13 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2018/10/8.
  */
 
-public class QrCodeAdapter extends RecyclerView.Adapter<QrCodeAdapter.ViewHolder>  {
+public class QrCodeAdapter extends RecyclerView.Adapter<QrCodeAdapter.ViewHolder> {
     private ViewHolder viewHolder;
     private Context mContext;
     private List<DaYinQrCodeBean> mList;
     private DaYinQrCodeActivity activity;
     private BluetoothAdapter bluetoothAdapter;
+
     public QrCodeAdapter(Context mContext, List<DaYinQrCodeBean> list, DaYinQrCodeActivity activity) {
         this.mContext = mContext;
         this.mList = list;
@@ -66,20 +68,22 @@ public class QrCodeAdapter extends RecyclerView.Adapter<QrCodeAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        bluetoothAdapter =BluetoothAdapter.getDefaultAdapter();
+        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         final DaYinQrCodeBean bean = mList.get(position);
 //        holder.tv_suoyin.setText(bean.getSerial());
-        if(StringUtil.isValid(bean.getTwocode())){
+        if (StringUtil.isValid(bean.getTwocode())) {
             Glide.with(mContext).load(bean.getTwocode()).into(holder.iv_qr_code);
-            Log.e("onBindViewHolder: ",bean.getTwocode() );
+            Log.e("onBindViewHolder: ", bean.getTwocode());
         }
 
 //        holder.tv_biaoshi.setText(bean.getIdentifying());
-        holder.tv_dianpu.setText(bean.getCompany_name()+"(餐厅端)");
+        holder.tv_dianpu.setText(bean.getCompany_name() + "(餐厅端)");
 //        holder.tv_dizhi.setText(bean.getCompanyAddress());
         holder.tv_phone.setText(bean.getDriverPhone());
-       // holder.tv_weiyima.setText(bean.getOnlyCode());
-        holder.tv_onlyCode.setText("唯一码"+bean.getOnlyCode());
+        holder.tv_spmc.setText(bean.getClassify_name());
+        holder.tv_spmc.setMarqueeEnable(true);
+        // holder.tv_weiyima.setText(bean.getOnlyCode());
+        holder.tv_onlyCode.setText("唯一码" + bean.getOnlyCode());
         holder.tv_chepaihao.setText(bean.getPlateNumber());
 //        holder.tv_dianming.setText(bean.getGy_company_name()+"(卖家店铺)");
         holder.tv_zuofei.setOnClickListener(new View.OnClickListener() {
@@ -90,12 +94,13 @@ public class QrCodeAdapter extends RecyclerView.Adapter<QrCodeAdapter.ViewHolder
                         .setObservable(
                                 RetrofitManager
                                         .getService()
-                                        .delQrCode(PreferenceUtils.getString(MyApplication.mContext, "token",""),bean.getTwocode_id()))
+                                        .delQrCode(PreferenceUtils.getString(MyApplication.mContext, "token", ""), bean.getTwocode_id()))
                         .setDataListener(new HttpDataListener<String>() {
                             @Override
                             public void onNext(String data) {
-                                mList.remove(position);
-                                notifyDataSetChanged();
+//                                mList.remove(position);
+//                                notifyDataSetChanged();
+                                activity.getQrCodeList();
                             }
                         });
             }
@@ -103,15 +108,15 @@ public class QrCodeAdapter extends RecyclerView.Adapter<QrCodeAdapter.ViewHolder
         holder.tv_dayin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(bluetoothAdapter==null){
+                if (bluetoothAdapter == null) {
                     ToastUtil.showToastLong("该设备暂不支持蓝牙功能");
-                } else if(bluetoothAdapter.isEnabled()){
-                    if(HPRTPrinterHelper.IsOpened()){
+                } else if (bluetoothAdapter.isEnabled()) {
+                    if (HPRTPrinterHelper.IsOpened()) {
                         try {
                             ToastUtil.showToastLong("打印中，请耐心等候");
                             Bitmap bitmap = convertViewToBitmap(holder.rl_dayin, holder.rl_dayin.getWidth(), holder.rl_dayin.getHeight());
-                            HPRTPrinterHelper.printAreaSize("0","200","200","240","1");
-                            HPRTPrinterHelper.Expanded("0","0",bitmap,0);
+                            HPRTPrinterHelper.printAreaSize("0", "200", "200", "240", "1");
+                            HPRTPrinterHelper.Expanded("0", "0", bitmap, 0);
                             HPRTPrinterHelper.Form();
                             HPRTPrinterHelper.Print();
                         } catch (Exception e) {
@@ -126,7 +131,6 @@ public class QrCodeAdapter extends RecyclerView.Adapter<QrCodeAdapter.ViewHolder
                 } else {
                     ToastUtil.showToastLong("请先打开蓝牙");
                 }
-
 
 
 //                activity.dayinQrCode(holder.rl_dayin);
@@ -145,38 +149,43 @@ public class QrCodeAdapter extends RecyclerView.Adapter<QrCodeAdapter.ViewHolder
         @BindView(R.id.iv_qr_code)
         ImageView iv_qr_code;
         @BindView(R.id.tv_biaoshi)
-                TextView tv_biaoshi;
+        TextView tv_biaoshi;
         @BindView(R.id.tv_dianpu)
-                TextView tv_dianpu;
+        TextView tv_dianpu;
+        @BindView(R.id.tv_spmc)
+        MarqueeTextView tv_spmc;
         @BindView(R.id.tv_onlyCode)
         TextView tv_onlyCode;
         @BindView(R.id.tv_dizhi)
-                TextView tv_dizhi;
+        TextView tv_dizhi;
         @BindView(R.id.tv_phone)
-                TextView tv_phone;
+        TextView tv_phone;
         @BindView(R.id.tv_zuofei)
-                TextView tv_zuofei;
+        TextView tv_zuofei;
         @BindView(R.id.tv_dayin)
-                TextView tv_dayin;
+        TextView tv_dayin;
         @BindView(R.id.rl_dayin)
         RelativeLayout rl_dayin;
-//        @BindView(R.id.tv_weiyima)
+        //        @BindView(R.id.tv_weiyima)
 //                TextView tv_weiyima;
         @BindView(R.id.tv_dianming)
-                TextView tv_dianming;
+        TextView tv_dianming;
         @BindView(R.id.tv_chepaihao)
-                TextView tv_chepaihao;
+        TextView tv_chepaihao;
+
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
     }
+
     public static Bitmap convertViewToBitmap(View view, int bitmapWidth, int bitmapHeight) {
         Bitmap bitmap = Bitmap.createBitmap(bitmapWidth, bitmapHeight, Bitmap.Config.ARGB_8888);
         view.draw(new Canvas(bitmap));
-        Bitmap bm = Bitmap.createScaledBitmap(bitmap,383,200,true);
+        Bitmap bm = Bitmap.createScaledBitmap(bitmap, 383, 200, true);
         return bm;
     }
+
     private Bitmap decodeResource(Resources resources, int id) {
         TypedValue value = new TypedValue();
         resources.openRawResource(id, value);

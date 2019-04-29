@@ -174,6 +174,7 @@ public class DianPuActivity extends BaseActivity implements View.OnClickListener
                                 Log.e("jiarugouwuche", jiarugouwuchedialog.getEtShuliang().getText().toString().trim());
                                 jiarugouwuchedialog.getEtShuliang().setText("0");
                                 jiarugouwuchedialog.cancel();
+                                updateGwc();
                             }
                         });
                         break;

@@ -40,6 +40,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="35dp">
                         <EditText
+                            android:maxLength="20"
                             android:textColor="@color/zicolor"
                             android:digits="@string/only_input"
                             android:inputType="numberDecimal"
@@ -129,6 +130,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="35dp">
                         <EditText
+                            android:maxLength="6"
                             android:textColor="@color/zicolor"
                             android:inputType="textPersonName"
                             android:textColorHint="@color/hintcolor"
@@ -161,6 +163,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="35dp">
                         <EditText
+                            android:maxLength="18"
                             android:textColor="@color/zicolor"
                             android:digits="@string/only_input"
                             android:textColorHint="@color/hintcolor"

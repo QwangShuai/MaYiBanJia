@@ -160,6 +160,8 @@ public class FaBuShangPinActivity extends BaseActivity {
     TextView tvZhiman;
     @BindView(R.id.tv_danwei)
     TextView tvDanwei;
+    @BindView(R.id.tv_qdl_gg)
+    TextView tvQdlGg;
     @BindView(R.id.et_qidingliangdanjia1)
     EditText etQidingliangdanjia1;
     @BindView(R.id.et_qidingliang1)
@@ -874,11 +876,14 @@ public class FaBuShangPinActivity extends BaseActivity {
                         llSanjiguige.setEnabled(true);
                         tvZxgg.setEnabled(true);
                     }
-                    tvSanji.setText(data.getStringExtra("guigeName"));
+                    String guigename = data.getStringExtra("guigeName");
+                    tvSanji.setText(guigename);
                     sanjiguigeid = data.getStringExtra("guigeId");
                     tvZxgg.setText(data.getStringExtra("zxName"));
-                    tvYxgg.setText("每" + data.getStringExtra("guigeName") + "换算单位为");
-                    tvGgms.setText(data.getStringExtra("guigeName"));
+                    tvYxgg.setText("每" + guigename + "换算单位为");
+                    tvGgms.setText(guigename);
+                    tvQdlGg.setText(guigename);
+                    tvDanwei.setText(guigename);
                     if (StringUtil.isValid(data.getStringExtra("zxId"))) {
                         llDw.setVisibility(View.VISIBLE);
                         isGuige = true;
@@ -1103,6 +1108,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                         sanjiguigeid = bean.getPack_standard_tree();
                         sanjiguigename = bean.getPackThreeName();
                         tvDanwei.setText("元/" + sanjiguigename);
+                        tvQdlGg.setText(sanjiguigename);
                         lingjiid = bean.getType_one_id();
                         yijiid = bean.getType_two_id();
                         erjiid = bean.getType_tree_id();
@@ -1142,6 +1148,8 @@ public class FaBuShangPinActivity extends BaseActivity {
                         }
                         tvSanji.setText(bean.getPackThreeName());
                         tvGgms.setText(bean.getPackThreeName());
+                        tvQdlGg.setText(bean.getPackThreeName());
+                        tvDanwei.setText(bean.getPackThreeName());
 //                        if(getGuige){
 //                             getguigeXzge();
 //                        } else {
@@ -1409,6 +1417,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                                 public void onItemPicked(int index, FbspGuiGeBean item) {
                                     sanjiguigename = item.getSpec_name();
                                     tvDanwei.setText("元/" + sanjiguigename);
+                                    tvQdlGg.setText(sanjiguigename);
                                     sanjiguigeid = item.getSpec_id() + "";
                                     tvSanji.setText(sanjiguigename);
                                     tvYxgg.setText("每" + item.getSpec_name() + "换算单位为");
@@ -1505,6 +1514,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                                 zxname = msg.getAffiliated_spec_name();
                                 sanjiguigename = msg.getSpec_name();
                                 tvDanwei.setText("元/" + sanjiguigename);
+                                tvQdlGg.setText(sanjiguigename);
                                 if (StringUtil.isValid(msg.getAffiliated_spec())) {
                                     zxname = msg.getAffiliated_spec_name();
                                     llDw.setVisibility(View.VISIBLE);
@@ -1529,6 +1539,7 @@ public class FaBuShangPinActivity extends BaseActivity {
         } else {
             sanjiguigename = item.getSpec_name();
             tvDanwei.setText("元/" + sanjiguigename);
+            tvQdlGg.setText(sanjiguigename);
             sanjiguigeid = item.getSpec_id() + "";
             tvSanji.setText(sanjiguigename);
             tvYxgg.setText("每" + item.getSpec_name() + "换算单位为");

@@ -17,6 +17,7 @@ import com.mingmen.mayi.mayibanjia.bean.TuiJianBean;
 import com.mingmen.mayi.mayibanjia.ui.activity.SPXiangQingActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.ShangPinListAdapter;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
+import com.mingmen.mayi.mayibanjia.utils.custom.MarqueeTextView;
 
 import java.util.List;
 
@@ -57,7 +58,14 @@ public class GWCWeiNiTuiJianAdapter extends RecyclerView.Adapter<GWCWeiNiTuiJian
         final TuiJianBean data = mList.get(position);
         //holder.tvSpming.setText(data.getClassify_name());
         holder.tvSpming.setText(data.getClassify_name());//商品名称改为三级分类
+        holder.tvSpming.setMarqueeEnable(true);
         holder.tvDanjia.setText(data.getPrice()+"");
+        if(data.getReal_time_state().equals("0")){
+            holder.ivJishida.setVisibility(View.VISIBLE);
+        } else {
+            holder.ivJishida.setVisibility(View.GONE);
+        }
+
         //holder.tvGuige.setText(data.getPack_standard()+"");
         Glide.with(mContext).load(data.getPicture_url())
                 .into(holder.ivSptu);
@@ -89,13 +97,15 @@ public class GWCWeiNiTuiJianAdapter extends RecyclerView.Adapter<GWCWeiNiTuiJian
         @BindView(R.id.iv_sptu)
         ImageView ivSptu;
         @BindView(R.id.tv_spming)
-        TextView tvSpming;
+        MarqueeTextView tvSpming;
 /*        @BindView(R.id.tv_guige)
         TextView tvGuige;*/
         @BindView(R.id.tv_danjia)
         TextView tvDanjia;
         @BindView(R.id.iv_addcar)
         ImageView ivAddcar;
+        @BindView(R.id.iv_jishida)
+        ImageView ivJishida;
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);

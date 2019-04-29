@@ -42,6 +42,7 @@ import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShiChangSouSuoShangPinActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.ShichangJiageActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShichangXuanzeActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.SouSuoActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.ShangPinListAdapter;
@@ -368,6 +369,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                                 }
                                 jiarugouwuchedialog.getEtShuliang().setText("0");
                                 jiarugouwuchedialog.cancel();
+                                updateGwc();
                             }
                         });
                         break;
@@ -593,12 +595,16 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 break;
             case R.id.ll_shichangjia:
                 if (StringUtil.isValid(sanjipinleiid)) {
-                    if (rvShichangjia.getVisibility() == View.VISIBLE ? true : false) {
-                        shichanglist.clear();
-                        rvShichangjia.setVisibility(View.GONE);
-                    } else {
-                        sousuoshichang();
-                    }
+//                    if (rvShichangjia.getVisibility() == View.VISIBLE ? true : false) {
+//                        shichanglist.clear();
+//                        rvShichangjia.setVisibility(View.GONE);
+//                    } else {
+//                        sousuoshichang();
+//                    }
+                    Intent it_jiage = new Intent(mContext,ShichangJiageActivity.class);
+                    it_jiage.putExtra("id",sanjipinleiid);
+                    it_jiage.putExtra("name",sanjipinleiname);
+                    mContext.startActivity(it_jiage);
                 } else {
                     ToastUtil.showToastLong("您还没有选择商品的品种");
                 }

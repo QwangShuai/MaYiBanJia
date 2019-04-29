@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mingmen.mayi.mayibanjia.MainActivity;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.ShangPinSouSuoBean;
@@ -73,6 +74,9 @@ public class QuanBuCaiPinLeiGuiGeAdapter extends RecyclerView.Adapter<QuanBuCaiP
                         }
                         jiarugouwuchedialog.getEtShuliang().setText("0");
                         jiarugouwuchedialog.cancel();
+                        if(MainActivity.instance!=null){
+                            MainActivity.instance.getGwcNo();
+                        }
                     }
                 });
             }

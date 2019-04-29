@@ -532,7 +532,7 @@
                     android:id="@+id/tv_danwei"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="元/斤"
+                    android:text="元/桶"
                     android:textColor="@color/hintcolor"
                     android:textSize="12sp" />
 
@@ -554,6 +554,13 @@
                     android:paddingLeft="12dp"
                     android:text=""
                     android:textColor="@color/zicolor"
+                    android:textSize="15sp" />
+                <TextView
+                    android:id="@+id/tv_qdl_gg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="桶"
+                    android:textColor="@color/lishisousuo"
                     android:textSize="15sp" />
             </LinearLayout>
 

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
@@ -32,6 +33,7 @@ import com.mingmen.mayi.mayibanjia.ui.view.noscrollviewpager.NoScrollViewPager;
 import com.mingmen.mayi.mayibanjia.utils.AppManager;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.QuanXian;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -60,6 +62,8 @@ public class MainActivity extends BaseActivity {
     NoScrollViewPager viewPager;
     @BindView(R.id.imageView)
     ImageView imageView;
+    @BindView(R.id.tv_gwc_no)
+    TextView tvGwcNo;
     private long exitTime = 0;
     private List<Fragment> fragments = new ArrayList<>();
     private Context context = MainActivity.this;
@@ -92,7 +96,6 @@ public class MainActivity extends BaseActivity {
     //    private String role ="";
     private List<ZiZhangHuDetailsBean.RoleListBean> role = new ArrayList<>();
 
-
     @Override
     public int getLayoutId() {
         return R.layout.activity_main;
@@ -102,6 +105,7 @@ public class MainActivity extends BaseActivity {
     protected void initData() {
         StatusBarCompat.translucentStatusBar(this);
         mContext = MainActivity.this;
+        instance = MainActivity.this;
         ButterKnife.bind(this);
         //检测版本
         updataVersion();
@@ -167,6 +171,7 @@ public class MainActivity extends BaseActivity {
         int tosome = getIntent().getIntExtra("tosome", 0);
         Log.e("tosome", tosome + "---");
         gaibianye(tosome);
+        getGwcNo();
     }
 
     /**
@@ -380,5 +385,25 @@ public class MainActivity extends BaseActivity {
                         goLogin(mContext,"login");
                     }
                 });
+    }
+    //购物车数量
+    public void getGwcNo() {
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .getGwcNo(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
+                .setDataListener(new HttpDataListener<String>() {
+                    @Override
+                    public void onNext(final String no) {
+                        if(StringUtil.isValid(no)&&!no.equals("0")){
+                            tvGwcNo.setVisibility(View.VISIBLE);
+                            tvGwcNo.setText(no);
+                        } else {
+                            tvGwcNo.setVisibility(View.GONE);
+                        }
+                    }
+                }, false);
     }
 }

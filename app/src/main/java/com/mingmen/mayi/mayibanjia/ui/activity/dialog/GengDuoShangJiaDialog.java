@@ -96,8 +96,7 @@ public class GengDuoShangJiaDialog extends BaseFragmentDialog {
     }
     @Override
     protected void initConfiguration(Configuration configuration){
-        configuration.fullWidth()
-                .setGravity(Gravity.BOTTOM);
+        configuration.setGravity(Gravity.CENTER);
     }
 
     public interface CallBack{

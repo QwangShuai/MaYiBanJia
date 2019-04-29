@@ -213,6 +213,7 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
                                                     public void onNext(String data) {
                                                         holder.tvNumber.setText(msg);
                                                         mList.get(position).setNumber(Integer.parseInt(msg));
+                                                        notifyDataSetChanged();
                                                         if(isTeshu){
 
                                                         } else {
@@ -249,6 +250,7 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
                                             shuliang[0]++;
                                             holder.tvNumber.setText(shuliang[0] + "");
                                             mList.get(position).setNumber(shuliang[0]);
+                                            notifyDataSetChanged();
                                             if(isTeshu){
 
                                             } else {

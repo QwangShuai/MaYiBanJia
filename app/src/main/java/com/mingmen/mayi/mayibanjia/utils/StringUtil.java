@@ -205,14 +205,10 @@ public class StringUtil {
      *            - 待检查字符串
      * @return - 若输入字符串中包含符合正则表达式定义的匹配条件的子串，则返回true，否则返回false
      */
-    // //正则表达式匹配判断
-    // public static synchronized boolean exist(String regularExpression, String
-    // input)
-    // {
-    // Pattern pattern = PatternFactory.getPattern(regularExpression);
-    // Matcher matcher = pattern.matcher(input);
-    // return matcher.find();
-    // }
+     //正则表达式匹配判断
+     public static boolean exist(String input){
+         return input.matches("[\\u4e00-\\u9fa5]{2,4}");
+     }
 
     /**
      * 用"0"补足一个字符串到指定长度

@@ -169,7 +169,7 @@ public class ZhuCeCanTingActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getShangjiaList(PreferenceUtils.getString(MyApplication.mContext, "token",""),"2",province,city,region,street,"1",parent_number,name,ye+""))
+                                .getShangjiaList(PreferenceUtils.getString(MyApplication.mContext, "token",""),"4",province,city,region,street,"1",parent_number,name,ye+""))
                 .setDataListener(new HttpDataListener<List<QiYeLieBiaoBean>>() {
                     @Override
                     public void onNext(final List<QiYeLieBiaoBean> data) {

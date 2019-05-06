@@ -167,7 +167,12 @@ public interface HttpService {
 
     //游客登录
     @POST("allCompanyAccount/queryvisitor.do")
-    Observable<ResultModel<ZhuCeChengGongBean>> youkeLogin();
+    Observable<ResultModel<ZhuCeChengGongBean>> youkeLogin(@Query("province") String province,
+                                                           @Query("city") String city,
+                                                           @Query("region") String region,
+                                                           @Query("role_name") String role_name,
+                                                           @Query("telephone") String telephone,
+                                                           @Query("name") String name);
 
     //市场搜索
     @POST("sy/queryMarket.do")

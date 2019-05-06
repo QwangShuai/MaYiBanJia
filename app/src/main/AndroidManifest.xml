@@ -523,7 +523,8 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".utils.dayinji.BluetoothDeviceList"></activity>
+        <activity android:name=".utils.dayinji.BluetoothDeviceList" />
+        <activity android:name=".ui.activity.YoukeLoginActivity"></activity>
     </application>
 
 </manifest>

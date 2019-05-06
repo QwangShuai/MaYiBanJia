@@ -170,7 +170,7 @@ public class ShangJiaActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getShangjiaList(PreferenceUtils.getString(MyApplication.mContext, "token",""),"2",province,city,region,street,"2",parent_number,name,ye+""))
+                                .getShangjiaList(PreferenceUtils.getString(MyApplication.mContext, "token",""),"7",province,city,region,street,"2",parent_number,name,ye+""))
                 .setDataListener(new HttpDataListener<List<QiYeLieBiaoBean>>() {
                     @Override
                     public void onNext(final List<QiYeLieBiaoBean> data) {

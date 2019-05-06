@@ -1,4 +1,4 @@
-package com.mingmen.mayi.mayibanjia.utils.sQLite;
+package com.mingmen.mayi.mayibanjia.utils.sqlite;
 
 /**
  * Created by 刘佳 on 2017/11/20.

@@ -55,6 +55,7 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
     private ConfirmDialog confirmDialog;
     public CallBack callBack;
     private Context mContext;
+
     private boolean isClick = true;
     private boolean itemIsClick[];
     List listBeanLevel = new ArrayList();
@@ -197,7 +198,7 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
 //                                                            }
 //                                                        }
                                                     }
-                                                }, false);
+                                                }, true);
                                     }
                                 });
                                 confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {

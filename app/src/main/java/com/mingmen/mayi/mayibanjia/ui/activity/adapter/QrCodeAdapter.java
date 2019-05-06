@@ -7,9 +7,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -20,26 +18,27 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
+import com.gprinter.command.CpclCommand;
+import com.gprinter.command.EscCommand;
+import com.gprinter.command.LabelCommand;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.DaYinQrCodeBean;
-import com.mingmen.mayi.mayibanjia.bean.QrCodeBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.DaYinQrCodeActivity;
-import com.mingmen.mayi.mayibanjia.ui.activity.ghdingdan.GHOrderAdapter;
-import com.mingmen.mayi.mayibanjia.utils.LogUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 import com.mingmen.mayi.mayibanjia.utils.custom.MarqueeTextView;
-import com.mingmen.mayi.mayibanjia.utils.dayinji.DeviceListActivity;
+import com.mingmen.mayi.mayibanjia.utils.dayinji.BluetoothDeviceList;
+import com.mingmen.mayi.mayibanjia.utils.dayinji.DeviceConnFactoryManager;
+import com.mingmen.mayi.mayibanjia.utils.dayinji.PrinterCommand;
+import com.mingmen.mayi.mayibanjia.utils.dayinji.ThreadPool;
 
 import java.util.List;
 
-import HPRTAndroidSDKA300.HPRTPrinterHelper;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -111,20 +110,11 @@ public class QrCodeAdapter extends RecyclerView.Adapter<QrCodeAdapter.ViewHolder
                 if (bluetoothAdapter == null) {
                     ToastUtil.showToastLong("该设备暂不支持蓝牙功能");
                 } else if (bluetoothAdapter.isEnabled()) {
-                    if (HPRTPrinterHelper.IsOpened()) {
-                        try {
-                            ToastUtil.showToastLong("打印中，请耐心等候");
-                            Bitmap bitmap = convertViewToBitmap(holder.rl_dayin, holder.rl_dayin.getWidth(), holder.rl_dayin.getHeight());
-                            HPRTPrinterHelper.printAreaSize("0", "200", "200", "240", "1");
-                            HPRTPrinterHelper.Expanded("0", "0", bitmap, 0);
-                            HPRTPrinterHelper.Form();
-                            HPRTPrinterHelper.Print();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
+//                    Bitmap bitmap = convertViewToBitmap(holder.rl_dayin, holder.rl_dayin.getWidth(), holder.rl_dayin.getHeight());
+                    if (true) {
+                        activity.dayinQrCode(holder.rl_dayin);
                     } else {
-                        Intent it = new Intent(mContext, DeviceListActivity.class);
+                        Intent it = new Intent(mContext, BluetoothDeviceList.class);
 //                    it.putExtra("iv",bean.getTwocode());
                         mContext.startActivity(it);
                     }

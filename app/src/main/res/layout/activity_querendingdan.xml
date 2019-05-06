@@ -156,10 +156,9 @@
           <LinearLayout
               android:id="@+id/ll_songdashijian"
               android:layout_width="match_parent"
-              android:layout_height="51dp"
+              android:layout_height="41dp"
               android:orientation="horizontal"
               android:layout_marginTop="10dp"
-              android:layout_marginBottom="10dp"
               android:gravity="center_vertical"
               android:paddingLeft="12dp"
               android:paddingRight="12dp">
@@ -188,6 +187,16 @@
                   android:layout_marginLeft="12dp"
                   />
           </LinearLayout>
+          <TextView
+              android:id="@+id/tv_guize"
+              android:layout_marginBottom="12dp"
+              android:paddingRight="12dp"
+              android:textSize="12sp"
+              android:textColor="@color/blue_3794e5"
+              android:text="物流费计价规则"
+              android:gravity="right|center_vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
           <TextView
               android:visibility="gone"
               android:id="@+id/tv_hdmc"

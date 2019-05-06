@@ -45,7 +45,9 @@ import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.FenLeiMohuAdapter;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.GuigeDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.PhotoDialog;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ShichangRightDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
@@ -56,6 +58,9 @@ import com.mingmen.mayi.mayibanjia.utils.photo.QiNiuPhoto;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -161,7 +166,7 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
         qiNiuPhoto = new QiNiuPhoto(XinXiLuRuGHDActivity.this);
         bundle = getIntent().getExtras();
         rukou = bundle.getString("rukou");
-
+        EventBus.getDefault().register(this);
         if ("add".equals(rukou)) {
 //            tvQiehuan.setText("否");
             random_id = getIntent().getStringExtra("random_id");
@@ -201,6 +206,7 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
         photoDialog.getWindow().setGravity(Gravity.BOTTOM | Gravity.LEFT | Gravity.RIGHT);
         showPopupWindow();
         initJsonData();
+        getMorenFenLei();
         getShouyeFenLei("-1", "1");
     }
 
@@ -219,8 +225,12 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.tv_xuanzeshichang:
+
+                ShichangRightDialog dialog = new ShichangRightDialog().setData(mContext).show(getSupportFragmentManager());
+                dialog.setQuid(quid+"");
+                dialog.setDqId(shichang_id);
 //                if(quid!=0){
-                getshichang();
+//                getshichang();
 //                } else {
 //                    ToastUtil.showToastLong("请先选择区域");
 //                }
@@ -685,5 +695,35 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
                         }
                     }
                 }, false);
+    }
+
+    private void getMorenFenLei() {
+        datas.clear();
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .getMorenFenlei(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
+                .setDataListener(new HttpDataListener<FCGName>() {
+
+                    @Override
+                    public void onNext(FCGName bean) {
+                        tvFenleixuanze.setText(bean.getOne_classify_name());
+                        oneId = bean.getOne_classify_id();
+                    }
+                }, false);
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getMarket(ShiChangBean item) {
+        shichang_id =item.getMark_id();
+        shichangming = item.getMarket_name();
+        tvXuanzeshichang.setText(item.getMarket_name());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

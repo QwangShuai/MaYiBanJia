@@ -46,6 +46,7 @@ public class QiYeLieBiaoBean {
      */
 
     private String type;
+    private String typeA;
     private String region;
     private String user_token;
     private String company_id;
@@ -91,6 +92,14 @@ public class QiYeLieBiaoBean {
     private String one_classify_id;
     private String one_classify_name;
     private String only_num;
+
+    public String getTypeA() {
+        return typeA;
+    }
+
+    public void setTypeA(String typeA) {
+        this.typeA = typeA;
+    }
 
     public String getOnly_num() {
         return only_num;

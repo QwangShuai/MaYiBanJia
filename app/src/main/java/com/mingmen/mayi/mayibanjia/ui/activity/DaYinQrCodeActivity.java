@@ -1,13 +1,20 @@
 package com.mingmen.mayi.mayibanjia.ui.activity;
 
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.hardware.usb.UsbDevice;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
@@ -16,6 +23,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.gprinter.command.CpclCommand;
+import com.gprinter.command.EscCommand;
+import com.gprinter.command.LabelCommand;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.DaYinQrCodeBean;
@@ -27,12 +37,20 @@ import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
+import com.mingmen.mayi.mayibanjia.utils.dayinji.BluetoothDeviceList;
+import com.mingmen.mayi.mayibanjia.utils.dayinji.Constant;
+import com.mingmen.mayi.mayibanjia.utils.dayinji.DeviceConnFactoryManager;
+import com.mingmen.mayi.mayibanjia.utils.dayinji.PrinterCommand;
+import com.mingmen.mayi.mayibanjia.utils.dayinji.ThreadPool;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static android.hardware.usb.UsbManager.ACTION_USB_DEVICE_ATTACHED;
+import static android.hardware.usb.UsbManager.ACTION_USB_DEVICE_DETACHED;
 
 public class DaYinQrCodeActivity extends BaseActivity {
     @BindView(R.id.iv_back)
@@ -62,6 +80,20 @@ public class DaYinQrCodeActivity extends BaseActivity {
     private QrCodeAdapter adapter;
     private int count = 0;
     private ConfirmDialog confirmDialog;
+
+    //打印机
+    private ThreadPool threadPool;
+    private static final int	CONN_PRINTER		= 0x12;
+    private static final int	REQUEST_CODE = 0x004;
+    /**
+     * 连接状态断开
+     */
+    private static final int CONN_STATE_DISCONN = 0x007;
+    /**
+     * 使用打印机指令错误
+     */
+    private static final int PRINTER_COMMAND_ERROR = 0x008;
+    private int dyid;
 
     @Override
     public int getLayoutId() {
@@ -188,9 +220,64 @@ public class DaYinQrCodeActivity extends BaseActivity {
     }
 
     public void dayinQrCode(View v) {
-        Bitmap bitmap = decodeResource(getResources(), R.mipmap.qr_code);
-//        Bitmap bitmap = convertViewToBitmap(v, 400, 240);
+        final Bitmap bitmap = convertViewToBitmap(v,v.getWidth(),v.getHeight());
+        threadPool = ThreadPool.getInstantiation();
+        threadPool.addTask( new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                if ( DeviceConnFactoryManager.getDeviceConnFactoryManagers()[dyid] == null ||
+                        !DeviceConnFactoryManager.getDeviceConnFactoryManagers()[dyid].getConnState() )
+                {
+                    mHandler.obtainMessage( CONN_PRINTER ).sendToTarget();
+                    return;
+                }
+
+                if ( DeviceConnFactoryManager.getDeviceConnFactoryManagers()[dyid].getCurrentPrinterCommand() == PrinterCommand.CPCL )
+                {
+                    Log.e("run: ","CPCL" );
+                    CpclCommand cpcl = new CpclCommand();
+                    cpcl.addInitializePrinter( 1500, 1 );
+                    cpcl.addCGraphics( 0, 0, (80 - 10) * 8, bitmap );
+                    cpcl.addPrint();
+                    DeviceConnFactoryManager.getDeviceConnFactoryManagers()[dyid].sendDataImmediately( cpcl.getCommand() );
+                } else if ( DeviceConnFactoryManager.getDeviceConnFactoryManagers()[dyid].getCurrentPrinterCommand() == PrinterCommand.TSC )
+                {
+                    Log.e("run: ","TSC" );
+                    LabelCommand labelCommand = new LabelCommand();
+//                    labelCommand.addDensity();  //设置打印浓度
+                    labelCommand.addSize( 80, 180 );
+                    labelCommand.addCls();
+                    labelCommand.addBitmap( 0, 0, (80 - 10) * 8, bitmap );
+                    labelCommand.addPrint( 1 );
+                    DeviceConnFactoryManager.getDeviceConnFactoryManagers()[dyid].sendDataImmediately( labelCommand.getCommand() );
+                }else if ( DeviceConnFactoryManager.getDeviceConnFactoryManagers()[dyid].getCurrentPrinterCommand() == PrinterCommand.ESC )
+                {
+                    Log.e("run: ","ESC" );
+                    EscCommand esc = new EscCommand();
+                    esc.addInitializePrinter();
+                    esc.addInitializePrinter();
+                    esc.addRastBitImage( bitmap, (80 - 10) * 8, 0 );
+                    esc.addPrintAndLineFeed();
+                    esc.addPrintAndLineFeed();
+                    esc.addPrintAndLineFeed();
+                    DeviceConnFactoryManager.getDeviceConnFactoryManagers()[dyid].sendDataImmediately( esc.getCommand() );
+                }
+            }
+        } );
     }
+
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        IntentFilter filter = new IntentFilter( ACTION_USB_PERMISSION );
+//        filter.addAction( ACTION_USB_DEVICE_DETACHED );
+//        filter.addAction( ACTION_QUERY_PRINTER_STATE );
+//        filter.addAction( DeviceConnFactoryManager.ACTION_CONN_STATE );
+//        filter.addAction( ACTION_USB_DEVICE_ATTACHED );
+//        registerReceiver( receiver, filter );
+//    }
 
     private Bitmap decodeResource(Resources resources, int id) {
         TypedValue value = new TypedValue();
@@ -206,7 +293,12 @@ public class DaYinQrCodeActivity extends BaseActivity {
 
         return bitmap;
     }
-
+//public static Bitmap convertViewToBitmap(View view, int bitmapWidth, int bitmapHeight) {
+//    Bitmap bitmap = Bitmap.createBitmap(bitmapWidth, bitmapHeight, Bitmap.Config.ARGB_8888);
+//    view.draw(new Canvas(bitmap));
+//    Bitmap bm = Bitmap.createScaledBitmap(bitmap, 383, 200, true);
+//    return bm;
+//}
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -219,5 +311,126 @@ public class DaYinQrCodeActivity extends BaseActivity {
         super.onDestroy();
         //关闭打印机
 
+    }
+    private Handler mHandler = new Handler()
+    {
+        @Override
+        public void handleMessage( Message msg )
+        {
+            switch ( msg.what )
+            {
+                case CONN_STATE_DISCONN:
+                    if ( DeviceConnFactoryManager.getDeviceConnFactoryManagers()[dyid] != null || !DeviceConnFactoryManager.getDeviceConnFactoryManagers()[dyid].getConnState() )
+                    {
+                        DeviceConnFactoryManager.getDeviceConnFactoryManagers()[dyid].closePort( dyid );
+                        ToastUtil.showToastLong(R.string.str_disconnect_success+"");
+                    }
+                    break;
+                case PRINTER_COMMAND_ERROR:
+                    ToastUtil.showToastLong(R.string.str_choice_printer_command+"");
+                    break;
+                case CONN_PRINTER:
+                    ToastUtil.showToastLong(R.string.str_cann_printer+"");
+//                    Intent it = new Intent(mContext, BluetoothDeviceList.class);
+//                    it.putExtra("iv",bean.getTwocode());
+//                    mContext.startActivity(it);
+                    startActivityForResult( new Intent( mContext, BluetoothDeviceList.class ), Constant.BLUETOOTH_REQUEST_CODE );
+                    break;
+//                case MESSAGE_UPDATE_PARAMETER:
+//                    String strIp = msg.getData().getString( "Ip" );
+//                    String strPort = msg.getData().getString( "Port" );
+//                    /* 初始化端口信息 */
+//                    new DeviceConnFactoryManager.Build()
+//                            /* 设置端口连接方式 */
+//                            .setConnMethod( DeviceConnFactoryManager.CONN_METHOD.WIFI )
+//                            /* 设置端口IP地址 */
+//                            .setIp( strIp )
+//                            /* 设置端口ID（主要用于连接多设备） */
+//                            .setId( dyid )
+//                            /* 设置连接的热点端口号 */
+//                            .setPort( Integer.parseInt( strPort ) )
+//                            .build();
+//                    threadPool = ThreadPool.getInstantiation();
+//                    threadPool.addTask( new Runnable()
+//                    {
+//                        @Override
+//                        public void run()
+//                        {
+//                            DeviceConnFactoryManager.getDeviceConnFactoryManagers()[dyid].openPort();
+//                        }
+//                    } );
+//                    break;
+                default:
+                    new DeviceConnFactoryManager.Build()
+                            /* 设置端口连接方式 */
+                            .setConnMethod( DeviceConnFactoryManager.CONN_METHOD.WIFI )
+                            /* 设置端口IP地址 */
+                            .setIp( "192.168.2.227" )
+                            /* 设置端口ID（主要用于连接多设备） */
+                            .setId( dyid )
+                            /* 设置连接的热点端口号 */
+                            .setPort( 9100 )
+                            .build();
+                    threadPool.addTask( new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            DeviceConnFactoryManager.getDeviceConnFactoryManagers()[dyid].openPort();
+                        }
+                    } );
+                    break;
+            }
+        }
+    };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if ( resultCode == RESULT_OK ) {
+            Log.e("onActivityResult: ","requestCode:"+requestCode );
+            switch (requestCode) {
+                /*蓝牙连接*/
+                case Constant.BLUETOOTH_REQUEST_CODE: {
+                    closeport();
+                    /*获取蓝牙mac地址*/
+                    String macAddress = data.getStringExtra(BluetoothDeviceList.EXTRA_DEVICE_ADDRESS);
+                    /* 初始化话DeviceConnFactoryManager */
+                    new DeviceConnFactoryManager.Build()
+                            .setId(dyid)
+                            /* 设置连接方式 */
+                            .setConnMethod(DeviceConnFactoryManager.CONN_METHOD.BLUETOOTH)
+                            /* 设置连接的蓝牙mac地址 */
+                            .setMacAddress(macAddress)
+                            .build();
+                    /* 打开端口 */
+                    Log.d("1111", "onActivityResult: 连接蓝牙" + dyid);
+                    threadPool = ThreadPool.getInstantiation();
+                    threadPool.addTask(new Runnable() {
+                        @Override
+                        public void run() {
+                            DeviceConnFactoryManager.getDeviceConnFactoryManagers()[dyid].openPort();
+                        }
+                    });
+
+                    break;
+                }
+                default:
+                    break;
+            }
+        }
+    }
+
+    /**
+     * 重新连接回收上次连接的对象，避免内存泄漏
+     */
+    private void closeport()
+    {
+        if ( DeviceConnFactoryManager.getDeviceConnFactoryManagers()[dyid] != null &&DeviceConnFactoryManager.getDeviceConnFactoryManagers()[dyid].mPort != null )
+        {
+//            DeviceConnFactoryManager.getDeviceConnFactoryManagers()[dyid].reader.cancel();
+            DeviceConnFactoryManager.getDeviceConnFactoryManagers()[dyid].mPort.closePort();
+            DeviceConnFactoryManager.getDeviceConnFactoryManagers()[dyid].mPort = null;
+        }
     }
 }

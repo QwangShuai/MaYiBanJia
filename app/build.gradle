@@ -61,7 +61,7 @@ dependencies {
     compile files('libs/AndroidPrinterSDK3.1.jar')
     //    compile 'liji.library.dev:citypickerview:0.7.0'
     compile files('libs/umeng-common-1.5.3.jar')
-    compile files('libs/CPCLA300_V1.01.19.01PRO.jar')
+    compile files('libs/gprintersdkv1.jar')
     compile 'com.android.support:appcompat-v7:27.0.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:recyclerview-v7:27.0.1'

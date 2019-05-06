@@ -62,6 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
                 <EditText
+                    android:singleLine="true"
                     android:gravity="right"
                     android:background="@null"
                     android:id="@+id/et_juese"
@@ -218,6 +219,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <LinearLayout
+                    android:visibility="gone"
                     android:gravity="center_vertical"
                     android:layout_marginRight="12dp"
                     android:layout_centerVertical="true"

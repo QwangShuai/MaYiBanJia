@@ -12,7 +12,7 @@
         android:drawableStart="@mipmap/bluetooth"
         android:gravity="start|center"
         android:padding="16dp"
-        android:text="@string/default_printer_name"
+        android:text=""
         android:textColor="@color/black"
         android:textSize="16sp" />
 

@@ -242,19 +242,33 @@ public class CaiGouDanActivity extends BaseActivity {
                 final int adapterPosition = menuBridge.getAdapterPosition(); // RecyclerView的Item的position。
                 final CaiGouDanBean item = (CaiGouDanBean) adapter.getItem(adapterPosition);
                 if(item.getOrder_audit_state().equals("903")||item.getOrder_audit_state().equals("904")){
-                    HttpManager.getInstance()
-                            .with(mContext)
-                            .setObservable(
-                                    RetrofitManager
-                                            .getService()
-                                            .delxuqiudan(PreferenceUtils.getString(MyApplication.mContext, "token", ""), item.getPurchase_id()))
-                            .setDataListener(new HttpDataListener<String>() {
-                                @Override
-                                public void onNext(String data) {
-                                    adapter.remove(adapterPosition);
-                                    int menuPosition = menuBridge.getPosition(); // 菜单在RecyclerView的Item中的Position。
-                                }
-                            });
+                    confirmDialog.showDialog("是否删除此采购单");
+                    confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            confirmDialog.dismiss();
+                            HttpManager.getInstance()
+                                    .with(mContext)
+                                    .setObservable(
+                                            RetrofitManager
+                                                    .getService()
+                                                    .delxuqiudan(PreferenceUtils.getString(MyApplication.mContext, "token", ""), item.getPurchase_id()))
+                                    .setDataListener(new HttpDataListener<String>() {
+                                        @Override
+                                        public void onNext(String data) {
+                                            adapter.remove(adapterPosition);
+                                            int menuPosition = menuBridge.getPosition(); // 菜单在RecyclerView的Item中的Position。
+                                        }
+                                    });
+                        }
+                    });
+                    confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            confirmDialog.dismiss();
+                        }
+                    });
+
                 } else {
                     ToastUtil.showToastLong("此状态不可删除");
                 }
@@ -478,7 +492,12 @@ public class CaiGouDanActivity extends BaseActivity {
         rl.setVisibility(View.GONE);
         if(isState.equals("902")){
             tvTitle.setText("待审核");
-            rl.setVisibility(View.VISIBLE);
+            if(PreferenceUtils.getString(MyApplication.mContext,"isShenPi","").equals("5")){
+                rl.setVisibility(View.GONE);
+            } else {
+                rl.setVisibility(View.VISIBLE);
+            }
+
         } else if(isState.equals("901")){
             tvTitle.setText("审核通过");
         } else if(isState.equals("903")){

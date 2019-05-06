@@ -29,6 +29,17 @@
             />
         <TextView
             android:layout_marginLeft="13dp"
+            android:id="@+id/tv_sqsc"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:gravity="left|center_vertical"
+            android:text="全部社区市场"
+            android:textSize="15sp"
+            android:textColor="@color/zangqing"
+            android:background="@color/white"
+            />
+        <TextView
+            android:layout_marginLeft="13dp"
             android:id="@+id/tv_xuanxiang3"
             android:layout_width="match_parent"
             android:layout_height="35dp"
@@ -45,6 +56,17 @@
             android:layout_height="35dp"
             android:gravity="left|center_vertical"
             android:text="我的供货商"
+            android:textSize="15sp"
+            android:textColor="@color/zangqing"
+            android:background="@color/white"
+            />
+        <TextView
+            android:layout_marginLeft="13dp"
+            android:id="@+id/tv_my_sqsc"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:gravity="left|center_vertical"
+            android:text="我的社区市场"
             android:textSize="15sp"
             android:textColor="@color/zangqing"
             android:background="@color/white"

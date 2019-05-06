@@ -71,7 +71,7 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
     private SparseArray<CountDownTimer> countDownMap;
 
     private boolean isClick = true;
-    private String message = "审核通过，不可更改";
+    private String message = "此审核状态不可更改";
 
     public String getMessage() {
         return message;

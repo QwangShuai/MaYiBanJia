@@ -2,7 +2,9 @@ package com.mingmen.mayi.mayibanjia.ui.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mingmen.mayi.mayibanjia.R;
@@ -40,6 +42,12 @@ public class JiaoYiXiangQingActivity extends BaseActivity {
     TextView tvOrderNumber;
     @BindView(R.id.tv_reasons)
     TextView tvSeasons;
+    @BindView(R.id.tv_fangshi)
+    TextView tvFangshi;
+    @BindView(R.id.ll_fkdp)
+    LinearLayout llFkdp;
+    @BindView(R.id.ll_skdp)
+    LinearLayout llSkdp;
     private Context mContext;
     private String id;
     @Override
@@ -74,6 +82,7 @@ public class JiaoYiXiangQingActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<JYMXItemBean>() {
                     @Override
                     public void onNext(JYMXItemBean bean) {
+                        tvSeasons.setText(bean.getReturn_remarke());
                         switch (bean.getState()){
                             case "0":
                                 tvState.setText("收款");
@@ -89,6 +98,8 @@ public class JiaoYiXiangQingActivity extends BaseActivity {
                                 tvState.setText("提现");
                                 tvJine.setTextColor(mContext.getResources().getColor(R.color.red_ff3300));
                                 tvJine.setText("-"+bean.getPay_money());
+                                llFkdp.setVisibility(View.GONE);
+                                llSkdp.setVisibility(View.GONE);
                                 break;
                             case "3":
                                 tvState.setText("退款");
@@ -99,11 +110,23 @@ public class JiaoYiXiangQingActivity extends BaseActivity {
                                 tvState.setText("提现成功");
                                 tvJine.setTextColor(mContext.getResources().getColor(R.color.zicolor));
                                 tvJine.setText("+"+bean.getPay_money());
+                                llFkdp.setVisibility(View.GONE);
+                                llSkdp.setVisibility(View.GONE);
                                 break;
                             case "5":
                                 tvState.setText("提现失败");
                                 tvJine.setTextColor(mContext.getResources().getColor(R.color.red_ff3300));
                                 tvJine.setText(bean.getPay_money());
+                                llFkdp.setVisibility(View.GONE);
+                                llSkdp.setVisibility(View.GONE);
+                                tvSeasons.setText(bean.getReasons());
+                                break;
+                            case "6":
+                                tvState.setText("系统扣款");
+                                tvJine.setTextColor(mContext.getResources().getColor(R.color.red_ff3300));
+                                tvJine.setText("-"+bean.getPay_money());
+                                llFkdp.setVisibility(View.GONE);
+                                llSkdp.setVisibility(View.GONE);
                                 break;
                         }
                         tvFukuandianpu.setText(bean.getCt_company_name());
@@ -111,7 +134,7 @@ public class JiaoYiXiangQingActivity extends BaseActivity {
                         tvTime.setText(bean.getCreate_time());
                         tvNumber.setText(bean.getPay_number());
                         tvOrderNumber.setText(bean.getOrder_id());
-                        tvSeasons.setText(bean.getReasons());
+                        tvFangshi.setText(bean.getThird_party_payment());
                     }
                 });
     }

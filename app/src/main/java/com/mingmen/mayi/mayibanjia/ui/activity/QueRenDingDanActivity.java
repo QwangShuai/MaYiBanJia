@@ -100,6 +100,8 @@ public class QueRenDingDanActivity extends BaseActivity {
     TextView tvZhushida;
     @BindView(R.id.tv_hint)
     TextView tvHint;
+    @BindView(R.id.tv_guize)
+    TextView tvGuize;
     //    @BindView(R.id.tv_yue)
 //    TextView tvYue;
 //    @BindView(R.id.iv_xuanzeyue)
@@ -449,11 +451,14 @@ public class QueRenDingDanActivity extends BaseActivity {
     }
 
     @OnClick({R.id.iv_back, R.id.ll_songdashijian, R.id.ll_xuanzedizhi,
-            R.id.tv_tijiaodingdan,R.id.tv_biaozhunda,R.id.tv_zhunshida})
+            R.id.tv_tijiaodingdan,R.id.tv_biaozhunda,R.id.tv_zhunshida,R.id.tv_guize})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
                 finish();
+                break;
+            case R.id.tv_guize:
+                ToastUtil.showToastLong("规则还在制定中");
                 break;
             case R.id.tv_biaozhunda:
                 shichangList.clear();
@@ -681,7 +686,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                             tvZhongliang.setText(+MyMath.getDouble(zongzhong)+"斤)");
                             tvYunfei.setText(yunfei+"");
                         }
-                    },false);
+                    },true);
         }
     }
     public void getZhunshidaYunFei() {

@@ -148,13 +148,18 @@ public class QiYeLieBiaoAdapter extends RecyclerView.Adapter<QiYeLieBiaoAdapter.
 
 
         if (mOnItemClickListener != null) {
+            if(StringUtil.isValid(data.getTypeA())){
+                holder.llBianji.setVisibility(View.GONE);
+            } else {
+                holder.llBianji.setVisibility(View.VISIBLE);
+                holder.llBianji.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mOnItemClickListener.onClick(v, position);
+                    }
+                });
+            }
 
-            holder.llBianji.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mOnItemClickListener.onClick(v, position);
-                }
-            });
             holder.tvDingdanGyd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

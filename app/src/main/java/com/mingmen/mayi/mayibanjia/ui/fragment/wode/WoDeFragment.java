@@ -600,9 +600,12 @@ public class WoDeFragment extends BaseFragment {
             rlYiwancheng.setEnabled(false);
         }
         if (roleCgType.equals("25") || roleCgType.equals("52")) {//全部权限
-
+            rlShouhuodizhi.setEnabled(true);
+            ivWqxShdi.setVisibility(View.VISIBLE);
         } else if (roleCgType.equals("5")) {//无审批权限
             PreferenceUtils.putString(MyApplication.mContext,"isShenPi",roleCgType);
+            rlShouhuodizhi.setEnabled(true);
+            ivWqxShdi.setVisibility(View.VISIBLE);
         } else if (roleCgType.equals("2")) {//全部权限
 
         }

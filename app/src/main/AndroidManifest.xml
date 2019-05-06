@@ -457,10 +457,7 @@
             android:name=".ui.activity.XJSPFeiLeiXuanZeActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" /> <!-- 新建商品分类选择 -->
-        <activity
-            android:name=".utils.dayinji.DeviceListActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" /> <!-- 蓝牙设备列表 -->
+        <!-- 蓝牙设备列表 -->
         <activity
             android:name=".ui.activity.XuanZeGuiGeActivity"
             android:screenOrientation="portrait"
@@ -518,12 +515,15 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" /> <!-- 设置支付密码 -->
         <activity android:name=".ui.activity.SpsbChangeActivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
+        <activity android:name=".utils.dayinji.BluetoothDeviceList"></activity>
     </application>
 
 </manifest>

@@ -150,6 +150,8 @@ public class ShenPiActivity extends BaseActivity {
             if (PreferenceUtils.getString(MyApplication.mContext, "isShenPi", "").equals("5")) {
                 Log.e("My", PreferenceUtils.getString(MyApplication.mContext, "isShenPi", ""));
                 ll.setVisibility(View.GONE);
+                tvRight.setVisibility(View.GONE);
+                isClick = false;
             }
         }
         getShenpi();
@@ -179,6 +181,7 @@ public class ShenPiActivity extends BaseActivity {
         rvShenpi.setFocusableInTouchMode(true);
 //        rvShenpi.setNestedScrollingEnabled(false);
         rvShenpi.setAdapter(adapter);
+        adapter.setClick(isClick);
         adapter.notifyDataSetChanged();
     }
 

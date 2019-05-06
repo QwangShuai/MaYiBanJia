@@ -353,8 +353,7 @@ public interface HttpService {
     Observable<ResultModel<List<QiYeLieBiaoBean>>> getqiyeliebiao(@Query("user_token") String user_token,
                                                                   @Query("typeA") String typeA,
                                                                   @Query("type") String type,
-                                                                  @Query("pageNumber") String pageNumber,
-                                                                  @Query("role") String role);
+                                                                  @Query("pageNumber") String pageNumber);
 
     //商家模糊查询
     @POST("allCompany/queryAll.do")
@@ -540,7 +539,7 @@ public interface HttpService {
                                                   @Query("freight_fee_type") String freight_fee_type,//0标准达1实时达
                                                   @Query("app_money") String app_money);//超时费
 
-    //提交订单
+    //采购单提交订单
     @POST("Ordermain/saveUserOrder.do")
     Observable<ResultModel<String>> caigoutijiaodingdan(@Query("user_token") String user_token,//
                                                         @Query("total_price") String total_price,//支付金额
@@ -1404,4 +1403,8 @@ public interface HttpService {
     // 查询是否设置支付密码
     @POST("allCompanyAccount/payPassWordISTrue.do")
     Observable<ResultModel<String>> selectPayPwd(@Query("user_token") String user_token);
+
+    // 获取默认原材料采购
+    @POST("ctObserver/morenType.do")
+    Observable<ResultModel<FCGName>> getMorenFenlei(@Query("user_token") String user_token);
 }

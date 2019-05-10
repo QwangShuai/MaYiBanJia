@@ -158,7 +158,6 @@ public class LiuLanJiLuActivity extends BaseActivity {
                                 Log.e("jiarugouwuche", jiarugouwuchedialog.getEtShuliang().getText().toString().trim());
                                 jiarugouwuchedialog.getEtShuliang().setText("0");
                                 jiarugouwuchedialog.cancel();
-                                updateGwc();
                             }
                         });
                         break;
@@ -248,7 +247,7 @@ public class LiuLanJiLuActivity extends BaseActivity {
                         }
                         adapter.notifyDataSetChanged();
                         ToastUtil.showToast("添加购物车成功");
-
+                        updateGwc();
                     }
                 });
     }

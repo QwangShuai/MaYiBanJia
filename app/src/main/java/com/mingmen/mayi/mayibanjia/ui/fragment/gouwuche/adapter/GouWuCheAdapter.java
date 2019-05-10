@@ -298,9 +298,6 @@ public class GouWuCheAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                                     }
                                 jiarugouwuchedialog.getEtShuliang().setText("0");
                                 jiarugouwuchedialog.cancel();
-                                if(MainActivity.instance!=null){
-                                    MainActivity.instance.getGwcNo();
-                                }
                             }
                         });
                         break;
@@ -327,7 +324,9 @@ public class GouWuCheAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         } else {
                             gouWuCheFragment.setShuaxin();
                         }
-
+                        if(MainActivity.instance!=null){
+                            MainActivity.instance.getGwcNo();
+                        }
                     }
                 });
     }

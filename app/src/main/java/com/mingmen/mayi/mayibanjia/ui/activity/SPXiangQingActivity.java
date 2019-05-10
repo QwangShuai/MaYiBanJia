@@ -695,9 +695,6 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
                         Log.e("jiarugouwuche", jiarugouwuchedialog.getEtShuliang().getText().toString().trim());
                         jiarugouwuchedialog.getEtShuliang().setText("0");
                         jiarugouwuchedialog.cancel();
-                        if(MainActivity.instance!=null){
-                            MainActivity.instance.getGwcNo();
-                        }
                     }
                 });
 
@@ -731,6 +728,9 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
                     public void onNext(String data) {
                         Log.e("2222",data);
                         ToastUtil.showToast("添加购物车成功");
+                        if(MainActivity.instance!=null){
+                            MainActivity.instance.getGwcNo();
+                        }
                     }
 
                 });

@@ -14,6 +14,7 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
@@ -330,18 +331,18 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
                 photoDialog.getIvZhaoxiang().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        openCamera();
-                        Matisse.from(GHDWanShanXinXiActivity.this)
-                                .choose(MimeType.allOf()) // 选择 mime 的类型
-                                .countable(true)
-                                .capture(true)
-                                .captureStrategy(new CaptureStrategy(true, "com.mingmen.mayi.mayibanjia.fileProvider"))
-                                .maxSelectable(1) // 图片选择的最多数量
-//                                .gridExpectedSize(getResources().getDimensionPixelSize(25))
-                                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
-                                .thumbnailScale(0.85f) // 缩略图的比例
-                                .imageEngine(new GlideEngine()) // 使用的图片加载引擎
-                                .forResult(REQUEST_CAPTURE); // 设置作为标记的请求码
+                        openCamera();
+//                        Matisse.from(GHDWanShanXinXiActivity.this)
+//                                .choose(MimeType.allOf()) // 选择 mime 的类型
+//                                .countable(true)
+//                                .capture(true)
+//                                .captureStrategy(new CaptureStrategy(true, "com.mingmen.mayi.mayibanjia.fileProvider"))
+//                                .maxSelectable(1) // 图片选择的最多数量
+////                                .gridExpectedSize(getResources().getDimensionPixelSize(25))
+//                                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+//                                .thumbnailScale(0.85f) // 缩略图的比例
+//                                .imageEngine(new GlideEngine()) // 使用的图片加载引擎
+//                                .forResult(REQUEST_CAPTURE); // 设置作为标记的请求码
                         isClickCamera = true;
                         photoDialog.cancel();
                     }
@@ -403,16 +404,19 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<ZhuCeChengGongBean>() {
                     @Override
                     public void onNext(ZhuCeChengGongBean list) {
-                        ToastUtil.showToastLong("注册成功，请重新登录");
-                        Log.e("token", list.getToken() + "===");
+                        ToastUtil.showToastLongTwo("注册成功，请重新登录");
                         PreferenceUtils.putString(MyApplication.mContext, "token", list.getToken());
                         PreferenceUtils.putString(MyApplication.mContext, "juese", list.getRole());
                         PreferenceUtils.putBoolean(MyApplication.mContext, "isLogin", false);
-                        //注册成功后  跳转
-//                        Intent intent = new Intent(mContext, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        Intent intent = new Intent(mContext, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-
+                        btTijiao.setEnabled(false);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                //注册成功后  跳转
+                                Intent intent = new Intent(mContext, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                            }
+                        },3000);
                     }
                 });
     }
@@ -582,9 +586,9 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
             imageUri = Uri.fromFile(file);
         }
         Intent intent = new Intent();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); //添加这一句表示对目标应用临时授权该Uri所代表的文件
-        }
+       intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);         intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);//设置Action为拍照
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);//将拍取的照片保存到指定URI
         startActivityForResult(intent, REQUEST_CAPTURE);
@@ -599,9 +603,10 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
         outputUri = Uri.fromFile(file);
         Log.e("我的图片地址", outputUri + "");
         Intent intent = new Intent("com.android.camera.action.CROP");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        }
+            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+//        }
         intent.setDataAndType(imageUri, "image/*");
         intent.putExtra("crop", "true");
         intent.putExtra("aspectX", 1);

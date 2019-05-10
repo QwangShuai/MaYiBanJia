@@ -13,12 +13,14 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.mingmen.mayi.mayibanjia.MainActivity;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.CaiGouDanBean;
 import com.mingmen.mayi.mayibanjia.bean.GetAllMarketBean;
 import com.mingmen.mayi.mayibanjia.bean.ShangpinidAndDianpuidBean;
 import com.mingmen.mayi.mayibanjia.bean.ShenPiQuanXuanBean;
+import com.mingmen.mayi.mayibanjia.bean.ZiZhangHuDetailsBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
@@ -28,6 +30,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ShenPiShiBaiDailog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.XuanZeZhuBiaoDailog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
+import com.mingmen.mayi.mayibanjia.utils.AppManager;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
@@ -146,15 +149,22 @@ public class ShenPiActivity extends BaseActivity {
 
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
+        getShenpi();
         if (StringUtil.isValid(PreferenceUtils.getString(MyApplication.mContext, "isShenPi", ""))) {
             if (PreferenceUtils.getString(MyApplication.mContext, "isShenPi", "").equals("5")) {
                 Log.e("My", PreferenceUtils.getString(MyApplication.mContext, "isShenPi", ""));
                 ll.setVisibility(View.GONE);
                 tvRight.setVisibility(View.GONE);
+                for (ZiZhangHuDetailsBean.RoleListBean bean:PreferenceUtils.getQuanxianList(MyApplication.mContext,"quanxian")) {
+                    if(bean.getRole_id().equals("2")){
+                        ll.setVisibility(View.VISIBLE);
+                        return;
+                    }
+
+                }
                 isClick = false;
             }
         }
-        getShenpi();
     }
 
     private void initView() {
@@ -372,7 +382,6 @@ public class ShenPiActivity extends BaseActivity {
 //                                    //如果存在特殊商品  并且已选择  更新抢单信息
 //                                    gengxinqiangdan(special_son_order_id, special_commodity_id);
 //                                }
-
                                 intent.putExtra("son_order_id", son_order_id);
                                 intent.putExtra("commodity_id", commodity_id);
                                 intent.putExtra("lujingtype", "2");
@@ -380,6 +389,9 @@ public class ShenPiActivity extends BaseActivity {
                                 intent.putExtra("company_id", company_id);
                                 intent.putExtra("zongjia", tvZongjia.getText().toString());
                                 startActivity(intent);
+                                if(StringUtil.isValid(PreferenceUtils.getString(MyApplication.mContext,"host_account_type",""))){
+                                    AppManager.getAppManager().finishAllActivity();
+                                }
                                 confirmDialog.dismiss();
                             }
                         });

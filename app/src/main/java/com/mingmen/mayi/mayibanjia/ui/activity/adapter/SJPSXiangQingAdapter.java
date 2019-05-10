@@ -38,6 +38,7 @@ public class SJPSXiangQingAdapter extends RecyclerView.Adapter<SJPSXiangQingAdap
     private PeiSongXiangQingActivity activity;
     private SJPSXiangQingTwoAdapter adapter;
     private PeiSongLableDialog dialog;
+    private boolean isTeshu;
     private boolean[] b;
     public SJPSXiangQingAdapter(Context context, List<SiJiWLXQBean> list, PeiSongXiangQingActivity activity) {
         this.mContext = context;
@@ -52,11 +53,21 @@ public class SJPSXiangQingAdapter extends RecyclerView.Adapter<SJPSXiangQingAdap
         return viewHolder;
     }
 
+    public void setTeshu(boolean isTeshu){
+        this.isTeshu = isTeshu;
+        notifyDataSetChanged();
+    }
+
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         dialog = new PeiSongLableDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         final SiJiWLXQBean data = mList.get(position);
+        if (isTeshu){
+            holder.tv_ditu.setVisibility(View.GONE);
+        } else {
+            holder.tv_ditu.setVisibility(View.VISIBLE);
+        }
         if (data.getWl_order_state().equals("待取货")) {
 
         } else {

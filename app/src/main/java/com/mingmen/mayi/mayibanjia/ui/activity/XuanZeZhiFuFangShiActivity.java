@@ -108,6 +108,7 @@ public class XuanZeZhiFuFangShiActivity extends BaseActivity {
         dingdanleixing = getIntent().getStringExtra("dingdanleixing");
         yue = getIntent().getStringExtra("yue");
         instance = this;
+
 //        yuezhifu = getIntent().getBooleanExtra("yuezhifu", false);
 //        dingdanid="cf99cbc265c84dcfa26b4dc3d444cc2c";
 //        dingdanleixing="2";
@@ -361,24 +362,34 @@ public class XuanZeZhiFuFangShiActivity extends BaseActivity {
 
                                         @Override
                                         public void onPayForget() {
-                                            startActivity(new Intent(mContext,ChangePayPwdActivity.class));
+                                            if(PreferenceUtils.getString(MyApplication.mContext,"host_account_type","0").equals("0")){
+                                                startActivity(new Intent(mContext,ChangePayPwdActivity.class));
+                                            } else {
+                                                ToastUtil.showToastLong("您是子账户，无权修改");
+                                            }
+
                                         }
                                     });
                         } else {
-                            confirmDialog.showDialog("您还没有设置支付密码，是否前去设置？");
-                            confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    confirmDialog.dismiss();
-                                    startActivity(new Intent(mContext,SetPayPwdActivity.class));
-                                }
-                            });
-                            confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    confirmDialog.dismiss();
-                                }
-                            });
+                            if(PreferenceUtils.getString(MyApplication.mContext,"host_account_type","0").equals("0")){
+                                confirmDialog.showDialog("您还没有设置支付密码，是否前去设置？");
+                                confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        confirmDialog.dismiss();
+                                        startActivity(new Intent(mContext,SetPayPwdActivity.class));
+                                    }
+                                });
+                                confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        confirmDialog.dismiss();
+                                    }
+                                });
+                            } else {
+                                ToastUtil.showToastLong("请通知主账号添加支付密码");
+                            }
+
                         }
                     }
                 });

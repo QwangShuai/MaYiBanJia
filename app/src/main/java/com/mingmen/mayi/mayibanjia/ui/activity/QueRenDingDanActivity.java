@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.mingmen.mayi.mayibanjia.MainActivity;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.AddressListBean;
@@ -24,6 +25,7 @@ import com.mingmen.mayi.mayibanjia.bean.QueRenDingDanShangPinBean;
 import com.mingmen.mayi.mayibanjia.bean.ReUserOrder;
 import com.mingmen.mayi.mayibanjia.bean.SongDaShiJianBean;
 import com.mingmen.mayi.mayibanjia.bean.YunFeiBean;
+import com.mingmen.mayi.mayibanjia.bean.ZiZhangHuDetailsBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
@@ -142,6 +144,7 @@ public class QueRenDingDanActivity extends BaseActivity {
     private String isTime;
     private String isZhunshi;
     private Integer cs_money;
+    private boolean isFukuan;
     @Override
     public int getLayoutId() {
         return R.layout.activity_querendingdan;
@@ -160,6 +163,11 @@ public class QueRenDingDanActivity extends BaseActivity {
 
         zongjia = getIntent().getStringExtra("zongjia");
         getChMoney();
+        if(PreferenceUtils.getString(MyApplication.mContext,"host_account_type","0").equals("1")){
+            Log.e("initData: ",PreferenceUtils.getString(MyApplication.mContext,"host_account_type","0") );
+            getQuanxian();
+        }
+
         if (Integer.parseInt(lujingtype) == 2) {
             son_order_id = getIntent().getStringExtra("son_order_id");
             son_order_id = son_order_id.substring(0, son_order_id.length() - 1);
@@ -220,12 +228,30 @@ public class QueRenDingDanActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
+
                         Intent intent = new Intent(mContext, XuanZeZhiFuFangShiActivity.class);
-                        intent.putExtra("dingdanid", data);
-                        intent.putExtra("dingdanleixing", "2");
-                        intent.putExtra("zongjia", hejijine+"");
-                        intent.putExtra("yue", yue);
-                        intent.putExtra("yemian", "0");
+
+                        if(PreferenceUtils.getString(MyApplication.mContext,"host_account_type","0").equals("1")){
+                            if(isFukuan){
+                                intent.putExtra("dingdanid", data);
+                                intent.putExtra("dingdanleixing", "2");
+                                intent.putExtra("zongjia", hejijine+"");
+                                intent.putExtra("yue", yue);
+                                intent.putExtra("yemian", "0");
+                            } else {
+                                ToastUtil.showToastLong("订单提交成功");
+                                intent.setClass(mContext, MainActivity.class);
+                                intent.putExtra("tosome",3);
+                            }
+
+                        } else {
+                            intent.putExtra("dingdanid", data);
+                            intent.putExtra("dingdanleixing", "2");
+                            intent.putExtra("zongjia", hejijine+"");
+                            intent.putExtra("yue", yue);
+                            intent.putExtra("yemian", "0");
+                        }
+                        updateGwc();
                         startActivity(intent);
                         finish();
                     }
@@ -261,13 +287,29 @@ public class QueRenDingDanActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
+
                         Log.e("tijiaodingdan", gson.toJson(data) + "---");
                         Intent intent = new Intent(mContext, XuanZeZhiFuFangShiActivity.class);
-                        intent.putExtra("dingdanid", data);
-                        intent.putExtra("dingdanleixing", "1");
+                        if(PreferenceUtils.getString(MyApplication.mContext,"host_account_type","0").equals("1")){
+                            if(isFukuan){
+                                intent.putExtra("dingdanid", data);
+                                intent.putExtra("dingdanleixing", "2");
+                                intent.putExtra("zongjia", hejijine+"");
+                                intent.putExtra("yue", yue);
+                                intent.putExtra("yemian", "0");
+                            } else {
+                                ToastUtil.showToastLong("订单提交成功");
+                                intent.setClass(mContext, MainActivity.class);
+                                intent.putExtra("tosome",3);
+                            }
+                        } else {
+                            intent.putExtra("dingdanid", data);
+                            intent.putExtra("dingdanleixing", "1");
 //                    intent.putExtra("yuezhifu",shiyongyue);
-                        intent.putExtra("zongjia", hejijine+"");
-                        intent.putExtra("yue", yue);
+                            intent.putExtra("zongjia", hejijine+"");
+                            intent.putExtra("yue", yue);
+                        }
+                        updateGwc();
                         ShenPiActivity.instance.finish();
                         startActivity(intent);
                         finish();
@@ -461,39 +503,45 @@ public class QueRenDingDanActivity extends BaseActivity {
                 ToastUtil.showToastLong("规则还在制定中");
                 break;
             case R.id.tv_biaozhunda:
-                shichangList.clear();
-                hejijine = 0.0;
-                zongzhong = 0.0;
-                yunfei = 0.0;
-                isZhunshi = "0";
-                isTime = "标准达";
-                tvBiaozhunda.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_zangqing_3));
-                tvBiaozhunda.setTextColor(mContext.getResources().getColor(R.color.zangqing));
-                tvZhushida.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_999999_3));
-                tvZhushida.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
-                new DateDialog().setData(mContext).show(getSupportFragmentManager());
-                tvSongdashijian.setText("");
-                for (int i=0;i<shichangdata.size();i++) {
-                    shichangdata.get(i).setYunfei(BigDecimal.valueOf(0));
+                if(dizhi==null||StringUtil.isEmpty(dizhi.getAddress_id())){
+                    ToastUtil.showToastLong("请添加收货地址");
+                } else {
+                    tvZhushida.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_999999_3));
+                    tvZhushida.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+                    tvBiaozhunda.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_999999_3));
+                    tvBiaozhunda.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+                    shichangList.clear();
+                    hejijine = 0.0;
+                    zongzhong = 0.0;
+                    yunfei = 0.0;
+                    isZhunshi = "0";
+                    isTime = "标准达";
+                    new DateDialog().setData(mContext).show(getSupportFragmentManager());
+                    tvSongdashijian.setText("");
+                    for (int i=0;i<shichangdata.size();i++) {
+                        shichangdata.get(i).setYunfei(BigDecimal.valueOf(0));
+                    }
+                    tvHejijine.setText("0");
+                    tvYunfei.setText("0");
+                    tvYunfei.setText("0");
+                    tvHejijine.setText("0");
+                    adapter.notifyDataSetChanged();
                 }
-                tvHejijine.setText("0");
-                tvYunfei.setText("0");
-                tvYunfei.setText("0");
-                tvHejijine.setText("0");
-                adapter.notifyDataSetChanged();
+
                 break;
             case R.id.tv_zhunshida:
-                shichangList.clear();
-                hejijine = 0.0;
-                zongzhong = 0.0;
-                yunfei = 0.0;
-                isZhunshi = "1";
-                getZhunshidaYunFei();
-                isTime = "实时达";
-                tvZhushida.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_zangqing_3));
-                tvZhushida.setTextColor(mContext.getResources().getColor(R.color.zangqing));
-                tvBiaozhunda.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_999999_3));
-                tvBiaozhunda.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+                if(dizhi==null||StringUtil.isEmpty(dizhi.getAddress_id())){
+                    ToastUtil.showToastLong("请添加收货地址");
+                } else {
+                    tvZhushida.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_999999_3));
+                    tvZhushida.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+                    tvBiaozhunda.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_999999_3));
+                    tvBiaozhunda.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+                    shichangList.clear();
+                    isZhunshi = "1";
+                    getZhunshidaYunFei();
+                    isTime = "实时达";
+                }
                 break;
             case R.id.ll_songdashijian:
                 ToastUtil.showToastLong("时间由送达状态选择");
@@ -551,6 +599,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                                 confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
+                                        confirmDialog.dismiss();
                                         if (Integer.parseInt(lujingtype) == 1) {
                                             tijiaodingdan();
                                         } else {
@@ -604,6 +653,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                         number = "";
                         yunfei = 0.0;
                         zongzhong = 0.0;
+                        dizhi = null;
 //                        initdizhi();
                         getsplist();
                         adapter.notifyDataSetChanged();
@@ -646,8 +696,6 @@ public class QueRenDingDanActivity extends BaseActivity {
     }
 
     public void getYunFei() {
-        Log.e("getYunFei: ", new Gson().toJson(PreferenceUtils.getString(MyApplication.mContext, "token", "")+"---"+
-                spID+"---"+dizhi.getAddress_id()+"---"+number+"---"+lujingtype));
         if(dizhi==null||!StringUtil.isValid(dizhi.getAddress_id())){
             ToastUtil.showToast("请添加收货地址");
         } else {
@@ -685,8 +733,10 @@ public class QueRenDingDanActivity extends BaseActivity {
                             tvHejijine.setText(hejijine + "");
                             tvZhongliang.setText(+MyMath.getDouble(zongzhong)+"斤)");
                             tvYunfei.setText(yunfei+"");
+                            tvBiaozhunda.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_zangqing_3));
+                            tvBiaozhunda.setTextColor(mContext.getResources().getColor(R.color.zangqing));
                         }
-                    },true);
+                    },false);
         }
     }
     public void getZhunshidaYunFei() {
@@ -702,6 +752,9 @@ public class QueRenDingDanActivity extends BaseActivity {
                         public void onNext(List<YunFeiBean> o) {
                             adapter.setYunfei(o);
                             hejijine = Double.valueOf(zongjia);
+                            hejijine = 0.0;
+                            zongzhong = 0.0;
+                            yunfei = 0.0;
                             for (int i=0;i<o.size();i++ ){
                                 hejijine += o.get(i).getMoney();
                                 yunfei +=o.get(i).getMoney();
@@ -714,6 +767,8 @@ public class QueRenDingDanActivity extends BaseActivity {
                                 bean.setGonglishu(o.get(i).getGonglishu());
                                 shichangList.add(bean);
                             }
+                            tvZhushida.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_zangqing_3));
+                            tvZhushida.setTextColor(mContext.getResources().getColor(R.color.zangqing));
                             tvHejijine.setText(hejijine + "");
                             tvZhongliang.setText(+MyMath.getDouble(zongzhong)+"斤)");
                             tvYunfei.setText(yunfei+"");
@@ -751,6 +806,16 @@ public class QueRenDingDanActivity extends BaseActivity {
                         }
                     }
                 });
+    }
+
+    private void getQuanxian(){
+        for (ZiZhangHuDetailsBean.RoleListBean bean:PreferenceUtils.getQuanxianList(MyApplication.mContext,"quanxian")) {
+            if(bean.getRole_id().equals("1")){
+                isFukuan = true;
+                return;
+            }
+
+        }
     }
 
 }

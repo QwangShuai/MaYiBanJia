@@ -5,6 +5,8 @@ import android.content.res.AssetManager;
 import android.net.Uri;
 import android.telephony.TelephonyManager;
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.TextWatcher;
 import android.text.method.ReplacementTransformationMethod;
 import android.util.Log;
@@ -198,9 +200,6 @@ public class StringUtil {
 
     /**
      * 判断一个字符串中是否包含符合正则表达式定义的匹配条件的子串
-     *
-     * @param regularExpression
-     *            - 正则表达式
      * @param input
      *            - 待检查字符串
      * @return - 若输入字符串中包含符合正则表达式定义的匹配条件的子串，则返回true，否则返回false
@@ -1294,5 +1293,35 @@ public class StringUtil {
                     }
                 });
         return refile[0];
+    }
+    //完美解决输入框中不能输入的非法字符
+    public static void setInputNoEmoj(EditText editText){
+        InputFilter inputFilter=new InputFilter() {
+
+            Pattern pattern = Pattern.compile("[^a-zA-Z0-9\\u4E00-\\u9FA5_,.?!:;…~_\\-\"\"/@*+'()<>{}/[/]()<>{}\\[\\]=%&$|\\/♀♂#¥£¢€\"^` ，。？！：；……～“”、“（）”、（——）‘’＠‘·’＆＊＃《》￥《〈〉》〈＄〉［］￡［］｛｝｛｝￠【】【】％〖〗〖〗／〔〕〔〕＼『』『』＾「」「」｜﹁﹂｀．]");
+
+            @Override
+
+            public CharSequence filter(CharSequence charSequence, int i, int i1, Spanned spanned, int i2, int i3) {
+
+                Matcher matcher=  pattern.matcher(charSequence);
+
+                if(!matcher.find()){
+
+                    return null;
+
+                }else{
+                    ToastUtil.showToast("非法字符！");
+                    return "";
+
+                }
+            }
+        };
+        editText.setFilters(new InputFilter[]{inputFilter});
+    }
+
+    //开户行中文
+    public static boolean isChinese(String input,int num){
+        return input.matches("[\\u4e00-\\u9fa5]{2,"+num+"}");
     }
 }

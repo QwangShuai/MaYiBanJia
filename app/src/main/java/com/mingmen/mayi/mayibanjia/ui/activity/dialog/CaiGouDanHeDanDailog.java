@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.mingmen.mayi.mayibanjia.R;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -56,7 +57,7 @@ public class CaiGouDanHeDanDailog extends Dialog {
         etTeshu = (EditText) v.findViewById(R.id.et_teshu);
         btQueren = (Button) v.findViewById(R.id.bt_queren);
         btQuxiao = (Button) v.findViewById(R.id.bt_quxiao);
-
+        StringUtil.setInputNoEmoj(etTeshu);
         btQueren.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -157,8 +157,8 @@ public class ChangeWuLiuDialog extends Dialog {
             public void onClick(View v) {//确认
                 if(TextUtils.isEmpty(et_xinchepaihao.getText().toString())){
                     ToastUtil.showToast("车牌号不能为空!");
-                } else if(TextUtils.isEmpty(et_xinxingming.getText().toString())){
-                    ToastUtil.showToast("用户名不能为空!");
+                } else if(!StringUtil.exist(et_xinxingming.getText().toString().trim())){
+                    ToastUtil.showToast("用户名不正确!");
                 } else if(!AppUtil.isMobile(et_xinlianxifangshi.getText().toString())){
                     ToastUtil.showToast("手机号格式不正确!");
                 } else if(TextUtils.isEmpty(car_type_id)){

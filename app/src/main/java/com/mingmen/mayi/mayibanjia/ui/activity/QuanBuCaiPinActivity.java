@@ -369,7 +369,6 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
                                 }
                                 jiarugouwuchedialog.getEtShuliang().setText("0");
                                 jiarugouwuchedialog.cancel();
-                                updateGwc();
                             }
                         });
                         break;
@@ -1126,7 +1125,7 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
                         }
                         shangpinadapter.notifyDataSetChanged();
                         ToastUtil.showToast("添加购物车成功");
-
+                        updateGwc();
                     }
                 });
     }

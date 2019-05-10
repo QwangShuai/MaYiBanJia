@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.mingmen.mayi.mayibanjia.R;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
 import butterknife.BindView;
@@ -40,6 +41,7 @@ public class ShenPiShiBaiDailog extends BaseFragmentDialog implements View.OnCli
     @Override
     protected void init() {
         etShibaiyuanyin.setText(initStr);
+        StringUtil.setInputNoEmoj(etShibaiyuanyin);
         setOnClickListener(this,R.id.bt_queding);
     }
 

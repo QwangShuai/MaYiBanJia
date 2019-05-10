@@ -237,13 +237,13 @@ public class YeWuYuanMainActivity extends BaseActivity {
             tvTitle.setText("我的社区市场");
             adapter.setShow(true);
         } else if (type.equals("3")) {
-            tvTitle.setText("我的供货端");
+            tvTitle.setText("我的供货商");
             adapter.setShow(true);
         } else if (type.equals("4")) {
             tvTitle.setText("全部餐厅端");
             adapter.setShow(false);
         } else if (type.equals("5")) {
-            tvTitle.setText("全部供货端");
+            tvTitle.setText("全部供货商");
             adapter.setShow(false);
         } else if (type.equals("6")) {
             tvTitle.setText("全部社区市场");
@@ -339,7 +339,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         addDialog.dismiss();
-                        setShowList("2");
+                        setShowList("3");
                         Intent intent = new Intent(mContext, XinXiLuRuGHDActivity.class);
                         bundle.putString("rukou", "add");
                         bundle.putString("random_id", "1");
@@ -351,7 +351,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         addDialog.dismiss();
-                        setShowList("3");
+                        setShowList("2");
                         Intent intent = new Intent(mContext, XinXiLuRuGHDActivity.class);
                         bundle.putString("rukou", "add");
                         bundle.putString("random_id", "0");

@@ -28,6 +28,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.FaCaiGouGuiGeAdapter;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -107,6 +108,7 @@ public class CaiGouDanXiuGaiDailog extends BaseFragmentDialog{
         tvShangpinming.setText(initStr);
         etCaigouliang.setText(count);
         tvGuige.setText(guige);
+        StringUtil.setInputNoEmoj(etTeshu);
         if(!TextUtils.isEmpty(yaoqiu)){
             etTeshu.setText(yaoqiu);
             ivTeshu.setSelected(true);

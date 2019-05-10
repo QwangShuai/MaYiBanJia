@@ -257,6 +257,8 @@ public class FaBuShangPinActivity extends BaseActivity {
         instance = this;
         goods = getIntent().getStringExtra("goods");
         EventBus.getDefault().register(this);
+        StringUtil.setInputNoEmoj(etSpming);
+        StringUtil.setInputNoEmoj(etPpming);
         if ("0".equals(getIntent().getStringExtra("state"))) {
 //            llTj.setVisibility(View.GONE);
             llShowTejia.setVisibility(View.GONE);
@@ -883,7 +885,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                     tvYxgg.setText("每" + guigename + "换算单位为");
                     tvGgms.setText(guigename);
                     tvQdlGg.setText(guigename);
-                    tvDanwei.setText(guigename);
+                    tvDanwei.setText("元/"+guigename);
                     if (StringUtil.isValid(data.getStringExtra("zxId"))) {
                         llDw.setVisibility(View.VISIBLE);
                         isGuige = true;
@@ -987,9 +989,10 @@ public class FaBuShangPinActivity extends BaseActivity {
         //缩略图保存地址
         outputUri = Uri.fromFile(file);
         Intent intent = new Intent("com.android.camera.action.CROP");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        }
+            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+//        }
         intent.setDataAndType(imageUri, "image/*");
         intent.putExtra("crop", "true");
         intent.putExtra("aspectX", 1);
@@ -998,6 +1001,7 @@ public class FaBuShangPinActivity extends BaseActivity {
         intent.putExtra("return-data", false);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, outputUri);
         intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+//        intent.putExtra("outputFormat", "PNG");
         intent.putExtra("noFaceDetection", true);
         startActivityForResult(intent, REQUEST_PICTURE_CUT);
     }

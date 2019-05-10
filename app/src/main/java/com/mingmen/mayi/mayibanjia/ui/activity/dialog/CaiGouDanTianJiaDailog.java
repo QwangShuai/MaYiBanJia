@@ -108,6 +108,7 @@ public class CaiGouDanTianJiaDailog extends BaseFragmentDialog {
     protected void init() {
         tvShangpinMing.setText(name);
         tvGuige.setText(guigeName);
+        StringUtil.setInputNoEmoj(etTeshu);
         etTeshu.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

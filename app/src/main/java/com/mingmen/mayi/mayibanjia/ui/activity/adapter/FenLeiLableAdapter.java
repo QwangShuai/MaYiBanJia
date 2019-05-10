@@ -31,11 +31,16 @@ public class FenLeiLableAdapter extends RecyclerView.Adapter<FenLeiLableAdapter.
     private Context mContext;
     private List<FeiLeiLableSubmitBean> mList;
     private FaBuShangPinXiangQingTuActivity activity;
-
+    private boolean isShow;
     public FenLeiLableAdapter(Context mContext, List<FeiLeiLableSubmitBean> list, FaBuShangPinXiangQingTuActivity activity) {
         this.mContext = mContext;
         this.mList = list;
         this.activity = activity;
+    }
+    public FenLeiLableAdapter(Context mContext, List<FeiLeiLableSubmitBean> list) {
+        this.mContext = mContext;
+        this.mList = list;
+        this.isShow = true;
     }
 
     @Override
@@ -47,6 +52,10 @@ public class FenLeiLableAdapter extends RecyclerView.Adapter<FenLeiLableAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         FeiLeiLableSubmitBean bean = mList.get(position);
+        StringUtil.setInputNoEmoj(holder.etCanshu);
+        if (isShow){
+            holder.etCanshu.setEnabled(false);
+        }
         if(position==mList.size()-1){
             holder.viewCut.setVisibility(View.INVISIBLE);
         }

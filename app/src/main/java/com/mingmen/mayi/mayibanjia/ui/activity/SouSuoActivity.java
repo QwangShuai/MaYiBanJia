@@ -197,6 +197,7 @@ public class SouSuoActivity extends BaseActivity {
         xuanze.add("市场");
         xuanze.add("店铺");
         xuanze.add("商品");
+        StringUtil.setInputNoEmoj(etSousuo);
         setViewMoren();
         if (getIntent().getStringExtra("sousuofangxiang") != null) {
             sousuofangxiang = getIntent().getStringExtra("sousuofangxiang");
@@ -906,7 +907,6 @@ public class SouSuoActivity extends BaseActivity {
                                                 Log.e("jiarugouwuche", jiarugouwuchedialog.getEtShuliang().getText().toString().trim());
                                                 jiarugouwuchedialog.getEtShuliang().setText("0");
                                                 jiarugouwuchedialog.cancel();
-                                                updateGwc();
                                             }
                                         });
                                         break;
@@ -938,7 +938,7 @@ public class SouSuoActivity extends BaseActivity {
                         }
                         shangpinadapter.notifyDataSetChanged();
                         ToastUtil.showToast("添加购物车成功");
-
+                        updateGwc();
                     }
                 });
     }

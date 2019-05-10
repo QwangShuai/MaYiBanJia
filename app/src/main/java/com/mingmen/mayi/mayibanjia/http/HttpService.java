@@ -1294,6 +1294,11 @@ public interface HttpService {
     @POST("gyCommodity/commoditySpec.do")
     Observable<ResultModel<List<FeiLeiLableSubmitBean>>> getFenLeiCanShu(@Query("user_token") String user_token);
 
+    //获取商品规格信息
+    @POST("gyCommodity/selectCommodity.do")
+    Observable<ResultModel<List<FeiLeiLableSubmitBean>>> getSpGuige(@Query("user_token") String user_token,
+                                                                    @Query("commodity_id") String commodity_id);
+
     //获取企业售卖的1级分类
     @POST("allCompany/queryByFl.do")
     Observable<ResultModel<FCGName>> getQiyeYiji(@Query("user_token") String user_token);

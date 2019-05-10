@@ -35,6 +35,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.adapter.FaCaiGouMohuAdapter;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.AutoLineFeedLayoutManager;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
 import java.text.SimpleDateFormat;
@@ -83,6 +84,7 @@ public class FCGDiQuXuanZeActivity extends BaseActivity {
     protected void initData() {
         mContext=FCGDiQuXuanZeActivity.this;
         tvTitle.setText("采购需求");
+        StringUtil.setInputNoEmoj(et_caigouming);
         initList();
     }
 

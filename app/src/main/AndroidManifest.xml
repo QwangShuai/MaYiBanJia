@@ -524,7 +524,8 @@
             <!-- </intent-filter> -->
         </activity>
         <activity android:name=".utils.dayinji.BluetoothDeviceList" />
-        <activity android:name=".ui.activity.YoukeLoginActivity"></activity>
+        <activity android:name=".ui.activity.YoukeLoginActivity" />
+        <activity android:name=".ui.activity.SpXinxiActivity"></activity>
     </application>
 
 </manifest>

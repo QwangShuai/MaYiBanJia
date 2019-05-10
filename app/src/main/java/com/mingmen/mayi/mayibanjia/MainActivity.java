@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.ZiZhangHuDetailsBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
@@ -125,10 +126,13 @@ public class MainActivity extends BaseActivity {
 
         } else {
             role = PreferenceUtils.getQuanxianList(MyApplication.mContext, "quanxian");
+            Log.e( "initview: ",new Gson().toJson(role));
+            isClick();
         }
         if(PreferenceUtils.getBoolean(MyApplication.mContext,"youke",false)){
             imageView.setVisibility(View.VISIBLE);
         }
+
         ShouYeFragment shouYeFragment = new ShouYeFragment();
         QuanBuCaiPinFragment quanBuCaiPinFragment = new QuanBuCaiPinFragment();
         GouWuCheFragment gouWuCheFragment = new GouWuCheFragment();
@@ -226,7 +230,13 @@ public class MainActivity extends BaseActivity {
                 if (zzh.equals("0")) {
                     gaibianye(0);
                 } else {
-                    ToastUtil.showToastLong("子账户无权查看 ");
+                    Log.e("onViewClicked: ",PreferenceUtils.getString(MyApplication.mContext,"isShenPi","---") );
+                    if(isClick()){
+                            gaibianye(0);
+                    } else {
+                        ToastUtil.showToastLong("子账户无权查看 ");
+                    }
+
                 }
 
                 break;
@@ -235,7 +245,11 @@ public class MainActivity extends BaseActivity {
                 if (zzh.equals("0")) {
                     gaibianye(1);
                 } else {
-                    ToastUtil.showToastLong("子账户无权查看 ");
+                    if(isClick()){
+                        gaibianye(1);
+                    } else {
+                        ToastUtil.showToastLong("子账户无权查看 ");
+                    }
                 }
 
                 break;
@@ -244,7 +258,11 @@ public class MainActivity extends BaseActivity {
                 if (zzh.equals("0")) {
                     gaibianye(2);
                 } else {
-                    ToastUtil.showToastLong("子账户无权查看 ");
+                    if(isClick()){
+                        gaibianye(2);
+                    } else {
+                        ToastUtil.showToastLong("子账户无权查看 ");
+                    }
                 }
                 break;
             case R.id.iv_wode:
@@ -269,7 +287,7 @@ public class MainActivity extends BaseActivity {
                 } else {
                     int mysize = role == null ? 0 : role.size();
                     if (mysize != 0) {
-                        if (isClick()) {
+                        if (PreferenceUtils.getString(MyApplication.mContext, "isShenPi", "0").equals("5")) {
                             Intent caigouintent = new Intent(MainActivity.this, FCGDiQuXuanZeActivity.class);
                             startActivity(caigouintent);
                         }
@@ -353,15 +371,18 @@ public class MainActivity extends BaseActivity {
 
     private boolean isClick() {
         boolean b = false;
-        for (int i = 0; i < role.size(); i++) {
-            if (role.get(i).getRole_id().equals("5")) {
-                PreferenceUtils.putString(MyApplication.mContext, "isShenPi", "5");
-                b = true;
-            } else if (role.get(i).getRole_id().equals("2")) {
-                b = true;
+        int rolesize = role==null?0:role.size();
+        if(rolesize!=0){
+            for (int i = 0; i < role.size(); i++) {
+                if (role.get(i).getRole_id().equals("5")) {
+                    PreferenceUtils.putString(MyApplication.mContext, "isShenPi", "5");
+                    b = false;
+                } else if (role.get(i).getRole_id().equals("2")) {
+//                PreferenceUtils.putBoolean(MyApplication.mContext, "csz",true);
+                    b = true;
+                }
             }
         }
-
         return b;
     }
     private void exitLogin() {

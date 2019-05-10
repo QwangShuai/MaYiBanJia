@@ -1,5 +1,6 @@
 package com.mingmen.mayi.mayibanjia.http.observer;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
@@ -73,7 +74,11 @@ public class HttpObserver<T> implements Observer<T> {
     private void showProgressDialog() {
         Context context = this.context.get();
         if (dialog == null || context == null) return;
-        if (!this.dialog.isShowing()) {
+//        Activity activity = this.dialog.getOwnerActivity();
+//        if(activity != null && !activity.isFinishing()&&!this.dialog.isShowing()){
+//            this.dialog.show();
+//        }
+        if(!this.dialog.isShowing()){
             this.dialog.show();
         }
     }

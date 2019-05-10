@@ -167,6 +167,9 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
         bundle = getIntent().getExtras();
         rukou = bundle.getString("rukou");
         EventBus.getDefault().register(this);
+        StringUtil.setInputNoEmoj(etQiyemingcheng);
+        StringUtil.setInputNoEmoj(etTanweihao);
+        StringUtil.setInputNoEmoj(etXiangxidizhi);
         if ("add".equals(rukou)) {
 //            tvQiehuan.setText("否");
             random_id = getIntent().getStringExtra("random_id");
@@ -463,9 +466,8 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
         //缩略图保存地址
         outputUri = Uri.fromFile(file);
         Intent intent = new Intent("com.android.camera.action.CROP");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        }
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         intent.setDataAndType(imageUri, "image/*");
         intent.putExtra("crop", "true");
         intent.putExtra("aspectX", 1);

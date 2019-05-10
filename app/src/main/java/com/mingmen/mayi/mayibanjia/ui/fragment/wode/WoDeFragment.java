@@ -414,7 +414,7 @@ public class WoDeFragment extends BaseFragment {
             case R.id.rl_daifukuan:
                 Bundle daifukuan = new Bundle();
                 daifukuan.putString("roleDdType", roleDdType);
-                if (roleDdType.equals("1")) {
+                if (roleDdType.equals("1")||roleDdType.equals("14")||roleDdType.equals("41")) {
                     daifukuan.putInt("to_shop", 0);
                 } else {
                     daifukuan.putInt("to_shop", 1);
@@ -432,7 +432,7 @@ public class WoDeFragment extends BaseFragment {
                 if (roleDdType.equals("4")) {
                     daishouhuo.putInt("to_shop", 0);
                 } else if (roleDdType.equals("14") || roleDdType.equals("41")) {
-                    daishouhuo.putInt("to_shop", 2);
+                    daishouhuo.putInt("to_shop", 1);
                 } else {
                     daishouhuo.putInt("to_shop", 3);
                 }
@@ -445,7 +445,7 @@ public class WoDeFragment extends BaseFragment {
                 if (roleDdType.equals("4")) {
                     yishouhuo.putInt("to_shop", 1);
                 } else if (roleDdType.equals("14") || roleDdType.equals("41")) {
-                    yishouhuo.putInt("to_shop", 3);
+                    yishouhuo.putInt("to_shop", 2);
                 } else {
                     yishouhuo.putInt("to_shop", 4);
                 }
@@ -600,11 +600,11 @@ public class WoDeFragment extends BaseFragment {
             rlYiwancheng.setEnabled(false);
         }
         if (roleCgType.equals("25") || roleCgType.equals("52")) {//全部权限
-            rlShouhuodizhi.setEnabled(true);
+//            rlShouhuodizhi.setEnabled(true);
             ivWqxShdi.setVisibility(View.VISIBLE);
         } else if (roleCgType.equals("5")) {//无审批权限
             PreferenceUtils.putString(MyApplication.mContext,"isShenPi",roleCgType);
-            rlShouhuodizhi.setEnabled(true);
+//            rlShouhuodizhi.setEnabled(true);
             ivWqxShdi.setVisibility(View.VISIBLE);
         } else if (roleCgType.equals("2")) {//全部权限
 

@@ -23,6 +23,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.FaBuShangPinActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShangPinGuanLiActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.SpXinxiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmSingleDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.shangpinguanli.BaseShangPinFragment;
@@ -364,6 +365,14 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
 //                }
 //            });
 //        }
+        holder.itemView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent(mContext, SpXinxiActivity.class);
+                it.putExtra("id",bean.getCommodity_id());
+                mContext.startActivity(it);
+            }
+        });
     }
 
     @Override

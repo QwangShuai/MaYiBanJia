@@ -26,4 +26,14 @@ public class RoleBean {
     public void setRole_id(String role_id) {
         this.role_id = role_id;
     }
+
+    private String synopsis;
+
+    public String getSynopsis() {
+        return synopsis;
+    }
+
+    public void setSynopsis(String synopsis) {
+        this.synopsis = synopsis;
+    }
 }

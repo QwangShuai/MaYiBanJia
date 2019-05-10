@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.mingmen.mayi.mayibanjia.MainActivity;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.GWCDianPuShangPinBean;
@@ -163,10 +164,14 @@ public class GWCDianPuAdapter extends RecyclerView.Adapter<GWCDianPuAdapter.View
                             public void onNext(String data) {
                                 if (isTeshu) {
                                     activity.setShuaxin();
+
                                 } else {
                                     gouWuCheFragment.setShuaxin();
                                 }
 
+                                if(MainActivity.instance!=null){
+                                    MainActivity.instance.getGwcNo();
+                                }
                             }
                         }, false);
             }

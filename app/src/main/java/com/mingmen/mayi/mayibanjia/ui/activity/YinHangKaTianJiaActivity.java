@@ -72,6 +72,7 @@ public class YinHangKaTianJiaActivity extends BaseActivity {
         mContext = YinHangKaTianJiaActivity.this;
         principal = getIntent().getStringExtra("principal");
         tvName.setText(principal);
+        StringUtil.setInputNoEmoj(etKaihuhang);
     }
 
     @Override
@@ -94,7 +95,9 @@ public class YinHangKaTianJiaActivity extends BaseActivity {
                 startActivityForResult(new Intent(mContext, XuanZeYinHangActivity.class), 1);
                 break;
             case R.id.btn_next:
-                if (isAddBankCard()) {
+                if(!StringUtil.isChinese(etKaihuhang.getText().toString(),24)){
+                    ToastUtil.showToast("请输入正确的开户行名字");
+                } else if (isAddBankCard()) {
                     getRz();
                 }
                 break;

@@ -26,6 +26,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.AppManager;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
+import com.mingmen.mayi.mayibanjia.utils.ButtonUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
@@ -100,6 +101,14 @@ public class ZhuCeActivity extends BaseActivity {
         } else {
             tvTitle.setText("忘记密码");
         }
+//        btXiayibu.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(!ButtonUtils.isFastDoubleClick(R.id.bt_xiayibu)){
+//                    btXiayibu.setEnabled(true);
+//                }
+//            }
+//        });
         mContext=ZhuCeActivity.this;
         if(yemian.equals("1")||yemian.equals("3")){
             etPass2.addTextChangedListener(new TextWatcher() {
@@ -182,7 +191,7 @@ public class ZhuCeActivity extends BaseActivity {
                 if(yemian.equals("1")||yemian.equals("3")){
                     String pass1 = etPass1.getText().toString().trim();
                     String pass2 = etPass2.getText().toString().trim();
-                    if (pass1.length()>=8&&pass1.length()<=16){
+                    if (pass1.length()>=6&&pass1.length()<=16){
                         if (pass1.equals(pass2)){
                             if (s.toString().trim().length()==6){
                                 btXiayibu.setBackground(getResources().getDrawable(R.drawable.fillet_solid_zangqing_5));
@@ -239,11 +248,16 @@ public class ZhuCeActivity extends BaseActivity {
             case R.id.bt_xiayibu:
                 //下一步
 //                btXiayibu.setEnabled(false);
-                if(yemian.equals("1")||yemian.equals("3")){
-                    querenYanzhengma();
+                if(ButtonUtils.isFastDoubleClick(R.id.bt_xiayibu)){
+
                 } else {
-                    login();
+                    if(yemian.equals("1")||yemian.equals("3")){
+                        querenYanzhengma();
+                    } else {
+                        login();
+                    }
                 }
+
 
 //                String pass1 = etPass1.getText().toString().trim();
 //                String pass2 = etPass2.getText().toString().trim();

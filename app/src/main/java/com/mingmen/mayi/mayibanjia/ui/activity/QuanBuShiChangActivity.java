@@ -185,7 +185,7 @@ public class QuanBuShiChangActivity extends BaseActivity {
                     @Override
                     public void onNext(final List<QuanBuShiChangBean> data) {
                         if (!"null".equals(String.valueOf(data))) {
-                            if (data.size() == 5) {
+                            if (data.size() == 10) {
                                 rvList.loadMoreFinish(false, true);
                             } else if (data.size() > 0) {
                                 rvList.loadMoreFinish(false, false);
@@ -269,6 +269,15 @@ public class QuanBuShiChangActivity extends BaseActivity {
              * 添加地区数据
              */
             options3Items.add(Province_AreaList);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(ye!=1){
+            ye = 1;
+            getList();
         }
     }
 }

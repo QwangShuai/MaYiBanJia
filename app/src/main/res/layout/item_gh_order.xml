@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
     android:orientation="vertical">
     <RelativeLayout
         android:layout_marginTop="20dp"
@@ -98,7 +99,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="13dp"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="12dp">
 
         <TextView
             android:id="@+id/tv_wait_state"
@@ -168,13 +169,13 @@
     </RelativeLayout>
 
     <View
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="6dp"
         android:layout_marginLeft="12dp"
         android:background="@color/cutoff"
         android:layout_width="match_parent"
         android:layout_height="1dp"></View>
     <RelativeLayout
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="6dp"
         android:layout_marginLeft="13dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -194,23 +195,42 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <Button
+            android:layout_marginBottom="2dp"
             android:id="@+id/btn_more"
             android:textSize="15sp"
-            android:textColor="@color/zangqing"
-            android:background="@drawable/bg_bt_f2f2f2"
+            android:textColor="@color/white"
+            android:background="@drawable/fillet_solid_zangqing_14"
             android:layout_marginRight="12dp"
             android:layout_alignParentRight="true"
             android:text="展开"
             android:layout_width="60dp"
             android:layout_height="28dp" />
     </RelativeLayout>
-    <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
-        android:id="@+id/rv_shangpin"
+    <LinearLayout
+        android:id="@+id/ll_rv"
+        android:background="@color/gray_e7e7e7"
+        android:orientation="vertical"
+        android:layout_marginTop="14dp"
+        android:visibility="gone"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+        android:layout_height="wrap_content">
+        <View
+            android:elevation="1dp"
+            android:background="@color/gray_e7e7e7"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"></View>
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:id="@+id/rv_shangpin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <View
+            android:elevation="1dp"
+            android:background="@color/gray_e7e7e7"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"></View>
+    </LinearLayout>
     <View
         android:layout_marginTop="20dp"
         android:layout_marginLeft="12dp"
@@ -307,13 +327,13 @@
             android:layout_height="wrap_content" />
     </RelativeLayout>
     <View
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="6dp"
         android:layout_marginLeft="12dp"
         android:background="@color/cutoff"
         android:layout_width="match_parent"
         android:layout_height="1dp"></View>
     <RelativeLayout
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="6dp"
         android:layout_marginLeft="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -383,7 +403,7 @@
             android:layout_height="30dp"></View>
     </RelativeLayout>
     <View
-        android:background="@color/cutoff"
+        android:background="@color/gray_e7e7e7"
         android:layout_width="match_parent"
         android:layout_height="10dp"></View>
 </LinearLayout>

@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.mingmen.mayi.mayibanjia.R;
+import com.mingmen.mayi.mayibanjia.app.MyApplication;
+import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 
 import butterknife.BindView;
 
@@ -35,7 +37,9 @@ public class TiJiaoXuQiuDialog extends Dialog {
         this.c = context;
         tvCaigoudan=(TextView)findViewById(R.id.tv_caigoudan);
         tvShouye=(TextView)findViewById(R.id.tv_shouye);
-
+        if(PreferenceUtils.getString(MyApplication.mContext,"host_account_type","0").equals("1")){
+            tvShouye.setVisibility(View.GONE);
+        }
     }
 
     /**

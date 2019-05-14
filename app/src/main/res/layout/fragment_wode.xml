@@ -105,6 +105,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
                             <LinearLayout
+                                android:visibility="gone"
                                 android:layout_marginTop="8dp"
                                 android:id="@+id/ll_qiehuan"
                                 android:layout_width="102dp"

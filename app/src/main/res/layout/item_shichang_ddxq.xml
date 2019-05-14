@@ -2,13 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_item_yinying"
-    android:padding="12dp">
+    android:background="@color/white"
+    android:animateLayoutChanges="true"
+    android:paddingTop="12dp"
+    android:paddingBottom="12dp">
     <RelativeLayout
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <TextView
+            android:layout_centerVertical="true"
             android:id="@+id/tv_shichang"
             android:textSize="15sp"
             android:textColor="@color/zicolor"
@@ -16,16 +21,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <TextView
-            android:textColor="@color/zangqing"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:layout_marginBottom="2dp"
+            android:textColor="@color/white"
             android:layout_centerVertical="true"
             android:id="@+id/bt_show"
             android:layout_alignParentRight="true"
             android:text="展开"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:background="@drawable/fillet_solid_zangqing_14"
+            android:layout_width="60dp"
+            android:layout_height="28dp" />
     </RelativeLayout>
 
     <LinearLayout
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
         android:layout_marginTop="12dp"
         android:orientation="horizontal"
         android:layout_width="wrap_content"
@@ -46,6 +57,8 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
     <LinearLayout
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
         android:id="@+id/ll_tuikuan"
         android:layout_marginTop="12dp"
         android:orientation="horizontal"
@@ -66,6 +79,8 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
     <LinearLayout
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
         android:id="@+id/ll_yunfei"
         android:layout_marginTop="12dp"
         android:orientation="horizontal"
@@ -87,6 +102,8 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
@@ -158,6 +175,8 @@
         </RelativeLayout>
     </RelativeLayout>
     <LinearLayout
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
         android:layout_marginTop="12dp"
         android:id="@+id/ll_dianpushuliang"
         android:layout_width="wrap_content"
@@ -184,11 +203,29 @@
             android:layout_centerVertical="true"
              />
     </LinearLayout>
-
-    <android.support.v7.widget.RecyclerView
+    <LinearLayout
+        android:id="@+id/ll_rv"
+        android:background="@color/gray_e7e7e7"
+        android:orientation="vertical"
+        android:layout_marginTop="14dp"
         android:visibility="gone"
-        android:id="@+id/rv_dianpu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    </android.support.v7.widget.RecyclerView>
+        <View
+            android:elevation="1dp"
+            android:background="@color/gray_e7e7e7"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"></View>
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:id="@+id/rv_dianpu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <View
+            android:elevation="1dp"
+            android:background="@color/gray_e7e7e7"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"></View>
+    </LinearLayout>
 </LinearLayout>

@@ -650,4 +650,12 @@ public class SqscWodeActivity extends BaseActivity {
         getShow();
         super.onResume();
     }
+
+    @Override
+    protected void onDestroy() {
+        if(confirmDialog!=null){
+            confirmDialog.dismiss();
+        }
+        super.onDestroy();
+    }
 }

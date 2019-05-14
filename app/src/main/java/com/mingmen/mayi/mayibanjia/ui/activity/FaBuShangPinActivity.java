@@ -610,9 +610,16 @@ public class FaBuShangPinActivity extends BaseActivity {
                     llShangpinmingcheng.setEnabled(false);
                     llFl.setVisibility(View.GONE);
                     llSp.setVisibility(View.GONE);
+                    tvGgms.setText("");
+
                     getguige();
 //                    getZuixiaoGuige();
                 } else {
+                    yclId = "";
+                    lingjiid = "";
+                    yijiid = "";
+                    erjiid = "";
+                    sanjiid = "";
                     tvSpname.setText("选择商品");
                     llFenleimingcheng.setEnabled(true);
                     llShangpinmingcheng.setEnabled(true);
@@ -720,6 +727,7 @@ public class FaBuShangPinActivity extends BaseActivity {
         }
         Intent intent = new Intent(mContext, FaBuShangPinXiangQingTuActivity.class);
         intent.putExtra("canshu", gson.toJson(canShuBean));
+        Log.e("tiaozhuan: ", gson.toJson(canShuBean));
         intent.putExtra("yemian", yemian);
         if (StringUtil.isValid(getIntent().getStringExtra("guige"))) {
             intent.putExtra("guige", "1");
@@ -878,14 +886,15 @@ public class FaBuShangPinActivity extends BaseActivity {
                         llSanjiguige.setEnabled(true);
                         tvZxgg.setEnabled(true);
                     }
-                    String guigename = data.getStringExtra("guigeName");
-                    tvSanji.setText(guigename);
+                    sanjiguigename = data.getStringExtra("guigeName");
+                    tvSanji.setText(sanjiguigename);
                     sanjiguigeid = data.getStringExtra("guigeId");
+
                     tvZxgg.setText(data.getStringExtra("zxName"));
-                    tvYxgg.setText("每" + guigename + "换算单位为");
-                    tvGgms.setText(guigename);
-                    tvQdlGg.setText(guigename);
-                    tvDanwei.setText("元/"+guigename);
+                    tvYxgg.setText("每" + sanjiguigename + "换算单位为");
+                    tvGgms.setText(sanjiguigename);
+                    tvQdlGg.setText(sanjiguigename);
+                    tvDanwei.setText("元/"+sanjiguigename);
                     if (StringUtil.isValid(data.getStringExtra("zxId"))) {
                         llDw.setVisibility(View.VISIBLE);
                         isGuige = true;

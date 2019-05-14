@@ -280,11 +280,11 @@ public class WoDeFragment extends BaseFragment {
                     @Override
                     public void onNext(WoDeBean data) {
                         woDeBean = data;
-                        if (!data.getRole().isEmpty()) {
-                            if (data.getRole().equals("1")) {
-                                llQiehuan.setVisibility(View.GONE);//这一句即隐藏布局LinearLayout区域
-                            }
-                        }
+//                        if (!data.getRole().isEmpty()) {
+//                            if (data.getRole().equals("1")) {
+//                                llQiehuan.setVisibility(View.GONE);//这一句即隐藏布局LinearLayout区域
+//                            }
+//                        }
 
                         initView();
                     }

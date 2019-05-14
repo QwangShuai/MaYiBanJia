@@ -18,6 +18,7 @@
     <color name="gray_e7e7e7">#e7e7e7</color>
     <color name="gray_e7e7e7_80">#80e7e7e7</color>
     <color name="white_cc">#ccffffff</color>
+    <color name="white_b3">#b3ffffff</color>
     <color name="red_ba2800">#4dba2800</color>
     <color name="zicolor">#474747</color>
     <color name="hei20">#20000000</color>
@@ -27,6 +28,7 @@
     <color name="green_6dd46d">#6dd46d</color>
     <color name="blue_3794e5">#3794e5</color>
     <color name="blue_3184cc">#3184cc</color>
+    <color name="green_00f6ff">#00f6ff</color>
     <color name="bg_fafafa">#fafafa</color>
     <color name="gray_d8e9ed">#d8e9ed</color>
     <color name="black_333333">#333333</color>
@@ -475,6 +477,7 @@
     <color name="background_gray2">#E6E6E6</color>
     <color name="background_gray3">#D4D4D4</color>
     <color name="background_gray4">#EFEFF4</color>
+    <color name="gray_a7a7a7">#A7A7A7</color>
     <color name="line">#DDDDDD</color>
     <color name="line_btn">#BBBBBB</color>
     <color name="text_gray1">#777777</color>

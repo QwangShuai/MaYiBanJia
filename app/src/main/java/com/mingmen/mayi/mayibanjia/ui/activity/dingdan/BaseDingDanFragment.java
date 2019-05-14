@@ -43,7 +43,6 @@ public abstract class BaseDingDanFragment extends BaseFragment {
     SwipeRefreshLayout refreshLayout;
     View view;
     private ArrayList<DingDanBean> mlist = new ArrayList<DingDanBean>();
-    ;
     private DingDanXiangQingAdapter adapter;
     private SwipeMenuRecyclerView.LoadMoreListener mLoadMoreListener;
     private int ye = 1;
@@ -119,8 +118,9 @@ public abstract class BaseDingDanFragment extends BaseFragment {
                                 rvDingdan.loadMoreFinish(true, false);
                             }
                             adapter.notifyDataSetChanged();
+                            ye++;
                         }
-                        ye++;
+
                     }
                 });
 
@@ -183,6 +183,7 @@ public abstract class BaseDingDanFragment extends BaseFragment {
             }
         });
         rvDingdan.setAdapter(adapter);
+        rvDingdan.loadMoreFinish(false, true);
     }
 
     public abstract String getZhuangTai();
@@ -220,6 +221,7 @@ public abstract class BaseDingDanFragment extends BaseFragment {
     }
 
     public void updateList(final boolean b_clear) {
+        Log.e("updateList: ",ye+"---" );
         HttpManager.getInstance()
                 .with(getActivity())
                 .setObservable(
@@ -264,9 +266,11 @@ public abstract class BaseDingDanFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         Log.e("onResume: ", getZhuangTai()+"----");
-        ye = 1;
+        if(ye!=1){
+            ye = 1;
 //        updateList(true);
-        getData();
-        adapter.notifyDataSetChanged();
+            getData();
+            adapter.notifyDataSetChanged();
+        }
     }
 }

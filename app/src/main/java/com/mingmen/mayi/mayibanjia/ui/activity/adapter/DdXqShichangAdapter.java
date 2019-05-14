@@ -108,11 +108,17 @@ public class DdXqShichangAdapter extends RecyclerView.Adapter<DdXqShichangAdapte
             @Override
             public void onClick(View v) {
                 if(holder.btShow.getText().toString().equals("展开")){
-                    holder.rvDianpu.setVisibility(View.VISIBLE);
+                    holder.llRv.setVisibility(View.VISIBLE);
                     holder.btShow.setText("收起");
+                    holder.btShow.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+                    holder.btShow.setBackground(mContext.getResources().getDrawable(R.drawable.bg_bt_f2f2f2));
+                    holder.llRv.setVisibility(View.VISIBLE);
                 } else {
-                    holder.rvDianpu.setVisibility(View.GONE);
+                    holder.llRv.setVisibility(View.GONE);
                     holder.btShow.setText("展开");
+                    holder.btShow.setTextColor(mContext.getResources().getColor(R.color.white));
+                    holder.btShow.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_solid_zangqing_14));
+                    holder.llRv.setVisibility(View.GONE);
                 }
             }
         });
@@ -142,6 +148,8 @@ public class DdXqShichangAdapter extends RecyclerView.Adapter<DdXqShichangAdapte
         ImageView ivDianhua;
         @BindView(R.id.ll_rongqi)
         LinearLayout llRongqi;
+        @BindView(R.id.ll_rv)
+        LinearLayout llRv;
         @BindView(R.id.tv_chepaihao)
         TextView tvChepaihao;
         @BindView(R.id.tv_fahuoshijian)

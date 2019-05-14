@@ -246,10 +246,10 @@ public class DaYinQrCodeActivity extends BaseActivity {
                 {
                     Log.e("run: ","TSC" );
                     LabelCommand labelCommand = new LabelCommand();
-//                    labelCommand.addDensity();  //设置打印浓度
+                    labelCommand.addDensity(LabelCommand.DENSITY.DNESITY10);  //设置打印浓度
                     labelCommand.addSize( 80, 180 );
                     labelCommand.addCls();
-                    labelCommand.addBitmap( 0, 0, (80 - 10) * 8, bitmap );
+                    labelCommand.addBitmap( 0, 40, (80 - 10) * 8, bitmap );
                     labelCommand.addPrint( 1 );
                     DeviceConnFactoryManager.getDeviceConnFactoryManagers()[dyid].sendDataImmediately( labelCommand.getCommand() );
                 }else if ( DeviceConnFactoryManager.getDeviceConnFactoryManagers()[dyid].getCurrentPrinterCommand() == PrinterCommand.ESC )

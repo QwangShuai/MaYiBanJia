@@ -25,6 +25,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.DianPuActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.GouWuCheActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.fragment.gouwuche.GouWuCheFragment;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
@@ -58,6 +59,7 @@ public class GWCDianPuAdapter extends RecyclerView.Adapter<GWCDianPuAdapter.View
     private boolean isTeshu;
     private GWCShangPinAdapter shangpinadapter;
     private List<GouwucheDianpuBean.SplistBean> shangpinlist;
+    private ConfirmDialog confirmDialog;
 
     public GWCDianPuAdapter(Context mContext, List<GouwucheDianpuBean> list, GouWuCheFragment gouWuCheFragment) {
         this.mContext = mContext;
@@ -89,6 +91,8 @@ public class GWCDianPuAdapter extends RecyclerView.Adapter<GWCDianPuAdapter.View
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
+        confirmDialog = new ConfirmDialog(mContext,
+                mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         final GouwucheDianpuBean datas = dianpulist.get(position);
         shangpinlist = datas.getSplist();
 //        holder.tv_name.setText(string.getTitle());
@@ -149,31 +153,45 @@ public class GWCDianPuAdapter extends RecyclerView.Adapter<GWCDianPuAdapter.View
                 // 任何操作必须先关闭菜单，否则可能出现Item菜单打开状态错乱。
                 menuBridge.closeMenu();
                 int direction = menuBridge.getDirection(); // 左侧还是右侧菜单。
-                int adapterPosition = menuBridge.getAdapterPosition(); // RecyclerView的Item的position。
+                final int adapterPosition = menuBridge.getAdapterPosition(); // RecyclerView的Item的position。
 //                data.remove(adapterPosition);
 //                adapter.notifyDataSetChanged();
                 int menuPosition = menuBridge.getPosition(); // 菜单在RecyclerView的Item中的Position。
-                HttpManager.getInstance()
-                        .with(mContext)
-                        .setObservable(
-                                RetrofitManager
-                                        .getService()
-                                        .delgwc(PreferenceUtils.getString(MyApplication.mContext, "token", ""), "1", datas.getSplist().get(adapterPosition).getShopping_id()))
-                        .setDataListener(new HttpDataListener<String>() {
-                            @Override
-                            public void onNext(String data) {
-                                if (isTeshu) {
-                                    activity.setShuaxin();
+                confirmDialog.showDialog("是否确定删除商品");
+                confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        confirmDialog.dismiss();
+                        HttpManager.getInstance()
+                                .with(mContext)
+                                .setObservable(
+                                        RetrofitManager
+                                                .getService()
+                                                .delgwc(PreferenceUtils.getString(MyApplication.mContext, "token", ""), "1", datas.getSplist().get(adapterPosition).getShopping_id()))
+                                .setDataListener(new HttpDataListener<String>() {
+                                    @Override
+                                    public void onNext(String data) {
+                                        if (isTeshu) {
+                                            activity.setShuaxin();
 
-                                } else {
-                                    gouWuCheFragment.setShuaxin();
-                                }
+                                        } else {
+                                            gouWuCheFragment.setShuaxin();
+                                        }
 
-                                if(MainActivity.instance!=null){
-                                    MainActivity.instance.getGwcNo();
-                                }
-                            }
-                        }, false);
+                                        if(MainActivity.instance!=null){
+                                            MainActivity.instance.getGwcNo();
+                                        }
+                                    }
+                                }, false);
+                    }
+                });
+                confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        confirmDialog.dismiss();
+                    }
+                });
+
             }
         };
 

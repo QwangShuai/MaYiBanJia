@@ -175,7 +175,7 @@ public class ShangJiaActivity extends BaseActivity {
                     @Override
                     public void onNext(final List<QiYeLieBiaoBean> data) {
                         if (!"null".equals(String.valueOf(data))) {
-                            if (data.size() == 5) {
+                            if (data.size() == 10) {
                                 rvList.loadMoreFinish(false, true);
                             } else if (data.size() > 0) {
                                 rvList.loadMoreFinish(false, false);
@@ -191,5 +191,14 @@ public class ShangJiaActivity extends BaseActivity {
                     }
                 });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(ye!=1){
+            ye = 1;
+            getQiyeLiebiao();
+        }
     }
 }

@@ -28,6 +28,7 @@ import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.QueRenDingDanActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseFragment;
 import com.mingmen.mayi.mayibanjia.ui.fragment.gouwuche.adapter.GouWuCheAdapter;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
@@ -94,6 +95,7 @@ public class GouWuCheFragment extends BaseFragment {
     private Map<String,String> selectedId;
     private String zongjia;
     private boolean isCreate;
+    private ConfirmDialog confirmDialog;
 
     @Override
     protected View getSuccessView() {
@@ -120,6 +122,8 @@ public class GouWuCheFragment extends BaseFragment {
                 window.setStatusBarColor(getResources().getColor(R.color.white));
             }
         }
+        confirmDialog = new ConfirmDialog(mContext,
+                mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         getGouWuChe(true);
         isCreate = true;
         selectedId=new HashMap<>();
@@ -310,7 +314,21 @@ public class GouWuCheFragment extends BaseFragment {
                     ToastUtil.showToast("请选择商品后再删除");
                     return;
                 }
-                delGouwucheList();
+                confirmDialog.showDialog("是否确定删除商品");
+                confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        confirmDialog.dismiss();
+                        delGouwucheList();
+                    }
+                });
+                confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        confirmDialog.dismiss();
+                    }
+                });
+
                 break;
         }
     }

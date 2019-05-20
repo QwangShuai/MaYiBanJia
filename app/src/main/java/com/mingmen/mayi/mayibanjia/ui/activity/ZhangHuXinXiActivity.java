@@ -20,6 +20,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.CircleImageView;
 import com.mingmen.mayi.mayibanjia.utils.AppManager;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.PollingService;
 import com.mingmen.mayi.mayibanjia.utils.PollingUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
@@ -132,7 +133,7 @@ public class ZhangHuXinXiActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<ZhangHuRenZhengBean>() {
                     @Override
                     public void onNext(ZhangHuRenZhengBean bean) {
-                        Glide.with(mContext).load(bean.getFile_path()).into(ivTouxiang);
+                        GlideUtils.cachePhoto(mContext,ivTouxiang,bean.getFile_path());
                         tvDianming.setText(bean.getCompany_name());
                         tvZzShenhe.setText(bean.getZz().toString());
                         sh_state = bean.getZz().toString();

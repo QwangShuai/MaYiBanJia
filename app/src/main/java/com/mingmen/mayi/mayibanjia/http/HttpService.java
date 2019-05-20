@@ -7,6 +7,7 @@ import com.mingmen.mayi.mayibanjia.bean.AllShiChangBean;
 import com.mingmen.mayi.mayibanjia.bean.CaiGouDanBean;
 import com.mingmen.mayi.mayibanjia.bean.CaiGouMingChengBean;
 import com.mingmen.mayi.mayibanjia.bean.CarsTypeBean;
+import com.mingmen.mayi.mayibanjia.bean.CbkListBean;
 import com.mingmen.mayi.mayibanjia.bean.ChangYongBean;
 import com.mingmen.mayi.mayibanjia.bean.ChePaiBean;
 import com.mingmen.mayi.mayibanjia.bean.DaYinQrCodeBean;
@@ -49,6 +50,7 @@ import com.mingmen.mayi.mayibanjia.bean.QueRenDingDanShangPinBean;
 import com.mingmen.mayi.mayibanjia.bean.RoleBean;
 import com.mingmen.mayi.mayibanjia.bean.SPTGBean;
 import com.mingmen.mayi.mayibanjia.bean.SPXiangQingBean;
+import com.mingmen.mayi.mayibanjia.bean.SearchCbkBean;
 import com.mingmen.mayi.mayibanjia.bean.ShangJiaPhoneBean;
 import com.mingmen.mayi.mayibanjia.bean.ShangPinBean;
 import com.mingmen.mayi.mayibanjia.bean.ShangPinGuanLiBean;
@@ -437,7 +439,7 @@ public interface HttpService {
     //推荐商品首页
     @POST("gyCommodity/queryCommend.do")
     Observable<ResultModel<List<ShouYeTeJiaBean>>> getTuijianShouye(@Query("user_token") String user_token,
-                                                               @Query("comend_address") String comend_address);
+                                                                    @Query("comend_address") String comend_address);
 
     //店铺展示
     @POST("allCompany/selectdpsy.do")
@@ -1385,8 +1387,8 @@ public interface HttpService {
     // 业务员决定是否自行处理订单
     @POST("wl/updateWlType.do")
     Observable<ResultModel<String>> changeOrder(@Query("user_token") String user_token,
-                                              @Query("wl_cars_order_id") String wl_cars_order_id,
-                                              @Query("person_name") String person_name);
+                                                @Query("wl_cars_order_id") String wl_cars_order_id,
+                                                @Query("person_name") String person_name);
 
     // 购物车数量
     @POST("ctShoppingCart/selectByCount.do")
@@ -1399,16 +1401,16 @@ public interface HttpService {
     // 设置支付密码
     @POST("allCompanyAccount/addPayPassWord.do")
     Observable<ResultModel<String>> setPayPwd(@Query("user_token") String user_token,
-                                               @Query("pay_password") String pay_password);
+                                              @Query("pay_password") String pay_password);
 
     // 重置支付密码
     @POST("allCompanyAccount/uodatePayPassWord.do")
     Observable<ResultModel<String>> updatePayPwd(@Query("user_token") String user_token,
-                                               @Query("pay_password") String pay_password,
-                                               @Query("new_pay_password") String new_pay_password,
-                                               @Query("type") String type,
-                                               @Query("yzm") String yzm,
-                                               @Query("telephone") String telephone);
+                                                 @Query("pay_password") String pay_password,
+                                                 @Query("new_pay_password") String new_pay_password,
+                                                 @Query("type") String type,
+                                                 @Query("yzm") String yzm,
+                                                 @Query("telephone") String telephone);
 
     // 查询是否设置支付密码
     @POST("allCompanyAccount/payPassWordISTrue.do")
@@ -1417,4 +1419,34 @@ public interface HttpService {
     // 获取默认原材料采购
     @POST("ctObserver/morenType.do")
     Observable<ResultModel<FCGName>> getMorenFenlei(@Query("user_token") String user_token);
+
+    // 获取成本卡列表
+    @POST("foodFormula/list.do")
+    Observable<ResultModel<List<CbkListBean>>> getCbkList(@Query("user_token") String user_token,
+                                                          @Query("food_name") String food_name,
+                                                          @Query("pageNumber") Integer pageNumber);
+
+    // 获取购买历史商品
+    @POST("foodFormulaDetal/chooseCommodity.do")
+    Observable<ResultModel<List<SearchCbkBean>>> getCbkLishiList(@Query("user_token") String user_token,
+                                                                 @Query("commodity_name") String commodity_name);
+
+    // 添加成本
+    @POST("foodFormula/save.do")
+    Observable<ResultModel<String>> addCaipin(@Query("user_token") String user_token,
+                                              @Query("food_name") String food_name,
+                                              @Query("food_photo") String food_photo,
+                                              @Query("sale_price") String sale_price,
+                                              @Query("host_remarke") String host_remarke,
+                                              @Query("ingredients_remarke") String ingredients_remarke,
+                                              @Query("flavour_remarke") String flavour_remarke,
+                                              @Query("cllist") String cllist,
+                                              @Query("fllist") String fllist,
+                                              @Query("tllist") String tllist);
+
+    // 修改售卖价格
+    @POST("foodFormula/updateSM.do")
+    Observable<ResultModel<String>> updatePrice(@Query("user_token") String user_token,
+                                                @Query("food_formula_id") String food_formula_id,
+                                                @Query("sale_price") String sale_price);
 }

@@ -27,6 +27,7 @@ import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShenPiActivity;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
@@ -178,7 +179,7 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
         }
         holder.tvShangpinming.setText(listBean.getClassify_name());//商品名
 
-        Glide.with(activity).load(listBean.getPicture_url()).into(holder.ivSptu);//商品图
+        GlideUtils.cachePhoto(activity,holder.ivSptu,listBean.getPicture_url());
         holder.tvGuige.setText(listBean.getPack_standard_name());//规格
         if (bean.getCommodity_id() == null || bean.getCommodity_id().isEmpty()) {//是否选中
             holder.llZongjia.setVisibility(View.GONE);

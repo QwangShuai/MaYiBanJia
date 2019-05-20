@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.DianPuBean;
 import com.mingmen.mayi.mayibanjia.ui.activity.DianPuActivity;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 
 import java.util.List;
 
@@ -48,7 +49,7 @@ public class DianPuGuanZhuAdapter extends RecyclerView.Adapter<DianPuGuanZhuAdap
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final DianPuBean bean = mList.get(position);
-        Glide.with(mContext).load(bean.getPhoto()).into(holder.ivTu);
+        GlideUtils.cachePhoto(mContext,holder.ivTu,bean.getPhoto());
         holder.tvDianming.setText(bean.getCompany_name());
         holder.rbPingfen.setRating(bean.getEvaluation());
         holder.rbPingfen.setSelected(false);

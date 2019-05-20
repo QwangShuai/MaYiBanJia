@@ -21,6 +21,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.DianPuActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShangPinGuanLiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dingdan.DingDanActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ghdingdan.GHDOrderActivity;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 
 import java.util.List;
@@ -94,9 +95,7 @@ public class ZhuceShangjiaAdapter extends RecyclerView.Adapter<ZhuceShangjiaAdap
 
             }
         });
-        if(StringUtil.isValid(data.getPhoto())){
-            Glide.with(mContext).load(data.getPhoto()).into(holder.ivTouxiang);
-        }
+        GlideUtils.cachePhoto(mContext,holder.ivTouxiang,data.getPhoto());
 /*        if (data.getSpecific_address() != null) {
             holder.tvDizhi.setText(data.getQuYMC() + data.getQuYMCa() + data.getQuYMCb() + data.getQuYMCc() + data.getSpecific_address());
         } else {

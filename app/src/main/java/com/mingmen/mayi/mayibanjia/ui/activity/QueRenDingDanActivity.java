@@ -141,7 +141,7 @@ public class QueRenDingDanActivity extends BaseActivity {
     private List<AllMarket> shichangList = new ArrayList<>();
     private List<String> commodity_id_list = new ArrayList<>();
     private List<String> son_order_id_list = new ArrayList<>();
-    private String isTime;
+    private String isTime= "";
     private String isZhunshi;
     private Integer cs_money;
     private boolean isFukuan;
@@ -260,10 +260,13 @@ public class QueRenDingDanActivity extends BaseActivity {
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getMyGoods(SongDaShiJianBean bean) {
-        tvSongdashijian.setText(bean.getSon_name());
-        songdashijianid = bean.getSon_name();
+        if(bean!=null&&dizhi!=null){
+            tvSongdashijian.setText(bean.getSon_name());
+            songdashijianid = bean.getSon_name();
 //        this.goods =  bean.getMessage();
-        getYunFei();
+            getYunFei();
+        }
+
     }
     private void caigoutijiaodingdan() {
         if(!StringUtil.isValid(ct_buy_final_id)){
@@ -503,45 +506,49 @@ public class QueRenDingDanActivity extends BaseActivity {
                 ToastUtil.showToastLong("规则还在制定中");
                 break;
             case R.id.tv_biaozhunda:
-                if(dizhi==null||StringUtil.isEmpty(dizhi.getAddress_id())){
-                    ToastUtil.showToastLong("请添加收货地址");
-                } else {
-                    tvZhushida.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_999999_3));
-                    tvZhushida.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
-                    tvBiaozhunda.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_999999_3));
-                    tvBiaozhunda.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
-                    shichangList.clear();
-                    hejijine = 0.0;
-                    zongzhong = 0.0;
-                    yunfei = 0.0;
-                    isZhunshi = "0";
-                    isTime = "标准达";
-                    new DateDialog().setData(mContext).show(getSupportFragmentManager());
-                    tvSongdashijian.setText("");
-                    for (int i=0;i<shichangdata.size();i++) {
-                        shichangdata.get(i).setYunfei(BigDecimal.valueOf(0));
+//                if(!isTime.equals("标准达")) {
+                    if (dizhi == null || StringUtil.isEmpty(dizhi.getAddress_id())) {
+                        ToastUtil.showToastLong("请添加收货地址");
+                    } else {
+                        tvZhushida.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_999999_3));
+                        tvZhushida.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+                        tvBiaozhunda.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_999999_3));
+                        tvBiaozhunda.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+                        shichangList.clear();
+                        hejijine = 0.0;
+                        zongzhong = 0.0;
+                        yunfei = 0.0;
+                        isZhunshi = "0";
+                        isTime = "标准达";
+                        new DateDialog().setData(mContext).show(getSupportFragmentManager());
+                        tvSongdashijian.setText("");
+                        for (int i = 0; i < shichangdata.size(); i++) {
+                            shichangdata.get(i).setYunfei(BigDecimal.valueOf(0));
+                        }
+                        tvHejijine.setText("0");
+                        tvYunfei.setText("0");
+                        tvYunfei.setText("0");
+                        tvHejijine.setText("0");
+                        adapter.notifyDataSetChanged();
                     }
-                    tvHejijine.setText("0");
-                    tvYunfei.setText("0");
-                    tvYunfei.setText("0");
-                    tvHejijine.setText("0");
-                    adapter.notifyDataSetChanged();
-                }
-
+//                }
                 break;
             case R.id.tv_zhunshida:
-                if(dizhi==null||StringUtil.isEmpty(dizhi.getAddress_id())){
-                    ToastUtil.showToastLong("请添加收货地址");
-                } else {
-                    tvZhushida.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_999999_3));
-                    tvZhushida.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
-                    tvBiaozhunda.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_999999_3));
-                    tvBiaozhunda.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
-                    shichangList.clear();
-                    isZhunshi = "1";
-                    getZhunshidaYunFei();
-                    isTime = "实时达";
+                if(!isTime.equals("实时达")){
+                    if(dizhi==null||StringUtil.isEmpty(dizhi.getAddress_id())){
+                        ToastUtil.showToastLong("请添加收货地址");
+                    } else {
+                        tvZhushida.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_999999_3));
+                        tvZhushida.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+                        tvBiaozhunda.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_999999_3));
+                        tvBiaozhunda.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+                        shichangList.clear();
+                        isZhunshi = "1";
+                        getZhunshidaYunFei();
+                        isTime = "实时达";
+                    }
                 }
+
                 break;
             case R.id.ll_songdashijian:
                 ToastUtil.showToastLong("时间由送达状态选择");
@@ -658,15 +665,15 @@ public class QueRenDingDanActivity extends BaseActivity {
                         getsplist();
                         adapter.notifyDataSetChanged();
                     } else {
+                        String dizhijson = data.getStringExtra("dizhi");
+                        dizhi = gson.fromJson(dizhijson, AddressListBean.class);
+                        Log.e("dizhijson", dizhijson);
                         count = 1;
                         llYoudizhi.setVisibility(View.VISIBLE);
                         tvWudizhi.setVisibility(View.GONE);
                         number = "";
                         yunfei = 0.0;
                         zongzhong = 0.0;
-                        String dizhijson = data.getStringExtra("dizhi");
-                        Log.e("dizhijson", dizhijson);
-                        dizhi = gson.fromJson(dizhijson, AddressListBean.class);
                         initdizhi();
                         getsplist();
                         adapter.notifyDataSetChanged();
@@ -697,8 +704,10 @@ public class QueRenDingDanActivity extends BaseActivity {
 
     public void getYunFei() {
         if(dizhi==null||!StringUtil.isValid(dizhi.getAddress_id())){
+            Log.e("getYunFei: ",dizhi.getAddress_id()+"----" );
             ToastUtil.showToast("请添加收货地址");
         } else {
+            Log.e("getYunFei: ", dizhi.getAddress_id()+"----" );
             HttpManager.getInstance()
                     .with(mContext)
                     .setObservable(RetrofitManager.getService()
@@ -741,7 +750,8 @@ public class QueRenDingDanActivity extends BaseActivity {
     }
     public void getZhunshidaYunFei() {
         if(dizhi==null||!StringUtil.isValid(dizhi.getAddress_id())){
-            ToastUtil.showToast("请添加准时达收货地址");
+            Log.e("getZhunshidaYunFei: ",dizhi.getAddress_id()+"----" );
+            ToastUtil.showToast("请添加收货地址");
         } else {
             HttpManager.getInstance()
                     .with(mContext)
@@ -752,7 +762,6 @@ public class QueRenDingDanActivity extends BaseActivity {
                         public void onNext(List<YunFeiBean> o) {
                             adapter.setYunfei(o);
                             hejijine = Double.valueOf(zongjia);
-                            hejijine = 0.0;
                             zongzhong = 0.0;
                             yunfei = 0.0;
                             for (int i=0;i<o.size();i++ ){
@@ -818,4 +827,9 @@ public class QueRenDingDanActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
 }

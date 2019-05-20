@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="32dp"
+    android:layout_marginLeft="2dp"
+    android:layout_marginRight="2dp">
+
+    <LinearLayout
+        android:paddingLeft="6dp"
+        android:background="@drawable/fillet_hollow_zangqing_5"
+        android:layout_width="match_parent"
+        android:layout_height="32dp">
+        <TextView
+            android:singleLine="true"
+            android:layout_weight="1"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/tv_wenzi"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="全部"
+            android:textColor="@color/zangqing"
+            android:textSize="15sp"
+            android:gravity="center"
+            />
+        <ImageView
+            android:padding="6dp"
+            android:layout_gravity="center_vertical"
+            android:visibility="visible"
+            android:id="@+id/iv_shanchu"
+            android:src="@mipmap/shanchux"
+            android:layout_width="22dp"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+</LinearLayout>

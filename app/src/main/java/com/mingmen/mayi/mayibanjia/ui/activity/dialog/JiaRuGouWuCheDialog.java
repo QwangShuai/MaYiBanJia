@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.mingmen.mayi.mayibanjia.R;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
@@ -146,7 +147,7 @@ public class JiaRuGouWuCheDialog extends Dialog {
             tvKucun.setText(kucun);
         }
 
-        Glide.with(c).load(sptu).into(ivSptu);
+        GlideUtils.cachePhoto(c,ivSptu,sptu);
         btQueding.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

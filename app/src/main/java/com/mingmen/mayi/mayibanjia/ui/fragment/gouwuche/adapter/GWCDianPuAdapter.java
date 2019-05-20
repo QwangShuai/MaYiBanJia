@@ -97,8 +97,6 @@ public class GWCDianPuAdapter extends RecyclerView.Adapter<GWCDianPuAdapter.View
         shangpinlist = datas.getSplist();
 //        holder.tv_name.setText(string.getTitle());
 //        holder.tv_laizi.setText(string.getCat_name());
-//        Glide.with(mContext).load("http://www.zhenlvw.com/"+string.getFile_url())
-//                .into(holder.iv_danxuan);
         holder.iv_jishida.setVisibility(View.GONE);
         holder.tv_dianming.setText(datas.getCompany_name());
         holder.tv_dianpushichang.setText(datas.getMarket_name());

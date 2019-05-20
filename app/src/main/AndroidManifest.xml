@@ -525,7 +525,10 @@
         </activity>
         <activity android:name=".utils.dayinji.BluetoothDeviceList" />
         <activity android:name=".ui.activity.YoukeLoginActivity" />
-        <activity android:name=".ui.activity.SpXinxiActivity"></activity>
+        <activity android:name=".ui.activity.SpXinxiActivity" />
+        <activity android:name=".ui.activity.AddCbkActivity" />
+        <activity android:name=".ui.activity.ChengBenKaListActivity" />
+        <activity android:name=".ui.activity.SearchCaipinActivity"></activity>
     </application>
 
 </manifest>

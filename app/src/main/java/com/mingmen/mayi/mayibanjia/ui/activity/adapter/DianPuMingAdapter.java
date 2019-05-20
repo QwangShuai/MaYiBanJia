@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.DianMingChaXunBean;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -52,7 +53,7 @@ public class DianPuMingAdapter extends  RecyclerView.Adapter<DianPuMingAdapter.V
         DianMingChaXunBean string = mList.get(position);
         String zi = string.getCompany_name().toString().trim();
         holder.tv_ming.setText(zi);
-        Glide.with(mContext).load(string.getPhoto()).into(holder.iv_touxiang);
+        GlideUtils.cachePhoto(mContext,holder.iv_touxiang,string.getPhoto());
         if (mOnItemClickListener!=null){
             holder.tv_ming.setOnClickListener(new View.OnClickListener() {
                 @Override

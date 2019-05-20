@@ -27,6 +27,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.SPXiangQingActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.WeiYiQrCodeActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.XuanZeZhiFuFangShiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 
 import java.util.List;
@@ -144,7 +145,7 @@ public class XqShichangAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity
                     break;
                 case TYPE_LEVEL_2:
                     final DdxqBean.MarketBean.DplistBean.ListspBean item2 = (DdxqBean.MarketBean.DplistBean.ListspBean) item;
-                    Glide.with(mContext).load(item2.getHostPicture()).into((ImageView) helper.getView(R.id.iv_sptu));
+                    GlideUtils.cachePhoto(mContext,(ImageView) helper.getView(R.id.iv_sptu),item2.getHostPicture());
                     helper.setText(R.id.tv_spming, item2.getClassify_name());
                     helper.setText(R.id.tv_guige, item2.getPackStandard());
                     helper.setText(R.id.tv_jiage, item2.getPrice());

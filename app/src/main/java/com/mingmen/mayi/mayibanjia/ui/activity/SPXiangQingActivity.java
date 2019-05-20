@@ -48,6 +48,7 @@ import com.mingmen.mayi.mayibanjia.ui.view.XCFlowLayout;
 import com.mingmen.mayi.mayibanjia.ui.view.xiangqing.IdeaScrollView;
 import com.mingmen.mayi.mayibanjia.ui.view.xiangqing.IdeaViewPager;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
@@ -294,9 +295,7 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
                 tvPingjiaming.setText(pingjia.getPjCompanyName());
 //            tvPingjianeirong.setText(pingjia.getComment_text());
                 tvRiqi.setText(pingjia.getCreate_time() + "");
-                if (pingjia.getHeadPhoto() != null) {
-                    Glide.with(mContext).load(pingjia.getHeadPhoto()).into(civTouxiang);
-                }
+                GlideUtils.cachePhoto(mContext,civTouxiang,pingjia.getHeadPhoto());
                 String[] pingjiaarray = new String[pingjia.getPjList()==null?0:pingjia.getPjList().size()];
                 for (int i=0;i<pingjia.getPjList().size();i++){
                     pingjiaarray[i] = pingjia.getPjList().get(i).getSon_name();
@@ -321,7 +320,7 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
         tvShangpinming.setText(xq.getClassify_name());
         ivJishida.setVisibility(xq.getReal_time_state().equals("0")?View.VISIBLE:View.GONE);
         tvDianming.setText(xq.getCompanyName());
-        Glide.with(mContext).load(xq.getCompanyPhoto()).into(ivDiantu);
+        GlideUtils.cachePhoto(mContext,ivDiantu,xq.getCompanyPhoto());
         tvDizhi.setText(xq.getCompanyAddress());
         if(xq.getGoods().equals("1")){
             llTejia.setVisibility(View.VISIBLE);

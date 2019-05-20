@@ -19,6 +19,7 @@ import com.mingmen.mayi.mayibanjia.bean.LiuLanJiLuBean;
 import com.mingmen.mayi.mayibanjia.bean.ShangPinSouSuoBean;
 import com.mingmen.mayi.mayibanjia.ui.activity.SPXiangQingActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.TubiaoActivity;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 
 import java.util.List;
@@ -69,7 +70,7 @@ public class LiuLanJiLuAdapter extends RecyclerView.Adapter<LiuLanJiLuAdapter.Vi
         holder.tvJiage.setText(data.getPrice()+"");
         //holder.tvGuige.setText(data.getPackStandard()+"");
         holder.tvSpxiaoliang.setText(data.getCollectCount()+"人收藏");
-        Glide.with(mContext).load(data.getGoodsPicture()).into(holder.ivSptu);
+        GlideUtils.cachePhoto(mContext,holder.ivSptu,data.getGoodsPicture());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

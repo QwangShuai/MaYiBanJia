@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.DianPuBean;
 import com.mingmen.mayi.mayibanjia.ui.activity.DianPuActivity;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 
 import java.util.List;
 
@@ -52,7 +53,7 @@ public class DianPuListAdapter extends  RecyclerView.Adapter<DianPuListAdapter.V
         final DianPuBean bean = mList.get(position);
         //店铺名
         holder.tv_dianming.setText(bean.getCompany_name());
-        Glide.with(mContext).load(bean.getPhoto()).into(holder.iv_tu);
+        GlideUtils.cachePhoto(mContext,holder.iv_tu,bean.getPhoto());
         holder.rb_pingfen.setRating(bean.getEvaluation());
         holder.tv_pingfen.setText(String.valueOf(bean.getEvaluation()));
         holder.tv_yishou.setText("已售"+bean.getCommodity_sales());

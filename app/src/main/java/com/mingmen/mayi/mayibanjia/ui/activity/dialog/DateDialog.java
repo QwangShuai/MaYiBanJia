@@ -129,8 +129,7 @@ public class DateDialog extends BaseFragmentDialog implements View.OnClickListen
     public void getData(){
         Map<String,Integer> map= DateUtil.genDate(3);
         int count = 0;
-        for (String i:
-                map.keySet()) {
+        for (String i:map.keySet()) {
             SongDaShiJianBean bean = new SongDaShiJianBean();
             bean.setSon_number(count+"");
             bean.setSon_name(i);

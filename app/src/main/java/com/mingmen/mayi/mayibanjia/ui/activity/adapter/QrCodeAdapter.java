@@ -28,6 +28,7 @@ import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.DaYinQrCodeActivity;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
@@ -69,12 +70,7 @@ public class QrCodeAdapter extends RecyclerView.Adapter<QrCodeAdapter.ViewHolder
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         final DaYinQrCodeBean bean = mList.get(position);
-//        holder.tv_suoyin.setText(bean.getSerial());
-        if (StringUtil.isValid(bean.getTwocode())) {
-            Glide.with(mContext).load(bean.getTwocode()).into(holder.iv_qr_code);
-            Log.e("onBindViewHolder: ", bean.getTwocode());
-        }
-
+        GlideUtils.cachePhoto(mContext,holder.iv_qr_code,bean.getTwocode());
 //        holder.tv_biaoshi.setText(bean.getIdentifying());
         holder.tv_dianpu.setText(bean.getCompany_name() + "(餐厅端)");
 //        holder.tv_dizhi.setText(bean.getCompanyAddress());

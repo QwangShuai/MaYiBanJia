@@ -34,6 +34,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.adapter.FaCaiGouLishiAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.FaCaiGouMohuAdapter;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.AutoLineFeedLayoutManager;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
@@ -201,7 +202,7 @@ public class FCGDiQuXuanZeActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
-                        Glide.with(mContext).load(data).into(ivBg);
+                        GlideUtils.cachePhoto(mContext,ivBg,data);
                     }
                 },false);
     }

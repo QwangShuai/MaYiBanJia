@@ -51,6 +51,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.dialog.LianggeXuanXiangDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.PhotoDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ZXGuigeDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.MyMath;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
@@ -1061,7 +1062,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                         final EditorShangPinBean.XqBean bean = data.getXq();
                         PreferenceUtils.setEditorShangPinBean(MyApplication.mContext, data);
                         if (StringUtil.isValid(bean.getHostPicture())) {
-                            Glide.with(FaBuShangPinActivity.this).load(bean.getHostPicture()).into(ivSptu);
+                            GlideUtils.cachePhoto(FaBuShangPinActivity.this,ivSptu,bean.getHostPicture());
                             shangpintu = bean.getHostPicture();
                         }
                         ming = bean.getClassify_name() + "";

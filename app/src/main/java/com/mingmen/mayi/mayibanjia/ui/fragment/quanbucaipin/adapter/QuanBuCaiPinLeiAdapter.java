@@ -227,8 +227,6 @@ public class QuanBuCaiPinLeiAdapter extends RecyclerView.Adapter<QuanBuCaiPinLei
         } else {
             holder.tv10.setVisibility(View.GONE);
         }
-//        Glide.with(mContext).load(""+string.getFile_url())
-//                .into(holder.iv1);
     }
 
     @Override

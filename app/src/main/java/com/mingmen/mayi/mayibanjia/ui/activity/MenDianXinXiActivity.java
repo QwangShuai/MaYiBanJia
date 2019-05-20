@@ -17,6 +17,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.CircleImageView;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 
 import butterknife.BindView;
@@ -101,7 +102,7 @@ public class MenDianXinXiActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<GetMenDianBean>() {
                     @Override
                     public void onNext(GetMenDianBean bean) {
-                        Glide.with(mContext).load(bean.getPhoto()).into(ivTouxiang);
+                        GlideUtils.cachePhoto(mContext,ivTouxiang,bean.getPhoto());
                         tvDianpu.setText(bean.getCompany_name());
                         tvShichang.setText(bean.getMarket_name());
                         tvDizhi.setText(bean.getDeliver_address());

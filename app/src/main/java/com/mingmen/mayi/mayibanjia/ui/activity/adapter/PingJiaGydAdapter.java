@@ -28,6 +28,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.YongHuPingJiaActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.CircleImageView;
 import com.mingmen.mayi.mayibanjia.ui.view.XCFlowLayout;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
@@ -142,7 +143,7 @@ public class PingJiaGydAdapter extends RecyclerView.Adapter<PingJiaGydAdapter.Vi
             holder.llShangjiahuifu.setVisibility(View.GONE);
         }
 
-        Glide.with(mContext).load(item.getHeadPhoto()).into(holder.ivTouxiang);
+        GlideUtils.cachePhoto(mContext,holder.ivTouxiang,item.getHeadPhoto());
         holder.rbPingfen.setRating(item.getStar_evaluation());//评分
         String pingjianeirong = item.getComment_text();
         if (item.getPjList() != null && item.getPjList().size() != 0) {

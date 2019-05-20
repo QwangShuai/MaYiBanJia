@@ -39,6 +39,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.adapter.FenLeiLableAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.PhotoDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.AppManager;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
@@ -588,16 +589,16 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
             }
             for (int i = 0; i < bean.getXq().getDpicture().size(); i++) {
                 if (i == 0) {
-                    Glide.with(FaBuShangPinXiangQingTuActivity.this).load(bean.getXq().getDpicture().get(i)).into(ivXq1);
+                    GlideUtils.cachePhoto(FaBuShangPinXiangQingTuActivity.this,ivXq1,bean.getXq().getDpicture().get(i));
                     tu1 = bean.getXq().getDpicture().get(i);
                 } else if (i == 1) {
-                    Glide.with(FaBuShangPinXiangQingTuActivity.this).load(bean.getXq().getDpicture().get(i)).into(ivXq2);
+                    GlideUtils.cachePhoto(FaBuShangPinXiangQingTuActivity.this,ivXq2,bean.getXq().getDpicture().get(i));
                     tu2 = bean.getXq().getDpicture().get(i);
                 } else if (i == 2) {
-                    Glide.with(FaBuShangPinXiangQingTuActivity.this).load(bean.getXq().getDpicture().get(i)).into(ivXq3);
+                    GlideUtils.cachePhoto(FaBuShangPinXiangQingTuActivity.this,ivXq3,bean.getXq().getDpicture().get(i));
                     tu3 = bean.getXq().getDpicture().get(i);
                 } else {
-                    Glide.with(FaBuShangPinXiangQingTuActivity.this).load(bean.getXq().getDpicture().get(i)).into(ivXq4);
+                    GlideUtils.cachePhoto(FaBuShangPinXiangQingTuActivity.this,ivXq4,bean.getXq().getDpicture().get(i));
                     tu4 = bean.getXq().getDpicture().get(i);
                 }
             }

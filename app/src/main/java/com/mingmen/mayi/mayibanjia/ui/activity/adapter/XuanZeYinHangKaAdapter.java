@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.XuanZeYinHangKaBean;
 import com.mingmen.mayi.mayibanjia.ui.view.CircleImageView;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class XuanZeYinHangKaAdapter extends RecyclerView.Adapter<XuanZeYinHangKa
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final XuanZeYinHangKaBean bean = mList.get(position);
-        Glide.with(mContext).load(bean.getLog_url()).into(holder.ivTubiao);
+        GlideUtils.cachePhoto(mContext,holder.ivTubiao,bean.getLog_url());
         holder.tvYinhang.setText(bean.getSon_name());
 
         holder.llItem.setOnClickListener(new View.OnClickListener() {

@@ -28,6 +28,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmSingleDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.shangpinguanli.BaseShangPinFragment;
 import com.mingmen.mayi.mayibanjia.ui.activity.shangpinguanli.QuanBuShangPinFragment;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
@@ -145,7 +146,7 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
         final ShangPinGuanLiBean.GoodsListBean bean = mList.get(position);
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
-        Glide.with(mContext).load(bean.getPicture_url()).into(holder.ivSptu);
+        GlideUtils.cachePhoto(mContext,holder.ivSptu,bean.getPicture_url());
         holder.tvSpming.setText(bean.getClassify_name());
         holder.tvXiaoliang.setText( "已售" + bean.getSumGoodsSales());
         holder.tvKucun.setText( "库存" + bean.getInventory());

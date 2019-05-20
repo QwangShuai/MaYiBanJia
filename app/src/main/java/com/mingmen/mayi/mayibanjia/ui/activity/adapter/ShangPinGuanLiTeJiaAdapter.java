@@ -18,6 +18,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.FaBuShangPinActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShangPinGuanLiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShangPinGuanLiTeJiaActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
@@ -59,7 +60,7 @@ public class ShangPinGuanLiTeJiaAdapter extends BaseQuickAdapter<ShangPinGuanLiB
     protected void convert(final BaseViewHolder helper, final ShangPinGuanLiBean.GoodsListBean item) {
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
-        Glide.with(mContext).load(item.getPicture_url()).into((ImageView) helper.getView(R.id.iv_sptu));
+        GlideUtils.cachePhoto(mContext,(ImageView) helper.getView(R.id.iv_sptu),item.getPicture_url());
         helper.setText(R.id.tv_spming, item.getClassify_name());
         helper.setText(R.id.tv_xiaoliang, "已售" + item.getSumGoodsSales());
         helper.setText(R.id.tv_kucun, "库存" + item.getInventory());

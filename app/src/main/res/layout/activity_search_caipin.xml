@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+    <include layout="@layout/head_beijingse"></include>
+    <!--<LinearLayout-->
+        <!--android:padding="12dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:orientation="vertical"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+        <!---->
+    <!--</LinearLayout>-->
+    <LinearLayout
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="35dp">
+        <EditText
+            android:layout_weight="1"
+            android:id="@+id/et_sousuo"
+            android:paddingLeft="10dp"
+            android:textSize="13sp"
+            android:textColorHint="@color/hintcolor"
+            android:textColor="@color/zicolor"
+            android:hint="请输入购买过的商品名"
+            android:background="@drawable/fillet_hollow_999999_3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <LinearLayout
+            android:layout_marginLeft="2dp"
+            android:id="@+id/ll_sousuo"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <ImageView
+                android:src="@mipmap/sousuo_black"
+                android:padding="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+            <TextView
+                android:text="搜索"
+                android:id="@+id/tv_sousuo"
+                android:textColor="@color/zicolor"
+                android:textSize="18sp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+    <ScrollView
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.mingmen.mayi.mayibanjia.ui.view.XCFlowLayout
+                android:id="@+id/xcf_caipin"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></com.mingmen.mayi.mayibanjia.ui.view.XCFlowLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

@@ -25,6 +25,7 @@ import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.CaiGouDanActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.ChengBenKaListActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.DianPuGuanZhuActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.GongYingDuanShouYeActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.LiuLanJiLuActivity;
@@ -41,7 +42,9 @@ import com.mingmen.mayi.mayibanjia.ui.activity.dingdan.DingDanActivity;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseFragment;
 import com.mingmen.mayi.mayibanjia.ui.view.CircleImageView;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -292,7 +295,7 @@ public class WoDeFragment extends BaseFragment {
     }
 
     private void initView() {
-        Glide.with(getActivity()).load(woDeBean.getPhoto()).into(ivTouxiang);
+        GlideUtils.cachePhoto(getActivity(),ivTouxiang,woDeBean.getPhoto());
         if (PreferenceUtils.getString(MyApplication.mContext, "host_account_type", "").equals("0")) {
             tvYue.setText(woDeBean.getMoney());
         }
@@ -369,7 +372,8 @@ public class WoDeFragment extends BaseFragment {
 
     @OnClick({R.id.iv_tongzhi, R.id.iv_touxiang, R.id.ll_shoucang, R.id.iv_mingpian, R.id.rl_daifukuan,
             R.id.rl_daifahuo, R.id.rl_daishouhuo, R.id.rl_yishouhuo, R.id.rl_yiwancheng, R.id.rl_shouhuodizhi, R.id.rl_yijian,
-            R.id.rl_kefu, R.id.ll_guanzhu, R.id.ll_liulanjilu, R.id.rl_yinhang, R.id.ll_qiehuan, R.id.ll_myyue, R.id.ll_pingjia, R.id.rl_zizhanghu,
+            R.id.rl_kefu, R.id.ll_guanzhu, R.id.ll_liulanjilu, R.id.rl_yinhang, R.id.ll_qiehuan,
+            R.id.ll_myyue, R.id.ll_pingjia, R.id.rl_zizhanghu,R.id.rl_chengbenka,
             R.id.rl_daishenhe, R.id.rl_daitijiao, R.id.rl_weitongguo, R.id.rl_tongguo})
 //            ,R.id.rl_jueseguanli})
     public void onViewClicked(View view) {
@@ -395,6 +399,10 @@ public class WoDeFragment extends BaseFragment {
                 Intent tongguo = new Intent(mContext, CaiGouDanActivity.class);
                 tongguo.putExtra("type", "901");
                 mContext.startActivity(tongguo);
+                break;
+            case R.id.rl_chengbenka:
+//                ToastUtil.showToastLong("功能开发中");
+                Jump_intent(ChengBenKaListActivity.class, new Bundle());
                 break;
             case R.id.ll_shoucang://商品收藏
                 Jump_intent(ShouCangListActivity.class, new Bundle());

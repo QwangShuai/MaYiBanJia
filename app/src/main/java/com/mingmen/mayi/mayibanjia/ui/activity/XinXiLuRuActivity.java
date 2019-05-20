@@ -46,6 +46,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ShangquanRightDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.ShowViewCity;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
@@ -189,7 +190,7 @@ public class XinXiLuRuActivity extends BaseActivity {
             etQiyeguimo.setText(qiyexinxi.getGuiMoId());
             etXiangxidizhi.setText(qiyexinxi.getSpecific_address());
             tvQiyeleibie.setText(leibiename);
-            Glide.with(mContext).load(shidizhaopian).into(ivTu);
+            GlideUtils.cachePhoto(mContext,ivTu,shidizhaopian);
             etPhone.setText(qiyexinxi.getTelephone());
         }
         photoDialog = new PhotoDialog(mContext,

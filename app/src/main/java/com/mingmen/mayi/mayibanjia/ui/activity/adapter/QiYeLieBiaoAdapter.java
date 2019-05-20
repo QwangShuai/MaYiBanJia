@@ -19,6 +19,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.ShangPinGuanLiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.YeWuYuanMainActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dingdan.DingDanActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ghdingdan.GHDOrderActivity;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
@@ -112,7 +113,7 @@ public class QiYeLieBiaoAdapter extends RecyclerView.Adapter<QiYeLieBiaoAdapter.
         }
 
         holder.tvYewuyuan.setText("业务员:"+data.getPrincipal());
-        Glide.with(mContext).load(data.getPhoto()).into(holder.ivTouxiang);
+        GlideUtils.cachePhoto(mContext,holder.ivTouxiang,data.getPhoto());
 //        if (data.getSpecific_address() != null) {
 //            holder.tvDizhi.setText(data.getQuYMC() + data.getQuYMCa() + data.getQuYMCb() + data.getQuYMCc() + data.getSpecific_address());
 //        } else {

@@ -16,6 +16,7 @@ import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.AddQrCodeBean;
 import com.mingmen.mayi.mayibanjia.ui.activity.AddQrCodeActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.DaYinQrCodeActivity;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 
 import java.util.List;
@@ -88,7 +89,7 @@ public class AddQrCodeAdapter extends RecyclerView.Adapter<AddQrCodeAdapter.View
                 }
             });
         }
-        Glide.with(mContext).load(bean.getUrl()).into(holder.ivTouxiang);
+        GlideUtils.cachePhoto(mContext,holder.ivTouxiang,bean.getUrl());
         holder.tvSpming.setText(bean.getClassify_name());
         holder.tvSpnumber.setText("数量："+bean.getAcount());
         holder.tvSpbaozhuang.setText("包装个数："+bean.getNumber());

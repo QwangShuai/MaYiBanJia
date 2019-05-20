@@ -31,6 +31,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.DianPuZhanShiAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.JiaRuGouWuCheDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
@@ -330,7 +331,7 @@ public class DianPuActivity extends BaseActivity implements View.OnClickListener
      }
 
     private void initView() {
-        Glide.with(mContext).load(dianpuxinxi.getFile_path()+"").into(ivDiantu);
+        GlideUtils.cachePhoto(mContext,ivDiantu,dianpuxinxi.getFile_path());
         tvDianming.setMarqueeEnable(true);
         tvDianming.setText(dianpuxinxi.getCompany_name()+"("+dianpuxinxi.getMarket_name()+")");
         tvPingfen.setText(dianpuxinxi.getEvaluation()+"");

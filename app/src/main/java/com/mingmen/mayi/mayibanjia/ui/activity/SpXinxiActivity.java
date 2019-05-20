@@ -23,6 +23,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.FenLeiLableAdapter;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
@@ -170,9 +171,7 @@ public class SpXinxiActivity extends BaseActivity {
                     @Override
                     public void onNext(EditorShangPinBean data) {
                         final EditorShangPinBean.XqBean bean = data.getXq();
-                        if (StringUtil.isValid(bean.getHostPicture())) {
-                            Glide.with(mContext).load(bean.getHostPicture()).into(ivSptu);
-                        }
+                        GlideUtils.cachePhoto(mContext,ivSptu,bean.getHostPicture());
                         if (StringUtil.isValid(bean.getType_tree_id())) {
                             tvFenleimingcheng.setText(bean.getType_one_name());
                             llShangpin.setVisibility(View.GONE);
@@ -219,16 +218,16 @@ public class SpXinxiActivity extends BaseActivity {
                         if (tusize!=0) {
                             for (int i = 0; i < bean.getDpicture().size(); i++) {
                                 if (i == 0) {
-                                    Glide.with(mContext).load(bean.getDpicture().get(i)).into(ivXq1);
+                                    GlideUtils.cachePhoto(mContext,ivXq1,bean.getDpicture().get(i));
                                     ivXq1.setVisibility(View.VISIBLE);
                                 } else if (i == 1) {
-                                    Glide.with(mContext).load(bean.getDpicture().get(i)).into(ivXq2);
+                                    GlideUtils.cachePhoto(mContext,ivXq2,bean.getDpicture().get(i));
                                     ivXq2.setVisibility(View.VISIBLE);
                                 } else if (i == 2) {
-                                    Glide.with(mContext).load(bean.getDpicture().get(i)).into(ivXq3);
+                                    GlideUtils.cachePhoto(mContext,ivXq3,bean.getDpicture().get(i));
                                     ivXq3.setVisibility(View.VISIBLE);
                                 } else {
-                                    Glide.with(mContext).load(bean.getDpicture().get(i)).into(ivXq4);
+                                    GlideUtils.cachePhoto(mContext,ivXq4,bean.getDpicture().get(i));
                                     ivXq4.setVisibility(View.VISIBLE);
                                 }
                             }

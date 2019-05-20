@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.SPTGBean;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShenPiChengGongActivity;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 
 import java.util.List;
@@ -50,7 +51,7 @@ public class SPTGOneTwoAdapter extends RecyclerView.Adapter<SPTGOneTwoAdapter.Vi
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final SPTGBean.FllistBean.SonorderlistBean bean = mList.get(position);
-        Glide.with(mContext).load(bean.getPicture_url()).into(holder.ivSptu);
+        GlideUtils.cachePhoto(mContext,holder.ivSptu,bean.getPicture_url());
         holder.tvShangpin.setText(bean.getClassify_name() + "");
         holder.tvDianming.setText(bean.getCompany_name());
         if(StringUtil.isValid(bean.getSpecial_commodity())){

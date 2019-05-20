@@ -20,6 +20,7 @@ import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.DdxqListBean;
 import com.mingmen.mayi.mayibanjia.ui.activity.DianPuActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.SPXiangQingActivity;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 
 import java.util.List;
@@ -52,7 +53,7 @@ public class DdXqShangpinAdapter extends RecyclerView.Adapter<DdXqShangpinAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final DdxqListBean.MarketBean.DplistBean.ListspBean bean = mList.get(position);
-        Glide.with(mContext).load(bean.getHostPicture()).into(holder.ivSptu);
+        GlideUtils.cachePhoto(mContext,holder.ivSptu,bean.getHostPicture());
         //holder.tvSpming.setText(bean.getClassify_name());
         holder.tvSpming.setText(bean.getClassify_name());
         holder.tvGuige.setText(bean.getPackStandard());

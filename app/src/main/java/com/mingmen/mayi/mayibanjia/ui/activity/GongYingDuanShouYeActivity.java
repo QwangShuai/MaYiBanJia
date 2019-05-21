@@ -27,6 +27,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.qiangdan.GongYingDuanQiangDanActi
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.CircleImageView;
 import com.mingmen.mayi.mayibanjia.utils.AppManager;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 import com.mingmen.mayi.mayibanjia.utils.PollingService;
 import com.mingmen.mayi.mayibanjia.utils.PollingUtils;
@@ -404,7 +405,7 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
     }
 
     private void initView() {
-        Glide.with(mContext).load(woDeBean.getPhoto()).into(ivTouxiang);
+        GlideUtils.cachePhoto(mContext,ivTouxiang,woDeBean.getPhoto());
         tvDianming.setText(woDeBean.getCompany_name() + "");
         type = woDeBean.getBusiness_state() + "";
         tvState.setText(type.equals("0") ? "营业中" : "已关店");

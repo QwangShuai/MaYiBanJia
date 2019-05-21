@@ -369,7 +369,6 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                                 }
                                 jiarugouwuchedialog.getEtShuliang().setText("0");
                                 jiarugouwuchedialog.cancel();
-                                updateGwc();
                             }
                         });
                         break;
@@ -434,13 +433,16 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                             isdi = false;
                         }
                         if (shangpin.getZhengchang() != null) {
-                            if (shangpin.getZhengchang().size() == 5) {
-                                rvShangpin.loadMoreFinish(false, true);
-                            } else if (shangpin.getZhengchang().size() > 0) {
-                                rvShangpin.loadMoreFinish(false, false);
-                            } else {
-                                rvShangpin.loadMoreFinish(true, false);
+                            if(QuanBuCaiPinFragment.this.isVisible()){
+                                if (shangpin.getZhengchang().size() == 5) {
+                                    rvShangpin.loadMoreFinish(false, true);
+                                } else if (shangpin.getZhengchang().size() > 0) {
+                                    rvShangpin.loadMoreFinish(false, false);
+                                } else {
+                                    rvShangpin.loadMoreFinish(true, false);
+                                }
                             }
+
                             shangpinlist.addAll(shangpin.getZhengchang());
                         } else {
                             ToastUtil.showToast("没有商品");
@@ -497,7 +499,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                         }
                         shangpinadapter.notifyDataSetChanged();
                         ToastUtil.showToast("添加购物车成功");
-
+                        updateGwc();
                     }
                 });
     }

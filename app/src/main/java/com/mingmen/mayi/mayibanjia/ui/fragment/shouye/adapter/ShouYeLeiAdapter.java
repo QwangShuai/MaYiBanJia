@@ -18,6 +18,7 @@ import com.mingmen.mayi.mayibanjia.bean.ShouYeLeiBean;
 import com.mingmen.mayi.mayibanjia.ui.activity.SPXiangQingActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.myinterface.MainCallBack;
 import com.mingmen.mayi.mayibanjia.ui.view.CircleImageView;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
@@ -51,7 +52,7 @@ public class ShouYeLeiAdapter extends RecyclerView.Adapter<ShouYeLeiAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final FCGName data = mList.get(position);
-            Glide.with(mContext).load(data.getPicture_url()).into(holder.iv1);
+        GlideUtils.cachePhoto(mContext,holder.iv1,data.getPicture_url());
             holder.tv1.setText(data.getClassify_name());
             holder.ll1.setOnClickListener(new View.OnClickListener() {
                 @Override

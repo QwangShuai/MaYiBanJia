@@ -24,6 +24,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.LoginActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.view.CircleImageView;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
@@ -66,8 +67,8 @@ public class YinHangKaAdapter extends RecyclerView.Adapter<YinHangKaAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final YinHangKaBean bean = mList.get(position);
-        Glide.with(mContext).load(bean.getLog_url()).into(holder.ivTubiao);
-        Glide.with(mContext).load(bean.getReverse_url()).into(holder.ivBg);
+        GlideUtils.cachePhoto(mContext,holder.ivTubiao,bean.getLog_url());
+        GlideUtils.cachePhoto(mContext,holder.ivBg,bean.getReverse_url());
         holder.tvBankCardName.setText(bean.getBank_name());
         holder.tvBankCardNumber.setText(bean.getBank_account());
         holder.tvBankCardType.setText(bean.getBank_branch());

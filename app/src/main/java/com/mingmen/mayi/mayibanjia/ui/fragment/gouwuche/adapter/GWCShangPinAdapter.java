@@ -32,6 +32,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.TubiaoActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.GWCXiuGaiShuLiangDialog;
 import com.mingmen.mayi.mayibanjia.ui.fragment.gouwuche.GouWuCheFragment;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
@@ -108,11 +109,12 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
         if (shoppingBean.getCommodity_state().equals("1")) {
             holder.tvName.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
             holder.tvName.setText(shoppingBean.getClassify_name() + "(已下架)");
+            holder.tvXiajia.setVisibility(View.VISIBLE);
         } else {
             holder.tvName.setText(shoppingBean.getClassify_name());//商品名称改为三级分类名称
+            holder.tvXiajia.setVisibility(View.GONE);
         }
-        Glide.with(mContext).load(shoppingBean.getUrl())
-                .into(holder.ivTu);
+        GlideUtils.cachePhoto(mContext,holder.ivTu,shoppingBean.getUrl());
         holder.ivDanxuan.setSelected(shoppingBean.isSelect());
 
         holder.tvQidingliang.setText(shoppingBean.getRation_one() + shoppingBean.getSpecNameThree());
@@ -345,6 +347,8 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
         TextView tvJianhao;
         @BindView(R.id.tv_number)
         TextView tvNumber;
+        @BindView(R.id.tv_xiajia)
+        TextView tvXiajia;
         @BindView(R.id.tv_jiahao)
         TextView tvJiahao;
         /*        @BindView(R.id.ll_qidingliang)

@@ -80,6 +80,11 @@ public class JiaoYiLiuShuiAdapter extends RecyclerView.Adapter<JiaoYiLiuShuiAdap
                 holder.tvMoney.setTextColor(mContext.getResources().getColor(R.color.zicolor));
                 holder.tvMoney.setText(bean.getPay_money());
                 break;
+            case "6":
+                holder.tvTitle.setText("系统扣款");
+                holder.tvMoney.setTextColor(mContext.getResources().getColor(R.color.zicolor));
+                holder.tvMoney.setText("-"+bean.getPay_money());
+                break;
         }
         holder.tvTime.setText(bean.getCreate_time());
         holder.llChakan.setOnClickListener(new View.OnClickListener() {

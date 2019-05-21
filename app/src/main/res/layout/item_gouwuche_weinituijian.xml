@@ -12,7 +12,7 @@
         <ImageView
             android:layout_width="10dp"
             android:layout_height="10dp"
-            android:src="#fbb03b"
+            android:src="@mipmap/tuijian_left"
             android:layout_marginRight="4dp"
             />
         <TextView
@@ -25,7 +25,7 @@
         <ImageView
             android:layout_width="10dp"
             android:layout_height="10dp"
-            android:src="@color/zangqing"
+            android:src="@mipmap/tuijian_right"
             android:layout_marginLeft="4dp"
             />
     </LinearLayout>

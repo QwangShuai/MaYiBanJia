@@ -5,74 +5,81 @@
     android:background="@color/white"
     android:orientation="vertical">
     <include layout="@layout/head_zangqing"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
-            android:layout_marginBottom="12dp"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="12dp"
+            android:orientation="vertical">
+
             <LinearLayout
-                android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="84dp"
-                android:orientation="horizontal"
+                android:layout_marginBottom="10dp"
                 android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="商品详情"
                     android:textColor="#ff666666"
-                    android:textSize="15sp"
-                    />
+                    android:textSize="15sp" />
+
                 <ImageView
                     android:id="@+id/iv_xq1"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginLeft="20dp"
-                    android:src="@mipmap/tianjiashangpintu"
-                    />
+                    android:src="@mipmap/tianjiashangpintu" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
+
                 <ImageView
                     android:id="@+id/iv_xq2"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:src="@mipmap/tianjiashangpintu"
-                    />
+                    android:src="@mipmap/tianjiashangpintu" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
+
                 <ImageView
                     android:id="@+id/iv_xq3"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:src="@mipmap/tianjiashangpintu"
-                    />
+                    android:src="@mipmap/tianjiashangpintu" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
+
                 <ImageView
                     android:id="@+id/iv_xq4"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:src="@mipmap/tianjiashangpintu"
-                    />
+                    android:src="@mipmap/tianjiashangpintu" />
 
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:layout_marginLeft="12dp"
-                android:background="@color/gray_e7e7e7"
-                />
+                android:background="@color/gray_e7e7e7" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -92,167 +99,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv_flcs"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
-                    <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="35dp"-->
-                    <!--android:gravity="center_vertical"-->
-                    <!--android:orientation="horizontal">-->
-
-                    <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginLeft="20dp"-->
-                    <!--android:text="产地"-->
-                    <!--android:textColor="#ff666666"-->
-                    <!--android:textSize="12sp" />-->
-
-                    <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:layout_marginLeft="12dp"-->
-                    <!--android:orientation="vertical">-->
-                    <!--<EditText-->
-                    <!--android:id="@+id/et_chandi"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:background="@null"-->
-                    <!--android:hint="请填写"-->
-                    <!--android:text=""-->
-                    <!--android:textColor="@color/zicolor"-->
-                    <!--android:textColorHint="@color/hintcolor"-->
-                    <!--android:maxLength="50"-->
-                    <!--android:textSize="12sp" />-->
-                    <!--<View-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="1dp"-->
-                    <!--android:background="@color/cutoff" />-->
-                    <!--</LinearLayout>-->
-                    <!--</LinearLayout>-->
-
-                    <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="35dp"-->
-                    <!--android:gravity="center_vertical"-->
-                    <!--android:orientation="horizontal">-->
-
-                    <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginLeft="20dp"-->
-                    <!--android:text="等级"-->
-                    <!--android:textColor="#ff666666"-->
-                    <!--android:textSize="12sp" />-->
-
-                    <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:layout_marginLeft="12dp"-->
-                    <!--android:orientation="vertical">-->
-
-                    <!--<EditText-->
-                    <!--android:id="@+id/et_dengji"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:background="@null"-->
-                    <!--android:hint="请填写"-->
-                    <!--android:text=""-->
-                    <!--android:textColor="@color/zicolor"-->
-                    <!--android:textColorHint="@color/hintcolor"-->
-                    <!--android:maxLength="10"-->
-                    <!--android:textSize="12sp" />-->
-
-                    <!--<View-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="1dp"-->
-                    <!--android:background="@color/cutoff" />-->
-                    <!--</LinearLayout>-->
-                    <!--</LinearLayout>-->
-
-                    <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="35dp"-->
-                    <!--android:gravity="center_vertical"-->
-                    <!--android:orientation="horizontal">-->
-
-                    <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginLeft="20dp"-->
-                    <!--android:text="适用"-->
-                    <!--android:textColor="#ff666666"-->
-                    <!--android:textSize="12sp" />-->
-
-                    <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:layout_marginLeft="12dp"-->
-                    <!--android:orientation="vertical">-->
-
-                    <!--<EditText-->
-                    <!--android:id="@+id/et_shiyong"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:background="@null"-->
-                    <!--android:hint="请填写"-->
-                    <!--android:text=""-->
-                    <!--android:textColor="@color/zicolor"-->
-                    <!--android:textColorHint="@color/hintcolor"-->
-                    <!--android:maxLength="20"-->
-                    <!--android:textSize="12sp" />-->
-
-                    <!--<View-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="1dp"-->
-                    <!--android:background="@color/cutoff" />-->
-                    <!--</LinearLayout>-->
-                    <!--</LinearLayout>-->
-
-                    <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="35dp"-->
-                    <!--android:gravity="center_vertical"-->
-                    <!--android:orientation="horizontal">-->
-
-                    <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginLeft="20dp"-->
-                    <!--android:text="比例"-->
-                    <!--android:textColor="#ff666666"-->
-                    <!--android:textSize="12sp" />-->
-
-                    <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:layout_marginLeft="12dp"-->
-                    <!--android:orientation="vertical">-->
-
-                    <!--<EditText-->
-                    <!--android:id="@+id/et_bili"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:background="@null"-->
-                    <!--android:hint="请填写"-->
-                    <!--android:text=""-->
-                    <!--android:textColor="@color/zicolor"-->
-                    <!--android:textColorHint="@color/hintcolor"-->
-                    <!--android:maxLength="10"-->
-                    <!--android:textSize="12sp" />-->
-
-                    <!--<View-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="1dp"-->
-                    <!--android:background="@color/cutoff" />-->
-                    <!--</LinearLayout>-->
-                    <!--</LinearLayout>-->
                 </LinearLayout>
             </LinearLayout>
 
@@ -260,8 +111,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:layout_marginLeft="12dp"
-                android:background="@color/gray_e7e7e7"
-                />
+                android:background="@color/gray_e7e7e7" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -313,26 +164,27 @@
                         android:textSize="10sp" />
                 </RelativeLayout>
             </LinearLayout>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="注：发布后规格显示：X盒/X箱/XL"
-                android:textColor="#ffff3300"
-                android:textSize="12sp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="20dp"
-                />
+                android:text="注：发布后规格显示：X盒/X箱/XL"
+                android:textColor="#ffff3300"
+                android:textSize="12sp" />
+
             <Button
                 android:id="@+id/bt_baocun"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginTop="50dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/fillet_solid_zangqing_3"
                 android:text="保存"
                 android:textColor="@color/white"
-                android:textSize="15sp"
-                android:background="@drawable/fillet_solid_zangqing_3"/>
+                android:textSize="15sp" />
         </LinearLayout>
     </ScrollView>
 

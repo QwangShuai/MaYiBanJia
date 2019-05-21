@@ -37,13 +37,16 @@ import com.mingmen.mayi.mayibanjia.bean.ProvinceBean;
 import com.mingmen.mayi.mayibanjia.bean.QiYeGuiMoBean;
 import com.mingmen.mayi.mayibanjia.bean.QiYeLeiBieBean;
 import com.mingmen.mayi.mayibanjia.bean.QiYeLieBiaoBean;
+import com.mingmen.mayi.mayibanjia.bean.ShiChangBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.PhotoDialog;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ShangquanRightDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.ShowViewCity;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
@@ -52,6 +55,9 @@ import com.mingmen.mayi.mayibanjia.utils.photo.QiNiuPhoto;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -111,16 +117,12 @@ public class XinXiLuRuActivity extends BaseActivity {
     private Context mContext;
     private String shidizhaopian;
     private ArrayList<ProvinceBean> zonglist;
-    private ArrayList<ProvinceBean> shenglist;
     private String shengming;
-    private ArrayList shilist;
     private String shiming;
-    private ArrayList qulist;
     private int shiid;
     private String quming;
     private int quid;
     private String guimoname;
-    private String guimoid;
     private String leibiename;
     private String leibieid;
     private SinglePicker<QiYeLeiBieBean> leibiepicker;
@@ -130,7 +132,6 @@ public class XinXiLuRuActivity extends BaseActivity {
     private String yewuyuanweizhi;
     private String qiyemingcheng;
     private String xiangxidizhi;
-    private ArrayList jielist;
     private String jieid;
     private String jieming;
     private String rukou;
@@ -140,7 +141,7 @@ public class XinXiLuRuActivity extends BaseActivity {
     private ArrayList<JsonBean> options1Items = new ArrayList<>();//省
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();//市
     private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();//区
-    int city = 0;
+    private int city = 0;
     int[] pos = new int[3];
 
     @Override
@@ -154,6 +155,9 @@ public class XinXiLuRuActivity extends BaseActivity {
         qiNiuPhoto = new QiNiuPhoto(XinXiLuRuActivity.this);
         bundle = getIntent().getExtras();
         rukou = bundle.getString("rukou");
+        EventBus.getDefault().register(this);
+        StringUtil.setInputNoEmoj(etQiyemingcheng);
+        StringUtil.setInputNoEmoj(etXiangxidizhi);
         if ("add".equals(rukou)) {
 
         } else {
@@ -169,7 +173,6 @@ public class XinXiLuRuActivity extends BaseActivity {
             leibiename = qiyexinxi.getLeiBieName();
 //            guimoid=qiyexinxi.getGuiMoId();
             guimoname = qiyexinxi.getGuiMoName();
-            Log.e("guimo", guimoname + "---" + guimoid);
             shengid = Integer.parseInt(qiyexinxi.getProvince());
             shiid = Integer.parseInt(qiyexinxi.getCity());
             quid = Integer.parseInt(qiyexinxi.getRegion());
@@ -187,18 +190,18 @@ public class XinXiLuRuActivity extends BaseActivity {
             etQiyeguimo.setText(qiyexinxi.getGuiMoId());
             etXiangxidizhi.setText(qiyexinxi.getSpecific_address());
             tvQiyeleibie.setText(leibiename);
-            Glide.with(mContext).load(shidizhaopian).into(ivTu);
+            GlideUtils.cachePhoto(mContext,ivTu,shidizhaopian);
             etPhone.setText(qiyexinxi.getTelephone());
         }
         photoDialog = new PhotoDialog(mContext,
                 mContext.getResources().getIdentifier("BottomDialog", "style", mContext.getPackageName()));
         photoDialog.getWindow().setGravity(Gravity.BOTTOM | Gravity.LEFT | Gravity.RIGHT);
+        initJsonData();
         getYwyDiqu();
         //初始化定位
         initLocation();
         //开始定位
         startLocation();
-        initJsonData();
     }
 
     @OnClick({R.id.tv_right, R.id.tv_qiyeleibie, R.id.iv_tu, R.id.tv_quyuxuanze, R.id.tv_jiedaoxuanze, R.id.bt_queding})
@@ -272,10 +275,18 @@ public class XinXiLuRuActivity extends BaseActivity {
                 if (city == 0) {
                     ToastUtil.showToast("请先选择区域");
                 } else {
+                    ShangquanRightDialog dialog = new ShangquanRightDialog().setData(mContext).show(getSupportFragmentManager());
+                    dialog.setQuid(quid+"");
+                    if(StringUtil.isValid(jieid)){
+                        dialog.setDqId(Integer.valueOf(jieid));
+                    } else {
+                        dialog.setDqId(0);
+                    }
+
 //                    if (zonglist!=null){
 //                        jiedialog();
 //                    }else{
-                    getsheng();
+//                    getsheng();
 //                    }
                 }
 
@@ -700,9 +711,11 @@ public class XinXiLuRuActivity extends BaseActivity {
             imageUri = Uri.fromFile(file);
         }
         Intent intent = new Intent();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); //添加这一句表示对目标应用临时授权该Uri所代表的文件
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); //添加这一句表示对目标应用临时授权该Uri所代表的文件
+//        }
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);//设置Action为拍照
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);//将拍取的照片保存到指定URI
         startActivityForResult(intent, REQUEST_CAPTURE);
@@ -716,9 +729,11 @@ public class XinXiLuRuActivity extends BaseActivity {
         //缩略图保存地址
         outputUri = Uri.fromFile(file);
         Intent intent = new Intent("com.android.camera.action.CROP");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//        }
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         intent.setDataAndType(imageUri, "image/*");
         intent.putExtra("crop", "true");
         intent.putExtra("aspectX", 1);
@@ -874,10 +889,48 @@ public class XinXiLuRuActivity extends BaseActivity {
                         shiid = Integer.valueOf(bean.getCity());
                         quid = Integer.valueOf(bean.getRegion());
                         city = Integer.parseInt(bean.getRegion());
+
+                        shengming = bean.getProvince_name();
+                        shiming = bean.getCity_name();
+                        quming = bean.getRegion_name();
+
                         tvQuyuxuanze.setText(bean.getProvince_name() + "-" +
                                 bean.getCity_name() + "-" +
                                 bean.getRegion_name());
+                        getDiquPosition();
                     }
                 });
+    }
+
+    private void getDiquPosition(){
+        for(int i=0;i<options1Items.size();i++){
+            if(shengming.equals(options1Items.get(i).getQuymc())){
+                pos[0] = i;
+                for (int j=0;j<options2Items.size();j++){
+                    if(shiming.equals(options2Items.get(i).get(j))){
+                        pos[1] = j;
+                        for (int k=0;k<options3Items.size();k++){
+                            if(quming.equals(options3Items.get(i).get(j).get(k))){
+                                pos[2] = k;
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getShangquan(ProvinceBean item) {
+        jieming = item.getQuymc();
+        jieid = item.getQuybm() + "";
+        tvJiedaoxuanze.setText("" + jieming);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

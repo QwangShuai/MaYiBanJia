@@ -32,6 +32,7 @@ import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.AppManager;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import java.util.ArrayList;
@@ -82,7 +83,6 @@ public class YeWuYuanMainActivity extends BaseActivity {
     private ArrayList<QiYeLieBiaoBean> mlist = new ArrayList<>();
     private int ye = 1;
     private String type = "1";
-    private String role = "2";
     private SwipeMenuRecyclerView.LoadMoreListener mLoadMoreListener;
     private boolean isOne = true;
     private ConfirmDialog confirmDialog;
@@ -131,18 +131,19 @@ public class YeWuYuanMainActivity extends BaseActivity {
             public void onClick(View view, final int position) {
                 switch (view.getId()) {
                     case R.id.ll_bianji:
-                        //dialog
-                        bianjidialog = new QiYeLieBiaoDialog(mContext,
-                                mContext.getResources().getIdentifier("TouMingDialog", "style", mContext.getPackageName()));
-                        bianjidialog.showDialog();
-                        bianjidialog.getLlBianji().setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                bianji(position, mlist.get(position).getRole());
-                                Log.e("bianji", "bianji" + position);
-                                bianjidialog.cancel();
-                            }
-                        });
+                        if(zctype.equals("1")){
+                            //dialog
+                            bianjidialog = new QiYeLieBiaoDialog(mContext,
+                                    mContext.getResources().getIdentifier("TouMingDialog", "style", mContext.getPackageName()));
+                            bianjidialog.showDialog();
+                            bianjidialog.getLlBianji().setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    bianji(position, mlist.get(position).getRole());
+                                    Log.e("bianji", "bianji" + position);
+                                    bianjidialog.cancel();
+                                }
+                            });
 //                        bianjidialog.getLlShanchu().setOnClickListener(new View.OnClickListener() {
 //                            @Override
 //                            public void onClick(View v) {
@@ -150,12 +151,16 @@ public class YeWuYuanMainActivity extends BaseActivity {
 //                                bianjidialog.cancel();
 //                            }
 //                        });
-                        bianjidialog.getIvGuanbi().setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                bianjidialog.cancel();
-                            }
-                        });
+                            bianjidialog.getIvGuanbi().setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    bianjidialog.cancel();
+                                }
+                            });
+                        } else {
+                            ToastUtil.showToastLong("已注册商家不可编辑");
+                        }
+
                         break;
 
                 }
@@ -180,18 +185,27 @@ public class YeWuYuanMainActivity extends BaseActivity {
     public void getQiyeLiebiao() {
         if (type.equals("1")) {
             adapter.setShow(true);
-        }  else {
+        } else if (type.equals("2")) {
+            adapter.setShow(true);
+        } else if (type.equals("3")) {
+            adapter.setShow(true);
+        } else if (type.equals("4")) {
+            adapter.setShow(false);
+        } else if (type.equals("5")) {
+            adapter.setShow(false);
+        } else if (type.equals("6")) {
             adapter.setShow(false);
         }
         if(ye==1){
             mlist.clear();
+            adapter.notifyDataSetChanged();
         }
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getqiyeliebiao(PreferenceUtils.getString(MyApplication.mContext, "token", ""), type, zctype, ye + "", role))
+                                .getqiyeliebiao(PreferenceUtils.getString(MyApplication.mContext, "token", ""), type, zctype, ye + ""))
                 .setDataListener(new HttpDataListener<List<QiYeLieBiaoBean>>() {
                     @Override
                     public void onNext(final List<QiYeLieBiaoBean> data) {
@@ -213,21 +227,26 @@ public class YeWuYuanMainActivity extends BaseActivity {
     }
 
     //查询企业列表..带参数
-    public void shuaxinList(String type, String role) {
+    public void shuaxinList(String type) {
         ye = 1;
         this.type = type;
-        this.role = role;
-        if (type.equals("1") && role.equals("1")) {
+        if (type.equals("1")) {
             tvTitle.setText("我的餐厅");
             adapter.setShow(true);
-        } else if (type.equals("1") && role.equals("2")) {
-            tvTitle.setText("我的商家");
+        } else if (type.equals("2")) {
+            tvTitle.setText("我的社区市场");
             adapter.setShow(true);
-        } else if (type.equals("2") && role.equals("1")) {
-            tvTitle.setText("全部餐厅");
+        } else if (type.equals("3")) {
+            tvTitle.setText("我的供货商");
+            adapter.setShow(true);
+        } else if (type.equals("4")) {
+            tvTitle.setText("全部餐厅端");
             adapter.setShow(false);
-        } else if (type.equals("2") && role.equals("2")) {
-            tvTitle.setText("全部商家");
+        } else if (type.equals("5")) {
+            tvTitle.setText("全部供货商");
+            adapter.setShow(false);
+        } else if (type.equals("6")) {
+            tvTitle.setText("全部社区市场");
             adapter.setShow(false);
         }
         mlist.clear();
@@ -237,7 +256,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getqiyeliebiao(PreferenceUtils.getString(MyApplication.mContext, "token", ""), type, zctype, ye + "", role))
+                                .getqiyeliebiao(PreferenceUtils.getString(MyApplication.mContext, "token", ""), type, zctype, ye + ""))
                 .setDataListener(new HttpDataListener<List<QiYeLieBiaoBean>>() {
                     @Override
                     public void onNext(final List<QiYeLieBiaoBean> data) {
@@ -320,7 +339,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         addDialog.dismiss();
-                        setShowList("2");
+                        setShowList("3");
                         Intent intent = new Intent(mContext, XinXiLuRuGHDActivity.class);
                         bundle.putString("rukou", "add");
                         bundle.putString("random_id", "1");
@@ -419,12 +438,14 @@ public class YeWuYuanMainActivity extends BaseActivity {
         int width = llType.getWidth();
 //        int width = wm1.getDefaultDisplay().getWidth();
         int height = llType.getHeight();
-        typepop.setWidth(AppUtil.Dp2px(mContext,88));
-        typepop.setHeight(AppUtil.Dp2px(mContext,105));
+        typepop.setWidth(AppUtil.Dp2px(mContext,103));
+        typepop.setHeight(AppUtil.Dp2px(mContext,175));
         TextView tv_qbct = view.findViewById(R.id.tv_xuanxiang1);
         TextView tv_qbghs = view.findViewById(R.id.tv_xuanxiang2);
         TextView tv_wdct = view.findViewById(R.id.tv_xuanxiang3);
         TextView tv_wdghs = view.findViewById(R.id.tv_xuanxiang4);
+        TextView tv_sqsc = view.findViewById(R.id.tv_sqsc);
+        TextView tv_my_sqsc = view.findViewById(R.id.tv_my_sqsc);
         if(tvType.getText().toString().equals("全部餐厅")){
             tv_qbct.setVisibility(View.GONE);
         } else if(tvType.getText().toString().equals("全部供货商")){
@@ -433,6 +454,10 @@ public class YeWuYuanMainActivity extends BaseActivity {
             tv_wdct.setVisibility(View.GONE);
         } else if(tvType.getText().toString().equals("我的供货商")){
             tv_wdghs.setVisibility(View.GONE);
+        } else if(tvType.getText().toString().equals("全部社区市场")){
+            tv_sqsc.setVisibility(View.GONE);
+        } else if(tvType.getText().toString().equals("我的社区市场")){
+            tv_my_sqsc.setVisibility(View.GONE);
         }
         typepop.setOutsideTouchable(true);
         typepop.setBackgroundDrawable(new BitmapDrawable());
@@ -442,8 +467,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 tvType.setText("全部餐厅");
-                type = "2";
-                role = "1";
+                type = "4";
                 ye = 1;
                 getQiyeLiebiao();
                 typepop.dismiss();
@@ -453,8 +477,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 tvType.setText("全部供货商");
-                type = "2";
-                role = "2";
+                type = "5";
                 ye = 1;
                 getQiyeLiebiao();
                 typepop.dismiss();
@@ -465,7 +488,6 @@ public class YeWuYuanMainActivity extends BaseActivity {
             public void onClick(View v) {
                 tvType.setText("我的餐厅");
                 type = "1";
-                role = "1";
                 ye = 1;
                 getQiyeLiebiao();
                 typepop.dismiss();
@@ -475,8 +497,27 @@ public class YeWuYuanMainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 tvType.setText("我的供货商");
-                type = "1";
-                role = "2";
+                type = "3";
+                ye = 1;
+                getQiyeLiebiao();
+                typepop.dismiss();
+            }
+        });
+        tv_sqsc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tvType.setText("全部社区市场");
+                type = "6";
+                ye = 1;
+                getQiyeLiebiao();
+                typepop.dismiss();
+            }
+        });
+        tv_my_sqsc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tvType.setText("我的社区市场");
+                type = "2";
                 ye = 1;
                 getQiyeLiebiao();
                 typepop.dismiss();
@@ -605,15 +646,17 @@ public class YeWuYuanMainActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    private void setShowList(String new_role){
-        type = "1";
-        role = new_role;
+    private void setShowList(String new_type){
+        type = new_type;
         zctype = "1";
-        switch (role){
+        switch (type){
             case "1":
                 tvType.setText("我的餐厅");
                 break;
             case "2":
+                tvType.setText("我的社区市场");
+                break;
+            case "3":
                 tvType.setText("我的供货商");
                 break;
         }

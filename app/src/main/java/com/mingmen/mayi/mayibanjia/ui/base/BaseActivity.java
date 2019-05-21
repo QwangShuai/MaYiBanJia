@@ -148,6 +148,8 @@ public abstract class BaseActivity extends AppCompatActivity {
             PreferenceUtils.putBoolean(MyApplication.mContext,"isLogin",false);
             PreferenceUtils.remove(MyApplication.mContext,"juese");
             PreferenceUtils.putBoolean(MyApplication.mContext,"youke",false);
+            PreferenceUtils.remove(MyApplication.mContext,"isShenPi");
+            PreferenceUtils.remove(MyApplication.mContext,"quanxian");
 //            if(GongYingDuanShouYeActivity.instance!=null){
 //                if(PollingUtils.isOpen){
 //                    PollingUtils.isOpen = false;

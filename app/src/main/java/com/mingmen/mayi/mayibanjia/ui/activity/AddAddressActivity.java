@@ -110,6 +110,8 @@ public class AddAddressActivity extends BaseActivity {
         tvRight.setText("保存");
         rukou = getIntent().getStringExtra("rukou");
         mContext = AddAddressActivity.this;
+        StringUtil.setInputNoEmoj(etXiangxidizhi);
+        StringUtil.setInputNoEmoj(etShouhuoren);
         //判断入口
         if ("add".equals(rukou)) {
 
@@ -205,17 +207,20 @@ public class AddAddressActivity extends BaseActivity {
 //                break;
             case R.id.ll_dianhuabu:
                 //通过电话簿获取姓名电话
-                if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-                    // 没有权限，申请权限。
-                    ActivityCompat.requestPermissions(AddAddressActivity.this, new String[]{Manifest.permission.READ_CONTACTS}, 1);
+                if ("魅族".equals(AppUtil.getDeviceBrand())) {
                 } else {
-                    // 有权限了，去放肆吧。
-                    try {
-                        Intent intentPhone = new Intent(Intent.ACTION_PICK);
-                        intentPhone.setData(ContactsContract.Contacts.CONTENT_URI);
-                        startActivityForResult(intentPhone, 1);
-                    } catch (SecurityException e) {
-                        e.printStackTrace();
+                    if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+                        // 没有权限，申请权限。
+                        ActivityCompat.requestPermissions(AddAddressActivity.this, new String[]{Manifest.permission.READ_CONTACTS}, 1);
+                    } else {
+                        // 有权限了，去放肆吧。
+                        try {
+                            Intent intentPhone = new Intent(Intent.ACTION_PICK);
+                            intentPhone.setData(ContactsContract.Contacts.CONTENT_URI);
+                            startActivityForResult(intentPhone, 1);
+                        } catch (SecurityException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
                 break;

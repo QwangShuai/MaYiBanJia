@@ -200,11 +200,15 @@ public class DingDanXiangQingAdapter extends RecyclerView.Adapter<DingDanXiangQi
                 public void onClick(View v) {
 //                    mOnItemClickListener.onClick(v, position);
                     if (holder.btnMore.getText().equals("收起")) {
+                        holder.btnMore.setTextColor(mContext.getResources().getColor(R.color.white));
+                        holder.btnMore.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_solid_zangqing_14));
                         holder.btnMore.setText("展开");
-                        holder.rvShangpinliebiao.setVisibility(View.GONE);
+                        holder.ll_rv.setVisibility(View.GONE);
                     } else {
                         holder.btnMore.setText("收起");
-                        holder.rvShangpinliebiao.setVisibility(View.VISIBLE);
+                        holder.btnMore.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+                        holder.btnMore.setBackground(mContext.getResources().getDrawable(R.drawable.bg_bt_f2f2f2));
+                        holder.ll_rv.setVisibility(View.VISIBLE);
                     }
 
                 }
@@ -228,7 +232,7 @@ public class DingDanXiangQingAdapter extends RecyclerView.Adapter<DingDanXiangQi
             //待发货
             case 404:
                 holder.ll_baozhuang.setVisibility(View.VISIBLE);
-                holder.tvTishi.setVisibility(View.GONE);
+                holder.llState.setVisibility(View.GONE);
                 holder.btShouhuo.setVisibility(View.VISIBLE);
                 return "卖家已发货";
             //已发货
@@ -296,6 +300,8 @@ public class DingDanXiangQingAdapter extends RecyclerView.Adapter<DingDanXiangQi
         LinearLayout ll_saoma;
         @BindView(R.id.ll_rongqi)
         LinearLayout ll_rongqi;
+        @BindView(R.id.ll_rv)
+        LinearLayout ll_rv;
         @BindView(R.id.tv_quhuoma)
         TextView tv_quhuoma;
         @BindView(R.id.tv_baozhuanggeshu)

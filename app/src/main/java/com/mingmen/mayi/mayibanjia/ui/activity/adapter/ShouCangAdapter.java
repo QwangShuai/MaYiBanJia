@@ -23,6 +23,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.SPXiangQingActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.TubiaoActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.JiaRuGouWuCheDialog;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
@@ -53,7 +54,7 @@ public class ShouCangAdapter extends BaseQuickAdapter<ShouCangBean,BaseViewHolde
         }else{
             helper.setText(R.id.tv_zhuangtai,"");
         }
-        Glide.with(mContext).load(item.getPicture_url()).into((ImageView) helper.getView(R.id.iv_sptu));
+        GlideUtils.cachePhoto(mContext,(ImageView) helper.getView(R.id.iv_sptu),item.getPicture_url());
         helper.getView(R.id.iv_addcar).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,9 +91,6 @@ public class ShouCangAdapter extends BaseQuickAdapter<ShouCangBean,BaseViewHolde
                     }
                 jiarugouwuchedialog.getEtShuliang().setText("0");
                 jiarugouwuchedialog.cancel();
-                if(MainActivity.instance!=null){
-                    MainActivity.instance.getGwcNo();
-                }
             }
         });
             }
@@ -140,7 +138,9 @@ public class ShouCangAdapter extends BaseQuickAdapter<ShouCangBean,BaseViewHolde
                     @Override
                     public void onNext(String data) {
                         ToastUtil.showToast("添加购物车成功");
-
+                        if(MainActivity.instance!=null){
+                            MainActivity.instance.getGwcNo();
+                        }
                     }
                 });
     }

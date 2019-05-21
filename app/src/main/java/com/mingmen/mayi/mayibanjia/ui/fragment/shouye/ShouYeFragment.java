@@ -371,6 +371,9 @@ public class ShouYeFragment extends BaseFragment {
         super.onStop();
         getShouyeBanner();
         getShouyeFenLei();
-        adapter.setPosition(0);
+        if(adapter!=null){
+            adapter.setPosition(0);
+        }
+
     }
 }

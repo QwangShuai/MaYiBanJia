@@ -62,13 +62,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
                 <EditText
+                    android:singleLine="true"
                     android:gravity="right"
                     android:background="@null"
                     android:id="@+id/et_juese"
                     android:textSize="14sp"
                     android:textColorHint="@color/hintcolor"
                     android:textColor="@color/hintcolor"
-                    android:hint="请输入角色名称"
+                    android:hint="请输入账户名称"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -218,6 +219,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <LinearLayout
+                    android:visibility="gone"
                     android:gravity="center_vertical"
                     android:layout_marginRight="12dp"
                     android:layout_centerVertical="true"
@@ -254,6 +256,32 @@
                 android:layout_width="70dp"
                 android:layout_height="23dp" />
             </RelativeLayout>
+        <RelativeLayout
+            android:paddingLeft="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:textSize="15sp"
+                android:textColor="@color/zicolor"
+                android:layout_centerVertical="true"
+                android:text="角色描述"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <View
+                android:visibility="gone"
+                android:layout_alignParentBottom="true"
+                android:background="@color/gray_e7e7e7"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp" />
+        </RelativeLayout>
+        <TextView
+            android:textSize="14sp"
+            android:textColor="@color/lishisousuo"
+            android:id="@+id/tv_miaoshu"
+            android:text="哇哇哇哇哇哇哇，我是什么啊"
+            android:padding="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
     <Button
         android:layout_marginLeft="12dp"

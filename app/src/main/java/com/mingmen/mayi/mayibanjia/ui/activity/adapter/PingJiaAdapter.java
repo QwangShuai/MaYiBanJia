@@ -21,6 +21,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.DingDanXiangQingActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.AutoLineFeedLayoutManager;
 import com.mingmen.mayi.mayibanjia.ui.view.XCFlowLayout;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 
@@ -87,7 +88,7 @@ public class PingJiaAdapter extends BaseQuickAdapter<XQPingJiaBean,BaseViewHolde
             helper.getView(R.id.ll_shangjiahuifu).setVisibility(View.GONE);
         }
 
-        Glide.with(mContext).load(item.getHeadPhoto()).into((ImageView) helper.getView(R.id.iv_touxiang));
+        GlideUtils.cachePhoto(mContext,(ImageView) helper.getView(R.id.iv_touxiang),item.getHeadPhoto());
         helper.setRating(R.id.rb_pingfen, item.getStar_evaluation());//评分
         String pingjianeirong = item.getComment_text();
         if (item.getPjList() != null&& item.getPjList().size()!=0) {

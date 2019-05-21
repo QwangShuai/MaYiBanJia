@@ -17,6 +17,7 @@ import com.mingmen.mayi.mayibanjia.bean.CaiGouDanBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
@@ -41,6 +42,7 @@ public class CaiGouDanAdapter extends BaseQuickAdapter<CaiGouDanBean, BaseViewHo
     private BaseViewHolder helper;
     private boolean isShow;
     public static final int viewtype_normaldata = 0,viewtype_erpdata = 1;
+    private ConfirmDialog confirmDialog;
 
     public CaiGouDanAdapter(Resources resources) {
         super(R.layout.item_caigoudan);
@@ -55,6 +57,8 @@ public class CaiGouDanAdapter extends BaseQuickAdapter<CaiGouDanBean, BaseViewHo
 
     @Override
     protected void convert(final BaseViewHolder helper, final CaiGouDanBean item) {
+        confirmDialog = new ConfirmDialog(mContext,
+                mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         this.helper = helper;
         tv_zongjia = helper.getView(R.id.tv_zongjia);
         ivXuanzhong = helper.getView(R.id.iv_xuanzhong);
@@ -98,21 +102,34 @@ public class CaiGouDanAdapter extends BaseQuickAdapter<CaiGouDanBean, BaseViewHo
         helper.getView(R.id.bt_shanchu).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                HttpManager.getInstance()
-                        .with(mContext)
-                        .setObservable(
-                                RetrofitManager
-                                        .getService()
-                                        .delxuqiudan(PreferenceUtils.getString(MyApplication.mContext, "token", ""), item.getPurchase_id()))
-                        .setDataListener(new HttpDataListener<String>() {
-                            @Override
-                            public void onNext(String data) {
-                                getData().remove(item);
+                confirmDialog.showDialog("是否删除此采购单");
+                confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        confirmDialog.dismiss();
+                        HttpManager.getInstance()
+                                .with(mContext)
+                                .setObservable(
+                                        RetrofitManager
+                                                .getService()
+                                                .delxuqiudan(PreferenceUtils.getString(MyApplication.mContext, "token", ""), item.getPurchase_id()))
+                                .setDataListener(new HttpDataListener<String>() {
+                                    @Override
+                                    public void onNext(String data) {
+                                        getData().remove(item);
 //                                remove(getParentPosition(item));
-                                notifyDataSetChanged();
-                            }
-                        });
+                                        notifyDataSetChanged();
+                                    }
+                                });
+                    }
+                });
+                confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        confirmDialog.dismiss();
+                    }
+                });
+
             }
         });
     }

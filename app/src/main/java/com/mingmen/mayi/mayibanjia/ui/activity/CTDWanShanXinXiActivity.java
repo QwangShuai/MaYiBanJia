@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
@@ -225,14 +226,21 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<ZhuCeChengGongBean>() {
                     @Override
                     public void onNext(ZhuCeChengGongBean list) {
-                        ToastUtil.showToastLong("注册成功，请重新登录");
+                        ToastUtil.showToastLongTwo("注册成功，请重新登录");
                         PreferenceUtils.putString(MyApplication.mContext, "token", list.getToken());
                         PreferenceUtils.putString(MyApplication.mContext, "juese", list.getRole());
                         PreferenceUtils.putBoolean(MyApplication.mContext, "isLogin", false);
-                        //注册成功后  跳转
-                        Intent intent = new Intent(mContext, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        ;
-                        startActivity(intent);
+                        btSubmit.setEnabled(false);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                //注册成功后  跳转
+                                Intent intent = new Intent(mContext, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                            }
+                        },3000);
+
+
 
                     }
                 });
@@ -436,9 +444,7 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
         //缩略图保存地址
         outputUri = Uri.fromFile(file);
         Intent intent = new Intent("com.android.camera.action.CROP");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        }
+       intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);         intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         intent.setDataAndType(imageUri, "image/*");
         intent.putExtra("crop", "true");
         intent.putExtra("aspectX", 1);

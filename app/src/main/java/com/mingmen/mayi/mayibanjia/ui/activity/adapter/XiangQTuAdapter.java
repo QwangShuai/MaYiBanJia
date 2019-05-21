@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.mingmen.mayi.mayibanjia.R;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 
 import java.util.List;
 
@@ -52,8 +53,7 @@ public class XiangQTuAdapter extends RecyclerView.Adapter<XiangQTuAdapter.ViewHo
 //        String zi = string.getCompany_name().toString().trim();
 //        holder.tv_ming.setText(zi);
 
-        Glide.with(mContext).load(data).into(holder.iv_xqtu);
-        
+        GlideUtils.cachePhoto(mContext,holder.iv_xqtu,data);
     }
 
     @Override

@@ -51,6 +51,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.dialog.LianggeXuanXiangDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.PhotoDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ZXGuigeDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.MyMath;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
@@ -257,6 +258,8 @@ public class FaBuShangPinActivity extends BaseActivity {
         instance = this;
         goods = getIntent().getStringExtra("goods");
         EventBus.getDefault().register(this);
+        StringUtil.setInputNoEmoj(etSpming);
+        StringUtil.setInputNoEmoj(etPpming);
         if ("0".equals(getIntent().getStringExtra("state"))) {
 //            llTj.setVisibility(View.GONE);
             llShowTejia.setVisibility(View.GONE);
@@ -608,9 +611,16 @@ public class FaBuShangPinActivity extends BaseActivity {
                     llShangpinmingcheng.setEnabled(false);
                     llFl.setVisibility(View.GONE);
                     llSp.setVisibility(View.GONE);
+                    tvGgms.setText("");
+
                     getguige();
 //                    getZuixiaoGuige();
                 } else {
+                    yclId = "";
+                    lingjiid = "";
+                    yijiid = "";
+                    erjiid = "";
+                    sanjiid = "";
                     tvSpname.setText("选择商品");
                     llFenleimingcheng.setEnabled(true);
                     llShangpinmingcheng.setEnabled(true);
@@ -718,6 +728,7 @@ public class FaBuShangPinActivity extends BaseActivity {
         }
         Intent intent = new Intent(mContext, FaBuShangPinXiangQingTuActivity.class);
         intent.putExtra("canshu", gson.toJson(canShuBean));
+        Log.e("tiaozhuan: ", gson.toJson(canShuBean));
         intent.putExtra("yemian", yemian);
         if (StringUtil.isValid(getIntent().getStringExtra("guige"))) {
             intent.putExtra("guige", "1");
@@ -876,14 +887,15 @@ public class FaBuShangPinActivity extends BaseActivity {
                         llSanjiguige.setEnabled(true);
                         tvZxgg.setEnabled(true);
                     }
-                    String guigename = data.getStringExtra("guigeName");
-                    tvSanji.setText(guigename);
+                    sanjiguigename = data.getStringExtra("guigeName");
+                    tvSanji.setText(sanjiguigename);
                     sanjiguigeid = data.getStringExtra("guigeId");
+
                     tvZxgg.setText(data.getStringExtra("zxName"));
-                    tvYxgg.setText("每" + guigename + "换算单位为");
-                    tvGgms.setText(guigename);
-                    tvQdlGg.setText(guigename);
-                    tvDanwei.setText(guigename);
+                    tvYxgg.setText("每" + sanjiguigename + "换算单位为");
+                    tvGgms.setText(sanjiguigename);
+                    tvQdlGg.setText(sanjiguigename);
+                    tvDanwei.setText("元/"+sanjiguigename);
                     if (StringUtil.isValid(data.getStringExtra("zxId"))) {
                         llDw.setVisibility(View.VISIBLE);
                         isGuige = true;
@@ -987,9 +999,10 @@ public class FaBuShangPinActivity extends BaseActivity {
         //缩略图保存地址
         outputUri = Uri.fromFile(file);
         Intent intent = new Intent("com.android.camera.action.CROP");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        }
+            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+//        }
         intent.setDataAndType(imageUri, "image/*");
         intent.putExtra("crop", "true");
         intent.putExtra("aspectX", 1);
@@ -998,6 +1011,7 @@ public class FaBuShangPinActivity extends BaseActivity {
         intent.putExtra("return-data", false);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, outputUri);
         intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+//        intent.putExtra("outputFormat", "PNG");
         intent.putExtra("noFaceDetection", true);
         startActivityForResult(intent, REQUEST_PICTURE_CUT);
     }
@@ -1048,7 +1062,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                         final EditorShangPinBean.XqBean bean = data.getXq();
                         PreferenceUtils.setEditorShangPinBean(MyApplication.mContext, data);
                         if (StringUtil.isValid(bean.getHostPicture())) {
-                            Glide.with(FaBuShangPinActivity.this).load(bean.getHostPicture()).into(ivSptu);
+                            GlideUtils.cachePhoto(FaBuShangPinActivity.this,ivSptu,bean.getHostPicture());
                             shangpintu = bean.getHostPicture();
                         }
                         ming = bean.getClassify_name() + "";

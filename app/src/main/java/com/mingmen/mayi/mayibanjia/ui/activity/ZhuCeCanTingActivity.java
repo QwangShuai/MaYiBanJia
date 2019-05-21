@@ -169,12 +169,12 @@ public class ZhuCeCanTingActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getShangjiaList(PreferenceUtils.getString(MyApplication.mContext, "token",""),"2",province,city,region,street,"1",parent_number,name,ye+""))
+                                .getShangjiaList(PreferenceUtils.getString(MyApplication.mContext, "token",""),"4",province,city,region,street,"1",parent_number,name,ye+""))
                 .setDataListener(new HttpDataListener<List<QiYeLieBiaoBean>>() {
                     @Override
                     public void onNext(final List<QiYeLieBiaoBean> data) {
                         if (!"null".equals(String.valueOf(data))) {
-                            if (data.size() == 5) {
+                            if (data.size() == 10) {
                                 rvList.loadMoreFinish(false, true);
                             } else if (data.size() > 0) {
                                 rvList.loadMoreFinish(false, false);
@@ -190,5 +190,14 @@ public class ZhuCeCanTingActivity extends BaseActivity {
                     }
                 });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(ye!=1){
+            ye = 1;
+            getQiyeLiebiao();
+        }
     }
 }

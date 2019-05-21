@@ -17,6 +17,7 @@ import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.ShouHuoDiZhiAdapter;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 
@@ -45,6 +46,7 @@ public class ShouHuoDiZhiActivity extends BaseActivity {
     private String rukou;
     private int mysize;
     private String myDizhi;
+    private ConfirmDialog confirmDialog;
 
     @Override
     public int getLayoutId() {
@@ -57,7 +59,8 @@ public class ShouHuoDiZhiActivity extends BaseActivity {
         tvTitle.setText("收货地址");
         tvRight.setText("添加");
         getaddressList();
-
+        confirmDialog = new ConfirmDialog(mContext,
+                mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         rukou = getIntent().getStringExtra("rukou");
 
     }
@@ -88,7 +91,7 @@ public class ShouHuoDiZhiActivity extends BaseActivity {
                             rvShouhuodizhi.setAdapter(adapter);
                             adapter.setOnItemClickListener(new ShouHuoDiZhiAdapter.OnItemClickListener() {
                                 @Override
-                                public void onClick(View view, int position) {
+                                public void onClick(View view, final int position) {
                                    switch (view.getId()){
                                        case R.id.ll_bianji:
                                            Intent intent = new Intent(mContext,AddAddressActivity.class);
@@ -98,7 +101,21 @@ public class ShouHuoDiZhiActivity extends BaseActivity {
                                            startActivity(intent);
                                            break;
                                        case R.id.ll_shanchu:
-                                           addressDel(data.get(position).getAddress_id());
+                                           confirmDialog.showDialog("是否删除此地址");
+                                           confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+                                               @Override
+                                               public void onClick(View v) {
+                                                   confirmDialog.dismiss();
+                                                   addressDel(data.get(position).getAddress_id());
+                                               }
+                                           });
+                                           confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
+                                               @Override
+                                               public void onClick(View v) {
+                                                   confirmDialog.dismiss();
+                                               }
+                                           });
+
                                            break;
                                        case R.id.ll_kuang:
                                            if ("xuanze".equals(rukou)){

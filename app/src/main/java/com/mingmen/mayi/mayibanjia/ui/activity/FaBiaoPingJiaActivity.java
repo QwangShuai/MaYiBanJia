@@ -22,6 +22,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.PingJiaLableAdapter;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.CircleImageView;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
@@ -79,8 +80,7 @@ public class FaBiaoPingJiaActivity extends BaseActivity {
         photo = getIntent().getStringExtra("photo");
         order_id = getIntent().getStringExtra("order_id");
         company_id = getIntent().getStringExtra("company_id");
-        Glide.with(mContext).load(photo).into(ivTouxiang);
-
+        GlideUtils.cachePhoto(mContext,ivTouxiang,photo);
         rbPingfen.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {

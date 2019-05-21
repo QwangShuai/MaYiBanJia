@@ -157,8 +157,8 @@ public class FenPeiWuLiuCheDialog extends Dialog {
 //                    ToastUtil.showToast("车牌号格式错误");
 //
 //                } else
-                    if(TextUtils.isEmpty(et_xingming.getText().toString())){
-                    ToastUtil.showToast("联系人不能为空!");
+                    if(!StringUtil.exist(et_xingming.getText().toString())){
+                    ToastUtil.showToast("联系人姓名不正确!");
                 } else if(!AppUtil.isMobile(et_lianxifangshi.getText().toString())){
                     ToastUtil.showToast("手机号格式不正确!");
                 } else if(TextUtils.isEmpty(car_type_id)){

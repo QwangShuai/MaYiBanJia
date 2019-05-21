@@ -78,7 +78,7 @@ public class JueSeDialog extends Dialog {
                 getLableId();
                 if(StringUtil.isValid(lableId)){
                     dismiss();
-                    callBack.confirm(lableId,name);
+                    callBack.confirm(lableId,name.substring(0,name.length()-1));
                 } else {
 
                 }

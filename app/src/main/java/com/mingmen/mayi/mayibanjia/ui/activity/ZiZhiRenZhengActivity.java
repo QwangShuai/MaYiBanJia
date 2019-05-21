@@ -22,6 +22,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
@@ -106,11 +107,11 @@ public class ZiZhiRenZhengActivity extends BaseActivity {
                     @Override
                     public void onNext(GetZiZhiBean bean) {
                         if(StringUtil.isValid(yemian)){
-                            Glide.with(mContext).load(bean.getCirculation_permit()).into(ivXukezheng);
+                            GlideUtils.cachePhoto(mContext,ivXukezheng,bean.getCirculation_permit());
                         } else {
                             rlXukezheng.setVisibility(View.GONE);
                         }
-                        Glide.with(mContext).load(bean.getBusiness_license()).into(ivYingyezhizhao);
+                        GlideUtils.cachePhoto(mContext,ivYingyezhizhao,bean.getBusiness_license());
                         tvFuzeren.setText(bean.getPrincipal());
                         etName.setText(bean.getLegal_person());
                         Log.e("审核",state );

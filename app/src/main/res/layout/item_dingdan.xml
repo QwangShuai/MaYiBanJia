@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_item_yinying"
+    android:animateLayoutChanges="true"
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
@@ -193,22 +194,43 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <Button
+            android:layout_marginBottom="2dp"
             android:id="@+id/btn_more"
             android:textSize="15sp"
-            android:textColor="@color/zangqing"
-            android:background="@drawable/bg_bt_f2f2f2"
+            android:textColor="@color/white"
+            android:background="@drawable/fillet_solid_zangqing_14"
             android:layout_marginRight="12dp"
             android:layout_alignParentRight="true"
             android:text="展开"
             android:layout_width="60dp"
             android:layout_height="28dp" />
     </RelativeLayout>
-    <android.support.v7.widget.RecyclerView
+    <LinearLayout
+        android:id="@+id/ll_rv"
+        android:background="@color/gray_e7e7e7"
+        android:orientation="vertical"
+        android:layout_marginTop="14dp"
         android:visibility="gone"
-        android:id="@+id/rv_shangpinliebiao"
-        android:layout_marginTop="12dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
+        <View
+            android:elevation="1dp"
+            android:background="@color/gray_e7e7e7"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"></View>
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:id="@+id/rv_shangpinliebiao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <View
+            android:elevation="1dp"
+            android:background="@color/gray_e7e7e7"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"></View>
+    </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

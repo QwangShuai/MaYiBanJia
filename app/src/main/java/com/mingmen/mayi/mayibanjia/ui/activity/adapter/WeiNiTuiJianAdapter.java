@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.SPXiangQingBean;
 import com.mingmen.mayi.mayibanjia.ui.activity.SPXiangQingActivity;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 
 import java.util.List;
@@ -54,7 +55,7 @@ public class WeiNiTuiJianAdapter extends RecyclerView.Adapter<WeiNiTuiJianAdapte
         final SPXiangQingBean.GoodsRecommendBean data = mList.get(position);
         holder.tvSpming.setText(data.getClassify_name());
         holder.tvDanjia.setText(data.getPrice());
-        Glide.with(mContext).load(data.getPicture_url()).into(holder.ivSptu);
+        GlideUtils.cachePhoto(mContext,holder.ivSptu,data.getPicture_url());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

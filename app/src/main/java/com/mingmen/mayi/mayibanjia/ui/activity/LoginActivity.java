@@ -357,37 +357,8 @@ public class LoginActivity extends BaseActivity {
                 });
     }
     private void youkeLogin() {
-        HttpManager.getInstance()
-                .with(mContext)
-                .setObservable(
-                        RetrofitManager
-                                .getService()
-                                .youkeLogin())
-                .setDataListener(new HttpDataListener<ZhuCeChengGongBean>() {
-                    @Override
-                    public void onNext(ZhuCeChengGongBean bean) {
-                        Log.e("token", bean.getToken() + "===");
-                        PreferenceUtils.putString(MyApplication.mContext, "phone", bean.getTelephone());
-                        PreferenceUtils.putString(MyApplication.mContext, "host_account_type", bean.getHost_account_type());
-                        PreferenceUtils.putBoolean(MyApplication.mContext, "isLogin", true);
-                        PreferenceUtils.putString(MyApplication.mContext, "token", bean.getToken());
-                        PreferenceUtils.putString(MyApplication.mContext, "juese", bean.getRole());
-                        if (StringUtil.isValid(bean.getName())) {
-                            PreferenceUtils.putString(MyApplication.mContext, "name", bean.getName());
-                        }
-                        PreferenceUtils.putInt(MyApplication.mContext, "random_id", bean.getRandom_id());
-                        PreferenceUtils.putBoolean(MyApplication.mContext, "youke", true);
-                        zzh = bean.getHost_account_type();
-                        Log.e("onNext: ", bean.getRole() + "我的天啊" + zzh);
-                        tiaozhuan(bean.getRole(), bean.getRandom_id());
+        startActivity(new Intent(mContext,YoukeLoginActivity.class));
 
-                    }
-                    @Override
-                    protected Object clone() throws CloneNotSupportedException {
-                        llYzm.setVisibility(View.VISIBLE);
-                        return super.clone();
-                    }
-                });
     }
     private void tiaozhuan(String juese, int random_id) {
         //登录成功后  跳转

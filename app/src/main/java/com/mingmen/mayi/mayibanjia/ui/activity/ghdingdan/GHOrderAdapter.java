@@ -162,19 +162,24 @@ public class GHOrderAdapter extends RecyclerView.Adapter<GHOrderAdapter.ViewHold
         holder.tv_zongjia.setText("￥:" + bean.getTotal_price());
         holder.tv_order_number.setText("订单编号:" + bean.getGy_order_number());
         holder.tv_order_time.setText("下单时间:" + bean.getCreate_time());
+        GHShangPinAdapter adapter = new GHShangPinAdapter(mContext, bean.getZilist());
+        holder.rv_shangpin.setAdapter(adapter);
         holder.btn_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 List<GHOrderBean.ZilistBean> list = new ArrayList<GHOrderBean.ZilistBean>();
                 if (holder.btn_more.getText().equals("展开")) {
-                    list.addAll(bean.getZilist());
                     holder.btn_more.setText("收起");
+                    holder.btn_more.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+                    holder.btn_more.setBackground(mContext.getResources().getDrawable(R.drawable.bg_bt_f2f2f2));
+                    holder.ll_rv.setVisibility(View.VISIBLE);
                 } else {
-                    list.clear();
+                    holder.btn_more.setTextColor(mContext.getResources().getColor(R.color.white));
+                    holder.btn_more.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_solid_zangqing_14));
                     holder.btn_more.setText("展开");
+                    holder.ll_rv.setVisibility(View.GONE);
                 }
-                GHShangPinAdapter adapter = new GHShangPinAdapter(mContext, list);
-                holder.rv_shangpin.setAdapter(adapter);
+
             }
         });
         if(isClick){
@@ -298,6 +303,8 @@ public class GHOrderAdapter extends RecyclerView.Adapter<GHOrderAdapter.ViewHold
         //是否显示配送信息
         @BindView(R.id.ll_rongqi)
         LinearLayout ll_rongqi;
+        @BindView(R.id.ll_rv)
+        LinearLayout ll_rv;
         @BindView(R.id.tv_dianpu)
         TextView tvDianpu;
         @BindView(R.id.tv_dianpu_phone)

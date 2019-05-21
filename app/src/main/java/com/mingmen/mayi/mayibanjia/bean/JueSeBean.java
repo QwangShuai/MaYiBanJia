@@ -11,6 +11,15 @@ public class JueSeBean {
 
     private String part;
     private String isSelected;
+    private String synopsis;
+
+    public String getSynopsis() {
+        return synopsis;
+    }
+
+    public void setSynopsis(String synopsis) {
+        this.synopsis = synopsis;
+    }
 
     public String getIsSelected() {
         return isSelected;

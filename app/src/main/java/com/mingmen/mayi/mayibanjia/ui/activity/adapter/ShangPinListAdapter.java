@@ -22,6 +22,7 @@ import com.mingmen.mayi.mayibanjia.bean.ShangPinSouSuoBean;
 import com.mingmen.mayi.mayibanjia.bean.SouSuoJieGuoShangPinBean;
 import com.mingmen.mayi.mayibanjia.ui.activity.SPXiangQingActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.TubiaoActivity;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.custom.MarqueeTextView;
@@ -90,7 +91,7 @@ public class ShangPinListAdapter extends RecyclerView.Adapter<ShangPinListAdapte
         if(StringUtil.isValid(data.getReal_time_state())&&data.getReal_time_state().equals("0")){
             holder.ivJishida.setVisibility(View.VISIBLE);
         }
-        Glide.with(mContext).load(data.getPicture_url()).into(holder.ivSptu);
+        GlideUtils.cachePhoto(mContext,holder.ivSptu,data.getPicture_url());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

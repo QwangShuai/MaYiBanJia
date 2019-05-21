@@ -105,6 +105,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
                             <LinearLayout
+                                android:visibility="gone"
                                 android:layout_marginTop="8dp"
                                 android:id="@+id/ll_qiehuan"
                                 android:layout_width="102dp"
@@ -651,7 +652,51 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="horizontal">
+                            <RelativeLayout
+                                android:id="@+id/rl_chengbenka"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
 
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="16dp"
+                                    android:src="@mipmap/cbkhs_ct" />
+
+                                <TextView
+                                    android:layout_width="15dp"
+                                    android:layout_height="15dp"
+                                    android:layout_marginLeft="50dp"
+                                    android:layout_marginTop="10dp"
+                                    android:background="@drawable/fillet_hollow_ff3300_10"
+                                    android:gravity="center"
+                                    android:text="1"
+                                    android:textColor="#ff3300"
+                                    android:textSize="10sp"
+                                    android:visibility="gone" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginBottom="12dp"
+                                    android:text="成本核算"
+                                    android:textColor="#474747"
+                                    android:textSize="12sp" />
+                                <ImageView
+                                    android:id="@+id/iv_wqx_cbk"
+                                    android:visibility="gone"
+                                    android:layout_marginRight="44dp"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_marginTop="6dp"
+                                    android:src="@mipmap/wuquanxian"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+                            </RelativeLayout>
                             <RelativeLayout
                                 android:id="@+id/rl_zizhanghu"
                                 android:layout_width="match_parent"
@@ -697,44 +742,6 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content" />
                             </RelativeLayout>
-
-                            <!--<RelativeLayout-->
-                            <!--android:id="@+id/rl_jueseguanli"-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="match_parent"-->
-                            <!--android:layout_weight="1"-->
-                            <!--android:orientation="vertical">-->
-
-                            <!--<ImageView-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_centerHorizontal="true"-->
-                            <!--android:layout_marginTop="16dp"-->
-                            <!--android:src="@mipmap/jueseguanli" />-->
-
-                            <!--<TextView-->
-                            <!--android:id="@+id/tv_jueseguanli"-->
-                            <!--android:layout_width="15dp"-->
-                            <!--android:layout_height="15dp"-->
-                            <!--android:layout_marginLeft="50dp"-->
-                            <!--android:layout_marginTop="10dp"-->
-                            <!--android:background="@drawable/fillet_hollow_ff3300_10"-->
-                            <!--android:gravity="center"-->
-                            <!--android:text="1"-->
-                            <!--android:textColor="#ff3300"-->
-                            <!--android:textSize="10sp"-->
-                            <!--android:visibility="gone" />-->
-
-                            <!--<TextView-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_alignParentBottom="true"-->
-                            <!--android:layout_centerHorizontal="true"-->
-                            <!--android:layout_marginBottom="12dp"-->
-                            <!--android:text="角色管理"-->
-                            <!--android:textColor="#474747"-->
-                            <!--android:textSize="12sp" />-->
-                            <!--</RelativeLayout>-->
 
                             <RelativeLayout
                                 android:id="@+id/rl_shouhuodizhi"
@@ -814,59 +821,59 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content" />
                             </RelativeLayout>
-                            <RelativeLayout
-                                android:id="@+id/ll_pingjia"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:orientation="vertical">
 
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerHorizontal="true"
-                                    android:layout_marginTop="16dp"
-                                    android:src="@mipmap/wodepingjia" />
-
-                                <TextView
-                                    android:layout_width="15dp"
-                                    android:layout_height="15dp"
-                                    android:layout_alignEnd="@+id/textView3"
-                                    android:layout_marginLeft="50dp"
-                                    android:background="@drawable/fillet_hollow_ff3300_10"
-                                    android:gravity="center"
-                                    android:text="1"
-                                    android:textColor="#ff3300"
-                                    android:textSize="10sp"
-                                    android:visibility="gone" />
-
-                                <TextView
-                                    android:id="@+id/textView3"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentBottom="true"
-                                    android:layout_centerHorizontal="true"
-                                    android:layout_marginBottom="12dp"
-                                    android:text="我的评价"
-                                    android:textColor="#474747"
-                                    android:textSize="12sp" />
-                                <ImageView
-                                    android:id="@+id/iv_wqx_wdpj"
-                                    android:visibility="gone"
-                                    android:layout_marginRight="44dp"
-                                    android:layout_alignParentRight="true"
-                                    android:layout_marginTop="6dp"
-                                    android:src="@mipmap/wuquanxian"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
-                            </RelativeLayout>
                         </LinearLayout>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
                         android:orientation="horizontal">
+                        <RelativeLayout
+                            android:id="@+id/ll_pingjia"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
 
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="16dp"
+                                android:src="@mipmap/wodepingjia" />
+
+                            <TextView
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_alignEnd="@+id/textView3"
+                                android:layout_marginLeft="50dp"
+                                android:background="@drawable/fillet_hollow_ff3300_10"
+                                android:gravity="center"
+                                android:text="1"
+                                android:textColor="#ff3300"
+                                android:textSize="10sp"
+                                android:visibility="gone" />
+
+                            <TextView
+                                android:id="@+id/textView3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginBottom="12dp"
+                                android:text="我的评价"
+                                android:textColor="#474747"
+                                android:textSize="12sp" />
+                            <ImageView
+                                android:id="@+id/iv_wqx_wdpj"
+                                android:visibility="gone"
+                                android:layout_marginRight="44dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginTop="6dp"
+                                android:src="@mipmap/wuquanxian"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </RelativeLayout>
                         <RelativeLayout
                             android:id="@+id/rl_changjianwenti"
                             android:layout_width="match_parent"
@@ -967,12 +974,6 @@
                                 android:src="@mipmap/wuquanxian"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
-                        </RelativeLayout>
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:layout_weight="1">
                         </RelativeLayout>
                     </LinearLayout>
                 </LinearLayout>

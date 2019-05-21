@@ -155,7 +155,7 @@
                 android:id="@+id/tv_shanchu"
                 android:layout_width="62dp"
                 android:layout_height="28dp"
-                android:background="@mipmap/shanchu"
+                android:background="@drawable/fillet_solid_zangqing_5"
                 android:text="删除"
                 android:textSize="15sp"
                 android:textColor="@color/white"

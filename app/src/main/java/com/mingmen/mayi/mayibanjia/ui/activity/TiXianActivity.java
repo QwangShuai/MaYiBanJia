@@ -31,6 +31,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.adapter.WuLiuFenPeiAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.CircleImageView;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.MyMath;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
@@ -183,8 +184,8 @@ public class TiXianActivity extends BaseActivity {
         if (requestCode==REQUESTCODE){
             if(StringUtil.isValid(String.valueOf(data.getSerializableExtra("bean")))){
                 YinHangKaBean bean = (YinHangKaBean) data.getSerializableExtra("bean");
-                Glide.with(mContext).load(bean.getLog_url()).into(ivTubiao);
-                Glide.with(mContext).load(bean.getReverse_url()).into(ivBg);
+                GlideUtils.cachePhoto(mContext,ivTubiao,bean.getLog_url());
+                GlideUtils.cachePhoto(mContext,ivBg,bean.getReverse_url());
                 tvBankCardName.setText(bean.getBank_name());
                 tvBankCardNumber.setText(bean.getBank_account());
                 tvBankCardType.setText(bean.getBank_branch());
@@ -224,8 +225,8 @@ public class TiXianActivity extends BaseActivity {
                         int mysize = data==null?0:data.size();
                         if(mysize!=0){
                             YinHangKaBean bean = data.get(0);
-                            Glide.with(mContext).load(bean.getLog_url()).into(ivTubiao);
-                            Glide.with(mContext).load(bean.getReverse_url()).into(ivBg);
+                            GlideUtils.cachePhoto(mContext,ivTubiao,bean.getLog_url());
+                            GlideUtils.cachePhoto(mContext,ivBg,bean.getReverse_url());
                             tvBankCardName.setText(bean.getBank_name());
                             tvBankCardNumber.setText(bean.getBank_account());
                             tvBankCardType.setText(bean.getBank_branch());

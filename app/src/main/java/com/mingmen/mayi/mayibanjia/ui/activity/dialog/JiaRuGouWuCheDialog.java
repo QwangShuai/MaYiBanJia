@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.mingmen.mayi.mayibanjia.R;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
@@ -146,7 +147,7 @@ public class JiaRuGouWuCheDialog extends Dialog {
             tvKucun.setText(kucun);
         }
 
-        Glide.with(c).load(sptu).into(ivSptu);
+        GlideUtils.cachePhoto(c,ivSptu,sptu);
         btQueding.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -217,37 +218,6 @@ public class JiaRuGouWuCheDialog extends Dialog {
         this.tvQidingliangjiage1 = tvQidingliangjiage1;
     }
 
-//    public TextView getTvQidingliang2() {
-//        return tvQidingliang2;
-//    }
-//
-//    public void setTvQidingliang2(TextView tvQidingliang2) {
-//        this.tvQidingliang2 = tvQidingliang2;
-//    }
-//
-//    public TextView getTvQidingliangjiage2() {
-//        return tvQidingliangjiage2;
-//    }
-
-//    public void setTvQidingliangjiage2(TextView tvQidingliangjiage2) {
-//        this.tvQidingliangjiage2 = tvQidingliangjiage2;
-//    }
-//
-//    public TextView getTvQidingliang3() {
-//        return tvQidingliang3;
-//    }
-//
-//    public void setTvQidingliang3(TextView tvQidingliang3) {
-//        this.tvQidingliang3 = tvQidingliang3;
-//    }
-//
-//    public TextView getTvQidingliangjiage3() {
-//        return tvQidingliangjiage3;
-//    }
-
-//    public void setTvQidingliangjiage3(TextView tvQidingliangjiage3) {
-//        this.tvQidingliangjiage3 = tvQidingliangjiage3;
-//    }
 
     public TextView getTvJianhao() {
         return tvJianhao;

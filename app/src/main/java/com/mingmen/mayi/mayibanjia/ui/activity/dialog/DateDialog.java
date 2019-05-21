@@ -112,11 +112,11 @@ public class DateDialog extends BaseFragmentDialog implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rl_close:
-                this.dismiss();
+                dismiss();
                 break;
             case R.id.tv_queren:
                 if(StringUtil.isValid(xzId)){
-                    this.dismiss();
+                    dismiss();
                     bean.setSon_name(dqId+" / "+bean.getSon_name());
                     EventBus.getDefault().post(bean);
                 } else {
@@ -129,8 +129,7 @@ public class DateDialog extends BaseFragmentDialog implements View.OnClickListen
     public void getData(){
         Map<String,Integer> map= DateUtil.genDate(3);
         int count = 0;
-        for (String i:
-                map.keySet()) {
+        for (String i:map.keySet()) {
             SongDaShiJianBean bean = new SongDaShiJianBean();
             bean.setSon_number(count+"");
             bean.setSon_name(i);

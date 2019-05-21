@@ -75,7 +75,7 @@ public class SpsbChangeActivity extends BaseActivity {
     private List<FCGName> mList = new ArrayList<>();
     private HorizontalPageLayoutManager hLinearLayoutManager = null;
     private PagingItemDecoration pagingItemDecoration  = null;
-    private String yclId = "346926195929448587b078e7fe613530 ";
+    private String yclId = "346926195929448587b078e7fe613530";
 
     @Override
     public int getLayoutId() {

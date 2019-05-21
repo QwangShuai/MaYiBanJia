@@ -42,6 +42,7 @@ public class YiJianFanKuiActivity extends BaseActivity {
     @Override
     protected void initData() {
         tvTitle.setText("意见反馈");
+        StringUtil.setInputNoEmoj(etContent);
     }
     @OnClick({R.id.iv_back,R.id.btn_submit})
     protected void OnClick(View view){

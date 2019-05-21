@@ -82,6 +82,11 @@ public class SiJiPeiSongAdapter extends RecyclerView.Adapter<SiJiPeiSongAdapter.
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final WuLiuBean data = mList.get(position);
         Log.e("ceshi----",String.valueOf(data.getWl_order_state()));
+        if(isTeshu){
+            holder.tv_ditu.setVisibility(View.GONE);
+        } else {
+            holder.tv_ditu.setVisibility(View.VISIBLE);
+        }
         if (data.getWl_order_state().equals("待处理")) {
             holder.btnTongzhi.setVisibility(View.GONE);
             holder.llSaoma.setVisibility(View.GONE);
@@ -182,6 +187,7 @@ public class SiJiPeiSongAdapter extends RecyclerView.Adapter<SiJiPeiSongAdapter.
             public void onClick(View v) {
                 Intent it = new Intent(new Intent(mContext, PeiSongXiangQingActivity.class));
                 it.putExtra("xqID", data.getWl_cars_order_number());
+                it.putExtra("isTeshu",true);
                 mContext.startActivity(it);
             }
         });

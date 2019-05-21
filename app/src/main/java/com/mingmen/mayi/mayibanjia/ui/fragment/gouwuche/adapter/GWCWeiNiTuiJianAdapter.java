@@ -16,6 +16,7 @@ import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.TuiJianBean;
 import com.mingmen.mayi.mayibanjia.ui.activity.SPXiangQingActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.ShangPinListAdapter;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 import com.mingmen.mayi.mayibanjia.utils.custom.MarqueeTextView;
 
@@ -67,8 +68,7 @@ public class GWCWeiNiTuiJianAdapter extends RecyclerView.Adapter<GWCWeiNiTuiJian
         }
 
         //holder.tvGuige.setText(data.getPack_standard()+"");
-        Glide.with(mContext).load(data.getPicture_url())
-                .into(holder.ivSptu);
+        GlideUtils.cachePhoto(mContext,holder.ivSptu,data.getPicture_url());
         holder.ivSptu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

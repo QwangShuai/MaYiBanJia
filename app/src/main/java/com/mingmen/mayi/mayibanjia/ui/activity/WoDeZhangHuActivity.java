@@ -37,6 +37,8 @@ public class WoDeZhangHuActivity extends BaseActivity {
     TextView tvSetPaypwd;
     @BindView(R.id.ll_set_paypwd)
     LinearLayout llSetPaypwd;
+    @BindView(R.id.ll_pwd_zf)
+    LinearLayout llPwdZf;
     @BindView(R.id.tv_phone)
     TextView tvPhone;
     @BindView(R.id.iv_xiugai_phone)
@@ -54,6 +56,10 @@ public class WoDeZhangHuActivity extends BaseActivity {
         tvTitle.setText("我的账户");
         mContext = WoDeZhangHuActivity.this;
         tvPhone.setText(getPhone());
+        if(PreferenceUtils.getString(MyApplication.mContext,"host_account_type","0").equals("1")){
+            llSetPaypwd.setVisibility(View.GONE);
+            llPwdZf.setVisibility(View.GONE);
+        }
         selectPayPwd();
     }
 

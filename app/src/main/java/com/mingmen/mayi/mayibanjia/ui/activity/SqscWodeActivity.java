@@ -25,6 +25,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.ghdingdan.GHDOrderActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.qiangdan.GongYingDuanQiangDanActivity;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.CircleImageView;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
@@ -501,7 +502,7 @@ public class SqscWodeActivity extends BaseActivity {
         tvSpsc.setText(bean.getSc() + "");
         tvDpgz.setText(bean.getGuanzhu() + "");
         tvSpll.setText(bean.getLiulan() + "");
-        Glide.with(mContext).load(bean.getPhoto()).into(ivTouxiang);
+        GlideUtils.cachePhoto(mContext,ivTouxiang,bean.getPhoto());
         tvDianming.setText(bean.getCompany_name() + "");
         type = bean.getBusiness_state() + "";
         tvState.setText(type.equals("0") ? "营业中" : "已关店");
@@ -572,7 +573,7 @@ public class SqscWodeActivity extends BaseActivity {
             tvTongguo.setText(bean.getShenhe_cg() + "");
         }
         tvDianming.setText(bean.getCompany_name());
-        Glide.with(mContext).load(bean.getPhoto()).into(ivTouxiang);
+        GlideUtils.cachePhoto(mContext,ivTouxiang,bean.getPhoto());
         tvDianming.setText(bean.getCompany_name() + "");
         type = bean.getBusiness_state() + "";
         tvState.setText(type.equals("0") ? "营业中" : "已关店");
@@ -649,5 +650,13 @@ public class SqscWodeActivity extends BaseActivity {
     protected void onResume() {
         getShow();
         super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if(confirmDialog!=null){
+            confirmDialog.dismiss();
+        }
+        super.onDestroy();
     }
 }

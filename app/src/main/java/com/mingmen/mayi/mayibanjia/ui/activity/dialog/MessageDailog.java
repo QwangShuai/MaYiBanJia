@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.mingmen.mayi.mayibanjia.R;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 
 import butterknife.Unbinder;
 
@@ -65,7 +66,7 @@ public class MessageDailog extends Dialog {
         etTeshu = (EditText) v.findViewById(R.id.et_teshu);
         btQueren = (Button) v.findViewById(R.id.bt_queren);
         btQuxiao = (Button) v.findViewById(R.id.bt_quxiao);
-
+        StringUtil.setInputNoEmoj(etTeshu);
         tvName.setText(name);
         etTeshu.addTextChangedListener(new TextWatcher() {
             @Override

@@ -75,11 +75,11 @@ public class YeWuYuanDialog extends BaseFragmentDialog implements View.OnClickLi
      * @param chooseView
      * @param s
      */
-    private void changeView(TextView textView, View chooseView, String s, String role){
+    private void changeView(TextView textView, View chooseView, String s){
         int color=getContext().getResources().getColor(textView.getId()==chooseView.getId()?R.color.caigoudanxuanzhong:R.color.zicolor);
         textView.setTextColor(color);
         if (textView.getId()==chooseView.getId())
-            activity.shuaxinList(s,role);
+            activity.shuaxinList(s);
         this.dismiss();
     }
 
@@ -89,10 +89,10 @@ public class YeWuYuanDialog extends BaseFragmentDialog implements View.OnClickLi
         if(v.getId()==R.id.cancel_view){
             dismiss();
         }else {
-            changeView(tvXuanxiang1,v,"2","1");
-            changeView(tvXuanxiang2,v, "2","2");
-            changeView(tvXuanxiang3,v, "1","1");
-            changeView(tvXuanxiang4,v, "1","2");
+            changeView(tvXuanxiang1,v,"2");
+            changeView(tvXuanxiang2,v, "2");
+            changeView(tvXuanxiang3,v, "1");
+            changeView(tvXuanxiang4,v, "1");
         }
     }
 

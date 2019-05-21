@@ -15,6 +15,24 @@ public class JYMXItemBean {
     private String reasons;
     private String gy_company_name;
     private String ct_company_name;
+    private String third_party_payment;
+    private String return_remarke;
+
+    public String getReturn_remarke() {
+        return return_remarke;
+    }
+
+    public void setReturn_remarke(String return_remarke) {
+        this.return_remarke = return_remarke;
+    }
+
+    public String getThird_party_payment() {
+        return third_party_payment;
+    }
+
+    public void setThird_party_payment(String third_party_payment) {
+        this.third_party_payment = third_party_payment;
+    }
 
     public String getGy_company_name() {
         return gy_company_name;

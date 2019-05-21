@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.GWCShangPinBean;
 import com.mingmen.mayi.mayibanjia.bean.QueRenDingDanShangPinBean;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 
 import java.util.List;
 
@@ -74,7 +75,7 @@ public class TiJiaoDingDanShangPinAdapter extends RecyclerView.Adapter<TiJiaoDin
         holder.tvGuige.setText(shoppingBean.getPack_standard());
         holder.tvDanjia.setText(shoppingBean.getPrice() + "");
         holder.tvShuliang.setText(shoppingBean.getCount() + "");
-        Glide.with(mContext).load(shoppingBean.getUrl()).into(holder.ivSptu);
+        GlideUtils.cachePhoto(mContext,holder.ivSptu,shoppingBean.getUrl());
     }
 
     public List<QueRenDingDanShangPinBean.MarketlistBean.DplistBean.ListBean> getmList() {

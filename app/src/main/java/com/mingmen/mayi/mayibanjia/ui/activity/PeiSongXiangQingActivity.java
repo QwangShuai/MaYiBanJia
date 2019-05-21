@@ -42,6 +42,7 @@ public class PeiSongXiangQingActivity extends BaseActivity {
     private Context mContext;
     private SJPSXiangQingAdapter adapter;
     private List<SiJiWLXQBean> mList = new ArrayList<SiJiWLXQBean>();
+    private boolean isTeshu;
     @Override
     public int getLayoutId() {
         return R.layout.activity_pei_song_xiang_qing;
@@ -52,6 +53,7 @@ public class PeiSongXiangQingActivity extends BaseActivity {
         mContext = PeiSongXiangQingActivity.this;
         tv_title.setText("配送详情");
         wlID = getIntent().getStringExtra("xqID");
+        isTeshu = getIntent().getBooleanExtra("isTeshu",false);
         getWLXQ(wlID);
     }
 
@@ -66,6 +68,7 @@ public class PeiSongXiangQingActivity extends BaseActivity {
                     public void onNext(List<SiJiWLXQBean> data) {
                         mList = data;
                         adapter = new SJPSXiangQingAdapter(mContext, mList, PeiSongXiangQingActivity.this);
+//                        adapter.setTeshu(isTeshu);
                         rv_peisong.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
                         rv_peisong.setAdapter(adapter);
                     }

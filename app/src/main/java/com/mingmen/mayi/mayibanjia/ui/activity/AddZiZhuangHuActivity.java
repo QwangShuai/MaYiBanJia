@@ -47,6 +47,8 @@ public class AddZiZhuangHuActivity extends BaseActivity {
     TextView tvRight;
     @BindView(R.id.tv_dianpu)
     TextView tvDianpu;
+    @BindView(R.id.tv_miaoshu)
+    TextView tvMiaoshu;
     @BindView(R.id.et_juese)
     EditText etJuese;
     @BindView(R.id.et_phone)
@@ -83,10 +85,12 @@ public class AddZiZhuangHuActivity extends BaseActivity {
     @Override
     protected void initData() {
         tvTitle.setText("添加子账户");
+        StringUtil.setInputNoEmoj(etJuese);
         mContext = AddZiZhuangHuActivity.this;
         company_name = getIntent().getStringExtra("name");
         company_id =  getIntent().getStringExtra("id");
         tvDianpu.setText(company_name);
+        getmoren();
     }
 
     @Override
@@ -118,6 +122,7 @@ public class AddZiZhuangHuActivity extends BaseActivity {
                         tvJuese.setText(name);
                         initShangpinChildViews(mContext,xcfJuese,name.split(","));
                         getQuanxian();
+                        getmoren();
                     }
                 });
                 dialog.show();
@@ -173,6 +178,26 @@ public class AddZiZhuangHuActivity extends BaseActivity {
                             }
                             initShangpinChildViews(mContext,xcfQuanxian,quanxianList);
                         }
+                    }
+                },false);
+    }
+
+    private void getmoren() {
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .getJuese(PreferenceUtils.getString(MyApplication.mContext, "token", ""),son_role_id))
+                .setDataListener(new HttpDataListener<List<JueSeBean>>() {
+                    @Override
+                    public void onNext(List<JueSeBean> data) {
+                        int mysize = data==null?0:data.size();
+                        String miaoshu = "";
+                        for (JueSeBean bean:data) {
+                            miaoshu+=bean.getPart()+":"+bean.getSynopsis()+"\n";
+                        }
+                        tvMiaoshu.setText(miaoshu);
                     }
                 },false);
     }

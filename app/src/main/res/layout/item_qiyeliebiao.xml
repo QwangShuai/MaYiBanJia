@@ -121,6 +121,7 @@
                         />
                 </LinearLayout>
                 <LinearLayout
+                    android:id="@+id/ll_dd"
                     android:layout_marginTop="6dp"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"

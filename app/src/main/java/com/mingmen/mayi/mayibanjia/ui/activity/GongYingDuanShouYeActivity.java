@@ -62,6 +62,8 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
     TextView tvDaishoukuan;
     @BindView(R.id.ll_yue)
     LinearLayout llYue;
+    @BindView(R.id.ll_yfsz_gyd)
+    LinearLayout ll_yfsz_gyd;
     @BindView(R.id.tv_spll)
     TextView tvSpll;
     @BindView(R.id.tv_spsc)
@@ -178,11 +180,11 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
             R.id.ll_lianxikefu, R.id.ll_bangzhuyufankui, R.id.ll_yinhangzhanghao,
             R.id.ll_zizhirenzheng, R.id.tv_cwbb, R.id.tv_tixian, R.id.ll_tianjiashangpin,
             R.id.ll_shangjia,R.id.ll_xiajia,R.id.ll_daishenhe,R.id.ll_tejiashangpin_gyd,
-            R.id.ll_putongshangpin_gyd})
+            R.id.ll_putongshangpin_gyd,R.id.ll_yfsz_gyd})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_gy:
-                qiehuan();
+//                qiehuan();
                 break;
             case R.id.ll_tianjiashangpin:
                 //添加商品
@@ -204,14 +206,10 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
                 startActivity(it_xiajia);
                 break;
             case R.id.ll_tejiashangpin_gyd:
-                Intent  it_tj = new Intent(mContext, ShangPinGuanLiActivity.class);
-                it_tj.putExtra("goods","1");
-                startActivity(it_tj);
+                getDianpuRenzheng("1");
                 break;
             case R.id.ll_putongshangpin_gyd:
-                Intent  it_pt = new Intent(mContext, ShangPinGuanLiActivity.class);
-                it_pt.putExtra("goods","0");
-                startActivity(it_pt);
+                getDianpuRenzheng("0");
                 break;
             case R.id.ll_daishenhe:
                 Intent  it_daishenhe = new Intent(mContext, ShangPinGuanLiActivity.class);
@@ -239,6 +237,9 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
                 break;
             case R.id.ll_bangzhuyufankui:
                 startActivity(new Intent(mContext, YiJianFanKuiActivity.class));
+                break;
+            case R.id.ll_yfsz_gyd://运费设置
+                startActivity(new Intent(mContext, YunfeiShezhiActivity.class));
                 break;
             case R.id.ll_daiqiangdan:
                 Intent daiqiangdan = new Intent(mContext, GongYingDuanQiangDanActivity.class);
@@ -324,12 +325,14 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
                 });
                 break;
             case R.id.iv_touxiang:
-                Intent shezhi = new Intent(mContext, GongYingDuanSheZhiActivity.class);
+                Intent shezhi = new Intent(mContext, SqscShezhiActivity.class);
+                shezhi.putExtra("khd","gy");
                 startActivity(shezhi);
 //                finish();
                 break;
             case R.id.tv_dianming:
-                Intent shezhi2 = new Intent(mContext, GongYingDuanSheZhiActivity.class);
+                Intent shezhi2 = new Intent(mContext, SqscShezhiActivity.class);
+                shezhi2.putExtra("khd","gy");
                 startActivity(shezhi2);
 //                finish();
                 break;
@@ -591,6 +594,21 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
                         sh_state = bean.getZz();
                         Log.e("onNext: ", bean.getZz());
 //                        tvShenhe.setText(bean.getZz().toString());
+                    }
+                });
+    }
+
+    private void getDianpuRenzheng(final String canshu) {
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(RetrofitManager.getService()
+                        .yanzhengDianpuWeigui(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
+                .setDataListener(new HttpDataListener<String>() {
+                    @Override
+                    public void onNext(String data) {
+                        Intent  it = new Intent(mContext, ShangPinGuanLiActivity.class);
+                        it.putExtra("goods",canshu);
+                        startActivity(it);
                     }
                 });
     }

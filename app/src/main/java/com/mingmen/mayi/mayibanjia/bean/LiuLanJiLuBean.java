@@ -52,6 +52,8 @@ public class LiuLanJiLuBean {
     private String browse_time;
     private String collectCount;
     private String shopName;
+    private String goods;
+    private String real_time_state;
     private int page;
     private Object sort;
     private PagerBean pager;
@@ -65,6 +67,22 @@ public class LiuLanJiLuBean {
     private String pice_two;//价格二
     private String pice_three;//价格三
     private String type_four_id;//四级分类id
+
+    public String getReal_time_state() {
+        return real_time_state;
+    }
+
+    public void setReal_time_state(String real_time_state) {
+        this.real_time_state = real_time_state;
+    }
+
+    public String getGoods() {
+        return goods;
+    }
+
+    public void setGoods(String goods) {
+        this.goods = goods;
+    }
 
     public String getType_four_id() {
         return type_four_id;

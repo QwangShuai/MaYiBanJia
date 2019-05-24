@@ -89,10 +89,6 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
 //    EditText etBili;
     @BindView(R.id.bt_baocun)
     Button btBaocun;
-    @BindView(R.id.et_miaoshu)
-    EditText etMiaoshu;
-    @BindView(R.id.tishi)
-    TextView tvTishi;
     @BindView(R.id.rv_flcs)
     RecyclerView rvFlcs;
 
@@ -154,22 +150,6 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
         photoDialog.getWindow().setGravity(Gravity.BOTTOM | Gravity.LEFT | Gravity.RIGHT);
         String canshujson = getIntent().getStringExtra("canshu");
         canshu = gson.fromJson(canshujson, FbspCanShuBean.class);
-        etMiaoshu.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                tvTishi.setText(s.toString().trim().length() + "/50");
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
     }
 
 
@@ -292,7 +272,6 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
 //                canshu.setLevel(etDengji.getText().toString().trim());
 //                canshu.setApply(etShiyong.getText().toString().trim());
 //                canshu.setProportion(etBili.getText().toString().trim());
-                canshu.setSpec_describe(etMiaoshu.getText().toString().trim());
                 if (yemian.equals("0")) {
                     if ("".equals(tu1) & "".equals(tu2) & "".equals(tu3) & "".equals(tu4)) {
                         canshu.setDeputyPicture(canshu.getHostPicture());
@@ -581,7 +560,6 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
     public void setDataView() {//编辑展示
         EditorShangPinBean bean = PreferenceUtils.getEditorShangPinBean(MyApplication.mContext, "");
         spID = bean.getXq().getCommodity_id();
-        etMiaoshu.setText(bean.getXq().getSpec_describe());
 //        picList.addAll(bean.getXq().getFtPicture());
         if (!"null".equals(String.valueOf(bean.getXq().getFtPicture()))) {
             for (int i = 0; i < bean.getXq().getFtPicture().size(); i++) {

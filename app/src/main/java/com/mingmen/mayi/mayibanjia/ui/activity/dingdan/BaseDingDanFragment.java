@@ -6,7 +6,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
@@ -18,7 +22,6 @@ import com.mingmen.mayi.mayibanjia.ui.activity.DingDanXiangQingActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.FaBiaoPingJiaActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.WeiYiQrCodeActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.DingDanXiangQingAdapter;
-import com.mingmen.mayi.mayibanjia.ui.activity.ghdingdan.GHDOrderActivity;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseFragment;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
@@ -30,6 +33,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * Created by Administrator on 2018/7/28/028.
@@ -42,6 +47,15 @@ public abstract class BaseDingDanFragment extends BaseFragment {
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout refreshLayout;
     View view;
+    @BindView(R.id.tv_tishi_left)
+    TextView tvTishiLeft;
+    @BindView(R.id.tv_tishi_center)
+    TextView tvTishiCenter;
+    @BindView(R.id.tv_tishi_right)
+    TextView tvTishiRight;
+    @BindView(R.id.ll_list_null)
+    LinearLayout llListNull;
+    Unbinder unbinder;
     private ArrayList<DingDanBean> mlist = new ArrayList<DingDanBean>();
     private DingDanXiangQingAdapter adapter;
     private SwipeMenuRecyclerView.LoadMoreListener mLoadMoreListener;
@@ -135,7 +149,9 @@ public abstract class BaseDingDanFragment extends BaseFragment {
                 updateList(false);
             }
         };
-
+        tvTishiLeft.setText("哇~列表里是空的");
+        tvTishiCenter.setVisibility(View.GONE);
+        tvTishiRight.setVisibility(View.GONE);
         rvDingdan.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 //        rvDingdan.useDefaultLoadMore(); // 使用默认的加载更多的View。
         rvDingdan.setLoadMoreListener(mLoadMoreListener); // 加载更多的监听。
@@ -167,7 +183,7 @@ public abstract class BaseDingDanFragment extends BaseFragment {
                         break;
                     case R.id.tv_quhuoma:
                         it = new Intent(getActivity(), WeiYiQrCodeActivity.class);
-                        it.putExtra("type","ddID");
+                        it.putExtra("type", "ddID");
                         it.putExtra("ddID", mlist.get(position).getOrder_id());
                         getActivity().startActivity(it);
                         break;
@@ -221,7 +237,7 @@ public abstract class BaseDingDanFragment extends BaseFragment {
     }
 
     public void updateList(final boolean b_clear) {
-        Log.e("updateList: ",ye+"---" );
+        Log.e("updateList: ", ye + "---");
         HttpManager.getInstance()
                 .with(getActivity())
                 .setObservable(
@@ -265,12 +281,27 @@ public abstract class BaseDingDanFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.e("onResume: ", getZhuangTai()+"----");
-        if(ye!=1){
+        Log.e("onResume: ", getZhuangTai() + "----");
+        if (ye != 1) {
             ye = 1;
 //        updateList(true);
             getData();
             adapter.notifyDataSetChanged();
         }
     }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
 }

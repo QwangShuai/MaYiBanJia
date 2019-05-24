@@ -43,10 +43,10 @@ public class SqscShezhiActivity extends BaseActivity {
     TextView tvZzrz;
     @BindView(R.id.iv_zzrz)
     ImageView ivZzrz;
-    @BindView(R.id.iv_yhpj)
-    ImageView ivYhpj;
-    @BindView(R.id.iv_wdpj)
-    ImageView ivWdpj;
+    @BindView(R.id.ll_yhpj)
+    LinearLayout llYhpj;
+    @BindView(R.id.ll_wdpj)
+    LinearLayout llWdpj;
     @BindView(R.id.iv_kfdh)
     ImageView ivKfdh;
     @BindView(R.id.iv_cjwt)
@@ -58,6 +58,7 @@ public class SqscShezhiActivity extends BaseActivity {
     private Context mContext;
     private ConfirmDialog confirmDialog;
     private String sh_state="待审核";
+    private String khd = "sqsc";
 
     @Override
     public int getLayoutId() {
@@ -70,6 +71,12 @@ public class SqscShezhiActivity extends BaseActivity {
         mContext=this;
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
+        khd = getIntent().getStringExtra("khd");
+        if(khd.equals("ct")){
+            llYhpj.setVisibility(View.GONE);
+        } else if(khd.equals("gy")){
+            llWdpj.setVisibility(View.GONE);
+        }
         getRenzheng();
     }
 
@@ -81,7 +88,7 @@ public class SqscShezhiActivity extends BaseActivity {
     }
 
     @OnClick({R.id.tv_title, R.id.iv_back, R.id.tv_right, R.id.iv_zhanghu, R.id.iv_yhzh,
-            R.id.tv_zzrz, R.id.iv_zzrz, R.id.iv_yhpj, R.id.iv_wdpj, R.id.iv_kfdh, R.id.iv_cjwt,
+            R.id.tv_zzrz, R.id.iv_zzrz, R.id.ll_yhpj, R.id.ll_wdpj, R.id.iv_kfdh, R.id.iv_cjwt,
             R.id.iv_yjfk, R.id.tv_tuichu})
     public void onViewClicked(View view) {
         Intent it;
@@ -114,11 +121,11 @@ public class SqscShezhiActivity extends BaseActivity {
                 it.putExtra("yemian","1");
                 startActivity(it);
                 break;
-            case R.id.iv_yhpj:
+            case R.id.ll_yhpj:
                 //查看评价
                 Jump_intent(YongHuPingJiaActivity.class,new Bundle());
                 break;
-            case R.id.iv_wdpj:
+            case R.id.ll_wdpj:
                 Jump_intent(WoDePingJiaActivity.class, new Bundle());
                 break;
             case R.id.iv_kfdh:

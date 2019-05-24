@@ -38,6 +38,7 @@ public class QiYeLieBiaoAdapter extends RecyclerView.Adapter<QiYeLieBiaoAdapter.
     private Context mContext;
     private List<QiYeLieBiaoBean> mList;
     private OnItemClickListener mOnItemClickListener;
+
     private Intent it;
 
 
@@ -104,6 +105,7 @@ public class QiYeLieBiaoAdapter extends RecyclerView.Adapter<QiYeLieBiaoAdapter.
             holder.tvLeibie.setVisibility(View.GONE);
         }
         holder.tvOnlyCode.setVisibility(isShow?View.VISIBLE:View.GONE);
+        holder.llDd.setVisibility(isShow?View.VISIBLE:View.GONE);
         holder.tvOnlyCode.setText("店铺唯一码："+data.getOnly_num());
         if(StringUtil.isValid(data.getGuiMoId())&&Integer.valueOf(data.getGuiMoId())!=0){
             holder.tvGuimo.setText("餐位数：" + data.getGuiMoId());
@@ -149,6 +151,7 @@ public class QiYeLieBiaoAdapter extends RecyclerView.Adapter<QiYeLieBiaoAdapter.
 
 
         if (mOnItemClickListener != null) {
+            Log.e("onBindViewHolder: ",data.getUser_token()+"" );
             if(StringUtil.isValid(data.getTypeA())){
                 holder.llBianji.setVisibility(View.GONE);
             } else {
@@ -243,6 +246,8 @@ public class QiYeLieBiaoAdapter extends RecyclerView.Adapter<QiYeLieBiaoAdapter.
         LinearLayout llPhone;
         @BindView(R.id.tv_yewuyuan)
         TextView tvYewuyuan;
+        @BindView(R.id.ll_dd)
+        LinearLayout llDd;
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);

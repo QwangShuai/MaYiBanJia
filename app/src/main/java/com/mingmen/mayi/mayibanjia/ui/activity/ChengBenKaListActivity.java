@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,12 +18,18 @@ import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.ChengBenKaAdapter;
+import com.mingmen.mayi.mayibanjia.ui.activity.adapter.ShangPinGuanLiAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.CaipinSousuoDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dingdan.DingDanActivity;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenu;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuBridge;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuCreator;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuItem;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuItemClickListener;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import java.util.ArrayList;
@@ -31,6 +38,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static android.widget.ListPopupWindow.MATCH_PARENT;
 
 public class ChengBenKaListActivity extends BaseActivity {
 
@@ -82,6 +91,54 @@ public class ChengBenKaListActivity extends BaseActivity {
                 getData("");
             }
         };
+        SwipeMenuCreator mSwipeMenuCreator = new SwipeMenuCreator() {
+            @Override
+            public void onCreateMenu(SwipeMenu rightMenuleftMenu, SwipeMenu rightMenu, int viewType) {
+                        SwipeMenuItem deleteItem = new SwipeMenuItem(mContext); // 各种文字和图标属性设置。
+                        deleteItem.setText("删除");
+                        deleteItem.setTextColor(mContext.getResources().getColor(R.color.white));
+                        deleteItem.setTextSize(15);
+                        deleteItem.setHeight(MATCH_PARENT);
+                        deleteItem.setWidth(200);
+                        deleteItem.setBackground(R.color.red_ff3300);
+                        rightMenu.addMenuItem(deleteItem); // 在Item右侧添加一个菜单。
+
+            }
+        };
+        SwipeMenuItemClickListener mMenuItemClickListener = new SwipeMenuItemClickListener() {
+            @Override
+            public void onItemClick(SwipeMenuBridge menuBridge) {
+                // 任何操作必须先关闭菜单，否则可能出现Item菜单打开状态错乱。
+                menuBridge.closeMenu();
+                int direction = menuBridge.getDirection(); // 左侧还是右侧菜单。
+                final int adapterPosition = menuBridge.getAdapterPosition(); // RecyclerView的Item的position。
+                int menuPosition = menuBridge.getPosition(); // 菜单在RecyclerView的Item中的Position。
+
+
+                //左滑删除
+                HttpManager.getInstance()
+                        .with(mContext)
+                        .setObservable(
+                                RetrofitManager
+                                        .getService()
+                                        .deleteCbk(PreferenceUtils.getString(MyApplication.mContext,"token",""), mlist.get(adapterPosition).getFood_formula_id()))
+                        .setDataListener(new HttpDataListener<String>() {
+                            @Override
+                            public void onNext(String data) {
+                                ye = 1;
+                                mlist.clear();
+                                adapter.notifyDataSetChanged();
+                                getData("");
+                            }
+                        }, false);
+
+
+            }
+        };
+        // 设置监听器。
+        rvList.setSwipeMenuCreator(mSwipeMenuCreator);
+        // 菜单点击监听。
+        rvList.setSwipeMenuItemClickListener(mMenuItemClickListener);
         rvList.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
 //        rvDingdan.useDefaultLoadMore(); // 使用默认的加载更多的View。
         rvList.setLoadMoreListener(mLoadMoreListener); // 加载更多的监听。
@@ -128,7 +185,7 @@ public class ChengBenKaListActivity extends BaseActivity {
                         ye = 1;
                         mlist.clear();
                         adapter.notifyDataSetChanged();
-                        getData(sousuoDialog.getEtQiyemingcheng().toString().trim());
+                        getData(sousuoDialog.getEtQiyemingcheng().getText().toString().trim());
                     }
                 });
                 sousuoDialog.getTvQuxiao().setOnClickListener(new View.OnClickListener() {
@@ -185,12 +242,13 @@ public class ChengBenKaListActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        super.onResume();
+        Log.e("onResume: ", ye+"");
         if(ye!=1){
             ye = 1;
             mlist.clear();
             adapter.notifyDataSetChanged();
             getData("");
         }
+        super.onResume();
     }
 }

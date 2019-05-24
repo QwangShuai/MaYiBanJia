@@ -130,36 +130,7 @@
                 </RelativeLayout>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_marginTop="12dp"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_zhuliaobeizhu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="主料备注"
-                    android:textColor="#ff666666"
-                    android:textSize="15sp" />
-
-                <EditText
-                    android:gravity="left"
-                    android:id="@+id/et_zhuliaobeizhu"
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:layout_marginLeft="20dp"
-                    android:background="@drawable/fillet_hollow_999999_3"
-                    android:hint="请输入主料备注"
-                    android:maxLength="20"
-                    android:padding="10dp"
-                    android:text=""
-                    android:textColor="@color/zicolor"
-                    android:textColorHint="@color/hintcolor"
-                    android:textSize="12sp" />
-            </LinearLayout>
             <LinearLayout
                 android:layout_marginTop="12dp"
                 android:layout_width="match_parent"
@@ -230,6 +201,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_marginTop="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
@@ -329,6 +301,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_marginTop="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
@@ -454,6 +427,36 @@
                     android:maxLength="20"
                     android:paddingLeft="10dp"
                     android:text="0元"
+                    android:textColor="@color/zicolor"
+                    android:textColorHint="@color/hintcolor"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_zhuliaobeizhu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="菜品备注"
+                    android:textColor="#ff666666"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:gravity="left"
+                    android:id="@+id/et_zhuliaobeizhu"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/fillet_hollow_999999_3"
+                    android:hint="菜品备注（选填）"
+                    android:maxLength="20"
+                    android:padding="10dp"
+                    android:text=""
                     android:textColor="@color/zicolor"
                     android:textColorHint="@color/hintcolor"
                     android:textSize="12sp" />

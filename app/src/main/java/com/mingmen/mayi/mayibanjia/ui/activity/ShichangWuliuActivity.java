@@ -121,8 +121,6 @@ public class ShichangWuliuActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<WuLiuObjBean<WuLiuBean>>() {
                     @Override
                     public void onNext(WuLiuObjBean<WuLiuBean> bean) {
-                        mlist.clear();
-                        adapter.notifyDataSetChanged();
                         if (bean.getDdList().size() == 5) {
                             rvDingdan.loadMoreFinish(false, true);
                         } else if (bean.getDdList().size() > 0) {

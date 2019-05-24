@@ -2,6 +2,7 @@ package com.mingmen.mayi.mayibanjia.ui.activity.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +22,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.SPXiangQingActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.TubiaoActivity;
 import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 
 import java.util.List;
 
@@ -68,6 +70,18 @@ public class LiuLanJiLuAdapter extends RecyclerView.Adapter<LiuLanJiLuAdapter.Vi
         holder.tvSpming.setText(data.getClassify_name());
         holder.tvDianming.setText(data.getShopName());
         holder.tvJiage.setText(data.getPrice()+"");
+        if(StringUtil.isValid(data.getReal_time_state())&&data.getReal_time_state().equals("0")){
+            holder.ivJishida.setVisibility(View.VISIBLE);
+        } else {
+            holder.ivJishida.setVisibility(View.GONE);
+        }
+        if(data.getGoods().equals("1")){
+            holder.tvYuanjiage.setVisibility(View.VISIBLE);
+            holder.tvYuanjiage.setText(data.getPice_one());
+            holder.tvYuanjiage.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        } else {
+            holder.tvYuanjiage.setVisibility(View.GONE);
+        }
         //holder.tvGuige.setText(data.getPackStandard()+"");
         holder.tvSpxiaoliang.setText(data.getCollectCount()+"人收藏");
         GlideUtils.cachePhoto(mContext,holder.ivSptu,data.getGoodsPicture());
@@ -109,6 +123,8 @@ public class LiuLanJiLuAdapter extends RecyclerView.Adapter<LiuLanJiLuAdapter.Vi
 
         @BindView(R.id.iv_sptu)
         ImageView ivSptu;
+        @BindView(R.id.iv_jishida)
+        ImageView ivJishida;
         @BindView(R.id.tv_spming)
         TextView tvSpming;
         @BindView(R.id.tv_dianming)
@@ -117,6 +133,8 @@ public class LiuLanJiLuAdapter extends RecyclerView.Adapter<LiuLanJiLuAdapter.Vi
         TextView tvGuige;*/
         @BindView(R.id.tv_renminbi)
         TextView tvRenminbi;
+        @BindView(R.id.tv_yuanjiage)
+        TextView tvYuanjiage;
         @BindView(R.id.tv_jiage)
         TextView tvJiage;
         @BindView(R.id.tv_danjia)

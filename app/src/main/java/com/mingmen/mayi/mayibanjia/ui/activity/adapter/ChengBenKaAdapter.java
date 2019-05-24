@@ -1,6 +1,7 @@
 package com.mingmen.mayi.mayibanjia.ui.activity.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -18,7 +19,9 @@ import com.mingmen.mayi.mayibanjia.bean.CbkListBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
+import com.mingmen.mayi.mayibanjia.ui.CbkXiangqingActivity;
 import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
+import com.mingmen.mayi.mayibanjia.utils.MyMath;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
@@ -63,7 +66,10 @@ public class ChengBenKaAdapter extends RecyclerView.Adapter<ChengBenKaAdapter.Vi
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtil.showToastLong("查看详情");
+//                ToastUtil.showToastLong("查看详情");
+                Intent it = new Intent(mContext, CbkXiangqingActivity.class);
+                it.putExtra("id",bean.getFood_formula_id());
+                mContext.startActivity(it);
             }
         });
         holder.etShoumaijia.addTextChangedListener(new TextWatcher() {
@@ -81,6 +87,8 @@ public class ChengBenKaAdapter extends RecyclerView.Adapter<ChengBenKaAdapter.Vi
                         holder.etShoumaijia.setText("1");
                         ToastUtil.showToastLong("售卖价格最小为1元");
                     }
+                    double maoli = MyMath.getDouble(Double.valueOf(s.toString())-Double.valueOf(bean.getCosting()));
+                    holder.tvMaoli.setText(maoli+"");
                 } else {
                     holder.etShoumaijia.setText("1");
                     ToastUtil.showToastLong("售卖价格不能为空，且最小为1元");

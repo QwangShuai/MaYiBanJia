@@ -210,6 +210,54 @@
                                     android:layout_height="wrap_content" />
                         </RelativeLayout>
                         <RelativeLayout
+                            android:id="@+id/rl_yiquxiao"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:layout_weight="1">
+                            <ImageView
+                                android:id="@+id/yiquxiao"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/yqx_ct"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="16dp"
+                                />
+                            <TextView
+                                android:id="@+id/tv_yiquxiao"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:text=""
+                                android:textSize="10sp"
+                                android:textColor="#ff3300"
+                                android:background="@drawable/fillet_hollow_ff3300_10"
+                                android:gravity="center"
+                                android:layout_marginTop="10dp"
+                                android:visibility="gone"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginRight="15dp"
+                                />
+                            <TextView
+                                android:layout_below="@+id/yiquxiao"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="已取消"
+                                android:textColor="#474747"
+                                android:textSize="12sp"
+                                android:layout_marginTop="8dp"
+                                android:layout_centerHorizontal="true"
+                                />
+                            <ImageView
+                                android:id="@+id/iv_wqx_yqx"
+                                android:visibility="gone"
+                                android:layout_marginRight="30dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginTop="6dp"
+                                android:src="@mipmap/wuquanxian"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </RelativeLayout>
+                        <RelativeLayout
                             android:id="@+id/rl_daifahuo"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -684,7 +732,7 @@
                                     android:layout_alignParentBottom="true"
                                     android:layout_centerHorizontal="true"
                                     android:layout_marginBottom="12dp"
-                                    android:text="成本核算"
+                                    android:text="菜品成本核算"
                                     android:textColor="#474747"
                                     android:textSize="12sp" />
                                 <ImageView
@@ -777,6 +825,7 @@
                                     android:layout_height="wrap_content" />
                             </RelativeLayout>
                             <RelativeLayout
+                                android:visibility="gone"
                                 android:id="@+id/rl_yinhang"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
@@ -825,6 +874,7 @@
                         </LinearLayout>
                     </LinearLayout>
                     <LinearLayout
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
                         android:orientation="horizontal">

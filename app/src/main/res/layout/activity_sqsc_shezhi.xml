@@ -98,6 +98,7 @@
     </LinearLayout>
     <include layout="@layout/view_cutoff_e7e7e7"></include>
     <LinearLayout
+        android:id="@+id/ll_yhpj"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
@@ -125,6 +126,7 @@
     </LinearLayout>
     <include layout="@layout/view_cutoff_e7e7e7"></include>
     <LinearLayout
+        android:id="@+id/ll_wdpj"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"

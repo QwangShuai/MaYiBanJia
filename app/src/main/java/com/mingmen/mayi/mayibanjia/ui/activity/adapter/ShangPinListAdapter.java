@@ -2,6 +2,7 @@ package com.mingmen.mayi.mayibanjia.ui.activity.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
@@ -81,15 +82,23 @@ public class ShangPinListAdapter extends RecyclerView.Adapter<ShangPinListAdapte
         final ShangPinSouSuoBean.ZhengchangBean data = mList.get(position);
         holder.ivJishida.setVisibility(View.GONE);
         //holder.tvSpming.setText(data.getClassify_name());
-        holder.tvSpming.setMarqueeEnable(true);
+//        holder.tvSpming.setMarqueeEnable(true);
+        if(data.getGoods().equals("1")){
+            holder.tvYuanjiage.setVisibility(View.VISIBLE);
+            holder.tvYuanjiage.setText(data.getPice_one());
+            holder.tvYuanjiage.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        } else {
+            holder.tvYuanjiage.setVisibility(View.GONE);
+        }
         holder.tvSpming.setText(data.getClassify_name());
         holder.tvDianming.setText(data.getCompany_name()+"("+data.getMarket_name()+")");
-        holder.tvJiage.setText(data.getPrice()+"");
-        //holder.tvGuige.setText(data.getPackStandard()+"");
+        holder.tvJiage.setText(data.getPrice()+""+data.getPackStandard());
         holder.tvSpxiaoliang.setText("已售"+data.getCommodity_sales());
         Log.e("onBindViewHolder: ",data.getReal_time_state()+"---");
         if(StringUtil.isValid(data.getReal_time_state())&&data.getReal_time_state().equals("0")){
             holder.ivJishida.setVisibility(View.VISIBLE);
+        } else {
+            holder.ivJishida.setVisibility(View.GONE);
         }
         GlideUtils.cachePhoto(mContext,holder.ivSptu,data.getPicture_url());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -132,8 +141,10 @@ public class ShangPinListAdapter extends RecyclerView.Adapter<ShangPinListAdapte
 
         @BindView(R.id.iv_sptu)
         ImageView ivSptu;
+//        @BindView(R.id.tv_spming)
+//        MarqueeTextView tvSpming;
         @BindView(R.id.tv_spming)
-        MarqueeTextView tvSpming;
+        TextView tvSpming;
         @BindView(R.id.tv_dianming)
         TextView tvDianming;
 /*        @BindView(R.id.tv_guige)
@@ -142,6 +153,8 @@ public class ShangPinListAdapter extends RecyclerView.Adapter<ShangPinListAdapte
         TextView tvRenminbi;
         @BindView(R.id.tv_jiage)
         TextView tvJiage;
+        @BindView(R.id.tv_yuanjiage)
+        TextView tvYuanjiage;
         @BindView(R.id.tv_danjia)
         TextView tvDanjia;
         @BindView(R.id.tv_spxiaoliang)

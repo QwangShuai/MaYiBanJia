@@ -63,12 +63,9 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
     private QuanBuShangPinFragment qb_fragment;
 //    private boolean isTs;
 
-    public boolean isClick() {
-        return isClick;
-    }
-
     public void setClick(boolean click) {
         isClick = click;
+        notifyDataSetChanged();
     }
 
     private boolean isClick = true;
@@ -154,7 +151,7 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
         holder.btBianji.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isClick()) {
+                if (isClick) {
 //                    if (bean.getApproval_state().equals("0") || bean.getApproval_state().equals("2")) {
 //                        ToastUtil.showToast("在售商品不能编辑，请先下架");
 //                    } else {
@@ -177,7 +174,7 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
         holder.btAddGuige.setOnClickListener( new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isClick()) {
+                if (isClick) {
                     Intent it = new Intent(mContext, FaBuShangPinActivity.class);
                     it.putExtra("state", "0");
                     it.putExtra("goods", goods);
@@ -202,7 +199,7 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
                     holder.btXiajia.setOnClickListener( new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if (isClick()) {
+                            if (isClick) {
                                 showDialog("是否下架", bean.getCommodity_id(), "4");
                             } else {
                                 ToastUtil.showToastLong("请注意，您只有阅览权限");
@@ -220,7 +217,7 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
                     holder.btShangjia.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if (isClick()) {
+                            if (isClick) {
                                 showDialog("是否发售商品", bean.getCommodity_id(), "2");
                             } else {
                                 ToastUtil.showToastLong("请注意，您只有阅览权限");
@@ -259,35 +256,40 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
                     holder.btIsTejia.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            confirmDialog.showDialog("是否删除此商品");
-                            confirmDialog.getTvSubmit().setOnClickListener(new OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    confirmDialog.dismiss();
-                                    //删除
-                                    HttpManager.getInstance()
-                                            .with(mContext)
-                                            .setObservable(
-                                                    RetrofitManager
-                                                            .getService()
-                                                            .ghdspdel(PreferenceUtils.getString(MyApplication.mContext,"token",""),
-                                                                    bean.getCommodity_id(), "3"))
-                                            .setDataListener(new HttpDataListener<String>() {
-                                                @Override
-                                                public void onNext(String data) {
-                                                    ToastUtil.showToastLong("删除审核失败商品成功");
-                                                    mList.remove(position);
-                                                    notifyDataSetChanged();
-                                                }
-                                            }, false);
-                                }
-                            });
-                            confirmDialog.getTvCancel().setOnClickListener(new OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    confirmDialog.dismiss();
-                                }
-                            });
+                            if(isClick){
+                                confirmDialog.showDialog("是否删除此商品");
+                                confirmDialog.getTvSubmit().setOnClickListener(new OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        confirmDialog.dismiss();
+                                        //删除
+                                        HttpManager.getInstance()
+                                                .with(mContext)
+                                                .setObservable(
+                                                        RetrofitManager
+                                                                .getService()
+                                                                .ghdspdel(PreferenceUtils.getString(MyApplication.mContext,"token",""),
+                                                                        bean.getCommodity_id(), "3"))
+                                                .setDataListener(new HttpDataListener<String>() {
+                                                    @Override
+                                                    public void onNext(String data) {
+                                                        ToastUtil.showToastLong("删除审核失败商品成功");
+                                                        mList.remove(position);
+                                                        notifyDataSetChanged();
+                                                    }
+                                                }, false);
+                                    }
+                                });
+                                confirmDialog.getTvCancel().setOnClickListener(new OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        confirmDialog.dismiss();
+                                    }
+                                });
+                            } else {
+                                ToastUtil.showToastLong("请注意，您只有阅览权限");
+                            }
+
                         }
                     });
                     holder.btBianji.setVisibility(View.VISIBLE);
@@ -296,7 +298,7 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
                     holder.btShangjia.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if (isClick()) {
+                            if (isClick) {
                                 final ConfirmSingleDialog dialog;
                                 dialog = new ConfirmSingleDialog(mContext,
                                         mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));

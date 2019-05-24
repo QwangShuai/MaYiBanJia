@@ -11,6 +11,7 @@ public class ShangPinSousuoMohuBean {
     private String classify_id;
     private String spec_name;
     private String spec_idFour;
+    private String spec_describe;
     private boolean isSelect;
 
     public boolean isSelect() {
@@ -19,6 +20,14 @@ public class ShangPinSousuoMohuBean {
 
     public void setSelect(boolean select) {
         isSelect = select;
+    }
+
+    public String getSpec_describe() {
+        return spec_describe;
+    }
+
+    public void setSpec_describe(String spec_describe) {
+        this.spec_describe = spec_describe;
     }
 
     public String getSpec_idFour() {

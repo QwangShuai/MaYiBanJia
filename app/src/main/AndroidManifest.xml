@@ -514,7 +514,10 @@
             android:name=".ui.activity.SetPayPwdActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" /> <!-- 设置支付密码 -->
-        <activity android:name=".ui.activity.SpsbChangeActivity">
+        <activity
+            android:name=".ui.activity.SpsbChangeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -523,12 +526,35 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".utils.dayinji.BluetoothDeviceList" />
-        <activity android:name=".ui.activity.YoukeLoginActivity" />
-        <activity android:name=".ui.activity.SpXinxiActivity" />
-        <activity android:name=".ui.activity.AddCbkActivity" />
-        <activity android:name=".ui.activity.ChengBenKaListActivity" />
-        <activity android:name=".ui.activity.SearchCaipinActivity"></activity>
+        <activity
+            android:name=".utils.dayinji.BluetoothDeviceList"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 获取蓝牙列表 -->
+        <activity
+            android:name=".ui.activity.YoukeLoginActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 游客登陆 -->
+        <activity
+            android:name=".ui.activity.SpXinxiActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 商品信息 -->
+        <activity
+            android:name=".ui.activity.AddCbkActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 添加成本卡 -->
+        <activity
+            android:name=".ui.activity.ChengBenKaListActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 成本卡列表 -->
+        <activity
+            android:name=".ui.activity.SearchCaipinActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 搜索菜品 -->
+        <activity
+            android:name=".ui.CbkXiangqingActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- 成本卡详情 -->
+        <activity android:name=".ui.activity.YunfeiShezhiActivity"></activity>
     </application>
 
 </manifest>

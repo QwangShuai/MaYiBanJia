@@ -10,14 +10,33 @@
         android:layout_weight="1"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <ImageView
-            android:id="@+id/iv_sptu"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@color/turquoise"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+        <RelativeLayout
             android:layout_marginLeft="12dp"
-            android:layout_marginStart="12dp" />
+            android:layout_marginStart="12dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp">
+            <ImageView
+                android:id="@+id/iv_sptu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@color/turquoise" />
+            <LinearLayout
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="5dp"
+                android:layout_width="43dp"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:visibility="visible"
+                    android:id="@+id/iv_jishida"
+                    android:src="@mipmap/jishida"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </RelativeLayout>
+
         <LinearLayout
             android:orientation="vertical"
             android:layout_weight="1"
@@ -27,36 +46,32 @@
                 android:layout_marginTop="10dp"
                 android:id="@+id/ll"
                 android:orientation="horizontal"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="23dp"
                 android:gravity="center_vertical"
                 android:layout_marginLeft="12dp">
-                <com.mingmen.mayi.mayibanjia.utils.custom.MarqueeTextView
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
+                <!--<com.mingmen.mayi.mayibanjia.utils.custom.MarqueeTextView-->
+                    <!--android:focusable="true"-->
+                    <!--android:focusableInTouchMode="true"-->
+                    <!--android:singleLine="true"-->
+                    <!--android:ellipsize="marquee"-->
+                    <!--android:id="@+id/tv_spming"-->
+                    <!--android:marqueeRepeatLimit="marquee_forever"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="甜橙"-->
+                    <!--android:textAllCaps="true"-->
+                    <!--android:textColor="#474747"-->
+                    <!--android:textSize="15sp" />-->
+                <TextView
                     android:singleLine="true"
-                    android:ellipsize="marquee"
                     android:id="@+id/tv_spming"
-                    android:marqueeRepeatLimit="marquee_forever"
-                    android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="甜橙"
-                    android:textAllCaps="true"
-                    android:textColor="#474747"
+                    android:textColor="@color/zicolor"
                     android:textSize="15sp" />
-                <LinearLayout
-                    android:layout_marginLeft="5dp"
-                    android:layout_width="43dp"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:visibility="gone"
-                        android:id="@+id/iv_jishida"
-                        android:src="@mipmap/jishida"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-
             </LinearLayout>
             <LinearLayout
                 android:gravity="center_vertical"
@@ -72,6 +87,15 @@
                     android:layout_marginLeft="10dp"
                     android:textColor="#ff3300"
                     android:textSize="12sp" />
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/tv_yuanjiage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5.5"
+                    android:textColor="@color/hintcolor"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="4dp"/>
                 <TextView
                     android:id="@+id/tv_jiage"
                     android:layout_width="wrap_content"

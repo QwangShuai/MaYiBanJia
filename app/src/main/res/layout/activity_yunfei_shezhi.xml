@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.mingmen.mayi.mayibanjia.ui.activity.YunfeiShezhiActivity">
+    <include layout="@layout/head_zangqing" />
+    <LinearLayout
+        android:padding="12dp"
+        android:layout_marginTop="18dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="18sp"
+            android:textColor="@color/zicolor"
+            android:text="运费承担"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_weight="1"
+            android:gravity="center"
+            android:id="@+id/ll_zjcd"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/iv_zjcd"
+                android:src="@mipmap/yxz_yfsz"
+                android:layout_width="15dp"
+                android:layout_height="15dp" />
+            <TextView
+                android:textColor="@color/black_333333"
+                android:textSize="18sp"
+                android:text="卖家承担"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_weight="1"
+            android:gravity="center"
+            android:id="@+id/ll_trcd"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/iv_trcd"
+                android:src="@mipmap/wxz_yfsz"
+                android:layout_width="15dp"
+                android:layout_height="15dp" />
+            <TextView
+                android:textColor="@color/black_333333"
+                android:textSize="18sp"
+                android:text="卖家承担"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_cdxe"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:gravity="center_vertical|right"
+        android:orientation="horizontal"
+        android:paddingRight="12dp"
+        android:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:text="承担限额"
+            android:textColor="@color/black_333333"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:id="@+id/ll_chengdan"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="13dp"
+            android:background="@drawable/fillet_hollow_999999_3"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="限额承担"
+                android:gravity="center_vertical"
+                android:background="@null"
+                android:id="@+id/tv_chengdan"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingLeft="10dp"
+                android:textColor="@color/black_333333"
+                android:textSize="17sp" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="6dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="13dp"
+                    android:layout_height="7dp"
+                    android:layout_marginRight="4dp"
+                    android:src="@mipmap/xiangxia_hui" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_ssed"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:gravity="center_vertical|right"
+        android:orientation="horizontal"
+        android:paddingRight="12dp"
+        android:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:text="输入额度"
+            android:textColor="@color/black_333333"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="13dp"
+            android:background="@drawable/fillet_hollow_999999_3"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_edu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="请填写最大承担额度"
+                android:inputType="numberDecimal"
+                android:maxLength="4"
+                android:paddingLeft="10dp"
+                android:textColor="@color/black_333333"
+                android:textColorHint="@color/hintcolor"
+                android:textSize="17sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="6dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="4dp"
+                    android:text="元"
+                    android:textColor="@color/black_333333"
+                    android:textSize="17sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_tishi"
+        android:text="* 如果您填写10元,那么小于等于10元都将由您承担"
+        android:layout_marginLeft="100dp"
+        android:textSize="11sp"
+        android:textColor="@color/red_ff5050"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <View
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></View>
+    <Button
+        android:layout_marginBottom="16dp"
+        android:id="@+id/bt_save"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:background="@drawable/fillet_solid_zangqing_5"
+        android:text="保存"
+        android:textColor="@color/white"
+        android:textSize="18sp"/>
+</LinearLayout>

@@ -28,6 +28,15 @@ public class FbspGuiGeBean implements Serializable {
         private String affiliated_number;
         private String affiliated_spec_name;
         private String type;
+        private String spec_describe;
+
+    public String getSpec_describe() {
+        return spec_describe;
+    }
+
+    public void setSpec_describe(String spec_describe) {
+        this.spec_describe = spec_describe;
+    }
 
     public String getType() {
         return type;

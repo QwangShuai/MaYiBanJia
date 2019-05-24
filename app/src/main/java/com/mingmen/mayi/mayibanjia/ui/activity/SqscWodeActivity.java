@@ -254,7 +254,9 @@ public class SqscWodeActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_shezhi:
-                Jump_intent(SqscShezhiActivity.class,new Bundle());
+                Bundle bundle = new Bundle();
+                bundle.putString("khd","sqsc");
+                Jump_intent(SqscShezhiActivity.class,bundle);
                 break;
             case R.id.btn_go_main:
                 Jump_intent(MainActivity.class,new Bundle());
@@ -332,14 +334,12 @@ public class SqscWodeActivity extends BaseActivity {
                 Jump_intent(YueActivity.class, new Bundle());
                 break;
             case R.id.ll_putongshangpin_gyd:
-                Intent  it_pt = new Intent(mContext, ShangPinGuanLiActivity.class);
-                it_pt.putExtra("goods","0");
-                startActivity(it_pt);
+                getDianpuRenzheng("0");
                 break;
             case R.id.tv_tixian:
-                Bundle bundle = new Bundle();
-                bundle.putString("yue", yue);
-                Jump_intent(TiXianActivity.class, bundle);
+                Bundle bundle_tixian = new Bundle();
+                bundle_tixian.putString("yue", yue);
+                Jump_intent(TiXianActivity.class, bundle_tixian);
                 break;
             case R.id.tv_daishoukuan:
                 break;
@@ -403,9 +403,7 @@ public class SqscWodeActivity extends BaseActivity {
                 startActivity(intent);
                 break;
             case R.id.ll_tejiashangpin_gyd://特价商品
-                Intent it_tj = new Intent(mContext, ShangPinGuanLiActivity.class);
-                it_tj.putExtra("goods", "1");
-                startActivity(it_tj);
+                getDianpuRenzheng("1");
                 break;
             case R.id.ll_shangjia://上架
                 Intent it_shangjia = new Intent(mContext, ShangPinGuanLiActivity.class);
@@ -658,5 +656,20 @@ public class SqscWodeActivity extends BaseActivity {
             confirmDialog.dismiss();
         }
         super.onDestroy();
+    }
+
+    private void getDianpuRenzheng(final String canshu) {
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(RetrofitManager.getService()
+                        .yanzhengDianpuWeigui(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
+                .setDataListener(new HttpDataListener<String>() {
+                    @Override
+                    public void onNext(String data) {
+                        Intent  it = new Intent(mContext, ShangPinGuanLiActivity.class);
+                        it.putExtra("goods",canshu);
+                        startActivity(it);
+                    }
+                });
     }
 }

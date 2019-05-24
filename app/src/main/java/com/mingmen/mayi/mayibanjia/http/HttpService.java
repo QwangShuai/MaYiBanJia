@@ -8,6 +8,7 @@ import com.mingmen.mayi.mayibanjia.bean.CaiGouDanBean;
 import com.mingmen.mayi.mayibanjia.bean.CaiGouMingChengBean;
 import com.mingmen.mayi.mayibanjia.bean.CarsTypeBean;
 import com.mingmen.mayi.mayibanjia.bean.CbkListBean;
+import com.mingmen.mayi.mayibanjia.bean.CbkXiangqingBean;
 import com.mingmen.mayi.mayibanjia.bean.ChangYongBean;
 import com.mingmen.mayi.mayibanjia.bean.ChePaiBean;
 import com.mingmen.mayi.mayibanjia.bean.DaYinQrCodeBean;
@@ -1444,9 +1445,36 @@ public interface HttpService {
                                               @Query("fllist") String fllist,
                                               @Query("tllist") String tllist);
 
+    // 更新成本
+    @POST("foodFormula/update.do")
+    Observable<ResultModel<String>> updateCaipin(@Query("user_token") String user_token,
+                                              @Query("food_formula_id") String food_formula_id,
+                                              @Query("food_name") String food_name,
+                                              @Query("food_photo") String food_photo,
+                                              @Query("sale_price") String sale_price,
+                                              @Query("host_remarke") String host_remarke,
+                                              @Query("ingredients_remarke") String ingredients_remarke,
+                                              @Query("flavour_remarke") String flavour_remarke,
+                                              @Query("cllist") String cllist,
+                                              @Query("fllist") String fllist,
+                                              @Query("tllist") String tllist);
+
     // 修改售卖价格
     @POST("foodFormula/updateSM.do")
     Observable<ResultModel<String>> updatePrice(@Query("user_token") String user_token,
                                                 @Query("food_formula_id") String food_formula_id,
                                                 @Query("sale_price") String sale_price);
+    // 获取菜品详情
+    @POST("foodFormula/queryFood.do")
+    Observable<ResultModel<CbkXiangqingBean>> getCbkXiangqing(@Query("user_token") String user_token,
+                                                              @Query("food_formula_id") String food_formula_id);
+
+    // 验证店铺是否存在违规行为
+    @POST("allCompany/isturecompany.do")
+    Observable<ResultModel<String>> yanzhengDianpuWeigui(@Query("user_token") String user_token);
+
+    // 删除菜品成本卡
+    @POST("foodFormula/delete.do")
+    Observable<ResultModel<String>> deleteCbk(@Query("user_token") String user_token,
+                                              @Query("food_formula_id") String food_formula_id);
 }

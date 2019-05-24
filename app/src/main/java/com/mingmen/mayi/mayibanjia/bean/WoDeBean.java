@@ -27,6 +27,7 @@ public class WoDeBean {
     private int wait_audit;//商品待审核
     private double wait_money;
     private int wait_qr;
+    private int qx_dingdan;
     private int wait_db;
     private int qiangdan_z;
     private int qiangdan_cg;
@@ -37,6 +38,14 @@ public class WoDeBean {
     private int shenhe_cg;
     private float evaluation;
     private String realtime;
+
+    public int getQx_dingdan() {
+        return qx_dingdan;
+    }
+
+    public void setQx_dingdan(int qx_dingdan) {
+        this.qx_dingdan = qx_dingdan;
+    }
 
     public String getRealtime() {
         return realtime;

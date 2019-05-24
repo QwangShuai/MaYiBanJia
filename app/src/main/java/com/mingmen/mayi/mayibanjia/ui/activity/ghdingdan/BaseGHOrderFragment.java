@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
@@ -38,6 +40,14 @@ public abstract class BaseGHOrderFragment extends BaseFragment {
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout refreshLayout;
     Unbinder unbinder;
+    @BindView(R.id.tv_tishi_left)
+    TextView tvTishiLeft;
+    @BindView(R.id.tv_tishi_center)
+    TextView tvTishiCenter;
+    @BindView(R.id.tv_tishi_right)
+    TextView tvTishiRight;
+    @BindView(R.id.ll_list_null)
+    LinearLayout llListNull;
     private ArrayList<GHOrderBean> mlist = new ArrayList<GHOrderBean>();
     private GHOrderAdapter adapter;
     private SwipeMenuRecyclerView.LoadMoreListener mLoadMoreListener;
@@ -93,13 +103,13 @@ public abstract class BaseGHOrderFragment extends BaseFragment {
         } else {
             token = PreferenceUtils.getString(MyApplication.mContext, "token", "");
         }
-        Log.e("getData: ",token+"----"+getZhuangTai()+"----"+ ye );
+        Log.e("getData: ", token + "----" + getZhuangTai() + "----" + ye);
         HttpManager.getInstance()
                 .with(getActivity())
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getGHOrderList(token,"", getZhuangTai(), ye))
+                                .getGHOrderList(token, "", getZhuangTai(), ye))
                 .setDataListener(new HttpDataListener<List<GHOrderBean>>() {
                     @Override
                     public void onNext(List<GHOrderBean> data) {
@@ -119,6 +129,7 @@ public abstract class BaseGHOrderFragment extends BaseFragment {
                     }
                 });
     }
+
     //数据
     private void updateList(final boolean b_clear) {
 
@@ -127,7 +138,7 @@ public abstract class BaseGHOrderFragment extends BaseFragment {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getGHOrderList(token,"", getZhuangTai(), ye))
+                                .getGHOrderList(token, "", getZhuangTai(), ye))
                 .setDataListener(new HttpDataListener<List<GHOrderBean>>() {
                     @Override
                     public void onNext(List<GHOrderBean> data) {
@@ -150,7 +161,11 @@ public abstract class BaseGHOrderFragment extends BaseFragment {
                 });
         ye++;
     }
+
     private void initview() {
+        tvTishiLeft.setText("哇~列表里是空的");
+        tvTishiCenter.setVisibility(View.GONE);
+        tvTishiRight.setVisibility(View.GONE);
         rvDingdan.setLayoutManager(new LinearLayoutManager(rvDingdan.getContext(), LinearLayoutManager.VERTICAL, false));
         adapter = new GHOrderAdapter(getActivity(), mlist, getActivity(), this);
         mLoadMoreListener = new SwipeMenuRecyclerView.LoadMoreListener() {
@@ -167,7 +182,7 @@ public abstract class BaseGHOrderFragment extends BaseFragment {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                ye = 1 ;
+                ye = 1;
                 updateList(true);
                 refreshLayout.setRefreshing(false);
             }
@@ -201,7 +216,7 @@ public abstract class BaseGHOrderFragment extends BaseFragment {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getGHOrderList(token,"", getZhuangTai(), ye))
+                                .getGHOrderList(token, "", getZhuangTai(), ye))
                 .setDataListener(new HttpDataListener<List<GHOrderBean>>() {
                     @Override
                     public void onNext(List<GHOrderBean> data) {

@@ -12,7 +12,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 public class GHAdapter extends FragmentPagerAdapter {
 
     private Context mContext;
-    private String[] Titles = {"全部","待打包","待发货","已发货","待确认","已完成"};
+    private String[] Titles = {"全部","待打包","待发货","已发货","待确认","已完成","已违规"};
     private final String[] fragments = {
 
             GHQuanBuFragment.class.getName(),
@@ -21,7 +21,7 @@ public class GHAdapter extends FragmentPagerAdapter {
             GHYiFaHuoFragment.class.getName(),
             GHDaiQueRenFragment.class.getName(),
             GHYiShouHuoFragment.class.getName(),
-
+            GHWeiGuiFragment.class.getName()
     };
 
     public GHAdapter(FragmentManager fm,Context mContext) {

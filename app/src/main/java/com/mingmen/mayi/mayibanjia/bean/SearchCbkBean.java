@@ -1,5 +1,7 @@
 package com.mingmen.mayi.mayibanjia.bean;
 
+import java.util.List;
+
 /**
  * Created by Administrator on 2019/5/17.
  */
@@ -12,6 +14,8 @@ public class SearchCbkBean {
     private String type_four_id;
     private String commodity_id;
     private String count;
+
+
 
     public String getCount() {
         return count;
@@ -68,4 +72,8 @@ public class SearchCbkBean {
     public void setCommodity_id(String commodity_id) {
         this.commodity_id = commodity_id;
     }
+
+
+
+
 }

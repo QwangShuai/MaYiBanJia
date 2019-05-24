@@ -6,6 +6,7 @@
 
 
     <LinearLayout
+        android:layout_marginBottom="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -38,6 +39,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <ImageView
+                    android:visibility="gone"
                     android:id="@+id/iv_zoushitu"
                     android:src="@mipmap/zoushi"
                     android:layout_width="16dp"
@@ -56,9 +58,10 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:gravity="bottom"
+                        android:layout_height="25dp"
                         android:id="@+id/tv_chengben"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:text="0"
                         android:textColor="@color/zicolor"
                         android:textSize="13sp" />
@@ -79,9 +82,10 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:gravity="bottom"
+                        android:layout_height="25dp"
                         android:id="@+id/tv_maoli"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:text="0"
                         android:textColor="@color/zangqing"
                         android:textSize="13sp" />
@@ -103,17 +107,23 @@
                     android:orientation="vertical">
 
                     <EditText
+                        android:background="@null"
                         android:id="@+id/et_shoumaijia"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
+                        android:gravity="center_horizontal|bottom"
+                        android:layout_height="25dp"
                         android:inputType="number"
                         android:maxLength="4"
                         android:text="0"
                         android:textColor="@color/zicolor"
                         android:textSize="13sp" />
+                    <View
+                        android:background="@color/zangqing"
+                        android:layout_width="35dp"
+                        android:layout_height="0.5dp"></View>
 
                     <TextView
+                        android:layout_marginTop="7.5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="售卖价(元)"
@@ -124,4 +134,5 @@
         </LinearLayout>
 
     </LinearLayout>
+    <include layout="@layout/view_cutoff_e7e7e7"></include>
 </LinearLayout>

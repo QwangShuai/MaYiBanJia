@@ -105,6 +105,7 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
     private String zxId;
     private String zxNumber;
     private String guigeName = "";
+    private String guigeMiaoshu = "";
     private String guigeId = "";
 //    private Map<String, FCGName> map = new HashMap<>();
     private List<AddSpListBean> list = new ArrayList<>();
@@ -287,6 +288,7 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
                 zxName = msg.getAffiliated_spec_name();
                 zxNumber = msg.getAffiliated_number();
                 guigeName = msg.getSpec_name();
+                guigeMiaoshu = msg.getSpec_describe();
                 guigeId = msg.getSpec_idFour();
                 guigeadapter.notifyDataSetChanged();
             }
@@ -333,6 +335,7 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
         zxName = "";
         zxNumber = "";
         guigeName = "";
+        guigeMiaoshu = "";
         guigeId = "";
         tvPinzhong.setText("全部");
         tvMingcheng.setText("全部");
@@ -362,6 +365,7 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
         zxName = "";
         zxNumber = "";
         guigeName = "";
+        guigeMiaoshu = "";
         guigeId = "";
         tvMingcheng.setText("全部");
         tvGuige.setText("全部");
@@ -387,6 +391,7 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
         zxName = "";
         zxNumber = "";
         guigeName = "";
+        guigeMiaoshu = "";
         guigeId = "";
         tvGuige.setText("全部");
 //        adapter.setXuanzhongid("");
@@ -482,6 +487,7 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
         it.putExtra("zxId", zxId);
         it.putExtra("zxNumber", zxNumber);
         it.putExtra("guigeName", guigeName);
+        it.putExtra("guigeMiaoshu", guigeMiaoshu);
         it.putExtra("guigeId", guigeId);
 //        it.putExtra("name", twoName + "-" + threeName+"-"+fourName);
         it.putExtra("name", twoName + "-" + threeName);

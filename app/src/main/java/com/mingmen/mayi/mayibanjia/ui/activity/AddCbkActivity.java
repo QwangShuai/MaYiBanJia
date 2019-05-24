@@ -31,6 +31,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
+import com.mingmen.mayi.mayibanjia.bean.CbkXiangqingBean;
 import com.mingmen.mayi.mayibanjia.bean.FbspGuiGeBean;
 import com.mingmen.mayi.mayibanjia.bean.SearchCbkBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
@@ -42,6 +43,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.dialog.PhotoDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.XCFlowLayout;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
@@ -152,6 +154,7 @@ public class AddCbkActivity extends BaseActivity {
     private QiNiuPhoto qiNiuPhoto;
     private String shangpintu = "";
     private ConfirmDialog confirmDialog;
+    private String id = "";
 
     @Override
     public int getLayoutId() {
@@ -163,6 +166,7 @@ public class AddCbkActivity extends BaseActivity {
         mContext = AddCbkActivity.this;
         tvTitle.setText("添加成本");
         tvRight.setText("完成");
+        id = getIntent().getStringExtra("id");
         tvRight.setTextColor(mContext.getResources().getColor(R.color.zangqing));
         EventBus.getDefault().register(this);
         confirmDialog = new ConfirmDialog(mContext,
@@ -172,7 +176,7 @@ public class AddCbkActivity extends BaseActivity {
                 mContext.getResources().getIdentifier("BottomDialog", "style", mContext.getPackageName()));
         qiNiuPhoto = new QiNiuPhoto(AddCbkActivity.this);
         photoDialog.getWindow().setGravity(Gravity.BOTTOM | Gravity.LEFT | Gravity.RIGHT);
-        zhuadapter = new CbkTouliaobiaozhunAdapter(mContext,zhulist);
+        zhuadapter = new CbkTouliaobiaozhunAdapter(mContext, zhulist);
         rvZhuliaoTouliaobiaozhun.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         rvZhuliaoTouliaobiaozhun.setAdapter(zhuadapter);
         zhuadapter.setCallBack(new CbkTouliaobiaozhunAdapter.CallBack() {
@@ -181,7 +185,7 @@ public class AddCbkActivity extends BaseActivity {
                 zhulist.get(pos).setCount(num);
             }
         });
-        fuadapter = new CbkTouliaobiaozhunAdapter(mContext,fulist);
+        fuadapter = new CbkTouliaobiaozhunAdapter(mContext, fulist);
         rvFuliaoTouliaobiaozhun.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         rvFuliaoTouliaobiaozhun.setAdapter(fuadapter);
         fuadapter.setCallBack(new CbkTouliaobiaozhunAdapter.CallBack() {
@@ -190,7 +194,7 @@ public class AddCbkActivity extends BaseActivity {
                 fulist.get(pos).setCount(num);
             }
         });
-        tiaoadapter = new CbkTouliaobiaozhunAdapter(mContext,tiaolist);
+        tiaoadapter = new CbkTouliaobiaozhunAdapter(mContext, tiaolist);
         rvTiaoliaoTouliaobiaozhun.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         rvTiaoliaoTouliaobiaozhun.setAdapter(tiaoadapter);
         tiaoadapter.setCallBack(new CbkTouliaobiaozhunAdapter.CallBack() {
@@ -203,6 +207,10 @@ public class AddCbkActivity extends BaseActivity {
         StringUtil.setInputNoEmoj(etFuliaobeizhu);
         StringUtil.setInputNoEmoj(etZhuliaobeizhu);
         StringUtil.setInputNoEmoj(etTiaoliaobeizhu);
+
+        if (StringUtil.isValid(id)) {
+            getData();
+        }
     }
 
     @Override
@@ -213,7 +221,7 @@ public class AddCbkActivity extends BaseActivity {
     }
 
     @OnClick({R.id.iv_back, R.id.tv_right, R.id.tv_add_zhuliao, R.id.tv_add_fuliao,
-            R.id.tv_add_tiaoliao,R.id.iv_cptu})
+            R.id.tv_add_tiaoliao, R.id.iv_cptu})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -226,38 +234,43 @@ public class AddCbkActivity extends BaseActivity {
                 } else if (!StringUtil.isValid(shangpintu)) {
                     ToastUtil.showToast("请选择商品图");
                     return;
-                } else if (zhulist.size()==0) {
+                } else if (zhulist.size() == 0) {
                     ToastUtil.showToast("请添加主料");
                     return;
-                } else if (fulist.size()==0) {
+                } else if (fulist.size() == 0) {
                     ToastUtil.showToast("请添加辅料");
                     return;
-                } else if (tiaolist.size()==0) {
+                } else if (tiaolist.size() == 0) {
                     ToastUtil.showToast("请添加调料");
                     return;
-                } else if(TextUtils.isEmpty(etJiage.getText().toString())||Integer.valueOf(etJiage.getText().toString())==0){
+                } else if (TextUtils.isEmpty(etJiage.getText().toString()) || Integer.valueOf(etJiage.getText().toString()) == 0) {
                     ToastUtil.showToast("请输入正确的菜品售卖价格");
-                }else if(isNum(zhulist)){
+                } else if (isNum(zhulist)) {
                     ToastUtil.showToastLong("请确认主料用料标准是否正确");
-                }else if(isNum(fulist)){
+                } else if (isNum(fulist)) {
                     ToastUtil.showToastLong("请确认辅料用料标准是否正确");
-                }else if(isNum(tiaolist)){
+                } else if (isNum(tiaolist)) {
                     ToastUtil.showToastLong("请确认调料用料标准是否正确");
                 } else {
-                    addCaipin();
+                    if(StringUtil.isValid(id)){
+                        updateCaipin();
+                    } else {
+                        addCaipin();
+                    }
+
                 }
                 break;
             case R.id.tv_add_zhuliao:
                 level = 1;
-                Jump_intent(SearchCaipinActivity.class,new Bundle());
+                Jump_intent(SearchCaipinActivity.class, new Bundle());
                 break;
             case R.id.tv_add_fuliao:
                 level = 2;
-                Jump_intent(SearchCaipinActivity.class,new Bundle());
+                Jump_intent(SearchCaipinActivity.class, new Bundle());
                 break;
             case R.id.tv_add_tiaoliao:
                 level = 3;
-                Jump_intent(SearchCaipinActivity.class,new Bundle());
+                Jump_intent(SearchCaipinActivity.class, new Bundle());
                 break;
             case R.id.iv_cptu:
                 //上传图片
@@ -385,11 +398,11 @@ public class AddCbkActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void update(SearchCbkBean bean) {
-        if(bean!=null){
-            if(level==1){
-                if(zhulist.size()!=0){
-                    for(int i = 0;i<zhulist.size();i++){
-                        if(zhulist.get(i).getCommodity_id().equals(bean.getCommodity_id())){
+        if (bean != null) {
+            if (level == 1) {
+                if (zhulist.size() != 0) {
+                    for (int i = 0; i < zhulist.size(); i++) {
+                        if (zhulist.get(i).getCommodity_id().equals(bean.getCommodity_id())) {
                             ToastUtil.showToastLong("该商品已存在");
                             return;
                         }
@@ -401,12 +414,12 @@ public class AddCbkActivity extends BaseActivity {
 //                for (SearchCbkBean cbkbean: zhuMap.values()) {
 //                    zhulist.add(cbkbean);
 //                }
-                initShangpinChildViews(xcfZhuliao,zhulist,1);
+                initShangpinChildViews(xcfZhuliao, zhulist, 1);
                 zhuadapter.notifyDataSetChanged();
-            } else if(level==2){
-                if(fulist.size()!=0){
-                    for(int i = 0;i<fulist.size();i++){
-                        if(fulist.get(i).getCommodity_id().equals(bean.getCommodity_id())){
+            } else if (level == 2) {
+                if (fulist.size() != 0) {
+                    for (int i = 0; i < fulist.size(); i++) {
+                        if (fulist.get(i).getCommodity_id().equals(bean.getCommodity_id())) {
                             ToastUtil.showToastLong("该商品已存在");
                             return;
                         }
@@ -418,12 +431,12 @@ public class AddCbkActivity extends BaseActivity {
 //                for (SearchCbkBean cbkbean: fuMap.values()) {
 //                    fulist.add(cbkbean);
 //                }
-                initShangpinChildViews(xcfFuliao,fulist,2);
+                initShangpinChildViews(xcfFuliao, fulist, 2);
                 fuadapter.notifyDataSetChanged();
             } else {
-                if(tiaolist.size()!=0){
-                    for(int i = 0;i<tiaolist.size();i++){
-                        if(tiaolist.get(i).getCommodity_id().equals(bean.getCommodity_id())){
+                if (tiaolist.size() != 0) {
+                    for (int i = 0; i < tiaolist.size(); i++) {
+                        if (tiaolist.get(i).getCommodity_id().equals(bean.getCommodity_id())) {
                             ToastUtil.showToastLong("该商品已存在");
                             return;
                         }
@@ -435,16 +448,17 @@ public class AddCbkActivity extends BaseActivity {
 //                for (SearchCbkBean cbkbean: tiaoMap.values()) {
 //                    tiaolist.add(cbkbean);
 //                }
-                initShangpinChildViews(xcfTiaoliao,tiaolist,3);
+                initShangpinChildViews(xcfTiaoliao, tiaolist, 3);
                 tiaoadapter.notifyDataSetChanged();
             }
         }
 
     }
+
     @Override
     protected void onDestroy() {
         EventBus.getDefault().unregister(this);
-        if(confirmDialog!=null){
+        if (confirmDialog != null) {
             confirmDialog.dismiss();
         }
         super.onDestroy();
@@ -461,7 +475,7 @@ public class AddCbkActivity extends BaseActivity {
         lp.topMargin = AppUtil.dip2px(12);
         lp.bottomMargin = 0;
         for (int i = 0; i < mList.size(); i++) {
-            LinearLayout rl = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.item_wenzi_x,null);
+            LinearLayout rl = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.item_wenzi_x, null);
             TextView view = rl.findViewById(R.id.tv_wenzi);
             ImageView ivx = rl.findViewById(R.id.iv_shanchu);
 //            view.setTextColor(mContext.getResources().getColor(R.color.zangqing));
@@ -478,12 +492,12 @@ public class AddCbkActivity extends BaseActivity {
             ivs.get(i).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(xcflevel==1){
-                        deleteItem(finalI,1);
-                    } else if(xcflevel==2){
-                        deleteItem(finalI,2);
+                    if (xcflevel == 1) {
+                        deleteItem(finalI, 1);
+                    } else if (xcflevel == 2) {
+                        deleteItem(finalI, 2);
                     } else {
-                        deleteItem(finalI,3);
+                        deleteItem(finalI, 3);
                     }
                 }
             });
@@ -504,7 +518,7 @@ public class AddCbkActivity extends BaseActivity {
                         final String key = null;
                         final String token = list;
                         File file = StringUtil.luban(mContext, qiniudata);
-                        if(StringUtil.isValid(file.getPath())){
+                        if (StringUtil.isValid(file.getPath())) {
                             bitmap = BitmapFactory.decodeFile(file.getPath());
                             String mydata = qiNiuPhoto.getImageAbsolutePath(AddCbkActivity.this, Uri.parse(file.getPath()));
                             MyApplication.uploadManager.put(qiniudata, key, token,
@@ -578,43 +592,65 @@ public class AddCbkActivity extends BaseActivity {
 
     //添加菜品
     private void addCaipin() {
-        Log.e("addCaipin: ",new Gson().toJson(zhulist) );
+        Log.e("addCaipin: ", new Gson().toJson(zhulist));
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
                         RetrofitManager
                                 .getService()
                                 .addCaipin(PreferenceUtils.getString(MyApplication.mContext, "token", ""),
-                                        etCaipinmingcheng.getText().toString(),shangpintu,etJiage.getText().toString(),
-                                        etZhuliaobeizhu.getText().toString(),etFuliaobeizhu.getText().toString(),
-                                        etTiaoliaobeizhu.getText().toString(),new Gson().toJson(zhulist),
-                                        new Gson().toJson(fulist),new Gson().toJson(tiaolist)))
+                                        etCaipinmingcheng.getText().toString(), shangpintu, etJiage.getText().toString(),
+                                        etZhuliaobeizhu.getText().toString(), etFuliaobeizhu.getText().toString(),
+                                        etTiaoliaobeizhu.getText().toString(), new Gson().toJson(zhulist),
+                                        new Gson().toJson(fulist), new Gson().toJson(tiaolist)))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
                         Log.e("data", new Gson().toJson(data) + "---");
+                        finish();
                     }
                 });
 
     }
+    //更新菜品
+    private void updateCaipin() {
+        Log.e("updateCaipin: ", new Gson().toJson(zhulist));
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .updateCaipin(PreferenceUtils.getString(MyApplication.mContext, "token", ""),id,
+                                        etCaipinmingcheng.getText().toString(), shangpintu, etJiage.getText().toString(),
+                                        etZhuliaobeizhu.getText().toString(), etFuliaobeizhu.getText().toString(),
+                                        etTiaoliaobeizhu.getText().toString(), new Gson().toJson(zhulist),
+                                        new Gson().toJson(fulist), new Gson().toJson(tiaolist)))
+                .setDataListener(new HttpDataListener<String>() {
+                    @Override
+                    public void onNext(String data) {
+                        Log.e("data", new Gson().toJson(data) + "---");
+                        finish();
+                    }
+                });
 
-    private void deleteItem(final int pos, final int level){
+    }
+    private void deleteItem(final int pos, final int level) {
         confirmDialog.showDialog("是否确认删除");
         confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 confirmDialog.dismiss();
-                if(level==1){
+                if (level == 1) {
                     zhulist.remove(pos);
-                    initShangpinChildViews(xcfZhuliao,zhulist,1);
+                    initShangpinChildViews(xcfZhuliao, zhulist, 1);
                     zhuadapter.notifyDataSetChanged();
-                } else if(level==2){
+                } else if (level == 2) {
                     fulist.remove(pos);
-                    initShangpinChildViews(xcfFuliao,fulist,2);
+                    initShangpinChildViews(xcfFuliao, fulist, 2);
                     fuadapter.notifyDataSetChanged();
-                } else if(level==3){
+                } else if (level == 3) {
                     tiaolist.remove(pos);
-                    initShangpinChildViews(xcfTiaoliao,tiaolist,3);
+                    initShangpinChildViews(xcfTiaoliao, tiaolist, 3);
                     tiaoadapter.notifyDataSetChanged();
                 }
             }
@@ -628,15 +664,16 @@ public class AddCbkActivity extends BaseActivity {
 
     }
 
-    private boolean isNum(List<SearchCbkBean> list){
-        for (SearchCbkBean bean:list) {
-            if(TextUtils.isEmpty(bean.getCount())||Double.valueOf(bean.getCount())==0){
+    private boolean isNum(List<SearchCbkBean> list) {
+        for (SearchCbkBean bean : list) {
+            if (TextUtils.isEmpty(bean.getCount()) || Double.valueOf(bean.getCount()) == 0) {
                 return true;
             }
         }
         return false;
     }
-//    private boolean isNum(List<SearchCbkBean> list,int level){
+
+    //    private boolean isNum(List<SearchCbkBean> list,int level){
 //        for (SearchCbkBean bean:list) {
 //            if(TextUtils.isEmpty(bean.getCount())||Double.valueOf(bean.getCount())==0){
 //                if(level==1){
@@ -652,5 +689,47 @@ public class AddCbkActivity extends BaseActivity {
 //        }
 //        return false;
 //    }
+    private void getData() {
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .getCbkXiangqing(PreferenceUtils.getString(MyApplication.mContext, "token", ""), id))
+                .setDataListener(new HttpDataListener<CbkXiangqingBean>() {
+                    @Override
+                    public void onNext(CbkXiangqingBean data) {
+                        etCaipinmingcheng.setText(data.getFood_name());
+                        etJiage.setText(data.getSale_price());
+                        shangpintu = data.getFood_photo();
+                        GlideUtils.cachePhoto(mContext,ivCptu,data.getFood_photo());
+                        zhulist.addAll(getZhuanhuan(data.getZhulist()));
+                        fulist.addAll(getZhuanhuan(data.getFulist()));
+                        tiaolist.addAll(getZhuanhuan(data.getPeilist()));
+                        etZhuliaobeizhu.setText(data.getHost_remarke());
+                        initShangpinChildViews(xcfZhuliao,zhulist,1);
+                        initShangpinChildViews(xcfFuliao,fulist,2);
+                        initShangpinChildViews(xcfTiaoliao,tiaolist,3);
+                        zhuadapter.notifyDataSetChanged();
+                        fuadapter.notifyDataSetChanged();
+                        tiaoadapter.notifyDataSetChanged();
+                    }
+                });
+    }
 
+    private List<SearchCbkBean> getZhuanhuan(List<CbkXiangqingBean.CbkBean> list){
+        List<SearchCbkBean> newlist = new ArrayList<>();
+        for (CbkXiangqingBean.CbkBean cbkbean:list) {
+            SearchCbkBean bean = new SearchCbkBean();
+            bean.setAffiliated_spec_name(cbkbean.getSpec_name());
+            bean.setClassify_name(cbkbean.getClassify_name());
+            bean.setCommodity_id(cbkbean.getCommodity_id());
+            bean.setCommodity_name(cbkbean.getCommodity_name());
+            bean.setCount(cbkbean.getCount());
+            bean.setPrice(cbkbean.getPrice());
+            bean.setType_four_id(cbkbean.getType_four_id());
+            newlist.add(bean);
+        }
+        return newlist;
+    }
 }

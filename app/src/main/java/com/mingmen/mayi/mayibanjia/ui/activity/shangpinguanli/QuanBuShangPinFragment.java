@@ -156,6 +156,7 @@ public class QuanBuShangPinFragment extends BaseFragment {
     private void initview() {
         ShangPinGuanLiActivity activity = (ShangPinGuanLiActivity) getActivity();
         goods = activity.getGoods();
+        token = activity.getToken();
         if (StringUtil.isValid(token)) {
             isClick = false;
         } else {

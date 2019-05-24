@@ -11,10 +11,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.mingmen.mayi.mayibanjia.R;
+import com.mingmen.mayi.mayibanjia.bean.CbkXiangqingBean;
 import com.mingmen.mayi.mayibanjia.bean.SearchCbkBean;
-import com.mingmen.mayi.mayibanjia.utils.MyMath;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
-import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
 import java.util.List;
 
@@ -25,16 +24,17 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2018/8/30.
  */
 
-public class CbkTouliaobiaozhunAdapter extends RecyclerView.Adapter<CbkTouliaobiaozhunAdapter.ViewHolder> {
+public class CbkXiangqingListAdapter extends RecyclerView.Adapter<CbkXiangqingListAdapter.ViewHolder> {
 
     private ViewHolder viewHolder;
     private Context mContext;
-    private List<SearchCbkBean> list;
+    private List<CbkXiangqingBean.CbkBean> list;
     private CallBack callBack;
-    public CbkTouliaobiaozhunAdapter(Context mContext, List<SearchCbkBean> list) {
+    public CbkXiangqingListAdapter(Context mContext, List<CbkXiangqingBean.CbkBean> list) {
         this.mContext = mContext;
         this.list = list;
     }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -43,40 +43,16 @@ public class CbkTouliaobiaozhunAdapter extends RecyclerView.Adapter<CbkTouliaobi
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
-        final SearchCbkBean bean = list.get(position);
-        holder.etNum.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(StringUtil.isValid(s.toString())){
-                    if(Double.valueOf(s.toString())>0){
-                        callBack.isClick(position,s.toString().trim());
-                    } else {
-                        holder.etNum.setText("1");
-                        ToastUtil.showToastLong("投料标准不能为0和空");
-                    }
-                } else {
-                    holder.etNum.setText("1");
-                    ToastUtil.showToastLong("投料标准不能为0和空");
-                }
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+    public void onBindViewHolder(ViewHolder holder, final int position) {
+        final CbkXiangqingBean.CbkBean bean = list.get(position);
         holder.tvName.setText(bean.getClassify_name());
+        holder.etNum.setText(bean.getCount());
         if(StringUtil.isValid(bean.getCount())&&Double.valueOf(bean.getCount())!=0){
             holder.etNum.setText(bean.getCount()+"");
         }
         StringUtil.setPricePoint(holder.etNum);
-        holder.tvGuige.setText(bean.getAffiliated_spec_name()+";");
+        holder.tvGuige.setText(bean.getSpec_name()+";");
+        holder.etNum.setEnabled(false);
     }
 
     @Override
@@ -85,7 +61,7 @@ public class CbkTouliaobiaozhunAdapter extends RecyclerView.Adapter<CbkTouliaobi
     }
 
     public interface CallBack {
-        void isClick(int pos,String num);
+        void isClick(int pos, String num);
     }
 
     public void setCallBack(CallBack callBack) {

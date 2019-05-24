@@ -70,7 +70,6 @@ public abstract class BaseShangPinFragment extends BaseFragment {
     private ShangPinGuanLiAdapter shangpinguanliadapter;
     private SwipeMenuRecyclerView.LoadMoreListener mLoadMoreListener;
     private int ye = 1;
-    private boolean b = false;
     protected boolean isCreate = false;
     private String token = "";
     private boolean isClick = true;
@@ -153,10 +152,12 @@ public abstract class BaseShangPinFragment extends BaseFragment {
     private void initview() {
         ShangPinGuanLiActivity activity = (ShangPinGuanLiActivity) getActivity();
         goods = activity.getGoods();
+        token = activity.getToken();
         if (StringUtil.isValid(token)) {
             isClick = false;
         } else {
             token = PreferenceUtils.getString(MyApplication.mContext, "token", "");
+        }
             // 创建菜单：
             SwipeMenuCreator mSwipeMenuCreator = new SwipeMenuCreator() {
                 @Override
@@ -211,13 +212,8 @@ public abstract class BaseShangPinFragment extends BaseFragment {
             rvShangpinguanli.setSwipeMenuCreator(mSwipeMenuCreator);
             // 菜单点击监听。
             rvShangpinguanli.setSwipeMenuItemClickListener(mMenuItemClickListener);
-        }
-//        if(StringUtil.isValid(token)){
 
-//        }
-
-
-        SwipeMenuRecyclerView.LoadMoreListener mLoadMoreListener = new SwipeMenuRecyclerView.LoadMoreListener() {
+        mLoadMoreListener = new SwipeMenuRecyclerView.LoadMoreListener() {
             @Override
             public void onLoadMore() {
                 getData();
@@ -239,6 +235,7 @@ public abstract class BaseShangPinFragment extends BaseFragment {
         rvShangpinguanli.loadMoreFinish(false, true);
         shangpinguanliadapter = new ShangPinGuanLiAdapter(getContext(), goods, mlist,BaseShangPinFragment.this);
         shangpinguanliadapter.setClick(isClick);
+        Log.e("initview: ",isClick+"---" );
         rvShangpinguanli.setAdapter(shangpinguanliadapter);
         llListNull.setOnClickListener(new View.OnClickListener() {
             @Override

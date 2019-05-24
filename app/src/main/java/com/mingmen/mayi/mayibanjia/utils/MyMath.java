@@ -107,7 +107,8 @@ public class MyMath {
         // ROUND_HALF_UP是BigDecimal的一个常量，表示进行四舍五入的操作
         return b1.divide(b2,len,BigDecimal.ROUND_HALF_UP).doubleValue();
     }
-    
+
+    //保留2位小数
     public static double getDouble(double d){
     	return new BigDecimal(d).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
     };

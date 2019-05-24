@@ -82,7 +82,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
     private QiYeLieBiaoDialog bianjidialog;
     private ArrayList<QiYeLieBiaoBean> mlist = new ArrayList<>();
     private int ye = 1;
-    private String type = "1";
+    private String type = "3";
     private SwipeMenuRecyclerView.LoadMoreListener mLoadMoreListener;
     private boolean isOne = true;
     private ConfirmDialog confirmDialog;

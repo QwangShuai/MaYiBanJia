@@ -41,9 +41,11 @@ import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.DianPuMingAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.PhotoDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
+import com.mingmen.mayi.mayibanjia.utils.custom.CustomDialog;
 import com.mingmen.mayi.mayibanjia.utils.photo.FileStorage;
 import com.mingmen.mayi.mayibanjia.utils.photo.QiNiuPhoto;
 import com.qiniu.android.http.ResponseInfo;
@@ -80,6 +82,8 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
     RecyclerView rvDianpu;
     @BindView(R.id.iv_yingyezhizhao)
     ImageView ivYingyezhizhao;
+    @BindView(R.id.iv_zhuce)
+    ImageView ivZhuce;
     @BindView(R.id.et_fuzeren)
     EditText etFuzeren;
     @BindView(R.id.et_yaoqingma)
@@ -124,6 +128,7 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
     private int quid;
     int city = 0;
     int[] pos = new int[3];
+    private boolean isXieyi;
 
     @Override
     public int getLayoutId() {
@@ -238,8 +243,7 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
                                 Intent intent = new Intent(mContext, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
                             }
-                        },3000);
-
+                        }, 3000);
 
 
                     }
@@ -247,7 +251,8 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
     }
 
     private void qiniushangchuan() {
-
+        final CustomDialog customDialog = new CustomDialog(this, "正在加载...");
+        customDialog.show();//显示,显示时页面不可点击,只能点击返回
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
@@ -273,6 +278,7 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
 //                                            getImageAbsolutePath(CTDWanShanXinXiActivity.this,outputUri)
                                                 try {
                                                     yingyezhizhao = res.getString("key");
+                                                    customDialog.dismiss();
                                                 } catch (JSONException e) {
                                                     e.printStackTrace();
                                                 }
@@ -281,17 +287,17 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
                                             }
                                         }
                                     }, null);
-                            ivYingyezhizhao.setImageBitmap(bitmap);
-                        } else {
-                            ToastUtil.showToastLong("您选择的图片低于50像素，不够清晰");
+                            GlideUtils.cachePhoto(mContext, ivYingyezhizhao, file.getPath());
+//                            ivYingyezhizhao.setImageBitmap(bitmap);
                         }
 
+
                     }
-                });
+                }, true);
     }
 
     @OnClick({R.id.iv_back, R.id.tv_right, R.id.iv_yingyezhizhao, R.id.bt_submit,
-            R.id.tv_xieyi, R.id.tv_dianhua, R.id.tv_quyuxuanze})
+            R.id.tv_xieyi,R.id.iv_zhuce, R.id.tv_dianhua, R.id.tv_quyuxuanze})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -331,7 +337,9 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
                 //提交
                 fuzeren = etFuzeren.getText().toString().trim();
                 yaoqingma = etYaoqingma.getText().toString().trim();
-                if (dianpuming != null && yingyezhizhao != null && fuzeren != null && yaoqingma != null) {
+                if (!isXieyi) {
+                    ToastUtil.showToastLong("如未同意注册，则禁止下一步操作");
+                } else if (dianpuming != null && yingyezhizhao != null && fuzeren != null && yaoqingma != null) {
                     zhuce();
                 } else {
                     ToastUtil.showToast("请确认信息填写无误后，再提交");
@@ -340,7 +348,15 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
                 break;
             case R.id.tv_xieyi:
                 //协议
-
+                Intent it = new Intent(mContext, HuoDongActivity.class);
+                it.putExtra("url", "https://www.canchengxiang.com/view/xieyi/service_agreement.html");
+                it.putExtra("title", "注册协议");
+                startActivity(it);
+                break;
+            case R.id.iv_zhuce:
+                //协议
+                isXieyi = !isXieyi;
+                ivZhuce.setSelected(isXieyi);
                 break;
             case R.id.tv_dianhua:
                 //点击拨打电话
@@ -444,7 +460,8 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
         //缩略图保存地址
         outputUri = Uri.fromFile(file);
         Intent intent = new Intent("com.android.camera.action.CROP");
-       intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);         intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         intent.setDataAndType(imageUri, "image/*");
         intent.putExtra("crop", "true");
         intent.putExtra("aspectX", 1);

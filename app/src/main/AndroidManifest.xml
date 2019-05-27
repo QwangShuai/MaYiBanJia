@@ -83,11 +83,11 @@
             android:name=".ui.activity.LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity
             android:name=".ui.activity.ZhuCeActivity"
@@ -456,7 +456,7 @@
         <activity
             android:name=".ui.activity.XJSPFeiLeiXuanZeActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" /> <!-- 新建商品分类选择 -->
+            android:windowSoftInputMode="adjustPan" /> <!-- 添加商品分类选择 -->
         <!-- 蓝牙设备列表 -->
         <activity
             android:name=".ui.activity.XuanZeGuiGeActivity"
@@ -554,7 +554,14 @@
             android:name=".ui.CbkXiangqingActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" /> <!-- 成本卡详情 -->
-        <activity android:name=".ui.activity.YunfeiShezhiActivity"></activity>
+        <activity android:name=".ui.activity.YunfeiShezhiActivity" />
+        <activity android:name=".ui.activity.WelcomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

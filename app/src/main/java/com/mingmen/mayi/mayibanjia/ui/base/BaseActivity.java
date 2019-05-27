@@ -165,11 +165,27 @@ public abstract class BaseActivity extends AppCompatActivity {
         final ConfirmSingleDialog dialog;
         dialog = new ConfirmSingleDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
+//        dialog.setCancelable(false);
         dialog.showDialog(message);
         dialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.cancel();
+            }
+        });
+    }
+    public static void exitApp(final Context mContext, String message){
+        final ConfirmSingleDialog dialog;
+        dialog = new ConfirmSingleDialog(mContext,
+                mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
+        dialog.setCancelable(false);
+        dialog.showDialog(message);
+        dialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+                AppManager.getAppManager().finishAllActivity();
+                System.exit(0);
             }
         });
     }

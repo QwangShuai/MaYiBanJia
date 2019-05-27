@@ -71,6 +71,7 @@ public class YunfeiShezhiActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
+                finish();
                 break;
             case R.id.ll_zjcd:
                 if(llCdxe.getVisibility()==View.GONE?true:false){

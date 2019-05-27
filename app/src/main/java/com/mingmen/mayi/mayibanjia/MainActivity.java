@@ -281,21 +281,24 @@ public class MainActivity extends BaseActivity {
 
                 break;
             case R.id.iv_facaigou:
-                if (zzh.equals("0")) {
-                    Intent caigouintent = new Intent(MainActivity.this, FCGDiQuXuanZeActivity.class);
-                    startActivity(caigouintent);
+                if(PreferenceUtils.getBoolean(MyApplication.mContext,"youke",false)){
+                    ToastUtil.showToastLong("游客无权限进入");
                 } else {
-                    int mysize = role == null ? 0 : role.size();
-                    if (mysize != 0) {
-                        if (PreferenceUtils.getString(MyApplication.mContext, "isShenPi", "0").equals("5")) {
-                            Intent caigouintent = new Intent(MainActivity.this, FCGDiQuXuanZeActivity.class);
-                            startActivity(caigouintent);
-                        }
+                    if (zzh.equals("0")) {
+                        Intent caigouintent = new Intent(MainActivity.this, FCGDiQuXuanZeActivity.class);
+                        startActivity(caigouintent);
                     } else {
-                        ToastUtil.showToastLong("子账户无权查看 ");
+                        int mysize = role == null ? 0 : role.size();
+                        if (mysize != 0) {
+                            if (PreferenceUtils.getString(MyApplication.mContext, "isShenPi", "0").equals("5")) {
+                                Intent caigouintent = new Intent(MainActivity.this, FCGDiQuXuanZeActivity.class);
+                                startActivity(caigouintent);
+                            }
+                        } else {
+                            ToastUtil.showToastLong("子账户无权查看 ");
+                        }
                     }
                 }
-
                 break;
             case R.id.imageView:
                 confirmDialog.showDialog("是否确定退出当前账号");

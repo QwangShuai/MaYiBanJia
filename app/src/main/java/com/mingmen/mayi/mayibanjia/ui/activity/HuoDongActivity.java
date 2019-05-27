@@ -2,11 +2,11 @@ package com.mingmen.mayi.mayibanjia.ui.activity;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
@@ -23,6 +23,10 @@ public class HuoDongActivity extends BaseActivity {
     WebView wv;
     @BindView(R.id.iv_back)
     ImageView ivBack;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.tv_right)
+    TextView tvRight;
 
     @Override
     public int getLayoutId() {
@@ -31,10 +35,11 @@ public class HuoDongActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        tvTitle.setText(getIntent().getStringExtra("title"));
         WebSettings webSettings = wv.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        wv.setWebViewClient(new WebViewClient(){
-            public boolean shouldOverrideUrlLoading(WebView view, String url){
+        wv.setWebViewClient(new WebViewClient() {
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
                 return true;
             }
@@ -53,6 +58,7 @@ public class HuoDongActivity extends BaseActivity {
     public void onViewClicked() {
         finish();
     }
+
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KEYCODE_BACK) && wv.canGoBack()) {
             wv.goBack();
@@ -61,7 +67,7 @@ public class HuoDongActivity extends BaseActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    private void loadData(){
+    private void loadData() {
         String url = getIntent().getStringExtra("url");
         wv.loadUrl(url);
     }

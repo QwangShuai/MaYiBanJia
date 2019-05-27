@@ -103,12 +103,22 @@ public class ZXGuigeDialog extends BaseFragmentDialog implements View.OnClickLis
                 this.dismiss();
                 break;
             case R.id.tv_sure:
-                if (StringUtil.isValid(dqId)) {
+                if (StringUtil.isValid(dqId)&&StringUtil.isValid(bean.getSpec_id())) {
                     this.dismiss();
-//                    bean.se(dqId + " / " + bean.getSon_name());
                     bean.setType("zxgg");
                     EventBus.getDefault().post(bean);
-                } else {
+                } else if(StringUtil.isValid(dqId)){
+                    for (FbspGuiGeBean ggbean:songdashijianlist) {
+                        if(dqId.equals(ggbean.getSpec_id())){
+                            this.dismiss();
+//                    bean.se(dqId + " / " + bean.getSon_name());
+                            ggbean.setType("zxgg");
+                            EventBus.getDefault().post(ggbean);
+                            return;
+                        }
+                    }
+                    ToastUtil.showToastLong("请选择一个规格");
+                }else{
                     ToastUtil.showToastLong("请选择一个规格");
                 }
                 break;

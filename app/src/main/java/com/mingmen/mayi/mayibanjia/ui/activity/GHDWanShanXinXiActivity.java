@@ -55,11 +55,13 @@ import com.mingmen.mayi.mayibanjia.ui.activity.adapter.DianPuMingAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.FenLeiMohuAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.PhotoDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
+import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 import com.mingmen.mayi.mayibanjia.utils.cityPicker.JsonFileReader;
 import com.mingmen.mayi.mayibanjia.utils.cityPicker.ProvinceBean0;
+import com.mingmen.mayi.mayibanjia.utils.custom.CustomDialog;
 import com.mingmen.mayi.mayibanjia.utils.photo.FileStorage;
 import com.mingmen.mayi.mayibanjia.utils.photo.QiNiuPhoto;
 import com.qiniu.android.http.ResponseInfo;
@@ -100,6 +102,8 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
     TextView textView;
     @BindView(R.id.iv_yingyezhizhao)
     ImageView ivYingyezhizhao;
+    @BindView(R.id.iv_zhuce)
+    ImageView ivZhuce;
     @BindView(R.id.iv_xukezheng)
     ImageView ivXukezheng;
     @BindView(R.id.et_fuzeren)
@@ -156,6 +160,7 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
     //    private String type="1";
     private int city = 0;
     private int[] pos = new int[3];
+    private boolean isXieyi;
 
 
     @Override
@@ -218,6 +223,8 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
     }
 
     private void qiniushangchuan() {
+        final CustomDialog customDialog = new CustomDialog(this, "正在加载...");
+        customDialog.show();//显示,显示时页面不可点击,只能点击返回
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
@@ -252,9 +259,11 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
                                                 try {
                                                     if (isYingYe) {
                                                         yingyezhizhao = res.getString("key");
+                                                        customDialog.dismiss();
                                                         Log.e("keykey", yingyezhizhao + "yingyezhizhao");
                                                     } else {
                                                         xukezheng = res.getString("key");
+                                                        customDialog.dismiss();
                                                         Log.e("keykey", xukezheng + "xukezheng");
                                                     }
                                                 } catch (JSONException e) {
@@ -269,21 +278,23 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
                                         }
                                     }, null);
                             if (isYingYe) {
-                                ivYingyezhizhao.setImageBitmap(bitmap);
+                                GlideUtils.cachePhoto(mContext,ivYingyezhizhao,file.getPath());
+//                                ivYingyezhizhao.setImageBitmap(bitmap);
                                 Log.e("setImageBitmap", "ivYingyezhizhao");
                             } else {
-                                ivXukezheng.setImageBitmap(bitmap);
+                                GlideUtils.cachePhoto(mContext,ivXukezheng,file.getPath());
+//                                ivXukezheng.setImageBitmap(bitmap);
                                 Log.e("setImageBitmap", "ivXukezheng");
                             }
 
                         }
                     }
-                });
+                },true);
 
     }
 
     @OnClick({R.id.iv_back, R.id.iv_yingyezhizhao, R.id.iv_xukezheng, R.id.bt_tijiao,
-            R.id.tv_xieyi, R.id.tv_dianhua, R.id.tv_quyuxuanze})
+            R.id.tv_xieyi,R.id.iv_zhuce, R.id.tv_dianhua, R.id.tv_quyuxuanze})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -366,6 +377,8 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
                     ToastUtil.showToastLong("业务员手机号不可以为空");
                 } else if (!StringUtil.isValid(yingyezhizhao)) {
                     ToastUtil.showToastLong("营业执照不可以为空");
+                } else if(!isXieyi){
+                    ToastUtil.showToastLong("如未同意注册，则禁止下一步操作");
                 } else {
                     if (StringUtil.isValid(dianpuid) && etDianpuming.getText().toString().trim().equals(dianpuming)) {
                         if (role.equals("2")) {
@@ -383,7 +396,14 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
                 }
                 break;
             case R.id.tv_xieyi:
-
+                Intent it = new Intent(mContext, HuoDongActivity.class);
+                it.putExtra("url", "https://www.canchengxiang.com/view/xieyi/service_agreement.html");
+                it.putExtra("title", "注册协议");
+                startActivity(it);
+                break;
+            case R.id.iv_zhuce:
+                isXieyi = !isXieyi;
+                ivZhuce.setSelected(isXieyi);
                 break;
             case R.id.tv_dianhua:
 

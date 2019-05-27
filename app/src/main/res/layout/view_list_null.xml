@@ -31,7 +31,7 @@
                 android:id="@+id/tv_tishi_center"
                 android:textColor="@color/zangqing"
                 android:textSize="15sp"
-                android:text="新建商品"
+                android:text="添加商品"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView

@@ -36,6 +36,7 @@ import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.FenLeiLableAdapter;
+import com.mingmen.mayi.mayibanjia.ui.activity.adapter.XJSPFeiLeiGuigeAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.PhotoDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.AppManager;
@@ -43,6 +44,7 @@ import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
+import com.mingmen.mayi.mayibanjia.utils.custom.CustomDialog;
 import com.mingmen.mayi.mayibanjia.utils.photo.FileStorage;
 import com.mingmen.mayi.mayibanjia.utils.photo.QiNiuPhoto;
 import com.qiniu.android.http.ResponseInfo;
@@ -131,7 +133,7 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                 tvTitle.setText("新增规格");
                 setDataView();
             } else {
-                tvTitle.setText("新建商品");
+                tvTitle.setText("添加商品");
                 getFenLeiLable();
                 pipei = getIntent().getStringExtra("pipei");
                 if (!pipei.equals("0")) {
@@ -322,6 +324,9 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                         Log.e("data", data + "---");
                         ToastUtil.showToast("添加成功");
                         finish();
+                        if(XJSPFeiLeiXuanZeActivity.instance!=null){
+                            XJSPFeiLeiXuanZeActivity.instance.finish();
+                        }
                         FaBuShangPinActivity.instance.finish();
                     }
                 });
@@ -344,6 +349,9 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                     public void onNext(String data) {
                         Log.e("data", data + "---");
                         ToastUtil.showToast("编辑成功");
+//                        if(XJSPFeiLeiXuanZeActivity.instance!=null){
+//                            XJSPFeiLeiXuanZeActivity.instance.finish();
+//                        }
                         finish();
                         FaBuShangPinActivity.instance.finish();
                     }
@@ -362,6 +370,9 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                     public void onNext(String data) {
                         Log.e("data", data + "---");
                         ToastUtil.showToast("编辑成功");
+//                        if(XJSPFeiLeiXuanZeActivity.instance!=null){
+//                            XJSPFeiLeiXuanZeActivity.instance.finish();
+//                        }
                         finish();
                         FaBuShangPinActivity.instance.finish();
                     }
@@ -411,6 +422,8 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
     }
 
     private void qiniushangchuan() {
+        final CustomDialog customDialog = new CustomDialog(this, "正在加载...");
+        customDialog.show();//显示,显示时页面不可点击,只能点击返回
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
@@ -424,7 +437,7 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                         String qiniudata = qiNiuPhoto.getImageAbsolutePath(FaBuShangPinXiangQingTuActivity.this, outputUri);
                         String key = null;
                         String token = list;
-                        File file = StringUtil.luban(mContext, qiniudata);
+                        final File file = StringUtil.luban(mContext, qiniudata);
                         if (StringUtil.isValid(file.getPath())) {
                             bitmap = BitmapFactory.decodeFile(file.getPath());
                             MyApplication.uploadManager.put(qiniudata, key, token,
@@ -439,23 +452,31 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                                                     switch (tuji) {
                                                         case 1:
                                                             tu1 = res.getString("key");
-                                                            ivXq1.setImageBitmap(bitmap);
+                                                            GlideUtils.cachePhoto(mContext,ivXq1,file.getPath());
+//                                                            ivXq1.setImageBitmap(bitmap);
                                                             picList.set(0, tu1);
+                                                            customDialog.dismiss();
                                                             break;
                                                         case 2:
                                                             tu2 = res.getString("key");
-                                                            ivXq2.setImageBitmap(bitmap);
+//                                                            ivXq2.setImageBitmap(bitmap);
+                                                            GlideUtils.cachePhoto(mContext,ivXq2,file.getPath());
                                                             picList.set(1, tu2);
+                                                            customDialog.dismiss();
                                                             break;
                                                         case 3:
                                                             tu3 = res.getString("key");
-                                                            ivXq3.setImageBitmap(bitmap);
+//                                                            ivXq3.setImageBitmap(bitmap);
+                                                            GlideUtils.cachePhoto(mContext,ivXq3,file.getPath());
                                                             picList.set(2, tu3);
+                                                            customDialog.dismiss();
                                                             break;
                                                         case 4:
                                                             tu4 = res.getString("key");
-                                                            ivXq4.setImageBitmap(bitmap);
+//                                                            ivXq4.setImageBitmap(bitmap);
+                                                            GlideUtils.cachePhoto(mContext,ivXq4,file.getPath());
                                                             picList.set(3, tu4);
+                                                            customDialog.dismiss();
                                                             break;
                                                     }
                                                 } catch (JSONException e) {
@@ -472,7 +493,7 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
 
 
                     }
-                });
+                },true);
     }
 
     /**

@@ -187,6 +187,7 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
             }
         });
         holder.btShangjia.setVisibility(View.GONE);
+        holder.btShangjia.setText("发售");
         holder.btXiajia.setVisibility(View.GONE);
         holder.btAddGuige.setVisibility(View.GONE);
         holder.btIsTejia.setVisibility(View.GONE);

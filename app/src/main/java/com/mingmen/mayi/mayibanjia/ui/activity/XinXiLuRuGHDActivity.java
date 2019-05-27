@@ -55,6 +55,7 @@ import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
+import com.mingmen.mayi.mayibanjia.utils.custom.CustomDialog;
 import com.mingmen.mayi.mayibanjia.utils.photo.FileStorage;
 import com.mingmen.mayi.mayibanjia.utils.photo.QiNiuPhoto;
 import com.qiniu.android.http.ResponseInfo;
@@ -387,6 +388,8 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
     }
 
     private void qiniushangchuan() {
+        final CustomDialog customDialog = new CustomDialog(this, "正在加载...");
+        customDialog.show();//显示,显示时页面不可点击,只能点击返回
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
@@ -412,6 +415,7 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
 //                                            getImageAbsolutePath(CTDWanShanXinXiActivity.this,outputUri)
                                                 Log.e("qiniu", "Upload Success");
                                                 try {
+                                                    customDialog.dismiss();
                                                     shidizhaopian = res.getString("key");
                                                 } catch (JSONException e) {
                                                     e.printStackTrace();
@@ -424,12 +428,14 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
                                             Log.e("qiniu", key + ",\r\n " + info + ",\r\n " + res);
                                         }
                                     }, null);
-                            ivTu.setImageBitmap(bitmap);
-                        } else {
-                            ToastUtil.showToastLong("您选择的图片低于50像素，不够清晰");
+                            GlideUtils.cachePhoto(mContext,ivTu,file.getPath());
+//                            ivTu.setImageBitmap(bitmap);
                         }
+//                        else {
+//                            ToastUtil.showToastLong("您选择的图片低于50像素，不够清晰");
+//                        }
                     }
-                });
+                },true);
     }
 
     /**

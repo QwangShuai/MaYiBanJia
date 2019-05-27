@@ -58,7 +58,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:gravity="bottom"
+                        android:gravity="center"
                         android:layout_height="25dp"
                         android:id="@+id/tv_chengben"
                         android:layout_width="wrap_content"
@@ -80,23 +80,51 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
-
-                    <TextView
-                        android:gravity="bottom"
-                        android:layout_height="25dp"
-                        android:id="@+id/tv_maoli"
+                    <LinearLayout
+                        android:orientation="horizontal"
                         android:layout_width="wrap_content"
-                        android:text="0"
-                        android:textColor="@color/zangqing"
-                        android:textSize="13sp" />
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:gravity="center"
+                            android:layout_height="25dp"
+                            android:id="@+id/tv_maoli"
+                            android:layout_width="wrap_content"
+                            android:text="0"
+                            android:textColor="@color/zangqing"
+                            android:textSize="13sp" />
+                        <ImageView
+                            android:id="@+id/iv_state"
+                            android:layout_marginLeft="4dp"
+                            android:layout_gravity="center"
+                            android:src="@mipmap/shangsheng"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp" />
+                    </LinearLayout>
 
-                    <TextView
+                    <LinearLayout
+                        android:orientation="horizontal"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="毛利(元)"
-                        android:textColor="@color/lishisousuo"
-                        android:textSize="12sp" />
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="毛利(元)"
+                            android:textColor="@color/lishisousuo"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tv_tishi"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="!"
+                            android:textColor="@color/blue_069ee5"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -110,7 +138,7 @@
                         android:background="@null"
                         android:id="@+id/et_shoumaijia"
                         android:layout_width="wrap_content"
-                        android:gravity="center_horizontal|bottom"
+                        android:gravity="center"
                         android:layout_height="25dp"
                         android:inputType="number"
                         android:maxLength="4"

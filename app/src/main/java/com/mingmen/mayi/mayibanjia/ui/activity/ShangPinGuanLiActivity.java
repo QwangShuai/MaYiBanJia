@@ -160,10 +160,14 @@ public class ShangPinGuanLiActivity extends BaseActivity {
 //                }
                 //添加商品
                 if(isClick){
-                    Intent intent = new Intent(mContext, FaBuShangPinActivity.class);
-                    intent.putExtra("state", "0");
-                    intent.putExtra("goods", goods);
-                    startActivity(intent);
+                    Intent it = new Intent();
+                    it.setClass(mContext, XJSPFeiLeiXuanZeActivity.class);
+                    it.putExtra("goods",goods);
+                    it.putExtra("state", "0");
+//                    Intent intent = new Intent(mContext, FaBuShangPinActivity.class);
+//                    intent.putExtra("state", "0");
+//                    intent.putExtra("goods", goods);
+                    startActivity(it);
 
                 } else {
                     ToastUtil.showToastLong("请注意，您只有阅览权限");

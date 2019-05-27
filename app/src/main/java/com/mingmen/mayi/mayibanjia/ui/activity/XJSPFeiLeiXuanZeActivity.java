@@ -30,6 +30,8 @@ import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -69,6 +71,10 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
     LinearLayout llPinzhong;
     @BindView(R.id.btn_queren)
     Button btnQueren;
+    @BindView(R.id.btn_add)
+    Button btnAdd;
+    @BindView(R.id.btn_guige)
+    Button btnGuige;
     @BindView(R.id.rv_yijifenlei)
     RecyclerView rvYijifenlei;
     @BindView(R.id.rv_guige)
@@ -112,8 +118,10 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
     private String id = "";
     private int count = 0;
     private String mytype = "2";
+    private String goods = "";
+    private Intent it;
     private List<ShangPinSousuoMohuBean> datas = new ArrayList<>();
-
+    public static XJSPFeiLeiXuanZeActivity instance;
     @Override
     public int getLayoutId() {
         return R.layout.activity_xjspfei_lei_xuan_ze;
@@ -122,7 +130,15 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
     @Override
     protected void initData() {
         mContext = XJSPFeiLeiXuanZeActivity.this;
+        instance = XJSPFeiLeiXuanZeActivity.this;
         adapter = new XJSPFeiLeiXuanZeAdapter(mContext, yijiFenLei);
+        goods = getIntent().getStringExtra("goods");
+        if(StringUtil.isValid(goods)){
+//            btnAdd.setVisibility(View.VISIBLE);
+            it = new Intent(mContext, FaBuShangPinActivity.class);
+            it.putExtra("state", "0");
+            it.putExtra("goods", goods);
+        }
         setMyManager();
         bindAdapter();
         etSousuo.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -152,7 +168,7 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
     }
 
     @OnClick({R.id.iv_back, R.id.tv_quxiao, R.id.ll_fenlei, R.id.ll_pinlei, R.id.ll_pinzhong,
-            R.id.btn_queren, R.id.ll_mingcheng,R.id.ll_guige})
+            R.id.btn_queren, R.id.ll_mingcheng,R.id.ll_guige,R.id.btn_add,R.id.btn_guige})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -189,11 +205,38 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
                 }
                 break;
             case R.id.btn_queren:
-                if (StringUtil.isValid(fourid)) {
-                    resultData();
+                if(StringUtil.isValid(goods)){
+                    it.putExtra("one_id", yclId);
+                    it.putExtra("two_id", oneid);
+                    it.putExtra("three_id", twoid);
+                    it.putExtra("four_id", threeid);
+                    it.putExtra("five_id", fourid);
+                    it.putExtra("zxName", zxName);
+                    it.putExtra("zxId", zxId);
+                    it.putExtra("zxNumber", zxNumber);
+                    it.putExtra("guigeName", guigeName);
+                    it.putExtra("guigeMiaoshu", guigeMiaoshu);
+                    it.putExtra("guigeId", guigeId);
+//        it.putExtra("name", twoName + "-" + threeName+"-"+fourName);
+                    it.putExtra("name", twoName + "-" + threeName);
+                    it.putExtra("spname",fourName );
+                    startActivity(it);
+                    finish();
                 } else {
-                    ToastUtil.showToastLong("您还没选择商品规格");
+                    if (StringUtil.isValid(fourid)) {
+                        resultData();
+                    } else {
+                        ToastUtil.showToastLong("您还没选择商品规格");
+                    }
                 }
+
+                break;
+            case R.id.btn_add:
+                startActivity(it);
+                break;
+            case R.id.btn_guige:
+                it.putExtra("sr_name",fourName);
+                startActivity(it);
                 break;
             case R.id.ll_guige:
                 if(StringUtil.isValid(fourName)){
@@ -318,6 +361,10 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
     }
 
     private void getTwo() {
+        if(StringUtil.isValid(goods)){
+            btnAdd.setVisibility(View.GONE);
+            btnGuige.setVisibility(View.GONE);
+        }
         if (rvGuige.getVisibility() == View.VISIBLE) {
             rvGuige.setVisibility(View.GONE);
             rvYijifenlei.setVisibility(View.VISIBLE);
@@ -351,6 +398,10 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
     }
 
     private void getThree() {
+        if(StringUtil.isValid(goods)){
+            btnAdd.setVisibility(View.GONE);
+            btnGuige.setVisibility(View.GONE);
+        }
         if (rvGuige.getVisibility() == View.VISIBLE) {
             rvGuige.setVisibility(View.GONE);
             rvYijifenlei.setVisibility(View.VISIBLE);
@@ -385,7 +436,10 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
             rvGuige.setVisibility(View.GONE);
             rvYijifenlei.setVisibility(View.VISIBLE);
         }
-
+        if(StringUtil.isValid(goods)){
+            btnAdd.setVisibility(View.VISIBLE);
+            btnGuige.setVisibility(View.GONE);
+        }
         fourid = "";
         zxId = "";
         zxName = "";
@@ -497,6 +551,10 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
     }
 
     private void getGuige() {
+        if(StringUtil.isValid(goods)){
+            btnAdd.setVisibility(View.GONE);
+            btnGuige.setVisibility(View.VISIBLE);
+        }
         if (rvGuige.getVisibility() == View.GONE) {
             rvYijifenlei.setVisibility(View.GONE);
             rvGuige.setVisibility(View.VISIBLE);

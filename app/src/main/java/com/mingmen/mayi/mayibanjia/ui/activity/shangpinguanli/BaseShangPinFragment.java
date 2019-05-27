@@ -22,6 +22,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.FaBiaoPingJiaActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.FaBuShangPinActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShangPinGuanLiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.WeiYiQrCodeActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.XJSPFeiLeiXuanZeActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.DingDanXiangQingAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.ShangPinGuanLiAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dingdan.DingDanActivity;
@@ -241,10 +242,11 @@ public abstract class BaseShangPinFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 //添加商品
-                Intent intent = new Intent(getContext(), FaBuShangPinActivity.class);
-                intent.putExtra("state", "0");
-                intent.putExtra("goods", goods);
-                getContext().startActivity(intent);
+                Intent it = new Intent();
+                it.setClass(getContext(), XJSPFeiLeiXuanZeActivity.class);
+                it.putExtra("goods",goods);
+                it.putExtra("state", "0");
+                startActivity(it);
             }
         });
     }

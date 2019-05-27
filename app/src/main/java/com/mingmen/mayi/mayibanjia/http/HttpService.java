@@ -4,6 +4,7 @@ package com.mingmen.mayi.mayibanjia.http;
 import com.mingmen.mayi.mayibanjia.bean.AddQrCodeBean;
 import com.mingmen.mayi.mayibanjia.bean.AddressListBean;
 import com.mingmen.mayi.mayibanjia.bean.AllShiChangBean;
+import com.mingmen.mayi.mayibanjia.bean.BanbenUpdateBean;
 import com.mingmen.mayi.mayibanjia.bean.CaiGouDanBean;
 import com.mingmen.mayi.mayibanjia.bean.CaiGouMingChengBean;
 import com.mingmen.mayi.mayibanjia.bean.CarsTypeBean;
@@ -911,7 +912,7 @@ public interface HttpService {
                                                  @Query("order_id") String order_id,
                                                  @Query("company_id") String company_id);
 
-    //新建商品模糊查询
+    //添加商品模糊查询
     @POST("gyCommodity/queryCommodityname.do")
     Observable<ResultModel<List<ShangPinSousuoMohuBean>>> searchSpname(@Query("user_token") String user_token,
                                                                        @Query("type_tree_id") String type_tree_id,
@@ -1293,7 +1294,7 @@ public interface HttpService {
                                                      @Query("classify_name") String classify_name,
                                                      @Query("one_classify_id") String one_classify_id);
 
-    //获取新建商品分支条件
+    //获取添加商品分支条件
     @POST("gyCommodity/commoditySpec.do")
     Observable<ResultModel<List<FeiLeiLableSubmitBean>>> getFenLeiCanShu(@Query("user_token") String user_token);
 
@@ -1477,4 +1478,9 @@ public interface HttpService {
     @POST("foodFormula/delete.do")
     Observable<ResultModel<String>> deleteCbk(@Query("user_token") String user_token,
                                               @Query("food_formula_id") String food_formula_id);
+
+    // 版本更新
+    @POST("version/UpdateVersion.do")
+    Observable<ResultModel<BanbenUpdateBean>> updateBanben();
+
 }

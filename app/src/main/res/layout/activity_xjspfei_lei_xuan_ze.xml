@@ -369,7 +369,26 @@
             android:paddingRight="6dp"
             android:paddingTop="20dp" />
     </RelativeLayout>
-
+    <Button
+        android:visibility="gone"
+        android:layout_margin="12dp"
+        android:id="@+id/btn_add"
+        android:text="添加商品"
+        android:textSize="15sp"
+        android:textColor="@color/white"
+        android:background="@drawable/fillet_solid_zangqing_3"
+        android:layout_width="match_parent"
+        android:layout_height="45dp" />
+    <Button
+        android:visibility="gone"
+        android:layout_margin="12dp"
+        android:id="@+id/btn_guige"
+        android:text="添加规格"
+        android:textSize="15sp"
+        android:textColor="@color/white"
+        android:background="@drawable/fillet_solid_zangqing_3"
+        android:layout_width="match_parent"
+        android:layout_height="45dp" />
     <Button
         android:layout_margin="12dp"
         android:id="@+id/btn_queren"

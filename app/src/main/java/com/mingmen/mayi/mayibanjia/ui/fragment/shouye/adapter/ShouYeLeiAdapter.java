@@ -68,10 +68,10 @@ public class ShouYeLeiAdapter extends RecyclerView.Adapter<ShouYeLeiAdapter.View
     }
 
     public int getPageCount(){
-        if(mList.size()%8==0){
-            return mList.size()/8;
+        if(mList.size()%10==0){
+            return mList.size()/10;
         } else {
-            return mList.size()/8+1;
+            return mList.size()/10+1;
         }
     }
 

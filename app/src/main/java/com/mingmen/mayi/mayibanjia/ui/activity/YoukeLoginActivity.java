@@ -90,6 +90,7 @@ public class YoukeLoginActivity extends BaseActivity {
     protected void initData() {
         tvTitle.setText("游客登录");
         mContext = YoukeLoginActivity.this;
+        StringUtil.setInputNoEmoj(etName);
         initJsonData();
     }
 
@@ -109,9 +110,9 @@ public class YoukeLoginActivity extends BaseActivity {
             case R.id.tv_right:
                 break;
             case R.id.rl_juese:
-                list.add("餐厅端");
-                list.add("供货端");
-                list.add("社区市场");
+                list.add("买家");
+                list.add("卖家");
+//                list.add("社区市场");
                 final SinglePicker<String> picker = new SinglePicker<String>(YoukeLoginActivity.this, list);
                 picker.setCanceledOnTouchOutside(false);
                 picker.setSelectedIndex(1);

@@ -121,7 +121,7 @@ public class SiJiPeiSongAdapter extends RecyclerView.Adapter<SiJiPeiSongAdapter.
             holder.btnSure.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    confirmDialog.showDialog("是否确认预警已解决");
+                    confirmDialog.showDialog("解触预警后会将订单发给供货商，您确定吗？");
                     confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

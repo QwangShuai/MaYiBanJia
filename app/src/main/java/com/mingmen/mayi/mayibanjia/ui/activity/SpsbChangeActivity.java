@@ -86,24 +86,6 @@ public class SpsbChangeActivity extends BaseActivity {
     protected void initData() {
         mContext = SpsbChangeActivity.this;
         getShouyeFenLei(yclId, "2");
-
-//        XUpdate.newBuild(SpsbChangeActivity.this)
-//                .updateUrl("http://192.168.0.21:8080/ant/version/UpdateVersion.do")
-//                .updateChecker(new DefaultUpdateChecker() {
-//                    @Override
-//                    public void onBeforeCheck() {
-//                        super.onBeforeCheck();
-//                        CProgressDialogUtils.showProgressDialog(SpsbChangeActivity.this, "查询中...");
-//                    }
-//                    @Override
-//                    public void onAfterCheck() {
-//                        super.onAfterCheck();
-//                        CProgressDialogUtils.cancelProgressDialog(SpsbChangeActivity.this);
-//                    }
-//                })
-//                .updateParser(new CustomUpdateParser())
-////                .updatePrompter(new CustomUpdatePrompter(SpsbChangeActivity.this))
-//                .update();
     }
 
     @Override
@@ -126,82 +108,7 @@ public class SpsbChangeActivity extends BaseActivity {
     }
 
 
-    public class CustomUpdateParser implements IUpdateParser {
-        @Override
-        public UpdateEntity parseJson(String json) throws Exception {
-            UpdateBean result = new Gson().fromJson(json, UpdateBean.class);
-            if (result != null) {
-                return new UpdateEntity()
-                        .setHasUpdate(true)
-                        .setIsIgnorable(false)
-                        .setVersionCode(result.getObject().getVersionCode())
-                        .setVersionName(result.getObject().getVersionName())
-                        .setUpdateContent(result.getObject().getModifyContent())
-                        .setDownloadUrl(result.getObject().getDownloadUrl())
-                        .setSize(result.getObject().getApkSize());
-            }
-            return null;
-        }
-    }
 
-    public class CustomUpdatePrompter implements IUpdatePrompter {
-
-        private Context mContext;
-
-        public CustomUpdatePrompter(Context context) {
-            mContext = context;
-        }
-
-        @Override
-        public void showPrompt(@NonNull UpdateEntity updateEntity, @NonNull IUpdateProxy updateProxy) {
-            showUpdatePrompt(updateEntity, updateProxy);
-        }
-
-        /**
-         * 显示自定义提示
-         *
-         * @param updateEntity
-         * @param updateProxy
-         */
-        private void showUpdatePrompt(final @NonNull UpdateEntity updateEntity, final @NonNull IUpdateProxy updateProxy) {
-            String updateInfo = UpdateUtils.getDisplayUpdateInfo(updateEntity);
-
-            new AlertDialog.Builder(mContext)
-                    .setTitle(String.format("是否升级到%s版本？", updateEntity.getVersionName()))
-                    .setMessage(updateInfo)
-                    .setPositiveButton("升级", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            updateProxy.startDownload(updateEntity, new OnFileDownloadListener() {
-                                @Override
-                                public void onStart() {
-                                    HProgressDialogUtils.showHorizontalProgressDialog(mContext, "下载进度", false);
-                                }
-
-                                @Override
-                                public void onProgress(float progress, long total) {
-                                    HProgressDialogUtils.setProgress(Math.round(progress * 100));
-                                }
-
-                                @Override
-                                public boolean onCompleted(File file) {
-                                    HProgressDialogUtils.cancel();
-                                    return true;
-                                }
-
-                                @Override
-                                public void onError(Throwable throwable) {
-                                    HProgressDialogUtils.cancel();
-                                }
-                            });
-                        }
-                    })
-                    .setNegativeButton("暂不升级", null)
-                    .setCancelable(false)
-                    .create()
-                    .show();
-        }
-    }
 
     private void initViewLable(){//测试显示标签
         adapter = new QuanBuCaiPinLeiOneAdapter(mContext,mList);

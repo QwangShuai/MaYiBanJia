@@ -47,6 +47,7 @@ import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
+import com.mingmen.mayi.mayibanjia.utils.custom.CustomDialog;
 import com.mingmen.mayi.mayibanjia.utils.photo.FileStorage;
 import com.mingmen.mayi.mayibanjia.utils.photo.QiNiuPhoto;
 import com.qiniu.android.http.ResponseInfo;
@@ -505,6 +506,8 @@ public class AddCbkActivity extends BaseActivity {
     }
 
     private void qiniushangchuan() {
+        final CustomDialog customDialog = new CustomDialog(this, "正在加载...");
+        customDialog.show();//显示,显示时页面不可点击,只能点击返回
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
@@ -530,6 +533,7 @@ public class AddCbkActivity extends BaseActivity {
 //                                            getImageAbsolutePath(CTDWanShanXinXiActivity.this,outputUri)
                                                 try {
                                                     shangpintu = res.getString("key");
+                                                    customDialog.dismiss();
                                                 } catch (JSONException e) {
                                                     e.printStackTrace();
                                                 }
@@ -539,13 +543,14 @@ public class AddCbkActivity extends BaseActivity {
                                         }
                                     }, null);
 
-                            ivCptu.setImageBitmap(bitmap);
+                            GlideUtils.cachePhoto(mContext,ivCptu,file.getPath());
+//                            ivCptu.setImageBitmap(bitmap);
                         }
 
                     }
 //                                });
 //                    }
-                });
+                },true);
     }
 
     @Override

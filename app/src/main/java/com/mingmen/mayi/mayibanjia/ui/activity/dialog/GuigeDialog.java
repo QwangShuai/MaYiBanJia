@@ -107,11 +107,20 @@ public class GuigeDialog extends BaseFragmentDialog implements View.OnClickListe
                 this.dismiss();
                 break;
             case R.id.tv_sure:
-                if (StringUtil.isValid(dqId)) {
+                if (StringUtil.isValid(dqId)&&StringUtil.isValid(bean.getSpec_id())) {
+                    Log.e( "onClick: ",new Gson().toJson(bean) );
                     this.dismiss();
-//                    bean.se(dqId + " / " + bean.getSon_name());
                     EventBus.getDefault().post(bean);
-                } else {
+                } else if(StringUtil.isValid(dqId)){
+                    for (FbspGuiGeBean ggbean:songdashijianlist) {
+                        if(dqId.equals(ggbean.getSpec_id())){
+                            this.dismiss();
+                            EventBus.getDefault().post(ggbean);
+                            return;
+                        }
+                    }
+                    ToastUtil.showToastLong("请选择一个规格");
+                }else{
                     ToastUtil.showToastLong("请选择一个规格");
                 }
                 break;

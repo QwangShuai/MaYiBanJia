@@ -197,6 +197,7 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             public void OnBannerClick(int position) {
                 Intent it = new Intent(mContext, HuoDongActivity.class);
                 it.putExtra("url", bannerBean.get(position).getAddress());
+                it.putExtra("title", "活动详情");
                 mContext.startActivity(it);
 //                Log.e("bannerzt",mHomeBean.getBanner().get(position).getZt()+"zt");
 //                Log.e("bannerlink",mHomeBean.getBanner().get(position).getAp_link()+"link");

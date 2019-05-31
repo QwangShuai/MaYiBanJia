@@ -3,6 +3,7 @@ package com.mingmen.mayi.mayibanjia.ui.fragment.shouye.adapter;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,11 +53,13 @@ public class ShouYeLeiAdapter extends RecyclerView.Adapter<ShouYeLeiAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final FCGName data = mList.get(position);
-        GlideUtils.cachePhoto(mContext,holder.iv1,data.getPicture_url());
+        Log.e( "onBindViewHolder: ","为什么死循环了"+position );
+//        GlideUtils.cachePhoto(mContext,holder.iv1,data.getPicture_url());
             holder.tv1.setText(data.getClassify_name());
             holder.ll1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    ToastUtil.showToastLong("点击了"+data.getClassify_name());
                     activity.changeView(data.getClassify_name(),data.getClassify_id());
                 }
             });

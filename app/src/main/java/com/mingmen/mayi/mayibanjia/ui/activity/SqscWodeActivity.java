@@ -250,7 +250,8 @@ public class SqscWodeActivity extends BaseActivity {
             R.id.rl_tongguo, R.id.rl_daifukuan_ct, R.id.rl_daifahuo_ct, R.id.rl_daishouhuo_ct,
             R.id.rl_yishouhuo_ct, R.id.rl_yiwancheng_ct, R.id.ll_daidabao, R.id.ll_tejiashangpin_gyd,
             R.id.ll_daifahuo, R.id.ll_yishouhuo, R.id.ll_daiqueren, R.id.ll_yiwancheng, R.id.rl_tj,
-            R.id.rl_qbcp, R.id.rl_gwc, R.id.ll_putongshangpin_gyd, R.id.btn_go_main})
+            R.id.rl_qbcp, R.id.rl_gwc, R.id.ll_putongshangpin_gyd, R.id.btn_go_main, R.id.ll_yfsz_gyd,
+            R.id.ll_shouye,R.id.ll_quanbucaipin,R.id.ll_facaigou,R.id.ll_gouwuche})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_shezhi:
@@ -260,6 +261,25 @@ public class SqscWodeActivity extends BaseActivity {
                 break;
             case R.id.btn_go_main:
                 Jump_intent(MainActivity.class,new Bundle());
+                break;
+            case R.id.ll_shouye:
+                Jump_intent(MainActivity.class,new Bundle());
+                break;
+            case R.id.ll_quanbucaipin:
+                Bundle bundle1 = new Bundle();
+                bundle1.putInt("tosome",1);
+                Jump_intent(MainActivity.class,bundle1);
+                break;
+            case R.id.ll_gouwuche:
+                Bundle bundle2 = new Bundle();
+                bundle2.putInt("tosome",2);
+                Jump_intent(MainActivity.class,bundle2);
+                break;
+            case R.id.ll_facaigou:
+                Jump_intent(FCGDiQuXuanZeActivity.class,new Bundle());
+                break;
+            case R.id.ll_yfsz_gyd:
+                Jump_intent(YunfeiShezhiActivity.class,new Bundle());
                 break;
             case R.id.ll_daidabao:
                 Intent daidabao = new Intent(mContext, GHDOrderActivity.class);
@@ -311,9 +331,9 @@ public class SqscWodeActivity extends BaseActivity {
             case R.id.ll_qiehuan:
                 String tiShi = "";
                 if (close_type.equals("0")) {
-                    tiShi = "是否关闭实时达";
+                    tiShi = "是否关闭食时达";
                 } else {
-                    tiShi = "是否开启实时达";
+                    tiShi = "是否开启食时达";
                 }
                 confirmDialog.showDialog(tiShi);
                 confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
@@ -460,22 +480,22 @@ public class SqscWodeActivity extends BaseActivity {
                 break;
             case R.id.rl_daifahuo_ct:
                 Bundle daifahuo_ct = new Bundle();
-                daifahuo_ct.putInt("to_shop", 2);
+                daifahuo_ct.putInt("to_shop", 3);
                 Jump_intent(DingDanActivity.class, daifahuo_ct);
                 break;
             case R.id.rl_daishouhuo_ct:
                 Bundle daishouhuo = new Bundle();
-                daishouhuo.putInt("to_shop", 3);
+                daishouhuo.putInt("to_shop", 4);
                 Jump_intent(DingDanActivity.class, daishouhuo);
                 break;
             case R.id.rl_yishouhuo_ct:
                 Bundle yishouhuo_ct = new Bundle();
-                yishouhuo_ct.putInt("to_shop", 4);
+                yishouhuo_ct.putInt("to_shop", 5);
                 Jump_intent(DingDanActivity.class, yishouhuo_ct);
                 break;
             case R.id.rl_yiwancheng_ct:
                 Bundle yiwancheng_ct = new Bundle();
-                yiwancheng_ct.putInt("to_shop", 5);
+                yiwancheng_ct.putInt("to_shop", 6);
                 Jump_intent(DingDanActivity.class, yiwancheng_ct);
                 break;
         }
@@ -507,10 +527,10 @@ public class SqscWodeActivity extends BaseActivity {
         tvYue.setText(bean.getMoney() + "");
         yue = bean.getMoney() + "";
         if (StringUtil.isValid(bean.getRealtime()) && bean.getRealtime().equals("0")) {
-            tvQiehuan.setText("已开启实时达");
+            tvQiehuan.setText("已开启食时达");
             close_type = "0";
         } else {
-            tvQiehuan.setText("已关闭实时达");
+            tvQiehuan.setText("已关闭食时达");
             close_type = "1";
         }
         tvSpllCt.setText(bean.getLiulan()+"");
@@ -577,10 +597,10 @@ public class SqscWodeActivity extends BaseActivity {
         tvState.setText(type.equals("0") ? "营业中" : "已关店");
         tvYue.setText(bean.getMoney() + "");
         if (StringUtil.isValid(bean.getRealtime()) && bean.getRealtime().equals("0")) {
-            tvQiehuan.setText("已开启实时达");
+            tvQiehuan.setText("已开启食时达");
             close_type = "0";
         } else {
-            tvQiehuan.setText("已关闭实时达");
+            tvQiehuan.setText("已关闭食时达");
             close_type = "1";
         }
         tvDdb.setText(bean.getWait_db() + "");
@@ -622,7 +642,7 @@ public class SqscWodeActivity extends BaseActivity {
                     @Override
                     public void onNext(String bean) {
                         Log.e("我的数据", bean);
-                        tvQiehuan.setText(bean.equals("0") ? "已开启实时达" : "已关闭实时达");
+                        tvQiehuan.setText(bean.equals("0") ? "已开启食时达" : "已关闭食时达");
                         close_type = bean;
                     }
                 });

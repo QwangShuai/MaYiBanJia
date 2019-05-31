@@ -72,6 +72,15 @@ public class DianPuBean {
     private String attention_number;
     private String market_name;
     private String commodity_sales;
+    private String realtime;
+
+    public String getRealtime() {
+        return realtime;
+    }
+
+    public void setRealtime(String realtime) {
+        this.realtime = realtime;
+    }
 
     public String getCommodity_sales() {
         return commodity_sales;

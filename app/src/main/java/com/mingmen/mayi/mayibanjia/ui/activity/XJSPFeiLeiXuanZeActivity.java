@@ -205,7 +205,7 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
                 }
                 break;
             case R.id.btn_queren:
-                if(StringUtil.isValid(goods)){
+                if(StringUtil.isValid(goods)&&StringUtil.isValid(fourid)){
                     it.putExtra("one_id", yclId);
                     it.putExtra("two_id", oneid);
                     it.putExtra("three_id", twoid);
@@ -565,6 +565,8 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
         tvMingchengLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
         tvGuigeLable.setTextColor(mContext.getResources().getColor(R.color.zangqing));
         datas.clear();
+        guigeadapter.setXuanzhongid("");
+        guigeadapter.notifyDataSetChanged();
         Log.e("getfcgname: ", PreferenceUtils.getString(MyApplication.mContext, "token", "") + "---" + twoid + "---" + fourName);
         HttpManager.getInstance()
                 .with(mContext)

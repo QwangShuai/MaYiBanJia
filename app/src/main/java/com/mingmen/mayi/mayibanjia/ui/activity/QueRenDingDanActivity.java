@@ -127,6 +127,7 @@ public class QueRenDingDanActivity extends BaseActivity {
     private String yue = "";
     private String[] selectedId;
     private String company_id = "";
+    private String shuliang = "";
     private String commodity_id = "";
     private String son_order_id = "";
     private String lujingtype = "";
@@ -159,7 +160,9 @@ public class QueRenDingDanActivity extends BaseActivity {
         EventBus.getDefault().register(this);
         ct_buy_final_id = getIntent().getStringExtra("ct_buy_final_id");
         company_id = getIntent().getStringExtra("company_id");
+        shuliang = getIntent().getStringExtra("count");
         company_id = company_id.substring(0, company_id.length() - 1);
+        shuliang = shuliang.substring(0, shuliang.length() - 1);
 
         zongjia = getIntent().getStringExtra("zongjia");
         getChMoney();
@@ -286,7 +289,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                                 .caigoutijiaodingdan(PreferenceUtils.getString(MyApplication.mContext, "token", ""),
                                         hejijine+"", "", yunfei+"", yue, dizhi.getAddress_id(), songdashijianid,
                                         son_order_id, commodity_id, remarke,new Gson().toJson(shichangList),
-                                        tsyq,ct_buy_final_id,"0",cs_money+""))
+                                        tsyq,ct_buy_final_id,"0",cs_money+"",shuliang))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
@@ -327,7 +330,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getsplist(PreferenceUtils.getString(MyApplication.mContext, "token", ""), son_order_id, commodity_id, lujingtype, shopping_id, company_id,ct_buy_final_id))
+                                .getsplist(PreferenceUtils.getString(MyApplication.mContext, "token", ""), son_order_id, commodity_id, lujingtype, shopping_id, company_id,ct_buy_final_id,shuliang))
                 .setDataListener(new HttpDataListener<QueRenDingDanShangPinBean>() {
                     @Override
                     public void onNext(QueRenDingDanShangPinBean data) {
@@ -356,7 +359,7 @@ public class QueRenDingDanActivity extends BaseActivity {
 //                                                get(data.getMarketlist().get(data.getMarketlist().size() - 1).
 //                                                        getCgzhulist().size() - 1).getCgzilist().size()-1) {
 //                                            if(StringUtil.isValid(isTime)){
-//                                                if(isTime.equals("实时达")){//实时达
+//                                                if(isTime.equals("食时达")){//食时达
 //                                                } else {//标准达
 //                                                    getYunFei();
 //                                                }
@@ -385,7 +388,7 @@ public class QueRenDingDanActivity extends BaseActivity {
 //                                                getDplist().size() - 1&&j==data.getMarketlist().get(data.getMarketlist().size()-1).getDplist().
 //                                                get(data.getMarketlist().get(data.getMarketlist().size()-1).getDplist().size()-1).getList().size()-1) {
 //                                            if(StringUtil.isValid(isTime)){
-//                                                if(isTime.equals("实时达")){//实时达
+//                                                if(isTime.equals("食时达")){//食时达
 //
 //                                                } else {//标准达
 //                                                    getYunFei();
@@ -534,7 +537,7 @@ public class QueRenDingDanActivity extends BaseActivity {
 //                }
                 break;
             case R.id.tv_zhunshida:
-                if(!isTime.equals("实时达")){
+                if(!isTime.equals("食时达")){
                     if(dizhi==null||StringUtil.isEmpty(dizhi.getAddress_id())){
                         ToastUtil.showToastLong("请添加收货地址");
                     } else {
@@ -545,7 +548,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                         shichangList.clear();
                         isZhunshi = "1";
                         getZhunshidaYunFei();
-                        isTime = "实时达";
+                        isTime = "食时达";
                     }
                 }
 
@@ -581,7 +584,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                     ToastUtil.showToast("请选择收货地址后提交订单");
                     return;
                 }
-                if (yunfei==0.00) {
+                if (hejijine==0.00) {
                     ToastUtil.showToast("运费获取失败,请联系客服");
                 } else {
                     //提交订单

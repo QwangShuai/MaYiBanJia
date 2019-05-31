@@ -46,6 +46,8 @@ public class ZXGuigeDialog extends BaseFragmentDialog implements View.OnClickLis
     RecyclerView rvGuige;
     @BindView(R.id.tv_cancel)
     TextView tvCancel;
+    @BindView(R.id.ll_create_gg)
+    LinearLayout llCreateGg;
     @BindView(R.id.tv_sure)
     TextView tvSure;
     @BindView(R.id.ll)
@@ -68,6 +70,7 @@ public class ZXGuigeDialog extends BaseFragmentDialog implements View.OnClickLis
 
     @Override
     protected void init() {
+        llCreateGg.setVisibility(View.GONE);
         getData();
         getGuige();
     }

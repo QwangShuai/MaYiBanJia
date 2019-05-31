@@ -18,6 +18,7 @@ import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.DianPuBean;
 import com.mingmen.mayi.mayibanjia.ui.activity.DianPuActivity;
 import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 
 import java.util.List;
 
@@ -57,6 +58,11 @@ public class DianPuGuanZhuAdapter extends RecyclerView.Adapter<DianPuGuanZhuAdap
         holder.tvGuanzhu.setText(bean.getAttention_number()+"人关注");
         holder.tvShichangming.setText(bean.getMarket_name());
         holder.tvDizhi.setText(bean.getSpecific_address());
+        if(StringUtil.isValid(bean.getRealtime())&&bean.getRealtime().equals("0")){
+            holder.ivJishida.setVisibility(View.VISIBLE);
+        } else {
+            holder.ivJishida.setVisibility(View.GONE);
+        }
         //进店点击事件
         holder.clRq.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +84,8 @@ public class DianPuGuanZhuAdapter extends RecyclerView.Adapter<DianPuGuanZhuAdap
     static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.iv_tu)
         ImageView ivTu;
+        @BindView(R.id.iv_jishida)
+        ImageView ivJishida;
         @BindView(R.id.tv_dianming)
         TextView tvDianming;
         @BindView(R.id.rb_pingfen)

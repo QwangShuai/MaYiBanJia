@@ -32,24 +32,18 @@ import com.mingmen.mayi.mayibanjia.ui.activity.HuoDongActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.QuanBuShiChangActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShangJiaActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ZhuCeCanTingActivity;
-import com.mingmen.mayi.mayibanjia.ui.view.GlideImageLoader;
 import com.mingmen.mayi.mayibanjia.ui.view.GlideImageYuanLoader;
 import com.mingmen.mayi.mayibanjia.ui.view.PageIndicatorView;
-import com.mingmen.mayi.mayibanjia.ui.view.ZiXunPagingScrollHelper;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 import com.mingmen.mayi.mayibanjia.utils.custom.zixun.HorizontalPageLayoutManager;
 import com.mingmen.mayi.mayibanjia.utils.custom.zixun.PagingScrollHelper;
-import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerListener;
 
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Administrator on 2017/10/18.
@@ -349,7 +343,7 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private void bindShishida(Shishida holder, int position) {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {//筛选实时达
+            public void onClick(View v) {//筛选食时达
 //                Map<String,Boolean> map = new HashMap<>();
 //                map.put("isZhunshida",true);
 //                EventBus.getDefault().post(map);

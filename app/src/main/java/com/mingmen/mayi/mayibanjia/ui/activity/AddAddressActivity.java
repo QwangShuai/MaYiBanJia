@@ -110,8 +110,8 @@ public class AddAddressActivity extends BaseActivity {
         tvRight.setText("保存");
         rukou = getIntent().getStringExtra("rukou");
         mContext = AddAddressActivity.this;
-        StringUtil.setInputNoEmoj(etXiangxidizhi);
-        StringUtil.setInputNoEmoj(etShouhuoren);
+        StringUtil.setInputNoEmoj(etXiangxidizhi,30);
+        StringUtil.setInputNoEmoj(etShouhuoren,4);
         //判断入口
         if ("add".equals(rukou)) {
 

@@ -26,8 +26,9 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:paddingBottom="10dp"
                     android:layout_width="match_parent"
-                    android:layout_height="223dp"
+                    android:layout_height="233dp"
                     android:background="@mipmap/gyd_sy_bg"
                     android:orientation="vertical">
 
@@ -87,8 +88,63 @@
                                     android:numStars="5"
                                     android:rating="3.5" />
                             </LinearLayout>
-
                             <LinearLayout
+                                android:paddingLeft="8dp"
+                                android:paddingRight="8dp"
+                                android:paddingTop="4dp"
+                                android:paddingBottom="4dp"
+                                android:id="@+id/ll_qiehuan"
+                                android:layout_width="115dp"
+                                android:layout_height="23dp"
+                                android:layout_marginRight="19dp"
+                                android:layout_marginTop="8dp"
+                                android:background="@drawable/fillet_hollow_white_20"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+
+                                <TextView
+                                    android:id="@+id/tv_qiehuan"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="4dp"
+                                    android:text="已开启食时达"
+                                    android:textColor="@color/white"
+                                    android:textSize="12sp" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <RelativeLayout
+                                android:id="@+id/rl_shezhi"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingRight="20dp">
+
+                                <ImageView
+                                    android:layout_width="19dp"
+                                    android:layout_height="19dp"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:src="@mipmap/shezhi_white" />
+                            </RelativeLayout>
+                            <TextView
+                                android:visibility="gone"
+                                android:id="@+id/tv_gy"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:layout_marginRight="19dp"
+                                android:layout_marginTop="2dp"
+                                android:text="供应端"
+                                android:textColor="@color/white"
+                                android:textSize="15sp" />
+                            <LinearLayout
+                                android:layout_marginRight="19dp"
                                 android:id="@+id/ll_state_qiehuan"
                                 android:layout_width="80dp"
                                 android:layout_height="23dp"
@@ -112,48 +168,7 @@
                                     android:layout_marginLeft="5dp"
                                     android:src="@mipmap/xiangxia_bai" />
                             </LinearLayout>
-                        </LinearLayout>
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/tv_gy"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="right"
-                                android:layout_marginRight="19dp"
-                                android:layout_marginTop="2dp"
-                                android:text="供应端"
-                                android:textColor="@color/white"
-                                android:textSize="15sp" />
-
-                            <LinearLayout
-                                android:paddingLeft="8dp"
-                                android:paddingRight="8dp"
-                                android:paddingTop="4dp"
-                                android:paddingBottom="4dp"
-                                android:id="@+id/ll_qiehuan"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_marginRight="19dp"
-                                android:layout_marginTop="8dp"
-                                android:background="@drawable/fillet_hollow_white_20"
-                                android:gravity="center"
-                                android:orientation="horizontal">
-
-
-                                <TextView
-                                    android:id="@+id/tv_qiehuan"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="4dp"
-                                    android:text="已开启实时达"
-                                    android:textColor="@color/white"
-                                    android:textSize="12sp" />
-                            </LinearLayout>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -193,18 +208,6 @@
                                     android:textColor="@color/white"
                                     android:textSize="30sp" />
 
-                                <TextView
-                                    android:id="@+id/tv_tixian"
-                                    android:layout_width="40dp"
-                                    android:layout_height="20dp"
-                                    android:layout_alignParentRight="true"
-                                    android:layout_centerVertical="true"
-                                    android:layout_marginRight="20dp"
-                                    android:background="@drawable/fillet_solid_white_0"
-                                    android:gravity="center"
-                                    android:text="提现"
-                                    android:textColor="@color/white"
-                                    android:textSize="12sp" />
                             </RelativeLayout>
 
                             <RelativeLayout
@@ -223,17 +226,29 @@
                                     android:textSize="15sp" />
 
                                 <TextView
+                                    android:background="@drawable/fillet_hollow_white_20"
+                                    android:layout_marginLeft="19dp"
                                     android:id="@+id/tv_cwbb"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentRight="true"
+                                    android:layout_width="85dp"
+                                    android:layout_height="23dp"
                                     android:layout_centerVertical="true"
                                     android:layout_marginRight="20dp"
-                                    android:layout_marginTop="9dp"
                                     android:gravity="center"
-                                    android:text="@string/caiwubaobiao"
+                                    android:text="财务报表"
                                     android:textColor="@color/white"
                                     android:textSize="15sp" />
+                                <TextView
+                                    android:id="@+id/tv_tixian"
+                                    android:layout_width="40dp"
+                                    android:layout_height="23dp"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginRight="19dp"
+                                    android:background="@drawable/fillet_hollow_white_20"
+                                    android:gravity="center"
+                                    android:text="提现"
+                                    android:textColor="@color/white"
+                                    android:textSize="12sp" />
                             </RelativeLayout>
 
                         </LinearLayout>
@@ -1149,7 +1164,7 @@
 
                     </RelativeLayout>
                     <RelativeLayout
-                        android:visibility="gone"
+                        android:visibility="visible"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1">

@@ -59,7 +59,7 @@ public class WuLiuBean {
     private String wl_cars_id;
     private String wl_cars_order_number;
     private String wl_cars_order_id;
-    private int freight_fee;
+    private String freight_fee;
     private String create_time;
     private String scanCount;
     private String packCount;
@@ -176,11 +176,11 @@ public class WuLiuBean {
         this.wl_cars_order_id = wl_cars_order_id;
     }
 
-    public int getFreight_fee() {
+    public String getFreight_fee() {
         return freight_fee;
     }
 
-    public void setFreight_fee(int freight_fee) {
+    public void setFreight_fee(String freight_fee) {
         this.freight_fee = freight_fee;
     }
 

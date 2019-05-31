@@ -85,7 +85,7 @@ public class AddZiZhuangHuActivity extends BaseActivity {
     @Override
     protected void initData() {
         tvTitle.setText("添加子账户");
-        StringUtil.setInputNoEmoj(etJuese);
+        StringUtil.setInputNoEmoj(etJuese,8);
         mContext = AddZiZhuangHuActivity.this;
         company_name = getIntent().getStringExtra("name");
         company_id =  getIntent().getStringExtra("id");

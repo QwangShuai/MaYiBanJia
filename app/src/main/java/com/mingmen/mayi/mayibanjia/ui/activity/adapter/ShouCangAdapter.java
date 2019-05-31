@@ -26,6 +26,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.dialog.JiaRuGouWuCheDialog;
 import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
 import java.util.List;
@@ -43,9 +44,18 @@ public class ShouCangAdapter extends BaseQuickAdapter<ShouCangBean,BaseViewHolde
     @Override
     protected void convert(final BaseViewHolder helper, final ShouCangBean item) {
         helper.setText(R.id.tv_spming,item.getClassify_name());
-        helper.setText(R.id.tv_guige,item.getPackStandard());
         helper.setText(R.id.tv_dianming,item.getCompany_name());
         helper.setText(R.id.tv_danjia,item.getPrice());
+        if(StringUtil.isValid(item.getReal_time_state())){
+            helper.setVisible(R.id.iv_jishida,item.getReal_time_state().equals("0")?true:false);
+        } else {
+            helper.setGone(R.id.iv_jishida,false);
+        }
+
+        helper.setGone(R.id.tv_guige_miaoshu,StringUtil.isValid(item.getPackStandard())?true:false);
+        if(StringUtil.isValid(item.getPackStandard())){
+            helper.setText(R.id.tv_guige_miaoshu,item.getPackStandard());
+        }
 
         if("3".equals(item.getApproval_state())){
             helper.setText(R.id.tv_zhuangtai,"该商品已被商家删除");

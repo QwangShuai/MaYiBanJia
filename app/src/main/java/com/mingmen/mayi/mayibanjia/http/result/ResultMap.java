@@ -39,6 +39,9 @@ public class ResultMap<T> implements Function<ResultModel<T>, T> {
     } else if("6666".equals(httpResult.getStatus())){
       BaseActivity.showDialog(mContext,httpResult.getMsg());
       throw new RuntimeException(httpResult.getMsg());
+    }  else if("1024".equals(httpResult.getStatus())){
+      BaseActivity.exitApp(mContext,httpResult.getMsg());
+      throw new RuntimeException(httpResult.getMsg());
     } else {
       Log.e("codecode", httpResult.getStatus());
       Log.e("message", httpResult.getMsg());

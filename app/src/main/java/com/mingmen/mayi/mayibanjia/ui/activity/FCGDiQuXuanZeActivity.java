@@ -85,7 +85,7 @@ public class FCGDiQuXuanZeActivity extends BaseActivity {
     protected void initData() {
         mContext=FCGDiQuXuanZeActivity.this;
         tvTitle.setText("采购需求");
-        StringUtil.setInputNoEmoj(et_caigouming);
+        StringUtil.setInputNoEmoj(et_caigouming,16);
         initList();
     }
 

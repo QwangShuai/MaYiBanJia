@@ -131,8 +131,8 @@ public class SouSuoActivity extends BaseActivity {
 //    TextView tvShaixuan;
 //    @BindView(R.id.ll_diqu)
 //    LinearLayout llDiqu;
-    @BindView(R.id.refresh_layout)
-    SwipeRefreshLayout refreshLayout;
+//    @BindView(R.id.refresh_layout)
+//    SwipeRefreshLayout refreshLayout;
     @BindView(R.id.ll_xiala)
     LinearLayout llXiala;
     @BindView(R.id.tv_lable)
@@ -197,7 +197,7 @@ public class SouSuoActivity extends BaseActivity {
         xuanze.add("市场");
         xuanze.add("店铺");
         xuanze.add("商品");
-        StringUtil.setInputNoEmoj(etSousuo);
+        StringUtil.setInputNoEmoj(etSousuo,30);
         setViewMoren();
         if (getIntent().getStringExtra("sousuofangxiang") != null) {
             sousuofangxiang = getIntent().getStringExtra("sousuofangxiang");

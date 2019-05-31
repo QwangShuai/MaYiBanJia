@@ -70,7 +70,7 @@ public class SearchCaipinActivity extends BaseActivity {
     protected void initData() {
         mContext = SearchCaipinActivity.this;
         tvTitle.setText("添加");
-        StringUtil.setInputNoEmoj(etSousuo);
+        StringUtil.setInputNoEmoj(etSousuo,20);
         etSousuo.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

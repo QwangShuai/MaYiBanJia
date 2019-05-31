@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.mingmen.mayi.mayibanjia.ui.fragment.quanbucaipin.adapter.QuanBuCaiPinLeiAdapter;
 import com.mingmen.mayi.mayibanjia.ui.fragment.quanbucaipin.adapter.QuanBuCaiPinLeiOneAdapter;
 import com.mingmen.mayi.mayibanjia.ui.fragment.shouye.adapter.ShouYeLeiAdapter;
 import com.mingmen.mayi.mayibanjia.ui.view.PageIndicatorView;

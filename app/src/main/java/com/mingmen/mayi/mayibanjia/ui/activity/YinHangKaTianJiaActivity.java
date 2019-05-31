@@ -72,7 +72,7 @@ public class YinHangKaTianJiaActivity extends BaseActivity {
         mContext = YinHangKaTianJiaActivity.this;
         principal = getIntent().getStringExtra("principal");
         tvName.setText(principal);
-        StringUtil.setInputNoEmoj(etKaihuhang);
+        StringUtil.setInputNoEmoj(etKaihuhang,30);
     }
 
     @Override

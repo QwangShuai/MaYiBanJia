@@ -124,6 +124,8 @@ public class SpXinxiActivity extends BaseActivity {
     RecyclerView rvFlcs;
     @BindView(R.id.tv_miaoshu)
     TextView tvMiaoshu;
+    @BindView(R.id.tv_spms)
+    TextView tvSpms;
     @BindView(R.id.rl_teshu)
     RelativeLayout rlTeshu;
     private Context mContext;
@@ -205,7 +207,7 @@ public class SpXinxiActivity extends BaseActivity {
                             llDw.setVisibility(View.VISIBLE);
                             tvNumber.setText(bean.getAffiliated_number());
                             tvZxgg.setText(bean.getPackFourName());
-                            tvYxgg.setText("每" + bean.getPackThreeName() + "换算单位为");
+                            tvYxgg.setText("每" + bean.getPackThreeName() + "规格");
                             tvGgms.setText(bean.getPackThreeName());
                         } else {
                             llDw.setVisibility(View.GONE);
@@ -214,6 +216,7 @@ public class SpXinxiActivity extends BaseActivity {
                         tvGgms.setText(bean.getPackThreeName());
                         tvQdlGg.setText(bean.getPackThreeName());
                         tvMiaoshu.setText(bean.getSpec_describe());
+                        tvSpms.setText(bean.getSpms());
                         int tusize = bean.getFtPicture()==null?0:bean.getFtPicture().size();
                         if (tusize!=0) {
                             for (int i = 0; i < bean.getDpicture().size(); i++) {

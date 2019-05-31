@@ -113,7 +113,57 @@
                 android:layout_marginLeft="12dp"
                 android:background="@color/gray_e7e7e7" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="20dp"
+                    android:text="商品描述"
+                    android:textColor="#ff666666"
+                    android:textSize="15sp" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_teshu"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/fillet_hollow_999999_3">
+
+                    <EditText
+                        android:id="@+id/et_miaoshu"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:gravity="start"
+                        android:hint="请填写商品描述（非必填）"
+                        android:padding="12dp"
+                        android:text=""
+                        android:textColor="#474747"
+                        android:textColorHint="@color/hintcolor"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tishi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginRight="8dp"
+                        android:text="0/50"
+                        android:textColor="#ff999999"
+                        android:textSize="10sp"
+                        android:visibility="visible" />
+                </RelativeLayout>
+            </LinearLayout>
 
             <TextView
                 android:visibility="gone"

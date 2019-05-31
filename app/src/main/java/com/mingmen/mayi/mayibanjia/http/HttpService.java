@@ -482,7 +482,8 @@ public interface HttpService {
                                                  @Query("spec_detal_id") String spec_detal_id,
                                                  @Query("pack_standard_tree_name") String pack_standard_tree_name,
                                                  @Query("spec_name") String spec_name,
-                                                 @Query("brand") String brand);
+                                                 @Query("brand") String brand,
+                                                 @Query("spms") String spms);
 
     //编辑商品
     @POST("gyCommodity/update.do")
@@ -510,7 +511,8 @@ public interface HttpService {
                                                    @Query("spec_detal_id") String spec_detal_id,
                                                    @Query("pack_standard_tree_name") String pack_standard_tree_name,
                                                    @Query("spec_name") String spec_name,
-                                                   @Query("brand") String brand);
+                                                   @Query("brand") String brand,
+                                                   @Query("spms") String spms);
 
     //添加购物车
     @POST("ctShoppingCart/save.do")
@@ -545,7 +547,7 @@ public interface HttpService {
                                                   @Query("shopping_id") String shopping_id,//shopping_id
                                                   @Query("remarke") String remarke,//留言
                                                   @Query("feelist") String list,//市场数组
-                                                  @Query("freight_fee_type") String freight_fee_type,//0标准达1实时达
+                                                  @Query("freight_fee_type") String freight_fee_type,//0标准达1食时达
                                                   @Query("app_money") String app_money);//超时费
 
     //采购单提交订单
@@ -564,7 +566,8 @@ public interface HttpService {
                                                         @Query("special_commodity") String special_commodity,//特殊要求
                                                         @Query("ct_buy_final_id") String ct_buy_final_id,
                                                         @Query("freight_fee_type") String freight_fee_type,
-                                                        @Query("app_money") String app_money);
+                                                        @Query("app_money") String app_money,
+                                                        @Query("count") String count);
 
     //查询余额
     @POST("payHistory/getBalance.do")
@@ -601,7 +604,8 @@ public interface HttpService {
                                                                  @Query("type") String type,
                                                                  @Query("shopping_id") String shopping_id,
                                                                  @Query("company_id") String company_id,
-                                                                 @Query("ct_buy_final_id") String ct_buy_final_id);
+                                                                 @Query("ct_buy_final_id") String ct_buy_final_id,
+                                                                 @Query("count") String count);
 
 
     //采购单价格
@@ -1351,7 +1355,7 @@ public interface HttpService {
                                              @Query("comment_text") String comment_text,
                                              @Query("rowgu_id") String rowgu_id);
 
-    // 实时达运费
+    // 食时达运费
     @POST("Ordermain/qyeryshishidaByFreightFee.do")
     Observable<ResultModel<List<YunFeiBean>>> getZhunshida(@Query("user_token") String user_token,
                                                            @Query("commodity_id") String commodity_id,
@@ -1363,7 +1367,7 @@ public interface HttpService {
     Observable<ResultModel<YwyBean>> getYwyCount(@Query("user_token") String user_token,
                                                  @Query("typeA") String typeA);
 
-    // 切换实时达
+    // 切换食时达
     @POST("allCompany/updateCompanyRealtime.do")
     Observable<ResultModel<String>> qiehuanSsd(@Query("user_token") String user_token,
                                                @Query("realtime") String realtime);
@@ -1482,5 +1486,10 @@ public interface HttpService {
     // 版本更新
     @POST("version/UpdateVersion.do")
     Observable<ResultModel<BanbenUpdateBean>> updateBanben();
+
+    // 设置运费
+    @POST("allCompany/shezhifree.do")
+    Observable<ResultModel<String>> setYunfei(@Query("user_token") String user_token,
+                                              @Query("Freight_settings") String Freight_settings);
 
 }

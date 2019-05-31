@@ -172,7 +172,7 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
     }
 
 
-    @OnClick({ R.id.ll_yonghupingjia,R.id.tv_gy,
+    @OnClick({R.id.rl_shezhi, R.id.ll_yonghupingjia,R.id.tv_gy,
             R.id.ll_daidabao, R.id.ll_daiqueren, R.id.tv_yue, R.id.ll_daifahuo,
             R.id.ll_yishouhuo, R.id.ll_yiwancheng, R.id.ll_qiehuan, R.id.iv_touxiang,
             R.id.tv_dianming, R.id.ll_state_qiehuan, R.id.ll_daiqiangdan, R.id.ll_qiangdanzhong,
@@ -185,6 +185,11 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.tv_gy:
 //                qiehuan();
+                break;
+            case R.id.rl_shezhi:
+                Bundle bundle = new Bundle();
+                bundle.putString("khd","gy");
+                Jump_intent(SqscShezhiActivity.class,bundle);
                 break;
             case R.id.ll_tianjiashangpin:
                 //添加商品
@@ -269,9 +274,9 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
                 Jump_intent(YueActivity.class, new Bundle());
                 break;
             case R.id.tv_tixian://提现
-                Bundle bundle = new Bundle();
-                bundle.putString("yue", yue);
-                Jump_intent(TiXianActivity.class, bundle);
+                Bundle tixian = new Bundle();
+                tixian.putString("yue", yue);
+                Jump_intent(TiXianActivity.class, tixian);
                 break;
             case R.id.tv_cwbb://财务报表
                 Jump_intent(JiaoYiLiuShuiActivity.class, new Bundle());
@@ -305,9 +310,9 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
 //                qiehuan();
                 String tiShi = "";
                 if (close_type.equals("0")) {
-                    tiShi = "是否关闭实时达";
+                    tiShi = "是否关闭食时达";
                 } else {
-                    tiShi = "是否开启实时达";
+                    tiShi = "是否开启食时达";
                 }
                 confirmDialog.showDialog(tiShi);
                 confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
@@ -325,9 +330,9 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
                 });
                 break;
             case R.id.iv_touxiang:
-                Intent shezhi = new Intent(mContext, SqscShezhiActivity.class);
-                shezhi.putExtra("khd","gy");
-                startActivity(shezhi);
+//                Intent shezhi = new Intent(mContext, SqscShezhiActivity.class);
+//                shezhi.putExtra("khd","gy");
+//                startActivity(shezhi);
 //                finish();
                 break;
             case R.id.tv_dianming:
@@ -415,10 +420,10 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
         tvYue.setText(woDeBean.getMoney() + "");
         yue = woDeBean.getMoney() + "";
         if(StringUtil.isValid(woDeBean.getRealtime())&&woDeBean.getRealtime().equals("0")){
-            tvQiehuan.setText("已开启实时达");
+            tvQiehuan.setText("已开启食时达");
             close_type = "0";
         } else {
-            tvQiehuan.setText("已关闭实时达");
+            tvQiehuan.setText("已关闭食时达");
             close_type = "1";
         }
         tvDfh.setVisibility(woDeBean.getStay_delivery() == 0 ? View.GONE : View.VISIBLE);
@@ -544,7 +549,7 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
                     @Override
                     public void onNext(String bean) {
                         Log.e("我的数据", bean);
-                        tvQiehuan.setText(bean.equals("0") ? "已开启实时达" : "已关闭实时达");
+                        tvQiehuan.setText(bean.equals("0") ? "已开启食时达" : "已关闭食时达");
                         close_type = bean;
                     }
                 });

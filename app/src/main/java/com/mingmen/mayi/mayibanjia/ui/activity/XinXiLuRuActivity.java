@@ -157,8 +157,8 @@ public class XinXiLuRuActivity extends BaseActivity {
         bundle = getIntent().getExtras();
         rukou = bundle.getString("rukou");
         EventBus.getDefault().register(this);
-        StringUtil.setInputNoEmoj(etQiyemingcheng);
-        StringUtil.setInputNoEmoj(etXiangxidizhi);
+        StringUtil.setInputNoEmoj(etQiyemingcheng,20);
+        StringUtil.setInputNoEmoj(etXiangxidizhi,50);
         if ("add".equals(rukou)) {
 
         } else {

@@ -66,7 +66,7 @@ public class MessageDailog extends Dialog {
         etTeshu = (EditText) v.findViewById(R.id.et_teshu);
         btQueren = (Button) v.findViewById(R.id.bt_queren);
         btQuxiao = (Button) v.findViewById(R.id.bt_quxiao);
-        StringUtil.setInputNoEmoj(etTeshu);
+        StringUtil.setInputNoEmoj(etTeshu,50);
         tvName.setText(name);
         etTeshu.addTextChangedListener(new TextWatcher() {
             @Override

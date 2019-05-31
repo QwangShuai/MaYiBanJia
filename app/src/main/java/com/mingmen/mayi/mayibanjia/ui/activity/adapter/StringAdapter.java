@@ -44,7 +44,7 @@ public class StringAdapter extends  RecyclerView.Adapter<StringAdapter.ViewHolde
     }
     @Override
     public StringAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        viewHolder = new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_string, parent, false));
+        viewHolder = new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_date, parent, false));
         return viewHolder;
     }
 //    item_sousuomohuchaxun

@@ -54,7 +54,7 @@
             <TextView
                 android:textColor="@color/black_333333"
                 android:textSize="18sp"
-                android:text="卖家承担"
+                android:text="买家承担"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -144,8 +144,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@null"
-                android:hint="请填写最大承担额度"
-                android:inputType="numberDecimal"
+                android:hint="请填写最小承担运费的商品额度"
+                android:inputType="number"
                 android:maxLength="4"
                 android:paddingLeft="10dp"
                 android:textColor="@color/black_333333"
@@ -172,7 +172,7 @@
 
     <TextView
         android:id="@+id/tv_tishi"
-        android:text="* 如果您填写10元,那么小于等于10元都将由您承担"
+        android:text="* 如果您填写10元,那么商品金额超出10元，运费都将由您承担"
         android:layout_marginLeft="100dp"
         android:textSize="11sp"
         android:textColor="@color/red_ff5050"

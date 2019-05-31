@@ -73,10 +73,17 @@
                     android:textColor="@color/zicolor"
                     android:textSize="15sp" />
             </LinearLayout>
+            <TextView
+                android:textSize="10sp"
+                android:textColor="@color/hintcolor"
+                android:layout_marginLeft="12dp"
+                android:id="@+id/tv_guige_miaoshu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
             <LinearLayout
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="4dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
@@ -114,7 +121,7 @@
                     android:layout_marginLeft="10dp" />
             </LinearLayout>
             <LinearLayout
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginLeft="12dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -75,6 +75,11 @@ public class LiuLanJiLuAdapter extends RecyclerView.Adapter<LiuLanJiLuAdapter.Vi
         } else {
             holder.ivJishida.setVisibility(View.GONE);
         }
+        if(StringUtil.isValid(data.getPackStandard())){
+            holder.tvGuigeMiaoshu.setText(data.getPackStandard());
+        }
+        holder.tvGuigeMiaoshu.setVisibility(StringUtil.isValid(data.getPackStandard())?View.VISIBLE:View.GONE);
+
         if(data.getGoods().equals("1")){
             holder.tvYuanjiage.setVisibility(View.VISIBLE);
             holder.tvYuanjiage.setText(data.getPice_one());
@@ -129,6 +134,8 @@ public class LiuLanJiLuAdapter extends RecyclerView.Adapter<LiuLanJiLuAdapter.Vi
         TextView tvSpming;
         @BindView(R.id.tv_dianming)
         TextView tvDianming;
+        @BindView(R.id.tv_guige_miaoshu)
+        TextView tvGuigeMiaoshu;
 /*        @BindView(R.id.tv_guige)
         TextView tvGuige;*/
         @BindView(R.id.tv_renminbi)

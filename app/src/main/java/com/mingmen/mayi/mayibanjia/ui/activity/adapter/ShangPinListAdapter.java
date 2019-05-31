@@ -90,9 +90,13 @@ public class ShangPinListAdapter extends RecyclerView.Adapter<ShangPinListAdapte
         } else {
             holder.tvYuanjiage.setVisibility(View.GONE);
         }
+        holder.tvGuigeMiaoshu.setVisibility(StringUtil.isValid(data.getPackStandard())?View.VISIBLE:View.GONE);
+        if(StringUtil.isValid(data.getPackStandard())){
+            holder.tvGuigeMiaoshu.setText(data.getPackStandard());
+        }
         holder.tvSpming.setText(data.getClassify_name());
         holder.tvDianming.setText(data.getCompany_name()+"("+data.getMarket_name()+")");
-        holder.tvJiage.setText(data.getPrice()+""+data.getPackStandard());
+        holder.tvJiage.setText(data.getPrice());
         holder.tvSpxiaoliang.setText("已售"+data.getCommodity_sales());
         Log.e("onBindViewHolder: ",data.getReal_time_state()+"---");
         if(StringUtil.isValid(data.getReal_time_state())&&data.getReal_time_state().equals("0")){
@@ -147,6 +151,8 @@ public class ShangPinListAdapter extends RecyclerView.Adapter<ShangPinListAdapte
         TextView tvSpming;
         @BindView(R.id.tv_dianming)
         TextView tvDianming;
+        @BindView(R.id.tv_guige_miaoshu)
+        TextView tvGuigeMiaoshu;
 /*        @BindView(R.id.tv_guige)
         TextView tvGuige;*/
         @BindView(R.id.tv_renminbi)

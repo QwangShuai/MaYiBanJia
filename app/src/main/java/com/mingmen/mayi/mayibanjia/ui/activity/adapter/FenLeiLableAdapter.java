@@ -52,7 +52,7 @@ public class FenLeiLableAdapter extends RecyclerView.Adapter<FenLeiLableAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         FeiLeiLableSubmitBean bean = mList.get(position);
-        StringUtil.setInputNoEmoj(holder.etCanshu);
+        StringUtil.setInputNoEmoj(holder.etCanshu,20);
         if (isShow){
             holder.etCanshu.setEnabled(false);
         }

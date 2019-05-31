@@ -53,18 +53,14 @@ import com.mingmen.mayi.mayibanjia.ui.activity.adapter.XJSPFeiLeiGuigeAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.YiJiFenLeiAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.JiaRuGouWuCheDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseFragment;
-import com.mingmen.mayi.mayibanjia.ui.fragment.quanbucaipin.adapter.QuanBuCaiPinLeiAdapter;
 import com.mingmen.mayi.mayibanjia.ui.fragment.quanbucaipin.adapter.QuanBuCaiPinLeiOneAdapter;
 import com.mingmen.mayi.mayibanjia.ui.view.PageIndicatorView;
-import com.mingmen.mayi.mayibanjia.ui.view.XCFlowLayout;
-import com.mingmen.mayi.mayibanjia.ui.view.ZiXunPagingScrollHelper;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToolLocation;
 import com.mingmen.mayi.mayibanjia.utils.custom.zixun.HorizontalPageLayoutManager;
-import com.mingmen.mayi.mayibanjia.utils.custom.zixun.PagingItemDecoration;
 import com.mingmen.mayi.mayibanjia.utils.custom.zixun.PagingScrollHelper;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
@@ -114,6 +110,8 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     TextView tvJiage;
     @BindView(R.id.ll_jiage)
     LinearLayout llJiage;
+    @BindView(R.id.ll_pop_zhanwei)
+    LinearLayout llPopZhanwei;
     @BindView(R.id.tv_pingfenzuigao)
     TextView tvPingfenzuigao;
     @BindView(R.id.rv_shangpin)
@@ -223,6 +221,25 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     private RecyclerView rv_yijifenlei;
     private RecyclerView rvGuige;
 
+    //销量筛选pop
+    private PopupWindow xlPop;
+    private String xlPopXuanze = "";
+    private View xlPopView;
+    private LinearLayout llXiaoliang;
+    private LinearLayout llJgjx;
+    private LinearLayout llJgsx;
+    private LinearLayout llPfzg;
+
+    private ImageView ivXiaoliang;
+    private ImageView ivJgjx;
+    private ImageView ivJgsx;
+    private ImageView ivPfzg;
+
+    private TextView tvXl;
+    private TextView tvJgjx;
+    private TextView tvJgsx;
+    private TextView tvPfzg;
+
     private int viewHeight;
     private int mystate = 0;
     private boolean isResult;
@@ -264,7 +281,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         }
 
         bindPop();
-
+        bindXlPop();
 //        leiAdapter = new QuanBuCaiPinLeiAdapter(mContext, lei_datas, this);
         leiAdapter = new QuanBuCaiPinLeiOneAdapter(mContext, leiBean, this);
         getShouyeFenLei(yclId, "2");
@@ -413,7 +430,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
 
     //商品搜索
     private void sousuoshangpin(final String sousuo, final String type) {
-        Log.e(TAG, "sousuoshangpin: 我是特价"+istejia+"---我是实时达"+iszhunshida );
+        Log.e(TAG, "sousuoshangpin: 我是特价"+istejia+"---我是食时达"+iszhunshida );
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
@@ -528,7 +545,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 }
                 updateAdapter();
                 break;
-            case R.id.tv_jishida://实时达
+            case R.id.tv_jishida://食时达
                 if(isZhunshida){
                     isZhunshida = false;
                     iszhunshida = "";
@@ -544,16 +561,23 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 showPopOne();
                 break;
             case R.id.tv_xiaoliang:
-                ye = 1;
-                //按销量排序
-                if ("xiaoliang".equals(sousuo)) {
-                    return;
+                xlPop.setFocusable(true);
+                if(xlPop.isShowing()){
+                    xlPop.dismiss();
+                } else {
+                    xlPop.showAsDropDown(llPopZhanwei);
                 }
-                sousuo = "";
-                type = "1";
 
-                sousuoshangpin(sousuo, type);
-                setXuanXiangColor(tvXiaoliang);
+//                ye = 1;
+//                //按销量排序
+//                if ("xiaoliang".equals(sousuo)) {
+//                    return;
+//                }
+//                sousuo = "";
+//                type = "1";
+//
+//                sousuoshangpin(sousuo, type);
+//                setXuanXiangColor(tvXiaoliang);
                 break;
             case R.id.ll_jiage:
                 ye = 1;
@@ -1313,5 +1337,124 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         super.onStop();
         Log.e(TAG, "onStop: "+"走了啊兄弟" );
         indicator.setSelectedPage(0);
+    }
+
+    private void bindXlPop() {
+        xlPopView = View.inflate(mContext, R.layout.item_shaixuan_qbcp, null);
+        xlPop = new PopupWindow(xlPopView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        llXiaoliang = (LinearLayout) xlPopView.findViewById(R.id.ll_xiaoliang);
+        llJgjx = (LinearLayout) xlPopView.findViewById(R.id.ll_jgjx);
+        llJgsx = (LinearLayout) xlPopView.findViewById(R.id.ll_jgsx);
+        llPfzg = (LinearLayout) xlPopView.findViewById(R.id.ll_pfzg);
+
+        ivXiaoliang = (ImageView) xlPopView.findViewById(R.id.iv_xiaoliang);
+        ivJgjx = (ImageView) xlPopView.findViewById(R.id.iv_jgjx);
+        ivJgsx = (ImageView) xlPopView.findViewById(R.id.iv_jgsx);
+        ivPfzg = (ImageView) xlPopView.findViewById(R.id.iv_pfzg);
+
+        tvXl = (TextView) xlPopView.findViewById(R.id.tv_xiaoliang);
+        tvJgjx = (TextView) xlPopView.findViewById(R.id.tv_jgjx);
+        tvJgsx = (TextView) xlPopView.findViewById(R.id.tv_jgsx);
+        tvPfzg = (TextView) xlPopView.findViewById(R.id.tv_pfzg);
+
+        llXiaoliang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearXlPopShow();
+                ivXiaoliang.setVisibility(View.VISIBLE);
+                tvXl.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+                tvXiaoliang.setText("销量最高");
+                tvXiaoliang.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+                ye = 1;
+                //按销量排序
+                if ("xiaoliang".equals(sousuo)) {
+                    return;
+                }
+                sousuo = "";
+                type = "1";
+
+                sousuoshangpin(sousuo, type);
+//                setXuanXiangColor(tvXiaoliang);
+            }
+        });
+
+        llJgsx.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearXlPopShow();
+                ivJgsx.setVisibility(View.VISIBLE);
+                tvJgsx.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+                tvXiaoliang.setText("价格升序");
+                tvXiaoliang.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+                ye = 1;
+                //按价格升序或者降序
+                sousuo = "";
+                type = "3";
+                sousuoshangpin(sousuo, type);
+//                setXuanXiangColor(tvJiage);
+            }
+        });
+
+        llJgjx.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearXlPopShow();
+                ivJgjx.setVisibility(View.VISIBLE);
+                tvJgjx.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+                tvXiaoliang.setText("价格降序");
+                tvXiaoliang.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+                ye = 1;
+                //按价格升序或者降序
+                sousuo = "";
+                type = "4";
+                sousuoshangpin(sousuo, type);
+//                setXuanXiangColor(tvJiage);
+            }
+        });
+
+        llPfzg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearXlPopShow();
+                ivPfzg.setVisibility(View.VISIBLE);
+                tvPfzg.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+                tvXiaoliang.setText("评分最高");
+                tvXiaoliang.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+                ye = 1;
+                //按评分最高排序
+                if ("pingfen".equals(sousuo)) {
+                    return;
+                }
+                sousuo = "";
+                type = "2";
+                sousuoshangpin(sousuo, type);
+//                setXuanXiangColor(tvPingfenzuigao);
+            }
+        });
+
+//        WindowManager wm1 = getActivity().getWindowManager();
+//        int width = wm1.getDefaultDisplay().getWidth();
+//        int height = wm1.getDefaultDisplay().getHeight();
+//        xlPop.setWidth(width);
+//        xlPop.setHeight(xlPopView.getHeight());
+        xlPop.setClippingEnabled(false);
+
+        xlPop.setOutsideTouchable(true);
+        xlPop.setBackgroundDrawable(new BitmapDrawable());
+    }
+
+    private void clearXlPopShow(){
+
+        xlPop.dismiss();
+
+        ivXiaoliang.setVisibility(View.GONE);
+        ivPfzg.setVisibility(View.GONE);
+        ivJgsx.setVisibility(View.GONE);
+        ivJgjx.setVisibility(View.GONE);
+
+        tvXl.setTextColor(mContext.getResources().getColor(R.color.lishisousuo));
+        tvPfzg.setTextColor(mContext.getResources().getColor(R.color.lishisousuo));
+        tvJgsx.setTextColor(mContext.getResources().getColor(R.color.lishisousuo));
+        tvJgjx.setTextColor(mContext.getResources().getColor(R.color.lishisousuo));
     }
 }

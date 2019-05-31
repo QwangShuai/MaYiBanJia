@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <LinearLayout
                 android:id="@+id/ll_spxz"
                 android:layout_width="match_parent"
@@ -24,11 +25,11 @@
                 android:visibility="visible">
 
                 <LinearLayout
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="72dp"
                     android:background="@color/gray_fafafa"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/tv_spxz"
@@ -53,19 +54,20 @@
                         android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
-                android:visibility="visible"
                 android:id="@+id/ll_fl"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingLeft="12dp">
+                android:paddingLeft="12dp"
+                android:visibility="visible">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="分类名称"
+                    android:text="商品分类"
                     android:textColor="#ff666666"
                     android:textSize="15sp" />
 
@@ -94,23 +96,23 @@
                         android:textSize="12sp" />
 
                     <ImageView
-                        android:visibility="visible"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="4dp"
-                        android:src="@mipmap/xiangxia_hui" />
+                        android:src="@mipmap/xiangxia_hui"
+                        android:visibility="visible" />
                 </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
-                android:visibility="visible"
                 android:id="@+id/ll_sp"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingLeft="12dp">
+                android:paddingLeft="12dp"
+                android:visibility="visible">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -144,11 +146,11 @@
                         android:textSize="12sp" />
 
                     <ImageView
-                        android:visibility="visible"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="4dp"
-                        android:src="@mipmap/xiangxia_hui" />
+                        android:src="@mipmap/xiangxia_hui"
+                        android:visibility="gone" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -342,6 +344,7 @@
                 android:text="添加售卖规格"
                 android:textColor="#ff666666"
                 android:textSize="12sp" />
+
             <LinearLayout
                 android:id="@+id/ll_xjguige"
                 android:layout_width="match_parent"
@@ -374,6 +377,7 @@
                     android:textColorHint="@color/hintcolor"
                     android:textSize="12sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/ll_xzguige"
                 android:layout_width="match_parent"
@@ -386,7 +390,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
-                    android:text="规格名称"
+                    android:text="起售规格"
                     android:textColor="#ff666666"
                     android:textSize="15sp" />
 
@@ -415,21 +419,22 @@
 
                     <ImageView
                         android:id="@+id/iv_sanjiguige"
-                        android:paddingLeft="12dp"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginRight="4dp"
+                        android:paddingLeft="12dp"
                         android:src="@mipmap/xiangxia_hui" />
                 </LinearLayout>
 
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/ll_guige"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:padding="13dp"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/iv_guige"
@@ -446,6 +451,183 @@
                     android:textColor="@color/hintcolor"
                     android:textSize="12sp" />
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_cj1"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:gravity="center_vertical|right"
+                android:orientation="horizontal"
+                android:paddingRight="12dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_cj1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:text="次级规格"
+                    android:textColor="#ff666666"
+                    android:textSize="15sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/fillet_hollow_999999_3"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/et_number_cj1"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="请输入数量"
+                        android:inputType="numberDecimal"
+                        android:maxLength="8"
+                        android:paddingLeft="10dp"
+                        android:textColor="@color/zicolor"
+                        android:textColorHint="@color/hintcolor"
+                        android:textSize="12sp" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_gg_cj1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="6dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_gg_cj1"
+                            android:layout_width="60dp"
+                            android:layout_height="match_parent"
+                            android:background="@null"
+                            android:gravity="center_vertical"
+                            android:hint="请选择"
+                            android:paddingLeft="10dp"
+                            android:text=""
+                            android:textColor="@color/zicolor"
+                            android:textColorHint="@color/hintcolor"
+                            android:textSize="12sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="4dp"
+                            android:src="@mipmap/xiangxia_hui" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="15dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="/"
+                    android:textColor="@color/hintcolor"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_ggms_cj1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="斤" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_cj2"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:gravity="center_vertical|right"
+                android:orientation="horizontal"
+                android:paddingRight="12dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_cj2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:text="次级规格"
+                    android:textColor="#ff666666"
+                    android:textSize="15sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/fillet_hollow_999999_3"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/et_number_cj2"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="请输入数量"
+                        android:inputType="numberDecimal"
+                        android:maxLength="8"
+                        android:paddingLeft="10dp"
+                        android:textColor="@color/zicolor"
+                        android:textColorHint="@color/hintcolor"
+                        android:textSize="12sp" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_gg_cj2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="6dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_gg_cj2"
+                            android:layout_width="60dp"
+                            android:layout_height="match_parent"
+                            android:background="@null"
+                            android:gravity="center_vertical"
+                            android:hint="请选择"
+                            android:paddingLeft="10dp"
+                            android:text=""
+                            android:textColor="@color/zicolor"
+                            android:textColorHint="@color/hintcolor"
+                            android:textSize="12sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="4dp"
+                            android:src="@mipmap/xiangxia_hui" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="15dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="/"
+                    android:textColor="@color/hintcolor"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_ggms_cj2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="斤" />
+
+            </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/ll_dw"
                 android:layout_width="match_parent"
@@ -460,7 +642,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
-                    android:text="每斤换算单位"
+                    android:text="每斤规格"
                     android:textColor="#ff666666"
                     android:textSize="15sp" />
 
@@ -474,11 +656,11 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:background="@null"
                         android:id="@+id/et_number"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:layout_weight="1"
+                        android:background="@null"
                         android:hint="请输入数量"
                         android:inputType="numberDecimal"
                         android:maxLength="8"
@@ -486,6 +668,7 @@
                         android:textColor="@color/zicolor"
                         android:textColorHint="@color/hintcolor"
                         android:textSize="12sp" />
+
                     <LinearLayout
                         android:id="@+id/ll_zxgg"
                         android:layout_width="wrap_content"
@@ -515,6 +698,7 @@
                     </LinearLayout>
 
                 </LinearLayout>
+
                 <TextView
                     android:layout_width="15dp"
                     android:layout_height="match_parent"
@@ -522,12 +706,13 @@
                     android:text="/"
                     android:textColor="@color/hintcolor"
                     android:textSize="20sp" />
+
                 <TextView
                     android:id="@+id/tv_ggms"
-                    android:gravity="center"
-                    android:text="斤"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="斤" />
 
             </LinearLayout>
 
@@ -536,6 +721,7 @@
                 android:layout_height="1dp"
                 android:layout_marginLeft="12dp"
                 android:background="@color/cutoff" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -546,7 +732,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
                     android:layout_marginTop="20dp"
-                    android:text="规格描述"
+                    android:text="规格详情"
                     android:textColor="#ff666666"
                     android:textSize="15sp" />
 
@@ -560,14 +746,13 @@
                     android:layout_marginTop="12dp"
                     android:background="@drawable/fillet_hollow_999999_3">
 
-                    <EditText
+                    <TextView
                         android:id="@+id/et_miaoshu"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
                         android:gravity="start"
                         android:hint="例:X升*瓶/箱"
-                        android:maxLength="20"
                         android:padding="12dp"
                         android:text=""
                         android:textColor="#474747"
@@ -584,9 +769,11 @@
                         android:layout_marginRight="8dp"
                         android:text="0/20"
                         android:textColor="#ff999999"
-                        android:textSize="10sp" />
+                        android:textSize="10sp"
+                        android:visibility="gone" />
                 </RelativeLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
@@ -632,10 +819,10 @@
                 </LinearLayout>
 
                 <TextView
-                    android:layout_marginRight="12dp"
                     android:id="@+id/tv_zhiman"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginRight="12dp"
                     android:gravity="center"
                     android:text="最大库存"
                     android:textColor="@color/zangqing"
@@ -664,11 +851,11 @@
                     android:textSize="15sp" />
 
                 <EditText
-                    android:layout_weight="1"
                     android:id="@+id/et_qidingliangdanjia1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:inputType="numberDecimal"
                     android:maxLength="6"
@@ -693,22 +880,23 @@
                     android:textSize="15sp" />
 
                 <EditText
-                    android:layout_weight="1"
                     android:id="@+id/et_qidingliang1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="12dp"
+                    android:layout_weight="1"
                     android:inputType="number"
                     android:maxLength="2"
                     android:paddingLeft="12dp"
                     android:text=""
                     android:textColor="@color/zicolor"
                     android:textSize="15sp" />
+
                 <TextView
-                    android:singleLine="true"
                     android:id="@+id/tv_qdl_gg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:singleLine="true"
                     android:text="斤"
                     android:textColor="@color/lishisousuo"
                     android:textSize="15sp" />
@@ -810,19 +998,20 @@
                     android:textColor="@color/hintcolor"
                     android:textSize="12sp" />
             </LinearLayout>
-
+            <Button
+                android:layout_marginBottom="12dp"
+                android:id="@+id/bt_xiayibu"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="46dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:text="下一步"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:background="@drawable/fillet_solid_zangqing_3"/>
         </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/bt_xiayibu"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginTop="46dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
-        android:text="下一步"
-        android:textColor="@color/white"
-        android:textSize="15sp"
-        android:background="@drawable/fillet_solid_zangqing_3"/>
+
 </LinearLayout>

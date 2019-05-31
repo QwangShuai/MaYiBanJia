@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
@@ -18,28 +19,23 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.EditorShangPinBean;
 import com.mingmen.mayi.mayibanjia.bean.FbspCanShuBean;
 import com.mingmen.mayi.mayibanjia.bean.FeiLeiLableSubmitBean;
-import com.mingmen.mayi.mayibanjia.bean.PingJiaLableBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.FenLeiLableAdapter;
-import com.mingmen.mayi.mayibanjia.ui.activity.adapter.XJSPFeiLeiGuigeAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.PhotoDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
-import com.mingmen.mayi.mayibanjia.utils.AppManager;
 import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
@@ -59,6 +55,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -93,6 +90,10 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
     Button btBaocun;
     @BindView(R.id.rv_flcs)
     RecyclerView rvFlcs;
+    @BindView(R.id.et_miaoshu)
+    EditText etMiaoshu;
+    @BindView(R.id.tishi)
+    TextView tishi;
 
 
     private Uri imageUri;//原图保存地址
@@ -128,6 +129,23 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
         mContext = FaBuShangPinXiangQingTuActivity.this;
         yemian = getIntent().getStringExtra("yemian");
         setRvAdapter();
+        StringUtil.setInputNoEmoj(etMiaoshu, 50);
+        etMiaoshu.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                tishi.setText(s.toString().trim().length()+"/50");
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         if (yemian.equals("0")) {
             if (StringUtil.isValid(getIntent().getStringExtra("guige"))) {
                 tvTitle.setText("新增规格");
@@ -273,7 +291,7 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
 //                canshu.setOrigin(etChandi.getText().toString().trim());
 //                canshu.setLevel(etDengji.getText().toString().trim());
 //                canshu.setApply(etShiyong.getText().toString().trim());
-//                canshu.setProportion(etBili.getText().toString().trim());
+                canshu.setSpms(etMiaoshu.getText().toString());
                 if (yemian.equals("0")) {
                     if ("".equals(tu1) & "".equals(tu2) & "".equals(tu3) & "".equals(tu4)) {
                         canshu.setDeputyPicture(canshu.getHostPicture());
@@ -313,18 +331,18 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .fabushangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""), canshu.getClassify_name(), spID, "", canshu.getDeputyPicture(),
+                                .fabushangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""),canshu.getSpms(), spID, "", canshu.getDeputyPicture(),
                                         canshu.getPack_standard_two(), canshu.getPack_standard_tree(),
                                         canshu.getRation_one(), canshu.getPice_one(), canshu.getInventory(), new Gson().toJson(mlist), canshu.getType_one_id(), canshu.getGoods(), canshu.getCommodity_state(), canshu.getCommodity_name(),
                                         canshu.getType_two_id(), canshu.getType_tree_id(), canshu.getType_four_id(), canshu.getHostPicture(),
-                                        canshu.getSpec_describe(), canshu.getPrice(), canshu.getSpec_count(), canshu.getSpec_detal_id(), canshu.getPack_standard_tree_name(), canshu.getSpec_detal_name(), canshu.getBrand()))
+                                        canshu.getSpec_describe(), canshu.getPrice(), canshu.getSpec_count(), canshu.getSpec_detal_id(), canshu.getPack_standard_tree_name(), canshu.getSpec_detal_name(), canshu.getBrand(), canshu.getClassify_name()))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
                         Log.e("data", data + "---");
                         ToastUtil.showToast("添加成功");
                         finish();
-                        if(XJSPFeiLeiXuanZeActivity.instance!=null){
+                        if (XJSPFeiLeiXuanZeActivity.instance != null) {
                             XJSPFeiLeiXuanZeActivity.instance.finish();
                         }
                         FaBuShangPinActivity.instance.finish();
@@ -343,7 +361,7 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                                         canshu.getPack_standard_two(), canshu.getPack_standard_tree(),
                                         canshu.getRation_one(), canshu.getPice_one(), canshu.getInventory(), new Gson().toJson(mlist), canshu.getType_one_id(), canshu.getGoods(), canshu.getCommodity_state(), canshu.getCommodity_name(),
                                         canshu.getType_two_id(), canshu.getType_tree_id(), canshu.getType_four_id(), canshu.getHostPicture(), canshu.getSpec_describe(),
-                                        canshu.getPrice(), canshu.getSpec_count(), canshu.getSpec_detal_id(), canshu.getPack_standard_tree_name(), canshu.getSpec_detal_name(), canshu.getBrand()))
+                                        canshu.getPrice(), canshu.getSpec_count(), canshu.getSpec_detal_id(), canshu.getPack_standard_tree_name(), canshu.getSpec_detal_name(), canshu.getBrand(),canshu.getSpms()))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
@@ -452,7 +470,7 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                                                     switch (tuji) {
                                                         case 1:
                                                             tu1 = res.getString("key");
-                                                            GlideUtils.cachePhoto(mContext,ivXq1,file.getPath());
+                                                            GlideUtils.cachePhoto(mContext, ivXq1, file.getPath());
 //                                                            ivXq1.setImageBitmap(bitmap);
                                                             picList.set(0, tu1);
                                                             customDialog.dismiss();
@@ -460,21 +478,21 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                                                         case 2:
                                                             tu2 = res.getString("key");
 //                                                            ivXq2.setImageBitmap(bitmap);
-                                                            GlideUtils.cachePhoto(mContext,ivXq2,file.getPath());
+                                                            GlideUtils.cachePhoto(mContext, ivXq2, file.getPath());
                                                             picList.set(1, tu2);
                                                             customDialog.dismiss();
                                                             break;
                                                         case 3:
                                                             tu3 = res.getString("key");
 //                                                            ivXq3.setImageBitmap(bitmap);
-                                                            GlideUtils.cachePhoto(mContext,ivXq3,file.getPath());
+                                                            GlideUtils.cachePhoto(mContext, ivXq3, file.getPath());
                                                             picList.set(2, tu3);
                                                             customDialog.dismiss();
                                                             break;
                                                         case 4:
                                                             tu4 = res.getString("key");
 //                                                            ivXq4.setImageBitmap(bitmap);
-                                                            GlideUtils.cachePhoto(mContext,ivXq4,file.getPath());
+                                                            GlideUtils.cachePhoto(mContext, ivXq4, file.getPath());
                                                             picList.set(3, tu4);
                                                             customDialog.dismiss();
                                                             break;
@@ -493,7 +511,7 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
 
 
                     }
-                },true);
+                }, true);
     }
 
     /**
@@ -532,7 +550,8 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
         //缩略图保存地址
         outputUri = Uri.fromFile(file);
         Intent intent = new Intent("com.android.camera.action.CROP");
-       intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);         intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         intent.setDataAndType(imageUri, "image/*");
         intent.putExtra("crop", "true");
         intent.putExtra("aspectX", 1);
@@ -580,6 +599,7 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
 
     public void setDataView() {//编辑展示
         EditorShangPinBean bean = PreferenceUtils.getEditorShangPinBean(MyApplication.mContext, "");
+        etMiaoshu.setText(bean.getXq().getSpms());
         spID = bean.getXq().getCommodity_id();
 //        picList.addAll(bean.getXq().getFtPicture());
         if (!"null".equals(String.valueOf(bean.getXq().getFtPicture()))) {
@@ -588,16 +608,16 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
             }
             for (int i = 0; i < bean.getXq().getDpicture().size(); i++) {
                 if (i == 0) {
-                    GlideUtils.cachePhoto(FaBuShangPinXiangQingTuActivity.this,ivXq1,bean.getXq().getDpicture().get(i));
+                    GlideUtils.cachePhoto(FaBuShangPinXiangQingTuActivity.this, ivXq1, bean.getXq().getDpicture().get(i));
                     tu1 = bean.getXq().getDpicture().get(i);
                 } else if (i == 1) {
-                    GlideUtils.cachePhoto(FaBuShangPinXiangQingTuActivity.this,ivXq2,bean.getXq().getDpicture().get(i));
+                    GlideUtils.cachePhoto(FaBuShangPinXiangQingTuActivity.this, ivXq2, bean.getXq().getDpicture().get(i));
                     tu2 = bean.getXq().getDpicture().get(i);
                 } else if (i == 2) {
-                    GlideUtils.cachePhoto(FaBuShangPinXiangQingTuActivity.this,ivXq3,bean.getXq().getDpicture().get(i));
+                    GlideUtils.cachePhoto(FaBuShangPinXiangQingTuActivity.this, ivXq3, bean.getXq().getDpicture().get(i));
                     tu3 = bean.getXq().getDpicture().get(i);
                 } else {
-                    GlideUtils.cachePhoto(FaBuShangPinXiangQingTuActivity.this,ivXq4,bean.getXq().getDpicture().get(i));
+                    GlideUtils.cachePhoto(FaBuShangPinXiangQingTuActivity.this, ivXq4, bean.getXq().getDpicture().get(i));
                     tu4 = bean.getXq().getDpicture().get(i);
                 }
             }
@@ -662,5 +682,12 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
         rvFlcs.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         adapter = new FenLeiLableAdapter(mContext, mlist, FaBuShangPinXiangQingTuActivity.this);
         rvFlcs.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

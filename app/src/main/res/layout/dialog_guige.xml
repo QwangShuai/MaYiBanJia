@@ -21,8 +21,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
         </RelativeLayout>
-
         <LinearLayout
+            android:id="@+id/ll_create_gg"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="46dp">
+
+            <EditText
+                android:hint="创建新规格"
+                android:id="@+id/et_create_guige"
+                android:textColor="@color/zicolor"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:textColorHint="@color/hintcolor"
+                android:background="@drawable/fillet_hollow_999999_3"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="6dp"
             android:layout_marginBottom="12dp"
             android:gravity="center"
             android:orientation="horizontal"

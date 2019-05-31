@@ -108,7 +108,7 @@ public class CaiGouDanXiuGaiDailog extends BaseFragmentDialog{
         tvShangpinming.setText(initStr);
         etCaigouliang.setText(count);
         tvGuige.setText(guige);
-        StringUtil.setInputNoEmoj(etTeshu);
+        StringUtil.setInputNoEmoj(etTeshu,50);
         if(!TextUtils.isEmpty(yaoqiu)){
             etTeshu.setText(yaoqiu);
             ivTeshu.setSelected(true);

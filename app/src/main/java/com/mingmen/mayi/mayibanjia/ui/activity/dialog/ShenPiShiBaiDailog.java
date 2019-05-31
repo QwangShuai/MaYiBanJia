@@ -41,7 +41,7 @@ public class ShenPiShiBaiDailog extends BaseFragmentDialog implements View.OnCli
     @Override
     protected void init() {
         etShibaiyuanyin.setText(initStr);
-        StringUtil.setInputNoEmoj(etShibaiyuanyin);
+        StringUtil.setInputNoEmoj(etShibaiyuanyin,50);
         setOnClickListener(this,R.id.bt_queding);
     }
 

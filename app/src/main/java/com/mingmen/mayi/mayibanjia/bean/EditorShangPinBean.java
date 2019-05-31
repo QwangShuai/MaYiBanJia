@@ -244,6 +244,15 @@ public class EditorShangPinBean implements Serializable{
         private String affiliated_spec;//ID
         private String type_four_id;
         private String brand;
+        private String spms;
+
+        public String getSpms() {
+            return spms;
+        }
+
+        public void setSpms(String spms) {
+            this.spms = spms;
+        }
 
         public String getBrand() {
             return brand;

@@ -49,6 +49,7 @@ public class PollingService extends Service {
 
     private static final String NAME = "PUSH_NOTIFY_NAME";
     private Timer timer;
+    private MediaPlayer mMediaPlayer;
     @Override
     public IBinder onBind(Intent arg0) {
         return null;
@@ -56,6 +57,7 @@ public class PollingService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        mMediaPlayer=MediaPlayer.create(mContext, R.raw.tishiyin);
         timer = new Timer();
         if (PollingUtils.isOpen) {
             TimerTask task = new TimerTask() {
@@ -109,6 +111,9 @@ public class PollingService extends Service {
                         if (size == 0) {
                             return;
                         }
+                        if(mMediaPlayer!=null&&!mMediaPlayer.isPlaying()){
+                            mMediaPlayer.start();
+                        }
                         showNotification(mContext, data.size());
                     }
                 }, false);
@@ -152,6 +157,10 @@ public class PollingService extends Service {
     public void onDestroy() {
         super.onDestroy();
         timer.cancel();
+        if(mMediaPlayer.isPlaying()){
+            mMediaPlayer.stop();
+        }
+        mMediaPlayer.release();
         stopService(new Intent(GongYingDuanShouYeActivity.instance,PollingService.class));
 //        System.exit(0);
     }

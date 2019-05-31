@@ -26,10 +26,12 @@ import com.mingmen.mayi.mayibanjia.ui.activity.CaiGouDanActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ChengBenKaListActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.DianPuGuanZhuActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.GongYingDuanShouYeActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.JiaoYiLiuShuiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.LiuLanJiLuActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShouCangListActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShouHuoDiZhiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.SqscShezhiActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.TiXianActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.WoDePingJiaActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.YiJianFanKuiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.YinHangKaActivity;
@@ -61,15 +63,7 @@ public class WoDeFragment extends BaseFragment {
 
     @BindView(R.id.iv_touxiang)
     CircleImageView ivTouxiang;
-    @BindView(R.id.iv_tongzhi)
-    ImageView ivTongzhi;
-    @BindView(R.id.iv_mingpian)
-    ImageView ivMingpian;
-    @BindView(R.id.tv_tongzhi)
-    TextView tvTongzhi;
-    @BindView(R.id.rl_tongzhi)
-    RelativeLayout rlTongzhi;
-    @BindView(R.id.tv_dianpuguanzhu)
+    @BindView(R.id.tv_dpgz)
     TextView tvDianpuguanzhu;
     @BindView(R.id.ll_yue)
     LinearLayout llYue;
@@ -77,20 +71,18 @@ public class WoDeFragment extends BaseFragment {
 //    LinearLayout llDingdan;
     @BindView(R.id.tv_mingzi)
     TextView tvMingzi;
-    @BindView(R.id.tv_zhanghao)
-    TextView tvZhanghao;
     @BindView(R.id.tv_yue)
     TextView tvYue;
-    @BindView(R.id.tv_shoucangshu)
+    @BindView(R.id.tv_spsc)
     TextView tvShoucangshu;
     @BindView(R.id.ll_shoucang)
     LinearLayout llShoucang;
+    @BindView(R.id.ll_spll)
+    LinearLayout llSpll;
     @BindView(R.id.ll_guanzhu)
     LinearLayout llGuanzhu;
-    @BindView(R.id.tv_liulanjilu)
+    @BindView(R.id.tv_spll)
     TextView tvLiulanjilu;
-    @BindView(R.id.ll_liulanjilu)
-    LinearLayout llLiulanjilu;
     @BindView(R.id.ll_cg)
     LinearLayout llCg;
     @BindView(R.id.ll_dd)
@@ -154,10 +146,6 @@ public class WoDeFragment extends BaseFragment {
     @BindView(R.id.iv_wqx_ywc)
     ImageView ivWqxYwc;
     Unbinder unbinder;
-    @BindView(R.id.ll_myyue)
-    LinearLayout llMyyue;
-    @BindView(R.id.tv_qiehuan)
-    TextView tvQiehuan;
     @BindView(R.id.daifukuan)
     ImageView daifukuan;
     @BindView(R.id.daifahuo)
@@ -194,8 +182,6 @@ public class WoDeFragment extends BaseFragment {
     ImageView ivWqxKfdh;
     @BindView(R.id.iv_wqx_yjfk)
     ImageView ivWqxYjfk;
-    @BindView(R.id.ll_qiehuan)
-    LinearLayout llQiehuan;
     @BindView(R.id.yiquxiao)
     ImageView yiquxiao;
     @BindView(R.id.tv_yiquxiao)
@@ -211,9 +197,9 @@ public class WoDeFragment extends BaseFragment {
     private View viewSPYXFragment;
     private Context mContext;
     private WoDeBean woDeBean;
-    private LinearLayout layout_1;
     private String roleDdType = "";
     private String roleCgType = "";
+    private String yue = "0";
     private List<ZiZhangHuDetailsBean.RoleListBean> role = new ArrayList<>();
 
 
@@ -309,7 +295,7 @@ public class WoDeFragment extends BaseFragment {
         if (PreferenceUtils.getString(MyApplication.mContext, "host_account_type", "").equals("0")) {
             tvYue.setText(woDeBean.getMoney());
         }
-
+        yue = woDeBean.getMoney() + "";
         tvShoucangshu.setText(woDeBean.getSc() + "");
         tvDianpuguanzhu.setText(woDeBean.getGuanzhu() + "");
         tvLiulanjilu.setText(woDeBean.getLiulan() + "");
@@ -375,7 +361,6 @@ public class WoDeFragment extends BaseFragment {
         }
 
         tvMingzi.setText(woDeBean.getCompany_name());
-        tvZhanghao.setText(woDeBean.getTelephone());
     }
 
     public void Jump_intent(Class<?> cla, Bundle bundle) {
@@ -386,20 +371,31 @@ public class WoDeFragment extends BaseFragment {
         startActivity(intent);
     }
 
-    @OnClick({R.id.iv_tongzhi, R.id.iv_touxiang, R.id.ll_shoucang, R.id.iv_mingpian, R.id.rl_daifukuan,
+    @OnClick({R.id.rl_shezhi,  R.id.iv_touxiang, R.id.ll_shoucang, R.id.rl_daifukuan, R.id.tv_cwbb,
             R.id.rl_daifahuo, R.id.rl_daishouhuo, R.id.rl_yishouhuo, R.id.rl_yiwancheng, R.id.rl_shouhuodizhi, R.id.rl_yijian,
-            R.id.rl_kefu, R.id.ll_guanzhu, R.id.ll_liulanjilu, R.id.rl_yinhang, R.id.ll_qiehuan,
-            R.id.ll_myyue, R.id.ll_pingjia, R.id.rl_zizhanghu, R.id.rl_chengbenka,R.id.rl_yiquxiao,
+            R.id.rl_kefu, R.id.ll_guanzhu, R.id.ll_spll, R.id.rl_yinhang,R.id.tv_tixian,
+            R.id.tv_yue, R.id.ll_pingjia, R.id.rl_zizhanghu, R.id.rl_chengbenka,R.id.rl_yiquxiao,
             R.id.rl_daishenhe, R.id.rl_daitijiao, R.id.rl_weitongguo, R.id.rl_tongguo})
 //            ,R.id.rl_jueseguanli})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.iv_tongzhi:
+            case R.id.rl_shezhi:
+                Bundle ct = new Bundle();
+                ct.putString("khd","ct");
+                Jump_intent(SqscShezhiActivity.class,ct);
                 break;
             case R.id.rl_daishenhe:
                 Intent daishenhe = new Intent(mContext, CaiGouDanActivity.class);
                 daishenhe.putExtra("type", "902");
                 mContext.startActivity(daishenhe);
+                break;
+            case R.id.tv_cwbb:
+                Jump_intent(JiaoYiLiuShuiActivity.class, new Bundle());
+                break;
+            case R.id.tv_tixian:
+                Bundle tixian = new Bundle();
+                tixian.putString("yue", yue);
+                Jump_intent(TiXianActivity.class, tixian);
                 break;
             case R.id.rl_daitijiao:
                 Intent daitijiao = new Intent(mContext, CaiGouDanActivity.class);
@@ -424,20 +420,11 @@ public class WoDeFragment extends BaseFragment {
                 Jump_intent(ShouCangListActivity.class, new Bundle());
                 break;
             case R.id.iv_touxiang:
-                Log.e("touxiang", "dian touxiang");
-//                Jump_intent(ZhangHuXinXiActivity.class, new Bundle());
-                Bundle sz = new Bundle();
-                sz.putString("khd","ct");
-                Jump_intent(SqscShezhiActivity.class,sz );
+//                Log.e("touxiang", "dian touxiang");
+//                Bundle sz = new Bundle();
+//                sz.putString("khd","ct");
+//                Jump_intent(SqscShezhiActivity.class,sz );
                 break;
-            case R.id.iv_mingpian:
-                Jump_intent(ZhangHuXinXiActivity.class, new Bundle());
-                break;
-//            case R.id.rl_dingdan:
-//                Bundle quanbu = new Bundle();
-//                quanbu.putInt("to_shop", 0);
-//                Jump_intent(DingDanActivity.class, quanbu);
-//                break;
             case R.id.rl_daifukuan:
                 Bundle daifukuan = new Bundle();
                 daifukuan.putString("roleDdType", roleDdType);
@@ -502,9 +489,6 @@ public class WoDeFragment extends BaseFragment {
                 bundle.putString("rukou", "wode");
                 Jump_intent(ShouHuoDiZhiActivity.class, bundle);
                 break;
-//            case R.id.rl_xuqiudan://采购单
-//                Jump_intent(CaiGouDanActivity.class, new Bundle());
-//                break;
             case R.id.rl_yijian://意见反馈
                 startActivity(new Intent(getActivity(), YiJianFanKuiActivity.class));
                 break;
@@ -514,16 +498,13 @@ public class WoDeFragment extends BaseFragment {
             case R.id.ll_guanzhu://店铺关注列表
                 Jump_intent(DianPuGuanZhuActivity.class, new Bundle());
                 break;
-            case R.id.ll_liulanjilu://浏览记录
+            case R.id.ll_spll://浏览记录
                 Jump_intent(LiuLanJiLuActivity.class, new Bundle());
                 break;
             case R.id.rl_yinhang:
                 Jump_intent(YinHangKaActivity.class, new Bundle());
                 break;
-            case R.id.ll_qiehuan:
-                qiehuan();
-                break;
-            case R.id.ll_myyue:
+            case R.id.tv_yue:
                 Jump_intent(YueActivity.class, new Bundle());
                 break;
             case R.id.ll_pingjia:
@@ -560,21 +541,6 @@ public class WoDeFragment extends BaseFragment {
 
     }
 
-    private void qiehuan() {
-        HttpManager.getInstance()
-                .with(mContext)
-                .setObservable(RetrofitManager.getService()
-                        .qiehuan(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
-                .setDataListener(new HttpDataListener<String>() {
-                    @Override
-                    public void onNext(String bean) {
-                        Intent it = new Intent(mContext, GongYingDuanShouYeActivity.class);
-                        startActivity(it);
-                        getActivity().finish();
-                    }
-                });
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment view
@@ -590,7 +556,7 @@ public class WoDeFragment extends BaseFragment {
     }
 
     private void setShowView() {
-        llMyyue.setEnabled(false);
+        tvYue.setEnabled(false);
         tvYue.setText("****");
         tvYue.setTextColor(mContext.getResources().getColor(R.color.zicolor));
         ivWqxZzh.setVisibility(View.VISIBLE);
@@ -602,7 +568,7 @@ public class WoDeFragment extends BaseFragment {
 
         llShoucang.setEnabled(false);
         llGuanzhu.setEnabled(false);
-        llLiulanjilu.setEnabled(false);
+        llSpll.setEnabled(false);
 //        ivTouxiang.setEnabled(false);
         rlZizhanghu.setEnabled(false);
         rlShouhuodizhi.setEnabled(false);

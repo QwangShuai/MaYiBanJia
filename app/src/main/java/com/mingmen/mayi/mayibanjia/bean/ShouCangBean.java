@@ -201,6 +201,15 @@ public class ShouCangBean {
         private String pageNumber;
         private String collect_id;
         private String type_four_id;
+        private String real_time_state;
+
+    public String getReal_time_state() {
+        return real_time_state;
+    }
+
+    public void setReal_time_state(String real_time_state) {
+        this.real_time_state = real_time_state;
+    }
 
     public String getType_four_id() {
         return type_four_id;

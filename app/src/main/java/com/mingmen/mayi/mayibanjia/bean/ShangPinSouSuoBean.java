@@ -202,7 +202,7 @@ public class ShangPinSouSuoBean  {
             private String picture_url;
             private String classify_name;
             private String spec_describe;//规格描述
-            private String real_time_state;//实时达
+            private String real_time_state;//食时达
             private String type_four_id;//四级分类id
 
             public String getType_four_id() {

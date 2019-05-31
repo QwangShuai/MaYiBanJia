@@ -12,7 +12,16 @@ public class ShangPinSousuoMohuBean {
     private String spec_name;
     private String spec_idFour;
     private String spec_describe;
+    private String spec_description;
     private boolean isSelect;
+
+    public String getSpec_description() {
+        return spec_description;
+    }
+
+    public void setSpec_description(String spec_description) {
+        this.spec_description = spec_description;
+    }
 
     public boolean isSelect() {
         return isSelect;

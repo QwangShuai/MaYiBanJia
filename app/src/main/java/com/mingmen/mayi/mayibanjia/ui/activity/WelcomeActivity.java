@@ -3,6 +3,7 @@ package com.mingmen.mayi.mayibanjia.ui.activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -49,7 +50,8 @@ public class WelcomeActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        GlideUtils.cachePhoto(WelcomeActivity.this,ivWelcome,"http://ceshi.canchengxiang.com/images/welcome.png");
+
+//        GlideUtils.cachePhoto(WelcomeActivity.this,ivWelcome,"http://ceshi.canchengxiang.com/images/welcome.png");
         HttpManager.getInstance()
                 .with(WelcomeActivity.this)
                 .setObservable(
@@ -83,7 +85,6 @@ public class WelcomeActivity extends BaseActivity {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    //注册成功后  跳转
                                     Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(intent);
                                 }

@@ -170,9 +170,9 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
         bundle = getIntent().getExtras();
         rukou = bundle.getString("rukou");
         EventBus.getDefault().register(this);
-        StringUtil.setInputNoEmoj(etQiyemingcheng);
-        StringUtil.setInputNoEmoj(etTanweihao);
-        StringUtil.setInputNoEmoj(etXiangxidizhi);
+        StringUtil.setInputNoEmoj(etQiyemingcheng,30);
+        StringUtil.setInputNoEmoj(etTanweihao,50);
+        StringUtil.setInputNoEmoj(etXiangxidizhi,50);
         if ("add".equals(rukou)) {
 //            tvQiehuan.setText("否");
             random_id = getIntent().getStringExtra("random_id");

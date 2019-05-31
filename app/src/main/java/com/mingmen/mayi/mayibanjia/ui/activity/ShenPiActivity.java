@@ -355,6 +355,7 @@ public class ShenPiActivity extends BaseActivity {
                                 String son_order_id = "";
                                 String commodity_id = "";
                                 String company_id = "";
+                                String shuliang = "";
                                 String special_son_order_id = "";
                                 String special_commodity_id = "";
                                 for (String key : mapkey) {
@@ -363,6 +364,7 @@ public class ShenPiActivity extends BaseActivity {
 
                                     commodity_id += value.getCommodity_id() + ",";
                                     company_id += value.getCompany_id() + ",";
+                                    shuliang += value.getCount();
 //
                                     for (int i = 0; i < caigoudan.size(); i++) {
                                         for (int j = 0; j < caigoudan.get(i).getSonorderlist().size(); j++) {
@@ -370,6 +372,7 @@ public class ShenPiActivity extends BaseActivity {
                                                 if (StringUtil.isValid(caigoudan.get(i).getSonorderlist().get(j).getSpecial_commodity())) {
                                                     special_son_order_id += key + ",";
                                                     special_commodity_id += value.getCommodity_id() + ",";
+                                                    shuliang += value.getCount() + ",";
                                                 }
                                             }
                                         }
@@ -384,6 +387,7 @@ public class ShenPiActivity extends BaseActivity {
 //                                }
                                 intent.putExtra("son_order_id", son_order_id);
                                 intent.putExtra("commodity_id", commodity_id);
+                                intent.putExtra("count", shuliang);
                                 intent.putExtra("lujingtype", "2");
                                 intent.putExtra("ct_buy_final_id", ct_buy_final_id);
                                 intent.putExtra("company_id", company_id);

@@ -42,6 +42,15 @@ public class FbspCanShuBean {
     private String pack_standard_tree_name = "";
     private String brand = "";
     private String classify_name = "";
+    private String spms = "";
+
+    public String getSpms() {
+        return spms;
+    }
+
+    public void setSpms(String spms) {
+        this.spms = spms;
+    }
 
     public String getClassify_name() {
         return classify_name;

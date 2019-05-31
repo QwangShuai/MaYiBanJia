@@ -125,7 +125,7 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recycler_view"
                         android:layout_width="match_parent"
-                        android:layout_height="146dp"
+                        android:layout_height="200dp"
                         android:layout_centerInParent="true"
                         android:layout_gravity="center_horizontal" />
                 </LinearLayout>
@@ -337,23 +337,40 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:id="@+id/ll_pop_zhanwei"
                         android:layout_width="match_parent"
-                        android:layout_height="24dp"
+                        android:layout_height="41dp"
                         android:orientation="horizontal"
                         android:paddingLeft="12dp"
                         android:paddingRight="12dp">
-
-                        <TextView
-                            android:id="@+id/tv_xiaoliang"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                        <LinearLayout
+                            android:orientation="horizontal"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="销量"
-                            android:textColor="@color/lishisousuo"
-                            android:textSize="12sp" />
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:id="@+id/tv_xiaoliang"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:text="销量最高"
+                                android:textColor="@color/lishisousuo"
+                                android:textSize="15sp" />
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:src="@mipmap/xiangxia_hui" />
+                        </LinearLayout>
 
+                        <View
+                            android:background="@color/gray_e7e7e7"
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="0.5dp"
+                            android:layout_height="19dp"></View>
                         <LinearLayout
+                            android:visibility="gone"
                             android:id="@+id/ll_jiage"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -382,17 +399,18 @@
                             android:gravity="center"
                             android:text="特价"
                             android:textColor="#666666"
-                            android:textSize="12sp" />
+                            android:textSize="15sp" />
                         <TextView
                             android:id="@+id/tv_jishida"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="实时达"
+                            android:text="食时达"
                             android:textColor="#666666"
-                            android:textSize="12sp" />
+                            android:textSize="15sp" />
                         <TextView
+                            android:visibility="gone"
                             android:id="@+id/tv_pingfenzuigao"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"

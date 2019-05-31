@@ -153,13 +153,13 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
                 holder.itemView.setEnabled(true);
                 PreferenceUtils.remove(activity, mList.get(position).getSon_order_id());
 //                myMap.remove(mList.get(position).getSon_order_id());
-                activity.setClick(isClick,message);
                 runningThree[0] = true;
                 holder.tvXitongtuijian.setVisibility(View.GONE);
                 holder.tvXitongtuijian.setText("发送抢单");
 //                holder.tvXitongtuijian.setTextColor(activity.getResources().getColor(R.color.zicolor));
 //                holder.tvXitongtuijian.setEnabled(true);
                 isClick = true;
+                activity.setClick(isClick,message);
                 holder.tvXitongtuijian.setTextColor(activity.getResources().getColor(R.color.lishisousuo));
                 notifyDataSetChanged();
                 getshenpi(listBean, position, activity);
@@ -524,4 +524,5 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
 //    public void setClick(){
 //        viewHolder.tvXitongtuijian.setEnabled(true);
 //    }
+
 }

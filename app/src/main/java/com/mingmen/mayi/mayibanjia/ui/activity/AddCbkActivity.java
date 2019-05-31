@@ -204,10 +204,10 @@ public class AddCbkActivity extends BaseActivity {
                 tiaolist.get(pos).setCount(num);
             }
         });
-        StringUtil.setInputNoEmoj(etCaipinmingcheng);
-        StringUtil.setInputNoEmoj(etFuliaobeizhu);
-        StringUtil.setInputNoEmoj(etZhuliaobeizhu);
-        StringUtil.setInputNoEmoj(etTiaoliaobeizhu);
+        StringUtil.setInputNoEmoj(etCaipinmingcheng,20);
+        StringUtil.setInputNoEmoj(etFuliaobeizhu,30);
+        StringUtil.setInputNoEmoj(etZhuliaobeizhu,30);
+        StringUtil.setInputNoEmoj(etTiaoliaobeizhu,30);
 
         if (StringUtil.isValid(id)) {
             getData();

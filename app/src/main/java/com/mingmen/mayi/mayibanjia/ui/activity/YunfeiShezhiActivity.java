@@ -1,7 +1,13 @@
 package com.mingmen.mayi.mayibanjia.ui.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,7 +16,21 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mingmen.mayi.mayibanjia.R;
+import com.mingmen.mayi.mayibanjia.app.MyApplication;
+import com.mingmen.mayi.mayibanjia.bean.BanbenUpdateBean;
+import com.mingmen.mayi.mayibanjia.http.URL;
+import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
+import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
+import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.LianggeXuanXiangDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
+import com.mingmen.mayi.mayibanjia.utils.AppUtil;
+import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
+import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
+import com.mingmen.mayi.mayibanjia.utils.update.CProgressDialogUtils;
+import com.xuexiang.xupdate.XUpdate;
+import com.xuexiang.xupdate.proxy.impl.DefaultUpdateChecker;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,6 +68,9 @@ public class YunfeiShezhiActivity extends BaseActivity {
     Button btSave;
 
     private Context mContext;
+    private LianggeXuanXiangDialog dialog;
+    private String zfje = "";
+    private boolean xuanzhong = true;
 
     @Override
     public int getLayoutId() {
@@ -58,6 +81,28 @@ public class YunfeiShezhiActivity extends BaseActivity {
     protected void initData() {
         mContext = YunfeiShezhiActivity.this;
         tvTitle.setText("运费设置");
+
+        etEdu.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s.toString().trim().equals("0")){
+                    ToastUtil.showToastLong("最小为1元");
+                    etEdu.setText("1");
+                } else {
+                    zfje = s.toString().trim();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     @Override
@@ -75,6 +120,7 @@ public class YunfeiShezhiActivity extends BaseActivity {
                 break;
             case R.id.ll_zjcd:
                 if(llCdxe.getVisibility()==View.GONE?true:false){
+                    xuanzhong = true;
                     llCdxe.setVisibility(View.VISIBLE);
                     llSsed.setVisibility(View.VISIBLE);
                     tvTishi.setVisibility(View.VISIBLE);
@@ -84,6 +130,8 @@ public class YunfeiShezhiActivity extends BaseActivity {
                 break;
             case R.id.ll_trcd:
                 if(llCdxe.getVisibility()==View.VISIBLE?true:false){
+                    xuanzhong = false;
+                    zfje = "";
                     llCdxe.setVisibility(View.GONE);
                     llSsed.setVisibility(View.GONE);
                     tvTishi.setVisibility(View.GONE);
@@ -92,11 +140,67 @@ public class YunfeiShezhiActivity extends BaseActivity {
                 }
                 break;
             case R.id.ll_chengdan:
+                dialog = new LianggeXuanXiangDialog(mContext,
+                        mContext.getResources().getIdentifier("BottomDialog", "style", mContext.getPackageName()));
+                dialog.getWindow().setGravity(Gravity.BOTTOM | Gravity.LEFT | Gravity.RIGHT);
+                dialog.showDialog("限额承担", "全额承担");
+                dialog.getTvXuanxiang1().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.cancel();
+                        tvChengdan.setText("限额承担");
+                        llSsed.setVisibility(View.VISIBLE);
+                        tvTishi.setVisibility(View.VISIBLE);
+                    }
+                });
+                dialog.getTvXuanxiang2().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.cancel();
+                        tvChengdan.setText("全额承担");
+                        llSsed.setVisibility(View.GONE);
+                        tvTishi.setVisibility(View.GONE);
+                        zfje = "0";
+                    }
+                });
                 break;
             case R.id.ll_cdxe:
                 break;
             case R.id.bt_save:
+                if(xuanzhong){
+                    if(tvChengdan.getText().toString().equals("全额承担")){
+                        save();
+                    } else {
+                        if(StringUtil.isValid(zfje)&&!zfje.equals("0")){
+                            save();
+                        } else {
+                            ToastUtil.showToastLong("请填写限额承担的商品金额");
+                        }
+                    }
+                } else {
+                    save();
+                }
+
                 break;
         }
+    }
+
+    private void save() {
+//        GlideUtils.cachePhoto(WelcomeActivity.this,ivWelcome,"http://ceshi.canchengxiang.com/images/welcome.png");
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .setYunfei(PreferenceUtils.getString(MyApplication.mContext,"token",""),zfje))
+                .setDataListener(new HttpDataListener<String>() {
+                    @Override
+                    public void onNext(String data) {
+                        ToastUtil.showToastLong("设置成功");
+                        finish();
+                    }
+                });
+
+
     }
 }

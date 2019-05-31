@@ -42,7 +42,7 @@ public class CaipinSousuoDialog extends Dialog {
         etQiyemingcheng = (EditText) findViewById(R.id.et_qiyemingcheng);
         btQueding =(Button) findViewById(R.id.bt_queding);
         tvQuxiao = (TextView)findViewById(R.id.tv_quxiao);
-        StringUtil.setInputNoEmoj(etQiyemingcheng);
+        StringUtil.setInputNoEmoj(etQiyemingcheng,20);
     }
 
     /**

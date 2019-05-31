@@ -454,7 +454,7 @@
                     android:layout_marginLeft="20dp"
                     android:background="@drawable/fillet_hollow_999999_3"
                     android:hint="菜品备注（选填）"
-                    android:maxLength="20"
+                    android:maxLength="30"
                     android:padding="10dp"
                     android:text=""
                     android:textColor="@color/zicolor"

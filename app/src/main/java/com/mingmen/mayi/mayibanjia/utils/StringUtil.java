@@ -2,6 +2,8 @@ package com.mingmen.mayi.mayibanjia.utils;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.telephony.TelephonyManager;
 import android.text.Editable;
@@ -24,13 +26,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -103,7 +110,7 @@ public class StringUtil {
      */
     public static String ChineseStringToAscii(String s) {
         /*
-		 * try { CharToByteConverter toByte = CharToByteConverter
+         * try { CharToByteConverter toByte = CharToByteConverter
 		 * .getConverter("GBK"); byte[] orig =
 		 * toByte.convertAll(s.toCharArray()); char[] dest = new
 		 * char[orig.length]; for (int i = 0; i < orig.length; i++) dest[i] =
@@ -200,14 +207,14 @@ public class StringUtil {
 
     /**
      * 判断一个字符串中是否包含符合正则表达式定义的匹配条件的子串
-     * @param input
-     *            - 待检查字符串
+     *
+     * @param input - 待检查字符串
      * @return - 若输入字符串中包含符合正则表达式定义的匹配条件的子串，则返回true，否则返回false
      */
-     //正则表达式匹配判断
-     public static boolean exist(String input){
-         return input.matches("[\\u4e00-\\u9fa5]{2,4}");
-     }
+    //正则表达式匹配判断
+    public static boolean exist(String input) {
+        return input.matches("[\\u4e00-\\u9fa5]{2,4}");
+    }
 
     /**
      * 用"0"补足一个字符串到指定长度
@@ -1283,9 +1290,9 @@ public class StringUtil {
                 .subscribe(new Action1<File>() {
                     @Override
                     public void call(final File file) {
-                        Log.e("onNext: ","压缩后图片:"+file.length()/1024+"KB" );
-                        if(file.length()/1024>500){
-                            luban(mContext,data);
+                        Log.e("onNext: ", "压缩后图片:" + file.length() / 1024 + "KB");
+                        if (file.length() / 1024 > 500) {
+                            luban(mContext, data);
                         } else {
                             refile[0] = file;
                         }
@@ -1294,9 +1301,11 @@ public class StringUtil {
                 });
         return refile[0];
     }
+
     //完美解决输入框中不能输入的非法字符
-    public static void setInputNoEmoj(EditText editText){
-        InputFilter inputFilter=new InputFilter() {
+    public static void setInputNoEmoj(EditText editText, int length) {
+        InputFilter inputFilterLength = new InputFilter.LengthFilter(length);
+        InputFilter inputFilter = new InputFilter() {
 
             Pattern pattern = Pattern.compile("[^a-zA-Z0-9\\u4E00-\\u9FA5_,.?!:;…~_\\-\"\"/@*+'()<>{}/[/]()<>{}\\[\\]=%&$|\\/♀♂#¥£¢€\"^` ，。？！：；……～“”、“（）”、（——）‘’＠‘·’＆＊＃《》￥《〈〉》〈＄〉［］￡［］｛｝｛｝￠【】【】％〖〗〖〗／〔〕〔〕＼『』『』＾「」「」｜﹁﹂｀．]");
 
@@ -1304,24 +1313,44 @@ public class StringUtil {
 
             public CharSequence filter(CharSequence charSequence, int i, int i1, Spanned spanned, int i2, int i3) {
 
-                Matcher matcher=  pattern.matcher(charSequence);
+                Matcher matcher = pattern.matcher(charSequence);
 
-                if(!matcher.find()){
+                if (!matcher.find()) {
 
                     return null;
 
-                }else{
+                } else {
                     ToastUtil.showToast("非法字符！");
                     return "";
 
                 }
             }
         };
-        editText.setFilters(new InputFilter[]{inputFilter});
+        editText.setFilters(new InputFilter[]{inputFilter, inputFilterLength});
     }
 
     //开户行中文
-    public static boolean isChinese(String input,int num){
-        return input.matches("[\\u4e00-\\u9fa5]{2,"+num+"}");
+    public static boolean isChinese(String input, int num) {
+        return input.matches("[\\u4e00-\\u9fa5]{2," + num + "}");
+    }
+
+    public static Bitmap getBitmap(String url) {
+        Bitmap bm = null;
+        try {
+            URL iconUrl = new URL(url);
+            URLConnection conn = iconUrl.openConnection();
+            HttpURLConnection http = (HttpURLConnection) conn;
+            int length = http.getContentLength();
+            conn.connect();
+            // 获得图像的字符流
+            InputStream is = conn.getInputStream();
+            BufferedInputStream bis = new BufferedInputStream(is, length);
+            bm = BitmapFactory.decodeStream(bis);
+            bis.close();
+            is.close();// 关闭流
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bm;
     }
 }

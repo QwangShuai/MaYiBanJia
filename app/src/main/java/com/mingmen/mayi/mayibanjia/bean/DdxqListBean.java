@@ -24,16 +24,16 @@ public class DdxqListBean {
      * dianhua : 136655346
      */
 
-    private int total;
+    private String total;
     private String order_number;
     private String sp;
-    private int freight_fee;
+    private String freight_fee;
     private String dizhi;
     private String son_name;
     private String linman;
     private String create_time;
     private String state;
-    private int total_price;
+    private String total_price;
     private String dianhua;
     private String append_money;
     private String app_money;
@@ -56,11 +56,11 @@ public class DdxqListBean {
 
     private List<MarketBean> market;
 
-    public int getTotal() {
+    public String getTotal() {
         return total;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(String total) {
         this.total = total;
     }
 
@@ -80,11 +80,11 @@ public class DdxqListBean {
         this.sp = sp;
     }
 
-    public int getFreight_fee() {
+    public String getFreight_fee() {
         return freight_fee;
     }
 
-    public void setFreight_fee(int freight_fee) {
+    public void setFreight_fee(String freight_fee) {
         this.freight_fee = freight_fee;
     }
 
@@ -128,11 +128,11 @@ public class DdxqListBean {
         this.state = state;
     }
 
-    public int getTotal_price() {
+    public String getTotal_price() {
         return total_price;
     }
 
-    public void setTotal_price(int total_price) {
+    public void setTotal_price(String total_price) {
         this.total_price = total_price;
     }
 

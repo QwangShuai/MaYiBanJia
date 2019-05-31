@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
@@ -14,11 +14,30 @@
             android:orientation="vertical"
 
             >
-
-            <com.mingmen.mayi.mayibanjia.ui.view.CircleImageView
-                android:id="@+id/iv1"
-                android:layout_width="63dp"
-                android:layout_height="63dp" />
+            <RelativeLayout
+                android:layout_width="60dp"
+                android:layout_height="60dp">
+                <com.mingmen.mayi.mayibanjia.ui.view.CircleImageView
+                    android:id="@+id/iv1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+                <View
+                    android:id="@+id/view_zhezhao"
+                    android:visibility="gone"
+                    android:background="@drawable/zhezhao_yuan_black_30"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"></View>
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/tv_name"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/tv1"
@@ -26,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text=""
-                android:textColor="#474747"
+                android:textColor="@color/zicolor"
                 android:textSize="12sp" />
         </LinearLayout>
 

@@ -186,7 +186,7 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
 
     private Context mContext;
     private boolean isTejia;//是否特价
-    private boolean isZhunshida;//是否实时达
+    private boolean isZhunshida;//是否食时达
     private boolean isdi = true;//价格排序
 
     private int ye = 1;
@@ -484,7 +484,7 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
                 }
                 updateAdapter();
                 break;
-            case R.id.tv_jishida://实时达
+            case R.id.tv_jishida://食时达
                 if (isZhunshida) {
                     isZhunshida = false;
                     iszhunshida = "";
@@ -906,7 +906,7 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
 
     //商品搜索
     private void sousuoshangpin(final String sousuo, final String type) {
-        Log.e(TAG, "sousuoshangpin: 我是特价" + istejia + "---我是实时达" + iszhunshida);
+        Log.e(TAG, "sousuoshangpin: 我是特价" + istejia + "---我是食时达" + iszhunshida);
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
@@ -1257,7 +1257,7 @@ public class QuanBuCaiPinActivity extends BaseActivity implements FixedHeadScrol
 
     //购物车数量
     private void getGwcNo() {
-        Log.e(TAG, "sousuoshangpin: 我是特价" + istejia + "---我是实时达" + iszhunshida);
+        Log.e(TAG, "sousuoshangpin: 我是特价" + istejia + "---我是食时达" + iszhunshida);
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(

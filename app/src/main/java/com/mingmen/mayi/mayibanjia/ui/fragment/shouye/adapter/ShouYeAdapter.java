@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +13,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -34,7 +37,10 @@ import com.mingmen.mayi.mayibanjia.ui.activity.ShangJiaActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ZhuCeCanTingActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.GlideImageYuanLoader;
 import com.mingmen.mayi.mayibanjia.ui.view.PageIndicatorView;
+import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
+import com.mingmen.mayi.mayibanjia.utils.custom.lable.MyGridViewAdpter;
+import com.mingmen.mayi.mayibanjia.utils.custom.lable.MyViewPagerAdapter;
 import com.mingmen.mayi.mayibanjia.utils.custom.zixun.HorizontalPageLayoutManager;
 import com.mingmen.mayi.mayibanjia.utils.custom.zixun.PagingScrollHelper;
 import com.youth.banner.BannerConfig;
@@ -44,6 +50,8 @@ import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
 
 /**
  * Created by Administrator on 2017/10/18.
@@ -202,69 +210,86 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     //标签
     private void bindZiXun(final ZiXun holder, int position) {
-//        Log.e("sssss", "zixun");
-////        if(shiJiBean.getZixun().size()!=0){
-//        //滑动卡片
-//        List<List<FCGName>> datas = new ArrayList<>();
-////        datas.addAll(leiBean);
-//        int count = 0;
-//        int mysize = 0;
-//        int minsize = 0;
-//        mysize = leiBean.size() / 8;
-//        minsize = leiBean.size() % 8;
-//        if (minsize != 0) {
-//            mysize++;
-//        }
-//        for (int i = 0; i < mysize; i++) {
-//            List<FCGName> list = new ArrayList<>();
-//            if (i < mysize - 1) {
-//                for (int j = 0; j < 8; j++) {
-//                    list.add(leiBean.get(count));
-//                    count++;
-//                }
-//            } else {
-//                for (int j = 0; j < minsize; j++) {
-//                    list.add(leiBean.get(count));
-//                    count++;
-//                }
-//            }
-//
-//            datas.add(list);
-//            Log.e("长度", datas.size() + "");
-//        }
-        PagingScrollHelper scrollHelper = new PagingScrollHelper();
-        HorizontalPageLayoutManager hLinearLayoutManager = null;
-//        final int horizontal = LinearLayoutManager.HORIZONTAL;
-        hLinearLayoutManager = new HorizontalPageLayoutManager(2, 5);
-//        holder.recycler_view.setLayoutManager(new LinearLayoutManager(mContext, horizontal, false));
-        holder.recycler_view.setLayoutManager(hLinearLayoutManager);
-        ShouYeLeiAdapter adapter = new ShouYeLeiAdapter(mContext, leiBean, activity);
-        holder.recycler_view.setAdapter(adapter);
-        holder.recycler_view.setHasFixedSize(true);
-        scrollHelper.setUpRecycleView(holder.recycler_view);
-        scrollHelper.setIndicator(holder.indicator);
-        scrollHelper.setOnPageChangeListener(new PagingScrollHelper.onPageChangeListener() {
+        final View[] ivPoints;//小圆点图片的集合
+        final int totalPage; //总的页数
+        int mPageSize = 10; //每页显示的最大的数量
+        List<View> viewPagerList;//GridView作为一个View对象添加到ViewPager集合中
+        MyViewPagerAdapter pageadapter;
+        final List<MyGridViewAdpter> adpters = new ArrayList<>();
+        int dotSize = 10;
+        int margins = 10;
+        LinearLayout.LayoutParams params;
+        dotSize = AppUtil.Dp2px(mContext, dotSize);
+        margins = AppUtil.Dp2px(mContext, margins);
+        params = new LinearLayout.LayoutParams(dotSize, dotSize);
+        params.setMargins(margins, margins, margins, margins);
+
+        totalPage = (int) Math.ceil(leiBean.size() * 1.0 / mPageSize);
+        viewPagerList = new ArrayList<View>();
+        for (int i = 0; i < totalPage; i++) {
+            //每个页面都是inflate出一个新实例
+            MyGridViewAdpter myGridViewAdpter = new MyGridViewAdpter(mContext, leiBean, i, mPageSize);
+            adpters.add(myGridViewAdpter);
+            final GridView gridView = (GridView) View.inflate(mContext, R.layout.item_grid, null);
+            gridView.setAdapter(adpters.get(i));
+            //添加item点击监听
+            gridView.setOnItemClickListener(new GridView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> arg0, View arg1,
+                                        int position, long arg3) {
+                    // TODO Auto-generated method stub
+                    Object obj = gridView.getItemAtPosition(position);
+                    if (obj != null && obj instanceof FCGName) {
+                        for (MyGridViewAdpter myadapter: adpters) {
+                            activity.changeView(((FCGName)obj).getClassify_name(),((FCGName)obj).getClassify_id());
+                        }
+                    }
+                }
+            });
+            //每一个GridView作为一个View对象添加到ViewPager集合中
+            viewPagerList.add(gridView);
+        }
+        pageadapter = new MyViewPagerAdapter(viewPagerList);
+        //设置ViewPager适配器
+        holder.viewpager.setAdapter(pageadapter);
+
+        //添加小圆点
+        ivPoints = new View[totalPage];
+        for (int i = 0; i < totalPage; i++) {
+            //循坏加入点点图片组
+            ivPoints[i] = new View(mContext);
+            if (i == 0) {
+                ivPoints[i].setBackground(mContext.getResources().getDrawable(R.drawable.fillet_solid_zangqing_20));
+            } else {
+                ivPoints[i].setBackground(mContext.getResources().getDrawable(R.drawable.fillet_solid_cutoff_20));
+            }
+
+//            ivPoints[i].setPadding(8, 8, 8, 8);
+
+            holder.points.addView(ivPoints[i],params);
+        }
+        //设置ViewPager的滑动监听，主要是设置点点的背景颜色的改变
+        holder.viewpager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
-            public void onPageChange(int index) {
-                holder.indicator.setSelectedPage(index);
+            public void onPageSelected(int position) {
+                // TODO Auto-generated method stub
+                //currentPage = position;
+                for (int i = 0; i < totalPage; i++) {
+                    if (i == position) {
+                        ivPoints[i].setBackground(mContext.getResources().getDrawable(R.drawable.fillet_solid_zangqing_20));
+                    } else {
+                        ivPoints[i].setBackground(mContext.getResources().getDrawable(R.drawable.fillet_solid_cutoff_20));
+                    }
+                }
             }
         });
-        holder.recycler_view.setHorizontalScrollBarEnabled(true);
-        scrollHelper.setAdapter(adapter,0);
-        scrollHelper.updateLayoutManger();
-        scrollHelper.scrollToPosition(0);
-        adapter.notifyDataSetChanged();
-//        ZiXunPagingScrollHelper rp = new ZiXunPagingScrollHelper();
-//        rp.setIndicator(holder.indicator);
-//        rp.setUpRecycleView(holder.recycler_view);
-//        rp.setAdapter(adapter, 0);
-//        rp.setOnPageChangeListener(new ZiXunPagingScrollHelper.onPageChangeListener() {
-//            @Override
-//            public void onPageChange(int index) {
-//                holder.indicator.setSelectedPage(index);
-//            }
-//        });
 
+        if(ivPoints.length>1){
+            holder.points.setVisibility(View.VISIBLE);
+        } else {
+            holder.points.setVisibility(View.GONE);
+        }
     }
 
     private void bindShangjia(final ShangJia holder, int position) {
@@ -384,13 +409,13 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public class ZiXun extends RecyclerView.ViewHolder {
-        private RecyclerView recycler_view;
-        private PageIndicatorView indicator;
+        private ViewPager viewpager;
+        private LinearLayout points;
 
         public ZiXun(View itemView) {
             super(itemView);
-            indicator = (PageIndicatorView) itemView.findViewById(R.id.indicator);
-            recycler_view = (RecyclerView) itemView.findViewById(R.id.recycler_view);
+            viewpager = (ViewPager) itemView.findViewById(R.id.viewpager);
+            points = (LinearLayout) itemView.findViewById(R.id.points);
 
         }
     }
@@ -435,7 +460,7 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public void setPosition(int pos){
-        myHolder.indicator.setSelectedPage(pos);
+        myHolder.viewpager.setCurrentItem(pos);
     }
 
 }

@@ -142,11 +142,47 @@ public abstract class BaseShangPinFragment extends BaseFragment {
 
                 });
     }
+    private void updateChaxun(final String message) {
+        HttpManager.getInstance()
+                .with(getContext())
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .getshangpinguanli(token, message, goods, getZhuangTai(), ye))
+                .setDataListener(new HttpDataListener<ShangPinGuanLiBean>() {
+                    @Override
+                    public void onNext(ShangPinGuanLiBean data) {
+                        int mysize = data==null||data.getGoodsList()==null?0:data.getGoodsList().size();
+                        Log.e("onNext:updateChaxun ",ye+"?????"+message );
+                        if (ye == 1) {
+                            mlist.clear();
+                            shangpinguanliadapter.notifyDataSetChanged();
+                            rvShangpinguanli.loadMoreFinish(false, true);
+                            if(mysize==0){
+                                rvShangpinguanli.setVisibility(View.GONE);
+                                llListNull.setVisibility(View.VISIBLE);
+                            } else {
+                                rvShangpinguanli.setVisibility(View.VISIBLE);
+                                llListNull.setVisibility(View.GONE);
+                            }
+                        }
+                        if (data.getGoodsList().size() == 5) {
+                            rvShangpinguanli.loadMoreFinish(false, true);
+                        }else if (data.getGoodsList().size() > 0) {
+                            rvShangpinguanli.loadMoreFinish(false, false);
+                        } else  {
+                            rvShangpinguanli.loadMoreFinish(true, false);
+                        }
 
+                        mlist.addAll(data.getGoodsList());
+                        shangpinguanliadapter.notifyDataSetChanged();
+                        ye++;
+                    }
+
+                });
+    }
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getMyGoods(MessageBean bean) {
-        this.goods =  bean.getMessage();
-        shangpinguanliadapter.setGoods(goods);
         onResume();
     }
 
@@ -223,6 +259,7 @@ public abstract class BaseShangPinFragment extends BaseFragment {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                chaxunzi = "";
                 ye = 1;
                 mlist.clear();
                 shangpinguanliadapter.notifyDataSetChanged();
@@ -268,8 +305,14 @@ public abstract class BaseShangPinFragment extends BaseFragment {
         }
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void update(String message) {
-        onResume();
+    public void getChaxun(String message) {
+        ye = 1;
+        chaxunzi = message;
+       getData();
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void update(boolean message) {
+      onResume();
     }
     @Override
     public void onDestroy() {

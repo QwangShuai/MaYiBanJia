@@ -68,11 +68,6 @@ public class ShangPinGuanLiActivity extends BaseActivity {
     private boolean isClick = true;
     private String token = "";
     private ShangPinAdapter adapter;
-    private CallBack callBack;
-
-    public void setCallBack(CallBack callBack) {
-        this.callBack = callBack;
-    }
 
     public String getToken() {
         return token;
@@ -186,7 +181,7 @@ public class ShangPinGuanLiActivity extends BaseActivity {
                                 public void sousuozi(String msg) {
                                     Log.e("msg", msg + "==");
                                     chaxunzi = msg;
-                                    callBack.setMsg(msg);
+                                    EventBus.getDefault().post(msg);
 //                                    if(isShow){
 //                                        vpTj.setCurrentItem(0);
 //                                    } else {

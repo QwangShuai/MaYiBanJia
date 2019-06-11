@@ -4,72 +4,71 @@
     android:layout_height="match_parent"
     android:background="#00ffffff"
     android:id="@+id/ll">
-    <LinearLayout
-        android:orientation="vertical"
-        android:gravity="center"
-        android:background="@color/white"
-        android:layout_marginTop="44dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <RelativeLayout
-            android:layout_width="275dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+        <LinearLayout
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@color/white"
+            android:layout_marginTop="44dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
             <android.support.v7.widget.RecyclerView
+                android:layout_weight="1"
                 android:padding="14dp"
                 android:id="@+id/rv_guige"
-                android:layout_width="match_parent"
+                android:layout_width="275dp"
                 android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
-        </RelativeLayout>
-        <LinearLayout
-            android:id="@+id/ll_create_gg"
-            android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp"
-            android:layout_marginTop="6dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="46dp">
-
-            <EditText
-                android:hint="创建新规格"
-                android:id="@+id/et_create_guige"
-                android:textColor="@color/zicolor"
-                android:textSize="15sp"
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/ll_create_gg"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginTop="6dp"
                 android:gravity="center"
-                android:textColorHint="@color/hintcolor"
-                android:background="@drawable/fillet_hollow_999999_3"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="40dp" />
+                android:layout_height="46dp">
 
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="12dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="46dp">
-            <TextView
-                android:id="@+id/tv_cancel"
-                android:textColor="@color/zicolor"
-                android:textSize="15sp"
+                <EditText
+                    android:hint="创建新规格"
+                    android:id="@+id/et_create_guige"
+                    android:textColor="@color/zicolor"
+                    android:textSize="15sp"
+                    android:gravity="center"
+                    android:textColorHint="@color/hintcolor"
+                    android:background="@drawable/fillet_hollow_999999_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="12dp"
                 android:gravity="center"
-                android:text="取消"
-                android:background="@drawable/fillet_solid_white_yuan"
-                android:layout_width="115dp"
-                android:layout_height="40dp" />
-            <TextView
-                android:id="@+id/tv_sure"
-                android:textSize="15sp"
-                android:textColor="@color/white"
-                android:gravity="center"
-                android:text="确定"
-                android:layout_marginLeft="15dp"
-                android:background="@drawable/fillet_solid_zangqing_tuoyuan"
-                android:layout_width="115dp"
-                android:layout_height="40dp" />
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="46dp">
+                <TextView
+                    android:id="@+id/tv_cancel"
+                    android:textColor="@color/zicolor"
+                    android:textSize="15sp"
+                    android:gravity="center"
+                    android:text="取消"
+                    android:background="@drawable/fillet_solid_white_yuan"
+                    android:layout_width="115dp"
+                    android:layout_height="40dp" />
+                <TextView
+                    android:id="@+id/tv_sure"
+                    android:textSize="15sp"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:text="确定"
+                    android:layout_marginLeft="15dp"
+                    android:background="@drawable/fillet_solid_zangqing_tuoyuan"
+                    android:layout_width="115dp"
+                    android:layout_height="40dp" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+
 
 </LinearLayout>

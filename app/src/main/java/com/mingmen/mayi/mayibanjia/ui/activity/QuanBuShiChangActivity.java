@@ -277,6 +277,8 @@ public class QuanBuShiChangActivity extends BaseActivity {
         super.onResume();
         if(ye!=1){
             ye = 1;
+            mlist.clear();
+            adapter.notifyDataSetChanged();
             getList();
         }
     }

@@ -130,6 +130,7 @@ public class ShangJiaActivity extends BaseActivity {
             public void onRefresh() {
                 ye = 1;
                 mlist.clear();
+                adapter.notifyDataSetChanged();
                 getQiyeLiebiao();
                 refreshLayout.setRefreshing(false);
             }
@@ -198,6 +199,8 @@ public class ShangJiaActivity extends BaseActivity {
         super.onResume();
         if(ye!=1){
             ye = 1;
+            mlist.clear();
+            adapter.notifyDataSetChanged();
             getQiyeLiebiao();
         }
     }

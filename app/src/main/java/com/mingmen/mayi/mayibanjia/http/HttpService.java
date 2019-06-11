@@ -453,7 +453,7 @@ public interface HttpService {
 
     //规格
     @POST("allSpec/list.do")
-    Observable<ResultModel<List<FbspGuiGeBean>>> getguige(@Query("user_token") String user_token, @Query("classify_id") String classify_id);
+    Observable<ResultModel<List<FbspGuiGeBean>>> getguige(@Query("user_token") String user_token, @Query("classify_name") String classify_name);
 
     //添加商品
     @POST("gyCommodity/save.do")
@@ -612,7 +612,8 @@ public interface HttpService {
     @POST("ctBuyHostorder/queryMoney.do")
     Observable<ResultModel<String>> getcaigoudanjiage(@Query("user_token") String user_token,
                                                       @Query("son_order_id") String son_order_id,
-                                                      @Query("commodity_id") String commodity_id);
+                                                      @Query("commodity_id") String commodity_id,
+                                                      @Query("number") String number);
 
     //提交支付
     @POST("payHistory/save.do")
@@ -938,7 +939,13 @@ public interface HttpService {
     Observable<ResultModel<String>> saveZizhi(@Query("user_token") String user_token,
                                               @Query("id_number") String id_number,
                                               @Query("legal_person") String legal_person,
-                                              @Query("duty_paragraph") String duty_paragraph);
+                                              @Query("duty_paragraph") String duty_paragraph,
+                                              @Query("principal") String principal,
+                                              @Query("business_license") String business_license,
+                                              @Query("circulation_permit") String circulation_permit,
+                                              @Query("photo") String photo,
+                                              @Query("specific_address") String specific_address,
+                                              @Query("telephone") String telephone);
 
     //切换角色
     @POST("allCompanyAccount/updateByType.do")

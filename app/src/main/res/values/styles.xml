@@ -115,4 +115,8 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">50dp</item>
     </style>
+    <style name="dialog_soft_input" parent="BaseDialogTheme">
+        <item name="android:windowSoftInputMode">stateVisible|adjustPan</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
 </resources>

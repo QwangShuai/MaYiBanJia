@@ -185,7 +185,7 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
             holder.llZongjia.setVisibility(View.GONE);
         } else {
             holder.llZongjia.setVisibility(View.VISIBLE);//选中的就获取当前总价
-            getcaigoudanjiage(listBean.getSon_order_id(), bean.getCommodity_id(), holder.tvZongjia);
+            getcaigoudanjiage(listBean.getSon_order_id(), bean.getCommodity_id(),bean.getCount(), holder.tvZongjia);
         }
         if (StringUtil.isValid(listBean.getSpecial_commodity())) {
             holder.tvTeshu.setVisibility(View.VISIBLE);//特殊商品显示标签
@@ -370,13 +370,14 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
     }
 
     //采购单价格
-    private void getcaigoudanjiage(String son_order_id, String commodity_id, final TextView tv_zongjia) {
+    private void getcaigoudanjiage(String son_order_id, String commodity_id,String count, final TextView tv_zongjia) {
+        Log.e("getcaigoudanjiage: ",count );
         HttpManager.getInstance()
                 .with(activity)
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getcaigoudanjiage(PreferenceUtils.getString(MyApplication.mContext, "token", ""), son_order_id, commodity_id))
+                                .getcaigoudanjiage(PreferenceUtils.getString(MyApplication.mContext, "token", ""), son_order_id, commodity_id,count))
                 .setDataListener(
                         new HttpDataListener<String>() {
                             @Override

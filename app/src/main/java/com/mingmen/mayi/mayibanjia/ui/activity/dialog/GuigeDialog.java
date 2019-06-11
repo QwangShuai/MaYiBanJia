@@ -1,7 +1,11 @@
 package com.mingmen.mayi.mayibanjia.ui.activity.dialog;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -60,6 +64,8 @@ public class GuigeDialog extends BaseFragmentDialog implements View.OnClickListe
     TextView tvSure;
     @BindView(R.id.et_create_guige)
     EditText etCreateGuige;
+    @BindView(R.id.ll_create_gg)
+    LinearLayout llCreateGg;
     @BindView(R.id.ll)
     LinearLayout ll;
     private GuigeAdapter adapter;
@@ -81,13 +87,15 @@ public class GuigeDialog extends BaseFragmentDialog implements View.OnClickListe
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setStyle(DialogFragment.STYLE_NORMAL,R.style.dialog_soft_input);
+    }
+
+    @Override
     protected void init() {
         StringUtil.setInputNoEmoj(etCreateGuige,4);
-        Window window = getDialog().getWindow();
-        if (window != null) {
-            window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-        }
+        llCreateGg.setVisibility(View.VISIBLE);
         etCreateGuige.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

@@ -343,17 +343,6 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         openCamera();
-//                        Matisse.from(GHDWanShanXinXiActivity.this)
-//                                .choose(MimeType.allOf()) // 选择 mime 的类型
-//                                .countable(true)
-//                                .capture(true)
-//                                .captureStrategy(new CaptureStrategy(true, "com.mingmen.mayi.mayibanjia.fileProvider"))
-//                                .maxSelectable(1) // 图片选择的最多数量
-////                                .gridExpectedSize(getResources().getDimensionPixelSize(25))
-//                                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
-//                                .thumbnailScale(0.85f) // 缩略图的比例
-//                                .imageEngine(new GlideEngine()) // 使用的图片加载引擎
-//                                .forResult(REQUEST_CAPTURE); // 设置作为标记的请求码
                         isClickCamera = true;
                         photoDialog.cancel();
                     }

@@ -24,30 +24,32 @@
             android:layout_marginLeft="10dp"/>
     </LinearLayout>
     <RelativeLayout
-        android:layout_marginBottom="12dp"
+        android:id="@+id/rl_lei"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
-        <LinearLayout
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:id="@+id/ll_rv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="178dp"
-                android:layout_marginBottom="10dp"/>
-        </LinearLayout>
+        android:layout_marginBottom="12dp"
+        android:paddingTop="8dp">
 
-        <com.mingmen.mayi.mayibanjia.ui.view.PageIndicatorView
-            android:id="@+id/indicator"
+        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="6dp"
-            android:layout_centerHorizontal="true"
-            android:layout_alignBottom="@id/ll_rv"
-           />
+            android:layout_height="220dp"
+            android:background="#fff" >
+
+            <android.support.v4.view.ViewPager
+                android:layout_weight="1"
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <LinearLayout
+                android:id="@+id/points"
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:orientation="horizontal" />
+        </LinearLayout>
     </RelativeLayout>
 </LinearLayout>

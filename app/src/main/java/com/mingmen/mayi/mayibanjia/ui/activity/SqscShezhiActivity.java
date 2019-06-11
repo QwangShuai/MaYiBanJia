@@ -19,6 +19,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.PhoneDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
 import butterknife.BindView;
@@ -87,11 +88,11 @@ public class SqscShezhiActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.tv_title, R.id.iv_back, R.id.tv_right, R.id.iv_zhanghu, R.id.iv_yhzh,
-            R.id.tv_zzrz, R.id.iv_zzrz, R.id.ll_yhpj, R.id.ll_wdpj, R.id.iv_kfdh, R.id.iv_cjwt,
-            R.id.iv_yjfk, R.id.tv_tuichu})
+    @OnClick({R.id.tv_title, R.id.iv_back, R.id.tv_right, R.id.ll_zhanghu, R.id.ll_yhzh,
+            R.id.ll_zzrz, R.id.ll_yhpj, R.id.ll_wdpj, R.id.ll_kfdh, R.id.ll_cjwt,
+            R.id.ll_yjfk, R.id.tv_tuichu})
     public void onViewClicked(View view) {
-        Intent it;
+        Intent it = null;
         switch (view.getId()) {
             case R.id.tv_title:
                 break;
@@ -100,27 +101,30 @@ public class SqscShezhiActivity extends BaseActivity {
                 break;
             case R.id.tv_right:
                 break;
-            case R.id.iv_zhanghu:
+            case R.id.ll_zhanghu:
                 it = new Intent(mContext,WoDeZhangHuActivity.class);
                 startActivity(it);
                 break;
-            case R.id.iv_yhzh:
+            case R.id.ll_yhzh:
                 Jump_intent(YinHangKaActivity.class, new Bundle());
                 break;
-            case R.id.tv_zzrz:
-                it = new Intent(mContext, ZiZhiRenZhengActivity.class);
-                it.putExtra("id", "");
+            case R.id.ll_zzrz:
+//                it = new Intent(mContext, ZiZhiRenZhengActivity.class);
+                if(StringUtil.isValid(khd)&&khd.equals("ct")){
+                    it = new Intent(mContext,ZzrzCtdActivity.class);
+                } else {
+                    it = new Intent(mContext, ZzrzGydActivity.class);
+                }
                 it.putExtra("state",sh_state);
-                it.putExtra("yemian","1");
                 startActivity(it);
                 break;
-            case R.id.iv_zzrz:
-                it = new Intent(mContext, ZiZhiRenZhengActivity.class);
-                it.putExtra("id", "");
-                it.putExtra("state",sh_state);
-                it.putExtra("yemian","1");
-                startActivity(it);
-                break;
+//            case R.id.iv_zzrz:
+//                it = new Intent(mContext, ZiZhiRenZhengActivity.class);
+//                it.putExtra("id", "");
+//                it.putExtra("state",sh_state);
+//                it.putExtra("yemian","1");
+//                startActivity(it);
+//                break;
             case R.id.ll_yhpj:
                 //查看评价
                 Jump_intent(YongHuPingJiaActivity.class,new Bundle());
@@ -128,13 +132,13 @@ public class SqscShezhiActivity extends BaseActivity {
             case R.id.ll_wdpj:
                 Jump_intent(WoDePingJiaActivity.class, new Bundle());
                 break;
-            case R.id.iv_kfdh:
+            case R.id.ll_kfdh:
                 getPhone();
                 break;
-            case R.id.iv_cjwt:
-                ToastUtil.showToastLong("emmmmmmmmm");
-                break;
-            case R.id.iv_yjfk:
+//            case R.id.ll_cjwt:
+//                ToastUtil.showToastLong("emmmmmmmmm");
+//                break;
+            case R.id.ll_yjfk:
                 startActivity(new Intent(mContext, YiJianFanKuiActivity.class));
                 break;
             case R.id.tv_tuichu:

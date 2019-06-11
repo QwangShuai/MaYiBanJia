@@ -117,7 +117,7 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
         GlideUtils.cachePhoto(mContext,holder.ivTu,shoppingBean.getUrl());
         holder.ivDanxuan.setSelected(shoppingBean.isSelect());
 
-        holder.tvQidingliang.setText(shoppingBean.getRation_one() + shoppingBean.getSpecNameThree());
+        holder.tvQidingliang.setText(shoppingBean.getRation_one() +"(" +shoppingBean.getSpecNameThree()+")");
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

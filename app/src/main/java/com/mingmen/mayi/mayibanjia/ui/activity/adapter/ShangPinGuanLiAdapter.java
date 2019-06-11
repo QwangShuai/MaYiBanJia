@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
+import com.mingmen.mayi.mayibanjia.bean.MessageBean;
 import com.mingmen.mayi.mayibanjia.bean.ShangPinGuanLiBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
@@ -102,6 +103,7 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
+                        EventBus.getDefault().post(new MessageBean("更新"));
                         confirmDialog.dismiss();
 //                        if(isTs){
 //                            EventBus.getDefault().post("update");
@@ -110,8 +112,7 @@ public class ShangPinGuanLiAdapter extends RecyclerView.Adapter<ShangPinGuanLiAd
 //                            fragment.onResume();
 //                            EventBus.getDefault().post("update");
 //                        }
-                        EventBus.getDefault().post("update");
-//                        notifyDataSetChanged();
+                        notifyDataSetChanged();
                     }
                 }, false);
     }

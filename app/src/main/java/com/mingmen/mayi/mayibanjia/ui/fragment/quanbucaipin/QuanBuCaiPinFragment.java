@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
@@ -19,6 +20,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -60,6 +63,8 @@ import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToolLocation;
+import com.mingmen.mayi.mayibanjia.utils.custom.lable.MyGridViewAdpter;
+import com.mingmen.mayi.mayibanjia.utils.custom.lable.MyViewPagerAdapter;
 import com.mingmen.mayi.mayibanjia.utils.custom.zixun.HorizontalPageLayoutManager;
 import com.mingmen.mayi.mayibanjia.utils.custom.zixun.PagingScrollHelper;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
@@ -120,10 +125,10 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     LinearLayout llShangpin;
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout refreshLayout;
-    @BindView(R.id.indicator)
-    PageIndicatorView indicator;
-    @BindView(R.id.recycler_view)
-    RecyclerView recyclerView;
+//    @BindView(R.id.indicator)
+//    PageIndicatorView indicator;
+//    @BindView(R.id.recycler_view)
+//    RecyclerView recyclerView;
     @BindView(R.id.rv_shichangjia)
     RecyclerView rvShichangjia;
     @BindView(R.id.ll_shichang)
@@ -140,8 +145,8 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     LinearLayout llDingwei;
     @BindView(R.id.tv_shichangjia)
     TextView tvShichangjia;
-    @BindView(R.id.ll_rv)
-    LinearLayout llRv;
+//    @BindView(R.id.ll_rv)
+//    LinearLayout llRv;
     @BindView(R.id.ll_pinzhong)
     LinearLayout llPinzhong;
     @BindView(R.id.tv_guige)
@@ -152,12 +157,17 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     TextView tvJishida;
     @BindView(R.id.ll_guige)
     LinearLayout llGuige;
+    @BindView(R.id.viewpager)
+    ViewPager viewpager;
+    @BindView(R.id.points)
+    LinearLayout points;
+
     Unbinder unbinder;
 
     private ShiChangSouSuoShangPinListAdapter shichangadapter;
     private ArrayList<ShiChangSouSuoShangPinBean> shichanglist = new ArrayList<>();
     private List<FCGName> leiBean = new ArrayList<>();
-//    private QuanBuCaiPinLeiAdapter leiAdapter;
+    //    private QuanBuCaiPinLeiAdapter leiAdapter;
     private View viewSPYXFragment;
     private Context mContext;
     private ShangPinListAdapter shangpinadapter;
@@ -249,8 +259,18 @@ public class QuanBuCaiPinFragment extends BaseFragment {
 
     PagingScrollHelper scrollHelper = new PagingScrollHelper();
     private HorizontalPageLayoutManager  hLinearLayoutManager = null;
-    private QuanBuCaiPinLeiOneAdapter leiAdapter;
+//    private QuanBuCaiPinLeiOneAdapter leiAdapter;
 //    private PagingItemDecoration pagingItemDecoration  = null;
+
+    private View[] ivPoints;//小圆点图片的集合
+    private int totalPage; //总的页数
+    private int mPageSize = 10; //每页显示的最大的数量
+    private List<View> viewPagerList;//GridView作为一个View对象添加到ViewPager集合中
+    private MyViewPagerAdapter pageadapter;
+    private List<MyGridViewAdpter> adpters = new ArrayList<>();
+    private int dotSize = 10;
+    private int margins = 10;
+    LinearLayout.LayoutParams params;
 
     @Override
     protected View getSuccessView() {
@@ -282,8 +302,12 @@ public class QuanBuCaiPinFragment extends BaseFragment {
 
         bindPop();
         bindXlPop();
+        dotSize = AppUtil.Dp2px(mContext, dotSize);
+        margins = AppUtil.Dp2px(mContext, margins);
+        params = new LinearLayout.LayoutParams(dotSize, dotSize);
+        params.setMargins(margins, margins, margins, margins);
 //        leiAdapter = new QuanBuCaiPinLeiAdapter(mContext, lei_datas, this);
-        leiAdapter = new QuanBuCaiPinLeiOneAdapter(mContext, leiBean, this);
+//        leiAdapter = new QuanBuCaiPinLeiOneAdapter(mContext, leiBean, this);
         getShouyeFenLei(yclId, "2");
         mLoadMoreListener = new SwipeMenuRecyclerView.LoadMoreListener() {
             @Override
@@ -417,11 +441,11 @@ public class QuanBuCaiPinFragment extends BaseFragment {
 //            tvPinlei.setTextColor(getResources().getColor(R.color.zangqing));
             yijipinleiid = activity.getSp_id();
             xzId = activity.getSp_id();
-            leiAdapter.setXuanzhongId(activity.getSp_id());
+//            leiAdapter.setXuanzhongId(activity.getSp_id());
             ye = 1;
             sousuoshangpin(sousuo,type);
             activity.setType("");
-            leiAdapter.notifyDataSetChanged();
+            setAdapterXuanzhong();
         } else {
             sousuoshangpin("", "0");
         }
@@ -478,7 +502,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         }else if (state == 4) {
             showThreePop();
         }
-//        recyclerView.setVisibility(View.GONE);
+        rlLei.setVisibility(View.GONE);
         yijipop.showAsDropDown(viewZhanwei);
     }
 
@@ -662,16 +686,16 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         if (!TextUtils.isEmpty(activity.getType())) {//是否是首页传参过来的
 //            tvPinlei.setText(activity.getType());
 //            if(ye!=1){
-                setState();
-                shichangname = "";
-                sousuo = "";
-                tvSousuozi.setText("");
-                yijipinleiid = activity.getSp_id();
-                leiAdapter.setXuanzhongId(yijipinleiid);
-                xzId = yijipinleiid;
-                leiAdapter.notifyDataSetChanged();
-                activity.setType("");
-                updateAdapter();
+            setState();
+            shichangname = "";
+            sousuo = "";
+            tvSousuozi.setText("");
+            yijipinleiid = activity.getSp_id();
+//            leiAdapter.setXuanzhongId(yijipinleiid);
+            xzId = yijipinleiid;
+                setAdapterXuanzhong();
+            activity.setType("");
+            updateAdapter();
 //            }
         } else {
             if (!isResult&&ye!=1) {
@@ -679,14 +703,13 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 sousuo = "";
                 xzId = "";
                 yijipinleiid = "";
-                leiAdapter.setXuanzhongId("");
-                leiAdapter.notifyDataSetChanged();
+                setAdapterXuanzhong();
                 setState();
                 clearPopXuanzhong();
                 updateAdapter();
             }
         }
-        bindZiXun();
+//        bindZiXun();
     }
 
     private void setXuanXiangColor(TextView bianseview) {
@@ -738,72 +761,100 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     }
 
     private void bindZiXun() {
-//        //滑动卡片
-//        int count = 0;
-//        int mysize = 0;
-//        int minsize = 0;
-//        mysize = leiBean.size() / 10;
-//        minsize = leiBean.size() % 10;
-//        if (minsize != 0) {
-//            mysize++;
-//        }
-//        for (int i = 0; i < mysize; i++) {
-//            List<FCGName> list = new ArrayList<>();
-//            if (i < mysize - 1) {
-//                for (int j = 0; j < 10; j++) {
-//                    list.add(leiBean.get(count));
-//                    count++;
-//                }
-//            } else {
-//                for (int j = 0; j < minsize; j++) {
-//                    list.add(leiBean.get(count));
-//                    count++;
-//                }
-//            }
-//            lei_datas.add(list);
-//        }
-
-//        final int horizontal = LinearLayoutManager.HORIZONTAL;
-        hLinearLayoutManager = new HorizontalPageLayoutManager(2, 5);
-//        pagingItemDecoration = new PagingItemDecoration(mContext, hLinearLayoutManager);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(mContext, horizontal, false));
-        recyclerView.setLayoutManager(hLinearLayoutManager);
-//        leiAdapter.notifyDataSetChanged();
-        recyclerView.setAdapter(leiAdapter);
-        leiAdapter.setXuanzhongId(yijipinleiid);
-        recyclerView.setHasFixedSize(true);
-        scrollHelper.setUpRecycleView(recyclerView);
-        scrollHelper.setIndicator(indicator);
-//        recyclerView.addItemDecoration(pagingItemDecoration);
-        scrollHelper.setOnPageChangeListener(new PagingScrollHelper.onPageChangeListener() {
-            @Override
-            public void onPageChange(int index) {
-                indicator.setSelectedPage(index);
-            }
-        });
-        recyclerView.setHorizontalScrollBarEnabled(true);
-        scrollHelper.setAdapter(leiAdapter,1);
-        scrollHelper.updateLayoutManger();
-        scrollHelper.scrollToPosition(0);
-        leiAdapter.notifyDataSetChanged();
-//        rp.setIndicator(indicator);
-//        rp.setUpRecycleView(recyclerView);
-//        rp.setAdapter(leiAdapter, 1);
-//        rp.setOnPageChangeListener(new ZiXunPagingScrollHelper.onPageChangeListener() {
+//        hLinearLayoutManager = new HorizontalPageLayoutManager(2, 5);
+//        recyclerView.setLayoutManager(hLinearLayoutManager);
+//        recyclerView.setAdapter(leiAdapter);
+//        leiAdapter.setXuanzhongId(yijipinleiid);
+//        recyclerView.setHasFixedSize(true);
+//        scrollHelper.setUpRecycleView(recyclerView);
+//        scrollHelper.setIndicator(indicator);
+//        scrollHelper.setOnPageChangeListener(new PagingScrollHelper.onPageChangeListener() {
 //            @Override
 //            public void onPageChange(int index) {
 //                indicator.setSelectedPage(index);
-//                Log.e(TAG, "onPageChange: "+index );
 //            }
 //        });
-//        leiAdapter.notifyDataSetChanged();
+//        recyclerView.setHorizontalScrollBarEnabled(false);
+//        scrollHelper.setAdapter(leiAdapter,1);
+//        scrollHelper.updateLayoutManger();
+//        scrollHelper.scrollToPosition(0);
+//        setAdapterXuanzhong()
+        Log.e("bindZiXun: ", "faxie");
+        totalPage = (int) Math.ceil(leiBean.size() * 1.0 / mPageSize);
+        viewPagerList = new ArrayList<View>();
+        for (int i = 0; i < totalPage; i++) {
+            //每个页面都是inflate出一个新实例
+            MyGridViewAdpter myGridViewAdpter = new MyGridViewAdpter(getActivity(), leiBean, i, mPageSize);
+            adpters.add(myGridViewAdpter);
+            final GridView gridView = (GridView) View.inflate(getActivity(), R.layout.item_grid, null);
+            gridView.setAdapter(adpters.get(i));
+            //添加item点击监听
+            gridView.setOnItemClickListener(new GridView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> arg0, View arg1,
+                                        int position, long arg3) {
+                    // TODO Auto-generated method stub
+                    Object obj = gridView.getItemAtPosition(position);
+                    if (obj != null && obj instanceof FCGName) {
+                        for (MyGridViewAdpter myadapter: adpters) {
+                            myadapter.setXzid(((FCGName)obj).getClassify_id());
+                            xzId = ((FCGName)obj).getClassify_id();
+                            setXuanzhongId(xzId);
+                            myadapter.notifyDataSetChanged();
+                        }
+                    }
+                }
+            });
+            //每一个GridView作为一个View对象添加到ViewPager集合中
+            viewPagerList.add(gridView);
+        }
+        pageadapter = new MyViewPagerAdapter(viewPagerList);
+        //设置ViewPager适配器
+        viewpager.setAdapter(pageadapter);
+
+        //添加小圆点
+        ivPoints = new View[totalPage];
+        for (int i = 0; i < totalPage; i++) {
+            //循坏加入点点图片组
+            ivPoints[i] = new View(mContext);
+            if (i == 0) {
+                ivPoints[i].setBackground(getResources().getDrawable(R.drawable.fillet_solid_zangqing_20));
+            } else {
+                ivPoints[i].setBackground(getResources().getDrawable(R.drawable.fillet_solid_cutoff_20));
+            }
+
+//            ivPoints[i].setPadding(8, 8, 8, 8);
+
+            points.addView(ivPoints[i],params);
+        }
+        //设置ViewPager的滑动监听，主要是设置点点的背景颜色的改变
+        viewpager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                // TODO Auto-generated method stub
+                //currentPage = position;
+                for (int i = 0; i < totalPage; i++) {
+                    if (i == position) {
+                        ivPoints[i].setBackground(getResources().getDrawable(R.drawable.fillet_solid_zangqing_20));
+                    } else {
+                        ivPoints[i].setBackground(getResources().getDrawable(R.drawable.fillet_solid_cutoff_20));
+                    }
+                }
+            }
+        });
+
+        if(ivPoints.length>1){
+            points.setVisibility(View.VISIBLE);
+        } else {
+            points.setVisibility(View.GONE);
+        }
     }
 
     public void setXuanzhongId(String id) {
         xzId = id;
         yijipinleiid = id;
-        leiAdapter.setXuanzhongId(id);
-        leiAdapter.notifyDataSetChanged();
+//        leiAdapter.setXuanzhongId(id);
         setState();
         sousuoshangpin("", type);
     }
@@ -842,8 +893,9 @@ public class QuanBuCaiPinFragment extends BaseFragment {
             isResult = true;
             if (requestCode == REQUEST_CODE) {
                 yijipinleiid = "";
-                leiAdapter.setXuanzhongId(yijipinleiid);
-                leiAdapter.notifyDataSetChanged();
+                xzId = "";
+//                leiAdapter.setXuanzhongId(yijipinleiid);
+                setAdapterXuanzhong();
                 setState();
                 clearPopXuanzhong();
                 erjipinleiid = data.getStringExtra("three_id");
@@ -855,7 +907,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
 //                    if (StringUtil.isValid(sanjipinleiid)) {
 //                        sousuoshangpin(sousuo, type);
 //                    } else {
-                        sousuoshangpin(sousuo,type);
+                    sousuoshangpin(sousuo,type);
 //                    }
 
                 } else {
@@ -877,8 +929,9 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                     clearPopXuanzhong();
                     setState();
                     yijipinleiid = "";
-                    leiAdapter.setXuanzhongId(yijipinleiid);
-                    leiAdapter.notifyDataSetChanged();
+                    xzId = "";
+//                    leiAdapter.setXuanzhongId(yijipinleiid);
+                    setAdapterXuanzhong();
                     tvSousuozi.setText(sousuo);
                     sousuoshangpin(sousuo, type);
                 }
@@ -1017,7 +1070,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 }
                 xzId_2 = msg.getClassify_id();
                 sousuo = "";
-                recyclerView.setVisibility(View.VISIBLE);
+                rlLei.setVisibility(View.VISIBLE);
                 sousuoshangpin(sousuo, "0");
             }
         });
@@ -1053,7 +1106,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 }
                 sanjipinleiid = msg.getClassify_id();
                 ye = 1;
-                recyclerView.setVisibility(View.VISIBLE);
+                rlLei.setVisibility(View.VISIBLE);
                 sousuoshangpin(sousuo, "0");
 
             }
@@ -1217,7 +1270,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
             @Override
             public void xuanzhong(ShangPinSousuoMohuBean msg) {
                 ye = 1;
-                recyclerView.setVisibility(View.VISIBLE);
+                rlLei.setVisibility(View.VISIBLE);
                 yijipop.dismiss();
                 if (msg.getClassify_name().equals("全部")) {
                     tvGuige.setTextColor(getResources().getColor(R.color.zicolor));
@@ -1336,7 +1389,10 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     public void onStop() {
         super.onStop();
         Log.e(TAG, "onStop: "+"走了啊兄弟" );
-        indicator.setSelectedPage(0);
+//        indicator.setSelectedPage(0);
+        viewpager.setCurrentItem(0);
+        xzId = "";
+        setAdapterXuanzhong();
     }
 
     private void bindXlPop() {
@@ -1456,5 +1512,13 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         tvPfzg.setTextColor(mContext.getResources().getColor(R.color.lishisousuo));
         tvJgsx.setTextColor(mContext.getResources().getColor(R.color.lishisousuo));
         tvJgjx.setTextColor(mContext.getResources().getColor(R.color.lishisousuo));
+    }
+
+    private void setAdapterXuanzhong(){
+        for (MyGridViewAdpter myadapter: adpters) {
+            myadapter.setXzid(xzId);
+            setXuanzhongId(xzId);
+            myadapter.notifyDataSetChanged();
+        }
     }
 }

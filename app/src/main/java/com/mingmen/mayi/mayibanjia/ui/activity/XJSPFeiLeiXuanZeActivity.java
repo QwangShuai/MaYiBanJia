@@ -119,6 +119,7 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
     private int count = 0;
     private String mytype = "2";
     private String goods = "";
+    private String state = "";
     private Intent it;
     private List<ShangPinSousuoMohuBean> datas = new ArrayList<>();
     public static XJSPFeiLeiXuanZeActivity instance;
@@ -133,10 +134,16 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
         instance = XJSPFeiLeiXuanZeActivity.this;
         adapter = new XJSPFeiLeiXuanZeAdapter(mContext, yijiFenLei);
         goods = getIntent().getStringExtra("goods");
+        state = getIntent().getStringExtra("state");
         if(StringUtil.isValid(goods)){
 //            btnAdd.setVisibility(View.VISIBLE);
             it = new Intent(mContext, FaBuShangPinActivity.class);
-            it.putExtra("state", "0");
+            if(StringUtil.isValid(state)){
+                it.putExtra("state", state);
+            } else {
+                it.putExtra("state", "0");
+            }
+            it.putExtra("shsb",getIntent().getStringExtra("shsb"));
             it.putExtra("goods", goods);
         }
         setMyManager();
@@ -206,24 +213,31 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
                 break;
             case R.id.btn_queren:
                 if(StringUtil.isValid(goods)&&StringUtil.isValid(fourid)){
-                    it.putExtra("one_id", yclId);
-                    it.putExtra("two_id", oneid);
-                    it.putExtra("three_id", twoid);
-                    it.putExtra("four_id", threeid);
-                    it.putExtra("five_id", fourid);
-                    it.putExtra("zxName", zxName);
-                    it.putExtra("zxId", zxId);
-                    it.putExtra("zxNumber", zxNumber);
-                    it.putExtra("guigeName", guigeName);
-                    it.putExtra("guigeMiaoshu", guigeMiaoshu);
-                    it.putExtra("guigeId", guigeId);
+                    if(state.equals("1")){
+                        Log.e("onViewClicked: ","回调" );
+                        resultData();
+                    } else {
+                        it.putExtra("one_id", yclId);
+                        it.putExtra("two_id", oneid);
+                        it.putExtra("three_id", twoid);
+                        it.putExtra("four_id", threeid);
+                        it.putExtra("five_id", fourid);
+                        it.putExtra("zxName", zxName);
+                        it.putExtra("zxId", zxId);
+                        it.putExtra("zxNumber", zxNumber);
+                        it.putExtra("guigeName", guigeName);
+                        it.putExtra("guigeMiaoshu", guigeMiaoshu);
+                        it.putExtra("guigeId", guigeId);
 //        it.putExtra("name", twoName + "-" + threeName+"-"+fourName);
-                    it.putExtra("name", twoName + "-" + threeName);
-                    it.putExtra("spname",fourName );
-                    startActivity(it);
-                    finish();
+                        it.putExtra("name", twoName + "-" + threeName);
+                        it.putExtra("spname",fourName );
+                        Log.e("onViewClicked: ","跳转" );
+                        startActivity(it);
+                        finish();
+                    }
                 } else {
                     if (StringUtil.isValid(fourid)) {
+                        Log.e("onViewClicked: ","回调" );
                         resultData();
                     } else {
                         ToastUtil.showToastLong("您还没选择商品规格");
@@ -232,11 +246,23 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
 
                 break;
             case R.id.btn_add:
-                startActivity(it);
+                if(state.equals("1")){
+                    setResult(4, it);
+                    finish();
+                } else {
+                    startActivity(it);
+                }
+
                 break;
             case R.id.btn_guige:
-                it.putExtra("sr_name",fourName);
-                startActivity(it);
+                if(state.equals("1")){
+                    Log.e("onViewClicked: ","回调" );
+                    resultData();
+                } else {
+                    it.putExtra("sr_name",fourName);
+                    startActivity(it);
+                }
+
                 break;
             case R.id.ll_guige:
                 if(StringUtil.isValid(fourName)){

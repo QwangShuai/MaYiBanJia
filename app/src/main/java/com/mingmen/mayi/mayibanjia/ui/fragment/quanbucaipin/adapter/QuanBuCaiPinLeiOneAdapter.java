@@ -1,7 +1,10 @@
 package com.mingmen.mayi.mayibanjia.ui.fragment.quanbucaipin.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,15 +13,11 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.FCGName;
-import com.mingmen.mayi.mayibanjia.ui.activity.QuanBuCaiPinActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.SpsbChangeActivity;
 import com.mingmen.mayi.mayibanjia.ui.fragment.quanbucaipin.QuanBuCaiPinFragment;
 import com.mingmen.mayi.mayibanjia.ui.view.CircleImageView;
-import com.mingmen.mayi.mayibanjia.ui.view.GlideImageYuanLoader;
-import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
-import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
 import java.util.List;
@@ -36,7 +35,7 @@ public class QuanBuCaiPinLeiOneAdapter extends RecyclerView.Adapter<QuanBuCaiPin
     private Context mContext;
     private List<FCGName> mList;
     private QuanBuCaiPinFragment fragment;
-    private QuanBuCaiPinActivity activity;
+    private SpsbChangeActivity activity;
     private String xuanzhongId = "";
     private boolean isTeshu;
 
@@ -68,28 +67,27 @@ public class QuanBuCaiPinLeiOneAdapter extends RecyclerView.Adapter<QuanBuCaiPin
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         final FCGName data = mList.get(position);
         holder.tv1.setText(data.getClassify_name());
         holder.tvName.setText(data.getClassify_name());
-//        holder.iv1.setImageURI(Uri.parse(data.getPicture_url()));
-//        Glide.with(mContext).load(data.getPicture_url()).into(holder.iv1);
+
+//        GlideUtils.cachePhoto(mContext, holder.iv1, data.getPicture_url());
         setTextViewColor(holder.tv1,holder.tvName,holder.viewZhezhao, data.getClassify_id());
         Log.e("onBindViewHolder: ", data.getClassify_id());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (isTeshu) {
-//                    ToastUtil.showToastLong("您选择了" + data.getClassify_name());
-//                } else {
-                    ToastUtil.showToastLong("您选择了" + data.getClassify_name());
-                    fragment.setXuanzhongId(data.getClassify_id());
-//                }
+                if (isTeshu) {
+                    xuanzhongId = data.getClassify_id();
+                    notifyDataSetChanged();
+                } else {
+                ToastUtil.showToastLong("您选择了" + data.getClassify_name());
+                fragment.setXuanzhongId(data.getClassify_id());
+                }
 
             }
         });
-//        holder.iv1.setImageBitmap(StringUtil.getBitmap(data.getPicture_url()));
-//        GlideUtils.cachePhoto(mContext,holder.iv1,data.getPicture_url());
     }
 
 //    @Override
@@ -128,7 +126,7 @@ public class QuanBuCaiPinLeiOneAdapter extends RecyclerView.Adapter<QuanBuCaiPin
         }
     }
 
-    private void setTextViewColor(TextView tv,TextView tv_zs,View v, String id) {
+    private void setTextViewColor(TextView tv, TextView tv_zs, View v, String id) {
         if (id.equals(xuanzhongId)) {
             tv.setVisibility(View.GONE);
             tv_zs.setVisibility(View.VISIBLE);
@@ -143,4 +141,5 @@ public class QuanBuCaiPinLeiOneAdapter extends RecyclerView.Adapter<QuanBuCaiPin
             v.setVisibility(View.GONE);
         }
     }
+
 }

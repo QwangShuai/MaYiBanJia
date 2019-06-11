@@ -128,17 +128,17 @@ public class ZiZhiRenZhengActivity extends BaseActivity {
     }
 
     private void saveZizhi(){
-        HttpManager.getInstance()
-                .with(mContext)
-                .setObservable(RetrofitManager.getService()
-                        .saveZizhi(PreferenceUtils.getString(MyApplication.mContext, "token", ""),shenfenzheng,name,xinyongma))
-                .setDataListener(new HttpDataListener<String>() {
-                    @Override
-                    public void onNext(String bean) {
-                        ToastUtil.showToast("申请认证成功,等待审核");
-                        finish();
-                    }
-                });
+//        HttpManager.getInstance()
+//                .with(mContext)
+//                .setObservable(RetrofitManager.getService()
+//                        .saveZizhi(PreferenceUtils.getString(MyApplication.mContext, "token", ""),shenfenzheng,name,xinyongma))
+//                .setDataListener(new HttpDataListener<String>() {
+//                    @Override
+//                    public void onNext(String bean) {
+//                        ToastUtil.showToast("申请认证成功,等待审核");
+//                        finish();
+//                    }
+//                });
     }
 
     private boolean isClick(){

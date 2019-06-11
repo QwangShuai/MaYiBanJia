@@ -160,10 +160,11 @@ public class QueRenDingDanActivity extends BaseActivity {
         EventBus.getDefault().register(this);
         ct_buy_final_id = getIntent().getStringExtra("ct_buy_final_id");
         company_id = getIntent().getStringExtra("company_id");
-        shuliang = getIntent().getStringExtra("count");
         company_id = company_id.substring(0, company_id.length() - 1);
-        shuliang = shuliang.substring(0, shuliang.length() - 1);
-
+        shuliang = getIntent().getStringExtra("count");
+        if(StringUtil.isValid(shuliang)){
+            shuliang = shuliang.substring(0, shuliang.length() - 1);
+        }
         zongjia = getIntent().getStringExtra("zongjia");
         getChMoney();
         if(PreferenceUtils.getString(MyApplication.mContext,"host_account_type","0").equals("1")){
@@ -172,6 +173,7 @@ public class QueRenDingDanActivity extends BaseActivity {
         }
 
         if (Integer.parseInt(lujingtype) == 2) {
+            number = shuliang;
             son_order_id = getIntent().getStringExtra("son_order_id");
             son_order_id = son_order_id.substring(0, son_order_id.length() - 1);
             commodity_id = getIntent().getStringExtra("commodity_id");
@@ -272,6 +274,7 @@ public class QueRenDingDanActivity extends BaseActivity {
 
     }
     private void caigoutijiaodingdan() {
+        Log.e("caigoutijiaodingdan: ", shuliang);
         if(!StringUtil.isValid(ct_buy_final_id)){
             List<QueRenDingDanShangPinBean.MarketlistBean> list = shichangdata;
             for (int i = 0; i < list.size(); i++) {
@@ -337,7 +340,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                         Log.e("onNext: ","shangpinlist" );
                         shichangCount = data==null?0:data.getMarketlist().size();
                         spID = "";
-                        number = "";
+//                        number = "";
                         if(StringUtil.isValid(ct_buy_final_id)){
                             tvHdmc.setText(data.getCt_buy_final_name());
                             tvHdmc.setVisibility(View.VISIBLE);
@@ -346,10 +349,10 @@ public class QueRenDingDanActivity extends BaseActivity {
                                     for(int m = 0;m<data.getMarketlist().get(i).getCgzhulist().get(j).getCgzilist().size();m++){
                                         if(i==0&&j==0&&m==0){
                                             spID +=  data.getMarketlist().get(i).getCgzhulist().get(j).getCgzilist().get(m).getCommodity_id();
-                                            number +=  data.getMarketlist().get(i).getCgzhulist().get(j).getCgzilist().get(m).getCount();
+//                                            number +=  data.getMarketlist().get(i).getCgzhulist().get(j).getCgzilist().get(m).getCount();
                                         } else {
                                             spID += ","+  data.getMarketlist().get(i).getCgzhulist().get(j).getCgzilist().get(m).getCommodity_id();
-                                            number += ","+  data.getMarketlist().get(i).getCgzhulist().get(j).getCgzilist().get(m).getCount();
+//                                            number += ","+  data.getMarketlist().get(i).getCgzhulist().get(j).getCgzilist().get(m).getCount();
                                         }
 
 //                                        if (i == data.getMarketlist().size() - 1 && j ==
@@ -379,10 +382,16 @@ public class QueRenDingDanActivity extends BaseActivity {
                                     for (int j = 0; j < data.getMarketlist().get(k).getDplist().get(i).getList().size(); j++) {
                                         if (k==0&&i==0&&j == 0) {//j是商品
                                             spID += data.getMarketlist().get(k).getDplist().get(i).getList().get(j).getCommodity_id();
-                                            number += data.getMarketlist().get(k).getDplist().get(i).getList().get(j).getCount();
+                                            if(lujingtype.equals("1")){
+                                                number += data.getMarketlist().get(k).getDplist().get(i).getList().get(j).getCount();
+                                            }
+
                                         } else {
                                             spID += "," + data.getMarketlist().get(k).getDplist().get(i).getList().get(j).getCommodity_id();
-                                            number += "," + data.getMarketlist().get(k).getDplist().get(i).getList().get(j).getCount();
+                                            if(lujingtype.equals("1")){
+                                                number += "," + data.getMarketlist().get(k).getDplist().get(i).getList().get(j).getCount();
+                                            }
+
                                         }
 //                                        if (k == data.getMarketlist().size() - 1 && i == data.getMarketlist().get(data.getMarketlist().size()-1).
 //                                                getDplist().size() - 1&&j==data.getMarketlist().get(data.getMarketlist().size()-1).getDplist().
@@ -397,6 +406,9 @@ public class QueRenDingDanActivity extends BaseActivity {
 //                                        }
                                     }
                                 }
+                            }
+                            if(lujingtype.equals("2")){
+                                number = shuliang;
                             }
                             shichangdata.clear();
                             shichangdata.addAll(data.getMarketlist());
@@ -590,7 +602,6 @@ public class QueRenDingDanActivity extends BaseActivity {
                     //提交订单
                     Calendar calendar = Calendar.getInstance();
                     int hour = calendar.get(Calendar.HOUR_OF_DAY);
-                    Log.e("hour", hour + "-");
 //                    if (hour > 18 || hour < 3) {
 //                        ToastUtil.showToast("晚6点后无法下单");
 //                    } else {
@@ -670,7 +681,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                     } else {
                         String dizhijson = data.getStringExtra("dizhi");
                         dizhi = gson.fromJson(dizhijson, AddressListBean.class);
-                        Log.e("dizhijson", dizhijson);
+//                        Log.e("dizhijson", dizhijson);
                         count = 1;
                         llYoudizhi.setVisibility(View.VISIBLE);
                         tvWudizhi.setVisibility(View.GONE);
@@ -694,7 +705,6 @@ public class QueRenDingDanActivity extends BaseActivity {
             tvMoren.setVisibility(View.GONE);
             tvDizhi.setText(dizhi.getProvince_name() + dizhi.getCity_name() + dizhi.getRegion_name() + dizhi.getSpecific_address());
         } else {
-            Log.e("213213",dizhi.getLinkman()+"--"+dizhi.getContact_type()+"--"+dizhi.getProvince_name() + dizhi.getCity_name() + dizhi.getRegion_name() + dizhi.getSpecific_address());
             tvMoren.setVisibility(View.VISIBLE);
             SpannableStringBuilder span = new SpannableStringBuilder("黑龙江省" + dizhi.getProvince_name() + dizhi.getCity_name() + dizhi.getRegion_name()+ dizhi.getSpecific_address());
             span.setSpan(new ForegroundColorSpan(Color.TRANSPARENT), 0, 4,
@@ -707,10 +717,10 @@ public class QueRenDingDanActivity extends BaseActivity {
 
     public void getYunFei() {
         if(dizhi==null||!StringUtil.isValid(dizhi.getAddress_id())){
-            Log.e("getYunFei: ",dizhi.getAddress_id()+"----" );
+//            Log.e("getYunFei: ",dizhi.getAddress_id()+"----" );
             ToastUtil.showToast("请添加收货地址");
         } else {
-            Log.e("getYunFei: ", dizhi.getAddress_id()+"----" );
+//            Log.e("getYunFei: ", dizhi.getAddress_id()+"----" );
             HttpManager.getInstance()
                     .with(mContext)
                     .setObservable(RetrofitManager.getService()
@@ -753,7 +763,7 @@ public class QueRenDingDanActivity extends BaseActivity {
     }
     public void getZhunshidaYunFei() {
         if(dizhi==null||!StringUtil.isValid(dizhi.getAddress_id())){
-            Log.e("getZhunshidaYunFei: ",dizhi.getAddress_id()+"----" );
+//            Log.e("getZhunshidaYunFei: ",dizhi.getAddress_id()+"----" );
             ToastUtil.showToast("请添加收货地址");
         } else {
             HttpManager.getInstance()
@@ -771,7 +781,6 @@ public class QueRenDingDanActivity extends BaseActivity {
                                 hejijine += o.get(i).getMoney();
                                 yunfei +=o.get(i).getMoney();
                                 zongzhong += o.get(i).getSumZL();
-                                Log.e("onNext: 1122", o.get(i).getSumZL()+"---");
                                 AllMarket bean = new AllMarket();
                                 bean.setMarket_id(o.get(i).getMark_id());
                                 bean.setFreight_fee(o.get(i).getMoney());

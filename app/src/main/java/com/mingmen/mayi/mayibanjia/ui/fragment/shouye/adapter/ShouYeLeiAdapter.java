@@ -54,7 +54,7 @@ public class ShouYeLeiAdapter extends RecyclerView.Adapter<ShouYeLeiAdapter.View
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final FCGName data = mList.get(position);
         Log.e( "onBindViewHolder: ","为什么死循环了"+position );
-//        GlideUtils.cachePhoto(mContext,holder.iv1,data.getPicture_url());
+        GlideUtils.cachePhoto(mContext,holder.iv1,data.getPicture_url());
             holder.tv1.setText(data.getClassify_name());
             holder.ll1.setOnClickListener(new View.OnClickListener() {
                 @Override

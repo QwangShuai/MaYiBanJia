@@ -64,6 +64,7 @@ public class WelcomeActivity extends BaseActivity {
                         Log.e("onNext: ", bean.getVersionName() + "======" + AppUtil.getVersion());
                         if (!bean.getVersionName().equals(AppUtil.getVersion())) {
                             XUpdate.newBuild(WelcomeActivity.this)
+                                    .isWifiOnly(false)
                                     .updateUrl(URL.url + URL.update_url)
                                     .updateChecker(new DefaultUpdateChecker() {
                                         @Override
@@ -112,6 +113,7 @@ public class WelcomeActivity extends BaseActivity {
                         .setHasUpdate(true)
                         .setIsIgnorable(false)
                         .setForce(true)
+
                         .setVersionCode(result.getObject().getVersionCode())
                         .setVersionName(result.getObject().getVersionName())
                         .setUpdateContent(result.getObject().getModifyContent())

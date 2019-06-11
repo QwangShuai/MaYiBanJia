@@ -165,7 +165,12 @@ public class YinHangKaActivity extends BaseActivity {
                                     confirmDialog.dismiss();
                                     Bundle bundle = new Bundle();
                                     bundle.putString("state", data);
-                                    JumpUtil.Jump_intent(mContext, ZiZhiRenZhengActivity.class, bundle);
+                                    if(PreferenceUtils.getString(MyApplication.mContext,"juese","").equals("1")){
+                                        JumpUtil.Jump_intent(mContext, ZzrzCtdActivity.class, bundle);
+                                    } else {
+                                        JumpUtil.Jump_intent(mContext, ZzrzGydActivity.class, bundle);
+                                    }
+
                                 }
                             });
                             confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {

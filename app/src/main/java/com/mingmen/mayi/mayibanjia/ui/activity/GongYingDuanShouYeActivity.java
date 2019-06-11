@@ -224,11 +224,12 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
                 break;
 
             case R.id.ll_zizhirenzheng:
-                Intent it_zz = new Intent(mContext, ZiZhiRenZhengActivity.class);
-                it_zz.putExtra("id", "");
-                it_zz.putExtra("state", sh_state);
-                it_zz.putExtra("yemian", "1");
-                startActivity(it_zz);
+//                Intent it_zz = new Intent(mContext, ZiZhiRenZhengActivity.class);
+//                Intent it_zz = new Intent(mContext, ZzrzGydActivity.class);
+//                it_zz.putExtra("id", "");
+//                it_zz.putExtra("state", sh_state);
+//                it_zz.putExtra("yemian", "1");
+//                startActivity(it_zz);
                 break;
             case R.id.ll_yinhangzhanghao:
                 Jump_intent(YinHangKaActivity.class, new Bundle());

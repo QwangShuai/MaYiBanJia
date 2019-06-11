@@ -1334,23 +1334,5 @@ public class StringUtil {
         return input.matches("[\\u4e00-\\u9fa5]{2," + num + "}");
     }
 
-    public static Bitmap getBitmap(String url) {
-        Bitmap bm = null;
-        try {
-            URL iconUrl = new URL(url);
-            URLConnection conn = iconUrl.openConnection();
-            HttpURLConnection http = (HttpURLConnection) conn;
-            int length = http.getContentLength();
-            conn.connect();
-            // 获得图像的字符流
-            InputStream is = conn.getInputStream();
-            BufferedInputStream bis = new BufferedInputStream(is, length);
-            bm = BitmapFactory.decodeStream(bis);
-            bis.close();
-            is.close();// 关闭流
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return bm;
-    }
+
 }

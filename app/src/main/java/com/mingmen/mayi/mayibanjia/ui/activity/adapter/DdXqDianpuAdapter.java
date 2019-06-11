@@ -116,7 +116,7 @@ public class DdXqDianpuAdapter extends RecyclerView.Adapter<DdXqDianpuAdapter.Vi
         else if(dplistBean.getCt_state().equals("401")){
 
         }
-        else if(dplistBean.getState().equals("405")){
+        else if(StringUtil.isValid(dplistBean.getState())&&dplistBean.getState().equals("405")){
             holder.btnPingjia.setVisibility(View.VISIBLE);
             setListener(dplistBean.getPjstate(),dplistBean);
         }

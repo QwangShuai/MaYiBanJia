@@ -99,7 +99,8 @@ public class GongYingDuanSheZhiActivity extends BaseActivity {
                 startActivity(it);
                 break;
             case R.id.ll_zizhi:
-                it = new Intent(mContext, ZiZhiRenZhengActivity.class);
+//                it = new Intent(mContext, ZiZhiRenZhengActivity.class);
+                it = new Intent(mContext, ZzrzGydActivity.class);
                 it.putExtra("id", "");
                 it.putExtra("state",sh_state);
                 it.putExtra("yemian","1");

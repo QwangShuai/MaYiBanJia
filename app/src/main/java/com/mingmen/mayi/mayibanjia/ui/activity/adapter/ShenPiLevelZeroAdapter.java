@@ -112,6 +112,7 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
                                     bean.setCommodity_id("");
                                     bean.setCompany_id("");
                                     bean.setDanjia("");
+                                    bean.setCount("0");
                                     activity.setAdapterXuanzhong(mList.get(position).getSonorderlist().get(i).getSon_order_id(), bean);
 //                            adapter.setZongjia("");
 //                                    adapter.setClick();
@@ -226,6 +227,7 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
                                                 bean.setCommodity_id("");
                                                 bean.setCompany_id("");
                                                 bean.setDanjia("");
+                                                bean.setCount("0");
 //                                            adapter.setZongjia("");
                                                 activity.setAdapterXuanzhong(mList.get(position).getSonorderlist().get(pos).getSon_order_id(), bean);
                                                 notifyDataSetChanged();

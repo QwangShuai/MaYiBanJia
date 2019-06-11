@@ -35,6 +35,7 @@
     </LinearLayout>
     <include layout="@layout/view_cutoff_e7e7e7"></include>
     <LinearLayout
+        android:id="@+id/ll_yhzh"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
@@ -62,6 +63,7 @@
     </LinearLayout>
     <include layout="@layout/view_cutoff_e7e7e7"></include>
     <LinearLayout
+        android:id="@+id/ll_zzrz"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
@@ -154,6 +156,7 @@
     </LinearLayout>
     <include layout="@layout/view_cutoff_e7e7e7"></include>
     <LinearLayout
+        android:id="@+id/ll_kfdh"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
@@ -181,6 +184,8 @@
     </LinearLayout>
     <include layout="@layout/view_cutoff_e7e7e7"></include>
     <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/ll_cjwt"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
@@ -208,6 +213,7 @@
     </LinearLayout>
     <include layout="@layout/view_cutoff_e7e7e7"></include>
     <LinearLayout
+        android:id="@+id/ll_yjfk"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"

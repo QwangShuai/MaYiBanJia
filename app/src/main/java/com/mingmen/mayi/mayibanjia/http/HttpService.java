@@ -90,6 +90,8 @@ import com.mingmen.mayi.mayibanjia.bean.ZhuCeChengGongBean;
 import com.mingmen.mayi.mayibanjia.bean.ZiZhangHuBean;
 import com.mingmen.mayi.mayibanjia.bean.ZiZhangHuDetailsBean;
 import com.mingmen.mayi.mayibanjia.bean.ZouShiTuBean;
+import com.mingmen.mayi.mayibanjia.bean.ZxxzQiyeBean;
+import com.mingmen.mayi.mayibanjia.bean.ZxxzShangpinBean;
 import com.mingmen.mayi.mayibanjia.bean.ZzhQuanXianBean;
 import com.mingmen.mayi.mayibanjia.http.result.ResultModel;
 
@@ -308,9 +310,13 @@ public interface HttpService {
                                                                               @Query("purchase_name") String purchase_name,
                                                                               @Query("count") String count);
 
-    //企业类别
+    //企业类别(餐厅)
     @POST("allDictionary/getparent_number.do")
     Observable<ResultModel<List<QiYeLeiBieBean>>> getqylb(@Query("user_token") String user_token);
+
+    //企业类别(供应)
+    @POST("allDictionary/gongtype.do")
+    Observable<ResultModel<List<QiYeLeiBieBean>>> getqylbGhd(@Query("user_token") String user_token);
 
     //企业规模
     @POST("allDictionary/getscale.do")
@@ -488,6 +494,7 @@ public interface HttpService {
     //编辑商品
     @POST("gyCommodity/update.do")
     Observable<ResultModel<String>> updateshangpin(@Query("user_token") String user_token,
+                                                   @Query("classify_name") String classify_name,
                                                    @Query("commodity_id") String commodity_id,
                                                    @Query("company_id") String company_id,
                                                    @Query("ftPicture") List<String> ftPicture,
@@ -909,6 +916,11 @@ public interface HttpService {
     //删除订单
     @POST("Ordermain/update.do")
     Observable<ResultModel<String>> delOrder(@Query("user_token") String user_token,
+                                             @Query("order_id") String order_id);
+
+    //取消订单
+    @POST("Ordermain/updateOrder.do")
+    Observable<ResultModel<String>> cancleOrder(@Query("user_token") String user_token,
                                              @Query("order_id") String order_id);
 
     //确认订单
@@ -1498,5 +1510,20 @@ public interface HttpService {
     @POST("allCompany/shezhifree.do")
     Observable<ResultModel<String>> setYunfei(@Query("user_token") String user_token,
                                               @Query("Freight_settings") String Freight_settings);
+
+    // 自行选择(获取品牌list和企业list)
+    @POST("ctBuyHostorder/isbrand.do")
+    Observable<ResultModel<List<ZxxzQiyeBean>>> zxxzQiye(@Query("user_token") String user_token,
+                                                         @Query("son_order_id") String son_order_id,
+                                                         @Query("market_id") String market_id,
+                                                         @Query("company_name") String company_name);
+
+    // 获取自行选择商品list
+    @POST("ctBuyHostorder/oneselfbuy.do")
+    Observable<ResultModel<List<ZxxzShangpinBean>>> zxxzShangpin(@Query("user_token") String user_token,
+                                                                 @Query("son_order_id") String son_order_id,
+                                                                 @Query("market_id") String market_id,
+                                                                 @Query("gy_company_id") String gy_company_id,
+                                                                 @Query("brand") String brand);
 
 }

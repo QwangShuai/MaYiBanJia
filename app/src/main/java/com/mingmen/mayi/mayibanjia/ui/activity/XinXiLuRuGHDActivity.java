@@ -32,13 +32,10 @@ import android.widget.TextView;
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.signature.StringSignature;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.FCGName;
 import com.mingmen.mayi.mayibanjia.bean.JsonBean;
-import com.mingmen.mayi.mayibanjia.bean.ProvinceBean;
 import com.mingmen.mayi.mayibanjia.bean.QiYeLeiBieBean;
 import com.mingmen.mayi.mayibanjia.bean.QiYeLieBiaoBean;
 import com.mingmen.mayi.mayibanjia.bean.ShiChangBean;
@@ -46,8 +43,8 @@ import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.FenLeiMohuAdapter;
-import com.mingmen.mayi.mayibanjia.ui.activity.dialog.GuigeDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.PhotoDialog;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.QiyeleibieDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ShichangRightDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
@@ -110,6 +107,8 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
     Button btQueding;
     @BindView(R.id.tv_fenleixuanze)
     TextView tvFenleixuanze;
+    @BindView(R.id.tv_qiyeleibie)
+    TextView tvQiyeleibie;
 
     private Uri imageUri;//原图保存地址
     private Uri outputUri;
@@ -170,9 +169,9 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
         bundle = getIntent().getExtras();
         rukou = bundle.getString("rukou");
         EventBus.getDefault().register(this);
-        StringUtil.setInputNoEmoj(etQiyemingcheng,30);
-        StringUtil.setInputNoEmoj(etTanweihao,50);
-        StringUtil.setInputNoEmoj(etXiangxidizhi,50);
+        StringUtil.setInputNoEmoj(etQiyemingcheng, 30);
+        StringUtil.setInputNoEmoj(etTanweihao, 50);
+        StringUtil.setInputNoEmoj(etXiangxidizhi, 50);
         if ("add".equals(rukou)) {
 //            tvQiehuan.setText("否");
             random_id = getIntent().getStringExtra("random_id");
@@ -200,7 +199,7 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
             Log.e("shichang_id--", qiyexinxi.getMarket_id());
             tvQuyuxuanze.setText(qiyexinxi.getQuYMC() + "-" + qiyexinxi.getQuYMCa() + "-" + qiyexinxi.getQuYMCb());
             etXiangxidizhi.setText(qiyexinxi.getSpecific_address());
-            GlideUtils.cachePhoto(mContext,ivTu,shidizhaopian);
+            GlideUtils.cachePhoto(mContext, ivTu, shidizhaopian);
             etPhone.setText(phone);
             tvXuanzeshichang.setText(shichangming);
             etTanweihao.setText(tanweihao);
@@ -224,16 +223,21 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
     }
 
     @OnClick({R.id.tv_right, R.id.tv_xuanzeshichang, R.id.iv_tu, R.id.tv_qiehuan,
-            R.id.tv_quyuxuanze, R.id.bt_queding, R.id.tv_fenleixuanze})
+            R.id.tv_quyuxuanze, R.id.bt_queding, R.id.tv_fenleixuanze, R.id.tv_qiyeleibie})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_right:
                 finish();
                 break;
+            case R.id.tv_qiyeleibie:
+//                getleibie();
+                QiyeleibieDialog qiyeleibieDialog = new QiyeleibieDialog().setData(mContext).show(getSupportFragmentManager());
+                qiyeleibieDialog.setDqId(qiyeid,0);
+                break;
             case R.id.tv_xuanzeshichang:
 
                 ShichangRightDialog dialog = new ShichangRightDialog().setData(mContext).show(getSupportFragmentManager());
-                dialog.setQuid(quid+"");
+                dialog.setQuid(quid + "");
                 dialog.setDqId(shichang_id);
 //                if(quid!=0){
 //                getshichang();
@@ -428,14 +432,14 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
                                             Log.e("qiniu", key + ",\r\n " + info + ",\r\n " + res);
                                         }
                                     }, null);
-                            GlideUtils.cachePhoto(mContext,ivTu,file.getPath());
+                            GlideUtils.cachePhoto(mContext, ivTu, file.getPath());
 //                            ivTu.setImageBitmap(bitmap);
                         }
 //                        else {
 //                            ToastUtil.showToastLong("您选择的图片低于50像素，不够清晰");
 //                        }
                     }
-                },true);
+                }, true);
     }
 
     /**
@@ -724,16 +728,54 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
                     }
                 }, false);
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getMarket(ShiChangBean item) {
-        shichang_id =item.getMark_id();
+        shichang_id = item.getMark_id();
         shichangming = item.getMarket_name();
         tvXuanzeshichang.setText(item.getMarket_name());
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getQylb(QiYeLeiBieBean item) {
+        qiyeid = item.getSon_number();
+        qiyemingcheng = item.getSon_name();
+        tvQiyeleibie.setText("" + qiyemingcheng);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+    //企业类别
+    private void getleibie() {
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .getqylbGhd(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
+                .setDataListener(new HttpDataListener<List<QiYeLeiBieBean>>() {
+                    @Override
+                    public void onNext(List<QiYeLeiBieBean> data) {
+                        leibiepicker = new SinglePicker<>(XinXiLuRuGHDActivity.this, data);
+                        leibiepicker.setCanceledOnTouchOutside(false);
+                        leibiepicker.setSelectedIndex(1);
+                        leibiepicker.setCycleDisable(false);
+                        leibiepicker.setOnItemPickListener(new SinglePicker.OnItemPickListener<QiYeLeiBieBean>() {
+                            @Override
+                            public void onItemPicked(int index, QiYeLeiBieBean item) {
+                                leibiename = item.getSon_name();
+                                leibieid = item.getSon_number();
+                                tvQiyeleibie.setText(leibiename);
+                                Log.e("leibiename+leibieid", leibiename + "+" + leibieid);
+                                leibiepicker.dismiss();
+                            }
+                        });
+                        leibiepicker.show();
+
+                    }
+                });
     }
 }

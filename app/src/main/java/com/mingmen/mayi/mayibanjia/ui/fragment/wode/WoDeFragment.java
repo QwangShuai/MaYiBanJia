@@ -371,9 +371,9 @@ public class WoDeFragment extends BaseFragment {
         startActivity(intent);
     }
 
-    @OnClick({R.id.rl_shezhi,  R.id.iv_touxiang, R.id.ll_shoucang, R.id.rl_daifukuan, R.id.tv_cwbb,
+    @OnClick({R.id.rl_shezhi,  R.id.iv_touxiang, R.id.ll_shoucang, R.id.rl_daifukuan, R.id.ll_cwbb,
             R.id.rl_daifahuo, R.id.rl_daishouhuo, R.id.rl_yishouhuo, R.id.rl_yiwancheng, R.id.rl_shouhuodizhi, R.id.rl_yijian,
-            R.id.rl_kefu, R.id.ll_guanzhu, R.id.ll_spll, R.id.rl_yinhang,R.id.tv_tixian,
+            R.id.rl_kefu, R.id.ll_guanzhu, R.id.ll_spll, R.id.rl_yinhang,R.id.ll_tixian,
             R.id.tv_yue, R.id.ll_pingjia, R.id.rl_zizhanghu, R.id.rl_chengbenka,R.id.rl_yiquxiao,
             R.id.rl_daishenhe, R.id.rl_daitijiao, R.id.rl_weitongguo, R.id.rl_tongguo})
 //            ,R.id.rl_jueseguanli})
@@ -389,10 +389,10 @@ public class WoDeFragment extends BaseFragment {
                 daishenhe.putExtra("type", "902");
                 mContext.startActivity(daishenhe);
                 break;
-            case R.id.tv_cwbb:
+            case R.id.ll_cwbb:
                 Jump_intent(JiaoYiLiuShuiActivity.class, new Bundle());
                 break;
-            case R.id.tv_tixian:
+            case R.id.ll_tixian:
                 Bundle tixian = new Bundle();
                 tixian.putString("yue", yue);
                 Jump_intent(TiXianActivity.class, tixian);

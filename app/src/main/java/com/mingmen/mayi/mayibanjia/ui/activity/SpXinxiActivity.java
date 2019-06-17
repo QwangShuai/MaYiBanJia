@@ -202,6 +202,11 @@ public class SpXinxiActivity extends BaseActivity {
                             }
                         }
 
+                        if(StringUtil.isValid(bean.getGoods())&&bean.getGoods().equals("1")){
+                            llShowtejia.setVisibility(View.VISIBLE);
+                            tvTejia.setText(bean.getPice()+"");
+                            tvTjDanwei.setText("元/" + bean.getPackThreeName());
+                        }
 
                         if (StringUtil.isValid(bean.getAffiliated_number()) && Double.valueOf(bean.getAffiliated_number()) != 0) {
                             llDw.setVisibility(View.VISIBLE);

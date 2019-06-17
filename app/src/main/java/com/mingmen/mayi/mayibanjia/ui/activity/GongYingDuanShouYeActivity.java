@@ -178,7 +178,7 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
             R.id.tv_dianming, R.id.ll_state_qiehuan, R.id.ll_daiqiangdan, R.id.ll_qiangdanzhong,
             R.id.ll_qiangdanshibai, R.id.ll_qiangdanchenggong, R.id.ll_zhanghuyuanquan,
             R.id.ll_lianxikefu, R.id.ll_bangzhuyufankui, R.id.ll_yinhangzhanghao,
-            R.id.ll_zizhirenzheng, R.id.tv_cwbb, R.id.tv_tixian, R.id.ll_tianjiashangpin,
+            R.id.ll_zizhirenzheng, R.id.ll_cwbb, R.id.ll_tixian, R.id.ll_tianjiashangpin,
             R.id.ll_shangjia,R.id.ll_xiajia,R.id.ll_daishenhe,R.id.ll_tejiashangpin_gyd,
             R.id.ll_putongshangpin_gyd,R.id.ll_yfsz_gyd})
     public void onViewClicked(View view) {
@@ -274,12 +274,12 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
             case R.id.tv_yue://余额
                 Jump_intent(YueActivity.class, new Bundle());
                 break;
-            case R.id.tv_tixian://提现
+            case R.id.ll_tixian://提现
                 Bundle tixian = new Bundle();
                 tixian.putString("yue", yue);
                 Jump_intent(TiXianActivity.class, tixian);
                 break;
-            case R.id.tv_cwbb://财务报表
+            case R.id.ll_cwbb://财务报表
                 Jump_intent(JiaoYiLiuShuiActivity.class, new Bundle());
                 break;
             case R.id.ll_daidabao:

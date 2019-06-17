@@ -998,18 +998,19 @@
                     android:textColor="@color/hintcolor"
                     android:textSize="12sp" />
             </LinearLayout>
+
             <Button
-                android:layout_marginBottom="12dp"
                 android:id="@+id/bt_xiayibu"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginTop="46dp"
+                android:layout_marginBottom="12dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
+                android:layout_marginTop="46dp"
+                android:background="@drawable/fillet_solid_zangqing_3"
                 android:text="下一步"
                 android:textColor="@color/white"
-                android:textSize="15sp"
-                android:background="@drawable/fillet_solid_zangqing_3"/>
+                android:textSize="15sp" />
         </LinearLayout>
     </ScrollView>
 

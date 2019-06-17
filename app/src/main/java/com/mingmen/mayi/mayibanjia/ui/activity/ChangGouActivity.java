@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -91,6 +92,7 @@ public class ChangGouActivity extends BaseActivity {
     }
 
     public void onChangeMap(final ChangYongBean.ListBean bean) {
+        Log.e("onChangeMap: ", new Gson().toJson(bean));
             final AddSpListBean addSpListBean = new AddSpListBean();
             addSpListBean.setClassify_id(bean.getClassify_id());
             addSpListBean.setPack_standard_id(bean.getPack_standard_id());
@@ -105,6 +107,7 @@ public class ChangGouActivity extends BaseActivity {
                 addSpListBean.setSpecial_commodity(tsyq);
                 addSpListBean.setPack_standard_id(bean.getPack_standard_id());
                 addSpListBean.setSort_id(bean.getSort_id());
+                list.clear();
                 list.add(addSpListBean);
                 addSpList();
             }

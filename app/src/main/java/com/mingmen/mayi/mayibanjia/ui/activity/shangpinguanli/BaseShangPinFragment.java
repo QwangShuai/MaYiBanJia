@@ -29,6 +29,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.dingdan.DingDanActivity;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseFragment;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
+import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 import com.mingmen.mayi.mayibanjia.utils.custom.SwipeRecyclerView;
 import com.mingmen.mayi.mayibanjia.utils.qrCode.CaptureActivity;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenu;
@@ -113,52 +114,13 @@ public abstract class BaseShangPinFragment extends BaseFragment {
                 .setDataListener(new HttpDataListener<ShangPinGuanLiBean>() {
                     @Override
                     public void onNext(ShangPinGuanLiBean data) {
-                        int mysize = data==null||data.getGoodsList()==null?0:data.getGoodsList().size();
-                        Log.e("onNext: ",ye+"?????" );
+                        int mysize = data == null || data.getGoodsList() == null ? 0 : data.getGoodsList().size();
+                        Log.e("onNext: ", ye + "?????");
                         if (ye == 1) {
                             mlist.clear();
                             shangpinguanliadapter.notifyDataSetChanged();
                             rvShangpinguanli.loadMoreFinish(false, true);
-                            if(mysize==0){
-                                rvShangpinguanli.setVisibility(View.GONE);
-                                llListNull.setVisibility(View.VISIBLE);
-                            } else {
-                                rvShangpinguanli.setVisibility(View.VISIBLE);
-                                llListNull.setVisibility(View.GONE);
-                            }
-                        }
-                            if (data.getGoodsList().size() == 5) {
-                                rvShangpinguanli.loadMoreFinish(false, true);
-                            }else if (data.getGoodsList().size() > 0) {
-                                rvShangpinguanli.loadMoreFinish(false, false);
-                            } else  {
-                                rvShangpinguanli.loadMoreFinish(true, false);
-                            }
-
-                        mlist.addAll(data.getGoodsList());
-                        shangpinguanliadapter.notifyDataSetChanged();
-                        ye++;
-                    }
-
-                });
-    }
-    private void updateChaxun(final String message) {
-        HttpManager.getInstance()
-                .with(getContext())
-                .setObservable(
-                        RetrofitManager
-                                .getService()
-                                .getshangpinguanli(token, message, goods, getZhuangTai(), ye))
-                .setDataListener(new HttpDataListener<ShangPinGuanLiBean>() {
-                    @Override
-                    public void onNext(ShangPinGuanLiBean data) {
-                        int mysize = data==null||data.getGoodsList()==null?0:data.getGoodsList().size();
-                        Log.e("onNext:updateChaxun ",ye+"?????"+message );
-                        if (ye == 1) {
-                            mlist.clear();
-                            shangpinguanliadapter.notifyDataSetChanged();
-                            rvShangpinguanli.loadMoreFinish(false, true);
-                            if(mysize==0){
+                            if (mysize == 0) {
                                 rvShangpinguanli.setVisibility(View.GONE);
                                 llListNull.setVisibility(View.VISIBLE);
                             } else {
@@ -168,9 +130,9 @@ public abstract class BaseShangPinFragment extends BaseFragment {
                         }
                         if (data.getGoodsList().size() == 5) {
                             rvShangpinguanli.loadMoreFinish(false, true);
-                        }else if (data.getGoodsList().size() > 0) {
+                        } else if (data.getGoodsList().size() > 0) {
                             rvShangpinguanli.loadMoreFinish(false, false);
-                        } else  {
+                        } else {
                             rvShangpinguanli.loadMoreFinish(true, false);
                         }
 
@@ -181,6 +143,47 @@ public abstract class BaseShangPinFragment extends BaseFragment {
 
                 });
     }
+
+    private void updateChaxun(final String message) {
+        HttpManager.getInstance()
+                .with(getContext())
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .getshangpinguanli(token, message, goods, getZhuangTai(), ye))
+                .setDataListener(new HttpDataListener<ShangPinGuanLiBean>() {
+                    @Override
+                    public void onNext(ShangPinGuanLiBean data) {
+                        int mysize = data == null || data.getGoodsList() == null ? 0 : data.getGoodsList().size();
+                        Log.e("onNext:updateChaxun ", ye + "?????" + message);
+                        if (ye == 1) {
+                            mlist.clear();
+                            shangpinguanliadapter.notifyDataSetChanged();
+                            rvShangpinguanli.loadMoreFinish(false, true);
+                            if (mysize == 0) {
+                                rvShangpinguanli.setVisibility(View.GONE);
+                                llListNull.setVisibility(View.VISIBLE);
+                            } else {
+                                rvShangpinguanli.setVisibility(View.VISIBLE);
+                                llListNull.setVisibility(View.GONE);
+                            }
+                        }
+                        if (data.getGoodsList().size() == 5) {
+                            rvShangpinguanli.loadMoreFinish(false, true);
+                        } else if (data.getGoodsList().size() > 0) {
+                            rvShangpinguanli.loadMoreFinish(false, false);
+                        } else {
+                            rvShangpinguanli.loadMoreFinish(true, false);
+                        }
+
+                        mlist.addAll(data.getGoodsList());
+                        shangpinguanliadapter.notifyDataSetChanged();
+                        ye++;
+                    }
+
+                });
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getMyGoods(MessageBean bean) {
         onResume();
@@ -195,60 +198,60 @@ public abstract class BaseShangPinFragment extends BaseFragment {
         } else {
             token = PreferenceUtils.getString(MyApplication.mContext, "token", "");
         }
-            // 创建菜单：
-            SwipeMenuCreator mSwipeMenuCreator = new SwipeMenuCreator() {
-                @Override
-                public void onCreateMenu(SwipeMenu rightMenuleftMenu, SwipeMenu rightMenu, int viewType) {
-                    switch (rightMenuleftMenu.getViewType()){
-                        case ShangPinGuanLiAdapter.viewtype_normaldata:
+        // 创建菜单：
+        SwipeMenuCreator mSwipeMenuCreator = new SwipeMenuCreator() {
+            @Override
+            public void onCreateMenu(SwipeMenu rightMenuleftMenu, SwipeMenu rightMenu, int viewType) {
+                switch (rightMenuleftMenu.getViewType()) {
+                    case ShangPinGuanLiAdapter.viewtype_normaldata:
 
-                            break;
-                        case ShangPinGuanLiAdapter.viewtype_erpdata:
-                            SwipeMenuItem deleteItem = new SwipeMenuItem(getContext()); // 各种文字和图标属性设置。
-                            deleteItem.setText("删除");
-                            deleteItem.setTextColor(getContext().getResources().getColor(R.color.white));
-                            deleteItem.setTextSize(15);
-                            deleteItem.setHeight(MATCH_PARENT);
-                            deleteItem.setWidth(200);
-                            deleteItem.setBackground(R.color.red_ff3300);
-                            rightMenu.addMenuItem(deleteItem); // 在Item右侧添加一个菜单。
-                            break;
-                    }
-
+                        break;
+                    case ShangPinGuanLiAdapter.viewtype_erpdata:
+                        SwipeMenuItem deleteItem = new SwipeMenuItem(getContext()); // 各种文字和图标属性设置。
+                        deleteItem.setText("删除");
+                        deleteItem.setTextColor(getContext().getResources().getColor(R.color.white));
+                        deleteItem.setTextSize(15);
+                        deleteItem.setHeight(MATCH_PARENT);
+                        deleteItem.setWidth(200);
+                        deleteItem.setBackground(R.color.red_ff3300);
+                        rightMenu.addMenuItem(deleteItem); // 在Item右侧添加一个菜单。
+                        break;
                 }
-            };
-            SwipeMenuItemClickListener mMenuItemClickListener = new SwipeMenuItemClickListener() {
-                @Override
-                public void onItemClick(SwipeMenuBridge menuBridge) {
-                    // 任何操作必须先关闭菜单，否则可能出现Item菜单打开状态错乱。
-                    menuBridge.closeMenu();
-                    int direction = menuBridge.getDirection(); // 左侧还是右侧菜单。
-                    final int adapterPosition = menuBridge.getAdapterPosition(); // RecyclerView的Item的position。
-                    int menuPosition = menuBridge.getPosition(); // 菜单在RecyclerView的Item中的Position。
+
+            }
+        };
+        SwipeMenuItemClickListener mMenuItemClickListener = new SwipeMenuItemClickListener() {
+            @Override
+            public void onItemClick(SwipeMenuBridge menuBridge) {
+                // 任何操作必须先关闭菜单，否则可能出现Item菜单打开状态错乱。
+                menuBridge.closeMenu();
+                int direction = menuBridge.getDirection(); // 左侧还是右侧菜单。
+                final int adapterPosition = menuBridge.getAdapterPosition(); // RecyclerView的Item的position。
+                int menuPosition = menuBridge.getPosition(); // 菜单在RecyclerView的Item中的Position。
 
 
-                    //左滑删除
-                    HttpManager.getInstance()
-                            .with(getContext())
-                            .setObservable(
-                                    RetrofitManager
-                                            .getService()
-                                            .ghdspdel(token, mlist.get(adapterPosition).getCommodity_id(), "3"))
-                            .setDataListener(new HttpDataListener<String>() {
-                                @Override
-                                public void onNext(String data) {
-                                    mlist.remove(adapterPosition);
-                                    shangpinguanliadapter.notifyDataSetChanged();
-                                }
-                            }, false);
+                //左滑删除
+                HttpManager.getInstance()
+                        .with(getContext())
+                        .setObservable(
+                                RetrofitManager
+                                        .getService()
+                                        .ghdspdel(token, mlist.get(adapterPosition).getCommodity_id(), "3"))
+                        .setDataListener(new HttpDataListener<String>() {
+                            @Override
+                            public void onNext(String data) {
+                                mlist.remove(adapterPosition);
+                                shangpinguanliadapter.notifyDataSetChanged();
+                            }
+                        }, false);
 
 
-                }
-            };
-            // 设置监听器。
-            rvShangpinguanli.setSwipeMenuCreator(mSwipeMenuCreator);
-            // 菜单点击监听。
-            rvShangpinguanli.setSwipeMenuItemClickListener(mMenuItemClickListener);
+            }
+        };
+        // 设置监听器。
+        rvShangpinguanli.setSwipeMenuCreator(mSwipeMenuCreator);
+        // 菜单点击监听。
+        rvShangpinguanli.setSwipeMenuItemClickListener(mMenuItemClickListener);
 
         mLoadMoreListener = new SwipeMenuRecyclerView.LoadMoreListener() {
             @Override
@@ -271,19 +274,23 @@ public abstract class BaseShangPinFragment extends BaseFragment {
         rvShangpinguanli.useDefaultLoadMore(); // 使用默认的加载更多的View。
         rvShangpinguanli.setLoadMoreListener(mLoadMoreListener); // 加载更多的监听。
         rvShangpinguanli.loadMoreFinish(false, true);
-        shangpinguanliadapter = new ShangPinGuanLiAdapter(getContext(), goods, mlist,BaseShangPinFragment.this);
+        shangpinguanliadapter = new ShangPinGuanLiAdapter(getContext(), goods, mlist, BaseShangPinFragment.this);
         shangpinguanliadapter.setClick(isClick);
-        Log.e("initview: ",isClick+"---" );
+        Log.e("initview: ", isClick + "---");
         rvShangpinguanli.setAdapter(shangpinguanliadapter);
         llListNull.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //添加商品
-                Intent it = new Intent();
-                it.setClass(getContext(), XJSPFeiLeiXuanZeActivity.class);
-                it.putExtra("goods",goods);
-                it.putExtra("state", "0");
-                startActivity(it);
+                if (isClick) {
+                    //添加商品
+                    Intent it = new Intent();
+                    it.setClass(getContext(), XJSPFeiLeiXuanZeActivity.class);
+                    it.putExtra("goods", goods);
+                    it.putExtra("state", "0");
+                    startActivity(it);
+                } else {
+                    ToastUtil.showToastLong("请注意，您只有阅览权限");
+                }
             }
         });
     }
@@ -292,8 +299,8 @@ public abstract class BaseShangPinFragment extends BaseFragment {
 
     public void onResume() {
         super.onResume();
-        Log.e("onResume: ",getZhuangTai() );
-        Log.e("onResume:goods=",goods);
+        Log.e("onResume: ", getZhuangTai());
+        Log.e("onResume:goods=", goods);
         if (ye != 1) {
             ye = 1;
             mlist.clear();
@@ -304,16 +311,19 @@ public abstract class BaseShangPinFragment extends BaseFragment {
 
         }
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getChaxun(String message) {
         ye = 1;
         chaxunzi = message;
-       getData();
+        getData();
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void update(boolean message) {
-      onResume();
+        onResume();
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();

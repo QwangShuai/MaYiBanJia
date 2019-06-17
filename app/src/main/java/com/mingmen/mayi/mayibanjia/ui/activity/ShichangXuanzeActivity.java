@@ -91,6 +91,8 @@ public class ShichangXuanzeActivity extends BaseActivity {
         mContext = this;
         EventBus.getDefault().register(this);
         tvTitle.setText("市场选择");
+        shichangid = getIntent().getStringExtra("id");
+        shichangname = getIntent().getStringExtra("name");
         rvYijishichang.setLayoutManager(new GridLayoutManager(mContext,2));
         rvYijishichang.setAdapter(yijiAdapter);
         rvErjishichang.setLayoutManager(new GridLayoutManager(mContext,2));
@@ -113,7 +115,7 @@ public class ShichangXuanzeActivity extends BaseActivity {
             case R.id.tv_title:
                 break;
             case R.id.iv_back:
-                finish();
+                backResult();
                 break;
             case R.id.tv_right:
                 break;
@@ -123,8 +125,6 @@ public class ShichangXuanzeActivity extends BaseActivity {
                 new ShangQuanDialog().setData(mContext).show(getSupportFragmentManager());
                 break;
             case R.id.tv_all_shichang:
-                shichangid = "";
-                shichangname = "全部";
                 backResult();
                 break;
             case R.id.tv_yiji:

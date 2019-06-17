@@ -241,8 +241,8 @@ public class SqscWodeActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.rl_shezhi, R.id.ll_state_qiehuan, R.id.ll_qiehuan, R.id.tv_yue, R.id.tv_tixian,
-            R.id.tv_daishoukuan, R.id.tv_cwbb, R.id.ll_spll, R.id.ll_spsc, R.id.ll_spgz,
+    @OnClick({R.id.rl_shezhi, R.id.ll_state_qiehuan, R.id.ll_qiehuan, R.id.tv_yue, R.id.ll_tixian,
+            R.id.tv_daishoukuan, R.id.ll_cwbb, R.id.ll_spll, R.id.ll_spsc, R.id.ll_spgz,
             R.id.ll_spll_ct, R.id.ll_spsc_ct, R.id.ll_dpgz_ct, R.id.ll_daiqiangdan, R.id.ll_qiangdanzhong,
             R.id.ll_qiangdanshibai, R.id.ll_qiangdanchenggong, R.id.ll_tianjiashangpin,
             R.id.ll_shangjia, R.id.ll_xiajia, R.id.ll_daishenhe, R.id.ll_shenheshibai,
@@ -356,14 +356,14 @@ public class SqscWodeActivity extends BaseActivity {
             case R.id.ll_putongshangpin_gyd:
                 getDianpuRenzheng("0");
                 break;
-            case R.id.tv_tixian:
+            case R.id.ll_tixian:
                 Bundle bundle_tixian = new Bundle();
                 bundle_tixian.putString("yue", yue);
                 Jump_intent(TiXianActivity.class, bundle_tixian);
                 break;
             case R.id.tv_daishoukuan:
                 break;
-            case R.id.tv_cwbb:
+            case R.id.ll_cwbb:
                 Jump_intent(JiaoYiLiuShuiActivity.class, new Bundle());
                 break;
 //            case R.id.ll_spll://商品被浏览

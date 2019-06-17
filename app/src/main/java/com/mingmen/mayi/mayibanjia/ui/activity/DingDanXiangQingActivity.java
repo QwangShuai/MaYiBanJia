@@ -250,7 +250,7 @@ public class DingDanXiangQingActivity extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         dialog.dismiss();
-                        delOrder();
+                        cancleOrder();
                     }
                 });
                 dialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
@@ -316,6 +316,21 @@ public class DingDanXiangQingActivity extends BaseActivity {
                     @Override
                     public void onNext(String s) {
                         ToastUtil.showToast("订单删除成功");
+                        finish();
+                    }
+                });
+    }
+    private void cancleOrder() {
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .cancleOrder(PreferenceUtils.getString(MyApplication.mContext, "token", ""), order_id))
+                .setDataListener(new HttpDataListener<String>() {
+                    @Override
+                    public void onNext(String s) {
+                        ToastUtil.showToast("订单取消成功");
                         finish();
                     }
                 });

@@ -149,7 +149,7 @@ public class GHOrderAdapter extends RecyclerView.Adapter<GHOrderAdapter.ViewHold
                 holder.tv_chepaihao.setVisibility(View.GONE);
             }
             holder.tv_phone.setText(String.valueOf(bean.getDriver_phone()));
-            holder.tv_end_time.setText(bean.getMj_sweep_time());
+            holder.tv_end_time.setText("收货时间:"+bean.getMj_sweep_time());
             holder.tvTuikuan.setVisibility(View.GONE);
         }
         if(bean.getState_name().equals("待打包")){

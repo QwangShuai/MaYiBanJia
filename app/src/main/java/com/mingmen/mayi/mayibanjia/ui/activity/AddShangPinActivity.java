@@ -307,9 +307,22 @@ public class AddShangPinActivity extends BaseActivity {
             rvGuige.setVisibility(View.GONE);
             rvYijifenlei.setVisibility(View.VISIBLE);
         }
+//        tvPinzhongLable.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+//        tvLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+//        tvShangpinLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+//        tvGuigeLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+//        mytype = "3";
+//        adapter.setXuanzhongid(twoid);
+//        getShouyeFenLei(oneid, "3");
+
+        threeid = "";
+        fourid = "";
+        tvShangpin.setText("全部");
+        tvGuige.setText("全部");
+
+        tvShangpinLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
         tvPinzhongLable.setTextColor(mContext.getResources().getColor(R.color.zangqing));
         tvLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
-        tvShangpinLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
         tvGuigeLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
         mytype = "3";
         adapter.setXuanzhongid(twoid);
@@ -321,6 +334,12 @@ public class AddShangPinActivity extends BaseActivity {
             rvGuige.setVisibility(View.GONE);
             rvYijifenlei.setVisibility(View.VISIBLE);
         }
+        twoid = "";
+        threeid = "";
+        fourid = "";
+        tvPinzhong.setText("全部");
+        tvShangpin.setText("全部");
+        tvGuige.setText("全部");
         tvLable.setTextColor(mContext.getResources().getColor(R.color.zangqing));
         tvPinzhongLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
         tvShangpinLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
@@ -328,6 +347,13 @@ public class AddShangPinActivity extends BaseActivity {
         mytype = "2";
         adapter.setXuanzhongid(oneid);
         getShouyeFenLei(yclId, "2");
+//        tvLable.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+//        tvPinzhongLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+//        tvShangpinLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+//        tvGuigeLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+//        mytype = "2";
+//        adapter.setXuanzhongid(oneid);
+//        getShouyeFenLei(yclId, "2");
     }
 
     private void getFour() {
@@ -336,6 +362,16 @@ public class AddShangPinActivity extends BaseActivity {
             rvYijifenlei.setVisibility(View.VISIBLE);
         }
 
+//        tvPinzhongLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+//        tvLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+//        tvShangpinLable.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+//        tvGuigeLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+//        mytype = "4";
+//        adapter.setXuanzhongid(threeid);
+//        getShouyeFenLei(twoid, "4");
+
+        fourid = "";
+        tvGuige.setText("全部");
         tvPinzhongLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
         tvLable.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
         tvShangpinLable.setTextColor(mContext.getResources().getColor(R.color.zangqing));

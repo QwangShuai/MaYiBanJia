@@ -115,6 +115,46 @@
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:orientation="horizontal"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="企业类别"
+                    android:textColor="#ff474747"
+                    android:textSize="14sp"
+                    android:gravity="center"
+                    />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/tv_qiyeleibie"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text=""
+                        android:textColor="@color/zicolor"
+                        android:textSize="12sp"
+                        android:hint="请选择"
+                        android:textColorHint="@color/hintcolor"
+                        android:gravity="center_vertical"
+                        android:layout_marginLeft="36dp"
+                        android:background="@drawable/fillet_hollow_999999_3"
+                        android:paddingLeft="5dp"
+                        />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/xiangxia_hui"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:paddingRight="4dp"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="134dp"
                 android:orientation="horizontal"
                 android:layout_marginTop="12dp">

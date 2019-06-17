@@ -1,5 +1,6 @@
 package com.mingmen.mayi.mayibanjia.ui.activity.adapter;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -17,8 +18,10 @@ import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.CaiGouDanBean;
 import com.mingmen.mayi.mayibanjia.bean.XiTongTuiJianBean;
 import com.mingmen.mayi.mayibanjia.ui.activity.SPXiangQingActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.ShangPinXuanZeActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShenPiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.GengDuoShangJiaDialog;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ZxxzShangjiaDialog;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 import com.mingmen.mayi.mayibanjia.utils.custom.MarqueeTextView;
 
@@ -94,10 +97,9 @@ public class ShenPiLevelTwoAdapter extends RecyclerView.Adapter<ShenPiLevelTwoAd
         holder.btShangjia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new GengDuoShangJiaDialog()
-                        .setId(mList.get(position).getCcListBean().getSon_order_id(), mList.get(position).getCcListBean().getMarket_id(),
-                                mList.get(position).getType()+"")
-                        .setCallBack(new GengDuoShangJiaDialog.CallBack() {
+                new ZxxzShangjiaDialog()
+                        .setId(activity,mList.get(position).getCcListBean().getSon_order_id(), mList.get(position).getCcListBean().getMarket_id())
+                        .setCallBack(new ZxxzShangjiaDialog.CallBack() {
                             @Override
                             public void xuanzhong(XiTongTuiJianBean.CcListBean msg) {
                                 Log.e("xuanzhong: ",msg.getCount()+"" );
@@ -109,6 +111,10 @@ public class ShenPiLevelTwoAdapter extends RecyclerView.Adapter<ShenPiLevelTwoAd
                             }
                         })
                         .show(activity.getSupportFragmentManager());
+//                Intent it = new Intent(activity, ShangPinXuanZeActivity.class);
+//                it.putExtra("son_order_id",mList.get(position).getCcListBean().getSon_order_id());
+//                it.putExtra("market_id",mList.get(position).getCcListBean().getMarket_id());
+//                activity.startActivity(it);
             }
         });
         holder.btXiangqing.setOnClickListener(new View.OnClickListener() {

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:paddingTop="24dp"
+        android:gravity="center"
+        android:background="@color/zangqing"
+        android:layout_width="match_parent"
+        android:layout_height="73dp">
+        <RelativeLayout
+            android:layout_marginTop="5dp"
+            android:id="@+id/ll_sousuo"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:background="@drawable/fillet_solid_white_100"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_marginLeft="13dp"
+                android:id="@+id/iv_sousuo"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/sousuo_wenzi" />
+
+            <EditText
+                android:id="@+id/et_sousuozi"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="13dp"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:imeOptions="actionSearch"
+                android:singleLine="true"
+                android:text=""
+                android:textColor="@color/zicolor"
+                android:textColorHint="#ff999999"
+                android:textSize="12sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/ll_pinpai"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="45.5dp">
+        <TextView
+            android:id="@+id/tv_pinpai"
+            android:paddingLeft="13dp"
+            android:textColorHint="@color/zangqing"
+            android:textColor="@color/zangqing"
+            android:textSize="15sp"
+            android:hint="选择品牌"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <include layout="@layout/view_cutoff_e7e7e7_match"></include>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        <android.support.v7.widget.RecyclerView
+            android:visibility="gone"
+            android:id="@+id/rv_pp_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
+</LinearLayout>

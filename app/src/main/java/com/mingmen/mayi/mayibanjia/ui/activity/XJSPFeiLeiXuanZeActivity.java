@@ -251,18 +251,31 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
                     finish();
                 } else {
                     startActivity(it);
+                    finish();
                 }
 
                 break;
             case R.id.btn_guige:
+//                it.putExtra("five_id", fourid);
+//                Log.e("onViewClicked: ","ai="+threeid );
+//                if(state.equals("1")){
+//                    it.putExtra("guige","1");
+//                    resultData();
+//                } else {
+//                    it.putExtra("guige","1");
+//                    it.putExtra("sr_name",fourName);
+//                    startActivity(it);
+//                    finish();
+//                }
                 if(state.equals("1")){
-                    Log.e("onViewClicked: ","回调" );
-                    resultData();
+                    it.putExtra("sr_name",fourName);
+                    setResult(4, it);
+                    finish();
                 } else {
                     it.putExtra("sr_name",fourName);
                     startActivity(it);
+                    finish();
                 }
-
                 break;
             case R.id.ll_guige:
                 if(StringUtil.isValid(fourName)){
@@ -356,6 +369,7 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
                 zxId = msg.getAffiliated_spec();
                 zxName = msg.getAffiliated_spec_name();
                 zxNumber = msg.getAffiliated_number();
+                Log.e( "xuanzhong: ",zxNumber );
                 guigeName = msg.getSpec_name();
                 guigeMiaoshu = msg.getSpec_describe();
                 guigeId = msg.getSpec_idFour();
@@ -557,7 +571,7 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
     }
 
     private void resultData() {
-        Intent it = new Intent();
+//        Intent it = new Intent();
         it.putExtra("one_id", yclId);
         it.putExtra("two_id", oneid);
         it.putExtra("three_id", twoid);

@@ -34,16 +34,23 @@ public class ShouYeTeJiaAdapter extends RecyclerView.Adapter<ShouYeTeJiaAdapter.
     private ViewHolder viewHolder;
     private Context mContext;
     private List<ShouYeTeJiaBean> mList;
+    private String type;
 
-    public ShouYeTeJiaAdapter(Context mContext, List<ShouYeTeJiaBean> list) {
+    public ShouYeTeJiaAdapter(Context mContext, List<ShouYeTeJiaBean> list,String type) {
         this.mContext = mContext;
         this.mList = list;
+        this.type = type;
     }
 
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        viewHolder = new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_spxiangqing_weinituijian, parent, false));
+        if(StringUtil.isValid(type)){
+            viewHolder = new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_spxq_wntj, parent, false));
+        } else {
+            viewHolder = new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_spxiangqing_weinituijian, parent, false));
+        }
+
         return viewHolder;
     }
 

@@ -28,6 +28,7 @@
             android:layout_height="wrap_content" />
     </RelativeLayout>
     <RelativeLayout
+        android:layout_marginTop="8dp"
         android:id="@+id/rl_yinhangka"
         android:visibility="gone"
         android:layout_marginRight="12dp"

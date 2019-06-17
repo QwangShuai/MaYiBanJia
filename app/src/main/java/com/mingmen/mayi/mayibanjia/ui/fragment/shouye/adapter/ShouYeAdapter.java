@@ -334,7 +334,7 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             holder.ll_kuang.setVisibility(View.GONE);
         } else {
             if (shiJiBiaoQianAdapter == null) {
-                shiJiBiaoQianAdapter = new ShouYeTeJiaAdapter(mContext, teJiaBean);
+                shiJiBiaoQianAdapter = new ShouYeTeJiaAdapter(mContext, teJiaBean,"");
             }
             holder.rv_tejia.setLayoutManager(new GridLayoutManager(mContext, 3));
             holder.rv_tejia.setAdapter(shiJiBiaoQianAdapter);
@@ -357,9 +357,9 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         if (tuijianBean.size() != 0) {
             if (tuijianAdapter == null) {
-                tuijianAdapter = new ShouYeTeJiaAdapter(mContext, tuijianBean);
+                tuijianAdapter = new ShouYeTeJiaAdapter(mContext, tuijianBean,"1");
             }
-            holder.rv_tuijian.setLayoutManager(new GridLayoutManager(mContext, 3));
+            holder.rv_tuijian.setLayoutManager(new GridLayoutManager(mContext, 2));
             holder.rv_tuijian.setAdapter(tuijianAdapter);
             holder.rv_tuijian.setFocusable(false);
         }
@@ -460,7 +460,9 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public void setPosition(int pos){
-        myHolder.viewpager.setCurrentItem(pos);
+        if(myHolder!=null){
+            myHolder.viewpager.setCurrentItem(pos);
+        }
     }
 
 }

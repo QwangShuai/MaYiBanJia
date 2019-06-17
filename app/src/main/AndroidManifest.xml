@@ -82,8 +82,7 @@
         <activity
             android:name=".ui.activity.LoginActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan">
-        </activity>
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity
             android:name=".ui.activity.ZhuCeActivity"
             android:label="注册页"
@@ -514,12 +513,12 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
 
-             <!--<intent-filter>-->
-             <!--<action android:name="android.intent.action.MAIN" />-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
 
 
-             <!--<category android:name="android.intent.category.LAUNCHER" />-->
-             <!--</intent-filter>-->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".utils.dayinji.BluetoothDeviceList"
@@ -558,7 +557,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.ZzrzGydActivity" />
-        <activity android:name=".ui.activity.ZzrzCtdActivity"></activity>
+        <activity android:name=".ui.activity.ZzrzCtdActivity" />
+        <activity android:name=".ui.activity.ShangPinXuanZeActivity"></activity>
     </application>
 
 </manifest>

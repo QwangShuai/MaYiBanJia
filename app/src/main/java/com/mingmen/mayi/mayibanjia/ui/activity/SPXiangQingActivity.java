@@ -169,6 +169,8 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
     TextView tvTejia;
     @BindView(R.id.tv_miaoshu)
     TextView tvMiaoshu;
+    @BindView(R.id.tv_gg_miaoshu)
+    TextView tvGgMiaoshu;
     @BindView(R.id.tv_spgg)
     TextView tvSpgg;
     @BindView(R.id.ll_tejia)
@@ -339,6 +341,12 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
             tvMiaoshu.setText("备注:" + xq.getSpms());
         } else {
             tvMiaoshu.setVisibility(View.GONE);
+        }
+
+        if(StringUtil.isValid(xq.getSpec_describe())){
+            tvGgMiaoshu.setText(xq.getSpec_describe());
+        } else {
+            tvGgMiaoshu.setVisibility(View.GONE);
         }
 
         tvXiaoliang.setText(xq.getCommodity_sales());

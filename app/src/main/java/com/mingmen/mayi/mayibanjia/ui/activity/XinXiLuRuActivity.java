@@ -42,6 +42,7 @@ import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.PhotoDialog;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.QiyeleibieDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ShangquanRightDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.ShowViewCity;
@@ -213,7 +214,9 @@ public class XinXiLuRuActivity extends BaseActivity {
                 break;
             case R.id.tv_qiyeleibie:
                 //企业类别
-                getleibie();
+                QiyeleibieDialog qiyeleibieDialog = new QiyeleibieDialog().setData(mContext).show(getSupportFragmentManager());
+                qiyeleibieDialog.setDqId(qiyeid,0);
+//                getleibie();
                 break;
 //            case R.id.tv_qiyeguimo:
 //                //企业规模
@@ -931,6 +934,12 @@ public class XinXiLuRuActivity extends BaseActivity {
         jieming = item.getQuymc();
         jieid = item.getQuybm() + "";
         tvJiedaoxuanze.setText("" + jieming);
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getQylb(QiYeLeiBieBean item) {
+        qiyeid = item.getSon_number();
+        qiyemingcheng = item.getSon_name();
+        tvQiyeleibie.setText("" + qiyemingcheng);
     }
 
     @Override

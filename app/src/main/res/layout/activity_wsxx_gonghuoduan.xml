@@ -297,7 +297,7 @@
                         android:id="@+id/tv_xieyi"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="《蚂蚁配菜用户协议》"
+                        android:text="《食十利用户协议》"
                         android:textColor="@color/zangqing"
                         android:textSize="12sp"
                         />
@@ -319,32 +319,34 @@
                     android:orientation="vertical"
                     android:layout_marginTop="28dp"
                     >
-                    <TextView
+
+                    <LinearLayout
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="如有任何问题，可点击右上侧查看“帮助”或直接拨打客服电话"
+                        android:text="客服电话:"
                         android:textColor="#999999"
                         android:textSize="12sp"
                         />
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
                         <TextView
                             android:id="@+id/tv_dianhua"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="400-600-1234"
+                            android:text="400-961-0910"
                             android:textColor="@color/zangqing"
                             android:textSize="12sp"
                             />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="咨询。"
-                            android:textColor="#999999"
-                            android:textSize="12sp"
-                            />
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="咨询。"-->
+                            <!--android:textColor="#999999"-->
+                            <!--android:textSize="12sp"-->
+                            <!--/>-->
                     </LinearLayout>
 
                 </LinearLayout>

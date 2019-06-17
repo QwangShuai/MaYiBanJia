@@ -331,7 +331,7 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .fabushangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""),canshu.getSpms(), spID, "", canshu.getDeputyPicture(),
+                                .fabushangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""),canshu.getClassify_name(), spID, "", canshu.getDeputyPicture(),
                                         canshu.getPack_standard_two(), canshu.getPack_standard_tree(),
                                         canshu.getRation_one(), canshu.getPice_one(), canshu.getInventory(), new Gson().toJson(mlist), canshu.getType_one_id(), canshu.getGoods(), canshu.getCommodity_state(), canshu.getCommodity_name(),
                                         canshu.getType_two_id(), canshu.getType_tree_id(), canshu.getType_four_id(), canshu.getHostPicture(),
@@ -357,7 +357,7 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .updateshangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""), spID, "", picList,
+                                .updateshangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""),canshu.getClassify_name(), spID, "", picList,
                                         canshu.getPack_standard_two(), canshu.getPack_standard_tree(),
                                         canshu.getRation_one(), canshu.getPice_one(), canshu.getInventory(), new Gson().toJson(mlist), canshu.getType_one_id(), canshu.getGoods(), canshu.getCommodity_state(), canshu.getCommodity_name(),
                                         canshu.getType_two_id(), canshu.getType_tree_id(), canshu.getType_four_id(), canshu.getHostPicture(), canshu.getSpec_describe(),

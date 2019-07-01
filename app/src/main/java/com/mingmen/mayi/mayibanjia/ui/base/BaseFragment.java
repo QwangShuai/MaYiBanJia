@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mingmen.mayi.mayibanjia.MainActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmSingleDialog;
 
 import qiu.niorgai.StatusBarCompat;
 
@@ -96,5 +97,18 @@ public abstract class BaseFragment extends Fragment implements StateLayout.OnRel
         if(MainActivity.instance!=null){
             MainActivity.instance.getGwcNo();
         }
+    }
+    public static void showDialog(final Context mContext, String message){
+        final ConfirmSingleDialog dialog;
+        dialog = new ConfirmSingleDialog(mContext,
+                mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
+//        dialog.setCancelable(false);
+        dialog.showDialog(message);
+        dialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
     }
 }

@@ -154,7 +154,7 @@ public class GuigeDialog extends BaseFragmentDialog implements View.OnClickListe
                 break;
             case R.id.tv_sure:
                 if(xztype){
-                    if(StringUtil.isValid(etCreateGuige.getText().toString())){
+                    if(StringUtil.isValid(etCreateGuige.getText().toString())&&StringUtil.isGuige(etCreateGuige.getText().toString())){
                         CreateGuigeBean bean = new CreateGuigeBean();
                         bean.setName(etCreateGuige.getText().toString());
                         bean.setLevel(type);
@@ -173,8 +173,10 @@ public class GuigeDialog extends BaseFragmentDialog implements View.OnClickListe
                                 return;
                             }
                         }
-                            ToastUtil.showToastLong("请选择一个规格");
+                        ToastUtil.showToastLong("请选择一个规格");
 
+                    } else if(!StringUtil.isGuige(etCreateGuige.getText().toString())){
+                        ToastUtil.showToastLong("请输入正确的规格");
                     } else {
                         ToastUtil.showToastLong("请选择一个规格");
                     }

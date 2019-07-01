@@ -126,10 +126,10 @@ public class MainActivity extends BaseActivity {
 
         } else {
             role = PreferenceUtils.getQuanxianList(MyApplication.mContext, "quanxian");
-            Log.e( "initview: ",new Gson().toJson(role));
+            Log.e("initview: ", new Gson().toJson(role));
             isClick();
         }
-        if(PreferenceUtils.getBoolean(MyApplication.mContext,"youke",false)){
+        if (PreferenceUtils.getBoolean(MyApplication.mContext, "youke", false)) {
             imageView.setVisibility(View.VISIBLE);
         }
 
@@ -222,7 +222,7 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.iv_shouye, R.id.iv_quanbucaipin, R.id.iv_gouwuche, R.id.iv_wode, R.id.iv_facaigou,R.id.imageView})
+    @OnClick({R.id.iv_shouye, R.id.iv_quanbucaipin, R.id.iv_gouwuche, R.id.iv_wode, R.id.iv_facaigou, R.id.imageView})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_shouye:
@@ -230,9 +230,9 @@ public class MainActivity extends BaseActivity {
                 if (zzh.equals("0")) {
                     gaibianye(0);
                 } else {
-                    Log.e("onViewClicked: ",PreferenceUtils.getString(MyApplication.mContext,"isShenPi","---") );
-                    if(isClick()){
-                            gaibianye(0);
+                    Log.e("onViewClicked: ", PreferenceUtils.getString(MyApplication.mContext, "isShenPi", "---"));
+                    if (isClick()) {
+                        gaibianye(0);
                     } else {
                         ToastUtil.showToastLong("子账户无权查看 ");
                     }
@@ -245,7 +245,7 @@ public class MainActivity extends BaseActivity {
                 if (zzh.equals("0")) {
                     gaibianye(1);
                 } else {
-                    if(isClick()){
+                    if (isClick()) {
                         gaibianye(1);
                     } else {
                         ToastUtil.showToastLong("子账户无权查看 ");
@@ -255,23 +255,27 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.iv_gouwuche:
 //                ivFacaigou.setVisibility(View.GONE);
-                if (zzh.equals("0")) {
-                    gaibianye(2);
+                if (PreferenceUtils.getBoolean(MyApplication.mContext, "youke", false)) {
+                    ToastUtil.showToastLong("游客无权限进入");
                 } else {
-                    if(isClick()){
+                    if (zzh.equals("0")) {
                         gaibianye(2);
                     } else {
-                        ToastUtil.showToastLong("子账户无权查看 ");
+                        if (isClick()) {
+                            gaibianye(2);
+                        } else {
+                            ToastUtil.showToastLong("子账户无权查看 ");
+                        }
                     }
                 }
                 break;
             case R.id.iv_wode:
 //                ivFacaigou.setVisibility(View.GONE);
-                if(PreferenceUtils.getBoolean(MyApplication.mContext,"youke",false)){
+                if (PreferenceUtils.getBoolean(MyApplication.mContext, "youke", false)) {
                     ToastUtil.showToastLong("游客无权限进入");
                 } else {
-                    if(PreferenceUtils.getString(MyApplication.mContext,"juese","").equals("2")
-                            &&PreferenceUtils.getInt(MyApplication.mContext,"random_id",3)!=3){
+                    if (PreferenceUtils.getString(MyApplication.mContext, "juese", "").equals("2")
+                            && PreferenceUtils.getInt(MyApplication.mContext, "random_id", 3) != 3) {
                         startActivity(new Intent(mContext, SqscWodeActivity.class));
                     } else {
                         gaibianye(3);
@@ -281,7 +285,7 @@ public class MainActivity extends BaseActivity {
 
                 break;
             case R.id.iv_facaigou:
-                if(PreferenceUtils.getBoolean(MyApplication.mContext,"youke",false)){
+                if (PreferenceUtils.getBoolean(MyApplication.mContext, "youke", false)) {
                     ToastUtil.showToastLong("游客无权限进入");
                 } else {
                     if (zzh.equals("0")) {
@@ -374,8 +378,8 @@ public class MainActivity extends BaseActivity {
 
     private boolean isClick() {
         boolean b = false;
-        int rolesize = role==null?0:role.size();
-        if(rolesize!=0){
+        int rolesize = role == null ? 0 : role.size();
+        if (rolesize != 0) {
             for (int i = 0; i < role.size(); i++) {
                 if (role.get(i).getRole_id().equals("5")) {
                     PreferenceUtils.putString(MyApplication.mContext, "isShenPi", "5");
@@ -388,6 +392,7 @@ public class MainActivity extends BaseActivity {
         }
         return b;
     }
+
     private void exitLogin() {
         HttpManager.getInstance()
                 .with(mContext)
@@ -406,10 +411,11 @@ public class MainActivity extends BaseActivity {
                         confirmDialog.dismiss();
 //                        MainActivity.instance.finish();
 //                        AppManager.getAppManager().finishActivity();
-                        goLogin(mContext,"login");
+                        goLogin(mContext, "login");
                     }
                 });
     }
+
     //购物车数量
     public void getGwcNo() {
         HttpManager.getInstance()
@@ -421,7 +427,7 @@ public class MainActivity extends BaseActivity {
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(final String no) {
-                        if(StringUtil.isValid(no)&&!no.equals("0")){
+                        if (StringUtil.isValid(no) && !no.equals("0")) {
                             tvGwcNo.setVisibility(View.VISIBLE);
                             tvGwcNo.setText(no);
                         } else {

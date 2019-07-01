@@ -62,7 +62,7 @@ public abstract class BaseDingDanFragment extends BaseFragment {
     private int ye = 1;
     private boolean b = false;
     protected boolean isCreate = false;
-    private String token = "";
+    private String qyid = "";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -106,18 +106,16 @@ public abstract class BaseDingDanFragment extends BaseFragment {
     //数据
     private void getData() {
         DingDanActivity activity = (DingDanActivity) getActivity();
-        token = activity.getToken();
-        if (StringUtil.isValid(token)) {
+        qyid = activity.getQyid();
+        if (StringUtil.isValid(qyid)) {
             adapter.setClick(false);
-        } else {
-            token = PreferenceUtils.getString(MyApplication.mContext, "token", "");
         }
         HttpManager.getInstance()
                 .with(getActivity())
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getdingdan(token, getZhuangTai(), ye))
+                                .getdingdan(PreferenceUtils.getString(MyApplication.mContext, "token", ""), getZhuangTai(),qyid, ye))
                 .setDataListener(new HttpDataListener<List<DingDanBean>>() {
                     @Override
                     public void onNext(List<DingDanBean> list) {
@@ -226,7 +224,7 @@ public abstract class BaseDingDanFragment extends BaseFragment {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .updateQrCode(token, id, "", "1", ""))
+                                .updateQrCode(PreferenceUtils.getString(MyApplication.mContext, "token", ""), id, "", "1", ""))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
@@ -243,7 +241,7 @@ public abstract class BaseDingDanFragment extends BaseFragment {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getdingdan(token, getZhuangTai(), ye))
+                                .getdingdan(PreferenceUtils.getString(MyApplication.mContext, "token", ""), getZhuangTai(),qyid, ye))
                 .setDataListener(new HttpDataListener<List<DingDanBean>>() {
                     @Override
                     public void onNext(final List<DingDanBean> list) {

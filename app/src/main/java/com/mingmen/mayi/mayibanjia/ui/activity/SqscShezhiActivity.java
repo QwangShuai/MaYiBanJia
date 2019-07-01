@@ -20,7 +20,6 @@ import com.mingmen.mayi.mayibanjia.ui.activity.dialog.PhoneDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
-import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,9 +55,23 @@ public class SqscShezhiActivity extends BaseActivity {
     ImageView ivYjfk;
     @BindView(R.id.tv_tuichu)
     TextView tvTuichu;
+    @BindView(R.id.ll_yhzh)
+    LinearLayout llYhzh;
+    @BindView(R.id.ll_zzrz)
+    LinearLayout llZzrz;
+    @BindView(R.id.iv_yhpj)
+    ImageView ivYhpj;
+    @BindView(R.id.iv_wdpj)
+    ImageView ivWdpj;
+    @BindView(R.id.ll_kfdh)
+    LinearLayout llKfdh;
+    @BindView(R.id.ll_cjwt)
+    LinearLayout llCjwt;
+    @BindView(R.id.ll_yjfk)
+    LinearLayout llYjfk;
     private Context mContext;
     private ConfirmDialog confirmDialog;
-    private String sh_state="待审核";
+    private String sh_state = "待审核";
     private String khd = "sqsc";
 
     @Override
@@ -69,13 +82,17 @@ public class SqscShezhiActivity extends BaseActivity {
     @Override
     protected void initData() {
         tvTitle.setText("设置");
-        mContext=this;
+        mContext = this;
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         khd = getIntent().getStringExtra("khd");
-        if(khd.equals("ct")){
+        if (khd.equals("ct")) {
             llYhpj.setVisibility(View.GONE);
-        } else if(khd.equals("gy")){
+            if (!PreferenceUtils.getString(MyApplication.mContext, "host_account_type", "").equals("0")) {
+                llZzrz.setEnabled(false);
+                llYhzh.setEnabled(false);
+            }
+        } else if (khd.equals("gy")) {
             llWdpj.setVisibility(View.GONE);
         }
         getRenzheng();
@@ -102,7 +119,7 @@ public class SqscShezhiActivity extends BaseActivity {
             case R.id.tv_right:
                 break;
             case R.id.ll_zhanghu:
-                it = new Intent(mContext,WoDeZhangHuActivity.class);
+                it = new Intent(mContext, WoDeZhangHuActivity.class);
                 startActivity(it);
                 break;
             case R.id.ll_yhzh:
@@ -110,12 +127,12 @@ public class SqscShezhiActivity extends BaseActivity {
                 break;
             case R.id.ll_zzrz:
 //                it = new Intent(mContext, ZiZhiRenZhengActivity.class);
-                if(StringUtil.isValid(khd)&&khd.equals("ct")){
-                    it = new Intent(mContext,ZzrzCtdActivity.class);
+                if (StringUtil.isValid(khd) && khd.equals("ct")) {
+                    it = new Intent(mContext, ZzrzCtdActivity.class);
                 } else {
                     it = new Intent(mContext, ZzrzGydActivity.class);
                 }
-                it.putExtra("state",sh_state);
+                it.putExtra("state", sh_state);
                 startActivity(it);
                 break;
 //            case R.id.iv_zzrz:
@@ -127,7 +144,7 @@ public class SqscShezhiActivity extends BaseActivity {
 //                break;
             case R.id.ll_yhpj:
                 //查看评价
-                Jump_intent(YongHuPingJiaActivity.class,new Bundle());
+                Jump_intent(YongHuPingJiaActivity.class, new Bundle());
                 break;
             case R.id.ll_wdpj:
                 Jump_intent(WoDePingJiaActivity.class, new Bundle());
@@ -158,6 +175,7 @@ public class SqscShezhiActivity extends BaseActivity {
                 break;
         }
     }
+
     private void getRenzheng() {
         HttpManager.getInstance()
                 .with(mContext)
@@ -181,7 +199,7 @@ public class SqscShezhiActivity extends BaseActivity {
                     @Override
                     public void onNext(String data) {
                         confirmDialog.dismiss();
-                        goLogin(mContext,"login");
+                        goLogin(mContext, "login");
                     }
                 });
     }

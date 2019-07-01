@@ -105,7 +105,7 @@ public class ShangPinGuanLiTeJiaActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getshangpinguanli(token, chaxunzi,goods,type,ye))
+                                .getshangpinguanli(token, chaxunzi,goods,type,"",ye))
                 .setDataListener(new HttpDataListener<ShangPinGuanLiBean>() {
                     @Override
                     public void onNext(ShangPinGuanLiBean data) {

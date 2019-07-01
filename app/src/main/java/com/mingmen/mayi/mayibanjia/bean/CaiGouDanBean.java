@@ -322,6 +322,15 @@ public class CaiGouDanBean {
             private String ct_buy_final_id;
             private String ct_buy_final_name;
             private String often_name_id;
+            private String spec_description;
+
+            public String getSpec_description() {
+                return spec_description;
+            }
+
+            public void setSpec_description(String spec_description) {
+                this.spec_description = spec_description;
+            }
 
             public String getOften_name_id() {
                 return often_name_id;

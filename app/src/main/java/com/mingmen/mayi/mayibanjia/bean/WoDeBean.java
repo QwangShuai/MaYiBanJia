@@ -38,6 +38,15 @@ public class WoDeBean {
     private int shenhe_cg;
     private float evaluation;
     private String realtime;
+    private String part;
+
+    public String getPart() {
+        return part;
+    }
+
+    public void setPart(String part) {
+        this.part = part;
+    }
 
     public int getQx_dingdan() {
         return qx_dingdan;

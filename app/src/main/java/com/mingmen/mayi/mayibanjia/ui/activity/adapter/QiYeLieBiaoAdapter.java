@@ -169,6 +169,7 @@ public class QiYeLieBiaoAdapter extends RecyclerView.Adapter<QiYeLieBiaoAdapter.
                 public void onClick(View v) {
                     it= new Intent(mContext, GHDOrderActivity.class);
                     it.putExtra("token",data.getUser_token());
+                    it.putExtra("qyid",data.getCompany_id());
                     it.putExtra("isClick",1);
                     mContext.startActivity(it);
                 }
@@ -179,6 +180,7 @@ public class QiYeLieBiaoAdapter extends RecyclerView.Adapter<QiYeLieBiaoAdapter.
                     it= new Intent(mContext, ShangPinGuanLiActivity.class);
                     it.putExtra("token",data.getUser_token());
                     it.putExtra("goods","0");
+                    it.putExtra("qyid",data.getCompany_id());
                     it.putExtra("isClick",1);
                     mContext.startActivity(it);
                 }
@@ -189,6 +191,7 @@ public class QiYeLieBiaoAdapter extends RecyclerView.Adapter<QiYeLieBiaoAdapter.
                     it= new Intent(mContext, DingDanActivity.class);
                     it.putExtra("token",data.getUser_token());
                     it.putExtra("isClick",1);
+                    it.putExtra("qyid",data.getCompany_id());
                     mContext.startActivity(it);
                 }
             });
@@ -199,6 +202,7 @@ public class QiYeLieBiaoAdapter extends RecyclerView.Adapter<QiYeLieBiaoAdapter.
                     it.putExtra("token",data.getUser_token());
                     it.putExtra("goods","1");
                     it.putExtra("isClick",1);
+                    it.putExtra("qyid",data.getCompany_id());
                     mContext.startActivity(it);
                 }
             });

@@ -207,8 +207,12 @@ public class ShouYeFragment extends BaseFragment {
                     xiangxi = location.getAddress();
                     cityCode = location.getCityCode();
                     xingQuDian = location.getPoiName();
+
 //                    ToastUtil.showToast(city+"---"+cityCode);
                 }
+
+//                showDialog(getContext(),"错误码:"+location.getErrorCode()+"\n"
+//                        +city);
 //                else {
 //                    ToastUtil.showToast("定位失败,请检查是否开启定位功能");
 //                }
@@ -354,8 +358,12 @@ public class ShouYeFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_sousuo:
-                MainActivity activity = (MainActivity) getActivity();
-                activity.changeView("","");
+                if (PreferenceUtils.getBoolean(MyApplication.mContext, "youke", false)) {
+                    showDialog(getContext(), UMConfig.ZHUCE_MESSAGE);
+                } else {
+                    MainActivity activity = (MainActivity) getActivity();
+                    activity.changeView("", "");
+                }
 //                Intent intent=new Intent(getActivity(),SouSuoActivity.class);
 //                startActivity(intent);
                 break;

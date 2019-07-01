@@ -126,7 +126,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     LinearLayout llShangpin;
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout refreshLayout;
-//    @BindView(R.id.indicator)
+    //    @BindView(R.id.indicator)
 //    PageIndicatorView indicator;
 //    @BindView(R.id.recycler_view)
 //    RecyclerView recyclerView;
@@ -146,7 +146,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     LinearLayout llDingwei;
     @BindView(R.id.tv_shichangjia)
     TextView tvShichangjia;
-//    @BindView(R.id.ll_rv)
+    //    @BindView(R.id.ll_rv)
 //    LinearLayout llRv;
     @BindView(R.id.ll_pinzhong)
     LinearLayout llPinzhong;
@@ -256,12 +256,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     private boolean isResult;
     private XJSPFeiLeiGuigeAdapter guigeadapter;
     private List<ShangPinSousuoMohuBean> mlist = new ArrayList<>();
-//    ZiXunPagingScrollHelper rp = new ZiXunPagingScrollHelper();
 
-    PagingScrollHelper scrollHelper = new PagingScrollHelper();
-    private HorizontalPageLayoutManager  hLinearLayoutManager = null;
-//    private QuanBuCaiPinLeiOneAdapter leiAdapter;
-//    private PagingItemDecoration pagingItemDecoration  = null;
 
     private View[] ivPoints;//小圆点图片的集合
     private int totalPage; //总的页数
@@ -272,7 +267,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     private int dotSize = 10;
     private int margins = 10;
     LinearLayout.LayoutParams params;
-    private boolean  isShichang;
+    private boolean isShichang;
 
     @Override
     protected View getSuccessView() {
@@ -308,13 +303,11 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         margins = AppUtil.Dp2px(mContext, margins);
         params = new LinearLayout.LayoutParams(dotSize, dotSize);
         params.setMargins(margins, margins, margins, margins);
-//        leiAdapter = new QuanBuCaiPinLeiAdapter(mContext, lei_datas, this);
-//        leiAdapter = new QuanBuCaiPinLeiOneAdapter(mContext, leiBean, this);
         getShouyeFenLei(yclId, "2");
         mLoadMoreListener = new SwipeMenuRecyclerView.LoadMoreListener() {
             @Override
             public void onLoadMore() {
-                sousuoshangpin(sousuo,type);
+                sousuoshangpin(sousuo, type);
             }
         };
         viewHeight = rlLei.getHeight();
@@ -330,14 +323,14 @@ public class QuanBuCaiPinFragment extends BaseFragment {
 
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     if (mystate == 1) {
-                        if(manager.findFirstCompletelyVisibleItemPosition()==0){
+                        if (manager.findFirstCompletelyVisibleItemPosition() == 0) {
                             if (rlLei.getVisibility() == View.VISIBLE ? false : true) {
                                 rlLei.setVisibility(View.VISIBLE);
                             }
                             mystate = 0;
                         }
                     } else if (mystate == 2) {
-                        if(manager.findFirstCompletelyVisibleItemPosition()>0) {
+                        if (manager.findFirstCompletelyVisibleItemPosition() > 0) {
                             if (rlLei.getVisibility() == View.VISIBLE ? true : false) {
                                 rlLei.setVisibility(View.GONE);
                             }
@@ -353,14 +346,8 @@ public class QuanBuCaiPinFragment extends BaseFragment {
 
                 if (dy + viewHeight < 0) {
                     mystate = 1;
-//                    if (rlLei.getVisibility() == View.VISIBLE ? false : true) {
-//                        rlLei.setVisibility(View.VISIBLE);
-//                    }
                 } else if (dy - viewHeight > 0) {
                     mystate = 2;
-//                    if (rlLei.getVisibility() == View.VISIBLE ? true : false) {
-//                        rlLei.setVisibility(View.GONE);
-//                    }
                 }
             }
         });
@@ -423,14 +410,14 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         guigeadapter = new XJSPFeiLeiGuigeAdapter(mContext, mlist);
         isZhunshida = activity.isZhunshida();
         isTejia = activity.isTejia();
-        if(isTejia){
+        if (isTejia) {
             istejia = "1";
             tvTejia.setTextColor(getResources().getColor(R.color.zangqing));
         } else {
             istejia = "";
             tvTejia.setTextColor(getResources().getColor(R.color.lishisousuo));
         }
-        if(isZhunshida){
+        if (isZhunshida) {
             iszhunshida = "0";
             tvJishida.setTextColor(getResources().getColor(R.color.zangqing));
         } else {
@@ -438,7 +425,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
             tvJishida.setTextColor(getResources().getColor(R.color.lishisousuo));
         }
         if (!TextUtils.isEmpty(activity.getType())) {//是否是首页传参过来的
-            Log.e(TAG, "loadData: "+ activity.getType()+"---"+activity.getSp_id() );
+            Log.e(TAG, "loadData: " + activity.getType() + "---" + activity.getSp_id());
             tvPinlei.setText(activity.getType());
 //            tvPinlei.setTextColor(getResources().getColor(R.color.zangqing));
             yijipinleiid = activity.getSp_id();
@@ -447,13 +434,13 @@ public class QuanBuCaiPinFragment extends BaseFragment {
             updateAdapter();
 //            activity.setType("");
 //            setAdapterXuanzhong();
-            for (MyGridViewAdpter myadapter: adpters) {
+            for (MyGridViewAdpter myadapter : adpters) {
                 myadapter.setXzid(xzId);
                 setXuanzhongId(xzId);
                 myadapter.notifyDataSetChanged();
             }
         } else {
-            Log.e(TAG, "loadData: "+"啊呀呦" );
+            Log.e(TAG, "loadData: " + "啊呀呦");
             sousuoshangpin("", "0");
         }
     }
@@ -461,7 +448,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
 
     //商品搜索
     private void sousuoshangpin(final String sousuo, final String type) {
-        Log.e(TAG, "sousuoshangpin: 我是特价"+istejia+"---我是食时达"+iszhunshida );
+        Log.e(TAG, "sousuoshangpin: 我是特价" + istejia + "---我是食时达" + iszhunshida);
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
@@ -477,7 +464,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                             isdi = false;
                         }
                         if (shangpin.getZhengchang() != null) {
-                            if(QuanBuCaiPinFragment.this.isVisible()){
+                            if (QuanBuCaiPinFragment.this.isVisible()) {
                                 if (shangpin.getZhengchang().size() == 5) {
                                     rvShangpin.loadMoreFinish(false, true);
                                 } else if (shangpin.getZhengchang().size() > 0) {
@@ -494,7 +481,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                         shangpinadapter.notifyDataSetChanged();
                         ye++;
                     }
-                },true);
+                }, true);
     }
 
     private void showYiJiPop(int state) {
@@ -502,7 +489,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
             showYiji();
         } else if (state == 2) {
             showErji();
-        }else if (state == 4) {
+        } else if (state == 4) {
             showThreePop();
         }
         rlLei.setVisibility(View.GONE);
@@ -549,7 +536,6 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     }
 
 
-
     //    @OnClick({R.id.ll_diqu, R.id.ll_pinlei, R.id.ll_shaixuan,R.id.iv_shanchuzi, R.id.tv_xiaoliang, R.id.ll_jiage, R.id.tv_pingfenzuigao})
     @OnClick({R.id.ll_shichangjia, R.id.ll_pinzhong, R.id.ll_pinlei, R.id.ll_shichang,
             R.id.ll_sousuo, R.id.tv_xiaoliang, R.id.ll_jiage, R.id.tv_pingfenzuigao,
@@ -560,7 +546,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
 //                //地区
 //                break;
             case R.id.tv_tejia://特价
-                if(isTejia){
+                if (isTejia) {
                     isTejia = false;
                     istejia = "";
                     tvTejia.setTextColor(getResources().getColor(R.color.lishisousuo));
@@ -573,7 +559,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 updateAdapter();
                 break;
             case R.id.tv_jishida://食时达
-                if(isZhunshida){
+                if (isZhunshida) {
                     isZhunshida = false;
                     iszhunshida = "";
                     tvJishida.setTextColor(getResources().getColor(R.color.lishisousuo));
@@ -589,7 +575,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 break;
             case R.id.tv_xiaoliang:
                 xlPop.setFocusable(true);
-                if(xlPop.isShowing()){
+                if (xlPop.isShowing()) {
                     xlPop.dismiss();
                 } else {
                     xlPop.showAsDropDown(llPopZhanwei);
@@ -635,24 +621,31 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 setXuanXiangColor(tvPingfenzuigao);
                 break;
             case R.id.ll_sousuo:
-                rvShichangjia.setVisibility(View.GONE);
-                Intent it = new Intent(mContext, SouSuoActivity.class);
-                it.putExtra("sousuo", sousuo);
-                startActivityForResult(it, REQUEST_CODE);
+                if (PreferenceUtils.getBoolean(MyApplication.mContext, "youke", false)) {
+                    showDialog(mContext, UMConfig.ZHUCE_MESSAGE);
+                } else {
+                    rvShichangjia.setVisibility(View.GONE);
+                    Intent it = new Intent(mContext, SouSuoActivity.class);
+                    it.putExtra("sousuo", sousuo);
+                    startActivityForResult(it, REQUEST_CODE);
+                }
+
                 break;
             case R.id.ll_shichang:
 //                showYiJiPop(3);
+
                 isShichang = true;
                 Intent it_shichang = new Intent(mContext, ShichangXuanzeActivity.class);
-                if(StringUtil.isValid(shichangid)){
-                    it_shichang.putExtra("id",shichangid);
-                    it_shichang.putExtra("name",shichangname);
+                if (StringUtil.isValid(shichangid)) {
+                    it_shichang.putExtra("id", shichangid);
+                    it_shichang.putExtra("name", shichangname);
                 } else {
-                    it_shichang.putExtra("id","");
-                    it_shichang.putExtra("name","全部");
+                    it_shichang.putExtra("id", "");
+                    it_shichang.putExtra("name", "全部");
                 }
                 startActivity(it_shichang);
 //                startActivityForResult(new Intent(mContext, ShichangXuanzeActivity.class),REQUEST_CODE);
+
                 break;
             case R.id.ll_pinzhong:
                 showPopTwo();
@@ -661,22 +654,25 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 showPopThree();
                 break;
             case R.id.ll_shichangjia:
-                if (StringUtil.isValid(sanjipinleiid)) {
+                if (PreferenceUtils.getBoolean(MyApplication.mContext, "youke", false)) {
+                    showDialog(mContext, UMConfig.ZHUCE_MESSAGE);
+                } else {
+                    if (StringUtil.isValid(sanjipinleiid)) {
 //                    if (rvShichangjia.getVisibility() == View.VISIBLE ? true : false) {
 //                        shichanglist.clear();
 //                        rvShichangjia.setVisibility(View.GONE);
 //                    } else {
 //                        sousuoshichang();
 //                    }
-                    Intent it_jiage = new Intent(mContext,ShichangJiageActivity.class);
-                    it_jiage.putExtra("id",sanjipinleiid);
-                    it_jiage.putExtra("name",sanjipinleiname);
-                    mContext.startActivity(it_jiage);
-                } else {
-                    ToastUtil.showToastLong("您还没有选择商品的品种");
+                        Intent it_jiage = new Intent(mContext, ShichangJiageActivity.class);
+                        it_jiage.putExtra("id", sanjipinleiid);
+                        it_jiage.putExtra("name", sanjipinleiname);
+                        mContext.startActivity(it_jiage);
+                    } else {
+                        ToastUtil.showToastLong("您还没有选择商品的品种");
+                    }
+
                 }
-
-
                 break;
         }
     }
@@ -686,15 +682,15 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         super.onResume();
         isZhunshida = activity.isZhunshida();
         isTejia = activity.isTejia();
-        Log.e(TAG, "onResume: "+activity.getType() );
-        if(isTejia){
+        Log.e(TAG, "onResume: " + activity.getType());
+        if (isTejia) {
             istejia = "1";
             tvTejia.setTextColor(getResources().getColor(R.color.zangqing));
         } else {
             istejia = "";
             tvTejia.setTextColor(getResources().getColor(R.color.lishisousuo));
         }
-        if(isZhunshida){
+        if (isZhunshida) {
             iszhunshida = "0";
             tvJishida.setTextColor(getResources().getColor(R.color.zangqing));
         } else {
@@ -715,7 +711,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
 //            leiAdapter.setXuanzhongId(yijipinleiid);
             xzId = yijipinleiid;
 //            setAdapterXuanzhong();
-            for (MyGridViewAdpter myadapter: adpters) {
+            for (MyGridViewAdpter myadapter : adpters) {
                 myadapter.setXzid(xzId);
                 setXuanzhongId(xzId);
                 myadapter.notifyDataSetChanged();
@@ -724,14 +720,14 @@ public class QuanBuCaiPinFragment extends BaseFragment {
             updateAdapter();
 //            }
         } else {
-            if(!isShichang){
-                if (!isResult&&ye!=1) {
+            if (!isShichang) {
+                if (!isResult && ye != 1) {
                     tvSousuozi.setText("");
                     sousuo = "";
                     xzId = "";
                     yijipinleiid = "";
 //                    setAdapterXuanzhong();
-                    for (MyGridViewAdpter myadapter: adpters) {
+                    for (MyGridViewAdpter myadapter : adpters) {
                         myadapter.setXzid(xzId);
                         setXuanzhongId(xzId);
                         myadapter.notifyDataSetChanged();
@@ -780,7 +776,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                             quanbu.setClassify_grade("0");
                             quanbu.setClassify_id("");
                             if (type.equals("2")) {
-                                Log.e(TAG, "onNext: "+"执行了啊" );
+                                Log.e(TAG, "onNext: " + "执行了啊");
                                 leiBean.addAll(list);
                                 bindZiXun();
                             } else if (type.equals("3")) {
@@ -803,24 +799,6 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     }
 
     private void bindZiXun() {
-//        hLinearLayoutManager = new HorizontalPageLayoutManager(2, 5);
-//        recyclerView.setLayoutManager(hLinearLayoutManager);
-//        recyclerView.setAdapter(leiAdapter);
-//        leiAdapter.setXuanzhongId(yijipinleiid);
-//        recyclerView.setHasFixedSize(true);
-//        scrollHelper.setUpRecycleView(recyclerView);
-//        scrollHelper.setIndicator(indicator);
-//        scrollHelper.setOnPageChangeListener(new PagingScrollHelper.onPageChangeListener() {
-//            @Override
-//            public void onPageChange(int index) {
-//                indicator.setSelectedPage(index);
-//            }
-//        });
-//        recyclerView.setHorizontalScrollBarEnabled(false);
-//        scrollHelper.setAdapter(leiAdapter,1);
-//        scrollHelper.updateLayoutManger();
-//        scrollHelper.scrollToPosition(0);
-//        setAdapterXuanzhong()
         Log.e("bindZiXun: ", "faxie");
         totalPage = (int) Math.ceil(leiBean.size() * 1.0 / mPageSize);
         viewPagerList = new ArrayList<View>();
@@ -839,9 +817,9 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                     // TODO Auto-generated method stub
                     Object obj = gridView.getItemAtPosition(position);
                     if (obj != null && obj instanceof FCGName) {
-                        for (MyGridViewAdpter myadapter: adpters) {
-                            myadapter.setXzid(((FCGName)obj).getClassify_id());
-                            xzId = ((FCGName)obj).getClassify_id();
+                        for (MyGridViewAdpter myadapter : adpters) {
+                            myadapter.setXzid(((FCGName) obj).getClassify_id());
+                            xzId = ((FCGName) obj).getClassify_id();
                             setXuanzhongId(xzId);
                             myadapter.notifyDataSetChanged();
                         }
@@ -869,7 +847,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
 
 //            ivPoints[i].setPadding(8, 8, 8, 8);
 
-            points.addView(ivPoints[i],params);
+            points.addView(ivPoints[i], params);
         }
         //设置ViewPager的滑动监听，主要是设置点点的背景颜色的改变
         viewpager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -887,7 +865,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
             }
         });
 
-        if(ivPoints.length>1){
+        if (ivPoints.length > 1) {
             points.setVisibility(View.VISIBLE);
         } else {
             points.setVisibility(View.GONE);
@@ -929,7 +907,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.e(TAG, "onActivityResult: "+"妖魔鬼怪" );
+        Log.e(TAG, "onActivityResult: " + "妖魔鬼怪");
         if (resultCode == 2) {
             isResult = true;
             if (requestCode == REQUEST_CODE) {
@@ -937,7 +915,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 xzId = "";
 //                leiAdapter.setXuanzhongId(yijipinleiid);
 //                setAdapterXuanzhong();
-                for (MyGridViewAdpter myadapter: adpters) {
+                for (MyGridViewAdpter myadapter : adpters) {
                     myadapter.setXzid(xzId);
                     setXuanzhongId(xzId);
                     myadapter.notifyDataSetChanged();
@@ -953,7 +931,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
 //                    if (StringUtil.isValid(sanjipinleiid)) {
 //                        sousuoshangpin(sousuo, type);
 //                    } else {
-                    sousuoshangpin(sousuo,type);
+                    sousuoshangpin(sousuo, type);
 //                    }
 
                 } else {
@@ -978,7 +956,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                     xzId = "";
 //                    leiAdapter.setXuanzhongId(yijipinleiid);
 //                    setAdapterXuanzhong();
-                    for (MyGridViewAdpter myadapter: adpters) {
+                    for (MyGridViewAdpter myadapter : adpters) {
                         myadapter.setXzid(xzId);
                         setXuanzhongId(xzId);
                         myadapter.notifyDataSetChanged();
@@ -1081,6 +1059,9 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 xzId_2 = msg.getClassify_id();
                 sousuo = "";
                 rlLei.setVisibility(View.VISIBLE);
+                ye = 1;
+                shangpinlist.clear();
+                shangpinadapter.notifyDataSetChanged();
                 sousuoshangpin(sousuo, "0");
             }
         });
@@ -1101,7 +1082,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
             public void xuanzhong(FCGName msg) {
                 yijipop.dismiss();
                 tvPinzhong.setText(msg.getClassify_name());
-                if(msg.getClassify_name().equals("全部")){
+                if (msg.getClassify_name().equals("全部")) {
                     sanjipinleiname = "";
                 } else {
                     sanjipinleiname = msg.getClassify_name();
@@ -1115,10 +1096,10 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                     tvPinzhong.setTextColor(getResources().getColor(R.color.zangqing));
                 }
                 sanjipinleiid = msg.getClassify_id();
-                ye = 1;
-                mlist.clear();
-                shangpinadapter.notifyDataSetChanged();
                 rlLei.setVisibility(View.VISIBLE);
+                ye = 1;
+                shangpinlist.clear();
+                shangpinadapter.notifyDataSetChanged();
                 sousuoshangpin(sousuo, "0");
 
             }
@@ -1133,7 +1114,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
             rvGuige.setVisibility(View.GONE);
         }
         ye = 1;
-        mlist.clear();
+        shangpinlist.clear();
         shangpinadapter.notifyDataSetChanged();
         tvLablePop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
         tvPinzhongLablePop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
@@ -1288,6 +1269,9 @@ public class QuanBuCaiPinFragment extends BaseFragment {
 
                 Log.e("xuanzhong: guigeId=", guigeId);
                 guigeadapter.notifyDataSetChanged();
+                ye = 1;
+                shangpinlist.clear();
+                shangpinadapter.notifyDataSetChanged();
                 sousuoshangpin(sousuo, "0");
             }
         });
@@ -1345,29 +1329,31 @@ public class QuanBuCaiPinFragment extends BaseFragment {
             tvGuigePop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
         }
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void getShouye(Map<String,Boolean> map) {
-        Log.e(TAG, "getShouye: "+"好嗨鼬" );
-        for (String s: map.keySet()) {
-            if(s.equals("isTejia")){
+    public void getShouye(Map<String, Boolean> map) {
+        Log.e(TAG, "getShouye: " + "好嗨鼬");
+        for (String s : map.keySet()) {
+            if (s.equals("isTejia")) {
                 isTejia = true;
                 istejia = "1";
-                sousuoshangpin(sousuo,type);
+                sousuoshangpin(sousuo, type);
             }
-            if(s.equals("isZhunshida")){
+            if (s.equals("isZhunshida")) {
                 isZhunshida = true;
                 iszhunshida = "0";
-                sousuoshangpin(sousuo,type);
+                sousuoshangpin(sousuo, type);
             }
         }
     }
 
-    private void updateAdapter(){
+    private void updateAdapter() {
         ye = 1;
         shangpinlist.clear();
         shangpinadapter.notifyDataSetChanged();
-        sousuoshangpin(sousuo,type);
+        sousuoshangpin(sousuo, type);
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -1379,7 +1365,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         shichangid = bean.getMark_id();
         shichangname = bean.getMarket_name();
         tvShichang.setText(bean.getMarket_name());
-        Log.e(TAG, "getMarketId: "+bean.getMarket_name() );
+        Log.e(TAG, "getMarketId: " + bean.getMarket_name());
         if (bean.getMarket_name().equals("全部")) {
             tvShichang.setTextColor(getResources().getColor(R.color.zicolor));
         } else {
@@ -1391,8 +1377,8 @@ public class QuanBuCaiPinFragment extends BaseFragment {
     @Override
     public void onStop() {
         super.onStop();
-        if(!isShichang){
-            Log.e(TAG, "onStop: "+"走了啊兄弟" );
+        if (!isShichang) {
+            Log.e(TAG, "onStop: " + "走了啊兄弟");
             isResult = false;
             viewpager.setCurrentItem(0);
             xzId = "";
@@ -1512,7 +1498,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         xlPop.setBackgroundDrawable(new BitmapDrawable());
     }
 
-    private void clearXlPopShow(){
+    private void clearXlPopShow() {
 
         xlPop.dismiss();
 
@@ -1527,9 +1513,9 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         tvJgjx.setTextColor(mContext.getResources().getColor(R.color.lishisousuo));
     }
 
-    private void setAdapterXuanzhong(){
-        Log.e(TAG, "setAdapterXuanzhong: "+"难受啊兄弟");
-        for (MyGridViewAdpter myadapter: adpters) {
+    private void setAdapterXuanzhong() {
+        Log.e(TAG, "setAdapterXuanzhong: " + "难受啊兄弟");
+        for (MyGridViewAdpter myadapter : adpters) {
             myadapter.setXzid(xzId);
             setXuanzhongId(xzId);
             myadapter.notifyDataSetChanged();

@@ -18,13 +18,17 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.mingmen.mayi.mayibanjia.R;
+import com.mingmen.mayi.mayibanjia.app.MyApplication;
+import com.mingmen.mayi.mayibanjia.app.UMConfig;
 import com.mingmen.mayi.mayibanjia.bean.ShangPinBean;
 import com.mingmen.mayi.mayibanjia.bean.ShangPinSouSuoBean;
 import com.mingmen.mayi.mayibanjia.bean.SouSuoJieGuoShangPinBean;
 import com.mingmen.mayi.mayibanjia.ui.activity.SPXiangQingActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.TubiaoActivity;
+import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
+import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.custom.MarqueeTextView;
 
@@ -92,7 +96,7 @@ public class ShangPinListAdapter extends RecyclerView.Adapter<ShangPinListAdapte
         }
         holder.tvGuigeMiaoshu.setVisibility(StringUtil.isValid(data.getPackStandard())?View.VISIBLE:View.GONE);
         if(StringUtil.isValid(data.getPackStandard())){
-            holder.tvGuigeMiaoshu.setText(data.getPackStandard());
+            holder.tvGuigeMiaoshu.setText("规格详情:"+data.getPackStandard());
         }
         holder.tvSpming.setText(data.getClassify_name());
         holder.tvDianming.setText(data.getCompany_name()+"("+data.getMarket_name()+")");
@@ -105,35 +109,46 @@ public class ShangPinListAdapter extends RecyclerView.Adapter<ShangPinListAdapte
             holder.ivJishida.setVisibility(View.GONE);
         }
         GlideUtils.cachePhoto(mContext,holder.ivSptu,data.getPicture_url());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle=new Bundle();
-                bundle.putBoolean("teshu",isTeshu);
-                bundle.putString("spid",data.getCommodity_id());
-                JumpUtil.Jump_intent(mContext, SPXiangQingActivity.class,bundle);
-            }
-        });
-        holder.ivZoushitu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent zoushi=new Intent(mContext,TubiaoActivity.class);
-                zoushi.putExtra("mark_id",data.getSon_number());//市场id
-                zoushi.putExtra("market_name",data.getMarket_name());//市场名
-                zoushi.putExtra("classify_id",data.getType_four_id());//三级分类名称
-                zoushi.putExtra("classify_name",data.getClassify_name());//三级分类名称
-                //Log.e("classify_name",data.getSon_number()+"="+data.getClassify_name()+"="+data.getMarket_name()+"="+data.getType_tree_id());
-                mContext.startActivity(zoushi);
-            }
-        });
-        if (mOnItemClickListener != null) {
-            holder.ivAddcar.setOnClickListener(new View.OnClickListener() {
+        if(PreferenceUtils.getBoolean(MyApplication.mContext,"youke",false)){
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mOnItemClickListener.onClick(v, position);
+                    BaseActivity.showDialog(mContext, UMConfig.ZHUCE_MESSAGE);
                 }
             });
+
+        } else {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle bundle=new Bundle();
+                    bundle.putBoolean("teshu",isTeshu);
+                    bundle.putString("spid",data.getCommodity_id());
+                    JumpUtil.Jump_intent(mContext, SPXiangQingActivity.class,bundle);
+                }
+            });
+            holder.ivZoushitu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent zoushi=new Intent(mContext,TubiaoActivity.class);
+                    zoushi.putExtra("mark_id",data.getSon_number());//市场id
+                    zoushi.putExtra("market_name",data.getMarket_name());//市场名
+                    zoushi.putExtra("classify_id",data.getType_four_id());//三级分类名称
+                    zoushi.putExtra("classify_name",data.getClassify_name());//三级分类名称
+                    //Log.e("classify_name",data.getSon_number()+"="+data.getClassify_name()+"="+data.getMarket_name()+"="+data.getType_tree_id());
+                    mContext.startActivity(zoushi);
+                }
+            });
+            if (mOnItemClickListener != null) {
+                holder.ivAddcar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mOnItemClickListener.onClick(v, position);
+                    }
+                });
+            }
         }
+
     }
 
     @Override

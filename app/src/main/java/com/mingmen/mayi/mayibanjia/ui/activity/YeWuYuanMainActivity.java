@@ -377,7 +377,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
                     public void onClick(View v) {
 
                         String name = sousuodialog.getEtQiyemingcheng().getText().toString().trim();
-                        getQiyeLiebiaodaicanshu(name, leibieid);
+                        getQiyeLiebiaodaicanshu(name, "");
                         sousuodialog.cancel();
                     }
                 });

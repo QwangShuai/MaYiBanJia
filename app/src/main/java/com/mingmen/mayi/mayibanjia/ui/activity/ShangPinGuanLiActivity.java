@@ -66,16 +66,17 @@ public class ShangPinGuanLiActivity extends BaseActivity {
 
     private String goods = "0";
     private boolean isClick = true;
-    private String token = "";
+    private String qyid = "";
+
+    public String getQyid() {
+        return qyid;
+    }
+
+    public void setQyid(String qyid) {
+        this.qyid = qyid;
+    }
+
     private ShangPinAdapter adapter;
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,12 +99,10 @@ public class ShangPinGuanLiActivity extends BaseActivity {
         mContext = ShangPinGuanLiActivity.this;
         adapter = new ShangPinAdapter(getSupportFragmentManager(), mContext);
         goods = getIntent().getStringExtra("goods");
-        setToken(getIntent().getStringExtra("token"));
+        setQyid(getIntent().getStringExtra("qyid"));
 
-        if (StringUtil.isValid(token)) {
+        if (StringUtil.isValid(qyid)) {
             isClick = false;
-        } else {
-            token = PreferenceUtils.getString(MyApplication.mContext, "token", "");
         }
         tvTitleTj.setTextColor(mContext.getResources().getColor(R.color.white_no_70));
         tvTitleTj.setText("添加商品");
@@ -119,7 +118,7 @@ public class ShangPinGuanLiActivity extends BaseActivity {
         vpDingdan.setAdapter(adapter);
         vpDingdan.setScanScroll(false);
         tabsDingdan.setViewPager(vpDingdan);
-        setToken(getIntent().getStringExtra("token"));
+        setQyid(getIntent().getStringExtra("qyid"));
         vpDingdan.setOffscreenPageLimit(0);
         /**
          * 跳转传过来的页面，到哪个

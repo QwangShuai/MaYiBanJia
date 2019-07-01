@@ -11,7 +11,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="95dp"
+        android:layout_height="105dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -85,11 +85,18 @@
                     android:paddingTop="8dp"
                     android:src="@mipmap/zoushi" />
             </LinearLayout>
-
+            <TextView
+                android:id="@+id/tv_miaoshu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:text="规格详情:"
+                android:textColor="#ff999999"
+                android:textSize="12sp" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="11dp"
+                android:layout_marginTop="4dp"
                 android:gravity="bottom"
                 android:orientation="horizontal">
                 <!--                <TextView
@@ -118,12 +125,9 @@
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
 
             <RelativeLayout
+                android:layout_marginTop="4dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"

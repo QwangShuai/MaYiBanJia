@@ -21,12 +21,12 @@
             android:layout_height="wrap_content" />
         <EditText
             android:id="@+id/et_ypwd"
-            android:maxLength="6"
+            android:maxLength="16"
             android:textSize="12sp"
             android:inputType="textPassword"
             android:textColorHint="@color/hintcolor"
             android:paddingLeft="12dp"
-            android:hint="请输入原密码（6位）"
+            android:hint="请输入原密码（最多16位）"
             android:background="@null"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
@@ -47,12 +47,12 @@
             android:layout_height="wrap_content" />
         <EditText
             android:id="@+id/et_npwd"
-            android:maxLength="6"
+            android:maxLength="16"
             android:textSize="12sp"
             android:inputType="textPassword"
             android:textColorHint="@color/hintcolor"
             android:paddingLeft="12dp"
-            android:hint="请输入新密码（6位）"
+            android:hint="请输入新密码（最多16位）"
             android:background="@null"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
@@ -73,12 +73,12 @@
             android:layout_height="wrap_content" />
         <EditText
             android:id="@+id/et_cpwd"
-            android:maxLength="6"
+            android:maxLength="16"
             android:textSize="12sp"
             android:inputType="textPassword"
             android:textColorHint="@color/hintcolor"
             android:paddingLeft="12dp"
-            android:hint="请确认新密码（6位）"
+            android:hint="请确认新密码（16位）"
             android:background="@null"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

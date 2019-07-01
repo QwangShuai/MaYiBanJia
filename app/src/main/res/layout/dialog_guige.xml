@@ -30,7 +30,7 @@
                 android:layout_height="46dp">
 
                 <EditText
-                    android:hint="创建新规格"
+                    android:hint="创建新规格(1-4位汉字)"
                     android:id="@+id/et_create_guige"
                     android:textColor="@color/zicolor"
                     android:textSize="15sp"

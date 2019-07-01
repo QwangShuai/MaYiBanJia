@@ -180,7 +180,8 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
         holder.tvShangpinming.setText(listBean.getClassify_name());//商品名
 
         GlideUtils.cachePhoto(activity,holder.ivSptu,listBean.getPicture_url());
-        holder.tvGuige.setText(listBean.getPack_standard_name());//规格
+        holder.tvGuige.setText(listBean.getSpec_description());//规格
+        holder.tvMiaoshu.setText(listBean.getPack_standard_name());//规格描述
         if (bean.getCommodity_id() == null || bean.getCommodity_id().isEmpty()) {//是否选中
             holder.llZongjia.setVisibility(View.GONE);
         } else {
@@ -336,6 +337,8 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
         TextView tvShuliang;
         @BindView(R.id.tv_guige)
         TextView tvGuige;
+        @BindView(R.id.tv_miaoshu)
+        TextView tvMiaoshu;
         @BindView(R.id.ll_guige)
         LinearLayout llGuige;
         @BindView(R.id.tv_zongjia)

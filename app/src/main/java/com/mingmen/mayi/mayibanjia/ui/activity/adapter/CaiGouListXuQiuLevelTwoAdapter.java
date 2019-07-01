@@ -57,7 +57,8 @@ public class CaiGouListXuQiuLevelTwoAdapter extends RecyclerView.Adapter<CaiGouL
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final CaiGouDanBean.FllistBean.SonorderlistBean listBean = mList.get(position);
         holder.tvShangpin.setText(listBean.getClassify_name());
-        holder.tvGuige.setText(listBean.getPack_standard_name());
+        holder.tvGuige.setText(listBean.getSpec_description());
+        holder.tvMiaoshu.setText("规格详情:"+listBean.getPack_standard_name());
         if(StringUtil.isValid(listBean.getOften_name_id())){
             holder.tvTjcg.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_solid_zangqing_3));
             holder.tvTjcg.setTextColor(mContext.getResources().getColor(R.color.white));
@@ -177,6 +178,8 @@ public class CaiGouListXuQiuLevelTwoAdapter extends RecyclerView.Adapter<CaiGouL
         EditText etCaigouliang;
         @BindView(R.id.tv_guige)
         TextView tvGuige;
+        @BindView(R.id.tv_miaoshu)
+        TextView tvMiaoshu;
 //        @BindView(R.id.iv_xiangxia)
 //        ImageView ivXiangxia;
         @BindView(R.id.rl_guige)

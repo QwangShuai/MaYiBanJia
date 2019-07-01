@@ -1521,13 +1521,12 @@ public class FaBuShangPinActivity extends BaseActivity {
                         guigeadapter.setCallBack(new XJSPFeiLeiGuigeAdapter.CallBack() {
                             @Override
                             public void xuanzhong(final ShangPinSousuoMohuBean msg) {
+                                Log.e( "xuanzhong: ", new Gson().toJson(msg) );
                                 guigeadapter.setXuanzhongid(msg.getClassify_id());
-                                tvZxgg.setText(msg.getAffiliated_spec_name());
                                 tvSanji.setText(msg.getSpec_name());
                                 Log.e( "xuanzhong: ", msg.getSpec_describe());
                                 tvGgms.setText(msg.getSpec_name());
 //                                if(!isSelect){
-                                etNumber.setText(msg.getAffiliated_number());
 //                                }
 //                                etNumber.setText(msg.getAffiliated_number());
                                 sanjiguigeid = msg.getSpec_idFour();
@@ -1547,6 +1546,11 @@ public class FaBuShangPinActivity extends BaseActivity {
                                 }
                                 etMiaoshu.setText(msg.getSpec_describe());
                                 guigeadapter.notifyDataSetChanged();
+                                etNumber.setText(msg.getAffiliated_number());
+                                tvZxgg.setText(msg.getAffiliated_spec_name());
+                                etMiaoshu.setText(msg.getClassify_name());
+                                llCj1.setVisibility(View.GONE);
+                                llCj2.setVisibility(View.GONE);
                             }
                         });
 //                        guigeadapter.notifyDataSetChanged();
@@ -1579,7 +1583,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                 tvGgCj1.setText("");
                 etNumberCj1.setText("");
             } else if (item.getLevel() == 2) {
-                if(item.getSpec_id().equals(sanjiguigeid)){
+                if(item.getSpec_name().equals(sanjiguigename)){
                     ToastUtil.showToastLong("规格重复");
                     return;
                 }
@@ -1590,7 +1594,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                 tvGgCj2.setText("");
                 etNumberCj2.setText("");
             } else {
-                if(item.getSpec_id().equals(sanjiguigeid)||item.getSpec_id().equals(cj1)){
+                if(item.getSpec_name().equals(sanjiguigename)||item.getSpec_name().equals(tvGgCj1.getText().toString())){
                     ToastUtil.showToastLong("规格重复");
                     return;
                 }

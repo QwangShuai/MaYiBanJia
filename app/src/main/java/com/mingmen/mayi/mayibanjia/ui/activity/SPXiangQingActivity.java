@@ -344,7 +344,7 @@ public class SPXiangQingActivity extends Activity implements View.OnClickListene
         }
 
         if(StringUtil.isValid(xq.getSpec_describe())){
-            tvGgMiaoshu.setText(xq.getSpec_describe());
+            tvGgMiaoshu.setText("规格详情:"+xq.getSpec_describe());
         } else {
             tvGgMiaoshu.setVisibility(View.GONE);
         }

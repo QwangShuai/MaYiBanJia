@@ -193,7 +193,7 @@ public class GHDXiangQingActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getGHOrderList(PreferenceUtils.getString(MyApplication.mContext, "token", ""),orderid, "", 1))
+                                .getGHOrderList(PreferenceUtils.getString(MyApplication.mContext, "token", ""),orderid, "","", 1))
                 .setDataListener(new HttpDataListener<List<GHOrderBean>>() {
                     @Override
                     public void onNext(List<GHOrderBean> data) {

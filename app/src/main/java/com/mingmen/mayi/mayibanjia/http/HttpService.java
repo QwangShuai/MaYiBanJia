@@ -412,10 +412,12 @@ public interface HttpService {
     Observable<ResultModel<String>> quxiaoshoucang(@Query("user_token") String user_token,
                                                    @Query("collect_id") String collect_id);
 
-    //订单
+    //餐厅端订单列表
     @POST("Ordermain/list.do")
     Observable<ResultModel<List<DingDanBean>>> getdingdan(@Query("user_token") String user_token,
-                                                          @Query("state") String state, @Query("pageNumber") Integer pageNumber);
+                                                          @Query("state") String state,
+                                                          @Query("company_id") String company_id,
+                                                          @Query("pageNumber") Integer pageNumber);
 
     //    //需求单主表
 //    @POST("ctBuyHostorder/queryByHost.do")
@@ -728,6 +730,7 @@ public interface HttpService {
                                                                   @Query("commodity_name") String commodity_name,
                                                                   @Query("goods") String goods,
                                                                   @Query("sortOrder") String sortOrder,
+                                                                  @Query("company_id") String company_id,
                                                                   @Query("pageNumber") int pageNumber);
 
     //供货端商品列表删除
@@ -784,7 +787,9 @@ public interface HttpService {
     @POST("gyOreder/queryByList.do")
     Observable<ResultModel<List<GHOrderBean>>> getGHOrderList(@Query("user_token") String user_token,
                                                               @Query("gy_order_id") String gy_order_id,
-                                                              @Query("state") String state, @Query("pageNumber") Integer pageNumber);
+                                                              @Query("state") String state,
+                                                              @Query("company_id") String company_id,
+                                                              @Query("pageNumber") Integer pageNumber);
 
     //删除供货订单
     @POST("gyOreder/delete.do")
@@ -1525,5 +1530,19 @@ public interface HttpService {
                                                                  @Query("market_id") String market_id,
                                                                  @Query("gy_company_id") String gy_company_id,
                                                                  @Query("brand") String brand);
+
+    // 业务员添加企业时验证店铺名称是否重复
+    @POST("allCompany/istruesave.do")
+    Observable<ResultModel<String>> dianpuyanzheng(@Query("user_token") String user_token,
+                                                                 @Query("role") String role,
+                                                                 @Query("company_name") String company_name,
+                                                                 @Query("province") String province,
+                                                                 @Query("city") String city,
+                                                                 @Query("region") String region,
+                                                                 @Query("son_number") String son_number);
+
+    // 运费回显
+    @POST("allCompany/freehui.do")
+    Observable<ResultModel<String>> getYunfei(@Query("user_token") String user_token);
 
 }

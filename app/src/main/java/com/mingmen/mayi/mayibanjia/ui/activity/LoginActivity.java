@@ -174,6 +174,7 @@ public class LoginActivity extends BaseActivity {
             }
         });
         if (isLogin) {
+            zzh = PreferenceUtils.getString(MyApplication.mContext,"host_account_type","0");
             tiaozhuan(PreferenceUtils.getString(MyApplication.mContext, "juese", ""),
                     PreferenceUtils.getInt(MyApplication.mContext, "random_id", 0));
         }

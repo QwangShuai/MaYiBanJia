@@ -189,27 +189,36 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
 //                getOne();
                 break;
             case R.id.ll_pinlei:
-                if(StringUtil.isValid(yclId)){
-                    getTwo();
-                } else {
-                    ToastUtil.showToastLong("请选择商品分类");
+                if(!mytype.equals("2")){
+                    if(StringUtil.isValid(yclId)){
+                        getTwo();
+                    } else {
+                        ToastUtil.showToastLong("请选择商品分类");
+                    }
                 }
+
 
                 break;
             case R.id.ll_pinzhong:
-                if(StringUtil.isValid(oneid)){
-                    getThree();
-                } else {
-                    ToastUtil.showToastLong("请选择商品品类");
+                if(!mytype.equals("3")){
+                    if(StringUtil.isValid(oneid)){
+                        getThree();
+                    } else {
+                        ToastUtil.showToastLong("请选择商品品类");
+                    }
                 }
+
 
                 break;
             case R.id.ll_mingcheng:
-                if(StringUtil.isValid(twoid)){
-                    getFour();
-                } else {
-                    ToastUtil.showToastLong("请选择商品品种");
+                if(mytype.equals("4")){
+                    if(StringUtil.isValid(twoid)){
+                        getFour();
+                    } else {
+                        ToastUtil.showToastLong("请选择商品品种");
+                    }
                 }
+
                 break;
             case R.id.btn_queren:
                 if(StringUtil.isValid(goods)&&StringUtil.isValid(fourid)){
@@ -507,6 +516,8 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
             rvGuige.setVisibility(View.GONE);
             rvYijifenlei.setVisibility(View.VISIBLE);
         }
+        btnAdd.setVisibility(View.GONE);
+        btnGuige.setVisibility(View.GONE);
         oneid = "";
         twoid = "";
         threeid = "";

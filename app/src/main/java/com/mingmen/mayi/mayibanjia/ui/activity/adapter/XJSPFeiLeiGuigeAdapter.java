@@ -58,7 +58,7 @@ public class XJSPFeiLeiGuigeAdapter extends RecyclerView.Adapter<XJSPFeiLeiGuige
                 holder.tv_ming.setTextColor(mContext.getResources().getColor(R.color.zicolor));
             }
         }
-        holder.tv_ming.setText(bean.getClassify_name());
+        holder.tv_ming.setText(bean.getSpec_describe());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -12,7 +12,9 @@ import android.os.Build;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -195,6 +197,30 @@ public class XinXiLuRuActivity extends BaseActivity {
             GlideUtils.cachePhoto(mContext,ivTu,shidizhaopian);
             etPhone.setText(qiyexinxi.getTelephone());
         }
+//        etQiyemingcheng.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                if(StringUtil.isValid(s.toString().trim())){
+//                    if(quid!=0&&StringUtil.isValid(jieid)){
+//
+//                    } else {
+//                        ToastUtil.showToastLong("请先选择所在区域和所在商圈");
+//                        etQiyemingcheng.setText("");
+//                    }
+//                }
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//            }
+//        });
         photoDialog = new PhotoDialog(mContext,
                 mContext.getResources().getIdentifier("BottomDialog", "style", mContext.getPackageName()));
         photoDialog.getWindow().setGravity(Gravity.BOTTOM | Gravity.LEFT | Gravity.RIGHT);
@@ -937,9 +963,9 @@ public class XinXiLuRuActivity extends BaseActivity {
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getQylb(QiYeLeiBieBean item) {
-        qiyeid = item.getSon_number();
-        qiyemingcheng = item.getSon_name();
-        tvQiyeleibie.setText("" + qiyemingcheng);
+        leibieid = item.getSon_number();
+        leibiename = item.getSon_name();
+        tvQiyeleibie.setText("" + item.getSon_name());
     }
 
     @Override

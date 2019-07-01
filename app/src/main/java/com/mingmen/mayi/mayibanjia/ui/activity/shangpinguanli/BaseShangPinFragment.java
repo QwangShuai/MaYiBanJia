@@ -73,7 +73,7 @@ public abstract class BaseShangPinFragment extends BaseFragment {
     private SwipeMenuRecyclerView.LoadMoreListener mLoadMoreListener;
     private int ye = 1;
     protected boolean isCreate = false;
-    private String token = "";
+    private String qyid = "";
     private boolean isClick = true;
 
     @Override
@@ -110,7 +110,7 @@ public abstract class BaseShangPinFragment extends BaseFragment {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getshangpinguanli(token, chaxunzi, goods, getZhuangTai(), ye))
+                                .getshangpinguanli(PreferenceUtils.getString(MyApplication.mContext, "token", ""), chaxunzi, goods, getZhuangTai(),qyid, ye))
                 .setDataListener(new HttpDataListener<ShangPinGuanLiBean>() {
                     @Override
                     public void onNext(ShangPinGuanLiBean data) {
@@ -150,7 +150,7 @@ public abstract class BaseShangPinFragment extends BaseFragment {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getshangpinguanli(token, message, goods, getZhuangTai(), ye))
+                                .getshangpinguanli(PreferenceUtils.getString(MyApplication.mContext, "token", ""), message, goods, getZhuangTai(),qyid, ye))
                 .setDataListener(new HttpDataListener<ShangPinGuanLiBean>() {
                     @Override
                     public void onNext(ShangPinGuanLiBean data) {
@@ -192,11 +192,9 @@ public abstract class BaseShangPinFragment extends BaseFragment {
     private void initview() {
         ShangPinGuanLiActivity activity = (ShangPinGuanLiActivity) getActivity();
         goods = activity.getGoods();
-        token = activity.getToken();
-        if (StringUtil.isValid(token)) {
+        qyid = activity.getQyid();
+        if (StringUtil.isValid(qyid)) {
             isClick = false;
-        } else {
-            token = PreferenceUtils.getString(MyApplication.mContext, "token", "");
         }
         // 创建菜单：
         SwipeMenuCreator mSwipeMenuCreator = new SwipeMenuCreator() {
@@ -236,7 +234,7 @@ public abstract class BaseShangPinFragment extends BaseFragment {
                         .setObservable(
                                 RetrofitManager
                                         .getService()
-                                        .ghdspdel(token, mlist.get(adapterPosition).getCommodity_id(), "3"))
+                                        .ghdspdel(PreferenceUtils.getString(MyApplication.mContext, "token", ""), mlist.get(adapterPosition).getCommodity_id(), "3"))
                         .setDataListener(new HttpDataListener<String>() {
                             @Override
                             public void onNext(String data) {
@@ -259,6 +257,8 @@ public abstract class BaseShangPinFragment extends BaseFragment {
                 getData();
             }
         };
+        refreshLayout.setColorSchemeResources(R.color.zangqing, R.color.zangqing,
+                R.color.zangqing, R.color.zangqing);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

@@ -117,7 +117,8 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
         GlideUtils.cachePhoto(mContext,holder.ivTu,shoppingBean.getUrl());
         holder.ivDanxuan.setSelected(shoppingBean.isSelect());
 
-        holder.tvQidingliang.setText(shoppingBean.getRation_one() +"(" +shoppingBean.getSpecNameThree()+")");
+        holder.tvQidingliang.setText(shoppingBean.getRation_one());
+        holder.tvMiaoshu.setText("规格详情:" +shoppingBean.getSpecNameThree());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -349,6 +350,8 @@ public class GWCShangPinAdapter extends RecyclerView.Adapter<GWCShangPinAdapter.
         TextView tvNumber;
         @BindView(R.id.tv_xiajia)
         TextView tvXiajia;
+        @BindView(R.id.tv_miaoshu)
+        TextView tvMiaoshu;
         @BindView(R.id.tv_jiahao)
         TextView tvJiahao;
         /*        @BindView(R.id.ll_qidingliang)

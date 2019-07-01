@@ -42,15 +42,17 @@ public class DingDanActivity extends BaseActivity {
     ViewPager vpDingdan;
     private OrderAdapter adapter;
     private Context mContext;
-    private String token="";
-    private String type="";
-    public String getToken() {
-        return token;
+    private String qyid="";
+
+    public String getQyid() {
+        return qyid;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setQyid(String qyid) {
+        this.qyid = qyid;
     }
+
+    private String type="";
     @Override
     public int getLayoutId() {
         return R.layout.activity_dingdan;
@@ -73,7 +75,7 @@ public class DingDanActivity extends BaseActivity {
         }
         vpDingdan.setAdapter(adapter);
         tabsDingdan.setViewPager(vpDingdan);
-        setToken(getIntent().getStringExtra("token"));
+        setQyid(getIntent().getStringExtra("qyid"));
         vpDingdan.setOffscreenPageLimit(0);
         /**
          * 跳转传过来的页面，到哪个

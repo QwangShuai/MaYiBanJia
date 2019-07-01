@@ -12,10 +12,14 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.mingmen.mayi.mayibanjia.R;
+import com.mingmen.mayi.mayibanjia.app.MyApplication;
+import com.mingmen.mayi.mayibanjia.app.UMConfig;
 import com.mingmen.mayi.mayibanjia.bean.ShouYeTeJiaBean;
 import com.mingmen.mayi.mayibanjia.ui.activity.SPXiangQingActivity;
+import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
+import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.custom.GlideRoundTransform;
 import com.mingmen.mayi.mayibanjia.utils.custom.MarqueeTextView;
@@ -83,9 +87,13 @@ public class ShouYeTeJiaAdapter extends RecyclerView.Adapter<ShouYeTeJiaAdapter.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle=new Bundle();
-                bundle.putString("spid",data.getCommodity_id());
-                JumpUtil.Jump_intent(mContext, SPXiangQingActivity.class,bundle);
+                if (PreferenceUtils.getBoolean(MyApplication.mContext, "youke", false)) {
+                    BaseActivity.showDialog(mContext, UMConfig.ZHUCE_MESSAGE);
+                } else {
+                    Bundle bundle=new Bundle();
+                    bundle.putString("spid",data.getCommodity_id());
+                    JumpUtil.Jump_intent(mContext, SPXiangQingActivity.class,bundle);
+                }
             }
         });
     }

@@ -29,7 +29,7 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/iv_zjcd"
-                android:src="@mipmap/yxz_yfsz"
+                android:src="@mipmap/wxz_yfsz"
                 android:layout_width="15dp"
                 android:layout_height="15dp" />
             <TextView
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/iv_trcd"
-                android:src="@mipmap/wxz_yfsz"
+                android:src="@mipmap/yxz_yfsz"
                 android:layout_width="15dp"
                 android:layout_height="15dp" />
             <TextView
@@ -66,7 +66,7 @@
         android:gravity="center_vertical|right"
         android:orientation="horizontal"
         android:paddingRight="12dp"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
@@ -120,7 +120,7 @@
         android:gravity="center_vertical|right"
         android:orientation="horizontal"
         android:paddingRight="12dp"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
@@ -150,7 +150,7 @@
                 android:paddingLeft="10dp"
                 android:textColor="@color/black_333333"
                 android:textColorHint="@color/hintcolor"
-                android:textSize="17sp" />
+                android:textSize="14sp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -171,6 +171,7 @@
     </LinearLayout>
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/tv_tishi"
         android:text="* 如果您填写10元,那么商品金额超出10元，运费都将由您承担"
         android:layout_marginLeft="100dp"

@@ -16,7 +16,9 @@ import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -206,6 +208,32 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
             oneId = qiyexinxi.getOne_classify_id();
             tvFenleixuanze.setText(qiyexinxi.getOne_classify_name());
         }
+
+//        etQiyemingcheng.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                if(StringUtil.isValid(s.toString().trim())){
+//                    if(StringUtil.isValid(shichang_id)){
+//
+//                    } else {
+//                        ToastUtil.showToastLong("请先选择所在市场");
+//                        etQiyemingcheng.setText("");
+//                    }
+//                }
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//            }
+//        });
+
         photoDialog = new PhotoDialog(mContext,
                 mContext.getResources().getIdentifier("BottomDialog", "style", mContext.getPackageName()));
         photoDialog.getWindow().setGravity(Gravity.BOTTOM | Gravity.LEFT | Gravity.RIGHT);
@@ -232,7 +260,7 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
             case R.id.tv_qiyeleibie:
 //                getleibie();
                 QiyeleibieDialog qiyeleibieDialog = new QiyeleibieDialog().setData(mContext).show(getSupportFragmentManager());
-                qiyeleibieDialog.setDqId(qiyeid,0);
+                qiyeleibieDialog.setDqId(qiyeid,1);
                 break;
             case R.id.tv_xuanzeshichang:
 
@@ -312,7 +340,7 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
 
     //修改
     private void xiugai() {
-        Log.e("xiugai: ", shidizhaopian + "---");
+        Log.e("xiugai: ", qiyeid + "---");
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
@@ -738,9 +766,9 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getQylb(QiYeLeiBieBean item) {
-        qiyeid = item.getSon_number();
-        qiyemingcheng = item.getSon_name();
-        tvQiyeleibie.setText("" + qiyemingcheng);
+        leibieid = item.getSon_number();
+        leibiename = item.getSon_name();
+        tvQiyeleibie.setText("" + item.getSon_name());
     }
 
     @Override

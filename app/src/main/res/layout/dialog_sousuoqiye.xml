@@ -34,6 +34,7 @@
             android:paddingLeft="14dp"
             />
         <TextView
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="企业类别"
@@ -42,6 +43,7 @@
             android:layout_marginTop="12dp"
             />
         <RelativeLayout
+            android:visibility="gone"
             android:layout_width="220dp"
             android:layout_height="35dp"
             android:background="@drawable/fillet_hollow_e7e7e7_3"

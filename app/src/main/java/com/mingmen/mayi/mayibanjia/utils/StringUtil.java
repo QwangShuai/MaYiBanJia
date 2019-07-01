@@ -215,6 +215,10 @@ public class StringUtil {
     public static boolean exist(String input) {
         return input.matches("[\\u4e00-\\u9fa5]{2,4}");
     }
+    //正则表达式匹配判断
+    public static boolean isGuige(String input) {
+        return input.matches("[\\u4e00-\\u9fa5]{1,4}");
+    }
 
     /**
      * 用"0"补足一个字符串到指定长度
@@ -1334,5 +1338,15 @@ public class StringUtil {
         return input.matches("[\\u4e00-\\u9fa5]{2," + num + "}");
     }
 
+    //手机号中间四位星星
+    public static String getPhone(){
+        String myphone = PreferenceUtils.getString(MyApplication.mContext,"phone","");
+        if(StringUtil.isValid(myphone)){
+            String mobie = myphone.substring(0,3)+"****"+myphone.substring(7,myphone.length());
+            return mobie;
+        }
+
+        return "";
+    }
 
 }

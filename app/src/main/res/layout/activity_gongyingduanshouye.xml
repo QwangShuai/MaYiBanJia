@@ -147,7 +147,7 @@
                                 android:id="@+id/ll_state_qiehuan"
                                 android:layout_width="80dp"
                                 android:layout_height="23dp"
-                                android:layout_marginTop="4dp"
+                                android:layout_marginTop="26dp"
                                 android:background="@drawable/fillet_soild_ba2800_12"
                                 android:gravity="center_vertical"
                                 android:orientation="horizontal">

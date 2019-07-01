@@ -76,7 +76,7 @@ public class LiuLanJiLuAdapter extends RecyclerView.Adapter<LiuLanJiLuAdapter.Vi
             holder.ivJishida.setVisibility(View.GONE);
         }
         if(StringUtil.isValid(data.getPackStandard())){
-            holder.tvGuigeMiaoshu.setText(data.getPackStandard());
+            holder.tvGuigeMiaoshu.setText("规格详情:"+data.getPackStandard());
         }
         holder.tvGuigeMiaoshu.setVisibility(StringUtil.isValid(data.getPackStandard())?View.VISIBLE:View.GONE);
 

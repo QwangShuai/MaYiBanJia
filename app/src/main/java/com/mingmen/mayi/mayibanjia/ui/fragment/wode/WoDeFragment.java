@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,6 @@ import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.CaiGouDanActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ChengBenKaListActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.DianPuGuanZhuActivity;
-import com.mingmen.mayi.mayibanjia.ui.activity.GongYingDuanShouYeActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.JiaoYiLiuShuiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.LiuLanJiLuActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShouCangListActivity;
@@ -36,7 +34,6 @@ import com.mingmen.mayi.mayibanjia.ui.activity.WoDePingJiaActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.YiJianFanKuiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.YinHangKaActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.YueActivity;
-import com.mingmen.mayi.mayibanjia.ui.activity.ZhangHuXinXiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ZiZhangHuActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.PhoneDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dingdan.DingDanActivity;
@@ -45,6 +42,7 @@ import com.mingmen.mayi.mayibanjia.ui.view.CircleImageView;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,12 +63,12 @@ public class WoDeFragment extends BaseFragment {
     CircleImageView ivTouxiang;
     @BindView(R.id.tv_dpgz)
     TextView tvDianpuguanzhu;
+    @BindView(R.id.ll_zzh)
+    LinearLayout llZzh;
     @BindView(R.id.ll_yue)
     LinearLayout llYue;
     //    @BindView(R.id.ll_dingdan)
 //    LinearLayout llDingdan;
-    @BindView(R.id.tv_mingzi)
-    TextView tvMingzi;
     @BindView(R.id.tv_yue)
     TextView tvYue;
     @BindView(R.id.tv_spsc)
@@ -194,6 +192,28 @@ public class WoDeFragment extends BaseFragment {
     ImageView ivWqxCbk;
     @BindView(R.id.rl_chengbenka)
     RelativeLayout rlChengbenka;
+    @BindView(R.id.tv_mingzi)
+    TextView tvMingzi;
+    @BindView(R.id.tv_phone)
+    TextView tvPhone;
+    @BindView(R.id.tv_name)
+    TextView tvName;
+    @BindView(R.id.rl_shezhi)
+    RelativeLayout rlShezhi;
+    @BindView(R.id.tv_gy)
+    TextView tvGy;
+    @BindView(R.id.tv_shenfen)
+    TextView tvShenfen;
+    @BindView(R.id.tv_cwbb)
+    TextView tvCwbb;
+    @BindView(R.id.ll_cwbb)
+    LinearLayout llCwbb;
+    @BindView(R.id.tv_tixian)
+    TextView tvTixian;
+    @BindView(R.id.ll_tixian)
+    LinearLayout llTixian;
+    @BindView(R.id.tv_daishoukuan)
+    TextView tvDaishoukuan;
     private View viewSPYXFragment;
     private Context mContext;
     private WoDeBean woDeBean;
@@ -231,6 +251,8 @@ public class WoDeFragment extends BaseFragment {
         }
         if (!PreferenceUtils.getString(MyApplication.mContext, "host_account_type", "").equals("0")) {
             role = PreferenceUtils.getQuanxianList(MyApplication.mContext, "quanxian");
+            llTixian.setEnabled(false);
+            rlYiquxiao.setVisibility(View.GONE);
             llDd.setVisibility(View.GONE);
             llCg.setVisibility(View.GONE);
             int mysize = role == null ? 0 : role.size();
@@ -250,6 +272,7 @@ public class WoDeFragment extends BaseFragment {
                         roleCgType += role.get(i).getRole_id();
                     } else if (role.get(i).getRole_id().equals("5")) {
                         llCg.setVisibility(View.VISIBLE);
+                        rlYiquxiao.setVisibility(View.VISIBLE);
                         roleCgType += role.get(i).getRole_id();
                     }
                 }
@@ -294,7 +317,12 @@ public class WoDeFragment extends BaseFragment {
         GlideUtils.cachePhoto(getActivity(), ivTouxiang, woDeBean.getPhoto());
         if (PreferenceUtils.getString(MyApplication.mContext, "host_account_type", "").equals("0")) {
             tvYue.setText(woDeBean.getMoney());
+            llZzh.setVisibility(View.GONE);
+        } else {
+            llZzh.setVisibility(View.VISIBLE);
         }
+        tvName.setText(PreferenceUtils.getString(MyApplication.mContext, "name", ""));
+        tvPhone.setText(StringUtil.getPhone());
         yue = woDeBean.getMoney() + "";
         tvShoucangshu.setText(woDeBean.getSc() + "");
         tvDianpuguanzhu.setText(woDeBean.getGuanzhu() + "");
@@ -371,18 +399,18 @@ public class WoDeFragment extends BaseFragment {
         startActivity(intent);
     }
 
-    @OnClick({R.id.rl_shezhi,  R.id.iv_touxiang, R.id.ll_shoucang, R.id.rl_daifukuan, R.id.ll_cwbb,
+    @OnClick({R.id.rl_shezhi, R.id.iv_touxiang, R.id.ll_shoucang, R.id.rl_daifukuan, R.id.ll_cwbb,
             R.id.rl_daifahuo, R.id.rl_daishouhuo, R.id.rl_yishouhuo, R.id.rl_yiwancheng, R.id.rl_shouhuodizhi, R.id.rl_yijian,
-            R.id.rl_kefu, R.id.ll_guanzhu, R.id.ll_spll, R.id.rl_yinhang,R.id.ll_tixian,
-            R.id.tv_yue, R.id.ll_pingjia, R.id.rl_zizhanghu, R.id.rl_chengbenka,R.id.rl_yiquxiao,
-            R.id.rl_daishenhe, R.id.rl_daitijiao, R.id.rl_weitongguo, R.id.rl_tongguo})
+            R.id.rl_kefu, R.id.ll_guanzhu, R.id.ll_spll, R.id.rl_yinhang, R.id.ll_tixian,
+            R.id.tv_yue, R.id.ll_pingjia, R.id.rl_zizhanghu, R.id.rl_chengbenka, R.id.rl_yiquxiao,
+            R.id.rl_daishenhe, R.id.rl_daitijiao, R.id.rl_weitongguo, R.id.rl_tongguo, R.id.ll_zzh})
 //            ,R.id.rl_jueseguanli})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_shezhi:
                 Bundle ct = new Bundle();
-                ct.putString("khd","ct");
-                Jump_intent(SqscShezhiActivity.class,ct);
+                ct.putString("khd", "ct");
+                Jump_intent(SqscShezhiActivity.class, ct);
                 break;
             case R.id.rl_daishenhe:
                 Intent daishenhe = new Intent(mContext, CaiGouDanActivity.class);
@@ -425,6 +453,11 @@ public class WoDeFragment extends BaseFragment {
 //                sz.putString("khd","ct");
 //                Jump_intent(SqscShezhiActivity.class,sz );
                 break;
+            case R.id.ll_zzh:
+                if(woDeBean!=null&&StringUtil.isValid(woDeBean.getPart())){
+                    showDialog(mContext,woDeBean.getPart());
+                }
+                break;
             case R.id.rl_daifukuan:
                 Bundle daifukuan = new Bundle();
                 daifukuan.putString("roleDdType", roleDdType);
@@ -451,7 +484,7 @@ public class WoDeFragment extends BaseFragment {
                 if (roleDdType.equals("4")) {
                     daishouhuo.putInt("to_shop", 0);
                 } else if (roleDdType.equals("14") || roleDdType.equals("41")) {
-                    daishouhuo.putInt("to_shop", 2);
+                    daishouhuo.putInt("to_shop", 1);
                 } else {
                     daishouhuo.putInt("to_shop", 4);
                 }
@@ -464,7 +497,7 @@ public class WoDeFragment extends BaseFragment {
                 if (roleDdType.equals("4")) {
                     yishouhuo.putInt("to_shop", 2);
                 } else if (roleDdType.equals("14") || roleDdType.equals("41")) {
-                    yishouhuo.putInt("to_shop", 3);
+                    yishouhuo.putInt("to_shop", 2);
                 } else {
                     yishouhuo.putInt("to_shop", 5);
                 }
@@ -477,7 +510,7 @@ public class WoDeFragment extends BaseFragment {
                 if (roleDdType.equals("1")) {
                     yiwancheng.putInt("to_shop", 2);
                 } else if (roleDdType.equals("14") || roleDdType.equals("41")) {
-                    yiwancheng.putInt("to_shop", 5);
+                    yiwancheng.putInt("to_shop", 4);
                 } else {
                     yiwancheng.putInt("to_shop", 6);
                 }

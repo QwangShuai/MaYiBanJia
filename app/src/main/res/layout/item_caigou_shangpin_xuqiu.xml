@@ -113,4 +113,12 @@
             android:layout_width="19dp"
             android:layout_height="18dp" />
     </LinearLayout>
+    <TextView
+        android:layout_marginTop="4dp"
+        android:textColor="@color/hintcolor"
+        android:textSize="12sp"
+        android:text="规格详情:"
+        android:id="@+id/tv_miaoshu"
+        android:layout_width="match_parent"
+        android:layout_height="23dp" />
 </LinearLayout>

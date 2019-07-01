@@ -26,6 +26,8 @@ import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.MainActivity;
 import com.mingmen.mayi.mayibanjia.R;
+import com.mingmen.mayi.mayibanjia.app.MyApplication;
+import com.mingmen.mayi.mayibanjia.app.UMConfig;
 import com.mingmen.mayi.mayibanjia.bean.FCGName;
 import com.mingmen.mayi.mayibanjia.bean.ShouYeBannerBean;
 import com.mingmen.mayi.mayibanjia.bean.ShouYeLeiBean;
@@ -35,10 +37,12 @@ import com.mingmen.mayi.mayibanjia.ui.activity.HuoDongActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.QuanBuShiChangActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShangJiaActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ZhuCeCanTingActivity;
+import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.GlideImageYuanLoader;
 import com.mingmen.mayi.mayibanjia.ui.view.PageIndicatorView;
 import com.mingmen.mayi.mayibanjia.utils.AppUtil;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
+import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.custom.lable.MyGridViewAdpter;
 import com.mingmen.mayi.mayibanjia.utils.custom.lable.MyViewPagerAdapter;
 import com.mingmen.mayi.mayibanjia.utils.custom.zixun.HorizontalPageLayoutManager;
@@ -197,10 +201,14 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         holder.banner_home_lunbo.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-                Intent it = new Intent(mContext, HuoDongActivity.class);
-                it.putExtra("url", bannerBean.get(position).getAddress());
-                it.putExtra("title", "活动详情");
-                mContext.startActivity(it);
+                if (PreferenceUtils.getBoolean(MyApplication.mContext, "youke", false)) {
+                    BaseActivity.showDialog(mContext, UMConfig.ZHUCE_MESSAGE);
+                } else {
+                    Intent it = new Intent(mContext, HuoDongActivity.class);
+                    it.putExtra("url", bannerBean.get(position).getAddress());
+                    it.putExtra("title", "活动详情");
+                    mContext.startActivity(it);
+                }
 //                Log.e("bannerzt",mHomeBean.getBanner().get(position).getZt()+"zt");
 //                Log.e("bannerlink",mHomeBean.getBanner().get(position).getAp_link()+"link");
 //                tiaozhuan(mHomeBean.getBanner().get(position).getZt(),mHomeBean.getBanner().get(position).getAp_link());
@@ -299,24 +307,34 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         final Bundle bundle = new Bundle();
         bundle.putString("province", province);
         bundle.putString("city", dingwei);
-        holder.llGys.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                JumpUtil.Jump_intent(mContext, ShangJiaActivity.class, bundle);
-            }
-        });
-        holder.llSc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                JumpUtil.Jump_intent(mContext, QuanBuShiChangActivity.class, bundle);
-            }
-        });
-        holder.llCt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                JumpUtil.Jump_intent(mContext, ZhuCeCanTingActivity.class, bundle);
-            }
-        });
+        if (PreferenceUtils.getBoolean(MyApplication.mContext, "youke", false)) {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    BaseActivity.showDialog(mContext, UMConfig.ZHUCE_MESSAGE);
+                }
+            });
+
+        } else {
+            holder.llGys.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    JumpUtil.Jump_intent(mContext, ShangJiaActivity.class, bundle);
+                }
+            });
+            holder.llSc.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    JumpUtil.Jump_intent(mContext, QuanBuShiChangActivity.class, bundle);
+                }
+            });
+            holder.llCt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    JumpUtil.Jump_intent(mContext, ZhuCeCanTingActivity.class, bundle);
+                }
+            });
+        }
 //    holder.btnCaigou.setOnClickListener(new View.OnClickListener() {
 //        @Override
 //        public void onClick(View v) {

@@ -42,7 +42,7 @@ public class ChangePhoneActivity extends BaseActivity {
     protected void initData() {
         tvTitle.setText("验证身份");
         mContext = ChangePhoneActivity.this;
-        tvPhone.setText("已绑定的手机号："+getPhone());
+        tvPhone.setText("已绑定的手机号："+StringUtil.getPhone());
     }
 
     @Override
@@ -65,13 +65,5 @@ public class ChangePhoneActivity extends BaseActivity {
                 break;
         }
     }
-    public String getPhone(){
-        String myphone = PreferenceUtils.getString(MyApplication.mContext,"phone","");
-        if(StringUtil.isValid(myphone)){
-            String mobie = myphone.substring(0,3)+"****"+myphone.substring(7,myphone.length());
-            return mobie;
-        }
 
-        return "手机号怎么没有了呢";
-    }
 }

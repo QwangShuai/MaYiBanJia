@@ -53,7 +53,7 @@ public abstract class BaseGHOrderFragment extends BaseFragment {
     private SwipeMenuRecyclerView.LoadMoreListener mLoadMoreListener;
     private int ye = 1;
     protected boolean isCreate = false;
-    private String token = "";
+    private String qyid = "";
 
     @Override
     protected View getSuccessView() {
@@ -97,19 +97,16 @@ public abstract class BaseGHOrderFragment extends BaseFragment {
     //数据
     private void getData() {
         GHDOrderActivity activity = (GHDOrderActivity) getActivity();
-        token = activity.getToken();
-        if (StringUtil.isValid(token)) {
+        qyid = activity.getQyid();
+        if (StringUtil.isValid(qyid)) {
             adapter.setClick(false);
-        } else {
-            token = PreferenceUtils.getString(MyApplication.mContext, "token", "");
         }
-        Log.e("getData: ", token + "----" + getZhuangTai() + "----" + ye);
         HttpManager.getInstance()
                 .with(getActivity())
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getGHOrderList(token, "", getZhuangTai(), ye))
+                                .getGHOrderList(PreferenceUtils.getString(MyApplication.mContext, "token", ""), "", getZhuangTai(),qyid, ye))
                 .setDataListener(new HttpDataListener<List<GHOrderBean>>() {
                     @Override
                     public void onNext(List<GHOrderBean> data) {
@@ -138,7 +135,7 @@ public abstract class BaseGHOrderFragment extends BaseFragment {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getGHOrderList(token, "", getZhuangTai(), ye))
+                                .getGHOrderList(PreferenceUtils.getString(MyApplication.mContext, "token", ""), "", getZhuangTai(),qyid, ye))
                 .setDataListener(new HttpDataListener<List<GHOrderBean>>() {
                     @Override
                     public void onNext(List<GHOrderBean> data) {
@@ -216,7 +213,7 @@ public abstract class BaseGHOrderFragment extends BaseFragment {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getGHOrderList(token, "", getZhuangTai(), ye))
+                                .getGHOrderList(PreferenceUtils.getString(MyApplication.mContext, "token", ""), "", getZhuangTai(),qyid, ye))
                 .setDataListener(new HttpDataListener<List<GHOrderBean>>() {
                     @Override
                     public void onNext(List<GHOrderBean> data) {

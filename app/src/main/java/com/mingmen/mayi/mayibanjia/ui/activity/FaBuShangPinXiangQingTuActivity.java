@@ -36,6 +36,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.FenLeiLableAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.PhotoDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
+import com.mingmen.mayi.mayibanjia.utils.ClickUtil;
 import com.mingmen.mayi.mayibanjia.utils.GlideUtils;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
@@ -292,34 +293,35 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
 //                canshu.setLevel(etDengji.getText().toString().trim());
 //                canshu.setApply(etShiyong.getText().toString().trim());
                 canshu.setSpms(etMiaoshu.getText().toString());
-                if (yemian.equals("0")) {
-                    if ("".equals(tu1) & "".equals(tu2) & "".equals(tu3) & "".equals(tu4)) {
-                        canshu.setDeputyPicture(canshu.getHostPicture());
+                if (!ClickUtil.isFastDoubleClick()) {
+                    if (yemian.equals("0")) {
+                        if ("".equals(tu1) & "".equals(tu2) & "".equals(tu3) & "".equals(tu4)) {
+                            canshu.setDeputyPicture(canshu.getHostPicture());
+                        } else {
+                            if (!"".equals(tu1)) {
+                                futu += tu1 + ",";
+                            }
+                            if (!"".equals(tu2)) {
+                                futu += tu2 + ",";
+                            }
+                            if (!"".equals(tu3)) {
+                                futu += tu3 + ",";
+                            }
+                            if (!"".equals(tu4)) {
+                                futu += tu4 + ",";
+                            }
+                            canshu.setDeputyPicture(futu);
+                        }
+                        tianjiashangpin();
                     } else {
-                        if (!"".equals(tu1)) {
-                            futu += tu1 + ",";
-                        }
-                        if (!"".equals(tu2)) {
-                            futu += tu2 + ",";
-                        }
-                        if (!"".equals(tu3)) {
-                            futu += tu3 + ",";
-                        }
-                        if (!"".equals(tu4)) {
-                            futu += tu4 + ",";
-                        }
-                        canshu.setDeputyPicture(futu);
-                    }
-                    tianjiashangpin();
-                } else {
 //                    if(StringUtil.isValid(canshu.getPrice())&&Double.valueOf(canshu.getPrice())>0){
 //                        tejia();
 //                    } else {
-                    updateshangpin();
+                        updateshangpin();
 //                    }
 
+                    }
                 }
-
                 break;
         }
     }

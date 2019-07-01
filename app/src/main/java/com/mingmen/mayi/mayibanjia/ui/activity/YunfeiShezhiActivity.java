@@ -70,7 +70,7 @@ public class YunfeiShezhiActivity extends BaseActivity {
     private Context mContext;
     private LianggeXuanXiangDialog dialog;
     private String zfje = "";
-    private boolean xuanzhong = true;
+    private boolean xuanzhong = false;
 
     @Override
     public int getLayoutId() {
@@ -103,6 +103,7 @@ public class YunfeiShezhiActivity extends BaseActivity {
 
             }
         });
+        show();
     }
 
     @Override
@@ -198,6 +199,50 @@ public class YunfeiShezhiActivity extends BaseActivity {
                     public void onNext(String data) {
                         ToastUtil.showToastLong("设置成功");
                         finish();
+                    }
+                });
+
+
+    }
+    private void show() {
+//        GlideUtils.cachePhoto(WelcomeActivity.this,ivWelcome,"http://ceshi.canchengxiang.com/images/welcome.png");
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .getYunfei(PreferenceUtils.getString(MyApplication.mContext,"token","")))
+                .setDataListener(new HttpDataListener<String>() {
+                    @Override
+                    public void onNext(String data) {
+                        if(StringUtil.isEmpty(data)){
+                            xuanzhong = false;
+                            zfje = "";
+                            llCdxe.setVisibility(View.GONE);
+                            llSsed.setVisibility(View.GONE);
+                            tvTishi.setVisibility(View.GONE);
+                            ivZjcd.setImageDrawable(mContext.getDrawable(R.mipmap.wxz_yfsz));
+                            ivTrcd.setImageDrawable(mContext.getDrawable(R.mipmap.yxz_yfsz));
+                        } else if(Double.valueOf(data)==0){
+                            xuanzhong = true;
+                            tvChengdan.setText("全额承担");
+                            llCdxe.setVisibility(View.VISIBLE);
+                            llSsed.setVisibility(View.GONE);
+                            tvTishi.setVisibility(View.GONE);
+                            zfje = "0";
+                            ivZjcd.setImageDrawable(mContext.getDrawable(R.mipmap.yxz_yfsz));
+                            ivTrcd.setImageDrawable(mContext.getDrawable(R.mipmap.wxz_yfsz));
+                        } else {
+                            xuanzhong = true;
+                            tvChengdan.setText("限额承担");
+                            llCdxe.setVisibility(View.VISIBLE);
+                            llSsed.setVisibility(View.VISIBLE);
+                            tvTishi.setVisibility(View.VISIBLE);
+                            etEdu.setText(data);
+                            ivZjcd.setImageDrawable(mContext.getDrawable(R.mipmap.yxz_yfsz));
+                            ivTrcd.setImageDrawable(mContext.getDrawable(R.mipmap.wxz_yfsz));
+                        }
+
                     }
                 });
 

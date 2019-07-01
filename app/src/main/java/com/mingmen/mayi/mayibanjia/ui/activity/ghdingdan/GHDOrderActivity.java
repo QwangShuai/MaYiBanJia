@@ -27,14 +27,14 @@ public class GHDOrderActivity extends BaseActivity {
     ViewPager vpDingdan;
     private GHAdapter adapter;
     private int ye = 0;
-    private String token="";
+    private String qyid="";
 
-    public String getToken() {
-        return token;
+    public String getQyid() {
+        return qyid;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setQyid(String qyid) {
+        this.qyid = qyid;
     }
 
     @Override
@@ -49,7 +49,7 @@ public class GHDOrderActivity extends BaseActivity {
         tabsDingdan.setViewPager(vpDingdan);
         vpDingdan.setOffscreenPageLimit(0);
         ye = getIntent().getIntExtra("ye",0);
-        setToken(getIntent().getStringExtra("token"));
+        setQyid(getIntent().getStringExtra("qyid"));
         vpDingdan.setCurrentItem(ye);
     }
     @OnClick({R.id.iv_fanhui, R.id.iv_sousuo})

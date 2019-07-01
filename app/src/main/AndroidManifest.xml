@@ -42,6 +42,7 @@
     <uses-permission android:name="android.permission.SEND_SMS" />
 
     <application
+        android:extractNativeLibs="true"
         android:name=".app.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/title_logo_red"
@@ -49,6 +50,7 @@
         android:roundIcon="@mipmap/title_logo_round"
         android:supportsRtl="true"
         android:theme="@style/NoTitle">
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileProvider"

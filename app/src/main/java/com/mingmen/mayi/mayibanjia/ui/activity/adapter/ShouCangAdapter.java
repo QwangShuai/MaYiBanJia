@@ -54,7 +54,7 @@ public class ShouCangAdapter extends BaseQuickAdapter<ShouCangBean,BaseViewHolde
 
         helper.setGone(R.id.tv_guige_miaoshu,StringUtil.isValid(item.getPackStandard())?true:false);
         if(StringUtil.isValid(item.getPackStandard())){
-            helper.setText(R.id.tv_guige_miaoshu,item.getPackStandard());
+            helper.setText(R.id.tv_guige_miaoshu,"规格详情:"+item.getPackStandard());
         }
 
         if("3".equals(item.getApproval_state())){

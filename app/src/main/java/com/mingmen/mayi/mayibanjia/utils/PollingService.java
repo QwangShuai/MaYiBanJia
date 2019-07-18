@@ -58,6 +58,7 @@ public class PollingService extends Service {
     public void onCreate() {
         super.onCreate();
         mMediaPlayer=MediaPlayer.create(mContext, R.raw.tishiyin);
+
         timer = new Timer();
         if (PollingUtils.isOpen) {
             TimerTask task = new TimerTask() {
@@ -113,6 +114,7 @@ public class PollingService extends Service {
                         }
                         if(mMediaPlayer!=null&&!mMediaPlayer.isPlaying()){
                             mMediaPlayer.start();
+                            mMediaPlayer.setVolume(1,1);
                         }
                         showNotification(mContext, data.size());
                     }

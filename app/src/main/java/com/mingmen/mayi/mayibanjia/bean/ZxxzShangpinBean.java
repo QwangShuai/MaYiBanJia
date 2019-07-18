@@ -20,7 +20,25 @@ public class ZxxzShangpinBean {
     private String picture_url;
     private String pice;
     private String goods;
+    private String gold_supplier;
+    private String attention_state;
     private int count;
+
+    public String getGold_supplier() {
+        return gold_supplier;
+    }
+
+    public void setGold_supplier(String gold_supplier) {
+        this.gold_supplier = gold_supplier;
+    }
+
+    public String getAttention_state() {
+        return attention_state;
+    }
+
+    public void setAttention_state(String attention_state) {
+        this.attention_state = attention_state;
+    }
 
     public int getCount() {
         return count;

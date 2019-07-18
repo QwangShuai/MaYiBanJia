@@ -139,11 +139,11 @@ public class CaiGouDanActivity extends BaseActivity {
                 switch (view.getId()) {
                     case R.id.bt_xiangqing:
 //                        if(item.getOrder_audit_state().equals("902")){
-                        if(StringUtil.isValid(item.getQdTime())){
-                            if (!isCanClick(item)) {
-                                return;
-                            }
-                        }
+//                        if(StringUtil.isValid(item.getQdTime())){
+//                            if (!isCanClick(item)) {
+//                                return;
+//                            }
+//                        }
 
                         //审批页
                         final Intent intent = new Intent(CaiGouDanActivity.this, ShenPiActivity.class);

@@ -10,4 +10,5 @@ public class UMConfig {
     public static String YCL_ID = "346926195929448587b078e7fe613530";
     public static String PHONE = "400-961-0910";
     public static String ZHUCE_MESSAGE = "如果使用更多功能,请先前去注册";
+    public static String VERSION_CODE = "v1.0.6";
 }

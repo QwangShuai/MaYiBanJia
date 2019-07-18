@@ -7,30 +7,22 @@
     android:background="@color/white"
     android:id="@+id/ll_kuang">
     <LinearLayout
-        android:background="@color/zangqing"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center">
-        <ImageView
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:src="@mipmap/tuijian_left"
-            android:layout_marginRight="4dp"
-            />
+        android:gravity="center_vertical">
+        <View
+            android:layout_marginLeft="6dp"
+            android:layout_width="3dp"
+            android:layout_height="14dp"
+            android:background="@color/zangqing"></View>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="为你推荐"
-            android:textColor="@color/white"
+            android:text="为您推荐"
+            android:textColor="#474747"
             android:textSize="15sp"
-            />
-        <ImageView
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:src="@mipmap/tuijian_right"
-            android:layout_marginLeft="4dp"
-            />
+            android:layout_marginLeft="10dp"/>
     </LinearLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_tuijian"

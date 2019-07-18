@@ -105,7 +105,7 @@ public class ZhangHuXinXiActivity extends BaseActivity {
                 it = new Intent(mContext,WoDeZhangHuActivity.class);
                 startActivity(it);
                 break;
-            case R.id.ll_zizhirenzheng://资质认证
+            case R.id.ll_zizhirenzheng://完善信息
                 it = new Intent(mContext, ZiZhiRenZhengActivity.class);
                 it.putExtra("id", "");
                 it.putExtra("state",sh_state);

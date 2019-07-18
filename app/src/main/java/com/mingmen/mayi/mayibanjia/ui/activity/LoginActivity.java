@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
@@ -114,6 +115,7 @@ public class LoginActivity extends BaseActivity {
         @Override
         public void onFinish() {
             runningThree = true;
+            btYzm.setEnabled(true);
             btYzm.setText("重新发送");
             btYzm.setBackground(getResources().getDrawable(R.drawable.fillet_solid_zangqing_5));
         }
@@ -338,7 +340,8 @@ public class LoginActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .login(phone, pass, etYzm.getText().toString(), type, "1", StringUtil.getMyUUID(mContext)))
+                                .login(phone, pass, etYzm.getText().toString(), type, "1",
+                                        StringUtil.getMyUUID(mContext), Build.BRAND))
                 .setDataListener(new HttpDataListener<ZhuCeChengGongBean>() {
                     @Override
                     public void onNext(ZhuCeChengGongBean bean) {
@@ -472,7 +475,7 @@ public class LoginActivity extends BaseActivity {
                         downTimer.start();
                         runningThree = false;
                         ToastUtil.showToast("已发送验证码");
-
+                        btYzm.setEnabled(false);
                     }
                 });
 

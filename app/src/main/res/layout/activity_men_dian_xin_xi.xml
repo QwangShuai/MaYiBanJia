@@ -111,7 +111,7 @@
                     android:textSize="15sp"
                     android:textColor="@color/zicolor"
                     android:gravity="center"
-                    android:text="资质认证"
+                    android:text="完善信息"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent" />
                 <LinearLayout

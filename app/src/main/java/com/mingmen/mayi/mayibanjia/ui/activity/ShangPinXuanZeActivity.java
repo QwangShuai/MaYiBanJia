@@ -190,7 +190,7 @@ public class ShangPinXuanZeActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .zxxzShangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""), son_order_id, market_id, company_id, brand))
+                                .zxxzShangpin(PreferenceUtils.getString(MyApplication.mContext, "token", ""), son_order_id, market_id, company_id, brand,"",""))
                 .setDataListener(new HttpDataListener<List<ZxxzShangpinBean>>() {
                     @Override
                     public void onNext(List<ZxxzShangpinBean> list) {

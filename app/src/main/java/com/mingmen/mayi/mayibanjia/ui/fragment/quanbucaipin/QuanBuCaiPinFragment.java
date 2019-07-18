@@ -1045,6 +1045,8 @@ public class QuanBuCaiPinFragment extends BaseFragment {
             @Override
             public void xuanzhong(FCGName msg) {
                 yijipop.dismiss();
+                shangpinlist.clear();
+                shangpinadapter.notifyDataSetChanged();
                 tvPinlei.setText(msg.getClassify_name());
                 erjipinleiid = msg.getClassify_id();
                 clearPinzhong();
@@ -1081,6 +1083,8 @@ public class QuanBuCaiPinFragment extends BaseFragment {
             @Override
             public void xuanzhong(FCGName msg) {
                 yijipop.dismiss();
+                shangpinlist.clear();
+                shangpinadapter.notifyDataSetChanged();
                 tvPinzhong.setText(msg.getClassify_name());
                 if (msg.getClassify_name().equals("全部")) {
                     sanjipinleiname = "";
@@ -1114,8 +1118,6 @@ public class QuanBuCaiPinFragment extends BaseFragment {
             rvGuige.setVisibility(View.GONE);
         }
         ye = 1;
-        shangpinlist.clear();
-        shangpinadapter.notifyDataSetChanged();
         tvLablePop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
         tvPinzhongLablePop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
         tvGuigeLablePop.setTextColor(mContext.getResources().getColor(R.color.zicolor));
@@ -1365,7 +1367,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
         shichangid = bean.getMark_id();
         shichangname = bean.getMarket_name();
         tvShichang.setText(bean.getMarket_name());
-        Log.e(TAG, "getMarketId: " + bean.getMarket_name());
+        Log.e(TAG, "getMarketId: " + bean.getMark_id());
         if (bean.getMarket_name().equals("全部")) {
             tvShichang.setTextColor(getResources().getColor(R.color.zicolor));
         } else {
@@ -1413,7 +1415,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 tvXiaoliang.setText("销量最高");
                 tvXiaoliang.setTextColor(mContext.getResources().getColor(R.color.zangqing));
                 ye = 1;
-                mlist.clear();
+                shangpinlist.clear();
                 shangpinadapter.notifyDataSetChanged();
                 //按销量排序
                 if ("xiaoliang".equals(sousuo)) {
@@ -1436,7 +1438,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 tvXiaoliang.setText("价格升序");
                 tvXiaoliang.setTextColor(mContext.getResources().getColor(R.color.zangqing));
                 ye = 1;
-                mlist.clear();
+                shangpinlist.clear();
                 shangpinadapter.notifyDataSetChanged();
                 //按价格升序或者降序
                 sousuo = "";
@@ -1455,7 +1457,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 tvXiaoliang.setText("价格降序");
                 tvXiaoliang.setTextColor(mContext.getResources().getColor(R.color.zangqing));
                 ye = 1;
-                mlist.clear();
+                shangpinlist.clear();
                 shangpinadapter.notifyDataSetChanged();
                 //按价格升序或者降序
                 sousuo = "";
@@ -1474,7 +1476,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                 tvXiaoliang.setText("评分最高");
                 tvXiaoliang.setTextColor(mContext.getResources().getColor(R.color.zangqing));
                 ye = 1;
-                mlist.clear();
+                shangpinlist.clear();
                 shangpinadapter.notifyDataSetChanged();
                 //按评分最高排序
                 if ("pingfen".equals(sousuo)) {

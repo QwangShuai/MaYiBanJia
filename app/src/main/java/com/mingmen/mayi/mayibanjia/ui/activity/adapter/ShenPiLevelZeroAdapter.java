@@ -83,11 +83,17 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
             for (int i = 0; i < mList.get(position).getSonorderlist().size(); i++) {
                 mList.get(position).getSonorderlist().get(i).setMarket_id(bean.getMarket_id());
             }
+        } else {
+            if(StringUtil.isValid(bean.getSonorderlist().get(0).getMarket_name())){
+                holder.tvShichang.setText(bean.getSonorderlist().get(0).getMarket_name());
+                callBack.setMarket(position,bean.getSonorderlist().get(0).getMarket_id());
+            }
         }
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         adapter = new ShenPiLevelOneAdapter(activity, mList.get(position).getSonorderlist(), ShenPiLevelZeroAdapter.this, position);
         adapter.setClick(isClick);
+
         holder.rvList.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         holder.rvList.setAdapter(adapter);
         holder.rvList.setFocusable(false);
@@ -104,6 +110,7 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
                                 market_id = id;
                                 mList.get(position).setMarket_id(id);
                                 activity.setItemMarket_id(position, id, name);
+                                updateShichang(id,bean.getClassify_id());
                                 for (int i = 0; i < mList.get(position).getSonorderlist().size(); i++) {
                                     mList.get(position).getSonorderlist().get(i).setMarket_id(id);
                                     mList.get(position).getSonorderlist().get(i).setNeedLoad(true);
@@ -125,6 +132,14 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
                     } else {
                         ToastUtil.showToast("请耐心等待特殊商品匹配完成");
                     }
+                }
+            });
+
+        } else {
+            holder.rlShichang.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ToastUtil.showToastLong("请耐心等待特殊商品匹配完成");
                 }
             });
         }
@@ -304,6 +319,7 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
 
             }
         });
+
     }
 
     @Override
@@ -313,6 +329,7 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
 
     public interface CallBack {
         void isClick(View v, int pos);
+        void setMarket(int pos,String id);
     }
 
     public void setCallBack(CallBack callBack) {
@@ -339,6 +356,7 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
 
     public void setClick(boolean b) {
         isClick = b;
+        notifyDataSetChanged();
     }
 
     //获取子采购单的系统推荐数据   2级---
@@ -418,6 +436,9 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
     public void setPosClick(int mypos, boolean b) {
         itemIsClick[mypos] = b;
     }
+    public void setPosMarket(int mypos, String name) {
+        viewHolder.tvShichang.setText(name);
+    }
 
     public void addLength() {
         itemIsClick = new boolean[itemIsClick.length + 1];
@@ -429,5 +450,21 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
 
     public void stopTime() {
         adapter.timeCancel();
+    }
+
+    private void updateShichang(final String market_id,final String classify_id) {
+            HttpManager.getInstance()
+                    .with(mContext)
+                    .setObservable(
+                            RetrofitManager
+                                    .getService()
+                                    .updateShichang(PreferenceUtils.getString(MyApplication.mContext, "token", ""),
+                                            activity.getState(),market_id,activity.getPurchase_id(),classify_id,activity.getCt_buy_final_id()))
+                    .setDataListener(new HttpDataListener<String>() {
+                        @Override
+                        public void onNext(String data) {
+
+                        }
+                    });
     }
 }

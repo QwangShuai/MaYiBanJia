@@ -88,6 +88,7 @@
                                     android:rating="3.5" />
                             </LinearLayout>
                             <LinearLayout
+                                android:visibility="gone"
                                 android:paddingLeft="8dp"
                                 android:paddingRight="8dp"
                                 android:paddingTop="4dp"
@@ -1385,7 +1386,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="12dp"
-                                android:text="资质认证"
+                                android:text="完善信息"
                                 android:textColor="#ff666666"
                                 android:textSize="12sp" />
                         </LinearLayout>

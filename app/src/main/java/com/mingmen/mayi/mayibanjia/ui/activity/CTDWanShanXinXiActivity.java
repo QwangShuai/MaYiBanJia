@@ -227,7 +227,8 @@ public class CTDWanShanXinXiActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .zhuce(fuzeren, phone, pass, yingyezhizhao, "", dianpuid, yanzhengma, "1", StringUtil.getMyUUID(mContext)))
+                                .zhuce(fuzeren, phone, pass, yingyezhizhao, "", dianpuid, yanzhengma, "1",
+                                        StringUtil.getMyUUID(mContext), Build.BRAND))
                 .setDataListener(new HttpDataListener<ZhuCeChengGongBean>() {
                     @Override
                     public void onNext(ZhuCeChengGongBean list) {

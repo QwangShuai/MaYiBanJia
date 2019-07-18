@@ -49,4 +49,36 @@
         android:id="@+id/rv_tejia"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+    <LinearLayout
+        android:padding="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="94dp"
+        android:orientation="horizontal"
+        android:id="@+id/ll_ssd">
+        <ImageView
+            android:id="@+id/iv_dzyhp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:src="@mipmap/dzyhp_sy"
+            android:scaleType="fitXY"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:id="@+id/iv_ccsb"
+            android:scaleType="fitXY"
+            android:layout_weight="1"
+            android:src="@mipmap/ccsb_sy"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:layout_marginLeft="5dp"
+            android:id="@+id/iv_mstg"
+            android:scaleType="fitXY"
+            android:layout_weight="1"
+            android:src="@mipmap/mstg_sy"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 </LinearLayout>

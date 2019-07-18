@@ -802,6 +802,19 @@ public class FaBuShangPinActivity extends BaseActivity {
                 ToastUtil.showToastLong("请先输入最小单位数量并且不能为0");
                 return;
             }else {
+                if(llCj2.getVisibility()==View.VISIBLE?true:false){
+                    if (!StringUtil.isValid(etNumberCj2.getText().toString().trim()) || Double.valueOf(etNumberCj2.getText().toString().trim()) == 0) {
+                        ToastUtil.showToastLong("请填写所选规格数量");
+                        return;
+                    }
+                }
+                if(llCj1.getVisibility()==View.VISIBLE?true:false){
+                    if (!StringUtil.isValid(etNumberCj1.getText().toString().trim()) || Double.valueOf(etNumberCj1.getText().toString().trim()) == 0) {
+                        ToastUtil.showToastLong("请填写所选规格数量");
+                        return;
+                    }
+                }
+
                 shuliang = Double.valueOf(etNumber.getText().toString().trim());
                 if(StringUtil.isValid(etNumberCj1.getText().toString().trim())){
                     shuliang = shuliang*Double.valueOf(etNumberCj1.getText().toString().trim());
@@ -822,6 +835,12 @@ public class FaBuShangPinActivity extends BaseActivity {
                 ToastUtil.showToastLong("请先输入最小单位数量并且不能为0");
                 return;
             }else {
+                if(llCj1.getVisibility()==View.VISIBLE?true:false){
+                    if (!StringUtil.isValid(etNumberCj1.getText().toString().trim()) || Double.valueOf(etNumberCj1.getText().toString().trim()) == 0) {
+                        ToastUtil.showToastLong("请填写所选规格数量");
+                        return;
+                    }
+                }
                 if(StringUtil.isValid(etNumberCj1.getText().toString().trim())){
                     shuliang = shuliang*Double.valueOf(etNumberCj1.getText().toString().trim());
                 }

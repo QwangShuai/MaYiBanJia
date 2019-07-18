@@ -3,9 +3,12 @@
     <string name="title_activity_wu_liu">WuLiuActivity</string>
     <string name="wl_fenpeiwuliuche"><u>分配物流车</u></string>
     <string name="wl_biangeng"><u>变更</u></string>
-    <string name="xiaoliangzuigao"><u>销量最高</u></string>
-    <string name="jiagezuidi"><u>价格最低</u></string>
-    <string name="pingfenzuigao"><u>评分最高</u></string>
+    <!--<string name="xiaoliangzuigao"><u>销量最高</u></string>-->
+    <!--<string name="jiagezuidi"><u>价格最低</u></string>-->
+    <!--<string name="pingfenzuigao"><u>评分最高</u></string>-->
+    <string name="xiaoliangzuigao">销量最高</string>
+    <string name="jiagezuidi">价格最低</string>
+    <string name="pingfenzuigao">评分最高</string>
     <string name="dingdanxiangqing"><u>订单详情</u></string>
     <string name="gyd_order"><u>供应端订单</u></string>
     <string name="ctd_order"><u>餐厅端订单</u></string>
@@ -14,6 +17,7 @@
     <string name="caiwubaobiao"><u>财务报表</u></string>
     <string name="dabao"><u>查看商品/打包</u></string>
     <string name="add"><u>添加</u></string>
+    <string name="version_code">v1.0.6</string>
     <string name="only_input">qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM1234567890</string>
 
     <string name="title_paired_devices">已配对</string>

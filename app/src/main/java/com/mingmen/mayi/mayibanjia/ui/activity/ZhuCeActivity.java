@@ -2,6 +2,7 @@ package com.mingmen.mayi.mayibanjia.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
@@ -77,6 +78,7 @@ public class ZhuCeActivity extends BaseActivity {
         @Override
         public void onFinish() {
             runningThree = true;
+            btYanzhengma.setEnabled(true);
             btYanzhengma.setText("重新发送");
             btYanzhengma.setBackground(getResources().getDrawable(R.drawable.fillet_solid_zangqing_5));
         }
@@ -344,6 +346,7 @@ public class ZhuCeActivity extends BaseActivity {
                             downTimer.start();
                             runningThree = false;
                             ToastUtil.showToast("已发送验证码");
+                            btYanzhengma.setEnabled(false);
 
                         }
                     });
@@ -355,7 +358,8 @@ public class ZhuCeActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .login(etPhone.getText().toString().trim(), "", etYanzhengma.getText().toString(), "2","1", StringUtil.getMyUUID(mContext)))
+                                .login(etPhone.getText().toString().trim(), "", etYanzhengma.getText().toString(),
+                                        "2","1", StringUtil.getMyUUID(mContext), Build.BRAND))
                 .setDataListener(new HttpDataListener<ZhuCeChengGongBean>() {
                     @Override
                     public void onNext(ZhuCeChengGongBean bean) {

@@ -1324,7 +1324,7 @@ public class StringUtil {
                     return null;
 
                 } else {
-                    ToastUtil.showToast("非法字符！");
+//                    ToastUtil.showToast("非法字符！");
                     return "";
 
                 }

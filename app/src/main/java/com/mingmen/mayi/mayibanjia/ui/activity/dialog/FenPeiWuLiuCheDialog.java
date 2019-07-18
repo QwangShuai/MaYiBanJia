@@ -129,7 +129,7 @@ public class FenPeiWuLiuCheDialog extends Dialog {
                                 Log.e("2222",data.toString());
                                 picker.setCanceledOnTouchOutside(false);
                                 picker.setSelectedIndex(1);
-                                picker.setCycleDisable(false);
+                                picker.setCycleDisable(true);
                                 picker.setOnItemPickListener(new SinglePicker.OnItemPickListener<CarsTypeBean>() {
                                     @Override
                                     public void onItemPicked(int index, CarsTypeBean item) {

@@ -61,7 +61,7 @@ public class DianPuActivity extends BaseActivity implements View.OnClickListener
     @BindView(R.id.iv_diantu)
     ImageView ivDiantu;
     @BindView(R.id.tv_dianming)
-    MarqueeTextView tvDianming;
+    TextView tvDianming;
     @BindView(R.id.tv_focus)
     TextView tvFocus;
     @BindView(R.id.rb_pingfen)
@@ -147,6 +147,7 @@ public class DianPuActivity extends BaseActivity implements View.OnClickListener
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                etSousuo.clearFocus();
                 ye = 1;
                 mlist.clear();
                 getSpList();
@@ -207,10 +208,18 @@ public class DianPuActivity extends BaseActivity implements View.OnClickListener
                 int firstVisibleItemPosition = manager.findFirstVisibleItemPosition();
                 // 当不滚动时
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    if(ivFanhuidingbu.getVisibility()==View.VISIBLE){
-                        ivFanhuidingbu.setVisibility(View.GONE);
-                        llWeizhi.setVisibility(View.GONE);
+                    if(firstVisibleItemPosition>10){
+                        if(ivFanhuidingbu.getVisibility()==View.GONE){
+                            ivFanhuidingbu.setVisibility(View.VISIBLE);
+                            llWeizhi.setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        if(ivFanhuidingbu.getVisibility()==View.VISIBLE){
+                            ivFanhuidingbu.setVisibility(View.GONE);
+                            llWeizhi.setVisibility(View.GONE);
+                        }
                     }
+
                 } else if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {//拖动中
                     if(ivFanhuidingbu.getVisibility()==View.GONE){
                         ivFanhuidingbu.setVisibility(View.VISIBLE);
@@ -332,7 +341,7 @@ public class DianPuActivity extends BaseActivity implements View.OnClickListener
 
     private void initView() {
         GlideUtils.cachePhoto(mContext,ivDiantu,dianpuxinxi.getFile_path());
-        tvDianming.setMarqueeEnable(true);
+//        tvDianming.setMarqueeEnable(true);
         tvDianming.setText(dianpuxinxi.getCompany_name()+"("+dianpuxinxi.getMarket_name()+")");
         tvPingfen.setText(dianpuxinxi.getEvaluation()+"");
         rbPingfen.setRating((float) dianpuxinxi.getEvaluation());
@@ -382,6 +391,7 @@ public class DianPuActivity extends BaseActivity implements View.OnClickListener
                 showPopupWindow();
                 break;
             case R.id.ll_guanzhu:
+                etSousuo.clearFocus();
                 if (isFocus) {
                     quxiaoguanzhu();
                 }else{

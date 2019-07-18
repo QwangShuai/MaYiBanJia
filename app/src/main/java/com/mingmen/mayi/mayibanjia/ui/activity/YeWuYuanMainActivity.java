@@ -64,6 +64,8 @@ public class YeWuYuanMainActivity extends BaseActivity {
     LinearLayout llType;
     @BindView(R.id.tv_zhuce)
     TextView tvZhuce;
+    @BindView(R.id.tv_add)
+    TextView tvAdd;
     @BindView(R.id.ll_zhuce)
     LinearLayout llZhuce;
 
@@ -87,6 +89,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
     private boolean isOne = true;
     private ConfirmDialog confirmDialog;
     private String zctype = "2";
+    private String salesman_level = "";
 
     @Override
     public int getLayoutId() {
@@ -99,6 +102,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
         tvRight.setText("筛选");
 //        ivBack.setImageResource(R.mipmap.sousuo_bai);
         mContext = YeWuYuanMainActivity.this;
+        salesman_level = getIntent().getStringExtra("salesman_level");
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         mLoadMoreListener = new SwipeMenuRecyclerView.LoadMoreListener() {
@@ -166,6 +170,12 @@ public class YeWuYuanMainActivity extends BaseActivity {
                 }
             }
         });
+        if(!salesman_level.equals("1904")){
+            type = "4";
+            tvType.setText("全部餐厅");
+            tvAdd.setVisibility(View.GONE);
+        }
+        Log.e("initData: ",salesman_level );
         getQiyeLiebiao();
     }
 
@@ -446,6 +456,11 @@ public class YeWuYuanMainActivity extends BaseActivity {
         TextView tv_wdghs = view.findViewById(R.id.tv_xuanxiang4);
         TextView tv_sqsc = view.findViewById(R.id.tv_sqsc);
         TextView tv_my_sqsc = view.findViewById(R.id.tv_my_sqsc);
+        if(!salesman_level.equals("1904")){
+            tv_wdct.setVisibility(View.GONE);
+            tv_wdghs.setVisibility(View.GONE);
+            tv_my_sqsc.setVisibility(View.GONE);
+        }
         if(tvType.getText().toString().equals("全部餐厅")){
             tv_qbct.setVisibility(View.GONE);
         } else if(tvType.getText().toString().equals("全部供货商")){

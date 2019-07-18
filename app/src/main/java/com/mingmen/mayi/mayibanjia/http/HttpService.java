@@ -147,7 +147,8 @@ public interface HttpService {
                                                       @Query("company_id") String company_id,//企业id
                                                       @Query("yzm") String yzm,//验证码
                                                       @Query("device_name") String device_name,
-                                                      @Query("deviceid") String deviceid);
+                                                      @Query("deviceid") String deviceid,
+                                                      @Query("phone_model") String phone_model);
 
     //门店名称模糊查询
     @POST("allCompany/getname.do")
@@ -169,7 +170,8 @@ public interface HttpService {
                                                       @Query("yzm") String yzm,
                                                       @Query("login_type") String login_type,
                                                       @Query("device_name") String device_name,
-                                                      @Query("deviceid") String deviceid);
+                                                      @Query("deviceid") String deviceid,
+                                                      @Query("phone_model") String phone_model);
 
     //游客登录
     @POST("allCompanyAccount/queryvisitor.do")
@@ -384,7 +386,7 @@ public interface HttpService {
                                                                    @Query("pageNumber") String pageNumber);
 
     //查询。。企业列表（业务员）
-    @POST("allCompany/selectType.do")
+    @POST("allCompany/queryAll.do")
     Observable<ResultModel<List<QiYeLieBiaoBean>>> getqiyedaicanshu(@Query("user_token") String user_token,
                                                                     @Query("company_name") String company_name,
                                                                     @Query("parent_number") String parent_number,
@@ -588,8 +590,8 @@ public interface HttpService {
                                                               @Query("list") String list,
                                                               @Query("purchase_id") String purchase_id,
                                                               @Query("ct_buy_final_id") String ct_buy_final_id,
-                                                              @Query("type") String type
-    );
+                                                              @Query("list_type") String list_type,
+                                                              @Query("type") String type);
 
     //采购单审批失败
     @POST("ctBuyHostorder/updateByPurchaseId.do")
@@ -598,7 +600,7 @@ public interface HttpService {
                                                  @Query("purchase_id") String purchase_id,
                                                  @Query("ct_buy_final_id") String ct_buy_final_id);
 
-    //获取更多商家
+    //获取自选商家
     @POST("ctBuyHostorder/queryByCompany.do")
     Observable<ResultModel<List<XiTongTuiJianBean.CcListBean>>> getgengduoshangjia(@Query("user_token") String user_token,
                                                                                    @Query("son_order_id") String son_order_id,
@@ -894,7 +896,7 @@ public interface HttpService {
     @POST("allDictionary/YHKtype.do")
     Observable<ResultModel<List<XuanZeYinHangKaBean>>> getBankCardList(@Query("user_token") String user_token);
 
-    //资质认证
+    //完善信息
     @POST("allCompany/zizhi.do")
     Observable<ResultModel<String>> getZiZhi(@Query("user_token") String user_token);
 
@@ -926,7 +928,7 @@ public interface HttpService {
     //取消订单
     @POST("Ordermain/updateOrder.do")
     Observable<ResultModel<String>> cancleOrder(@Query("user_token") String user_token,
-                                             @Query("order_id") String order_id);
+                                                @Query("order_id") String order_id);
 
     //确认订单
     @POST("payHistory/tureMoney.do")
@@ -947,11 +949,11 @@ public interface HttpService {
                                                  @Query("price") String price,
                                                  @Query("return_remarke") String return_remarke);
 
-    //资质认证回显
+    //完善信息回显
     @POST("allCompany/getAptitude.do")
     Observable<ResultModel<GetZiZhiBean>> getZizhiShow(@Query("user_token") String user_token);
 
-    //申请资质认证
+    //申请完善信息
     @POST("allCompany/referAptitude.do")
     Observable<ResultModel<String>> saveZizhi(@Query("user_token") String user_token,
                                               @Query("id_number") String id_number,
@@ -1217,12 +1219,14 @@ public interface HttpService {
     //获取审批详情4级
     @POST("ctBuyHostorder/queryhdlistsDetial.do")
     Observable<ResultModel<CaiGouDanBean>> getShenpiFour(@Query("user_token") String user_token,
-                                                         @Query("ct_buy_final_id") String ct_buy_final_id);
+                                                         @Query("ct_buy_final_id") String ct_buy_final_id,
+                                                         @Query("type") String type);
 
     //获取审批详情3级
     @POST("ctBuyHostorder/queryListXQ_XCX.do")
     Observable<ResultModel<CaiGouDanBean>> getShenpiThree(@Query("user_token") String user_token,
-                                                          @Query("purchase_id") String purchase_id);
+                                                          @Query("purchase_id") String purchase_id,
+                                                          @Query("type") String type);
 
     //获取采购单名称
     @POST("ctBuyHostorder/queryBySonorderName.do")
@@ -1477,22 +1481,23 @@ public interface HttpService {
     // 更新成本
     @POST("foodFormula/update.do")
     Observable<ResultModel<String>> updateCaipin(@Query("user_token") String user_token,
-                                              @Query("food_formula_id") String food_formula_id,
-                                              @Query("food_name") String food_name,
-                                              @Query("food_photo") String food_photo,
-                                              @Query("sale_price") String sale_price,
-                                              @Query("host_remarke") String host_remarke,
-                                              @Query("ingredients_remarke") String ingredients_remarke,
-                                              @Query("flavour_remarke") String flavour_remarke,
-                                              @Query("cllist") String cllist,
-                                              @Query("fllist") String fllist,
-                                              @Query("tllist") String tllist);
+                                                 @Query("food_formula_id") String food_formula_id,
+                                                 @Query("food_name") String food_name,
+                                                 @Query("food_photo") String food_photo,
+                                                 @Query("sale_price") String sale_price,
+                                                 @Query("host_remarke") String host_remarke,
+                                                 @Query("ingredients_remarke") String ingredients_remarke,
+                                                 @Query("flavour_remarke") String flavour_remarke,
+                                                 @Query("cllist") String cllist,
+                                                 @Query("fllist") String fllist,
+                                                 @Query("tllist") String tllist);
 
     // 修改售卖价格
     @POST("foodFormula/updateSM.do")
     Observable<ResultModel<String>> updatePrice(@Query("user_token") String user_token,
                                                 @Query("food_formula_id") String food_formula_id,
                                                 @Query("sale_price") String sale_price);
+
     // 获取菜品详情
     @POST("foodFormula/queryFood.do")
     Observable<ResultModel<CbkXiangqingBean>> getCbkXiangqing(@Query("user_token") String user_token,
@@ -1529,20 +1534,36 @@ public interface HttpService {
                                                                  @Query("son_order_id") String son_order_id,
                                                                  @Query("market_id") String market_id,
                                                                  @Query("gy_company_id") String gy_company_id,
-                                                                 @Query("brand") String brand);
+                                                                 @Query("brand") String brand,
+                                                                 @Query("gold_supplier") String gold_supplier,
+                                                                 @Query("attention_state") String attention_state);
 
     // 业务员添加企业时验证店铺名称是否重复
     @POST("allCompany/istruesave.do")
     Observable<ResultModel<String>> dianpuyanzheng(@Query("user_token") String user_token,
-                                                                 @Query("role") String role,
-                                                                 @Query("company_name") String company_name,
-                                                                 @Query("province") String province,
-                                                                 @Query("city") String city,
-                                                                 @Query("region") String region,
-                                                                 @Query("son_number") String son_number);
+                                                   @Query("role") String role,
+                                                   @Query("company_name") String company_name,
+                                                   @Query("province") String province,
+                                                   @Query("city") String city,
+                                                   @Query("region") String region,
+                                                   @Query("son_number") String son_number);
 
     // 运费回显
     @POST("allCompany/freehui.do")
     Observable<ResultModel<String>> getYunfei(@Query("user_token") String user_token);
+
+    // 一键抢单
+    @POST("ctBuyHostorder/qiangdan.do")
+    Observable<ResultModel<String>> yijianqiangdan(@Query("user_token") String user_token,
+                                                   @Query("list") String list);
+
+    // 更新采购单市场
+    @POST("ctBuyHostorder/saveMarketId.do")
+    Observable<ResultModel<String>> updateShichang(@Query("user_token") String user_token,
+                                                   @Query("type") String type,
+                                                   @Query("market_id") String market_id,
+                                                   @Query("purchase_id") String purchase_id,
+                                                   @Query("classify_id") String classify_id,
+                                                   @Query("ct_buy_final_id") String ct_buy_final_id);
 
 }

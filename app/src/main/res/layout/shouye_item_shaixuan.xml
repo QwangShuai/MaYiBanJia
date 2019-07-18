@@ -13,28 +13,21 @@
         android:scaleType="fitXY"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-    <LinearLayout
-        android:layout_marginLeft="5dp"
-        android:layout_weight="1"
-        android:visibility="visible"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
         <ImageView
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:id="@+id/iv_zmpp"
             android:scaleType="fitXY"
-            android:layout_marginBottom="5dp"
             android:layout_weight="1"
             android:src="@mipmap/zmpp_sy"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
         <ImageView
+            android:layout_marginLeft="5dp"
             android:id="@+id/iv_ssd"
             android:scaleType="fitXY"
-            android:layout_marginTop="5dp"
             android:layout_weight="1"
             android:src="@mipmap/ssd_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </LinearLayout>
 </LinearLayout>

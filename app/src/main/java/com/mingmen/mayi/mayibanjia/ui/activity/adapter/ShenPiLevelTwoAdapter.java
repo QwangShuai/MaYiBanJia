@@ -104,7 +104,7 @@ public class ShenPiLevelTwoAdapter extends RecyclerView.Adapter<ShenPiLevelTwoAd
                             public void xuanzhong(XiTongTuiJianBean.CcListBean msg) {
                                 Log.e("xuanzhong: ",msg.getCount()+"" );
                                 msg.setIsxianshi(true);
-                                msg.setBiaoqian("推荐商家");
+                                msg.setBiaoqian("自选商家");
                                 mList.get(position).setCcListBean(msg);
 //                                activity.setMoreShangjia(msg);
                                 activity.setMoreShangjia();
@@ -125,6 +125,7 @@ public class ShenPiLevelTwoAdapter extends RecyclerView.Adapter<ShenPiLevelTwoAd
                 JumpUtil.Jump_intent(activity, SPXiangQingActivity.class, bundle);
             }
         });
+
     }
 
 

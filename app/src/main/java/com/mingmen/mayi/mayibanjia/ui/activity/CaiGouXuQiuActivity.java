@@ -135,7 +135,7 @@ public class CaiGouXuQiuActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getShenpiThree(PreferenceUtils.getString(MyApplication.mContext, "token",""),purchase_id))//这块得改
+                                .getShenpiThree(PreferenceUtils.getString(MyApplication.mContext, "token",""),purchase_id,""))//这块得改
                 .setDataListener(new HttpDataListener<CaiGouDanBean>() {
                     @Override
                     public void onNext(CaiGouDanBean data) {

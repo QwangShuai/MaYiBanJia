@@ -23,9 +23,11 @@ public class GlideUtils {
         if(url.indexOf("?")!=-1) {
             Glide.with(mContext).load(url.substring(0, url.indexOf("?"))).
                     signature(new StringSignature(url.substring(0, url.indexOf("?")))).into(iv);
+//            Glide.with(mContext).load(url.substring(0, url.indexOf("?"))).into(iv);
         } else {
             Glide.with(mContext).load(url).
                     signature(new StringSignature(url)).into(iv);
+//            Glide.with(mContext).load(url).into(iv);
         }
     }
 
@@ -36,9 +38,11 @@ public class GlideUtils {
         if(url.indexOf("?")!=-1){
             Glide.with(mContext).load(url.substring(0,url.indexOf("?"))).transform(new GlideRoundTransform(mContext,round)).
                     signature(new StringSignature(url.substring(0,url.indexOf("?")))).into(iv);
+//            Glide.with(mContext).load(url.substring(0,url.indexOf("?"))).transform(new GlideRoundTransform(mContext,round)).into(iv);
         } else {
             Glide.with(mContext).load(url).transform(new GlideRoundTransform(mContext,round)).
                     signature(new StringSignature(url)).into(iv);
+//            Glide.with(mContext).load(url).transform(new GlideRoundTransform(mContext,round)).into(iv);
         }
 
     }

@@ -76,7 +76,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="资质认证"
+            android:text="完善信息"
             android:textColor="@color/zicolor"
             android:textSize="15sp"
             android:layout_marginLeft="20dp"

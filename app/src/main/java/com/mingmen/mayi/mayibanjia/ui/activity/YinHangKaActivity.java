@@ -150,7 +150,7 @@ public class YinHangKaActivity extends BaseActivity {
                 });
     }
 
-    public void getZiZhi() {//资质认证
+    public void getZiZhi() {//完善信息
         HttpManager.getInstance().with(mContext)
                 .setObservable(RetrofitManager.getService()
                         .getZiZhi(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
@@ -158,7 +158,7 @@ public class YinHangKaActivity extends BaseActivity {
                     @Override
                     public void onNext(final String data) {
                         if(data.equals("审核中")||data.equals("待审核")||data.equals("审核未通过")){
-                            confirmDialog.showDialog("您的资质认证状态暂未通过，是否前去查看");
+                            confirmDialog.showDialog("您的完善信息状态暂未通过，是否前去查看");
                             confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {

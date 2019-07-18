@@ -218,19 +218,19 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     //标签
     private void bindZiXun(final ZiXun holder, int position) {
-        final View[] ivPoints;//小圆点图片的集合
+//        final View[] ivPoints;//小圆点图片的集合
         final int totalPage; //总的页数
         int mPageSize = 10; //每页显示的最大的数量
         List<View> viewPagerList;//GridView作为一个View对象添加到ViewPager集合中
         MyViewPagerAdapter pageadapter;
         final List<MyGridViewAdpter> adpters = new ArrayList<>();
-        int dotSize = 10;
-        int margins = 10;
+//        int dotSize = 10;
+//        int margins = 10;
         LinearLayout.LayoutParams params;
-        dotSize = AppUtil.Dp2px(mContext, dotSize);
-        margins = AppUtil.Dp2px(mContext, margins);
-        params = new LinearLayout.LayoutParams(dotSize, dotSize);
-        params.setMargins(margins, margins, margins, margins);
+//        dotSize = AppUtil.Dp2px(mContext, dotSize);
+//        margins = AppUtil.Dp2px(mContext, margins);
+//        params = new LinearLayout.LayoutParams(dotSize, dotSize);
+//        params.setMargins(margins, margins, margins, margins);
 
         totalPage = (int) Math.ceil(leiBean.size() * 1.0 / mPageSize);
         viewPagerList = new ArrayList<View>();
@@ -263,41 +263,41 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         holder.viewpager.setAdapter(pageadapter);
 
         //添加小圆点
-        ivPoints = new View[totalPage];
-        for (int i = 0; i < totalPage; i++) {
-            //循坏加入点点图片组
-            ivPoints[i] = new View(mContext);
-            if (i == 0) {
-                ivPoints[i].setBackground(mContext.getResources().getDrawable(R.drawable.fillet_solid_zangqing_20));
-            } else {
-                ivPoints[i].setBackground(mContext.getResources().getDrawable(R.drawable.fillet_solid_cutoff_20));
-            }
+//        ivPoints = new View[totalPage];
+//        for (int i = 0; i < totalPage; i++) {
+//            //循坏加入点点图片组
+//            ivPoints[i] = new View(mContext);
+//            if (i == 0) {
+//                ivPoints[i].setBackground(mContext.getResources().getDrawable(R.drawable.fillet_solid_zangqing_20));
+//            } else {
+//                ivPoints[i].setBackground(mContext.getResources().getDrawable(R.drawable.fillet_solid_cutoff_20));
+//            }
 
 //            ivPoints[i].setPadding(8, 8, 8, 8);
 
-            holder.points.addView(ivPoints[i],params);
-        }
+//            holder.points.addView(ivPoints[i],params);
+//        }
         //设置ViewPager的滑动监听，主要是设置点点的背景颜色的改变
-        holder.viewpager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                // TODO Auto-generated method stub
-                //currentPage = position;
-                for (int i = 0; i < totalPage; i++) {
-                    if (i == position) {
-                        ivPoints[i].setBackground(mContext.getResources().getDrawable(R.drawable.fillet_solid_zangqing_20));
-                    } else {
-                        ivPoints[i].setBackground(mContext.getResources().getDrawable(R.drawable.fillet_solid_cutoff_20));
-                    }
-                }
-            }
-        });
-
-        if(ivPoints.length>1){
-            holder.points.setVisibility(View.VISIBLE);
-        } else {
-            holder.points.setVisibility(View.GONE);
-        }
+//        holder.viewpager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+//            @Override
+//            public void onPageSelected(int position) {
+//                // TODO Auto-generated method stub
+//                //currentPage = position;
+//                for (int i = 0; i < totalPage; i++) {
+//                    if (i == position) {
+//                        ivPoints[i].setBackground(mContext.getResources().getDrawable(R.drawable.fillet_solid_zangqing_20));
+//                    } else {
+//                        ivPoints[i].setBackground(mContext.getResources().getDrawable(R.drawable.fillet_solid_cutoff_20));
+//                    }
+//                }
+//            }
+//        });
+//
+//        if(ivPoints.length>1){
+//            holder.points.setVisibility(View.VISIBLE);
+//        } else {
+//            holder.points.setVisibility(View.GONE);
+//        }
     }
 
     private void bindShangjia(final ShangJia holder, int position) {
@@ -354,7 +354,7 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             if (shiJiBiaoQianAdapter == null) {
                 shiJiBiaoQianAdapter = new ShouYeTeJiaAdapter(mContext, teJiaBean,"");
             }
-            holder.rv_tejia.setLayoutManager(new GridLayoutManager(mContext, 3));
+            holder.rv_tejia.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL,false));
             holder.rv_tejia.setAdapter(shiJiBiaoQianAdapter);
             holder.rv_tejia.setFocusable(false);
             holder.ll_more.setOnClickListener(new View.OnClickListener() {//更多特价
@@ -365,6 +365,24 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 //                    EventBus.getDefault().post(map);
                     activity.setTejia(true);
                     activity.gaibianye(1);
+                }
+            });
+            holder.iv_dzyhp.setOnClickListener(new View.OnClickListener() {//更多特价
+                @Override
+                public void onClick(View v) {
+                    BaseActivity.showDialog(mContext,"稍后开放");
+                }
+            });
+            holder.iv_ccsb.setOnClickListener(new View.OnClickListener() {//更多特价
+                @Override
+                public void onClick(View v) {
+                    BaseActivity.showDialog(mContext,"稍后开放");
+                }
+            });
+            holder.iv_mstg.setOnClickListener(new View.OnClickListener() {//更多特价
+                @Override
+                public void onClick(View v) {
+                    BaseActivity.showDialog(mContext,"稍后开放");
                 }
             });
         }
@@ -384,14 +402,23 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     }
     private void bindShishida(Shishida holder, int position) {
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.ivSsd.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {//筛选食时达
-//                Map<String,Boolean> map = new HashMap<>();
-//                map.put("isZhunshida",true);
-//                EventBus.getDefault().post(map);
+            public void onClick(View view) {
                 activity.setZhunshida(true);
                 activity.gaibianye(1);
+            }
+        });
+        holder.ivJpgys.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {//筛选食时达
+                BaseActivity.showDialog(mContext,"稍后开放");
+            }
+        });
+        holder.ivZmpp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {//筛选食时达
+                BaseActivity.showDialog(mContext,"稍后开放");
             }
         });
     }
@@ -400,12 +427,18 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public RecyclerView rv_tejia;
         public LinearLayout ll_kuang;
         public LinearLayout ll_more;
+        public ImageView iv_dzyhp;
+        public ImageView iv_ccsb;
+        public ImageView iv_mstg;
 
         public TeJia(final View itemView) {
             super(itemView);
             rv_tejia = (RecyclerView) itemView.findViewById(R.id.rv_tejia);
             ll_kuang = itemView.findViewById(R.id.ll_kuang);
             ll_more = itemView.findViewById(R.id.ll_more);
+            iv_dzyhp = (ImageView)itemView.findViewById(R.id.iv_dzyhp);
+            iv_ccsb = (ImageView)itemView.findViewById(R.id.iv_ccsb);
+            iv_mstg = (ImageView)itemView.findViewById(R.id.iv_mstg);
         }
     }
     public class TuiJian extends RecyclerView.ViewHolder {
@@ -461,8 +494,14 @@ public class ShouYeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public class Shishida extends RecyclerView.ViewHolder{
+        ImageView ivSsd;
+        ImageView ivJpgys;
+        ImageView ivZmpp;
         public Shishida(View itemView) {
             super(itemView);
+            ivSsd = (ImageView) itemView.findViewById(R.id.iv_ssd);
+            ivJpgys = (ImageView) itemView.findViewById(R.id.iv_jpgys);
+            ivZmpp = (ImageView) itemView.findViewById(R.id.iv_zmpp);
         }
     }
     public interface OnItemClickLitener {

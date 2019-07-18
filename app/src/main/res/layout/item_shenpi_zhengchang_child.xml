@@ -206,7 +206,7 @@
                     android:background="@drawable/fillet_hollow_999999_3"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:text="更多商家"
+                    android:text="自选商家"
                     android:textColor="@color/sousuobianse"
                     android:textSize="12sp"
                     android:layout_marginLeft="12dp"

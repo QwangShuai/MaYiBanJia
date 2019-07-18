@@ -5,13 +5,13 @@
     android:background="@color/white"
     android:orientation="vertical">
     <RelativeLayout
-        android:paddingTop="24dp"
+        android:paddingTop="12dp"
         android:gravity="center"
         android:background="@color/zangqing"
         android:layout_width="match_parent"
         android:layout_height="73dp">
         <RelativeLayout
-            android:layout_marginTop="5dp"
+            android:layout_centerInParent="true"
             android:id="@+id/ll_sousuo"
             android:layout_width="match_parent"
             android:layout_height="35dp"
@@ -48,17 +48,59 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="45.5dp">
-        <TextView
-            android:id="@+id/tv_pinpai"
-            android:paddingLeft="13dp"
-            android:textColorHint="@color/zangqing"
-            android:textColor="@color/zangqing"
-            android:textSize="15sp"
-            android:hint="选择品牌"
-            android:gravity="center_vertical"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/tv_quanbu"
+                android:paddingLeft="13dp"
+                android:textColor="@color/lishisousuo"
+                android:textSize="15sp"
+                android:text="全部"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/tv_yiguanzhu"
+                android:paddingLeft="13dp"
+                android:textColor="@color/lishisousuo"
+                android:textSize="15sp"
+                android:text="已关注"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <TextView
+                android:paddingRight="22dp"
+                android:id="@+id/tv_jpgys"
+                android:paddingLeft="13dp"
+                android:textColor="@color/lishisousuo"
+                android:textSize="15sp"
+                android:text="金牌供应商"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+            <View
+                android:background="@color/gray_e7e7e7"
+                android:layout_gravity="center_vertical"
+                android:layout_width="1dp"
+                android:layout_height="19dp"></View>
+            <TextView
+                android:paddingRight="22dp"
+                android:id="@+id/tv_pinpai"
+                android:paddingLeft="22dp"
+                android:textColorHint="@color/lishisousuo"
+                android:textColor="@color/zangqing"
+                android:textSize="15sp"
+                android:hint="选择品牌"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
         <include layout="@layout/view_cutoff_e7e7e7_match"></include>
     </LinearLayout>
     <RelativeLayout
@@ -70,6 +112,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
         <android.support.v7.widget.RecyclerView
+            android:layout_marginTop="12dp"
             android:visibility="gone"
             android:id="@+id/rv_pp_list"
             android:layout_width="match_parent"

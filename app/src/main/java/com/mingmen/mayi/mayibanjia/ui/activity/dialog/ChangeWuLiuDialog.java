@@ -137,7 +137,7 @@ public class ChangeWuLiuDialog extends Dialog {
                                 final SinglePicker<CarsTypeBean> picker =new SinglePicker<>(activity,data);
                                 picker.setCanceledOnTouchOutside(false);
                                 picker.setSelectedIndex(1);
-                                picker.setCycleDisable(false);
+                                picker.setCycleDisable(true);
                                 picker.setOnItemPickListener(new SinglePicker.OnItemPickListener<CarsTypeBean>() {
                                     @Override
                                     public void onItemPicked(int index, CarsTypeBean item) {

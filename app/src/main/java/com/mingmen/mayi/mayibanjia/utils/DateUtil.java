@@ -199,6 +199,7 @@ public class DateUtil {
 	 * 获取两个日期相差 d1为过去日期 d2为当前日期 type 1天 2小時 3分鐘
 	 */
 	public static long dqsj(Date d1, Date d2, String type) {
+		Log.e("dqsj: ",d1+" "+d2 );
 		long diff = d2.getTime() - d1.getTime();// 这样得到的差值是微秒级别
 		long days = diff / (1000 * 60 * 60 * 24);
 		long hours = (diff - days * (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);

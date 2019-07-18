@@ -125,6 +125,8 @@ public class ShichangXuanzeActivity extends BaseActivity {
                 new ShangQuanDialog().setData(mContext).show(getSupportFragmentManager());
                 break;
             case R.id.tv_all_shichang:
+                shichangname = "全部";
+                shichangid = "";
                 backResult();
                 break;
             case R.id.tv_yiji:

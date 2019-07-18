@@ -34,6 +34,7 @@ public class YwyBean {
     private String telephone;
     private String specific_address;
     private String salesman_code;
+    private String salesman_level;
     private int order_count;
     private int registered_ct;
     private int registered_gy;
@@ -220,5 +221,13 @@ public class YwyBean {
 
     public void setRegistered_she(int registered_she) {
         this.registered_she = registered_she;
+    }
+
+    public String getSalesman_level() {
+        return salesman_level;
+    }
+
+    public void setSalesman_level(String salesman_level) {
+        this.salesman_level = salesman_level;
     }
 }

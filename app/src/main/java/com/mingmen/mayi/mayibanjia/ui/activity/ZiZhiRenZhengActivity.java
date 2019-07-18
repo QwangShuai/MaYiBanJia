@@ -67,7 +67,7 @@ public class ZiZhiRenZhengActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        tvTitle.setText("资质认证");
+        tvTitle.setText("完善信息");
         mContext = ZiZhiRenZhengActivity.this;
         yemian = getIntent().getStringExtra("yemian");
         state = getIntent().getStringExtra("state");

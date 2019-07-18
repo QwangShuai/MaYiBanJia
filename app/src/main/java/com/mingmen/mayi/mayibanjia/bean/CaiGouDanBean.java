@@ -205,6 +205,7 @@ public class CaiGouDanBean {
         private String market_id;
         private String market_name;
         private boolean isShow;
+
         private List<SonorderlistBean> sonorderlist;
 
         public String getMarket_name() {
@@ -311,6 +312,7 @@ public class CaiGouDanBean {
             private String create_time;
             private String classify_id;
             private String market_id;
+            private String market_name;
             private String sort_id;
             private String son_order_id;
             private String pack_standard_id;
@@ -323,6 +325,23 @@ public class CaiGouDanBean {
             private String ct_buy_final_name;
             private String often_name_id;
             private String spec_description;
+            private String istrue_type;
+
+            public String getMarket_name() {
+                return market_name;
+            }
+
+            public void setMarket_name(String market_name) {
+                this.market_name = market_name;
+            }
+
+            public String getIstrue_type() {
+                return istrue_type;
+            }
+
+            public void setIstrue_type(String istrue_type) {
+                this.istrue_type = istrue_type;
+            }
 
             public String getSpec_description() {
                 return spec_description;

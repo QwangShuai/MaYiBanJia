@@ -60,8 +60,7 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
     private ShenPiLevelTwoAdapter adapter;
     private ShenPiLevelZeroAdapter zeroAdapter;
     private int zeroPos;
-    private int count=0;
-    private long time = 300 * 1000;
+//    private long time = 300 * 1000;
     private  boolean youtuijian = false;
 //    private HashMap<String,String> myMap = new HashMap<>();
     public boolean isClick() {
@@ -115,6 +114,7 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
         holder.rvDplist.setFocusable(false);
 //        holder.rvDplist.setNestedScrollingEnabled(false);
 //        adapter.notifyDataSetChanged();
+
         if (listBean.isSelect()) {
             holder.rvDplist.setVisibility(View.VISIBLE);
         } else {
@@ -126,68 +126,66 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
 //        if(StringUtil.isValid(myMap.get(mList.get(position).getSon_order_id()))){
 //            time = Long.valueOf(myMap.get(mList.get(position).getSon_order_id()));
 //        }
-        time = PreferenceUtils.getLong(activity,mList.get(position).getSon_order_id(),300*1000);
-
-        if (holder.downTimer != null) {
-            holder.downTimer.cancel();
-        }
-        final boolean[] runningThree = {true};
-        holder.downTimer = new CountDownTimer(time, 1000) {
-            @Override
-            public void onTick(long l) {
-                zeroAdapter.setPosClick(zeroPos, true);
-                holder.tvXitongtuijian.setText((l / 1000) + "秒后抢单结束");
-//                myMap.put(mList.get(position).getSon_order_id(),l+"");
-                PreferenceUtils.putLong(activity, mList.get(position).getSon_order_id(), l);
-                holder.tvXitongtuijian.setTextColor(activity.getResources().getColor(R.color.red_ff3300));
-//                holder.tvXitongtuijian.setEnabled(false);
-                message = "特殊商品抢单中，请耐心等待抢单完成";
-                isClick = false;
-                holder.itemView.setEnabled(false);
-                activity.setClick(isClick,message);
-            }
-
-            @Override
-            public void onFinish() {
-                zeroAdapter.setPosClick(zeroPos, false);
-                holder.itemView.setEnabled(true);
-                PreferenceUtils.remove(activity, mList.get(position).getSon_order_id());
-//                myMap.remove(mList.get(position).getSon_order_id());
-                runningThree[0] = true;
-                holder.tvXitongtuijian.setVisibility(View.GONE);
-                holder.tvXitongtuijian.setText("发送抢单");
-//                holder.tvXitongtuijian.setTextColor(activity.getResources().getColor(R.color.zicolor));
-//                holder.tvXitongtuijian.setEnabled(true);
-                isClick = true;
-                activity.setClick(isClick,message);
-                holder.tvXitongtuijian.setTextColor(activity.getResources().getColor(R.color.lishisousuo));
-                notifyDataSetChanged();
-                getshenpi(listBean, position, activity);
-            }
-        };
+//        time = PreferenceUtils.getLong(activity,mList.get(position).getSon_order_id(),300*1000);
+//
+//        if (holder.downTimer != null) {
+//            holder.downTimer.cancel();
+//        }
+//        final boolean[] runningThree = {true};
+//        holder.downTimer = new CountDownTimer(time, 1000) {
+//            @Override
+//            public void onTick(long l) {
+//                zeroAdapter.setPosClick(zeroPos, true);
+//                holder.tvXitongtuijian.setText((l / 1000) + "秒后抢单结束");
+////                myMap.put(mList.get(position).getSon_order_id(),l+"");
+//                PreferenceUtils.putLong(activity, mList.get(position).getSon_order_id(), l);
+//                holder.tvXitongtuijian.setTextColor(activity.getResources().getColor(R.color.red_ff3300));
+////                holder.tvXitongtuijian.setEnabled(false);
+//                message = "特殊商品抢单中，请耐心等待抢单完成";
+//                isClick = false;
+//                holder.itemView.setEnabled(false);
+//                activity.setClick(isClick,message);
+//            }
+//
+//            @Override
+//            public void onFinish() {
+//                zeroAdapter.setPosClick(zeroPos, false);
+//                holder.itemView.setEnabled(true);
+//                PreferenceUtils.remove(activity, mList.get(position).getSon_order_id());
+////                myMap.remove(mList.get(position).getSon_order_id());
+//                runningThree[0] = true;
+//                holder.tvXitongtuijian.setVisibility(View.GONE);
+//                holder.tvXitongtuijian.setText("发送抢单");
+////                holder.tvXitongtuijian.setTextColor(activity.getResources().getColor(R.color.zicolor));
+////                holder.tvXitongtuijian.setEnabled(true);
+//                isClick = true;
+//                activity.setClick(isClick,message);
+//                holder.tvXitongtuijian.setTextColor(activity.getResources().getColor(R.color.lishisousuo));
+//                notifyDataSetChanged();
+//                getshenpi(listBean, position, activity);
+//            }
+//        };
 
         map = activity.getXuanzhong();
-        if (time > 0 && time < 300 * 1000) {
-            runningThree[0] = false;
-            holder.downTimer.start();
-            countDownMap.put(holder.tvXitongtuijian.hashCode(), holder.downTimer);
-        }
+//        if (time > 0 && time < 300 * 1000) {
+//            runningThree[0] = false;
+//            holder.downTimer.start();
+//            countDownMap.put(holder.tvXitongtuijian.hashCode(), holder.downTimer);
+//        }
         ShangpinidAndDianpuidBean bean = map.get(listBean.getSon_order_id());
 
-        if (StringUtil.isValid(bean.getCommodity_id())) {
+        if (bean!=null&&StringUtil.isValid(bean.getCommodity_id())) {
             holder.ivSelect.setSelected(!bean.getCommodity_id().isEmpty());//设置选中状态
+            holder.llZongjia.setVisibility(View.VISIBLE);//选中的就获取当前总价
+            getcaigoudanjiage(listBean.getSon_order_id(), bean.getCommodity_id(),bean.getCount(), holder.tvZongjia);
+        } else {
+            holder.llZongjia.setVisibility(View.GONE);
         }
         holder.tvShangpinming.setText(listBean.getClassify_name());//商品名
 
         GlideUtils.cachePhoto(activity,holder.ivSptu,listBean.getPicture_url());
         holder.tvGuige.setText(listBean.getSpec_description());//规格
         holder.tvMiaoshu.setText(listBean.getPack_standard_name());//规格描述
-        if (bean.getCommodity_id() == null || bean.getCommodity_id().isEmpty()) {//是否选中
-            holder.llZongjia.setVisibility(View.GONE);
-        } else {
-            holder.llZongjia.setVisibility(View.VISIBLE);//选中的就获取当前总价
-            getcaigoudanjiage(listBean.getSon_order_id(), bean.getCommodity_id(),bean.getCount(), holder.tvZongjia);
-        }
         if (StringUtil.isValid(listBean.getSpecial_commodity())) {
             holder.tvTeshu.setVisibility(View.VISIBLE);//特殊商品显示标签
         }
@@ -199,10 +197,11 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
 
         holder.tvXitongtuijian.setText("系统推荐");
         if (StringUtil.isValid(listBean.getSpecial_commodity())) {
-            holder.tvXitongtuijian.setText("发送抢单");//特殊商品没有系统推荐  发送抢单
-            if (listBean.getLevels() == null) {
-                youtuijian = false;
-            }
+            holder.tvXitongtuijian.setVisibility(View.GONE);
+//            holder.tvXitongtuijian.setText("发送抢单");//特殊商品没有系统推荐  发送抢单
+//            if (listBean.getLevels() == null) {
+//                youtuijian = false;
+//            }
         }
         if (holder.tvXitongtuijian.getText().equals("系统推荐")) {
             holder.tvXitongtuijian.setVisibility(View.GONE);
@@ -220,42 +219,43 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
                             mList.get(position).setSelect(true);
                             holder.rvDplist.setVisibility(View.GONE);
                         }
-                    } else {//没有推荐
-                        if (!StringUtil.isValid(listBean.getSpecial_commodity())) {//不是特殊商品  不调用接口
-                            ToastUtil.showToast("暂无匹配商家");
-                            return;
-                        }
-                        if(listBean.getMarket_id()!=null){
-                            if (runningThree[0] == true) {//是否在进行倒计时    不在倒计时就调取接口
-                                HttpManager.getInstance()
-                                        .with(activity)
-                                        .setObservable(
-                                                RetrofitManager
-                                                        .getService()
-                                                        .chongfaqiangdan(listBean.getSon_order_id(),
-                                                                PreferenceUtils.getString(MyApplication.mContext, "token", ""), listBean.getMarket_id()))
-                                        .setDataListener(new HttpDataListener<String>() {
-                                            @Override
-                                            public void onNext(String data) {
-                                                if (mList.get(position).getLevels() != null) {
-                                                    mList.get(position).getLevels().clear();
-                                                }
-//                                                notifyDataSetChanged();
-                                                mList.get(position).setSelect(false);
-                                                ToastUtil.showToast("发送抢单信息成功");
-                                                time = 300 * 1000;
-                                                PreferenceUtils.remove(activity, mList.get(position).getSon_order_id());
-//                                                myMap.remove(mList.get(position).getSon_order_id());
-                                                holder.downTimer.start();
-                                                runningThree[0] = false;
-                                                countDownMap.put(holder.tvXitongtuijian.hashCode(), holder.downTimer);
-                                            }
-                                        });
-                            }
-                        } else {
-                            ToastUtil.showToast("请先选择市场");
-                        }
                     }
+//                    else {//没有推荐
+//                        if (!StringUtil.isValid(listBean.getSpecial_commodity())) {//不是特殊商品  不调用接口
+//                            ToastUtil.showToast("暂无匹配商家");
+//                            return;
+//                        }
+//                        if(listBean.getMarket_id()!=null){
+//                            if (runningThree[0] == true) {//是否在进行倒计时    不在倒计时就调取接口
+//                                HttpManager.getInstance()
+//                                        .with(activity)
+//                                        .setObservable(
+//                                                RetrofitManager
+//                                                        .getService()
+//                                                        .chongfaqiangdan(listBean.getSon_order_id(),
+//                                                                PreferenceUtils.getString(MyApplication.mContext, "token", ""), listBean.getMarket_id()))
+//                                        .setDataListener(new HttpDataListener<String>() {
+//                                            @Override
+//                                            public void onNext(String data) {
+//                                                if (mList.get(position).getLevels() != null) {
+//                                                    mList.get(position).getLevels().clear();
+//                                                }
+////                                                notifyDataSetChanged();
+//                                                mList.get(position).setSelect(false);
+//                                                ToastUtil.showToast("发送抢单信息成功");
+//                                                time = 300 * 1000;
+//                                                PreferenceUtils.remove(activity, mList.get(position).getSon_order_id());
+////                                                myMap.remove(mList.get(position).getSon_order_id());
+//                                                holder.downTimer.start();
+//                                                runningThree[0] = false;
+//                                                countDownMap.put(holder.tvXitongtuijian.hashCode(), holder.downTimer);
+//                                            }
+//                                        });
+//                            }
+//                        } else {
+//                            ToastUtil.showToast("请先选择市场");
+//                        }
+//                    }
 
                 }
             });
@@ -312,7 +312,7 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
         } else {
             ToastUtil.showToast(message);
         }
-
+//        zeroAdapter.setPosMarket(zeroPos,listBean.getMarket_name());
     }
 
     public void setCallBack(CallBack callBack) {
@@ -364,7 +364,7 @@ public class ShenPiLevelOneAdapter extends RecyclerView.Adapter<ShenPiLevelOneAd
         @BindView(R.id.tv_cgmc)
         TextView tvCgmc;
 
-        private CountDownTimer downTimer;
+//        private CountDownTimer downTimer;
 
         ViewHolder(View view) {
             super(view);

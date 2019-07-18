@@ -79,6 +79,7 @@ public class WelcomeActivity extends BaseActivity {
                                             CProgressDialogUtils.cancelProgressDialog(WelcomeActivity.this);
                                         }
                                     })
+
                                     .updateParser(new CustomUpdateParser())
 //                .updatePrompter(new CustomUpdatePrompter(SpsbChangeActivity.this))
                                     .update();

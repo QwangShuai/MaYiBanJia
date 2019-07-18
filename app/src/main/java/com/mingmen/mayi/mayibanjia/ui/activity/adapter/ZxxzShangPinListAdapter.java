@@ -56,7 +56,7 @@ public class ZxxzShangPinListAdapter extends RecyclerView.Adapter<ZxxzShangPinLi
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        viewHolder = new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_shouye_tejia, parent, false));
+        viewHolder = new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_shangpin_zxxz, parent, false));
         return viewHolder;
     }
 
@@ -75,25 +75,38 @@ public class ZxxzShangPinListAdapter extends RecyclerView.Adapter<ZxxzShangPinLi
         if(StringUtil.isValid(data.getPack_standard())){
             holder.tvGuigeMiaoshu.setText(data.getPack_standard());
         }
+        if(StringUtil.isValid(data.getAttention_state())&&data.getAttention_state().equals("0")){
+            holder.tvGuanzhu.setVisibility(View.VISIBLE);
+        } else {
+            holder.tvGuanzhu.setVisibility(View.GONE);
+        }
+
+        if(StringUtil.isValid(data.getGold_supplier())&&data.getGold_supplier().equals("0")){
+            holder.tvDian.setVisibility(View.GONE);
+            holder.ivJpgys.setVisibility(View.VISIBLE);
+        } else {
+            holder.tvDian.setVisibility(View.VISIBLE);
+            holder.ivJpgys.setVisibility(View.GONE);
+        }
         holder.tvDianming.setText(data.getCompany_name()+"("+data.getMarket_name()+")");
         holder.tvJiage.setText(data.getPrice());
         holder.tvSpxiaoliang.setText("已售"+data.getCommodity_sales());
         holder.ivJishida.setVisibility(View.GONE);
         GlideUtils.cachePhoto(mContext,holder.ivSptu,data.getPicture_url());
-        holder.ivZoushitu.setVisibility(View.GONE);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mOnItemClickListener.onClick(v,position);
             }
         });
-
-//        holder.ivAddcar.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mOnItemClickListener.onClick(v,position);
-//            }
-//        });
+        holder.tvXiangqing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle=new Bundle();
+                bundle.putString("spid",data.getCommodity_id());
+                JumpUtil.Jump_intent(mContext, SPXiangQingActivity.class,bundle);
+            }
+        });
     }
 
     @Override
@@ -117,6 +130,10 @@ public class ZxxzShangPinListAdapter extends RecyclerView.Adapter<ZxxzShangPinLi
         TextView tvGuige;*/
         @BindView(R.id.tv_renminbi)
         TextView tvRenminbi;
+        @BindView(R.id.tv_guanzhu)
+        TextView tvGuanzhu;
+        @BindView(R.id.tv_xiangqing)
+        TextView tvXiangqing;
         @BindView(R.id.tv_jiage)
         TextView tvJiage;
         @BindView(R.id.tv_yuanjiage)
@@ -127,14 +144,12 @@ public class ZxxzShangPinListAdapter extends RecyclerView.Adapter<ZxxzShangPinLi
         TextView tvSpxiaoliang;
         @BindView(R.id.tv_dian)
         TextView tvDian;
-        @BindView(R.id.iv_addcar)
-        ImageView ivAddcar;
         @BindView(R.id.iv_jishida)
         ImageView ivJishida;
+        @BindView(R.id.iv_jpgys)
+        ImageView ivJpgys;
         @BindView(R.id.cl_kuang)
         RelativeLayout clKuang;
-        @BindView(R.id.iv_zoushitu)
-        ImageView ivZoushitu;
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);

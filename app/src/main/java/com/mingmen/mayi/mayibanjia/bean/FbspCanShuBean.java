@@ -1,5 +1,7 @@
 package com.mingmen.mayi.mayibanjia.bean;
 
+import java.math.BigDecimal;
+
 /**
  * Created by Administrator on 2018/8/8.
  */
@@ -36,7 +38,7 @@ public class FbspCanShuBean {
     private String type_four_id = "";
     private String spec_describe = "";
     private String price = "";
-    private double spec_count;
+    private BigDecimal spec_count;
     private String spec_detal_id = "";
     private String spec_detal_name = "";
     private String pack_standard_tree_name = "";
@@ -92,11 +94,11 @@ public class FbspCanShuBean {
         this.spec_detal_name = spec_detal_name;
     }
 
-    public double getSpec_count() {
+    public BigDecimal getSpec_count() {
         return spec_count;
     }
 
-    public void setSpec_count(double spec_count) {
+    public void setSpec_count(BigDecimal spec_count) {
         this.spec_count = spec_count;
     }
 

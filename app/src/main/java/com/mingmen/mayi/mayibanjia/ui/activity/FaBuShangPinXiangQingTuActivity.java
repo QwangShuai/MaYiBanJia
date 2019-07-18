@@ -327,6 +327,7 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
     }
 
     private void tianjiashangpin() {
+        Log.e("tianjiashangpin: ",canshu.getSpec_count()+"" );
         Log.e("canshu", gson.toJson(canshu));
         HttpManager.getInstance()
                 .with(mContext)

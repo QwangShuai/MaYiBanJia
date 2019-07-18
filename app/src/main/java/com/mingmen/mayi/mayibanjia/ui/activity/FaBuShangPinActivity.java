@@ -70,6 +70,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -793,7 +794,7 @@ public class FaBuShangPinActivity extends BaseActivity {
     }
 
     private void tiaozhuan() {//传递参数界面
-        double shuliang = 1;
+        BigDecimal shuliang = new BigDecimal(1);
         if (llDw.getVisibility()==View.VISIBLE?true:false) {
             if (TextUtils.isEmpty(tvZxgg.getText().toString())) {
                 ToastUtil.showToastLong("请选择最小换算单位");
@@ -815,15 +816,14 @@ public class FaBuShangPinActivity extends BaseActivity {
                     }
                 }
 
-                shuliang = Double.valueOf(etNumber.getText().toString().trim());
+                shuliang = new BigDecimal(etNumber.getText().toString().trim());
                 if(StringUtil.isValid(etNumberCj1.getText().toString().trim())){
-                    shuliang = shuliang*Double.valueOf(etNumberCj1.getText().toString().trim());
+                    shuliang = shuliang.multiply(new BigDecimal(etNumberCj1.getText().toString().trim()));
                 }
 
                 if(StringUtil.isValid(etNumberCj2.getText().toString().trim())){
-                    shuliang = shuliang*Double.valueOf(etNumberCj2.getText().toString().trim());
+                    shuliang = shuliang.multiply(new BigDecimal(etNumberCj2.getText().toString().trim()));
                 }
-                shuliang = MyMath.getDouble(shuliang);
                 canShuBean.setSpec_count(shuliang);
                 canShuBean.setSpec_detal_id(zxid);
             }
@@ -842,11 +842,11 @@ public class FaBuShangPinActivity extends BaseActivity {
                     }
                 }
                 if(StringUtil.isValid(etNumberCj1.getText().toString().trim())){
-                    shuliang = shuliang*Double.valueOf(etNumberCj1.getText().toString().trim());
+                    shuliang = shuliang.multiply(new BigDecimal(etNumberCj1.getText().toString().trim()));
                 }
 
                 if(StringUtil.isValid(etNumberCj2.getText().toString().trim())){
-                    shuliang = shuliang*Double.valueOf(etNumberCj2.getText().toString().trim());
+                    shuliang = shuliang = shuliang.multiply(new BigDecimal(etNumberCj2.getText().toString().trim()));
                 }
 //                zxid = cj2;
                 zxname = tvGgCj2.getText().toString();
@@ -862,7 +862,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                 return;
             }else {
                 if(StringUtil.isValid(etNumberCj1.getText().toString().trim())){
-                    shuliang = shuliang*Double.valueOf(etNumberCj1.getText().toString().trim());
+                    shuliang = shuliang.multiply(new BigDecimal(etNumberCj1.getText().toString().trim()));
                 }
 //                zxid = cj1;
                 zxname = tvGgCj1.getText().toString();
@@ -870,7 +870,7 @@ public class FaBuShangPinActivity extends BaseActivity {
                 canShuBean.setSpec_detal_id(zxid);
             }
         } else {
-            canShuBean.setSpec_count(0.0);
+            canShuBean.setSpec_count(new BigDecimal(0));
             canShuBean.setSpec_detal_id("");
         }
         canShuBean.setSpec_describe(etMiaoshu.getText().toString().trim());

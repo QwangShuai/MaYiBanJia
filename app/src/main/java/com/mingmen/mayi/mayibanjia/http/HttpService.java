@@ -95,6 +95,7 @@ import com.mingmen.mayi.mayibanjia.bean.ZxxzShangpinBean;
 import com.mingmen.mayi.mayibanjia.bean.ZzhQuanXianBean;
 import com.mingmen.mayi.mayibanjia.http.result.ResultModel;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -488,7 +489,7 @@ public interface HttpService {
                                                  @Query("hostPicture") String hostPicture,
                                                  @Query("spec_describe") String spec_describe,
                                                  @Query("price") String price,
-                                                 @Query("spec_count") double spec_count,
+                                                 @Query("spec_count") BigDecimal spec_count,
                                                  @Query("spec_detal_id") String spec_detal_id,
                                                  @Query("pack_standard_tree_name") String pack_standard_tree_name,
                                                  @Query("spec_name") String spec_name,
@@ -518,7 +519,7 @@ public interface HttpService {
                                                    @Query("hostPicture") String hostPicture,
                                                    @Query("spec_describe") String spec_describe,
                                                    @Query("price") String price,
-                                                   @Query("spec_count") double spec_count,
+                                                   @Query("spec_count") BigDecimal spec_count,
                                                    @Query("spec_detal_id") String spec_detal_id,
                                                    @Query("pack_standard_tree_name") String pack_standard_tree_name,
                                                    @Query("spec_name") String spec_name,

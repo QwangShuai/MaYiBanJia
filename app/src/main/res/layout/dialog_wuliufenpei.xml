@@ -224,7 +224,7 @@
                         android:paddingLeft="9dp"
                         android:background="@drawable/fillet_hollow_999999_3"
                         android:id="@+id/et_luruyunfei"
-                        android:inputType="number"
+                        android:inputType="numberDecimal"
                         android:maxLength="8"
                         android:layout_centerVertical="true"
                         android:textSize="13sp"

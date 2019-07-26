@@ -51,7 +51,7 @@ public class WuliuFenpeiDialog extends Dialog {
 
 
     public void setText(CheliangBean bean) {
-        this.tvXuanzecheliang.setText(bean.getNew_driver_name());
+        this.tvXuanzecheliang.setText(bean.getNew_wl_cars_type_name());
         if(mytype.equals("0")){
             this.bean.setWl_cars_id(bean.getWl_cars_id());
         } else {

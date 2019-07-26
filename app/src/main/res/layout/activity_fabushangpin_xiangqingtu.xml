@@ -138,6 +138,7 @@
                     android:background="@drawable/fillet_hollow_999999_3">
 
                     <EditText
+                        android:maxLength="50"
                         android:id="@+id/et_miaoshu"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

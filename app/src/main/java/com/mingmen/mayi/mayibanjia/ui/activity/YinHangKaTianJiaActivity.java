@@ -34,8 +34,8 @@ public class YinHangKaTianJiaActivity extends BaseActivity {
 
     @BindView(R.id.iv_fanhui)
     ImageView ivFanhui;
-    @BindView(R.id.tv_name)
-    TextView tvName;
+    @BindView(R.id.et_name)
+    EditText etName;
     @BindView(R.id.iv_wenhao)
     ImageView ivWenhao;
     @BindView(R.id.tv_yinhang)
@@ -70,9 +70,10 @@ public class YinHangKaTianJiaActivity extends BaseActivity {
     @Override
     protected void initData() {
         mContext = YinHangKaTianJiaActivity.this;
-        principal = getIntent().getStringExtra("principal");
-        tvName.setText(principal);
-        StringUtil.setInputNoEmoj(etKaihuhang,30);
+//        principal = getIntent().getStringExtra("principal");
+//        tvName.setText(principal);
+        StringUtil.setInputNoEmoj(etKaihuhang,24);
+        StringUtil.setInputNoEmoj(etName,4);
     }
 
     @Override
@@ -124,8 +125,11 @@ public class YinHangKaTianJiaActivity extends BaseActivity {
         id_number = etShenfenzheng.getText().toString().trim();
         bank_account = etKahao.getText().toString().trim();
         bank_address = etKaihuhang.getText().toString().trim();
+        principal = etName.getText().toString().trim();
         if (!AppUtil.isMobile(phone)) {
             ToastUtil.showToast("请检查手机号");
+        } else if(!StringUtil.isChinese(principal,4)){
+            ToastUtil.showToast("请输入正确的持卡人姓名");
         } else if (!StringUtil.isLegalId(id_number)) {
             ToastUtil.showToast("身份证号格式不正确");
         } else if (TextUtils.isEmpty(bank_account)) {
@@ -143,7 +147,7 @@ public class YinHangKaTianJiaActivity extends BaseActivity {
     public void addBankCard() {//添加银行卡
         HttpManager.getInstance().with(mContext)
                 .setObservable(RetrofitManager.getService()
-                        .addBankCard(PreferenceUtils.getString(MyApplication.mContext, "token", ""), bank_account,bank_address, principal,
+                        .addBankCard(PreferenceUtils.getString(MyApplication.mContext, "token", "") ,bank_account,bank_address, principal,
                                 id_number, phone, son_number))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override

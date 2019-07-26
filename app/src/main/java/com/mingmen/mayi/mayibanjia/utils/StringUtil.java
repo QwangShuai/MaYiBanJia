@@ -9,6 +9,7 @@ import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.ReplacementTransformationMethod;
 import android.util.Log;
@@ -1348,5 +1349,14 @@ public class StringUtil {
 
         return "";
     }
-
+    //验证车牌号
+    public static boolean isCarnumberNO(String carnumber) {
+        /*
+         车牌号格式：汉字 + A-Z + 5位A-Z或0-9
+        （只包括了普通车牌号，教练车和部分部队车等车牌号不包括在内）
+         */
+        String carnumRegex = "^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[警京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼]{0,1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$";
+        if (TextUtils.isEmpty(carnumber)) return false;
+        else return carnumber.matches(carnumRegex);
+    }
 }

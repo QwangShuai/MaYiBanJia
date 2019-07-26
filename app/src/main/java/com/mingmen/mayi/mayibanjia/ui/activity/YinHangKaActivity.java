@@ -73,6 +73,21 @@ public class YinHangKaActivity extends BaseActivity {
                     finish();
                 }
             }
+
+            @Override
+            public void jiechu(String id) {
+                HttpManager.getInstance().with(mContext)
+                        .setObservable(RetrofitManager.getService()
+                                .delBankCard(PreferenceUtils.getString(MyApplication.mContext, "token", ""),id))
+                        .setDataListener(new HttpDataListener<String>() {
+                            @Override
+                            public void onNext(String data) {
+                                ToastUtil.showToast("解除绑定成功");
+                                getBankCardList();
+                                adapter.notifyDataSetChanged();
+                            }
+                        });
+            }
         });
         rvYinHangKa.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         rvYinHangKa.setAdapter(adapter);

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/gray_fafafa"
+    tools:context="com.mingmen.mayi.mayibanjia.ui.activity.WuLiuGrzxActivity">
+    <include layout="@layout/head_zangqing"></include>
+    <LinearLayout
+        android:paddingLeft="12dp"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="43dp">
+        <TextView
+            android:textSize="14sp"
+            android:textColor="@color/lishisousuo"
+            android:text="银行卡"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginLeft="30dp"
+            android:text=""
+            android:id="@+id/tv_yinhangka"
+            android:textSize="15sp"
+            android:textColor="@color/lishisousuo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:paddingLeft="12dp"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="43dp">
+        <TextView
+            android:textSize="14sp"
+            android:textColor="@color/lishisousuo"
+            android:text="卡    号"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginLeft="30dp"
+            android:text=""
+            android:id="@+id/tv_yinhangkahao"
+            android:textSize="15sp"
+            android:textColor="@color/lishisousuo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

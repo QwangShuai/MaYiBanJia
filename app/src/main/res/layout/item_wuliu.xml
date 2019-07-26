@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:background="@drawable/bg_item_yinying"
+    android:animateLayoutChanges="true"
     android:layout_height="wrap_content">
     <RelativeLayout
         android:layout_marginTop="21dp"
@@ -58,7 +59,14 @@
             android:id="@+id/tv_dingdanbianhao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-
+        <TextView
+            android:layout_marginRight="12dp"
+            android:layout_alignParentRight="true"
+            android:id="@+id/tv_state"
+            android:textSize="15sp"
+            android:textColor="@color/zangqing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </RelativeLayout>
     <RelativeLayout
         android:layout_marginLeft="12dp"
@@ -112,29 +120,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:id="@+id/zongzhongliang"
-            android:textSize="15sp"
-            android:text="总  重  量:"
-            android:textColor="@color/lishisousuo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-        <TextView
-            android:layout_toRightOf="@+id/zongzhongliang"
-            android:layout_marginLeft="13dp"
-            android:textSize="15sp"
-            android:textColor="@color/zicolor"
-            android:id="@+id/tv_zongzhongliang"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="12dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
             android:id="@+id/yunfei"
             android:textSize="15sp"
             android:text="运        费:"
@@ -150,141 +135,191 @@
             android:id="@+id/tv_yunfei"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_marginRight="12dp"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:id="@+id/ll_zhankai"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="展开"
+                android:textSize="13sp"
+                android:textColor="@color/zicolor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:layout_marginLeft="6dp"
+                android:src="@mipmap/zhankai_red"
+                android:layout_width="10dp"
+                android:layout_height="5dp" />
+        </LinearLayout>
+    </RelativeLayout>
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/ll_show"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/cheliangleixing"
+                android:textSize="15sp"
+                android:text="车辆类型:"
+                android:textColor="@color/lishisousuo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+            <TextView
+                android:layout_toRightOf="@+id/cheliangleixing"
+                android:layout_marginLeft="13dp"
+                android:textSize="15sp"
+                android:textColor="@color/zicolor"
+                android:id="@+id/tv_cheliangleixing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/chepaihao"
+                android:textSize="15sp"
+                android:text="车  牌  号:"
+                android:textColor="@color/lishisousuo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+            <TextView
+                android:layout_toRightOf="@+id/chepaihao"
+                android:layout_marginLeft="13dp"
+                android:textSize="15sp"
+                android:textColor="@color/zicolor"
+                android:id="@+id/tv_chepaihao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/lianxiren"
+                android:textSize="15sp"
+                android:text="联  系  人:"
+                android:textColor="@color/lishisousuo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+            <TextView
+                android:layout_toRightOf="@+id/lianxiren"
+                android:layout_marginLeft="13dp"
+                android:textSize="15sp"
+                android:textColor="@color/zicolor"
+                android:id="@+id/tv_lianxiren"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/lianxifangshi"
+                android:textSize="15sp"
+                android:text="联系方式:"
+                android:textColor="@color/lishisousuo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+            <TextView
+                android:layout_toRightOf="@+id/lianxifangshi"
+                android:layout_marginLeft="13dp"
+                android:textSize="15sp"
+                android:textColor="@color/zicolor"
+                android:id="@+id/tv_lianxifangshi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/shichang"
+                android:textSize="15sp"
+                android:text="市        场:"
+                android:textColor="@color/lishisousuo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+            <TextView
+                android:layout_toRightOf="@+id/shichang"
+                android:layout_marginLeft="13dp"
+                android:textSize="15sp"
+                android:textColor="@color/zicolor"
+                android:id="@+id/tv_shichang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_marginLeft="12dp"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/dizhi"
+                android:textSize="15sp"
+                android:text="地        址:"
+                android:textColor="@color/lishisousuo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+            <TextView
+                android:layout_toRightOf="@+id/dizhi"
+                android:layout_marginLeft="13dp"
+                android:textSize="15sp"
+                android:textColor="@color/zicolor"
+                android:id="@+id/tv_dizhi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:visibility="visible"
+                android:layout_marginRight="12dp"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:layout_centerVertical="true"
+                android:id="@+id/ll_shouqi"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="收起"
+                    android:textSize="13sp"
+                    android:textColor="@color/zicolor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:layout_marginLeft="6dp"
+                    android:src="@mipmap/shouqi_red"
+                    android:layout_width="10dp"
+                    android:layout_height="5dp" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
 
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="12dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/cheliangleixing"
-            android:textSize="15sp"
-            android:text="车辆类型:"
-            android:textColor="@color/lishisousuo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-        <TextView
-            android:layout_toRightOf="@+id/cheliangleixing"
-            android:layout_marginLeft="13dp"
-            android:textSize="15sp"
-            android:textColor="@color/zicolor"
-            android:id="@+id/tv_cheliangleixing"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="12dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/chepaihao"
-            android:textSize="15sp"
-            android:text="车  牌  号:"
-            android:textColor="@color/lishisousuo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-        <TextView
-            android:layout_toRightOf="@+id/chepaihao"
-            android:layout_marginLeft="13dp"
-            android:textSize="15sp"
-            android:textColor="@color/zicolor"
-            android:id="@+id/tv_chepaihao"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="12dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/lianxiren"
-            android:textSize="15sp"
-            android:text="联  系  人:"
-            android:textColor="@color/lishisousuo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-        <TextView
-            android:layout_toRightOf="@+id/lianxiren"
-            android:layout_marginLeft="13dp"
-            android:textSize="15sp"
-            android:textColor="@color/zicolor"
-            android:id="@+id/tv_lianxiren"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="12dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/lianxifangshi"
-            android:textSize="15sp"
-            android:text="联系方式:"
-            android:textColor="@color/lishisousuo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-        <TextView
-            android:layout_toRightOf="@+id/lianxifangshi"
-            android:layout_marginLeft="13dp"
-            android:textSize="15sp"
-            android:textColor="@color/zicolor"
-            android:id="@+id/tv_lianxifangshi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="12dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/shichang"
-            android:textSize="15sp"
-            android:text="市        场:"
-            android:textColor="@color/lishisousuo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-        <TextView
-            android:layout_toRightOf="@+id/shichang"
-            android:layout_marginLeft="13dp"
-            android:textSize="15sp"
-            android:textColor="@color/zicolor"
-            android:id="@+id/tv_shichang"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_marginLeft="12dp"
-        android:layout_marginBottom="12dp"
-        android:layout_marginTop="12dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/dizhi"
-            android:textSize="15sp"
-            android:text="地        址:"
-            android:textColor="@color/lishisousuo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-        <TextView
-            android:layout_toRightOf="@+id/dizhi"
-            android:layout_marginLeft="13dp"
-            android:textSize="15sp"
-            android:textColor="@color/zicolor"
-            android:id="@+id/tv_dizhi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
     <VideoView
         android:layout_width="match_parent"
         android:layout_height="12dp"

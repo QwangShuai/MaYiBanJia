@@ -120,8 +120,11 @@ public abstract class BaseDingDanFragment extends BaseFragment {
                     @Override
                     public void onNext(List<DingDanBean> list) {
                         if (!"null".equals(String.valueOf(list))) {
-                            mlist.clear();
-                            mlist.addAll(list);
+                            if(ye==1){
+                                mlist.clear();
+                                adapter.notifyDataSetChanged();
+                                mlist.addAll(list);
+                            }
                             if (list.size() == 5) {
                                 rvDingdan.loadMoreFinish(false, true);
                             } else if (list.size() > 0) {

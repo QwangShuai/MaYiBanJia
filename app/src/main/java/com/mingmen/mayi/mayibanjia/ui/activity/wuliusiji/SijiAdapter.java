@@ -20,10 +20,11 @@ public class SijiAdapter extends FragmentPagerAdapter {
 
 
     private Context mContext;
-    private String[] Titles = {"全部","待取货","待送货","已完成"};
+    private String[] Titles = {"全部","待确认","待取货","待送货","已完成"};
     private String[] fragments = {
 
             SijiQuanbuFragment.class.getName(),
+            SijiDaijiedanFragment.class.getName(),
             SijiDaiquhuoFragment.class.getName(),
             SijiDaisongdaFragment.class.getName(),
             SijiYiwanchengFragment.class.getName(),

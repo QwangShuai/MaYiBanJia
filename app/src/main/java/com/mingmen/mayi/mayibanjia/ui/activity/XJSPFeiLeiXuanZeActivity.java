@@ -196,8 +196,6 @@ public class XJSPFeiLeiXuanZeActivity extends BaseActivity {
                         ToastUtil.showToastLong("请选择商品分类");
                     }
                 }
-
-
                 break;
             case R.id.ll_pinzhong:
                 if(!mytype.equals("3")){

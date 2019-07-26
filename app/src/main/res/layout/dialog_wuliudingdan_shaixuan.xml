@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@drawable/fillet_solid_white_3"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="35dp">
+        <TextView
+            android:layout_centerVertical="true"
+            android:id="@+id/dingdanhao"
+            android:text="订  单  号:"
+            android:textSize="14sp"
+            android:textColor="@color/lishisousuo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="11dp"
+            android:layout_toRightOf="@+id/dingdanhao"
+            android:layout_width="240dp"
+            android:layout_height="match_parent">
+            <EditText
+                android:paddingLeft="9dp"
+                android:background="@drawable/fillet_hollow_999999_3"
+                android:id="@+id/et_dingdanhao"
+                android:layout_centerVertical="true"
+                android:textSize="13sp"
+                android:maxLength="32"
+                android:inputType="phone"
+                android:hint="请输入订单号"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </RelativeLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="35dp">
+        <TextView
+            android:layout_centerVertical="true"
+            android:id="@+id/quhuodizhi"
+            android:text="取货地址:"
+            android:textSize="14sp"
+            android:textColor="@color/lishisousuo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="11dp"
+            android:layout_toRightOf="@+id/quhuodizhi"
+            android:layout_width="240dp"
+            android:layout_height="match_parent">
+            <EditText
+                android:paddingLeft="9dp"
+                android:background="@drawable/fillet_hollow_999999_3"
+                android:id="@+id/et_quhuodizhi"
+                android:layout_centerVertical="true"
+                android:textSize="13sp"
+                android:maxLength="30"
+                android:hint="请输入社区市场"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </RelativeLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="35dp">
+        <TextView
+            android:layout_centerVertical="true"
+            android:id="@+id/tv_chepaihao"
+            android:text="联  系  人:"
+            android:textSize="14sp"
+            android:textColor="@color/lishisousuo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="11dp"
+            android:layout_toRightOf="@+id/tv_chepaihao"
+            android:layout_width="240dp"
+            android:layout_height="match_parent">
+            <EditText
+                android:paddingLeft="9dp"
+                android:background="@drawable/fillet_hollow_999999_3"
+                android:id="@+id/et_lianxiren"
+                android:layout_centerVertical="true"
+                android:textSize="13sp"
+                android:maxLength="6"
+                android:hint="请输入联系人"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </RelativeLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="35dp">
+        <TextView
+            android:layout_centerVertical="true"
+            android:id="@+id/tv_lianxifangshi"
+            android:text="联系电话:"
+            android:textSize="14sp"
+            android:textColor="@color/lishisousuo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="11dp"
+            android:layout_toRightOf="@+id/tv_lianxifangshi"
+            android:layout_width="240dp"
+            android:layout_height="match_parent">
+            <EditText
+                android:paddingLeft="9dp"
+                android:background="@drawable/fillet_hollow_999999_3"
+                android:maxLength="11"
+                android:id="@+id/et_lianxidianhua"
+                android:inputType="phone"
+                android:layout_centerVertical="true"
+                android:textSize="13sp"
+                android:hint="请输入联系电话"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/bt_cancle"
+            android:text="取消"
+            android:textSize="12sp"
+            android:textColor="@color/lishisousuo"
+            android:background="@drawable/bg_bt_true"
+            android:layout_width="113dp"
+            android:layout_height="28dp" />
+        <Button
+            android:layout_marginLeft="15dp"
+            android:id="@+id/bt_sure"
+            android:text="确定"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:background="@drawable/bg_bt_false"
+            android:layout_width="113dp"
+            android:layout_height="28dp" />
+    </LinearLayout>
+</LinearLayout>

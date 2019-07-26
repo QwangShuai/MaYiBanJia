@@ -1,5 +1,6 @@
 package com.mingmen.mayi.mayibanjia.ui.activity.dialog;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
@@ -29,6 +30,7 @@ import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.CarsTypeBean;
 import com.mingmen.mayi.mayibanjia.bean.ChePaiBean;
 import com.mingmen.mayi.mayibanjia.bean.WuLiuBean;
+import com.mingmen.mayi.mayibanjia.bean.WuliuDingdanBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
@@ -51,12 +53,12 @@ import cn.qqtheme.framework.picker.SinglePicker;
 
 public class ChangeWuLiuDialog extends Dialog {
     private Context context;
-    private WuLiuActivity activity;
+    private Activity activity;
     private RelativeLayout rl;
     private TextView tv_cheliangleixing,tv_chepaihao,tv_lianxiren,tv_lianxifangshi;
     private EditText et_xinchepaihao,et_xinxingming,et_xinlianxifangshi;
     private Button bt_sure,bt_cancle;
-    private WuLiuBean bean;
+    private WuliuDingdanBean bean;
     private String car_type_name = "",car_type_id="";
     private RecyclerView rv_mohu;
     private PopupWindow mPopWindow;
@@ -64,7 +66,7 @@ public class ChangeWuLiuDialog extends Dialog {
     private ArrayList<ChePaiBean> datas = new ArrayList<>();
     private String chepai="";
     private  BaseJingliFragment fragment;
-    public ChangeWuLiuDialog(@NonNull Context context,WuLiuBean bean,WuLiuActivity activity, BaseJingliFragment fragment) {
+    public ChangeWuLiuDialog(@NonNull Context context, WuliuDingdanBean bean, Activity activity, BaseJingliFragment fragment) {
         super(context);
         this.context = context;
         this.bean = bean;
@@ -168,7 +170,7 @@ public class ChangeWuLiuDialog extends Dialog {
                             .with(context)
                             .setObservable(RetrofitManager.getService()
                                     .changeWuLiu(PreferenceUtils.getString(MyApplication.mContext, "token", ""),
-                                            String.valueOf(bean.getWl_cars_id()),
+                                            String.valueOf(bean.getCars_type()),
                                             et_xinxingming.getText().toString(),
                                             et_xinlianxifangshi.getText().toString(),
                                             et_xinchepaihao.getText().toString(),

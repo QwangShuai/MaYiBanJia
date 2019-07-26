@@ -6,16 +6,48 @@
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/ll_yifenche"
+                android:background="@drawable/bg_card_yinying"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+                <TextView
+                    android:textColor="@color/zangqing"
+                    android:gravity="center"
+                    android:text="待确定"
+                    android:textSize="15sp"
+                    android:id="@+id/tv_daiqueding"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+                <View
+                    android:background="@color/gray_e7e7e7"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"></View>
+                <TextView
+                    android:textColor="@color/lishisousuo"
+                    android:gravity="center"
+                    android:text="已接受"
+                    android:textSize="15sp"
+                    android:id="@+id/tv_yijieshou"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
             <com.mingmen.mayi.mayibanjia.utils.custom.SwipeRecyclerView
+                android:layout_weight="1"
                 android:visibility="visible"
                 android:id="@+id/rv_dingdan"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"></com.mingmen.mayi.mayibanjia.utils.custom.SwipeRecyclerView>
             <include layout="@layout/view_list_null"></include>
-        </RelativeLayout>
+        </LinearLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

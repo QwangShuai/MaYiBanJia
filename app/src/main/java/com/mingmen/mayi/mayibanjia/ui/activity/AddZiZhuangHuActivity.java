@@ -20,7 +20,6 @@ import com.mingmen.mayi.mayibanjia.bean.WuLiuObjBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
-import com.mingmen.mayi.mayibanjia.ui.activity.adapter.WuLiuFenPeiAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.JueSeDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.XuanZeDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;

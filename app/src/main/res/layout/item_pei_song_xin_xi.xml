@@ -240,6 +240,25 @@
                 android:background="@drawable/fillet_hollow_zangqing_tuoyuan"
                 android:layout_width="70dp"
                 android:layout_height="28dp" />
+            <Button
+                android:visibility="gone"
+                android:textSize="12sp"
+                android:text="拒绝接单"
+                android:textColor="@color/red_ff3300"
+                android:id="@+id/btn_jujue"
+                android:background="@drawable/fillet_hollow_zangqing_tuoyuan"
+                android:layout_width="70dp"
+                android:layout_height="28dp" />
+            <Button
+                android:visibility="gone"
+                android:layout_marginLeft="10dp"
+                android:textSize="12sp"
+                android:text="接受订单"
+                android:textColor="@color/red_ff3300"
+                android:id="@+id/btn_jieshou"
+                android:background="@drawable/fillet_hollow_zangqing_tuoyuan"
+                android:layout_width="70dp"
+                android:layout_height="28dp" />
 
             <Button
                 android:visibility="gone"

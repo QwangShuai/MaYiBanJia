@@ -6,19 +6,23 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
-import com.mingmen.mayi.mayibanjia.bean.WuLiuBean;
-import com.mingmen.mayi.mayibanjia.bean.WuLiuObjBean;
+import com.mingmen.mayi.mayibanjia.bean.CheliangBean;
+import com.mingmen.mayi.mayibanjia.bean.WuliuDingdanBean;
+import com.mingmen.mayi.mayibanjia.bean.WuliuShaixuanBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
-import com.mingmen.mayi.mayibanjia.ui.activity.SiJiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.WuLiuActivity;
-import com.mingmen.mayi.mayibanjia.ui.activity.adapter.SiJiPeiSongAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.WuLiuFenPeiAdapter;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.WuliuFenpeiDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseFragment;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.custom.SwipeRecyclerView;
@@ -30,11 +34,12 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * Created by Administrator on 2018/7/28/028.
@@ -46,20 +51,37 @@ public abstract class BaseJingliFragment extends BaseFragment {
     SwipeRecyclerView rvShangpinguanli;
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout refreshLayout;
+    @BindView(R.id.ll_yifenche)
+    LinearLayout llYifenche;
     View view;
+    @BindView(R.id.tv_daiqueding)
+    TextView tvDaiqueding;
+    @BindView(R.id.tv_yijieshou)
+    TextView tvYijieshou;
+    @BindView(R.id.tv_tishi_left)
+    TextView tvTishiLeft;
+    @BindView(R.id.tv_tishi_center)
+    TextView tvTishiCenter;
+    @BindView(R.id.tv_tishi_right)
+    TextView tvTishiRight;
+    @BindView(R.id.ll_list_null)
+    LinearLayout llListNull;
+    Unbinder unbinder;
 
-    private ArrayList<WuLiuBean> mlist = new ArrayList<>();
+    private List<WuliuDingdanBean> mlist = new ArrayList<>();
     private WuLiuFenPeiAdapter adapter;
     private SwipeMenuRecyclerView.LoadMoreListener mLoadMoreListener;
     private int ye = 1;
-    private boolean b = false;
-    protected boolean isCreate = false;
     private final static int SCANNIN_GREQUEST_CODE = 1;
-
+    private String wuliu_type = "";
+    WuliuFenpeiDialog dialog;
+    private String wl_cars_order_number = "";
+    private String driverName = "";
+    private String driverPhone = "";
+    private String marketName = "";
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        isCreate = true;
     }
 
     @Override
@@ -72,8 +94,8 @@ public abstract class BaseJingliFragment extends BaseFragment {
     @Override
     protected void loadData() {
         stateLayout.showSuccessView();
+        wuliu_type = getZhuangTai();
         initview();
-        getPeiSong();
     }
 
     @Override
@@ -86,18 +108,23 @@ public abstract class BaseJingliFragment extends BaseFragment {
         HttpManager.getInstance()
                 .with(getContext())
                 .setObservable(RetrofitManager.getService()
-                        .getWuliu(PreferenceUtils.getString(MyApplication.mContext, "token", ""), getZhuangTai(), ye + "", ""))
-                .setDataListener(new HttpDataListener<WuLiuObjBean<WuLiuBean>>() {
+                        .getWuliu(PreferenceUtils.getString(MyApplication.mContext, "token", ""), ye + "", wuliu_type, marketName, driverPhone, driverName, wl_cars_order_number))
+                .setDataListener(new HttpDataListener<List<WuliuDingdanBean>>() {
                     @Override
-                    public void onNext(WuLiuObjBean<WuLiuBean> bean) {
-                        if (bean.getDdList().size() == 5) {
+                    public void onNext(List<WuliuDingdanBean> list) {
+                        int mysize = list==null?0:list.size();
+                        if (mysize == 5) {
                             rvShangpinguanli.loadMoreFinish(false, true);
-                        } else if (bean.getDdList().size() > 0) {
+                        } else if (mysize > 0) {
                             rvShangpinguanli.loadMoreFinish(false, false);
                         } else {
                             rvShangpinguanli.loadMoreFinish(true, false);
                         }
-                        mlist.addAll(bean.getDdList());
+//                        if(ye==1){
+//                            mlist.clear();
+//                            adapter.notifyDataSetChanged();
+//                        }
+                        mlist.addAll(list);
                         adapter.notifyDataSetChanged();
                         ye++;
                     }
@@ -106,6 +133,11 @@ public abstract class BaseJingliFragment extends BaseFragment {
 
 
     private void initview() {
+        if (getZhuangTai().equals("7")) {
+            llYifenche.setVisibility(View.VISIBLE);
+        } else {
+            llYifenche.setVisibility(View.GONE);
+        }
         WuLiuActivity activity = (WuLiuActivity) getActivity();
         EventBus.getDefault().register(this);
         mLoadMoreListener = new SwipeMenuRecyclerView.LoadMoreListener() {
@@ -127,11 +159,26 @@ public abstract class BaseJingliFragment extends BaseFragment {
             }
         });
         rvShangpinguanli.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        rvShangpinguanli.useDefaultLoadMore(); // 使用默认的加载更多的View。
+//        rvShangpinguanli.useDefaultLoadMore(); // 使用默认的加载更多的View。
         rvShangpinguanli.setLoadMoreListener(mLoadMoreListener); // 加载更多的监听。
-        rvShangpinguanli.loadMoreFinish(false, true);
-        adapter = new WuLiuFenPeiAdapter(getContext(),mlist,activity,this);
+        adapter = new WuLiuFenPeiAdapter(getContext(), mlist, new WuLiuFenPeiAdapter.CallBack() {
+            @Override
+            public void onClick(int position, View v, WuliuDingdanBean bean) {
+                switch (v.getId()){
+                    case R.id.tv_fenpeiwuliuche:
+                        dialog = new WuliuFenpeiDialog(getContext(),bean,"0");
+                        dialog.show();
+                        break;
+                    case R.id.tv_biangeng:
+                        dialog = new WuliuFenpeiDialog(getContext(),bean,"1");
+                        dialog.show();
+                        break;
+                }
+
+            }
+        });
         rvShangpinguanli.setAdapter(adapter);
+        rvShangpinguanli.loadMoreFinish(false, true);
         getPeiSong();
 
     }
@@ -140,13 +187,12 @@ public abstract class BaseJingliFragment extends BaseFragment {
 
     public void onResume() {
         super.onResume();
-        Log.e("onResume: ",getZhuangTai() );
+        Log.e("onResume: ", getZhuangTai());
         if (ye != 1) {
             ye = 1;
             mlist.clear();
             adapter.notifyDataSetChanged();
             getPeiSong();
-
         }
     }
 
@@ -183,11 +229,29 @@ public abstract class BaseJingliFragment extends BaseFragment {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void updateTimer(String message){
+    public void updateTimer(String message) {
+        if(!message.equals("0000")){
+            ye = 1;
+            mlist.clear();
+            adapter.notifyDataSetChanged();
+            getPeiSong();
+        }
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void update(WuliuShaixuanBean bean) {
+        driverName = bean.getDriverName();
+        driverPhone = bean.getDriverPhone();
+        marketName = bean.getMarketName();
+        wl_cars_order_number = bean.getWl_cars_order_number();
         ye = 1;
         mlist.clear();
         adapter.notifyDataSetChanged();
         getPeiSong();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void updateText(CheliangBean bean) {
+        dialog.setText(bean);
     }
 
     @Override
@@ -203,4 +267,41 @@ public abstract class BaseJingliFragment extends BaseFragment {
     }
 
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    @OnClick({R.id.tv_daiqueding, R.id.tv_yijieshou})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.tv_daiqueding:
+                ye = 1;
+                mlist.clear();
+                adapter.notifyDataSetChanged();
+                tvDaiqueding.setTextColor(getContext().getResources().getColor(R.color.zangqing));
+                tvYijieshou.setTextColor(getContext().getResources().getColor(R.color.lishisousuo));
+                getPeiSong();
+                break;
+            case R.id.tv_yijieshou:
+                ye = 1;
+                mlist.clear();
+                adapter.notifyDataSetChanged();
+                tvDaiqueding.setTextColor(getContext().getResources().getColor(R.color.lishisousuo));
+                tvYijieshou.setTextColor(getContext().getResources().getColor(R.color.zangqing));
+                wuliu_type = "7";
+                wuliu_type = "8";
+                getPeiSong();
+                break;
+        }
+    }
 }

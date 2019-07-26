@@ -10,6 +10,6 @@ public class JingliYibiangengFragment extends BaseJingliFragment{
 
     @Override
     public String getZhuangTai() {
-        return "2";
+        return "4";
     }
 }

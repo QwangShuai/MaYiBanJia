@@ -56,14 +56,16 @@
                 android:textColor="@color/zicolor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/tv_name"
+            <EditText
+                android:background="@null"
+                android:id="@+id/et_name"
                 android:layout_marginLeft="36dp"
                 android:layout_toRightOf="@id/chikaren"
                 android:textSize="15sp"
-                android:text="皮皮嗨"
+                android:textColorHint="@color/hintcolor"
+                android:hint="请输入持卡人姓名"
                 android:textColor="@color/zicolor"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <ImageView
                 android:id="@+id/iv_wenhao"

@@ -1,64 +1,55 @@
 package com.mingmen.mayi.mayibanjia.ui.activity;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.LinearLayoutManager;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
+import android.widget.TextView;
 
-import com.mingmen.mayi.mayibanjia.MainActivity;
 import com.mingmen.mayi.mayibanjia.R;
-import com.mingmen.mayi.mayibanjia.app.MyApplication;
-import com.mingmen.mayi.mayibanjia.bean.WuLiuBean;
-import com.mingmen.mayi.mayibanjia.bean.WuLiuObjBean;
-import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
-import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
-import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
-import com.mingmen.mayi.mayibanjia.ui.activity.adapter.WuLiuFenPeiAdapter;
-import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
-import com.mingmen.mayi.mayibanjia.ui.activity.dialog.WuLiuDialog;
-import com.mingmen.mayi.mayibanjia.ui.activity.wuliujingli.JingliAdapter;
-import com.mingmen.mayi.mayibanjia.ui.activity.wuliusiji.SijiAdapter;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
-import com.mingmen.mayi.mayibanjia.ui.view.PagerSlidingTabStrip;
-import com.mingmen.mayi.mayibanjia.utils.AppManager;
-import com.mingmen.mayi.mayibanjia.utils.AppUtil;
-import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
-import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
-
-import org.greenrobot.eventbus.EventBus;
+import com.mingmen.mayi.mayibanjia.ui.fragment.cheliangguanli.CheLiangGuanLiFragment;
+import com.mingmen.mayi.mayibanjia.ui.fragment.gerenzhongxin.GeRenZhongXinFragment;
+import com.mingmen.mayi.mayibanjia.ui.fragment.wuliujingli.WuLiuJingLiFragment;
+import com.mingmen.mayi.mayibanjia.ui.view.noscrollviewpager.NoPreloadViewPager;
+import com.mingmen.mayi.mayibanjia.ui.view.noscrollviewpager.NoScrollViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class WuLiuActivity extends BaseActivity {
-    @BindView(R.id.ll_title)
-    LinearLayout llTitle;;
-    @BindView(R.id.iv_sangedian)
-    ImageView ivSangedian;
-    @BindView(R.id.tabs_dingdan)
-    PagerSlidingTabStrip tabsDingdan;
-    @BindView(R.id.vp_dingdan)
-    ViewPager vpDingdan;
 
+    @BindView(R.id.viewpager)
+    NoScrollViewPager viewpager;
+    @BindView(R.id.ll_wlgl)
+    LinearLayout llWlgl;
+    @BindView(R.id.ll_clgl)
+    LinearLayout llClgl;
+    @BindView(R.id.ll_grzx)
+    LinearLayout llGrzx;
+    @BindView(R.id.iv_wlgl)
+    ImageView ivWlgl;
+    @BindView(R.id.tv_wlgl)
+    TextView tvWlgl;
+    @BindView(R.id.iv_clgl)
+    ImageView ivClgl;
+    @BindView(R.id.tv_clgl)
+    TextView tvClgl;
+    @BindView(R.id.iv_grzx)
+    ImageView ivGrzx;
+    @BindView(R.id.tv_grzx)
+    TextView tvGrzx;
     private Context mContext;
-    private PopupWindow tuichupop;
-    private ConfirmDialog confirmDialog;
-    private JingliAdapter adapter;
+    private List<Fragment> fragments = new ArrayList<>();
 
-    private Timer timer;
-    private int i = 1;
 
     @Override
     public int getLayoutId() {
@@ -67,97 +58,97 @@ public class WuLiuActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        mContext=WuLiuActivity.this;
-        confirmDialog = new ConfirmDialog(mContext,
-                mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
-        adapter =new JingliAdapter(getSupportFragmentManager(),mContext);
-        vpDingdan.setAdapter(adapter);
-        tabsDingdan.setViewPager(vpDingdan);
-        vpDingdan.setOffscreenPageLimit(0);
-        vpDingdan.setCurrentItem(0);
-
-        timer = new Timer();
-
-        timer.schedule(new TimerTask() {
+        mContext = WuLiuActivity.this;
+        WuLiuJingLiFragment wuLiuJingLiFragment = new WuLiuJingLiFragment();
+        CheLiangGuanLiFragment cheLiangGuanLiFragment = new CheLiangGuanLiFragment();
+        GeRenZhongXinFragment geRenZhongXinFragment = new GeRenZhongXinFragment();
+        fragments.add(wuLiuJingLiFragment);
+        fragments.add(cheLiangGuanLiFragment);
+        fragments.add(geRenZhongXinFragment);
+        FragmentPagerAdapter adapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
-            public void run() {
-                Log.e("run: ","走"+ i );
-                i++;
-                EventBus.getDefault().post("update");
+            public Fragment getItem(int position) {
+                return fragments.get(position);
+            }
+
+            @Override
+            public int getCount() {
+                return fragments.size();
+            }
+        };
+        viewpager.setAdapter(adapter);
+
+        viewpager.setOnPageChangeListener(new NoScrollViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
-        },0,60*1000);
 
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        viewpager.setNoScroll(true);
+        viewpager.setOffscreenPageLimit(0);
     }
-    @OnClick({R.id.ll_title,R.id.iv_sangedian})
-    public void OnClick(View v){
-        switch (v.getId()){
-            case R.id.ll_title:
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
+    @OnClick({R.id.ll_wlgl, R.id.ll_clgl, R.id.ll_grzx})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.ll_wlgl:
+                gaibianye(0);
                 break;
-            case R.id.iv_sangedian:
-                showTuiChuPop();
+            case R.id.ll_clgl:
+                gaibianye(1);
+                break;
+            case R.id.ll_grzx:
+                gaibianye(2);
                 break;
         }
     }
-    private void showTuiChuPop() {
-        View view = View.inflate(mContext, R.layout.pop_jiesuan, null);
-        tuichupop = new PopupWindow(view);
 
-        WindowManager wm1 = this.getWindowManager();
-        int width = wm1.getDefaultDisplay().getWidth();
-        int height = wm1.getDefaultDisplay().getHeight();
-        tuichupop.setWidth(AppUtil.dip2px(130));
-        tuichupop.setHeight(AppUtil.dip2px(150));
-        LinearLayout ll_tuichu = view.findViewById(R.id.ll_tuichu);
-        LinearLayout ll_yunfei = view.findViewById(R.id.ll_jiesuan);
-        LinearLayout ll_jiesuanjieguo = view.findViewById(R.id.ll_jiesuanjieguo);
-        ll_tuichu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                confirmDialog.showDialog("是否确定退出当前账号");
-                confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        exitLogin();
-                    }
-                });
-                confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        confirmDialog.dismiss();
-                        tuichupop.dismiss();
-                    }
-                });
-            }
-        });
-        ll_jiesuanjieguo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(mContext,JieSuanJieGuoActivity.class));
-            }
-        });
-        ll_yunfei.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(mContext,YunFeiJieSuanActivity.class));
-            }
-        });
-        tuichupop.setOutsideTouchable(true);
-        tuichupop.setBackgroundDrawable(new BitmapDrawable());
-        tuichupop.showAsDropDown(ivSangedian);
-    }
-
-    private void exitLogin() {
-        HttpManager.getInstance()
-                .with(mContext)
-                .setObservable(RetrofitManager.getService()
-                        .exitLogin(PreferenceUtils.getString(MyApplication.mContext, "token", "")))
-                .setDataListener(new HttpDataListener<String>() {
-                    @Override
-                    public void onNext(String data) {
-                        confirmDialog.dismiss();
-                        goLogin(mContext,"login");
-                    }
-                });
+    public void gaibianye(int ye) {
+        switch (ye) {
+            case 0://物流管理
+                ivWlgl.setImageResource(R.mipmap.wlgl_true_wljl);
+                ivClgl.setImageResource(R.mipmap.clgl_false_wljl);
+                ivGrzx.setImageResource(R.mipmap.grzx_false_wljl);
+                viewpager.setCurrentItem(0, false);
+                tvWlgl.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+                tvClgl.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+                tvGrzx.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+                break;
+            case 1://全部菜品
+                ivWlgl.setImageResource(R.mipmap.wlgl_false_wljl);
+                ivClgl.setImageResource(R.mipmap.clgl_true_wljl);
+                ivGrzx.setImageResource(R.mipmap.grzx_false_wljl);
+                viewpager.setCurrentItem(1, false);
+                tvWlgl.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+                tvClgl.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+                tvGrzx.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+                break;
+            case 2://购物车
+                ivWlgl.setImageResource(R.mipmap.wlgl_false_wljl);
+                ivClgl.setImageResource(R.mipmap.clgl_false_wljl);
+                ivGrzx.setImageResource(R.mipmap.grzx_true_wljl);
+                viewpager.setCurrentItem(2, false);
+                tvWlgl.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+                tvClgl.setTextColor(mContext.getResources().getColor(R.color.hintcolor));
+                tvGrzx.setTextColor(mContext.getResources().getColor(R.color.zangqing));
+                break;
+        }
     }
 }

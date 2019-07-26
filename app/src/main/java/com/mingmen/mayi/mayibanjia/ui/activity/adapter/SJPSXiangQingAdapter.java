@@ -68,11 +68,12 @@ public class SJPSXiangQingAdapter extends RecyclerView.Adapter<SJPSXiangQingAdap
         } else {
             holder.tv_ditu.setVisibility(View.VISIBLE);
         }
-        if (data.getWl_order_state().equals("待取货")) {
-
-        } else {
-            holder.tv_state.setTextColor(R.color.zicolor);
-        }
+//        if (data.getState().equals("待取货")) {
+//
+//        } else {
+//            holder.tv_state.setTextColor(R.color.zicolor);
+//        }
+//        holder.tv_state.setText(data.getState());
         if(TextUtils.isEmpty(String.valueOf(data.getWl_order_state()))){
             holder.tv_state.setText("");
         }else{

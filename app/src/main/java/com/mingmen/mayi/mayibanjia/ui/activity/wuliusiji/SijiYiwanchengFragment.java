@@ -9,6 +9,6 @@ public class SijiYiwanchengFragment extends BaseSijiFragment{
 
     @Override
     public String getZhuangTai() {
-        return "1403";
+        return "5";
     }
 }

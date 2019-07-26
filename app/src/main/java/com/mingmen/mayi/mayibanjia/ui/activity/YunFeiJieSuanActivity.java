@@ -82,7 +82,8 @@ public class YunFeiJieSuanActivity extends BaseActivity {
         adapter = new YunFeiAdapter(mContext, list, YunFeiJieSuanActivity.this);
         rvList.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         rvList.setAdapter(adapter);
-        getList("0");
+        type = getIntent().getStringExtra("state");
+        getList(type);
     }
 
     @Override

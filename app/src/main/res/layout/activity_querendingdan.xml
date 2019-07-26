@@ -142,6 +142,7 @@
                   android:textColor="@color/hintcolor"
                   android:textSize="12sp" />
               <TextView
+                  android:visibility="gone"
                   android:layout_marginLeft="12dp"
                   android:gravity="center"
                   android:background="@drawable/fillet_hollow_999999_3"

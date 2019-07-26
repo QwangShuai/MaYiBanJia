@@ -14,6 +14,8 @@ import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.WuLiuBean;
 import com.mingmen.mayi.mayibanjia.bean.WuLiuObjBean;
+import com.mingmen.mayi.mayibanjia.bean.WuliuDingdanBean;
+import com.mingmen.mayi.mayibanjia.bean.WuliuSijiBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
@@ -26,6 +28,7 @@ import com.mingmen.mayi.mayibanjia.utils.qrCode.CaptureActivity;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,7 +47,7 @@ public class ShichangWuliuActivity extends BaseActivity {
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout refreshLayout;
 
-    private ArrayList<WuLiuBean> mlist = new ArrayList<>();
+    private List<WuliuSijiBean.DdListBean> mlist = new ArrayList<>();
     private SiJiPeiSongAdapter adapter;
     private SwipeMenuRecyclerView.LoadMoreListener mLoadMoreListener;
     private int ye = 1;
@@ -114,25 +117,25 @@ public class ShichangWuliuActivity extends BaseActivity {
     }
     //数据
     public void getPeiSong() {
-        HttpManager.getInstance()
-                .with(mContext)
-                .setObservable(RetrofitManager.getService()
-                        .getWuliu(PreferenceUtils.getString(MyApplication.mContext, "token", ""), "", ye + "", type,isShichang,person_name))
-                .setDataListener(new HttpDataListener<WuLiuObjBean<WuLiuBean>>() {
-                    @Override
-                    public void onNext(WuLiuObjBean<WuLiuBean> bean) {
-                        if (bean.getDdList().size() == 5) {
-                            rvDingdan.loadMoreFinish(false, true);
-                        } else if (bean.getDdList().size() > 0) {
-                            rvDingdan.loadMoreFinish(false, false);
-                        } else {
-                            rvDingdan.loadMoreFinish(true, false);
-                        }
-                        mlist.addAll(bean.getDdList());
-                        adapter.notifyDataSetChanged();
-                        ye++;
-                    }
-                });
+//        HttpManager.getInstance()
+//                .with(mContext)
+//                .setObservable(RetrofitManager.getService()
+//                        .getWuliuSiji(PreferenceUtils.getString(MyApplication.mContext, "token", ""),  ye + "", type,isShichang,"",person_name))
+//                .setDataListener(new HttpDataListener<List<WuliuDingdanBean>>() {
+//                    @Override
+//                    public void onNext(List<WuliuDingdanBean> list) {
+//                        if (list.size() == 5) {
+//                            rvDingdan.loadMoreFinish(false, true);
+//                        } else if (list.size() > 0) {
+//                            rvDingdan.loadMoreFinish(false, false);
+//                        } else {
+//                            rvDingdan.loadMoreFinish(true, false);
+//                        }
+//                        mlist.addAll(list);
+//                        adapter.notifyDataSetChanged();
+//                        ye++;
+//                    }
+//                });
     }
 
     private void initview() {

@@ -18,16 +18,21 @@ import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
 import com.mingmen.mayi.mayibanjia.bean.ShangJiaPhoneBean;
 import com.mingmen.mayi.mayibanjia.bean.WuLiuBean;
+import com.mingmen.mayi.mayibanjia.bean.WuliuDingdanBean;
+import com.mingmen.mayi.mayibanjia.bean.WuliuSijiBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.LoginActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.PeiSongXiangQingActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.ShangPinGuanLiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShichangWuliuActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.SiJiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.WeiYiQrCodeActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.DiTuDialog;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.MessageDailog;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ShuruDailog;
 import com.mingmen.mayi.mayibanjia.ui.activity.wuliusiji.BaseSijiFragment;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
@@ -46,7 +51,7 @@ import butterknife.OnClick;
 public class SiJiPeiSongAdapter extends RecyclerView.Adapter<SiJiPeiSongAdapter.ViewHolder> {
     private ViewHolder viewHolder;
     private Context mContext;
-    private List<WuLiuBean> mList;
+    private List<WuliuSijiBean.DdListBean> mList;
     private SiJiActivity activity;
     private ShichangWuliuActivity scwlActivity;
     private String type = "0";
@@ -54,8 +59,13 @@ public class SiJiPeiSongAdapter extends RecyclerView.Adapter<SiJiPeiSongAdapter.
     private ConfirmDialog confirmDialog;
     private BaseSijiFragment fragment;
     private boolean isTeshu;
+//    private CallBack callBack;
 
-    public SiJiPeiSongAdapter(Context context, List<WuLiuBean> list, BaseSijiFragment fragment, String type,SiJiActivity activity) {
+    private interface CallBack{
+        void onClick(View v,int postion);
+    }
+
+    public SiJiPeiSongAdapter(Context context, List<WuliuSijiBean.DdListBean> list, BaseSijiFragment fragment, String type, SiJiActivity activity) {
         this.mContext = context;
         this.mList = list;
         this.fragment = fragment;
@@ -63,7 +73,7 @@ public class SiJiPeiSongAdapter extends RecyclerView.Adapter<SiJiPeiSongAdapter.
         this.activity = activity;
     }
 
-    public SiJiPeiSongAdapter(Context context, List<WuLiuBean> list, String type,ShichangWuliuActivity scwlActivity) {
+    public SiJiPeiSongAdapter(Context context, List<WuliuSijiBean.DdListBean> list, String type,ShichangWuliuActivity scwlActivity) {
         this.mContext = context;
         this.mList = list;
         this.type = type;
@@ -80,8 +90,12 @@ public class SiJiPeiSongAdapter extends RecyclerView.Adapter<SiJiPeiSongAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        final WuLiuBean data = mList.get(position);
+        final WuliuSijiBean.DdListBean data = mList.get(position);
         Log.e("ceshi----",String.valueOf(data.getWl_order_state()));
+        holder.tv_state.setText(String.valueOf(data.getWl_order_state()));
+
+        holder.btnJieshou.setVisibility(View.GONE);
+        holder.btnJujue.setVisibility(View.GONE);
         if(isTeshu){
             holder.tv_ditu.setVisibility(View.GONE);
         } else {
@@ -160,28 +174,52 @@ public class SiJiPeiSongAdapter extends RecyclerView.Adapter<SiJiPeiSongAdapter.
             } else {
                 holder.btnSure.setVisibility(View.GONE);
             }
-        } else {
+        }else if(data.getWl_order_state().equals("已分车")){
+            holder.tv_state.setText(data.getWl_cars_type_name());
+            if(data.getWl_cars_type_name().equals("待确认")){
+                holder.btnTongzhi.setVisibility(View.GONE);
+                holder.btnJieshou.setVisibility(View.VISIBLE);
+                holder.btnJujue.setVisibility(View.VISIBLE);
+                holder.llSaoma.setVisibility(View.GONE);
+                holder.tvQuhuoma.setVisibility(View.GONE);
+
+                holder.btnJieshou.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+//                        callBack.onClick(view,position);
+                        jiedanState(data.getWl_cars_order_number(),"","1");
+                    }
+                });
+                holder.btnJujue.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+//                        callBack.onClick(view,position);
+                        ShuruDailog dialog = new ShuruDailog(mContext, new ShuruDailog.CallBack() {
+                            @Override
+                            public void confirm(String msg) {
+                                jiedanState(data.getWl_cars_id(),msg,"2");
+                            }
+                        });
+                        dialog.show();
+                    }
+                });
+
+            } else {
+                holder.tv_state.setText(data.getWl_cars_type_name());
+                holder.btnTongzhi.setVisibility(View.VISIBLE);
+                holder.btnJieshou.setVisibility(View.GONE);
+                holder.btnJujue.setVisibility(View.GONE);
+                holder.llSaoma.setVisibility(View.VISIBLE);
+                holder.tvQuhuoma.setVisibility(View.VISIBLE);
+            }
+        }  else {
             holder.tv_state.setTextColor(R.color.zicolor);
         }
-        holder.tv_state.setText(String.valueOf(data.getWl_order_state()));
         holder.tv_order_number.setText("订单编号：" + data.getWl_cars_order_number());
         holder.tv_songdashijian.setText(data.getArrival_time());
         holder.tvChuangjiashijian.setText(data.getCreate_time());
         holder.tv_shichang.setText(data.getMarketName());
         holder.tv_dizhi.setText(data.getSpecific_address());
-        holder.tvBaozhuanggeshu.setText(data.getPackCount());
-        holder.tvSaomageshu.setText(data.getScanCount());
-        if (data.getPackCount().equals("0") || data.getIsTrue().equals("1")) {//判断是否显示扫码以及展示数量
-            holder.llSaoma.setVisibility(View.GONE);
-            holder.llBaozhuang.setVisibility(View.GONE);
-            holder.llSaomageshu.setVisibility(View.GONE);
-            holder.tvQuhuoma.setVisibility(View.GONE);
-        } else {
-            holder.llSaoma.setVisibility(View.VISIBLE);
-            holder.llBaozhuang.setVisibility(View.VISIBLE);
-            holder.llSaomageshu.setVisibility(View.VISIBLE);
-            holder.tvQuhuoma.setVisibility(View.VISIBLE);
-        }
         holder.ll_rongqi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -257,12 +295,25 @@ public class SiJiPeiSongAdapter extends RecyclerView.Adapter<SiJiPeiSongAdapter.
 //                } else {
                     Intent it = new Intent(mContext, WeiYiQrCodeActivity.class);
                     it.putExtra("type", "gyID");
-                    it.putExtra("gyID", String.valueOf(mList.get(position).getGy_order_id()));
+//                    it.putExtra("gyID", String.valueOf(mList.get(position).getGy_order_id()));
                     mContext.startActivity(it);
 //                }
 
             }
         });
+        if(data.getIsTrue().equals("1")){
+            holder.llSaoma.setVisibility(View.GONE);
+            holder.tvQuhuoma.setVisibility(View.GONE);
+//            holder.llBaozhuang.setVisibility(View.GONE);
+//            holder.llSaomageshu.setVisibility(View.GONE);
+        } else {
+            holder.llSaoma.setVisibility(View.VISIBLE);
+            holder.tvQuhuoma.setVisibility(View.VISIBLE);
+//            holder.llBaozhuang.setVisibility(View.VISIBLE);
+//            holder.llSaomageshu.setVisibility(View.VISIBLE);
+        }
+        holder.tvSaomageshu.setText(data.getScanCount());
+        holder.tvBaozhuanggeshu.setText(data.getPackCount());
     }
 
     @Override
@@ -313,6 +364,10 @@ public class SiJiPeiSongAdapter extends RecyclerView.Adapter<SiJiPeiSongAdapter.
         Button btnTongzhi;
         @BindView(R.id.btn_sure)
         Button btnSure;
+        @BindView(R.id.btn_jieshou)
+        Button btnJieshou;
+        @BindView(R.id.btn_jujue)
+        Button btnJujue;
 
         ViewHolder(View view) {
             super(view);
@@ -386,6 +441,20 @@ public class SiJiPeiSongAdapter extends RecyclerView.Adapter<SiJiPeiSongAdapter.
                         ToastUtil.showToastLong("转换成功");
                         confirmDialog.dismiss();
                         scwlActivity.onResume();
+                    }
+                });
+    }
+
+    private void jiedanState(String id, String remarket, final String type){
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(RetrofitManager.getService()
+                        .jiedanState(PreferenceUtils.getString(mContext,"token",""),id,remarket,type))
+                .setDataListener(new HttpDataListener<String>() {
+                    @Override
+                    public void onNext(String data) {
+                        ToastUtil.showToastLong("成功");
+                        fragment.onResume();
                     }
                 });
     }

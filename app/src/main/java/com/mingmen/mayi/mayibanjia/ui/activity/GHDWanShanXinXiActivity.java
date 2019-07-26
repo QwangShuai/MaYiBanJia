@@ -369,7 +369,7 @@ public class GHDWanShanXinXiActivity extends BaseActivity {
                 } else if(!isXieyi){
                     ToastUtil.showToastLong("如未同意注册，则禁止下一步操作");
                 } else {
-                    if (StringUtil.isValid(dianpuid) && etDianpuming.getText().toString().trim().equals(dianpuming)) {
+                    if (StringUtil.isValid(dianpuid)) {
                         if (role.equals("2")) {
                             if (StringUtil.isValid(xukezheng)) {
                                 zhuce();

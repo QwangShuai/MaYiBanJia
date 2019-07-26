@@ -5,71 +5,80 @@
     android:background="@color/gray_fafafa"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="68dp"
-        android:background="@color/zangqing"
-        android:paddingTop="24dp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="44dp">
-            <ImageView
-                android:visibility="gone"
-                android:id="@+id/iv_back"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@mipmap/fanhui_bai"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp"
-                android:layout_centerVertical="true"/>
-
-            <LinearLayout
-                android:id="@+id/ll_title"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="配送信息"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/iv_sangedian"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp"
-                android:src="@mipmap/sangedian" />
-        </RelativeLayout>
-    </LinearLayout>
-    <com.mingmen.mayi.mayibanjia.ui.view.PagerSlidingTabStrip
-        android:id="@+id/tabs_dingdan"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:background="@color/white"
-        app:pstsDividerColor="@color/transparent"
-        app:pstsIndicatorColor="@color/zangqing"
-        app:pstsIndicatorHeight="4dp"
-        app:pstsTabPaddingLeftRight="2dp"
-        app:pstsShouldExpand="true"
-        app:pstsTabBackground="@color/transparent"
-        app:pstsUnderlineHeight="1dp"></com.mingmen.mayi.mayibanjia.ui.view.PagerSlidingTabStrip>
-
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp_dingdan"
+    <com.mingmen.mayi.mayibanjia.ui.view.noscrollviewpager.NoScrollViewPager
+        android:id="@+id/viewpager"
+        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"></android.support.v4.view.ViewPager>
+        ></com.mingmen.mayi.mayibanjia.ui.view.noscrollviewpager.NoScrollViewPager>
+    <include layout="@layout/view_cutoff_e7e7e7_match"></include>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="49dp">
+        <LinearLayout
+            android:id="@+id/ll_wlgl"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/iv_wlgl"
+                android:src="@mipmap/psxx_true_sj"
+                android:layout_width="22dp"
+                android:layout_height="24dp" />
+            <TextView
+                android:id="@+id/tv_wlgl"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/zangqing"
+                android:textSize="10sp"
+                android:text="配送信息"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ll_clgl"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/iv_clgl"
+                android:src="@mipmap/yfhs_false_sj"
+                android:layout_width="21dp"
+                android:layout_height="24dp" />
+            <TextView
+                android:id="@+id/tv_clgl"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/hintcolor"
+                android:textSize="10sp"
+                android:text="运费核算"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_grzx"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/iv_grzx"
+                android:src="@mipmap/grzx_false_wljl"
+                android:layout_width="22dp"
+                android:layout_height="24dp" />
+            <TextView
+                android:id="@+id/tv_grzx"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/hintcolor"
+                android:textSize="10sp"
+                android:text="个人中心"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

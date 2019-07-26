@@ -15,6 +15,8 @@ import com.mingmen.mayi.mayibanjia.bean.MessageBean;
 import com.mingmen.mayi.mayibanjia.bean.ShangPinGuanLiBean;
 import com.mingmen.mayi.mayibanjia.bean.WuLiuBean;
 import com.mingmen.mayi.mayibanjia.bean.WuLiuObjBean;
+import com.mingmen.mayi.mayibanjia.bean.WuliuDingdanBean;
+import com.mingmen.mayi.mayibanjia.bean.WuliuSijiBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
@@ -39,6 +41,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -59,7 +62,7 @@ public abstract class BaseSijiFragment extends BaseFragment {
     SwipeRefreshLayout refreshLayout;
     View view;
 
-    private ArrayList<WuLiuBean> mlist = new ArrayList<>();
+    private List<WuliuSijiBean.DdListBean> mlist = new ArrayList<>();
     private SiJiPeiSongAdapter adapter;
     private SwipeMenuRecyclerView.LoadMoreListener mLoadMoreListener;
     private int ye = 1;
@@ -97,12 +100,14 @@ public abstract class BaseSijiFragment extends BaseFragment {
         HttpManager.getInstance()
                 .with(getContext())
                 .setObservable(RetrofitManager.getService()
-                        .getWuliu(PreferenceUtils.getString(MyApplication.mContext, "token", ""), "", ye + "", getZhuangTai()))
-                .setDataListener(new HttpDataListener<WuLiuObjBean<WuLiuBean>>() {
+                        .getWuliuSiji(PreferenceUtils.getString(MyApplication.mContext, "token", ""), ye + "", getZhuangTai(), "","",""))
+                .setDataListener(new HttpDataListener<WuliuSijiBean>() {
                     @Override
-                    public void onNext(WuLiuObjBean<WuLiuBean> bean) {
-                        mlist.clear();
-                        adapter.notifyDataSetChanged();
+                    public void onNext(WuliuSijiBean bean) {
+                        if(ye==1){
+                            mlist.clear();
+                            adapter.notifyDataSetChanged();
+                        }
                         if (bean.getDdList().size() == 5) {
                             rvShangpinguanli.loadMoreFinish(false, true);
                         } else if (bean.getDdList().size() > 0) {
@@ -140,11 +145,11 @@ public abstract class BaseSijiFragment extends BaseFragment {
             }
         });
         rvShangpinguanli.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        rvShangpinguanli.useDefaultLoadMore(); // 使用默认的加载更多的View。
+//        rvShangpinguanli.useDefaultLoadMore(); // 使用默认的加载更多的View。
         rvShangpinguanli.setLoadMoreListener(mLoadMoreListener); // 加载更多的监听。
-        rvShangpinguanli.loadMoreFinish(false, true);
         adapter = new SiJiPeiSongAdapter(getContext(),mlist,this,getZhuangTai(),activity);
         rvShangpinguanli.setAdapter(adapter);
+        rvShangpinguanli.loadMoreFinish(false, true);
         getPeiSong();
     }
     @Subscribe(threadMode = ThreadMode.MAIN)

@@ -1,5 +1,6 @@
 package com.mingmen.mayi.mayibanjia.ui.activity.dialog;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
@@ -28,6 +29,7 @@ import com.mingmen.mayi.mayibanjia.bean.CarsTypeBean;
 import com.mingmen.mayi.mayibanjia.bean.ChePaiBean;
 import com.mingmen.mayi.mayibanjia.bean.FCGName;
 import com.mingmen.mayi.mayibanjia.bean.WuLiuBean;
+import com.mingmen.mayi.mayibanjia.bean.WuliuDingdanBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
@@ -54,12 +56,12 @@ import cn.qqtheme.framework.picker.SinglePicker;
 public class FenPeiWuLiuCheDialog extends Dialog {
 
     private Context context;
-    private WuLiuActivity activity;
+    private Activity activity;
     private RelativeLayout rl;
     private TextView tv_cheliangleixing;
     private EditText et_chepaihao,et_xingming,et_lianxifangshi;
     private Button bt_sure,bt_cancle;
-    private WuLiuBean bean;
+    private WuliuDingdanBean bean;
     private RecyclerView rv_mohu;
     private PopupWindow mPopWindow;
     private ChePaiMohuAdapter mohuAdapter;
@@ -67,7 +69,7 @@ public class FenPeiWuLiuCheDialog extends Dialog {
     String car_type_name = "",car_type_id="";
     private String chepai="";
     private BaseJingliFragment fragment;
-    public FenPeiWuLiuCheDialog(@NonNull Context context, WuLiuBean bean, WuLiuActivity activity, BaseJingliFragment fragment) {
+    public FenPeiWuLiuCheDialog(@NonNull Context context, WuliuDingdanBean bean, Activity activity, BaseJingliFragment fragment) {
         super(context);
         this.context = context;
         this.bean = bean;
@@ -191,16 +193,6 @@ public class FenPeiWuLiuCheDialog extends Dialog {
                 dismiss();
             }
         });
-    }
-    //验证车牌号
-    public static boolean isCarnumberNO(String carnumber) {
-        /*
-         车牌号格式：汉字 + A-Z + 5位A-Z或0-9
-        （只包括了普通车牌号，教练车和部分部队车等车牌号不包括在内）
-         */
-        String carnumRegex = "[\u4e00-\u9fa5]{1}[A-Z]{1}[A-Z_0-9]{5}";
-        if (TextUtils.isEmpty(carnumber)) return false;
-        else return carnumber.matches(carnumRegex);
     }
     //PopupWindow
     private void showPopupWindow() {

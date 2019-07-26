@@ -54,6 +54,7 @@ public class YinHangKaAdapter extends RecyclerView.Adapter<YinHangKaAdapter.View
 
     public interface CallBack {
         void xuanzhong(YinHangKaBean bean);
+        void jiechu(String id);
     }
 
     @Override
@@ -85,18 +86,8 @@ public class YinHangKaAdapter extends RecyclerView.Adapter<YinHangKaAdapter.View
                 confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        HttpManager.getInstance().with(mContext)
-                                .setObservable(RetrofitManager.getService()
-                                        .delBankCard(PreferenceUtils.getString(MyApplication.mContext, "token", ""), bean.getBank_id()))
-                                .setDataListener(new HttpDataListener<String>() {
-                                    @Override
-                                    public void onNext(String data) {
-                                        ToastUtil.showToast("解除绑定成功");
-                                        mList.remove(position);
-                                        notifyDataSetChanged();
-                                        confirmDialog.dismiss();
-                                    }
-                                });
+                        callBack.jiechu(bean.getBank_id());
+                        confirmDialog.dismiss();
                     }
                 });
                 confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {

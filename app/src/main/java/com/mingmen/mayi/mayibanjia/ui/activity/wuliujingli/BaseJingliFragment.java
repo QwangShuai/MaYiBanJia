@@ -76,9 +76,9 @@ public abstract class BaseJingliFragment extends BaseFragment {
     private String wuliu_type = "";
     WuliuFenpeiDialog dialog;
     private String wl_cars_order_number = "";
+    private String marketName = "";
     private String driverName = "";
     private String driverPhone = "";
-    private String marketName = "";
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
+import com.mingmen.mayi.mayibanjia.bean.WuliuShaixuanBean;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ShaiXuanWuLiuDingdanDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.wuliujingli.JingliAdapter;
@@ -129,14 +130,22 @@ public class SijiPeisongFragment extends BaseFragment {
         timer.cancel();
     }
 
-    @OnClick({R.id.ll_title, R.id.iv_sangedian})
+    @OnClick({R.id.ll_title, R.id.iv_sangedian, R.id.tv_chongzhi})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_title:
                 break;
+            case R.id.tv_chongzhi:
+                EventBus.getDefault().post(new WuliuShaixuanBean());
+                break;
             case R.id.iv_sangedian:
-//                ShaiXuanWuLiuDingdanDialog dialog = new ShaiXuanWuLiuDingdanDialog(mContext);
-//                dialog.show();
+                ShaiXuanWuLiuDingdanDialog dialog = new ShaiXuanWuLiuDingdanDialog(mContext, "1", new ShaiXuanWuLiuDingdanDialog.CallBack() {
+                    @Override
+                    public void success(WuliuShaixuanBean bean) {
+                        EventBus.getDefault().post(bean);
+                    }
+                });
+                dialog.show();
                 break;
         }
     }

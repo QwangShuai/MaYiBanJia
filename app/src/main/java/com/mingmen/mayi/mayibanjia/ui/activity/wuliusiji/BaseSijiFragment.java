@@ -16,6 +16,7 @@ import com.mingmen.mayi.mayibanjia.bean.ShangPinGuanLiBean;
 import com.mingmen.mayi.mayibanjia.bean.WuLiuBean;
 import com.mingmen.mayi.mayibanjia.bean.WuLiuObjBean;
 import com.mingmen.mayi.mayibanjia.bean.WuliuDingdanBean;
+import com.mingmen.mayi.mayibanjia.bean.WuliuShaixuanBean;
 import com.mingmen.mayi.mayibanjia.bean.WuliuSijiBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
@@ -69,6 +70,8 @@ public abstract class BaseSijiFragment extends BaseFragment {
     private boolean b = false;
     protected boolean isCreate = false;
     private final static int SCANNIN_GREQUEST_CODE = 1;
+    private String wl_cars_order_number = "";
+    private String marketName = "";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -100,7 +103,7 @@ public abstract class BaseSijiFragment extends BaseFragment {
         HttpManager.getInstance()
                 .with(getContext())
                 .setObservable(RetrofitManager.getService()
-                        .getWuliuSiji(PreferenceUtils.getString(MyApplication.mContext, "token", ""), ye + "", getZhuangTai(), "","",""))
+                        .getWuliuSiji(PreferenceUtils.getString(MyApplication.mContext, "token", ""), ye + "", getZhuangTai(), marketName,"",wl_cars_order_number))
                 .setDataListener(new HttpDataListener<WuliuSijiBean>() {
                     @Override
                     public void onNext(WuliuSijiBean bean) {
@@ -159,7 +162,15 @@ public abstract class BaseSijiFragment extends BaseFragment {
         adapter.notifyDataSetChanged();
         getPeiSong();
     }
-
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void update(WuliuShaixuanBean bean) {
+        marketName = bean.getMarketName();
+        wl_cars_order_number = bean.getWl_cars_order_number();
+        ye = 1;
+        mlist.clear();
+        adapter.notifyDataSetChanged();
+        getPeiSong();
+    }
     public abstract String getZhuangTai();
 
     public void onResume() {

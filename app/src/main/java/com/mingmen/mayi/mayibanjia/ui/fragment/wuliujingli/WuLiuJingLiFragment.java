@@ -138,7 +138,7 @@ public class WuLiuJingLiFragment extends BaseFragment {
                 EventBus.getDefault().post(new WuliuShaixuanBean());
                 break;
             case R.id.iv_sangedian:
-                ShaiXuanWuLiuDingdanDialog dialog = new ShaiXuanWuLiuDingdanDialog(mContext, new ShaiXuanWuLiuDingdanDialog.CallBack() {
+                ShaiXuanWuLiuDingdanDialog dialog = new ShaiXuanWuLiuDingdanDialog(mContext,"0", new ShaiXuanWuLiuDingdanDialog.CallBack() {
                     @Override
                     public void success(WuliuShaixuanBean bean) {
                         EventBus.getDefault().post(bean);

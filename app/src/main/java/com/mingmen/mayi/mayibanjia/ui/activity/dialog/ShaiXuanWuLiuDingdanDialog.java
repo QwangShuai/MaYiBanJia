@@ -55,20 +55,26 @@ public class ShaiXuanWuLiuDingdanDialog extends Dialog {
     TextView tvLianxifangshi;
     @BindView(R.id.et_lianxidianhua)
     EditText etLianxidianhua;
+    @BindView(R.id.rl_lianxiren)
+    RelativeLayout rlLianxiren;
+    @BindView(R.id.rl_lianxidianhua)
+    RelativeLayout rlLianxidianhua;
     @BindView(R.id.bt_cancle)
     Button btCancle;
     @BindView(R.id.bt_sure)
     Button btSure;
     private Context context;
     private CallBack callBack;
+    private String type;
     public interface CallBack{
         void success(WuliuShaixuanBean bean);
     }
 
 
-    public ShaiXuanWuLiuDingdanDialog(@NonNull Context context,CallBack callBack) {
+    public ShaiXuanWuLiuDingdanDialog(@NonNull Context context,String type,CallBack callBack) {
         super(context);
         this.context = context;
+        this.type = type;
         this.callBack = callBack;
     }
 
@@ -85,20 +91,28 @@ public class ShaiXuanWuLiuDingdanDialog extends Dialog {
         etLianxiren = (EditText) v.findViewById(R.id.et_lianxiren);
         etDingdanhao = (EditText) v.findViewById(R.id.et_dingdanhao);
         etQuhuodizhi = (EditText) v.findViewById(R.id.et_quhuodizhi);
+        rlLianxidianhua = (RelativeLayout) v.findViewById(R.id.rl_lianxidianhua);
+        rlLianxiren = (RelativeLayout) v.findViewById(R.id.rl_lianxiren);
 
         btSure = (Button) v.findViewById(R.id.bt_sure);
         btCancle = (Button) v.findViewById(R.id.bt_cancle);
 
         StringUtil.setInputNoEmoj(etLianxiren, 6);
         StringUtil.setInputNoEmoj(etQuhuodizhi,30);
+        if(type.equals("1")){
+            rlLianxidianhua.setVisibility(View.GONE);
+            rlLianxiren.setVisibility(View.GONE);
+        }
         btSure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {//确认
                 WuliuShaixuanBean bean = new WuliuShaixuanBean();
-                bean.setDriverName(etLianxiren.getText().toString().trim());
-                bean.setDriverPhone(etLianxidianhua.getText().toString().trim());
-                bean.setMarketName(etLianxidianhua.getText().toString().trim());
-                bean.setWl_cars_order_number(etDingdanhao.getText().toString().trim());
+                if(type.equals("0")){
+                    bean.setDriverName(etLianxiren.getText().toString().trim());
+                    bean.setDriverPhone(etLianxidianhua.getText().toString().trim());
+                    bean.setWl_cars_order_number(etDingdanhao.getText().toString().trim());
+                }
+                bean.setMarketName(etQuhuodizhi.getText().toString().trim());
 //                EventBus.getDefault().post(bean);
                 callBack.success(bean);
                 dismiss();

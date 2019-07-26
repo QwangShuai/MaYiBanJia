@@ -150,7 +150,7 @@ public abstract class BaseSijiFragment extends BaseFragment {
         adapter = new SiJiPeiSongAdapter(getContext(),mlist,this,getZhuangTai(),activity);
         rvShangpinguanli.setAdapter(adapter);
         rvShangpinguanli.loadMoreFinish(false, true);
-        getPeiSong();
+//        getPeiSong();
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void updateTimer(String message){
@@ -164,7 +164,6 @@ public abstract class BaseSijiFragment extends BaseFragment {
 
     public void onResume() {
         super.onResume();
-        Log.e("onResume: ",getZhuangTai() );
         if (ye != 1) {
             ye = 1;
             mlist.clear();

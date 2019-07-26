@@ -5,10 +5,10 @@ package com.mingmen.mayi.mayibanjia.bean;
  */
 
 public class WuliuShaixuanBean {
-    private String wl_cars_order_number;
-    private String driverName;
-    private String driverPhone;
-    private String marketName;
+    private String wl_cars_order_number = "";
+    private String driverName = "";
+    private String driverPhone = "";
+    private String marketName = "";
 
     public String getWl_cars_order_number() {
         return wl_cars_order_number;

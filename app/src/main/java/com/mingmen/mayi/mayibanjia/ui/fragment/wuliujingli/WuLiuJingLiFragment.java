@@ -129,18 +129,22 @@ public class WuLiuJingLiFragment extends BaseFragment {
         timer.cancel();
     }
 
-    @OnClick({R.id.ll_title, R.id.iv_sangedian})
+    @OnClick({R.id.ll_title, R.id.iv_sangedian, R.id.tv_chongzhi})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_title:
+                break;
+            case R.id.tv_chongzhi:
+                EventBus.getDefault().post(new WuliuShaixuanBean());
                 break;
             case R.id.iv_sangedian:
                 ShaiXuanWuLiuDingdanDialog dialog = new ShaiXuanWuLiuDingdanDialog(mContext, new ShaiXuanWuLiuDingdanDialog.CallBack() {
                     @Override
                     public void success(WuliuShaixuanBean bean) {
-
+                        EventBus.getDefault().post(bean);
                     }
                 });
+                dialog.show();
                 break;
         }
     }

@@ -180,7 +180,6 @@ public abstract class BaseJingliFragment extends BaseFragment {
         rvShangpinguanli.setAdapter(adapter);
         rvShangpinguanli.loadMoreFinish(false, true);
         getPeiSong();
-
     }
 
     public abstract String getZhuangTai();

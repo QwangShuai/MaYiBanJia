@@ -111,7 +111,7 @@ public class AddWuLiuCheDialog extends Dialog {
             @Override
             public void onClick(View v) {//确认
                 cheliangBean.setNew_plate_number(et_chepaihao.getText().toString().trim());
-                cheliangBean.setNew_driver_phone(et_lianxifangshi.getText().toString().trim());
+//                cheliangBean.setNew_driver_phone(et_lianxifangshi.getText().toString().trim());
                 cheliangBean.setNew_driver_name(et_xingming.getText().toString().trim());
 
 //                boolean   yz =isCarnumberNO(et_chepaihao.getText().toString());
@@ -138,45 +138,23 @@ public class AddWuLiuCheDialog extends Dialog {
                     ToastUtil.showToast("车牌号不能为空!");
                     return;
                 }
-                HttpManager.getInstance()
-                        .with(context)
-                        .setObservable(RetrofitManager.getService()
-                                .yanzhengPhone(PreferenceUtils.getString(MyApplication.mContext, "token", ""),
-                                        cheliangBean.getNew_driver_phone()))
-                        .setDataListener(new HttpDataListener<String>() {
-                            @Override
-                            public void onNext(String data) {
-                                if(StringUtil.isValid(cheliangBean.getWl_cars_id())){
-                                    HttpManager.getInstance()
-                                            .with(context)
-                                            .setObservable(RetrofitManager.getService()
-                                                    .updateCheliang(PreferenceUtils.getString(MyApplication.mContext, "token", ""), cheliangBean.getWl_cars_id(),
-                                                            cheliangBean.getNew_driver_name(),cheliangBean.getNew_driver_phone(),
-                                                            cheliangBean.getNew_plate_number(),cheliangBean.getNew_wl_cars_type()))
-                                            .setDataListener(new HttpDataListener<String>() {
-                                                @Override
-                                                public void onNext(String data) {
-                                                    EventBus.getDefault().post("0000");
-                                                    dismiss();
-                                                }
-                                            });
-                                } else {
-                                    HttpManager.getInstance()
-                                            .with(context)
-                                            .setObservable(RetrofitManager.getService()
-                                                    .addCheliang(PreferenceUtils.getString(MyApplication.mContext, "token", ""),
-                                                            cheliangBean.getNew_driver_name(),cheliangBean.getNew_driver_phone(),
-                                                            cheliangBean.getNew_plate_number(),cheliangBean.getNew_wl_cars_type()))
-                                            .setDataListener(new HttpDataListener<String>() {
-                                                @Override
-                                                public void onNext(String data) {
-                                                    EventBus.getDefault().post("0000");
-                                                    dismiss();
-                                                }
-                                            });
+
+                if(et_lianxifangshi.getText().toString().trim().equals(cheliangBean.getNew_driver_phone())){
+                    post();
+                } else {
+                    HttpManager.getInstance()
+                            .with(context)
+                            .setObservable(RetrofitManager.getService()
+                                    .yanzhengPhone(PreferenceUtils.getString(MyApplication.mContext, "token", ""),
+                                            et_lianxifangshi.getText().toString().trim()))
+                            .setDataListener(new HttpDataListener<String>() {
+                                @Override
+                                public void onNext(String data) {
+                                    post();
                                 }
-                            }
-                        });
+                            });
+                }
+
 
 
             }
@@ -189,5 +167,37 @@ public class AddWuLiuCheDialog extends Dialog {
         });
 
 
+    }
+
+    private void post(){
+        if(StringUtil.isValid(cheliangBean.getWl_cars_id())){
+            HttpManager.getInstance()
+                    .with(context)
+                    .setObservable(RetrofitManager.getService()
+                            .updateCheliang(PreferenceUtils.getString(MyApplication.mContext, "token", ""), cheliangBean.getWl_cars_id(),
+                                    cheliangBean.getNew_driver_name(),et_lianxifangshi.getText().toString().trim(),
+                                    cheliangBean.getNew_plate_number(),cheliangBean.getNew_wl_cars_type()))
+                    .setDataListener(new HttpDataListener<String>() {
+                        @Override
+                        public void onNext(String data) {
+                            EventBus.getDefault().post("0000");
+                            dismiss();
+                        }
+                    });
+        } else {
+            HttpManager.getInstance()
+                    .with(context)
+                    .setObservable(RetrofitManager.getService()
+                            .addCheliang(PreferenceUtils.getString(MyApplication.mContext, "token", ""),
+                                    cheliangBean.getNew_driver_name(),et_lianxifangshi.getText().toString().trim(),
+                                    cheliangBean.getNew_plate_number(),cheliangBean.getNew_wl_cars_type()))
+                    .setDataListener(new HttpDataListener<String>() {
+                        @Override
+                        public void onNext(String data) {
+                            EventBus.getDefault().post("0000");
+                            dismiss();
+                        }
+                    });
+        }
     }
 }

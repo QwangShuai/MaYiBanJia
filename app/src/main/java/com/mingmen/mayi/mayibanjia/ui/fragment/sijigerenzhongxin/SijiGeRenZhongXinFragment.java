@@ -143,7 +143,7 @@ public class SijiGeRenZhongXinFragment extends BaseFragment {
                 .setDataListener(new HttpDataListener<SijiGerenzhongxinBean>() {
                     @Override
                     public void onNext(SijiGerenzhongxinBean bean) {
-                        tvQiye.setText(bean.getLogistics());
+                        tvQiye.setText(bean.getLogistics_name());
                         tvName.setText(bean.getNew_driver_name());
                         tvPhone.setText(bean.getNew_driver_phone());
                         type = bean.getCars_type();

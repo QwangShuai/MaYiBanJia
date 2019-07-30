@@ -9,8 +9,16 @@ public class SijiGerenzhongxinBean {
     private String new_driver_phone;
     private String new_driver_name;
     private String new_wl_cars_type_name;
-    private String logistics;
+    private String logistics_name;
     private String cars_type;
+
+    public String getLogistics_name() {
+        return logistics_name;
+    }
+
+    public void setLogistics_name(String logistics_name) {
+        this.logistics_name = logistics_name;
+    }
 
     public String getNew_plate_number() {
         return new_plate_number;
@@ -42,14 +50,6 @@ public class SijiGerenzhongxinBean {
 
     public void setNew_wl_cars_type_name(String new_wl_cars_type_name) {
         this.new_wl_cars_type_name = new_wl_cars_type_name;
-    }
-
-    public String getLogistics() {
-        return logistics;
-    }
-
-    public void setLogistics(String logistics) {
-        this.logistics = logistics;
     }
 
     public String getCars_type() {

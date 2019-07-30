@@ -340,8 +340,8 @@ public class DianPuActivity extends BaseActivity implements View.OnClickListener
 
     private void initView() {
         GlideUtils.cachePhoto(mContext,ivDiantu,dianpuxinxi.getFile_path());
-        if(StringUtil.isValid(dianpuxinxi.getPhone())){
-            GlideUtils.cachePhoto(mContext,ivBg,dianpuxinxi.getPhoto());
+        if(StringUtil.isValid(dianpuxinxi.getShopPhoto())){
+            GlideUtils.cachePhoto(mContext,ivBg,dianpuxinxi.getShopPhoto());
         } else {
             Glide.with(this).load(R.mipmap.timg).into(ivBg);
         }

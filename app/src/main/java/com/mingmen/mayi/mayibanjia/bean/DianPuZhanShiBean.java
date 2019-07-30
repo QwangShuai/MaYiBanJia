@@ -113,6 +113,15 @@ public class DianPuZhanShiBean {
     private String goodsCount;
     private String telephone;
     private String realtime;
+    private String shopPhoto;
+
+    public String getShopPhoto() {
+        return shopPhoto;
+    }
+
+    public void setShopPhoto(String shopPhoto) {
+        this.shopPhoto = shopPhoto;
+    }
 
     public String getRealtime() {
         return realtime;

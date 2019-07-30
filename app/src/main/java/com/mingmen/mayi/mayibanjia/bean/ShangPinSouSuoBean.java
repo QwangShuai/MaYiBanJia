@@ -156,7 +156,6 @@ public class ShangPinSouSuoBean  {
             private String companyName;
             private String market_name;
             private String sumGoodsSales;
-            private String approval_state;
             private String commodity_state;
             private String whether_ration;
             private String change_time;
@@ -204,6 +203,25 @@ public class ShangPinSouSuoBean  {
             private String spec_describe;//规格描述
             private String real_time_state;//食时达
             private String type_four_id;//四级分类id
+            private String gold_supplier;//金牌
+            private String profile_enterprise;//知名企业
+            private String approval_state;//认证
+
+            public String getGold_supplier() {
+                return gold_supplier;
+            }
+
+            public void setGold_supplier(String gold_supplier) {
+                this.gold_supplier = gold_supplier;
+            }
+
+            public String getProfile_enterprise() {
+                return profile_enterprise;
+            }
+
+            public void setProfile_enterprise(String profile_enterprise) {
+                this.profile_enterprise = profile_enterprise;
+            }
 
             public String getType_four_id() {
                 return type_four_id;

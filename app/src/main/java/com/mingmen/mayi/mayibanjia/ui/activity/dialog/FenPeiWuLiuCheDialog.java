@@ -91,6 +91,7 @@ public class FenPeiWuLiuCheDialog extends Dialog {
         et_chepaihao = (EditText) v.findViewById(R.id.et_chepaihao);
         et_xingming = (EditText) v.findViewById(R.id.et_xingming);
         et_lianxifangshi = (EditText) v.findViewById(R.id.et_lianxifangshi);
+        StringUtil.setInputNoEmoj(et_xingming,10);
         et_chepaihao.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

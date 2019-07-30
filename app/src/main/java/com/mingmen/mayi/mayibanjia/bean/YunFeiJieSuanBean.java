@@ -143,7 +143,7 @@ public class YunFeiJieSuanBean {
         private Object marketCity;
         private Object marketProvince;
         private Object wl_cars_id;
-        private int freight_fee;
+        private double freight_fee;
         private boolean isXuanzhong;
 
         public boolean isXuanzhong() {
@@ -458,11 +458,11 @@ public class YunFeiJieSuanBean {
             this.wl_cars_id = wl_cars_id;
         }
 
-        public int getFreight_fee() {
+        public Double getFreight_fee() {
             return freight_fee;
         }
 
-        public void setFreight_fee(int freight_fee) {
+        public void setFreight_fee(double freight_fee) {
             this.freight_fee = freight_fee;
         }
     }

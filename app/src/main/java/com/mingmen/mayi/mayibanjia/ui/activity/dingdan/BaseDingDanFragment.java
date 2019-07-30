@@ -285,9 +285,9 @@ public abstract class BaseDingDanFragment extends BaseFragment {
         Log.e("onResume: ", getZhuangTai() + "----");
         if (ye != 1) {
             ye = 1;
-//        updateList(true);
-            getData();
-            adapter.notifyDataSetChanged();
+        updateList(true);
+//            getData();
+//            adapter.notifyDataSetChanged();
         }
     }
 

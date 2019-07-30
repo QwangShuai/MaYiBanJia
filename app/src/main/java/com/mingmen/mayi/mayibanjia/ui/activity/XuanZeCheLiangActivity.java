@@ -48,6 +48,7 @@ public class XuanZeCheLiangActivity extends BaseActivity {
     private Context mContext;
     private XuanzechexingAdapter adapter;
     private List<CheliangBean> mlist = new ArrayList<>();
+    private String type = "";
 
     @Override
     public int getLayoutId() {
@@ -58,6 +59,7 @@ public class XuanZeCheLiangActivity extends BaseActivity {
     protected void initData() {
         mContext = XuanZeCheLiangActivity.this;
         tvTitle.setText("车辆选择");
+        type = getIntent().getStringExtra("type");
         adapter = new XuanzechexingAdapter(mContext, mlist, new XuanzechexingAdapter.CallBack() {
             @Override
             public void succeed(CheliangBean bean) {
@@ -105,7 +107,7 @@ public class XuanZeCheLiangActivity extends BaseActivity {
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(RetrofitManager.getService()
-                        .getCheliangList(PreferenceUtils.getString(MyApplication.mContext, "token", ""), name))
+                        .getCheliangList(PreferenceUtils.getString(MyApplication.mContext, "token", ""),type, name))
                 .setDataListener(new HttpDataListener<List<CheliangBean>>() {
                     @Override
                     public void onNext(List<CheliangBean> list) {

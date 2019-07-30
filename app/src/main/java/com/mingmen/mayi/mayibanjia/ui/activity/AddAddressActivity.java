@@ -111,7 +111,7 @@ public class AddAddressActivity extends BaseActivity {
         rukou = getIntent().getStringExtra("rukou");
         mContext = AddAddressActivity.this;
         StringUtil.setInputNoEmoj(etXiangxidizhi,30);
-        StringUtil.setInputNoEmoj(etShouhuoren,4);
+        StringUtil.setInputNoEmoj(etShouhuoren,10);
         //判断入口
         if ("add".equals(rukou)) {
 

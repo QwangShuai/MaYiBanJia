@@ -51,11 +51,29 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/iv_jishida"
-            android:layout_width="43dp"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/jishida"
-            android:visibility="gone" />
+            android:layout_marginLeft="2dp"
+            android:id="@+id/iv_jinpai"
+            android:src="@mipmap/jinpai"
+            android:layout_width="14dp"
+            android:layout_height="17dp" />
+        <ImageView
+            android:layout_marginLeft="2dp"
+            android:id="@+id/iv_ming"
+            android:src="@mipmap/ming"
+            android:layout_width="17dp"
+            android:layout_height="15dp" />
+        <ImageView
+            android:layout_marginLeft="2dp"
+            android:id="@+id/iv_ren"
+            android:src="@mipmap/ren"
+            android:layout_width="14dp"
+            android:layout_height="16dp" />
+        <ImageView
+            android:layout_marginLeft="2dp"
+            android:id="@+id/iv_da"
+            android:src="@mipmap/da"
+            android:layout_width="14dp"
+            android:layout_height="16dp" />
         <View
             android:layout_weight="1"
             android:layout_width="match_parent"

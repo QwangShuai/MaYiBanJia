@@ -70,10 +70,25 @@ public class LiuLanJiLuAdapter extends RecyclerView.Adapter<LiuLanJiLuAdapter.Vi
         holder.tvSpming.setText(data.getClassify_name());
         holder.tvDianming.setText(data.getShopName());
         holder.tvJiage.setText(data.getPrice()+"");
-        if(StringUtil.isValid(data.getReal_time_state())&&data.getReal_time_state().equals("0")){
-            holder.ivJishida.setVisibility(View.VISIBLE);
+        if (StringUtil.isValid(data.getGold_supplier()) && data.getGold_supplier().equals("0")) {
+            holder.ivJinpai.setVisibility(View.VISIBLE);
         } else {
-            holder.ivJishida.setVisibility(View.GONE);
+            holder.ivJinpai.setVisibility(View.GONE);
+        }
+        if (StringUtil.isValid(data.getProfile_enterprise()) && data.getProfile_enterprise().equals("0")) {
+            holder.ivMing.setVisibility(View.VISIBLE);
+        } else {
+            holder.ivMing.setVisibility(View.GONE);
+        }
+        if (StringUtil.isValid(data.getApproval_state()) && data.getApproval_state().equals("0")) {
+            holder.ivRen.setVisibility(View.VISIBLE);
+        } else {
+            holder.ivRen.setVisibility(View.GONE);
+        }
+        if (StringUtil.isValid(data.getReal_time_state()) && data.getReal_time_state().equals("0")) {
+            holder.ivDa.setVisibility(View.VISIBLE);
+        } else {
+            holder.ivDa.setVisibility(View.GONE);
         }
         if(StringUtil.isValid(data.getPackStandard())){
             holder.tvGuigeMiaoshu.setText("规格详情:"+data.getPackStandard());
@@ -126,6 +141,14 @@ public class LiuLanJiLuAdapter extends RecyclerView.Adapter<LiuLanJiLuAdapter.Vi
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.iv_jinpai)
+        ImageView ivJinpai;
+        @BindView(R.id.iv_ming)
+        ImageView ivMing;
+        @BindView(R.id.iv_ren)
+        ImageView ivRen;
+        @BindView(R.id.iv_da)
+        ImageView ivDa;
         @BindView(R.id.iv_sptu)
         ImageView ivSptu;
         @BindView(R.id.iv_jishida)

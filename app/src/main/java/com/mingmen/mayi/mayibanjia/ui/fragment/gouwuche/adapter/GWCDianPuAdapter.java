@@ -13,12 +13,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.MainActivity;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
-import com.mingmen.mayi.mayibanjia.bean.GWCDianPuShangPinBean;
-import com.mingmen.mayi.mayibanjia.bean.GWCShangPinBean;
 import com.mingmen.mayi.mayibanjia.bean.GouwucheDianpuBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
@@ -29,7 +26,6 @@ import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.fragment.gouwuche.GouWuCheFragment;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
-import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenu;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuBridge;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuCreator;
@@ -37,11 +33,10 @@ import com.yanzhenjie.recyclerview.swipe.SwipeMenuItem;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuItemClickListener;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import it.sephiroth.android.library.easing.Linear;
 
 import static android.widget.ListPopupWindow.MATCH_PARENT;
 
@@ -50,6 +45,7 @@ import static android.widget.ListPopupWindow.MATCH_PARENT;
  */
 
 public class GWCDianPuAdapter extends RecyclerView.Adapter<GWCDianPuAdapter.ViewHolder> {
+
     private ViewHolder viewHolder;
     private Context mContext;
     private List<GouwucheDianpuBean> dianpulist;
@@ -84,7 +80,7 @@ public class GWCDianPuAdapter extends RecyclerView.Adapter<GWCDianPuAdapter.View
     }
 
     @Override
-    public GWCDianPuAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         viewHolder = new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_gouwuche_dianpu, parent, false));
         return viewHolder;
     }
@@ -97,22 +93,38 @@ public class GWCDianPuAdapter extends RecyclerView.Adapter<GWCDianPuAdapter.View
         shangpinlist = datas.getSplist();
 //        holder.tv_name.setText(string.getTitle());
 //        holder.tv_laizi.setText(string.getCat_name());
-        holder.iv_jishida.setVisibility(View.GONE);
-        holder.tv_dianming.setText(datas.getCompany_name());
-        holder.tv_dianpushichang.setText(datas.getMarket_name());
-        holder.iv_danxuan.setSelected(datas.isSelect());
+        holder.tvDianming.setText(datas.getCompany_name());
+        holder.tvDianpushichang.setText(datas.getMarket_name());
+        holder.ivDanxuan.setSelected(datas.isSelect());
 
+        if (StringUtil.isValid(datas.getGold_supplier()) && datas.getGold_supplier().equals("0")) {
+            holder.ivJinpai.setVisibility(View.VISIBLE);
+        } else {
+            holder.ivJinpai.setVisibility(View.GONE);
+        }
+        if (StringUtil.isValid(datas.getProfile_enterprise()) && datas.getProfile_enterprise().equals("0")) {
+            holder.ivMing.setVisibility(View.VISIBLE);
+        } else {
+            holder.ivMing.setVisibility(View.GONE);
+        }
+        if (StringUtil.isValid(datas.getApproval_state()) && datas.getApproval_state().equals("0")) {
+            holder.ivRen.setVisibility(View.VISIBLE);
+        } else {
+            holder.ivRen.setVisibility(View.GONE);
+        }
         if (StringUtil.isValid(datas.getRealtime()) && datas.getRealtime().equals("0")) {
-            holder.iv_jishida.setVisibility(View.VISIBLE);
+            holder.ivDa.setVisibility(View.VISIBLE);
+        } else {
+            holder.ivDa.setVisibility(View.GONE);
         }
         if (isTeshu) {
-            shangpinadapter = new GWCShangPinAdapter(mContext, shangpinlist,  activity);
+            shangpinadapter = new GWCShangPinAdapter(mContext, shangpinlist, activity);
         } else {
             shangpinadapter = new GWCShangPinAdapter(mContext, shangpinlist, gouWuCheFragment);
         }
 
 
-        holder.ll_jindian.setOnClickListener(new View.OnClickListener() {
+        holder.llJindian.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent jindian = new Intent(mContext, DianPuActivity.class);
@@ -176,7 +188,7 @@ public class GWCDianPuAdapter extends RecyclerView.Adapter<GWCDianPuAdapter.View
                                             gouWuCheFragment.setShuaxin();
                                         }
 
-                                        if(MainActivity.instance!=null){
+                                        if (MainActivity.instance != null) {
                                             MainActivity.instance.getGwcNo();
                                         }
                                     }
@@ -194,56 +206,56 @@ public class GWCDianPuAdapter extends RecyclerView.Adapter<GWCDianPuAdapter.View
         };
 
         // 设置监听器。
-        holder.rv_shangpin.setSwipeMenuCreator(mSwipeMenuCreator);
+        holder.rvShangpin.setSwipeMenuCreator(mSwipeMenuCreator);
         // 菜单点击监听。
-        holder.rv_shangpin.setSwipeMenuItemClickListener(mMenuItemClickListener);
-        holder.rv_shangpin.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
-        holder.rv_shangpin.setAdapter(shangpinadapter);
+        holder.rvShangpin.setSwipeMenuItemClickListener(mMenuItemClickListener);
+        holder.rvShangpin.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+        holder.rvShangpin.setAdapter(shangpinadapter);
 //        if (mOnItemClickListener != null) {
-            holder.iv_danxuan.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    datas.setSelect(!datas.isSelect());
-                    holder.iv_danxuan.setSelected(datas.isSelect());
-                    Log.e("onClick: ",position+"---" );
+        holder.ivDanxuan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datas.setSelect(!datas.isSelect());
+                holder.ivDanxuan.setSelected(datas.isSelect());
+                Log.e("onClick: ", position + "---");
 //                    dianpulist.get(position).setSelect(datas.isSelect());
-                    if (isTeshu) {
+                if (isTeshu) {
 //                        for (int i = 0; i < dianpulist.get(position).getSplist().size(); i++) {
 //                            if (activity.isGuanli()) {
 //                                activity.allCheck(datas.isSelect(),position);
 //                            } else {
 //                                if (!dianpulist.get(position).getSplist().get(i).getCommodity_state().equals("1")) {
-                                    activity.allCheck(datas.isSelect(),position);
+                    activity.allCheck(datas.isSelect(), position);
 //                                } else {
 //                                    ToastUtil.showToastLong("包含已下架商品，请及时删除");
 //                                }
 //                            }
 //                        }
 
+                } else {
+                    gouWuCheFragment.allCheck(datas.isSelect(), position);
+                }
+                mOnItemClickListener.onClick(v, position, dianpulist);
+                if (isTeshu) {
+                    activity.getalllist();
+                    if (!activity.isGuanli()) {
+                        activity.getZongJia();
                     } else {
-                        gouWuCheFragment.allCheck(datas.isSelect(),position);
+                        return;
                     }
-                    mOnItemClickListener.onClick(v, position, dianpulist);
-                    if (isTeshu) {
-                        activity.getalllist();
-                        if(!activity.isGuanli()){
-                            activity.getZongJia();
-                        } else {
-                            return;
-                        }
 
+                } else {
+                    gouWuCheFragment.getalllist();
+                    if (!gouWuCheFragment.isGuanli()) {
+                        gouWuCheFragment.getZongJia();
                     } else {
-                        gouWuCheFragment.getalllist();
-                        if(!gouWuCheFragment.isGuanli()){
-                            gouWuCheFragment.getZongJia();
-                        } else {
-                            return;
-                        }
-
+                        return;
                     }
 
                 }
-            });
+
+            }
+        });
 //        }
         shangpinadapter.setOnItemClickListener(new GWCShangPinAdapter.OnItemClickListener() {
             @Override
@@ -257,7 +269,7 @@ public class GWCDianPuAdapter extends RecyclerView.Adapter<GWCDianPuAdapter.View
                         if (!mList.get(i).isSelect()) {
 //                        //遍历一级列表数据
 //                            //有一个未被选中,则全选按钮不会被选中
-                            holder.iv_danxuan.setSelected(false);
+                            holder.ivDanxuan.setSelected(false);
                             dianpulist.get(position).setSelect(false);
                             activity.setSelect(false);
                             activity.getIvQuanxuan().setSelected(false);
@@ -265,7 +277,7 @@ public class GWCDianPuAdapter extends RecyclerView.Adapter<GWCDianPuAdapter.View
                         }
                     }
                     //如果都被选中,则全选按钮选中
-                    holder.iv_danxuan.setSelected(true);
+                    holder.ivDanxuan.setSelected(true);
                     dianpulist.get(position).setSelect(true);
                     activity.setSelect(isquanxuan());
                     activity.getIvQuanxuan().setSelected(isquanxuan());
@@ -278,7 +290,7 @@ public class GWCDianPuAdapter extends RecyclerView.Adapter<GWCDianPuAdapter.View
                         if (!mList.get(i).isSelect()) {
 //                        //遍历一级列表数据
 //                            //有一个未被选中,则全选按钮不会被选中
-                            holder.iv_danxuan.setSelected(false);
+                            holder.ivDanxuan.setSelected(false);
                             dianpulist.get(position).setSelect(false);
                             gouWuCheFragment.setSelect(false);
                             gouWuCheFragment.getIvQuanxuan().setSelected(false);
@@ -286,7 +298,7 @@ public class GWCDianPuAdapter extends RecyclerView.Adapter<GWCDianPuAdapter.View
                         }
                     }
                     //如果都被选中,则全选按钮选中
-                    holder.iv_danxuan.setSelected(true);
+                    holder.ivDanxuan.setSelected(true);
                     dianpulist.get(position).setSelect(true);
                     gouWuCheFragment.setSelect(isquanxuan());
                     gouWuCheFragment.getIvQuanxuan().setSelected(isquanxuan());
@@ -315,22 +327,28 @@ public class GWCDianPuAdapter extends RecyclerView.Adapter<GWCDianPuAdapter.View
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView iv_danxuan;
-        ImageView iv_jishida;
-        TextView tv_dianming;
-        TextView tv_dianpushichang;
-        LinearLayout ll_jindian;
-        SwipeMenuRecyclerView rv_shangpin;
+        @BindView(R.id.iv_danxuan)
+        ImageView ivDanxuan;
+        @BindView(R.id.tv_dianming)
+        TextView tvDianming;
+        @BindView(R.id.ll_jindian)
+        LinearLayout llJindian;
+        @BindView(R.id.iv_jinpai)
+        ImageView ivJinpai;
+        @BindView(R.id.iv_ming)
+        ImageView ivMing;
+        @BindView(R.id.iv_ren)
+        ImageView ivRen;
+        @BindView(R.id.iv_da)
+        ImageView ivDa;
+        @BindView(R.id.tv_dianpushichang)
+        TextView tvDianpushichang;
+        @BindView(R.id.rv_shangpin)
+        SwipeMenuRecyclerView rvShangpin;
 
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
-            ll_jindian = view.findViewById(R.id.ll_jindian);
-            iv_danxuan = (ImageView) view.findViewById(R.id.iv_danxuan);
-            iv_jishida = (ImageView) view.findViewById(R.id.iv_jishida);
-            tv_dianming = (TextView) view.findViewById(R.id.tv_dianming);
-            tv_dianpushichang = (TextView) view.findViewById(R.id.tv_dianpushichang);
-            rv_shangpin = (SwipeMenuRecyclerView) view.findViewById(R.id.rv_shangpin);
         }
     }
 

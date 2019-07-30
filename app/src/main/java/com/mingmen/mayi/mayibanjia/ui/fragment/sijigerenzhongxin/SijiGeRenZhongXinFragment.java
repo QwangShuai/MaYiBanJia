@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -153,6 +154,7 @@ public class SijiGeRenZhongXinFragment extends BaseFragment {
                         }
                         tvCheleixing.setText(bean.getNew_wl_cars_type_name());
                         tvChepaihao.setText(bean.getNew_plate_number());
+
                     }
                 });
     }
@@ -171,6 +173,7 @@ public class SijiGeRenZhongXinFragment extends BaseFragment {
     }
     private void updateState() {
         type = type.equals("0")?"2":"0";
+        Log.e( "updateState: ", type);
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(RetrofitManager.getService()
@@ -179,6 +182,11 @@ public class SijiGeRenZhongXinFragment extends BaseFragment {
                     @Override
                     public void onNext(String data) {
                         ToastUtil.showToastLong("切换成功");
+                        if(type.equals("0")){
+                            tvJiedan.setText("停止接单");
+                        } else {
+                            tvJiedan.setText("开始接单");
+                        }
                     }
                 });
     }
@@ -193,7 +201,21 @@ public class SijiGeRenZhongXinFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_jiedan:
-                updateState();
+                confirmDialog.showDialog("是否确定切换状态");
+                confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        confirmDialog.dismiss();
+                        updateState();
+                    }
+                });
+                confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        confirmDialog.dismiss();
+                    }
+                });
+
                 break;
             case R.id.ll_jjlsjl:
                 Jump_intent(JuJueLiShiActivity.class,new Bundle());

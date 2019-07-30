@@ -1628,6 +1628,7 @@ public interface HttpService {
     //  物流经理查询可分车的车辆信息
     @POST("wl/queryOrderCar.do")
     Observable<ResultModel<List<CheliangBean>>> getCheliangList(@Query("user_token") String user_token,
+                                                                 @Query("cars_type") String cars_type,
                                                                  @Query("new_driver_name") String new_driver_name);
 
     // 分配物流车
@@ -1672,5 +1673,25 @@ public interface HttpService {
     @POST("wlcars/updateStopOrder.do")
     Observable<ResultModel<String>> isJiedan(@Query("user_token") String user_token,
                                              @Query("cars_type") String cars_type);
+
+    //验证手机号唯一性
+    @POST("wlcars/queryByTelephone.do")
+    Observable<ResultModel<String>> yanzhengPhone(@Query("user_token") String user_token,
+                                             @Query("new_driver_phone") String new_driver_phone);
+
+//    //商品管理：上架
+//    @POST("gyCommodity/queryshangjia.do?")
+//    Observable<ResultModel<ShangPinGuanLiBean>> shangjiaSpgl(@Query("user_token") String user_token,
+//                                                 @Query("commodity_name") String commodity_name,
+//                                                 @Query("goods") String goods,
+//                                                 @Query("company_id") String company_id,
+//                                                 @Query("pageNumber") int pageNumber);
+//    //商品管理：下架
+//    @POST("gyCommodity/queryxiajia.do?")
+//    Observable<ResultModel<ShangPinGuanLiBean>> xiajiaSpgl(@Query("user_token") String user_token,
+//                                                 @Query("commodity_name") String commodity_name,
+//                                                 @Query("goods") String goods,
+//                                                 @Query("company_id") String company_id,
+//                                                 @Query("pageNumber") int pageNumber);
 
 }

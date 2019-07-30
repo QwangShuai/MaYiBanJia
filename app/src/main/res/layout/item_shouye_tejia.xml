@@ -10,8 +10,9 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
+        android:layout_above="@+id/view"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="12dp">
         <RelativeLayout
             android:layout_marginLeft="12dp"
             android:layout_marginStart="12dp"
@@ -22,6 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
             <LinearLayout
+                android:visibility="gone"
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="5dp"
                 android:layout_width="43dp"
@@ -48,20 +50,6 @@
                 android:layout_height="23dp"
                 android:gravity="center_vertical"
                 android:layout_marginLeft="12dp">
-                <!--<com.mingmen.mayi.mayibanjia.utils.custom.MarqueeTextView-->
-                    <!--android:focusable="true"-->
-                    <!--android:focusableInTouchMode="true"-->
-                    <!--android:singleLine="true"-->
-                    <!--android:ellipsize="marquee"-->
-                    <!--android:id="@+id/tv_spming"-->
-                    <!--android:marqueeRepeatLimit="marquee_forever"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="甜橙"-->
-                    <!--android:textAllCaps="true"-->
-                    <!--android:textColor="#474747"-->
-                    <!--android:textSize="15sp" />-->
                 <TextView
                     android:singleLine="true"
                     android:id="@+id/tv_spming"
@@ -121,10 +109,10 @@
             <LinearLayout
                 android:layout_marginTop="4dp"
                 android:layout_marginLeft="12dp"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="bottom">
+                android:gravity="center_vertical">
                 <TextView
                     android:id="@+id/tv_dian"
                     android:layout_width="12dp"
@@ -136,14 +124,39 @@
                     android:gravity="center"
                     />
                 <TextView
+                    android:layout_weight="1"
                     android:id="@+id/tv_dianming"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="绿色天然蔬果店"
                     android:textColor="#999999"
                     android:textSize="12sp"
                     android:layout_marginLeft="5dp"
                     />
+                <ImageView
+                    android:layout_marginLeft="2dp"
+                    android:id="@+id/iv_jinpai"
+                    android:src="@mipmap/jinpai"
+                    android:layout_width="14dp"
+                    android:layout_height="17dp" />
+                <ImageView
+                    android:layout_marginLeft="2dp"
+                    android:id="@+id/iv_ming"
+                    android:src="@mipmap/ming"
+                    android:layout_width="17dp"
+                    android:layout_height="15dp" />
+                <ImageView
+                    android:layout_marginLeft="2dp"
+                    android:id="@+id/iv_ren"
+                    android:src="@mipmap/ren"
+                    android:layout_width="14dp"
+                    android:layout_height="16dp" />
+                <ImageView
+                    android:layout_marginLeft="2dp"
+                    android:id="@+id/iv_da"
+                    android:src="@mipmap/da"
+                    android:layout_width="14dp"
+                    android:layout_height="16dp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -192,5 +205,5 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/gray_e7e7e7"
-        />
+        android:id="@+id/view" />
 </RelativeLayout>

@@ -127,6 +127,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"></View>
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/ll_jszhxx"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
@@ -152,6 +153,7 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
             <View
+                android:visibility="gone"
                 android:layout_marginLeft="41dp"
                 android:background="@color/gray_e7e7e7"
                 android:layout_width="match_parent"

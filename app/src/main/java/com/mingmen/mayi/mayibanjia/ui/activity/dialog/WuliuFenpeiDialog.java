@@ -104,12 +104,14 @@ public class WuliuFenpeiDialog extends Dialog {
     private WuliuDingdanBean bean;
     private SonghuodizhiAdapter adapter;
     private String mytype;
+    private String chetype;
 
-    public WuliuFenpeiDialog(@NonNull Context context, WuliuDingdanBean bean,String mytype) {
+    public WuliuFenpeiDialog(@NonNull Context context,String chetype, WuliuDingdanBean bean,String mytype) {
         super(context);
         this.context = context;
         this.bean = bean;
         this.mytype = mytype;
+        this.chetype = chetype;
     }
 
     @Override
@@ -149,7 +151,9 @@ public class WuliuFenpeiDialog extends Dialog {
         tvXuanzecheliang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JumpUtil.Jump_intent(context, XuanZeCheLiangActivity.class,new Bundle());
+                Bundle bundle = new Bundle();
+                bundle.putString("type",chetype);
+                JumpUtil.Jump_intent(context, XuanZeCheLiangActivity.class,bundle);
             }
         });
         btSure.setOnClickListener(new View.OnClickListener() {

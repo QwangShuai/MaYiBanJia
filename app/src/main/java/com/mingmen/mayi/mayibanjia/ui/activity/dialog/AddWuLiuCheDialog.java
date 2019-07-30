@@ -77,7 +77,7 @@ public class AddWuLiuCheDialog extends Dialog {
             et_chepaihao.setText(cheliangBean.getNew_plate_number());
             tv_cheliangleixing.setText(cheliangBean.getNew_wl_cars_type_name());
         }
-        StringUtil.setInputNoEmoj(et_xingming,4);
+        StringUtil.setInputNoEmoj(et_xingming,10);
         StringUtil.setInputNoEmoj(et_chepaihao,24);
         rl.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,10 +119,11 @@ public class AddWuLiuCheDialog extends Dialog {
 //                    ToastUtil.showToast("车牌号格式错误");
 //
 //                } else
-                if(!StringUtil.exist(et_xingming.getText().toString())){
-                    ToastUtil.showToast("联系人姓名不正确!");
-                    return;
-                } else if(!AppUtil.isMobile(et_lianxifangshi.getText().toString())){
+//                if(!StringUtil.exist(et_xingming.getText().toString())){
+//                    ToastUtil.showToast("联系人姓名不正确!");
+//                    return;
+//                } else
+                    if(!AppUtil.isMobile(et_lianxifangshi.getText().toString())){
                     ToastUtil.showToast("手机号格式不正确!");
                     return;
                 } else if(TextUtils.isEmpty(cheliangBean.getNew_wl_cars_type())){
@@ -137,35 +138,46 @@ public class AddWuLiuCheDialog extends Dialog {
                     ToastUtil.showToast("车牌号不能为空!");
                     return;
                 }
-                if(StringUtil.isValid(cheliangBean.getWl_cars_id())){
-                    HttpManager.getInstance()
-                            .with(context)
-                            .setObservable(RetrofitManager.getService()
-                                    .updateCheliang(PreferenceUtils.getString(MyApplication.mContext, "token", ""), cheliangBean.getWl_cars_id(),
-                                            cheliangBean.getNew_driver_name(),cheliangBean.getNew_driver_phone(),
-                                            cheliangBean.getNew_plate_number(),cheliangBean.getNew_wl_cars_type()))
-                            .setDataListener(new HttpDataListener<String>() {
-                                @Override
-                                public void onNext(String data) {
-                                    EventBus.getDefault().post("0000");
-                                    dismiss();
+                HttpManager.getInstance()
+                        .with(context)
+                        .setObservable(RetrofitManager.getService()
+                                .yanzhengPhone(PreferenceUtils.getString(MyApplication.mContext, "token", ""),
+                                        cheliangBean.getNew_driver_phone()))
+                        .setDataListener(new HttpDataListener<String>() {
+                            @Override
+                            public void onNext(String data) {
+                                if(StringUtil.isValid(cheliangBean.getWl_cars_id())){
+                                    HttpManager.getInstance()
+                                            .with(context)
+                                            .setObservable(RetrofitManager.getService()
+                                                    .updateCheliang(PreferenceUtils.getString(MyApplication.mContext, "token", ""), cheliangBean.getWl_cars_id(),
+                                                            cheliangBean.getNew_driver_name(),cheliangBean.getNew_driver_phone(),
+                                                            cheliangBean.getNew_plate_number(),cheliangBean.getNew_wl_cars_type()))
+                                            .setDataListener(new HttpDataListener<String>() {
+                                                @Override
+                                                public void onNext(String data) {
+                                                    EventBus.getDefault().post("0000");
+                                                    dismiss();
+                                                }
+                                            });
+                                } else {
+                                    HttpManager.getInstance()
+                                            .with(context)
+                                            .setObservable(RetrofitManager.getService()
+                                                    .addCheliang(PreferenceUtils.getString(MyApplication.mContext, "token", ""),
+                                                            cheliangBean.getNew_driver_name(),cheliangBean.getNew_driver_phone(),
+                                                            cheliangBean.getNew_plate_number(),cheliangBean.getNew_wl_cars_type()))
+                                            .setDataListener(new HttpDataListener<String>() {
+                                                @Override
+                                                public void onNext(String data) {
+                                                    EventBus.getDefault().post("0000");
+                                                    dismiss();
+                                                }
+                                            });
                                 }
-                            });
-                } else {
-                    HttpManager.getInstance()
-                            .with(context)
-                            .setObservable(RetrofitManager.getService()
-                                    .addCheliang(PreferenceUtils.getString(MyApplication.mContext, "token", ""),
-                                            cheliangBean.getNew_driver_name(),cheliangBean.getNew_driver_phone(),
-                                            cheliangBean.getNew_plate_number(),cheliangBean.getNew_wl_cars_type()))
-                            .setDataListener(new HttpDataListener<String>() {
-                                @Override
-                                public void onNext(String data) {
-                                    EventBus.getDefault().post("0000");
-                                    dismiss();
-                                }
-                            });
-                }
+                            }
+                        });
+
 
             }
         });

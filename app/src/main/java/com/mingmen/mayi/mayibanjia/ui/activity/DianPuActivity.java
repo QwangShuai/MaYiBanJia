@@ -93,7 +93,7 @@ public class DianPuActivity extends BaseActivity implements View.OnClickListener
     @BindView(R.id.ll_weizhi)
     LinearLayout llWeizhi;
     @BindView(R.id.iv_bg)
-    ImageView iv_bg;
+    ImageView ivBg;
     @BindView(R.id.iv_jishida)
     ImageView ivJishida;
     @BindView(R.id.refresh_layout)
@@ -131,7 +131,6 @@ public class DianPuActivity extends BaseActivity implements View.OnClickListener
         jiarugouwuchedialog = new JiaRuGouWuCheDialog(mContext,
                 mContext.getResources().getIdentifier("BottomDialog", "style", mContext.getPackageName()));
         jiarugouwuchedialog.getWindow().setGravity(Gravity.BOTTOM | Gravity.LEFT | Gravity.RIGHT);
-        Glide.with(this).load(R.mipmap.timg).into(iv_bg);
         mLoadMoreListener = new SwipeMenuRecyclerView.LoadMoreListener() {
             @Override
             public void onLoadMore() {
@@ -341,6 +340,11 @@ public class DianPuActivity extends BaseActivity implements View.OnClickListener
 
     private void initView() {
         GlideUtils.cachePhoto(mContext,ivDiantu,dianpuxinxi.getFile_path());
+        if(StringUtil.isValid(dianpuxinxi.getPhone())){
+            GlideUtils.cachePhoto(mContext,ivBg,dianpuxinxi.getPhoto());
+        } else {
+            Glide.with(this).load(R.mipmap.timg).into(ivBg);
+        }
 //        tvDianming.setMarqueeEnable(true);
         tvDianming.setText(dianpuxinxi.getCompany_name()+"("+dianpuxinxi.getMarket_name()+")");
         tvPingfen.setText(dianpuxinxi.getEvaluation()+"");

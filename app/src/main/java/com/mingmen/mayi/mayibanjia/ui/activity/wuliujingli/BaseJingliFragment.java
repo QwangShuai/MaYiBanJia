@@ -166,11 +166,11 @@ public abstract class BaseJingliFragment extends BaseFragment {
             public void onClick(int position, View v, WuliuDingdanBean bean) {
                 switch (v.getId()){
                     case R.id.tv_fenpeiwuliuche:
-                        dialog = new WuliuFenpeiDialog(getContext(),bean,"0");
+                        dialog = new WuliuFenpeiDialog(getContext(),bean.getCars_type(),bean,"0");
                         dialog.show();
                         break;
                     case R.id.tv_biangeng:
-                        dialog = new WuliuFenpeiDialog(getContext(),bean,"1");
+                        dialog = new WuliuFenpeiDialog(getContext(),bean.getCars_type(),bean,"1");
                         dialog.show();
                         break;
                 }

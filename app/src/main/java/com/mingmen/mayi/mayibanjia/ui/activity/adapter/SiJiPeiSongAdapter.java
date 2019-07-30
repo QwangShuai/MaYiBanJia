@@ -295,7 +295,7 @@ public class SiJiPeiSongAdapter extends RecyclerView.Adapter<SiJiPeiSongAdapter.
 //                } else {
                     Intent it = new Intent(mContext, WeiYiQrCodeActivity.class);
                     it.putExtra("type", "gyID");
-//                    it.putExtra("gyID", String.valueOf(mList.get(position).getGy_order_id()));
+                    it.putExtra("gyID", String.valueOf(mList.get(position).getGy_order_id()));
                     mContext.startActivity(it);
 //                }
 

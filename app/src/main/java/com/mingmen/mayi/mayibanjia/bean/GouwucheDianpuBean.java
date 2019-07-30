@@ -60,6 +60,34 @@ public class GouwucheDianpuBean {
     private int number;
     private boolean isSelect;
 
+    private String gold_supplier;//金牌
+    private String profile_enterprise;//知名企业
+    private String approval_state;//认证
+
+    public String getGold_supplier() {
+        return gold_supplier;
+    }
+
+    public void setGold_supplier(String gold_supplier) {
+        this.gold_supplier = gold_supplier;
+    }
+
+    public String getProfile_enterprise() {
+        return profile_enterprise;
+    }
+
+    public void setProfile_enterprise(String profile_enterprise) {
+        this.profile_enterprise = profile_enterprise;
+    }
+
+    public String getApproval_state() {
+        return approval_state;
+    }
+
+    public void setApproval_state(String approval_state) {
+        this.approval_state = approval_state;
+    }
+
     public boolean isSelect() {
         return isSelect;
     }

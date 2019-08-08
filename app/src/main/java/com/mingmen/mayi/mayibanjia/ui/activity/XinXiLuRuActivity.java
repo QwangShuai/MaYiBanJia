@@ -518,23 +518,6 @@ public class XinXiLuRuActivity extends BaseActivity {
         }
     }
 
-    private void getsheng() {
-        HttpManager.getInstance()
-                .with(mContext)
-                .setObservable(
-                        RetrofitManager
-                                .getService()
-                                .getsheng(PreferenceUtils.getString(MyApplication.mContext, "token", ""), city + ""))
-                .setDataListener(new HttpDataListener<List<ProvinceBean>>() {
-                    @Override
-                    public void onNext(final List<ProvinceBean> list) {
-                        zonglist = new ArrayList<ProvinceBean>();
-                        zonglist.addAll(list);
-                        jiedialog();
-
-                    }
-                });
-    }
 
     private void jiedialog() {
         if (zonglist.size() != 0) {
@@ -556,37 +539,6 @@ public class XinXiLuRuActivity extends BaseActivity {
             ToastUtil.showToast("暂无街道信息,信息录入失败");
         }
     }
-    //企业规模
-//    private void getguimo() {
-//            HttpManager.getInstance()
-//                    .with(mContext)
-//                    .setObservable(
-//                            RetrofitManager
-//                                    .getService()
-//                                    .getqygm())
-//                    .setDataListener(new HttpDataListener<List<QiYeGuiMoBean>>() {
-//                        @Override
-//                        public void onNext(List<QiYeGuiMoBean> data) {
-//                            final SinglePicker<QiYeGuiMoBean> picker =new SinglePicker<QiYeGuiMoBean>(XinXiLuRuActivity.this,data);
-//                            picker.setCanceledOnTouchOutside(false);
-//                            picker.setSelectedIndex(1);
-//                            picker.setCycleDisable(false);
-//                            picker.setOnItemPickListener(new SinglePicker.OnItemPickListener<QiYeGuiMoBean>() {
-//                                @Override
-//                                public void onItemPicked(int index, QiYeGuiMoBean item) {
-//
-//                                    guimoname = item.getSon_name();
-//                                    guimoid = item.getSon_number();
-//                                    etQiyeguimo.setText(guimoname);
-//                                    Log.e("guimoname+guimoid",guimoname+"+"+guimoid);
-//                                    picker.dismiss();
-//                                }
-//                            });
-//                            picker.show();
-//
-//                        }
-//                    });
-//    }
 
     //企业类别
     private void getleibie() {

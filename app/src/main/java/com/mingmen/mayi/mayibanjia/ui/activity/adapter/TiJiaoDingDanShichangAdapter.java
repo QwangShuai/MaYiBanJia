@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.QueRenDingDanShangPinBean;
 import com.mingmen.mayi.mayibanjia.bean.YunFeiBean;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -125,7 +126,7 @@ public class TiJiaoDingDanShichangAdapter extends RecyclerView.Adapter<RecyclerV
             }
         });
         holder.tvZonge.setText("商品总额：  ￥"+bean.getMoney());
-        if(bean.getYunfei()!=null){
+        if(StringUtil.isValid(bean.getYunfei().toString())&&!"null".equals(bean.getYunfei().toString())){
             holder.tvYunfei.setText(bean.getYunfei()+"");
         }
         holder.tvShichang.setText(bean.getMarket_name());

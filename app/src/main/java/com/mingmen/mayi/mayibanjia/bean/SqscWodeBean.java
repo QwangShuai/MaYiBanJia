@@ -61,6 +61,7 @@ public class SqscWodeBean {
     private String telephone;
     private String company_name;
     private String realtime;
+    private String istrue_ssd;
     private int wait_qr;
     private int wait_db;
     private int wait_sh;
@@ -78,6 +79,14 @@ public class SqscWodeBean {
     private double money;
     private int audit_shibai;
     private int wait_fh;
+
+    public String getIstrue_ssd() {
+        return istrue_ssd;
+    }
+
+    public void setIstrue_ssd(String istrue_ssd) {
+        this.istrue_ssd = istrue_ssd;
+    }
 
     public int getWait_fh() {
         return wait_fh;

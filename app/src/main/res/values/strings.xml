@@ -3,6 +3,7 @@
     <string name="title_activity_wu_liu">WuLiuActivity</string>
     <string name="wl_fenpeiwuliuche"><u>分配物流车</u></string>
     <string name="wl_biangeng"><u>变更</u></string>
+    <string name="wl_jiejueyichang"><u>解决异常</u></string>
     <!--<string name="xiaoliangzuigao"><u>销量最高</u></string>-->
     <!--<string name="jiagezuidi"><u>价格最低</u></string>-->
     <!--<string name="pingfenzuigao"><u>评分最高</u></string>-->

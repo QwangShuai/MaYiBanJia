@@ -21,7 +21,7 @@ public class ShangPinAdapter extends FragmentPagerAdapter {
 
 
     private Context mContext;
-    private String[] Titles = {"全部","在售商品","下架","待审核","审核失败"};
+    private String[] Titles = {"全部","在售商品","下架","审核中","审核失败"};
     private String[] fragments = {
             QuanBuShangPinFragment.class.getName(),
             ShangJiaShangPinFragment.class.getName(),
@@ -34,6 +34,7 @@ public class ShangPinAdapter extends FragmentPagerAdapter {
         super(fm);
         this.mContext=context;
     }
+
     @Override
     public Fragment getItem(int position) {
         return Fragment.instantiate(mContext,fragments[position]);

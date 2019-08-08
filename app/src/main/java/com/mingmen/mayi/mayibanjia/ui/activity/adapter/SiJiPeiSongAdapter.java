@@ -194,7 +194,7 @@ public class SiJiPeiSongAdapter extends RecyclerView.Adapter<SiJiPeiSongAdapter.
                     @Override
                     public void onClick(View view) {
 //                        callBack.onClick(view,position);
-                        ShuruDailog dialog = new ShuruDailog(mContext, new ShuruDailog.CallBack() {
+                        ShuruDailog dialog = new ShuruDailog(mContext,"拒绝理由","请输入拒绝理由", new ShuruDailog.CallBack() {
                             @Override
                             public void confirm(String msg) {
                                 jiedanState(data.getWl_cars_id(),msg,"2");

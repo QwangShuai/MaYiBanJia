@@ -12,12 +12,20 @@ import android.widget.TextView;
 
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.WuliuDingdanBean;
+import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
+import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
+import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.ShangPinGuanLiActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ChangeWuLiuDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.FenPeiWuLiuCheDialog;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.MessageDailog;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ShuruDailog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.WuliuFenpeiDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.wuliujingli.BaseJingliFragment;
+import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -52,14 +60,6 @@ public class WuLiuFenPeiAdapter extends RecyclerView.Adapter<WuLiuFenPeiAdapter.
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final WuliuDingdanBean data = mList.get(position);
-        if (data.getWl_cars_state().equals("0")) {
-            holder.tvOrfenche.setText("未分车");
-        } else if (data.getWl_cars_state().equals("1")) {
-            holder.tvOrfenche.setText("已分车");
-        } else {
-            holder.tvOrfenche.setText("已变更");
-            holder.tvOrfenche.setTextColor(R.color.red_ff3300);
-        }
         holder.tvFenpeiwuliuche.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {//分配物流车
@@ -71,6 +71,33 @@ public class WuLiuFenPeiAdapter extends RecyclerView.Adapter<WuLiuFenPeiAdapter.
 
             }
         });
+        if (data.getWl_cars_state().equals("0")) {
+            holder.tvOrfenche.setText("未分车");
+            holder.tvOrfenche.setTextColor(R.color.zicolor);
+        } else if (data.getWl_cars_state().equals("1")) {
+            holder.tvOrfenche.setText("已分车");
+            holder.tvOrfenche.setTextColor(R.color.zicolor);
+        } else if(data.getWl_cars_state().equals("2")) {
+            holder.tvOrfenche.setText("已变更");
+            holder.tvOrfenche.setTextColor(R.color.red_ff3300);
+        } else {
+            holder.tvOrfenche.setText("异常");
+            holder.tvOrfenche.setTextColor(R.color.red_ff3300);
+            holder.tvFenpeiwuliuche.setText(mContext.getString(R.string.wl_jiejueyichang));
+            holder.tvFenpeiwuliuche.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {//分配物流车
+                    ShuruDailog dialog = new ShuruDailog(mContext,"解决原因","请输入解决原因", new ShuruDailog.CallBack() {
+                        @Override
+                        public void confirm(String msg) {
+                            jjycWl(data.getWl_cars_order_number(),data.getWl_cars_id(),msg);
+                        }
+                    });
+                    dialog.show();
+                }
+            });
+        }
+
         holder.tvBiangeng.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {//变更
@@ -184,5 +211,18 @@ public class WuLiuFenPeiAdapter extends RecyclerView.Adapter<WuLiuFenPeiAdapter.
             super(view);
             ButterKnife.bind(this, view);
         }
+    }
+    private void jjycWl(String number, String id, String remarke){
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(RetrofitManager.getService()
+                        .jjycWl(PreferenceUtils.getString(mContext,"token",""),number,id,remarke))
+                .setDataListener(new HttpDataListener<String>() {
+                    @Override
+                    public void onNext(String data) {
+                        ToastUtil.showToastLong("成功");
+                        EventBus.getDefault().post("成功");
+                    }
+                });
     }
 }

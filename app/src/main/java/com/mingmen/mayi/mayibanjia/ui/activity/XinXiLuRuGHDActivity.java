@@ -201,6 +201,7 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
             Log.e("shichang_id--", qiyexinxi.getMarket_id());
             tvQuyuxuanze.setText(qiyexinxi.getQuYMC() + "-" + qiyexinxi.getQuYMCa() + "-" + qiyexinxi.getQuYMCb());
             etXiangxidizhi.setText(qiyexinxi.getSpecific_address());
+            tvQiyeleibie.setText(leibiename);
             GlideUtils.cachePhoto(mContext, ivTu, shidizhaopian);
             etPhone.setText(phone);
             tvXuanzeshichang.setText(shichangming);
@@ -447,8 +448,8 @@ public class XinXiLuRuGHDActivity extends BaseActivity {
 //                                            getImageAbsolutePath(CTDWanShanXinXiActivity.this,outputUri)
                                                 Log.e("qiniu", "Upload Success");
                                                 try {
-                                                    customDialog.dismiss();
                                                     shidizhaopian = res.getString("key");
+                                                    customDialog.dismiss();
                                                 } catch (JSONException e) {
                                                     e.printStackTrace();
                                                 }

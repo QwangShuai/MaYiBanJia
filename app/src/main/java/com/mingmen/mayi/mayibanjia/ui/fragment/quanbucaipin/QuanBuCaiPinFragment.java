@@ -385,7 +385,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                         String spguige = "";
 
                         jiarugouwuchedialog.showDialog(data.getInventory(), data.getClassify_name(), data.getPackStandard(), data.getRation_one() + "", data.getPrice() + ""
-                                , data.getHostPath());
+                                , data.getPicture_url());
                         final String finalSpguige = spguige;
                         jiarugouwuchedialog.getBtQueding().setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -465,7 +465,7 @@ public class QuanBuCaiPinFragment extends BaseFragment {
                         }
                         if (shangpin.getZhengchang() != null) {
                             if (QuanBuCaiPinFragment.this.isVisible()) {
-                                if (shangpin.getZhengchang().size() == 5) {
+                                if (shangpin.getZhengchang().size() == 10) {
                                     rvShangpin.loadMoreFinish(false, true);
                                 } else if (shangpin.getZhengchang().size() > 0) {
                                     rvShangpin.loadMoreFinish(false, false);

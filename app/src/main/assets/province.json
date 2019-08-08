@@ -251,12 +251,6 @@
         "qulist": [
           {
             "quyfjbm": 130100,
-            "quybm": 130101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 130100,
             "quybm": 130102,
             "dengj": 3,
             "quymc": "长安区"
@@ -403,12 +397,6 @@
         "qulist": [
           {
             "quyfjbm": 130200,
-            "quybm": 130201,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 130200,
             "quybm": 130202,
             "dengj": 3,
             "quymc": "路南区"
@@ -501,12 +489,6 @@
         "qulist": [
           {
             "quyfjbm": 130300,
-            "quybm": 130301,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 130300,
             "quybm": 130302,
             "dengj": 3,
             "quymc": "海港区"
@@ -555,12 +537,6 @@
         "quybm": 130400,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 130400,
-            "quybm": 130401,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 130400,
             "quybm": 130402,
@@ -685,12 +661,6 @@
         "qulist": [
           {
             "quyfjbm": 130500,
-            "quybm": 130501,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 130500,
             "quybm": 130502,
             "dengj": 3,
             "quymc": "桥东区"
@@ -811,12 +781,6 @@
         "quybm": 130600,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 130600,
-            "quybm": 130601,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 130600,
             "quybm": 130602,
@@ -977,12 +941,6 @@
         "qulist": [
           {
             "quyfjbm": 130700,
-            "quybm": 130701,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 130700,
             "quybm": 130702,
             "dengj": 3,
             "quymc": "桥东区"
@@ -1093,12 +1051,6 @@
         "qulist": [
           {
             "quyfjbm": 130800,
-            "quybm": 130801,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 130800,
             "quybm": 130802,
             "dengj": 3,
             "quymc": "双桥区"
@@ -1171,12 +1123,6 @@
         "quybm": 130900,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 130900,
-            "quybm": 130901,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 130900,
             "quybm": 130902,
@@ -1283,12 +1229,6 @@
         "qulist": [
           {
             "quyfjbm": 131000,
-            "quybm": 131001,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 131000,
             "quybm": 131002,
             "dengj": 3,
             "quymc": "安次区"
@@ -1355,12 +1295,6 @@
         "quybm": 131100,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 131100,
-            "quybm": 131101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 131100,
             "quybm": 131102,
@@ -1445,12 +1379,6 @@
         "qulist": [
           {
             "quyfjbm": 140100,
-            "quybm": 140101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 140100,
             "quybm": 140105,
             "dengj": 3,
             "quymc": "小店区"
@@ -1517,12 +1445,6 @@
         "quybm": 140200,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 140200,
-            "quybm": 140201,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 140200,
             "quybm": 140202,
@@ -1599,12 +1521,6 @@
         "qulist": [
           {
             "quyfjbm": 140300,
-            "quybm": 140301,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 140300,
             "quybm": 140302,
             "dengj": 3,
             "quymc": "城区"
@@ -1641,12 +1557,6 @@
         "quybm": 140400,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 140400,
-            "quybm": 140401,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 140400,
             "quybm": 140402,
@@ -1735,12 +1645,6 @@
         "qulist": [
           {
             "quyfjbm": 140500,
-            "quybm": 140501,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 140500,
             "quybm": 140502,
             "dengj": 3,
             "quymc": "城区"
@@ -1785,12 +1689,6 @@
         "qulist": [
           {
             "quyfjbm": 140600,
-            "quybm": 140601,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 140600,
             "quybm": 140602,
             "dengj": 3,
             "quymc": "朔城区"
@@ -1833,12 +1731,6 @@
         "quybm": 140700,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 140700,
-            "quybm": 140701,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 140700,
             "quybm": 140702,
@@ -1913,12 +1805,6 @@
         "quybm": 140800,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 140800,
-            "quybm": 140801,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 140800,
             "quybm": 140802,
@@ -2005,12 +1891,6 @@
         "quybm": 140900,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 140900,
-            "quybm": 140901,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 140900,
             "quybm": 140902,
@@ -2103,12 +1983,6 @@
         "quybm": 141000,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 141000,
-            "quybm": 141001,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 141000,
             "quybm": 141002,
@@ -2221,12 +2095,6 @@
         "qulist": [
           {
             "quyfjbm": 141100,
-            "quybm": 141101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 141100,
             "quybm": 141102,
             "dengj": 3,
             "quymc": "离石区"
@@ -2321,12 +2189,6 @@
         "qulist": [
           {
             "quyfjbm": 150100,
-            "quybm": 150101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 150100,
             "quybm": 150102,
             "dengj": 3,
             "quymc": "新城区"
@@ -2387,12 +2249,6 @@
         "quybm": 150200,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 150200,
-            "quybm": 150201,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 150200,
             "quybm": 150202,
@@ -2457,12 +2313,6 @@
         "qulist": [
           {
             "quyfjbm": 150300,
-            "quybm": 150301,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 150300,
             "quybm": 150302,
             "dengj": 3,
             "quymc": "海勃湾区"
@@ -2487,12 +2337,6 @@
         "quybm": 150400,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 150400,
-            "quybm": 150401,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 150400,
             "quybm": 150402,
@@ -2575,12 +2419,6 @@
         "qulist": [
           {
             "quyfjbm": 150500,
-            "quybm": 150501,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 150500,
             "quybm": 150502,
             "dengj": 3,
             "quymc": "科尔沁区"
@@ -2637,12 +2475,6 @@
         "qulist": [
           {
             "quyfjbm": 150600,
-            "quybm": 150601,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 150600,
             "quybm": 150602,
             "dengj": 3,
             "quymc": "东胜区"
@@ -2697,12 +2529,6 @@
         "quybm": 150700,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 150700,
-            "quybm": 150701,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 150700,
             "quybm": 150702,
@@ -2791,12 +2617,6 @@
         "qulist": [
           {
             "quyfjbm": 150800,
-            "quybm": 150801,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 150800,
             "quybm": 150802,
             "dengj": 3,
             "quymc": "临河区"
@@ -2845,12 +2665,6 @@
         "quybm": 150900,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 150900,
-            "quybm": 150901,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 150900,
             "quybm": 150902,
@@ -3085,12 +2899,6 @@
         "qulist": [
           {
             "quyfjbm": 210100,
-            "quybm": 210101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 210100,
             "quybm": 210102,
             "dengj": 3,
             "quymc": "和平区"
@@ -3177,12 +2985,6 @@
         "qulist": [
           {
             "quyfjbm": 210200,
-            "quybm": 210201,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 210200,
             "quybm": 210202,
             "dengj": 3,
             "quymc": "中山区"
@@ -3251,12 +3053,6 @@
         "qulist": [
           {
             "quyfjbm": 210300,
-            "quybm": 210301,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 210300,
             "quybm": 210302,
             "dengj": 3,
             "quymc": "铁东区"
@@ -3305,12 +3101,6 @@
         "quybm": 210400,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 210400,
-            "quybm": 210401,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 210400,
             "quybm": 210402,
@@ -3363,12 +3153,6 @@
         "qulist": [
           {
             "quyfjbm": 210500,
-            "quybm": 210501,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 210500,
             "quybm": 210502,
             "dengj": 3,
             "quymc": "平山区"
@@ -3413,12 +3197,6 @@
         "qulist": [
           {
             "quyfjbm": 210600,
-            "quybm": 210601,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 210600,
             "quybm": 210602,
             "dengj": 3,
             "quymc": "元宝区"
@@ -3461,12 +3239,6 @@
         "quybm": 210700,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 210700,
-            "quybm": 210701,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 210700,
             "quybm": 210702,
@@ -3519,12 +3291,6 @@
         "qulist": [
           {
             "quyfjbm": 210800,
-            "quybm": 210801,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 210800,
             "quybm": 210802,
             "dengj": 3,
             "quymc": "站前区"
@@ -3567,12 +3333,6 @@
         "quybm": 210900,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 210900,
-            "quybm": 210901,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 210900,
             "quybm": 210902,
@@ -3625,12 +3385,6 @@
         "qulist": [
           {
             "quyfjbm": 211000,
-            "quybm": 211001,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 211000,
             "quybm": 211002,
             "dengj": 3,
             "quymc": "白塔区"
@@ -3681,12 +3435,6 @@
         "qulist": [
           {
             "quyfjbm": 211100,
-            "quybm": 211101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 211100,
             "quybm": 211102,
             "dengj": 3,
             "quymc": "双台子区"
@@ -3717,12 +3465,6 @@
         "quybm": 211200,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 211200,
-            "quybm": 211201,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 211200,
             "quybm": 211202,
@@ -3775,12 +3517,6 @@
         "qulist": [
           {
             "quyfjbm": 211300,
-            "quybm": 211301,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 211300,
             "quybm": 211302,
             "dengj": 3,
             "quymc": "双塔区"
@@ -3829,12 +3565,6 @@
         "quybm": 211400,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 211400,
-            "quybm": 211401,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 211400,
             "quybm": 211402,
@@ -3887,12 +3617,6 @@
         "quybm": 220100,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 220100,
-            "quybm": 220101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 220100,
             "quybm": 220102,
@@ -3963,12 +3687,6 @@
         "qulist": [
           {
             "quyfjbm": 220200,
-            "quybm": 220201,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 220200,
             "quybm": 220202,
             "dengj": 3,
             "quymc": "昌邑区"
@@ -4031,12 +3749,6 @@
         "qulist": [
           {
             "quyfjbm": 220300,
-            "quybm": 220301,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 220300,
             "quybm": 220302,
             "dengj": 3,
             "quymc": "铁西区"
@@ -4081,12 +3793,6 @@
         "qulist": [
           {
             "quyfjbm": 220400,
-            "quybm": 220401,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 220400,
             "quybm": 220402,
             "dengj": 3,
             "quymc": "龙山区"
@@ -4117,12 +3823,6 @@
         "quybm": 220500,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 220500,
-            "quybm": 220501,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 220500,
             "quybm": 220502,
@@ -4175,12 +3875,6 @@
         "qulist": [
           {
             "quyfjbm": 220600,
-            "quybm": 220601,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 220600,
             "quybm": 220602,
             "dengj": 3,
             "quymc": "八道江区"
@@ -4225,12 +3919,6 @@
         "qulist": [
           {
             "quyfjbm": 220700,
-            "quybm": 220701,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 220700,
             "quybm": 220702,
             "dengj": 3,
             "quymc": "宁江区"
@@ -4267,12 +3955,6 @@
         "quybm": 220800,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 220800,
-            "quybm": 220801,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 220800,
             "quybm": 220802,
@@ -4375,12 +4057,6 @@
         "quybm": 230100,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 230100,
-            "quybm": 230101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 230100,
             "quybm": 230102,
@@ -4499,12 +4175,6 @@
         "qulist": [
           {
             "quyfjbm": 230200,
-            "quybm": 230201,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 230200,
             "quybm": 230202,
             "dengj": 3,
             "quymc": "龙沙区"
@@ -4609,12 +4279,6 @@
         "qulist": [
           {
             "quyfjbm": 230300,
-            "quybm": 230301,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 230300,
             "quybm": 230302,
             "dengj": 3,
             "quymc": "鸡冠区"
@@ -4677,12 +4341,6 @@
         "qulist": [
           {
             "quyfjbm": 230400,
-            "quybm": 230401,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 230400,
             "quybm": 230402,
             "dengj": 3,
             "quymc": "向阳区"
@@ -4739,12 +4397,6 @@
         "qulist": [
           {
             "quyfjbm": 230500,
-            "quybm": 230501,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 230500,
             "quybm": 230502,
             "dengj": 3,
             "quymc": "尖山区"
@@ -4799,12 +4451,6 @@
         "quybm": 230600,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 230600,
-            "quybm": 230601,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 230600,
             "quybm": 230602,
@@ -4867,12 +4513,6 @@
         "quybm": 230700,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 230700,
-            "quybm": 230701,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 230700,
             "quybm": 230702,
@@ -4985,12 +4625,6 @@
         "qulist": [
           {
             "quyfjbm": 230800,
-            "quybm": 230801,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 230800,
             "quybm": 230803,
             "dengj": 3,
             "quymc": "向阳区"
@@ -5059,12 +4693,6 @@
         "qulist": [
           {
             "quyfjbm": 230900,
-            "quybm": 230901,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 230900,
             "quybm": 230902,
             "dengj": 3,
             "quymc": "新兴区"
@@ -5095,12 +4723,6 @@
         "quybm": 231000,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 231000,
-            "quybm": 231001,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 231000,
             "quybm": 231002,
@@ -5171,12 +4793,6 @@
         "qulist": [
           {
             "quyfjbm": 231100,
-            "quybm": 231101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 231100,
             "quybm": 231102,
             "dengj": 3,
             "quymc": "爱辉区"
@@ -5219,12 +4835,6 @@
         "quybm": 231200,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 231200,
-            "quybm": 231201,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 231200,
             "quybm": 231202,
@@ -5455,12 +5065,6 @@
         "qulist": [
           {
             "quyfjbm": 320100,
-            "quybm": 320101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 320100,
             "quybm": 320102,
             "dengj": 3,
             "quymc": "玄武区"
@@ -5547,12 +5151,6 @@
         "qulist": [
           {
             "quyfjbm": 320200,
-            "quybm": 320201,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 320200,
             "quybm": 320202,
             "dengj": 3,
             "quymc": "崇安区"
@@ -5607,12 +5205,6 @@
         "quybm": 320300,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 320300,
-            "quybm": 320301,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 320300,
             "quybm": 320302,
@@ -5683,12 +5275,6 @@
         "qulist": [
           {
             "quyfjbm": 320400,
-            "quybm": 320401,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 320400,
             "quybm": 320402,
             "dengj": 3,
             "quymc": "天宁区"
@@ -5737,12 +5323,6 @@
         "quybm": 320500,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 320500,
-            "quybm": 320501,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 320500,
             "quybm": 320502,
@@ -5819,12 +5399,6 @@
         "qulist": [
           {
             "quyfjbm": 320600,
-            "quybm": 320601,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 320600,
             "quybm": 320602,
             "dengj": 3,
             "quymc": "崇川区"
@@ -5881,12 +5455,6 @@
         "qulist": [
           {
             "quyfjbm": 320700,
-            "quybm": 320701,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 320700,
             "quybm": 320703,
             "dengj": 3,
             "quymc": "连云区"
@@ -5935,12 +5503,6 @@
         "quybm": 320800,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 320800,
-            "quybm": 320801,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 320800,
             "quybm": 320802,
@@ -5997,12 +5559,6 @@
         "quybm": 320900,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 320900,
-            "quybm": 320901,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 320900,
             "quybm": 320902,
@@ -6067,12 +5623,6 @@
         "qulist": [
           {
             "quyfjbm": 321000,
-            "quybm": 321001,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 321000,
             "quybm": 321002,
             "dengj": 3,
             "quymc": "广陵区"
@@ -6115,12 +5665,6 @@
         "quybm": 321100,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 321100,
-            "quybm": 321101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 321100,
             "quybm": 321102,
@@ -6167,12 +5711,6 @@
         "qulist": [
           {
             "quyfjbm": 321200,
-            "quybm": 321201,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 321200,
             "quybm": 321202,
             "dengj": 3,
             "quymc": "海陵区"
@@ -6215,12 +5753,6 @@
         "quybm": 321300,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 321300,
-            "quybm": 321301,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 321300,
             "quybm": 321302,
@@ -6267,12 +5799,6 @@
         "quybm": 330100,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 330100,
-            "quybm": 330101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 330100,
             "quybm": 330102,
@@ -6361,12 +5887,6 @@
         "qulist": [
           {
             "quyfjbm": 330200,
-            "quybm": 330201,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 330200,
             "quybm": 330203,
             "dengj": 3,
             "quymc": "海曙区"
@@ -6439,12 +5959,6 @@
         "quybm": 330300,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 330300,
-            "quybm": 330301,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 330300,
             "quybm": 330302,
@@ -6521,12 +6035,6 @@
         "qulist": [
           {
             "quyfjbm": 330400,
-            "quybm": 330401,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 330400,
             "quybm": 330402,
             "dengj": 3,
             "quymc": "南湖区"
@@ -6577,12 +6085,6 @@
         "qulist": [
           {
             "quyfjbm": 330500,
-            "quybm": 330501,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 330500,
             "quybm": 330502,
             "dengj": 3,
             "quymc": "吴兴区"
@@ -6619,12 +6121,6 @@
         "quybm": 330600,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 330600,
-            "quybm": 330601,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 330600,
             "quybm": 330602,
@@ -6669,12 +6165,6 @@
         "quybm": 330700,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 330700,
-            "quybm": 330701,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 330700,
             "quybm": 330702,
@@ -6739,12 +6229,6 @@
         "qulist": [
           {
             "quyfjbm": 330800,
-            "quybm": 330801,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 330800,
             "quybm": 330802,
             "dengj": 3,
             "quymc": "柯城区"
@@ -6789,12 +6273,6 @@
         "qulist": [
           {
             "quyfjbm": 330900,
-            "quybm": 330901,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 330900,
             "quybm": 330902,
             "dengj": 3,
             "quymc": "定海区"
@@ -6825,12 +6303,6 @@
         "quybm": 331000,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 331000,
-            "quybm": 331001,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 331000,
             "quybm": 331002,
@@ -6893,12 +6365,6 @@
         "quybm": 331100,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 331100,
-            "quybm": 331101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 331100,
             "quybm": 331102,
@@ -6971,12 +6437,6 @@
         "qulist": [
           {
             "quyfjbm": 340100,
-            "quybm": 340101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 340100,
             "quybm": 340102,
             "dengj": 3,
             "quymc": "瑶海区"
@@ -7039,12 +6499,6 @@
         "qulist": [
           {
             "quyfjbm": 340200,
-            "quybm": 340201,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 340200,
             "quybm": 340202,
             "dengj": 3,
             "quymc": "镜湖区"
@@ -7101,12 +6555,6 @@
         "qulist": [
           {
             "quyfjbm": 340300,
-            "quybm": 340301,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 340300,
             "quybm": 340302,
             "dengj": 3,
             "quymc": "龙子湖区"
@@ -7157,12 +6605,6 @@
         "qulist": [
           {
             "quyfjbm": 340400,
-            "quybm": 340401,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 340400,
             "quybm": 340402,
             "dengj": 3,
             "quymc": "大通区"
@@ -7205,12 +6647,6 @@
         "quybm": 340500,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 340500,
-            "quybm": 340501,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 340500,
             "quybm": 340502,
@@ -7257,12 +6693,6 @@
         "qulist": [
           {
             "quyfjbm": 340600,
-            "quybm": 340601,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 340600,
             "quybm": 340602,
             "dengj": 3,
             "quymc": "杜集区"
@@ -7295,12 +6725,6 @@
         "qulist": [
           {
             "quyfjbm": 340700,
-            "quybm": 340701,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 340700,
             "quybm": 340702,
             "dengj": 3,
             "quymc": "铜官山区"
@@ -7331,12 +6755,6 @@
         "quybm": 340800,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 340800,
-            "quybm": 340801,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 340800,
             "quybm": 340802,
@@ -7413,12 +6831,6 @@
         "qulist": [
           {
             "quyfjbm": 341000,
-            "quybm": 341001,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 341000,
             "quybm": 341002,
             "dengj": 3,
             "quymc": "屯溪区"
@@ -7467,12 +6879,6 @@
         "quybm": 341100,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 341100,
-            "quybm": 341101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 341100,
             "quybm": 341102,
@@ -7531,12 +6937,6 @@
         "qulist": [
           {
             "quyfjbm": 341200,
-            "quybm": 341201,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 341200,
             "quybm": 341202,
             "dengj": 3,
             "quymc": "颍州区"
@@ -7593,12 +6993,6 @@
         "qulist": [
           {
             "quyfjbm": 341300,
-            "quybm": 341301,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 341300,
             "quybm": 341302,
             "dengj": 3,
             "quymc": "埇桥区"
@@ -7635,12 +7029,6 @@
         "quybm": 341500,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 341500,
-            "quybm": 341501,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 341500,
             "quybm": 341502,
@@ -7693,12 +7081,6 @@
         "qulist": [
           {
             "quyfjbm": 341600,
-            "quybm": 341601,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 341600,
             "quybm": 341602,
             "dengj": 3,
             "quymc": "谯城区"
@@ -7731,12 +7113,6 @@
         "qulist": [
           {
             "quyfjbm": 341700,
-            "quybm": 341701,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 341700,
             "quybm": 341702,
             "dengj": 3,
             "quymc": "贵池区"
@@ -7767,12 +7143,6 @@
         "quybm": 341800,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 341800,
-            "quybm": 341801,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 341800,
             "quybm": 341802,
@@ -7831,12 +7201,6 @@
         "quybm": 350100,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 350100,
-            "quybm": 350101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 350100,
             "quybm": 350102,
@@ -7925,12 +7289,6 @@
         "qulist": [
           {
             "quyfjbm": 350200,
-            "quybm": 350201,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 350200,
             "quybm": 350203,
             "dengj": 3,
             "quymc": "思明区"
@@ -7975,12 +7333,6 @@
         "qulist": [
           {
             "quyfjbm": 350300,
-            "quybm": 350301,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 350300,
             "quybm": 350302,
             "dengj": 3,
             "quymc": "城厢区"
@@ -8017,12 +7369,6 @@
         "quybm": 350400,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 350400,
-            "quybm": 350401,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 350400,
             "quybm": 350402,
@@ -8105,12 +7451,6 @@
         "qulist": [
           {
             "quyfjbm": 350500,
-            "quybm": 350501,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 350500,
             "quybm": 350502,
             "dengj": 3,
             "quymc": "鲤城区"
@@ -8191,12 +7531,6 @@
         "qulist": [
           {
             "quyfjbm": 350600,
-            "quybm": 350601,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 350600,
             "quybm": 350602,
             "dengj": 3,
             "quymc": "芗城区"
@@ -8271,12 +7605,6 @@
         "qulist": [
           {
             "quyfjbm": 350700,
-            "quybm": 350701,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 350700,
             "quybm": 350702,
             "dengj": 3,
             "quymc": "延平区"
@@ -8345,12 +7673,6 @@
         "qulist": [
           {
             "quyfjbm": 350800,
-            "quybm": 350801,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 350800,
             "quybm": 350802,
             "dengj": 3,
             "quymc": "新罗区"
@@ -8399,12 +7721,6 @@
         "quybm": 350900,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 350900,
-            "quybm": 350901,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 350900,
             "quybm": 350902,
@@ -8477,12 +7793,6 @@
         "qulist": [
           {
             "quyfjbm": 360100,
-            "quybm": 360101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 360100,
             "quybm": 360102,
             "dengj": 3,
             "quymc": "东湖区"
@@ -8545,12 +7855,6 @@
         "qulist": [
           {
             "quyfjbm": 360200,
-            "quybm": 360201,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 360200,
             "quybm": 360202,
             "dengj": 3,
             "quymc": "昌江区"
@@ -8581,12 +7885,6 @@
         "quybm": 360300,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 360300,
-            "quybm": 360301,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 360300,
             "quybm": 360302,
@@ -8625,12 +7923,6 @@
         "quybm": 360400,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 360400,
-            "quybm": 360401,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 360400,
             "quybm": 360402,
@@ -8719,12 +8011,6 @@
         "qulist": [
           {
             "quyfjbm": 360500,
-            "quybm": 360501,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 360500,
             "quybm": 360502,
             "dengj": 3,
             "quymc": "渝水区"
@@ -8743,12 +8029,6 @@
         "quybm": 360600,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 360600,
-            "quybm": 360601,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 360600,
             "quybm": 360602,
@@ -8775,12 +8055,6 @@
         "quybm": 360700,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 360700,
-            "quybm": 360701,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 360700,
             "quybm": 360702,
@@ -8899,12 +8173,6 @@
         "qulist": [
           {
             "quyfjbm": 360800,
-            "quybm": 360801,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 360800,
             "quybm": 360802,
             "dengj": 3,
             "quymc": "吉州区"
@@ -8991,12 +8259,6 @@
         "qulist": [
           {
             "quyfjbm": 360900,
-            "quybm": 360901,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 360900,
             "quybm": 360902,
             "dengj": 3,
             "quymc": "袁州区"
@@ -9063,12 +8325,6 @@
         "quybm": 361000,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 361000,
-            "quybm": 361001,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 361000,
             "quybm": 361002,
@@ -9143,12 +8399,6 @@
         "quybm": 361100,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 361100,
-            "quybm": 361101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 361100,
             "quybm": 361102,
@@ -9239,12 +8489,6 @@
         "qulist": [
           {
             "quyfjbm": 370100,
-            "quybm": 370101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 370100,
             "quybm": 370102,
             "dengj": 3,
             "quymc": "历下区"
@@ -9311,12 +8555,6 @@
         "quybm": 370200,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 370200,
-            "quybm": 370201,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 370200,
             "quybm": 370202,
@@ -9399,12 +8637,6 @@
         "qulist": [
           {
             "quyfjbm": 370300,
-            "quybm": 370301,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 370300,
             "quybm": 370302,
             "dengj": 3,
             "quymc": "淄川区"
@@ -9461,12 +8693,6 @@
         "qulist": [
           {
             "quyfjbm": 370400,
-            "quybm": 370401,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 370400,
             "quybm": 370402,
             "dengj": 3,
             "quymc": "市中区"
@@ -9511,12 +8737,6 @@
         "qulist": [
           {
             "quyfjbm": 370500,
-            "quybm": 370501,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 370500,
             "quybm": 370502,
             "dengj": 3,
             "quymc": "东营区"
@@ -9553,12 +8773,6 @@
         "quybm": 370600,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 370600,
-            "quybm": 370601,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 370600,
             "quybm": 370602,
@@ -9641,12 +8855,6 @@
         "qulist": [
           {
             "quyfjbm": 370700,
-            "quybm": 370701,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 370700,
             "quybm": 370702,
             "dengj": 3,
             "quymc": "潍城区"
@@ -9725,12 +8933,6 @@
         "quybm": 370800,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 370800,
-            "quybm": 370801,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 370800,
             "quybm": 370802,
@@ -9813,12 +9015,6 @@
         "qulist": [
           {
             "quyfjbm": 370900,
-            "quybm": 370901,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 370900,
             "quybm": 370902,
             "dengj": 3,
             "quymc": "泰山区"
@@ -9863,12 +9059,6 @@
         "qulist": [
           {
             "quyfjbm": 371000,
-            "quybm": 371001,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 371000,
             "quybm": 371002,
             "dengj": 3,
             "quymc": "环翠区"
@@ -9899,12 +9089,6 @@
         "quybm": 371100,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 371100,
-            "quybm": 371101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 371100,
             "quybm": 371102,
@@ -9939,12 +9123,6 @@
         "qulist": [
           {
             "quyfjbm": 371200,
-            "quybm": 371201,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 371200,
             "quybm": 371202,
             "dengj": 3,
             "quymc": "莱城区"
@@ -9963,12 +9141,6 @@
         "quybm": 371300,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 371300,
-            "quybm": 371301,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 371300,
             "quybm": 371302,
@@ -10051,12 +9223,6 @@
         "qulist": [
           {
             "quyfjbm": 371400,
-            "quybm": 371401,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 371400,
             "quybm": 371402,
             "dengj": 3,
             "quymc": "德城区"
@@ -10131,12 +9297,6 @@
         "qulist": [
           {
             "quyfjbm": 371500,
-            "quybm": 371501,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 371500,
             "quybm": 371502,
             "dengj": 3,
             "quymc": "东昌府区"
@@ -10193,12 +9353,6 @@
         "qulist": [
           {
             "quyfjbm": 371600,
-            "quybm": 371601,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 371600,
             "quybm": 371602,
             "dengj": 3,
             "quymc": "滨城区"
@@ -10247,12 +9401,6 @@
         "quybm": 371700,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 371700,
-            "quybm": 371701,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 371700,
             "quybm": 371702,
@@ -10323,12 +9471,6 @@
         "quybm": 410100,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 410100,
-            "quybm": 410101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 410100,
             "quybm": 410102,
@@ -10411,12 +9553,6 @@
         "qulist": [
           {
             "quyfjbm": 410200,
-            "quybm": 410201,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 410200,
             "quybm": 410202,
             "dengj": 3,
             "quymc": "龙亭区"
@@ -10483,12 +9619,6 @@
         "quybm": 410300,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 410300,
-            "quybm": 410301,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 410300,
             "quybm": 410302,
@@ -10589,12 +9719,6 @@
         "qulist": [
           {
             "quyfjbm": 410400,
-            "quybm": 410401,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 410400,
             "quybm": 410402,
             "dengj": 3,
             "quymc": "新华区"
@@ -10663,12 +9787,6 @@
         "qulist": [
           {
             "quyfjbm": 410500,
-            "quybm": 410501,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 410500,
             "quybm": 410502,
             "dengj": 3,
             "quymc": "文峰区"
@@ -10731,12 +9849,6 @@
         "qulist": [
           {
             "quyfjbm": 410600,
-            "quybm": 410601,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 410600,
             "quybm": 410602,
             "dengj": 3,
             "quymc": "鹤山区"
@@ -10773,12 +9885,6 @@
         "quybm": 410700,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 410700,
-            "quybm": 410701,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 410700,
             "quybm": 410702,
@@ -10861,12 +9967,6 @@
         "qulist": [
           {
             "quyfjbm": 410800,
-            "quybm": 410801,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 410800,
             "quybm": 410802,
             "dengj": 3,
             "quymc": "解放区"
@@ -10935,12 +10035,6 @@
         "qulist": [
           {
             "quyfjbm": 410900,
-            "quybm": 410901,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 410900,
             "quybm": 410902,
             "dengj": 3,
             "quymc": "华龙区"
@@ -10983,12 +10077,6 @@
         "quybm": 411000,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 411000,
-            "quybm": 411001,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 411000,
             "quybm": 411002,
@@ -11035,12 +10123,6 @@
         "qulist": [
           {
             "quyfjbm": 411100,
-            "quybm": 411101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 411100,
             "quybm": 411102,
             "dengj": 3,
             "quymc": "源汇区"
@@ -11077,12 +10159,6 @@
         "quybm": 411200,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 411200,
-            "quybm": 411201,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 411200,
             "quybm": 411202,
@@ -11127,12 +10203,6 @@
         "quybm": 411300,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 411300,
-            "quybm": 411301,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 411300,
             "quybm": 411302,
@@ -11221,12 +10291,6 @@
         "qulist": [
           {
             "quyfjbm": 411400,
-            "quybm": 411401,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 411400,
             "quybm": 411402,
             "dengj": 3,
             "quymc": "梁园区"
@@ -11287,12 +10351,6 @@
         "quybm": 411500,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 411500,
-            "quybm": 411501,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 411500,
             "quybm": 411502,
@@ -11363,12 +10421,6 @@
         "qulist": [
           {
             "quyfjbm": 411600,
-            "quybm": 411601,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 411600,
             "quybm": 411602,
             "dengj": 3,
             "quymc": "川汇区"
@@ -11435,12 +10487,6 @@
         "quybm": 411700,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 411700,
-            "quybm": 411701,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 411700,
             "quybm": 411702,
@@ -11533,12 +10579,6 @@
         "qulist": [
           {
             "quyfjbm": 420100,
-            "quybm": 420101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 420100,
             "quybm": 420102,
             "dengj": 3,
             "quymc": "江岸区"
@@ -11625,12 +10665,6 @@
         "qulist": [
           {
             "quyfjbm": 420200,
-            "quybm": 420201,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 420200,
             "quybm": 420202,
             "dengj": 3,
             "quymc": "黄石港区"
@@ -11673,12 +10707,6 @@
         "quybm": 420300,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 420300,
-            "quybm": 420301,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 420300,
             "quybm": 420302,
@@ -11735,12 +10763,6 @@
         "quybm": 420500,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 420500,
-            "quybm": 420501,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 420500,
             "quybm": 420502,
@@ -11829,12 +10851,6 @@
         "qulist": [
           {
             "quyfjbm": 420600,
-            "quybm": 420601,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 420600,
             "quybm": 420602,
             "dengj": 3,
             "quymc": "襄城区"
@@ -11897,12 +10913,6 @@
         "qulist": [
           {
             "quyfjbm": 420700,
-            "quybm": 420701,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 420700,
             "quybm": 420702,
             "dengj": 3,
             "quymc": "梁子湖区"
@@ -11927,12 +10937,6 @@
         "quybm": 420800,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 420800,
-            "quybm": 420801,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 420800,
             "quybm": 420802,
@@ -11971,12 +10975,6 @@
         "quybm": 420900,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 420900,
-            "quybm": 420901,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 420900,
             "quybm": 420902,
@@ -12027,12 +11025,6 @@
         "quybm": 421000,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 421000,
-            "quybm": 421001,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 421000,
             "quybm": 421002,
@@ -12089,12 +11081,6 @@
         "quybm": 421100,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 421100,
-            "quybm": 421101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 421100,
             "quybm": 421102,
@@ -12165,12 +11151,6 @@
         "qulist": [
           {
             "quyfjbm": 421200,
-            "quybm": 421201,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 421200,
             "quybm": 421202,
             "dengj": 3,
             "quymc": "咸安区"
@@ -12213,12 +11193,6 @@
         "quybm": 421300,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 421300,
-            "quybm": 421301,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 421300,
             "quybm": 421303,
@@ -12343,12 +11317,6 @@
         "qulist": [
           {
             "quyfjbm": 430100,
-            "quybm": 430101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 430100,
             "quybm": 430102,
             "dengj": 3,
             "quymc": "芙蓉区"
@@ -12409,12 +11377,6 @@
         "quybm": 430200,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 430200,
-            "quybm": 430201,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 430200,
             "quybm": 430202,
@@ -12479,12 +11441,6 @@
         "qulist": [
           {
             "quyfjbm": 430300,
-            "quybm": 430301,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 430300,
             "quybm": 430302,
             "dengj": 3,
             "quymc": "雨湖区"
@@ -12521,12 +11477,6 @@
         "quybm": 430400,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 430400,
-            "quybm": 430401,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 430400,
             "quybm": 430405,
@@ -12609,12 +11559,6 @@
         "qulist": [
           {
             "quyfjbm": 430500,
-            "quybm": 430501,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 430500,
             "quybm": 430502,
             "dengj": 3,
             "quymc": "双清区"
@@ -12695,12 +11639,6 @@
         "qulist": [
           {
             "quyfjbm": 430600,
-            "quybm": 430601,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 430600,
             "quybm": 430602,
             "dengj": 3,
             "quymc": "岳阳楼区"
@@ -12761,12 +11699,6 @@
         "quybm": 430700,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 430700,
-            "quybm": 430701,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 430700,
             "quybm": 430702,
@@ -12831,12 +11763,6 @@
         "qulist": [
           {
             "quyfjbm": 430800,
-            "quybm": 430801,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 430800,
             "quybm": 430802,
             "dengj": 3,
             "quymc": "永定区"
@@ -12867,12 +11793,6 @@
         "quybm": 430900,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 430900,
-            "quybm": 430901,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 430900,
             "quybm": 430902,
@@ -12917,12 +11837,6 @@
         "quybm": 431000,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 431000,
-            "quybm": 431001,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 431000,
             "quybm": 431002,
@@ -12999,12 +11913,6 @@
         "qulist": [
           {
             "quyfjbm": 431100,
-            "quybm": 431101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 431100,
             "quybm": 431102,
             "dengj": 3,
             "quymc": "零陵区"
@@ -13077,12 +11985,6 @@
         "quybm": 431200,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 431200,
-            "quybm": 431201,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 431200,
             "quybm": 431202,
@@ -13163,12 +12065,6 @@
         "quybm": 431300,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 431300,
-            "quybm": 431301,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 431300,
             "quybm": 431302,
@@ -13273,12 +12169,6 @@
         "qulist": [
           {
             "quyfjbm": 440100,
-            "quybm": 440101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 440100,
             "quybm": 440103,
             "dengj": 3,
             "quymc": "荔湾区"
@@ -13359,12 +12249,6 @@
         "qulist": [
           {
             "quyfjbm": 440200,
-            "quybm": 440201,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 440200,
             "quybm": 440203,
             "dengj": 3,
             "quymc": "武江区"
@@ -13433,12 +12317,6 @@
         "qulist": [
           {
             "quyfjbm": 440300,
-            "quybm": 440301,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 440300,
             "quybm": 440303,
             "dengj": 3,
             "quymc": "罗湖区"
@@ -13483,12 +12361,6 @@
         "qulist": [
           {
             "quyfjbm": 440400,
-            "quybm": 440401,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 440400,
             "quybm": 440402,
             "dengj": 3,
             "quymc": "香洲区"
@@ -13513,12 +12385,6 @@
         "quybm": 440500,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 440500,
-            "quybm": 440501,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 440500,
             "quybm": 440507,
@@ -13571,12 +12437,6 @@
         "qulist": [
           {
             "quyfjbm": 440600,
-            "quybm": 440601,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 440600,
             "quybm": 440604,
             "dengj": 3,
             "quymc": "禅城区"
@@ -13613,12 +12473,6 @@
         "quybm": 440700,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 440700,
-            "quybm": 440701,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 440700,
             "quybm": 440703,
@@ -13669,12 +12523,6 @@
         "quybm": 440800,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 440800,
-            "quybm": 440801,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 440800,
             "quybm": 440802,
@@ -13739,12 +12587,6 @@
         "qulist": [
           {
             "quyfjbm": 440900,
-            "quybm": 440901,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 440900,
             "quybm": 440902,
             "dengj": 3,
             "quymc": "茂南区"
@@ -13787,12 +12629,6 @@
         "quybm": 441200,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 441200,
-            "quybm": 441201,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 441200,
             "quybm": 441202,
@@ -13851,12 +12687,6 @@
         "qulist": [
           {
             "quyfjbm": 441300,
-            "quybm": 441301,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 441300,
             "quybm": 441302,
             "dengj": 3,
             "quymc": "惠城区"
@@ -13893,12 +12723,6 @@
         "quybm": 441400,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 441400,
-            "quybm": 441401,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 441400,
             "quybm": 441402,
@@ -13957,12 +12781,6 @@
         "qulist": [
           {
             "quyfjbm": 441500,
-            "quybm": 441501,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 441500,
             "quybm": 441502,
             "dengj": 3,
             "quymc": "城区"
@@ -13993,12 +12811,6 @@
         "quybm": 441600,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 441600,
-            "quybm": 441601,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 441600,
             "quybm": 441602,
@@ -14045,12 +12857,6 @@
         "qulist": [
           {
             "quyfjbm": 441700,
-            "quybm": 441701,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 441700,
             "quybm": 441702,
             "dengj": 3,
             "quymc": "江城区"
@@ -14081,12 +12887,6 @@
         "quybm": 441800,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 441800,
-            "quybm": 441801,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 441800,
             "quybm": 441802,
@@ -14311,12 +13111,6 @@
         "qulist": [
           {
             "quyfjbm": 445100,
-            "quybm": 445101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 445100,
             "quybm": 445102,
             "dengj": 3,
             "quymc": "湘桥区"
@@ -14341,12 +13135,6 @@
         "quybm": 445200,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 445200,
-            "quybm": 445201,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 445200,
             "quybm": 445202,
@@ -14385,12 +13173,6 @@
         "quybm": 445300,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 445300,
-            "quybm": 445301,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 445300,
             "quybm": 445302,
@@ -14437,12 +13219,6 @@
         "quybm": 450100,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 450100,
-            "quybm": 450101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 450100,
             "quybm": 450102,
@@ -14525,12 +13301,6 @@
         "qulist": [
           {
             "quyfjbm": 450200,
-            "quybm": 450201,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 450200,
             "quybm": 450202,
             "dengj": 3,
             "quymc": "城中区"
@@ -14597,12 +13367,6 @@
         "quybm": 450300,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 450300,
-            "quybm": 450301,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 450300,
             "quybm": 450302,
@@ -14715,12 +13479,6 @@
         "qulist": [
           {
             "quyfjbm": 450400,
-            "quybm": 450401,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 450400,
             "quybm": 450403,
             "dengj": 3,
             "quymc": "万秀区"
@@ -14771,12 +13529,6 @@
         "qulist": [
           {
             "quyfjbm": 450500,
-            "quybm": 450501,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 450500,
             "quybm": 450502,
             "dengj": 3,
             "quymc": "海城区"
@@ -14807,12 +13559,6 @@
         "quybm": 450600,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 450600,
-            "quybm": 450601,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 450600,
             "quybm": 450602,
@@ -14847,12 +13593,6 @@
         "qulist": [
           {
             "quyfjbm": 450700,
-            "quybm": 450701,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 450700,
             "quybm": 450702,
             "dengj": 3,
             "quymc": "钦南区"
@@ -14883,12 +13623,6 @@
         "quybm": 450800,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 450800,
-            "quybm": 450801,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 450800,
             "quybm": 450802,
@@ -14927,12 +13661,6 @@
         "quybm": 450900,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 450900,
-            "quybm": 450901,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 450900,
             "quybm": 450902,
@@ -14977,12 +13705,6 @@
         "quybm": 451000,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 451000,
-            "quybm": 451001,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 451000,
             "quybm": 451002,
@@ -15065,12 +13787,6 @@
         "qulist": [
           {
             "quyfjbm": 451100,
-            "quybm": 451101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 451100,
             "quybm": 451102,
             "dengj": 3,
             "quymc": "八步区"
@@ -15101,12 +13817,6 @@
         "quybm": 451200,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 451200,
-            "quybm": 451201,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 451200,
             "quybm": 451202,
@@ -15183,12 +13893,6 @@
         "qulist": [
           {
             "quyfjbm": 451300,
-            "quybm": 451301,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 451300,
             "quybm": 451302,
             "dengj": 3,
             "quymc": "兴宾区"
@@ -15231,12 +13935,6 @@
         "quybm": 451400,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 451400,
-            "quybm": 451401,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 451400,
             "quybm": 451402,
@@ -15295,12 +13993,6 @@
         "quybm": 460100,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 460100,
-            "quybm": 460101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 460100,
             "quybm": 460105,
@@ -15731,12 +14423,6 @@
         "qulist": [
           {
             "quyfjbm": 510100,
-            "quybm": 510101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 510100,
             "quybm": 510104,
             "dengj": 3,
             "quymc": "锦江区"
@@ -15859,12 +14545,6 @@
         "qulist": [
           {
             "quyfjbm": 510300,
-            "quybm": 510301,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 510300,
             "quybm": 510302,
             "dengj": 3,
             "quymc": "自流井区"
@@ -15909,12 +14589,6 @@
         "qulist": [
           {
             "quyfjbm": 510400,
-            "quybm": 510401,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 510400,
             "quybm": 510402,
             "dengj": 3,
             "quymc": "东区"
@@ -15951,12 +14625,6 @@
         "quybm": 510500,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 510500,
-            "quybm": 510501,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 510500,
             "quybm": 510502,
@@ -16009,12 +14677,6 @@
         "qulist": [
           {
             "quyfjbm": 510600,
-            "quybm": 510601,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 510600,
             "quybm": 510603,
             "dengj": 3,
             "quymc": "旌阳区"
@@ -16057,12 +14719,6 @@
         "quybm": 510700,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 510700,
-            "quybm": 510701,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 510700,
             "quybm": 510703,
@@ -16127,12 +14783,6 @@
         "qulist": [
           {
             "quyfjbm": 510800,
-            "quybm": 510801,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 510800,
             "quybm": 510802,
             "dengj": 3,
             "quymc": "利州区"
@@ -16183,12 +14833,6 @@
         "qulist": [
           {
             "quyfjbm": 510900,
-            "quybm": 510901,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 510900,
             "quybm": 510903,
             "dengj": 3,
             "quymc": "船山区"
@@ -16227,12 +14871,6 @@
         "qulist": [
           {
             "quyfjbm": 511000,
-            "quybm": 511001,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 511000,
             "quybm": 511002,
             "dengj": 3,
             "quymc": "市中区"
@@ -16269,12 +14907,6 @@
         "quybm": 511100,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 511100,
-            "quybm": 511101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 511100,
             "quybm": 511102,
@@ -16351,12 +14983,6 @@
         "qulist": [
           {
             "quyfjbm": 511300,
-            "quybm": 511301,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 511300,
             "quybm": 511302,
             "dengj": 3,
             "quymc": "顺庆区"
@@ -16419,12 +15045,6 @@
         "qulist": [
           {
             "quyfjbm": 511400,
-            "quybm": 511401,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 511400,
             "quybm": 511402,
             "dengj": 3,
             "quymc": "东坡区"
@@ -16467,12 +15087,6 @@
         "quybm": 511500,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 511500,
-            "quybm": 511501,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 511500,
             "quybm": 511502,
@@ -16543,12 +15157,6 @@
         "qulist": [
           {
             "quyfjbm": 511600,
-            "quybm": 511601,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 511600,
             "quybm": 511602,
             "dengj": 3,
             "quymc": "广安区"
@@ -16585,12 +15193,6 @@
         "quybm": 511700,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 511700,
-            "quybm": 511701,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 511700,
             "quybm": 511702,
@@ -16641,12 +15243,6 @@
         "quybm": 511800,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 511800,
-            "quybm": 511801,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 511800,
             "quybm": 511802,
@@ -16705,12 +15301,6 @@
         "qulist": [
           {
             "quyfjbm": 511900,
-            "quybm": 511901,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 511900,
             "quybm": 511902,
             "dengj": 3,
             "quymc": "巴州区"
@@ -16741,12 +15331,6 @@
         "quybm": 512000,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 512000,
-            "quybm": 512001,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 512000,
             "quybm": 512002,
@@ -17101,12 +15685,6 @@
         "qulist": [
           {
             "quyfjbm": 520100,
-            "quybm": 520101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 520100,
             "quybm": 520102,
             "dengj": 3,
             "quymc": "南明区"
@@ -17207,12 +15785,6 @@
         "qulist": [
           {
             "quyfjbm": 520300,
-            "quybm": 520301,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 520300,
             "quybm": 520302,
             "dengj": 3,
             "quymc": "红花岗区"
@@ -17305,12 +15877,6 @@
         "qulist": [
           {
             "quyfjbm": 520400,
-            "quybm": 520401,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 520400,
             "quybm": 520402,
             "dengj": 3,
             "quymc": "西秀区"
@@ -17353,12 +15919,6 @@
         "quybm": 520500,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 520500,
-            "quybm": 520501,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 520500,
             "quybm": 520502,
@@ -17415,12 +15975,6 @@
         "quybm": 520600,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 520600,
-            "quybm": 520601,
-            "dengj": 3,
-            "quymc": "市辖区 "
-          },
           {
             "quyfjbm": 520600,
             "quybm": 520602,
@@ -17739,12 +16293,6 @@
         "qulist": [
           {
             "quyfjbm": 530100,
-            "quybm": 530101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 530100,
             "quybm": 530102,
             "dengj": 3,
             "quymc": "五华区"
@@ -17837,12 +16385,6 @@
         "qulist": [
           {
             "quyfjbm": 530300,
-            "quybm": 530301,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 530300,
             "quybm": 530302,
             "dengj": 3,
             "quymc": "麒麟区"
@@ -17903,12 +16445,6 @@
         "quybm": 530400,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 530400,
-            "quybm": 530401,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 530400,
             "quybm": 530402,
@@ -17973,12 +16509,6 @@
         "qulist": [
           {
             "quyfjbm": 530500,
-            "quybm": 530501,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 530500,
             "quybm": 530502,
             "dengj": 3,
             "quymc": "隆阳区"
@@ -18015,12 +16545,6 @@
         "quybm": 530600,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 530600,
-            "quybm": 530601,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 530600,
             "quybm": 530602,
@@ -18097,12 +16621,6 @@
         "qulist": [
           {
             "quyfjbm": 530700,
-            "quybm": 530701,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 530700,
             "quybm": 530702,
             "dengj": 3,
             "quymc": "古城区"
@@ -18139,12 +16657,6 @@
         "quybm": 530800,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 530800,
-            "quybm": 530801,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 530800,
             "quybm": 530802,
@@ -18213,12 +16725,6 @@
         "quybm": 530900,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 530900,
-            "quybm": 530901,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 530900,
             "quybm": 530902,
@@ -18695,12 +17201,6 @@
         "quybm": 540100,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 540100,
-            "quybm": 540101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 540100,
             "quybm": 540102,
@@ -19205,12 +17705,6 @@
         "qulist": [
           {
             "quyfjbm": 610100,
-            "quybm": 610101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 610100,
             "quybm": 610102,
             "dengj": 3,
             "quymc": "新城区"
@@ -19297,12 +17791,6 @@
         "qulist": [
           {
             "quyfjbm": 610200,
-            "quybm": 610201,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 610200,
             "quybm": 610202,
             "dengj": 3,
             "quymc": "王益区"
@@ -19333,12 +17821,6 @@
         "quybm": 610300,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 610300,
-            "quybm": 610301,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 610300,
             "quybm": 610302,
@@ -19419,12 +17901,6 @@
         "quybm": 610400,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 610400,
-            "quybm": 610401,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 610400,
             "quybm": 610402,
@@ -19519,12 +17995,6 @@
         "qulist": [
           {
             "quyfjbm": 610500,
-            "quybm": 610501,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 610500,
             "quybm": 610502,
             "dengj": 3,
             "quymc": "临渭区"
@@ -19597,12 +18067,6 @@
         "quybm": 610600,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 610600,
-            "quybm": 610601,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 610600,
             "quybm": 610602,
@@ -19691,12 +18155,6 @@
         "qulist": [
           {
             "quyfjbm": 610700,
-            "quybm": 610701,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 610700,
             "quybm": 610702,
             "dengj": 3,
             "quymc": "汉台区"
@@ -19769,12 +18227,6 @@
         "quybm": 610800,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 610800,
-            "quybm": 610801,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 610800,
             "quybm": 610802,
@@ -19857,12 +18309,6 @@
         "qulist": [
           {
             "quyfjbm": 610900,
-            "quybm": 610901,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 610900,
             "quybm": 610902,
             "dengj": 3,
             "quymc": "汉滨区"
@@ -19931,12 +18377,6 @@
         "qulist": [
           {
             "quyfjbm": 611000,
-            "quybm": 611001,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 611000,
             "quybm": 611002,
             "dengj": 3,
             "quymc": "商州区"
@@ -19993,12 +18433,6 @@
         "quybm": 620100,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 620100,
-            "quybm": 620101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 620100,
             "quybm": 620102,
@@ -20071,12 +18505,6 @@
         "qulist": [
           {
             "quyfjbm": 620300,
-            "quybm": 620301,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 620300,
             "quybm": 620302,
             "dengj": 3,
             "quymc": "金川区"
@@ -20095,12 +18523,6 @@
         "quybm": 620400,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 620400,
-            "quybm": 620401,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 620400,
             "quybm": 620402,
@@ -20139,12 +18561,6 @@
         "quybm": 620500,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 620500,
-            "quybm": 620501,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 620500,
             "quybm": 620502,
@@ -20197,12 +18613,6 @@
         "qulist": [
           {
             "quyfjbm": 620600,
-            "quybm": 620601,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 620600,
             "quybm": 620602,
             "dengj": 3,
             "quymc": "凉州区"
@@ -20233,12 +18643,6 @@
         "quybm": 620700,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 620700,
-            "quybm": 620701,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 620700,
             "quybm": 620702,
@@ -20283,12 +18687,6 @@
         "quybm": 620800,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 620800,
-            "quybm": 620801,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 620800,
             "quybm": 620802,
@@ -20341,12 +18739,6 @@
         "qulist": [
           {
             "quyfjbm": 620900,
-            "quybm": 620901,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 620900,
             "quybm": 620902,
             "dengj": 3,
             "quymc": "肃州区"
@@ -20395,12 +18787,6 @@
         "quybm": 621000,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 621000,
-            "quybm": 621001,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 621000,
             "quybm": 621002,
@@ -20459,12 +18845,6 @@
         "qulist": [
           {
             "quyfjbm": 621100,
-            "quybm": 621101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 621100,
             "quybm": 621102,
             "dengj": 3,
             "quymc": "安定区"
@@ -20513,12 +18893,6 @@
         "quybm": 621200,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 621200,
-            "quybm": 621201,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 621200,
             "quybm": 621202,
@@ -20701,12 +19075,6 @@
         "quybm": 630100,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 630100,
-            "quybm": 630101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 630100,
             "quybm": 630102,
@@ -21039,12 +19407,6 @@
         "qulist": [
           {
             "quyfjbm": 640100,
-            "quybm": 640101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 640100,
             "quybm": 640104,
             "dengj": 3,
             "quymc": "兴庆区"
@@ -21089,12 +19451,6 @@
         "qulist": [
           {
             "quyfjbm": 640200,
-            "quybm": 640201,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 640200,
             "quybm": 640202,
             "dengj": 3,
             "quymc": "大武口区"
@@ -21119,12 +19475,6 @@
         "quybm": 640300,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 640300,
-            "quybm": 640301,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 640300,
             "quybm": 640302,
@@ -21165,12 +19515,6 @@
         "qulist": [
           {
             "quyfjbm": 640400,
-            "quybm": 640401,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 640400,
             "quybm": 640402,
             "dengj": 3,
             "quymc": "原州区"
@@ -21209,12 +19553,6 @@
         "qulist": [
           {
             "quyfjbm": 640500,
-            "quybm": 640501,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
-          {
-            "quyfjbm": 640500,
             "quybm": 640502,
             "dengj": 3,
             "quymc": "沙坡头区"
@@ -21247,12 +19585,6 @@
         "quybm": 650100,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 650100,
-            "quybm": 650101,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 650100,
             "quybm": 650102,
@@ -21309,12 +19641,6 @@
         "quybm": 650200,
         "dengj": 2,
         "qulist": [
-          {
-            "quyfjbm": 650200,
-            "quybm": 650201,
-            "dengj": 3,
-            "quymc": "市辖区"
-          },
           {
             "quyfjbm": 650200,
             "quybm": 650202,

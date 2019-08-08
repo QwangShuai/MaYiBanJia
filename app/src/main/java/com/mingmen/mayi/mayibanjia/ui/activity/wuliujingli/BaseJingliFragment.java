@@ -166,11 +166,11 @@ public abstract class BaseJingliFragment extends BaseFragment {
             public void onClick(int position, View v, WuliuDingdanBean bean) {
                 switch (v.getId()){
                     case R.id.tv_fenpeiwuliuche:
-                        dialog = new WuliuFenpeiDialog(getContext(),bean.getCars_type(),bean,"0");
+                        dialog = new WuliuFenpeiDialog(getContext(),bean.getCars_type(),bean,"0",BaseJingliFragment.this);
                         dialog.show();
                         break;
                     case R.id.tv_biangeng:
-                        dialog = new WuliuFenpeiDialog(getContext(),bean.getCars_type(),bean,"1");
+                        dialog = new WuliuFenpeiDialog(getContext(),bean.getCars_type(),bean,"1",BaseJingliFragment.this);
                         dialog.show();
                         break;
                 }
@@ -289,6 +289,7 @@ public abstract class BaseJingliFragment extends BaseFragment {
                 adapter.notifyDataSetChanged();
                 tvDaiqueding.setTextColor(getContext().getResources().getColor(R.color.zangqing));
                 tvYijieshou.setTextColor(getContext().getResources().getColor(R.color.lishisousuo));
+                wuliu_type = "7";
                 getPeiSong();
                 break;
             case R.id.tv_yijieshou:
@@ -297,8 +298,7 @@ public abstract class BaseJingliFragment extends BaseFragment {
                 adapter.notifyDataSetChanged();
                 tvDaiqueding.setTextColor(getContext().getResources().getColor(R.color.lishisousuo));
                 tvYijieshou.setTextColor(getContext().getResources().getColor(R.color.zangqing));
-                wuliu_type = "7";
-                wuliu_type = "8";
+                wuliu_type = "6";
                 getPeiSong();
                 break;
         }

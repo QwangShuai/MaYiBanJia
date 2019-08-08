@@ -62,7 +62,7 @@ public class AddQrCodeAdapter extends RecyclerView.Adapter<AddQrCodeAdapter.View
             holder.llYdb.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    tiaozhuan(bean.getCommodity_id(),"0");
+                    tiaozhuan(bean.getCommodity_id(),"0",bean.getSon_order_id());
                 }
             });
 
@@ -74,7 +74,7 @@ public class AddQrCodeAdapter extends RecyclerView.Adapter<AddQrCodeAdapter.View
             holder.btnState.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    tiaozhuan(bean.getCommodity_id(),"1");
+                    tiaozhuan(bean.getCommodity_id(),"1",bean.getSon_order_id());
                 }
             });
         } else {
@@ -85,7 +85,7 @@ public class AddQrCodeAdapter extends RecyclerView.Adapter<AddQrCodeAdapter.View
             holder.btnState.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    tiaozhuan(bean.getCommodity_id(),"2");
+                    tiaozhuan(bean.getCommodity_id(),"2",bean.getSon_order_id());
                 }
             });
         }
@@ -127,11 +127,12 @@ public class AddQrCodeAdapter extends RecyclerView.Adapter<AddQrCodeAdapter.View
         }
     }
 
-    private void tiaozhuan(String sp_id,String type){
+    private void tiaozhuan(String sp_id,String type,String son_order_id){
         Intent it = new Intent(mContext, DaYinQrCodeActivity.class);
         it.putExtra("id",id );
         it.putExtra("sp_id",sp_id);
         it.putExtra("type",type);
+        it.putExtra("son_order_id",son_order_id);
         mContext.startActivity(it);
     }
 }

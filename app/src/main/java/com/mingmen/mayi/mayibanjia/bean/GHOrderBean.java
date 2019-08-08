@@ -21,6 +21,7 @@ public class GHOrderBean {
     private String gy_order_number;
     private String status_type;
     private String gy_order_id;
+    private String son_order_id;
     private String create_time;
     private Object gy_company_id;
     private Object driver_name;
@@ -39,6 +40,14 @@ public class GHOrderBean {
     private String refund;
     private String append_money;
     private String is_true;
+
+    public String getSon_order_id() {
+        return son_order_id;
+    }
+
+    public void setSon_order_id(String son_order_id) {
+        this.son_order_id = son_order_id;
+    }
 
     public String getIs_true() {
         return is_true;
@@ -319,6 +328,7 @@ public class GHOrderBean {
          */
 
         private String remarke;
+        private String special_commodity;
         private double all_price;
         private String spec_name;
         private Object user_token;
@@ -333,6 +343,14 @@ public class GHOrderBean {
         private String acount_spec;
         private Object order_details_id;
         private String classify_name;
+
+        public String getSpecial_commodity() {
+            return special_commodity;
+        }
+
+        public void setSpecial_commodity(String special_commodity) {
+            this.special_commodity = special_commodity;
+        }
 
         public String getClassify_name() {
             return classify_name;

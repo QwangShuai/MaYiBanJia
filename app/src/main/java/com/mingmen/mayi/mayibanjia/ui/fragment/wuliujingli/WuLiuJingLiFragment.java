@@ -96,17 +96,17 @@ public class WuLiuJingLiFragment extends BaseFragment {
         vpDingdan.setOffscreenPageLimit(0);
         vpDingdan.setCurrentItem(0);
 
-        timer = new Timer();
-
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                Log.e("run: ", "走" + i);
-                i++;
-                EventBus.getDefault().post("update");
-
-            }
-        }, 0, 60 * 1000);
+//        timer = new Timer();
+//
+//        timer.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                Log.e("run: ", "走" + i);
+//                i++;
+//                EventBus.getDefault().post("update");
+//
+//            }
+//        }, 0, 60 * 1000);
     }
 
     @Override
@@ -126,7 +126,9 @@ public class WuLiuJingLiFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-        timer.cancel();
+        if(timer!=null){
+            timer.cancel();
+        }
     }
 
     @OnClick({R.id.ll_title, R.id.iv_sangedian, R.id.tv_chongzhi})

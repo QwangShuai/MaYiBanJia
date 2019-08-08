@@ -114,6 +114,7 @@ public class DingDanXiangQingAdapter extends RecyclerView.Adapter<DingDanXiangQi
         holder.rvShangpinliebiao.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         holder.rvShangpinliebiao.setAdapter(shangpinadapter);
         holder.rvShangpinliebiao.setFocusable(false);
+        holder.rvShangpinliebiao.setNestedScrollingEnabled(false);
         if (StringUtil.isValid(dingdan.getCreate_time())) {
             holder.tvShijian.setText("创建时间：" + dingdan.getCreate_time());
         } else {

@@ -117,7 +117,7 @@ public class DateDialog extends BaseFragmentDialog implements View.OnClickListen
             case R.id.tv_queren:
                 if(StringUtil.isValid(xzId)){
                     dismiss();
-                    bean.setSon_name(dqId+" / "+bean.getSon_name());
+                    bean.setSon_name(dqId+"/"+bean.getSon_name());
                     EventBus.getDefault().post(bean);
                 } else {
                     ToastUtil.showToastLong("请选择一个送达时间");
@@ -127,9 +127,9 @@ public class DateDialog extends BaseFragmentDialog implements View.OnClickListen
     }
 
     public void getData(){
-        Map<String,Integer> map= DateUtil.genDate(3);
+        Map<Integer,String> map= DateUtil.genDate(3);
         int count = 0;
-        for (String i:map.keySet()) {
+        for (String i:map.values()) {
             SongDaShiJianBean bean = new SongDaShiJianBean();
             bean.setSon_number(count+"");
             bean.setSon_name(i);

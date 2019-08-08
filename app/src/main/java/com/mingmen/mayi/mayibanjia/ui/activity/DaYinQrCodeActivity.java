@@ -76,6 +76,7 @@ public class DaYinQrCodeActivity extends BaseActivity {
     private Context mContext;
     private String id = "";
     private String sp_id = "";
+    private String son_order_id = "";
     private String type = "2";
     private QrCodeAdapter adapter;
     private int count = 0;
@@ -107,6 +108,7 @@ public class DaYinQrCodeActivity extends BaseActivity {
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
         id = getIntent().getStringExtra("id");
         sp_id = getIntent().getStringExtra("sp_id");
+        son_order_id = getIntent().getStringExtra("son_order_id");
         type = getIntent().getStringExtra("type");
         if (type.equals("0")) {
             llAdd.setVisibility(View.GONE);
@@ -152,12 +154,13 @@ public class DaYinQrCodeActivity extends BaseActivity {
     }
 
     public void addQrCode() {//新增
+        Log.e("addQrCode: ",son_order_id );
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .createQrCode(PreferenceUtils.getString(MyApplication.mContext, "token", ""), id, sp_id))
+                                .createQrCode(PreferenceUtils.getString(MyApplication.mContext, "token", ""), id, sp_id,son_order_id))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
@@ -172,7 +175,7 @@ public class DaYinQrCodeActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .packageEnd(PreferenceUtils.getString(MyApplication.mContext, "token", ""), id, sp_id))
+                                .packageEnd(PreferenceUtils.getString(MyApplication.mContext, "token", ""), id, sp_id,son_order_id))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {

@@ -517,6 +517,11 @@ public class SqscWodeActivity extends BaseActivity {
     }
 
     public void initView(SqscWodeBean bean) {
+        if(StringUtil.isValid(bean.getIstrue_ssd())&&"0".equals(bean.getIstrue_ssd())){
+            llQiehuan.setVisibility(View.VISIBLE);
+        } else {
+            llQiehuan.setVisibility(View.GONE);
+        }
         tvSpsc.setText(bean.getSc() + "");
         tvDpgz.setText(bean.getGuanzhu() + "");
         tvSpll.setText(bean.getLiulan() + "");

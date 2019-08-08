@@ -39,6 +39,15 @@ public class WoDeBean {
     private float evaluation;
     private String realtime;
     private String part;
+    private String istrue_ssd;
+
+    public String getIstrue_ssd() {
+        return istrue_ssd;
+    }
+
+    public void setIstrue_ssd(String istrue_ssd) {
+        this.istrue_ssd = istrue_ssd;
+    }
 
     public String getPart() {
         return part;

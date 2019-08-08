@@ -93,7 +93,7 @@ public class ShichangWuliuActivity extends BaseActivity {
         }
 
         initview();
-        getPeiSong();
+//        getPeiSong();
     }
 
     @Override
@@ -117,25 +117,25 @@ public class ShichangWuliuActivity extends BaseActivity {
     }
     //数据
     public void getPeiSong() {
-//        HttpManager.getInstance()
-//                .with(mContext)
-//                .setObservable(RetrofitManager.getService()
-//                        .getWuliuSiji(PreferenceUtils.getString(MyApplication.mContext, "token", ""),  ye + "", type,isShichang,"",person_name))
-//                .setDataListener(new HttpDataListener<List<WuliuDingdanBean>>() {
-//                    @Override
-//                    public void onNext(List<WuliuDingdanBean> list) {
-//                        if (list.size() == 5) {
-//                            rvDingdan.loadMoreFinish(false, true);
-//                        } else if (list.size() > 0) {
-//                            rvDingdan.loadMoreFinish(false, false);
-//                        } else {
-//                            rvDingdan.loadMoreFinish(true, false);
-//                        }
-//                        mlist.addAll(list);
-//                        adapter.notifyDataSetChanged();
-//                        ye++;
-//                    }
-//                });
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(RetrofitManager.getService()
+                        .getYwyWuliuList(PreferenceUtils.getString(MyApplication.mContext, "token", ""),"",  ye + "", type,isShichang,person_name))
+                .setDataListener(new HttpDataListener<WuliuSijiBean>() {
+                    @Override
+                    public void onNext(WuliuSijiBean list) {
+                        if (list.getDdList().size() == 5) {
+                            rvDingdan.loadMoreFinish(false, true);
+                        } else if (list.getDdList().size() > 0) {
+                            rvDingdan.loadMoreFinish(false, false);
+                        } else {
+                            rvDingdan.loadMoreFinish(true, false);
+                        }
+                        mlist.addAll(list.getDdList());
+                        adapter.notifyDataSetChanged();
+                        ye++;
+                    }
+                });
     }
 
     private void initview() {

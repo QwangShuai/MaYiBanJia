@@ -76,16 +76,16 @@ public class DateUtil {
 	 * @param day
 	 * @return
 	 */
-	public static Map<String, Integer> genDate(int day) {
-		Map<String, Integer> map = new HashMap<String, Integer>();
+	public static Map<Integer,String> genDate(int day) {
+		Map<Integer,String > map = new HashMap<Integer,String>();
 
 		for (int i = 0; i < day; i++) {
 			Calendar calendar = Calendar.getInstance();
 			int date = calendar.get(Calendar.DAY_OF_MONTH) + i+1;
 
 			calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), date);
-			String d = dateFormat(calendar.getTime(), "yyyy-MM-dd");
-			map.put(d, i);
+			String d = dateFormat(calendar.getTime(), "yyyy-MM-dd").trim();
+			map.put(i,d );
 		}
 		return map;
 	}

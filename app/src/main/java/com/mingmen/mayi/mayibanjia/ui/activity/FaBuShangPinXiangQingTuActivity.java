@@ -338,7 +338,7 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                                         canshu.getPack_standard_two(), canshu.getPack_standard_tree(),
                                         canshu.getRation_one(), canshu.getPice_one(), canshu.getInventory(), new Gson().toJson(mlist), canshu.getType_one_id(), canshu.getGoods(), canshu.getCommodity_state(), canshu.getCommodity_name(),
                                         canshu.getType_two_id(), canshu.getType_tree_id(), canshu.getType_four_id(), canshu.getHostPicture(),
-                                        canshu.getSpec_describe(), canshu.getPrice(), canshu.getSpec_count(), canshu.getSpec_detal_id(), canshu.getPack_standard_tree_name(), canshu.getSpec_detal_name(), canshu.getBrand(), canshu.getSpms()))
+                                        canshu.getSpec_describe(), canshu.getPrice(), canshu.getSpec_count(), canshu.getSpec_detal_id(), canshu.getPack_standard_tree_name(), canshu.getSpec_detal_name(), canshu.getBrand(), canshu.getSpms(),1))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {
@@ -364,7 +364,7 @@ public class FaBuShangPinXiangQingTuActivity extends BaseActivity {
                                         canshu.getPack_standard_two(), canshu.getPack_standard_tree(),
                                         canshu.getRation_one(), canshu.getPice_one(), canshu.getInventory(), new Gson().toJson(mlist), canshu.getType_one_id(), canshu.getGoods(), canshu.getCommodity_state(), canshu.getCommodity_name(),
                                         canshu.getType_two_id(), canshu.getType_tree_id(), canshu.getType_four_id(), canshu.getHostPicture(), canshu.getSpec_describe(),
-                                        canshu.getPrice(), canshu.getSpec_count(), canshu.getSpec_detal_id(), canshu.getPack_standard_tree_name(), canshu.getSpec_detal_name(), canshu.getBrand(),canshu.getSpms()))
+                                        canshu.getPrice(), canshu.getSpec_count(), canshu.getSpec_detal_id(), canshu.getPack_standard_tree_name(), canshu.getSpec_detal_name(), canshu.getBrand(),canshu.getSpms(),1))
                 .setDataListener(new HttpDataListener<String>() {
                     @Override
                     public void onNext(String data) {

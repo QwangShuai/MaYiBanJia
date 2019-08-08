@@ -752,9 +752,9 @@ public class QueRenDingDanActivity extends BaseActivity {
 //                                bean.setGonglishu(o.get(i).getGonglishu());
 //                                shichangList.add(bean);
 //                            }
-                            tvHejijine.setText(hejijine + "");
+                            tvHejijine.setText(MyMath.getDouble(hejijine) + "");
                             tvZhongliang.setText(+MyMath.getDouble(zongzhong)+"斤)");
-                            tvYunfei.setText(yunfei+"");
+                            tvYunfei.setText(MyMath.getDouble(yunfei)+"");
                             tvBiaozhunda.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_zangqing_3));
                             tvBiaozhunda.setTextColor(mContext.getResources().getColor(R.color.zangqing));
                         }
@@ -790,9 +790,9 @@ public class QueRenDingDanActivity extends BaseActivity {
                             }
                             tvZhushida.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_zangqing_3));
                             tvZhushida.setTextColor(mContext.getResources().getColor(R.color.zangqing));
-                            tvHejijine.setText(hejijine + "");
+                            tvHejijine.setText(MyMath.getDouble(hejijine) + "");
                             tvZhongliang.setText(+MyMath.getDouble(zongzhong)+"斤)");
-                            tvYunfei.setText(yunfei+"");
+                            tvYunfei.setText(MyMath.getDouble(yunfei)+"");
                             tvSongdashijian.setText("尽快送达");
                             songdashijianid = "尽快送达";
                         }

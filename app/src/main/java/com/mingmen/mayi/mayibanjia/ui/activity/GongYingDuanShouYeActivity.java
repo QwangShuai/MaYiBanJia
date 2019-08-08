@@ -414,6 +414,11 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
     }
 
     private void initView() {
+        if(StringUtil.isValid(woDeBean.getIstrue_ssd())&&"0".equals(woDeBean.getIstrue_ssd())){
+            llQiehuan.setVisibility(View.VISIBLE);
+        } else {
+            llQiehuan.setVisibility(View.GONE);
+        }
         GlideUtils.cachePhoto(mContext,ivTouxiang,woDeBean.getPhoto());
         tvDianming.setText(woDeBean.getCompany_name() + "");
         type = woDeBean.getBusiness_state() + "";

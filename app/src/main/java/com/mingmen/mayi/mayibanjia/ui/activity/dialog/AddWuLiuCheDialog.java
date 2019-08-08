@@ -89,20 +89,24 @@ public class AddWuLiuCheDialog extends Dialog {
                         .setDataListener(new HttpDataListener<List<CarsTypeBean>>() {
                             @Override
                             public void onNext(List<CarsTypeBean> data) {
-                                final SinglePicker<CarsTypeBean> picker =new SinglePicker<>(activity,data);
-                                Log.e("2222",data.toString());
-                                picker.setCanceledOnTouchOutside(false);
-                                picker.setSelectedIndex(1);
-                                picker.setCycleDisable(true);
-                                picker.setOnItemPickListener(new SinglePicker.OnItemPickListener<CarsTypeBean>() {
-                                    @Override
-                                    public void onItemPicked(int index, CarsTypeBean item) {
-                                        cheliangBean.setNew_wl_cars_type(item.getCar_type_id());
-                                        tv_cheliangleixing.setText(item.getCar_type_name());
-                                        picker.dismiss();
-                                    }
-                                });
-                                picker.show();
+                                int mysize = data==null?0:data.size();
+                                if(mysize!=0){
+                                    final SinglePicker<CarsTypeBean> picker =new SinglePicker<>(activity,data);
+                                    Log.e("2222",data.toString());
+                                    picker.setCanceledOnTouchOutside(false);
+                                    picker.setSelectedIndex(1);
+                                    picker.setCycleDisable(true);
+                                    picker.setOnItemPickListener(new SinglePicker.OnItemPickListener<CarsTypeBean>() {
+                                        @Override
+                                        public void onItemPicked(int index, CarsTypeBean item) {
+                                            cheliangBean.setNew_wl_cars_type(item.getCar_type_id());
+                                            tv_cheliangleixing.setText(item.getCar_type_name());
+                                            picker.dismiss();
+                                        }
+                                    });
+                                    picker.show();
+                                }
+
                             }
                         });
             }

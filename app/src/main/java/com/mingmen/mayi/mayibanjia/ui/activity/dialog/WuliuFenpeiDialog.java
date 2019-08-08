@@ -28,6 +28,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.XuanZeCheLiangActivity;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.SonghuodizhiAdapter;
+import com.mingmen.mayi.mayibanjia.ui.activity.wuliujingli.BaseJingliFragment;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
@@ -105,13 +106,15 @@ public class WuliuFenpeiDialog extends Dialog {
     private SonghuodizhiAdapter adapter;
     private String mytype;
     private String chetype;
+    private BaseJingliFragment fragment;
 
-    public WuliuFenpeiDialog(@NonNull Context context,String chetype, WuliuDingdanBean bean,String mytype) {
+    public WuliuFenpeiDialog(@NonNull Context context,String chetype, WuliuDingdanBean bean,String mytype,BaseJingliFragment fragment) {
         super(context);
         this.context = context;
         this.bean = bean;
         this.mytype = mytype;
         this.chetype = chetype;
+        this.fragment = fragment;
     }
 
     @Override
@@ -202,6 +205,7 @@ public class WuliuFenpeiDialog extends Dialog {
                             @Override
                             public void onNext(String data) {
                                 ToastUtil.showToastLong("分配物流车成功");
+                                fragment.onResume();
                                 dismiss();
                             }
                         });
@@ -224,6 +228,7 @@ public class WuliuFenpeiDialog extends Dialog {
                                 @Override
                                 public void onNext(String data) {
                                     ToastUtil.showToastLong("变更物流车成功");
+                                    fragment.onResume();
                                     dismiss();
                                 }
                             });

@@ -71,7 +71,7 @@ public class QueRenDingDanShangPinBean {
         private String market_name;
         private BigDecimal freight_fee;
         private double money;
-        private BigDecimal yunfei;
+        private BigDecimal yunfei = new BigDecimal(0);
         private List<DplistBean> dplist;
 
         private List<CgzhulistBean> cgzhulist;

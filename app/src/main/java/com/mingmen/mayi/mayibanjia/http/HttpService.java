@@ -216,9 +216,9 @@ public interface HttpService {
                                                                @Query("market_id") String market_id,
                                                                @Query("big") String big,
                                                                @Query("small") String small,
-                                                               @Query("sortOrder") String sortOrder,
+                                                               @Query("sortOrder") String sortOrder,//0:默认查询（搜索），1：销量最高 2，评分最高 3.价格最高 4.价格最低
                                                                @Query("pageNumber") Integer pageNumber,
-                                                               @Query("pack_standard_tree") String pack_standard_tree,//0:默认查询（搜索），1：销量最高 2，评分最高 3.价格最高 4.价格最低
+                                                               @Query("pack_standard_tree") String pack_standard_tree,
                                                                @Query("real_time_state") String real_time_state,
                                                                @Query("goods") String goods);
 
@@ -500,7 +500,8 @@ public interface HttpService {
                                                  @Query("pack_standard_tree_name") String pack_standard_tree_name,
                                                  @Query("spec_name") String spec_name,
                                                  @Query("brand") String brand,
-                                                 @Query("spms") String spms);
+                                                 @Query("spms") String spms,
+                                                 @Query("choose_specifications") Integer choose_specifications);
 
     //编辑商品
     @POST("gyCommodity/update.do")
@@ -530,7 +531,8 @@ public interface HttpService {
                                                    @Query("pack_standard_tree_name") String pack_standard_tree_name,
                                                    @Query("spec_name") String spec_name,
                                                    @Query("brand") String brand,
-                                                   @Query("spms") String spms);
+                                                   @Query("spms") String spms,
+                                                   @Query("choose_specifications") Integer choose_specifications);
 
     //添加购物车
     @POST("ctShoppingCart/save.do")
@@ -758,14 +760,14 @@ public interface HttpService {
                                                              @Query("driverName") String driverName,
                                                              @Query("wl_cars_order_number") String wl_cars_order_number);
 
-    //查询全部物流信息(市场负责人)
-    @POST("wl/querylogisticsList.do")
-    Observable<ResultModel<WuLiuObjBean<WuLiuBean>>> getWuliu(@Query("user_token") String user_token,
-                                                              @Query("wl_cars_state") String wl_cars_state,
-                                                              @Query("pageNumber") String count,
-                                                              @Query("wl_order_state") String wl_order_state,
-                                                              @Query("is_true_market") String is_true_market,
-                                                              @Query("person_name") String person_name);
+//    //查询全部物流信息(市场负责人)
+//    @POST("wl/ssdlist.do")
+//    Observable<ResultModel<WuLiuObjBean<WuLiuBean>>> getWuliu(@Query("user_token") String user_token,
+//                                                              @Query("wl_cars_state") String wl_cars_state,
+//                                                              @Query("pageNumber") String count,
+//                                                              @Query("wl_order_state") String wl_order_state,
+//                                                              @Query("is_true_market") String is_true_market,
+//                                                              @Query("person_name") String person_name);
 
     //查询车辆类型
     @POST("wl/carsTypeList.do")
@@ -836,13 +838,15 @@ public interface HttpService {
     @POST("twocode/save.do")
     Observable<ResultModel<String>> createQrCode(@Query("user_token") String user_token,
                                                  @Query("gy_order_id") String gy_order_id,
-                                                 @Query("commodity_id") String commodity_id);
+                                                 @Query("commodity_id") String commodity_id,
+                                                 @Query("son_order_id") String son_order_id);
 
     //打包完成
     @POST("twocode/isTrue.do")
     Observable<ResultModel<String>> packageEnd(@Query("user_token") String user_token,
                                                @Query("gy_order_id") String gy_order_id,
-                                               @Query("commodity_id") String commodity_id);
+                                               @Query("commodity_id") String commodity_id,
+                                               @Query("son_order_id") String son_order_id);
 
     //二维码作废
     @POST("twocode/delete.do")
@@ -1662,6 +1666,15 @@ public interface HttpService {
                                                         @Query("create_time") String create_time,
                                                         @Query("wl_cars_order_number") String wl_cars_order_number);
 
+    //业务员车辆list
+    @POST("wl/ssdlist.do")
+    Observable<ResultModel<WuliuSijiBean>> getYwyWuliuList(@Query("user_token") String user_token,
+                                                                      @Query("wl_cars_state") String wl_cars_state,
+                                                                      @Query("pageNumber") String count,
+                                                                      @Query("wl_order_state") String wl_order_state,
+                                                                      @Query("is_true_market") String is_true_market,
+                                                                      @Query("person_name") String person_name);
+
     //查询全部物流信息
     @POST("wl/updateBycar.do")
     Observable<ResultModel<String>> jiedanState(@Query("user_token") String user_token,
@@ -1679,19 +1692,11 @@ public interface HttpService {
     Observable<ResultModel<String>> yanzhengPhone(@Query("user_token") String user_token,
                                              @Query("new_driver_phone") String new_driver_phone);
 
-//    //商品管理：上架
-//    @POST("gyCommodity/queryshangjia.do?")
-//    Observable<ResultModel<ShangPinGuanLiBean>> shangjiaSpgl(@Query("user_token") String user_token,
-//                                                 @Query("commodity_name") String commodity_name,
-//                                                 @Query("goods") String goods,
-//                                                 @Query("company_id") String company_id,
-//                                                 @Query("pageNumber") int pageNumber);
-//    //商品管理：下架
-//    @POST("gyCommodity/queryxiajia.do?")
-//    Observable<ResultModel<ShangPinGuanLiBean>> xiajiaSpgl(@Query("user_token") String user_token,
-//                                                 @Query("commodity_name") String commodity_name,
-//                                                 @Query("goods") String goods,
-//                                                 @Query("company_id") String company_id,
-//                                                 @Query("pageNumber") int pageNumber);
+    //物流经理处理未送达订单（解决异常）
+    @POST("wl/updateByWlGM.do")
+    Observable<ResultModel<String>> jjycWl(@Query("user_token") String user_token,
+                                                 @Query("wl_cars_order_number") String wl_cars_order_number,
+                                                 @Query("wl_cars_id") String wl_cars_id,
+                                                 @Query("remarke") String remarke);
 
 }

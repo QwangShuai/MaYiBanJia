@@ -449,7 +449,10 @@ public class ShenPiLevelZeroAdapter extends RecyclerView.Adapter<ShenPiLevelZero
     }
 
     public void stopTime() {
-        adapter.timeCancel();
+        if(adapter!=null){
+            adapter.timeCancel();
+        }
+
     }
 
     private void updateShichang(final String market_id,final String classify_id) {

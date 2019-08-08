@@ -96,17 +96,17 @@ public class SijiPeisongFragment extends BaseFragment {
         vpDingdan.setOffscreenPageLimit(0);
         vpDingdan.setCurrentItem(0);
 
-        timer = new Timer();
-
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                Log.e("run: ","走"+ i );
-                i++;
-                EventBus.getDefault().post("update");
-
-            }
-        },0,60*1000);
+//        timer = new Timer();
+//
+//        timer.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                Log.e("run: ","走"+ i );
+//                i++;
+//                EventBus.getDefault().post("update");
+//
+//            }
+//        },0,60*1000);
 
     }
 

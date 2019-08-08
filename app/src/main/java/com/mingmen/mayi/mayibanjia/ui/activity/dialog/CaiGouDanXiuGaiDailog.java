@@ -114,6 +114,8 @@ public class CaiGouDanXiuGaiDailog extends BaseFragmentDialog{
             ivTeshu.setSelected(true);
             tishi.setText(yaoqiu.length()+"/50");
         }
+        llTeshu.setVisibility(View.GONE);
+        rlTeshu.setVisibility(View.GONE);
         etTeshu.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

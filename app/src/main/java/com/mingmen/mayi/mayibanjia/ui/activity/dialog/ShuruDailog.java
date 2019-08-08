@@ -32,15 +32,20 @@ public class ShuruDailog extends Dialog {
     private Button btQuxiao;
     private Button btQueren;
     private TextView tvHint;
+    private TextView tvTitle;
 
     Unbinder unbinder;
     private CallBack mCallBack;
     private String teshuyaoqiu = "";
     private Context context;
+    private String title = "";
+    private String hint = "";
 
-    public ShuruDailog(@NonNull Context context,CallBack mCallBack) {
+    public ShuruDailog(@NonNull Context context,String title,String hint,CallBack mCallBack) {
         super(context);
         this.context = context;
+        this.title = title;
+        this.hint = hint;
         this.mCallBack = mCallBack;
     }
 
@@ -59,10 +64,14 @@ public class ShuruDailog extends Dialog {
         lp.width = (int) (d.widthPixels * 0.8); // 高度设置为屏幕的0.6
         dialogWindow.setAttributes(lp);
         tvHint = (TextView) v.findViewById(R.id.tv_hint);
+        tvTitle = (TextView) v.findViewById(R.id.tv_beizhu);
         etTeshu = (EditText) v.findViewById(R.id.et_teshu);
         btQueren = (Button) v.findViewById(R.id.bt_queren);
         btQuxiao = (Button) v.findViewById(R.id.bt_quxiao);
+        tvTitle.setText(title);
+        etTeshu.setHint(hint);
         StringUtil.setInputNoEmoj(etTeshu,50);
+
         etTeshu.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -107,7 +116,7 @@ public class ShuruDailog extends Dialog {
     private void addName() {
         huoqushuju();
         if(TextUtils.isEmpty(teshuyaoqiu)){
-            ToastUtil.showToastLong("请填写拒绝原因");
+            ToastUtil.showToastLong(hint);
         } else {
             dismiss();
             mCallBack.confirm(teshuyaoqiu);

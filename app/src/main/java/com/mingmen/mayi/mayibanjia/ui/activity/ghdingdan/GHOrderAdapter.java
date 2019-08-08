@@ -232,6 +232,7 @@ public class GHOrderAdapter extends RecyclerView.Adapter<GHOrderAdapter.ViewHold
                                 public void onNext(final List<AddQrCodeBean> data) {
                                     Intent it = new Intent(mContext, AddQrCodeActivity.class);
                                     it.putExtra("id", bean.getGy_order_id());
+                                    it.putExtra("son_order_id", bean.getSon_order_id());
                                     mContext.startActivity(it);
                                 }
                             });

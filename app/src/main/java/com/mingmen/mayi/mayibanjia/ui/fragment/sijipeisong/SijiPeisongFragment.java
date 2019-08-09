@@ -127,7 +127,7 @@ public class SijiPeisongFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-        timer.cancel();
+//        timer.cancel();
     }
 
     @OnClick({R.id.ll_title, R.id.iv_sangedian, R.id.tv_chongzhi})

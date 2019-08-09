@@ -10,6 +10,6 @@ public class JingliWeifencheFragment extends BaseJingliFragment{
 
     @Override
     public String getZhuangTai() {
-        return "0";
+        return "1";
     }
 }

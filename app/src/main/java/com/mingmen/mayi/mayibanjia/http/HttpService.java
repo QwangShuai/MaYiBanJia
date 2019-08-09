@@ -1646,7 +1646,7 @@ public interface HttpService {
                                                     @Query("wl_cars_id") String wl_cars_id);
 
     // 变更物流车
-    @POST("wl/addOrderCar.do")
+    @POST("wl/updateOrderCar.do")
     Observable<ResultModel<String>> biangengwuliu(@Query("user_token") String user_token,
                                                     @Query("remarke") String remarke,
                                                     @Query("logistics_draw_money") String logistics_draw_money,

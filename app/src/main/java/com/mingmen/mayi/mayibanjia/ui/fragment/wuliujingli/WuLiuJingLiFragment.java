@@ -126,9 +126,7 @@ public class WuLiuJingLiFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-        if(timer!=null){
-            timer.cancel();
-        }
+//        timer.cancel();
     }
 
     @OnClick({R.id.ll_title, R.id.iv_sangedian, R.id.tv_chongzhi})

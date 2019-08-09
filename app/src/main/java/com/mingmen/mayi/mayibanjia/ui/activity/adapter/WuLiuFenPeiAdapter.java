@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mingmen.mayi.mayibanjia.R;
@@ -109,7 +110,20 @@ public class WuLiuFenPeiAdapter extends RecyclerView.Adapter<WuLiuFenPeiAdapter.
 
             }
         });
-        holder.tvState.setText(data.getWl_cars_type_name());
+        if(data.getWlddState().equals("1401")){
+            holder.tvState.setText(data.getWl_cars_type_name());
+            holder.tvState.setVisibility(View.VISIBLE);
+            holder.rlState.setVisibility(View.VISIBLE);
+        } else if(data.getWlddState().equals("1403")) {
+            holder.rlState.setVisibility(View.GONE);
+            holder.tvState.setText(data.getWl_order_state());
+            holder.tvState.setVisibility(View.VISIBLE);
+        } else {
+            holder.tvState.setText(data.getWl_order_state());
+            holder.tvState.setVisibility(View.VISIBLE);
+            holder.rlState.setVisibility(View.VISIBLE);
+        }
+
         holder.tvChuangjianshijian.setText(data.getCreate_time());
         holder.tvDingdanbianhao.setText(data.getWl_cars_order_number().toString());
         if (!TextUtils.isEmpty(String.valueOf(data.getArrival_time()))) {
@@ -206,6 +220,8 @@ public class WuLiuFenPeiAdapter extends RecyclerView.Adapter<WuLiuFenPeiAdapter.
         LinearLayout llShouqi;
         @BindView(R.id.ll_show)
         LinearLayout llShow;
+        @BindView(R.id.rl_state)
+        RelativeLayout rlState;
 
         ViewHolder(View view) {
             super(view);

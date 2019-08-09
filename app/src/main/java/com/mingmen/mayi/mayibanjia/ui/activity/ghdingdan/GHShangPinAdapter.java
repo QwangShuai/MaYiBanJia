@@ -46,6 +46,8 @@ public class GHShangPinAdapter extends RecyclerView.Adapter<GHShangPinAdapter.Vi
         GHOrderBean.ZilistBean bean = mList.get(position);
         if(!TextUtils.isEmpty(bean.getSpecial_commodity())){//判断是否有备注
             holder.tv_shangpinbeizhu.setText(bean.getSpecial_commodity());
+            holder.tv_teshushangpin.setVisibility(View.VISIBLE);
+            holder.tv_shangpinbeizhu.setVisibility(View.VISIBLE);
         } else {
             holder.tv_teshushangpin.setVisibility(View.GONE);
             holder.tv_shangpinbeizhu.setVisibility(View.GONE);

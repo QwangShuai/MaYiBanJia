@@ -36,6 +36,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.adapter.QrCodeAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 import com.mingmen.mayi.mayibanjia.utils.dayinji.BluetoothDeviceList;
 import com.mingmen.mayi.mayibanjia.utils.dayinji.Constant;
@@ -154,7 +155,9 @@ public class DaYinQrCodeActivity extends BaseActivity {
     }
 
     public void addQrCode() {//新增
-        Log.e("addQrCode: ",son_order_id );
+        if(!StringUtil.isValid(son_order_id)){
+            son_order_id = "";
+        }
         HttpManager.getInstance()
                 .with(mContext)
                 .setObservable(
@@ -194,7 +197,7 @@ public class DaYinQrCodeActivity extends BaseActivity {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getQrCodeList(PreferenceUtils.getString(MyApplication.mContext, "token", ""), id, sp_id))
+                                .getQrCodeList(PreferenceUtils.getString(MyApplication.mContext, "token", ""), id, sp_id,son_order_id))
                 .setDataListener(new HttpDataListener<List<DaYinQrCodeBean>>() {
 
                     @Override

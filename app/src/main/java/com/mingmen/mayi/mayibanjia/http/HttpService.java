@@ -832,7 +832,8 @@ public interface HttpService {
     @POST("twocode/list.do")
     Observable<ResultModel<List<DaYinQrCodeBean>>> getQrCodeList(@Query("user_token") String user_token,
                                                                  @Query("gy_order_id") String gy_order_id,
-                                                                 @Query("commodity_id") String commodity_id);
+                                                                 @Query("commodity_id") String commodity_id,
+                                                                 @Query("son_order_id") String son_order_id);
 
     //生成二维码
     @POST("twocode/save.do")
@@ -1281,6 +1282,7 @@ public interface HttpService {
     Observable<ResultModel<List<AddQrCodeBean>>> getQrCodeSp(@Query("user_token") String user_token,
                                                              @Query("gy_order_id") String gy_order_id,
                                                              @Query("type") String type,
+                                                             @Query("son_order_id") String son_order_id,
                                                              @Query("pageNumber") String pageNumber);
 
     //获取常用列表

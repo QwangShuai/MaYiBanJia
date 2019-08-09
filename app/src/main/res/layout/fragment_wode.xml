@@ -256,13 +256,14 @@
                                 android:textSize="30sp" />
 
                             <TextView
+                                android:visibility="visible"
                                 android:id="@+id/tv_daishoukuan"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
                                 android:layout_centerVertical="true"
                                 android:layout_marginTop="6dp"
-                                android:text="待收款 112233"
+                                android:text=""
                                 android:textColor="@color/black_333333"
                                 android:textSize="15sp" />
                         </LinearLayout>

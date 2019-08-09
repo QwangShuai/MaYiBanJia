@@ -52,6 +52,16 @@ public class AddQrCodeActivity extends BaseActivity {
     }
 
     private String gy_order_id = "";
+    private String son_order_id = "";
+
+    public String getSon_order_id() {
+        return son_order_id;
+    }
+
+    public void setSon_order_id(String son_order_id) {
+        this.son_order_id = son_order_id;
+    }
+
     private DaBaoAdapter adapter;
 
     @Override
@@ -63,6 +73,7 @@ public class AddQrCodeActivity extends BaseActivity {
     protected void initData() {
         tvTitle.setText("打包商品");
         setGy_order_id(getIntent().getStringExtra("id"));
+        setSon_order_id(getIntent().getStringExtra("son_order_id"));
         adapter = new DaBaoAdapter(getSupportFragmentManager(),AddQrCodeActivity.this);
         vpAddQrCode.setAdapter(adapter);
         tabsAddQrCode.setViewPager(vpAddQrCode);

@@ -226,7 +226,7 @@ public class GHOrderAdapter extends RecyclerView.Adapter<GHOrderAdapter.ViewHold
                             .setObservable(
                                     RetrofitManager
                                             .getService()
-                                            .getQrCodeSp(PreferenceUtils.getString(MyApplication.mContext, "token", ""),bean.getGy_order_id(),"2","1"))
+                                            .getQrCodeSp(PreferenceUtils.getString(MyApplication.mContext, "token", ""),bean.getGy_order_id(),"2",bean.getSon_order_id(),"1"))
                             .setDataListener(new HttpDataListener<List<AddQrCodeBean>>() {
                                 @Override
                                 public void onNext(final List<AddQrCodeBean> data) {

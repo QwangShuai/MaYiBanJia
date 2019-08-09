@@ -721,6 +721,7 @@ public class ShenPiActivity extends BaseActivity {
     }
 
     public void setItemMarket_id(int pos, String id, String name) {
+        Log.e("setItemMarket_id: ", state+"------"+id);
         if(state.equals("0")){
             caigoudan.get(pos).setMarket_id(id);
             caigoudan.get(pos).setMarket_name(name);
@@ -985,14 +986,15 @@ public class ShenPiActivity extends BaseActivity {
         if(tsQuanxuan()){
             for (int i = 0; i < ts_caigoudan.size(); i++) {
                 for (int j = 0; j < ts_caigoudan.get(i).getSonorderlist().size(); j++) {
-                    if(ts_caigoudan.get(i).getSonorderlist().get(j).getIstrue_type().equals("1")){
+//                    if(ts_caigoudan.get(i).getSonorderlist().get(j).getIstrue_type().equals("1")){
                         GetAllMarketBean bean = new GetAllMarketBean();
                         bean.setMarket_id(ts_caigoudan.get(i).getMarket_id());
                         bean.setSon_order_id(ts_caigoudan.get(i).getSonorderlist().get(j).getSon_order_id());
                         market_id.add(bean);
-                    }
+//                    }
                 }
             }
+            Log.e("yijianqiangdan: ",new Gson().toJson(market_id) );
             HttpManager.getInstance()
                     .with(mContext)
                     .setObservable(
@@ -1035,6 +1037,9 @@ public class ShenPiActivity extends BaseActivity {
     }
 
     private void startTime(){
+        ts_adapter.setClick(false);
+        btQiangdan.setEnabled(false);
+        ts_adapter.notifyDataSetChanged();
         if (timer != null) {
             timer = null;
         }
@@ -1047,15 +1052,12 @@ public class ShenPiActivity extends BaseActivity {
             @Override
             public void onFinish() {
                 updateList("1");
-                btQiangdan.setText("重新抢单");
                 ts_adapter.setClick(true);
+                btQiangdan.setText("重新抢单");
                 ts_adapter.notifyDataSetChanged();
                 btQiangdan.setEnabled(true);
             }
         }.start();
-        ts_adapter.setClick(false);
-        btQiangdan.setEnabled(false);
-        ts_adapter.notifyDataSetChanged();
         Log.e("startTime: ", "time:"+time);
     }
 }

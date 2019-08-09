@@ -58,6 +58,7 @@ public abstract class BaseDaBaoFragment extends BaseFragment {
     private boolean b = false;
     protected boolean isCreate = false;
     private String gy_order_id = "";
+    private String son_order_id = "";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -91,7 +92,7 @@ public abstract class BaseDaBaoFragment extends BaseFragment {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getQrCodeSp(PreferenceUtils.getString(MyApplication.mContext, "token", ""), gy_order_id, getZhuangTai(), ye + ""))
+                                .getQrCodeSp(PreferenceUtils.getString(MyApplication.mContext, "token", ""), gy_order_id, getZhuangTai(),son_order_id, ye + ""))
                 .setDataListener(new HttpDataListener<List<AddQrCodeBean>>() {
                     @Override
                     public void onNext(final List<AddQrCodeBean> data) {
@@ -119,6 +120,7 @@ public abstract class BaseDaBaoFragment extends BaseFragment {
     private void initview() {
         AddQrCodeActivity activity = (AddQrCodeActivity) getActivity();
         gy_order_id = activity.getGy_order_id();
+        son_order_id = activity.getSon_order_id();
         adapter = new AddQrCodeAdapter(getActivity(), mlist, gy_order_id);
         mLoadMoreListener = new SwipeMenuRecyclerView.LoadMoreListener() {
             @Override
@@ -168,7 +170,7 @@ public abstract class BaseDaBaoFragment extends BaseFragment {
                 .setObservable(
                         RetrofitManager
                                 .getService()
-                                .getQrCodeSp(PreferenceUtils.getString(MyApplication.mContext, "token", ""), gy_order_id, getZhuangTai(), ye + ""))
+                                .getQrCodeSp(PreferenceUtils.getString(MyApplication.mContext, "token", ""), gy_order_id, getZhuangTai(),son_order_id, ye + ""))
                 .setDataListener(new HttpDataListener<List<AddQrCodeBean>>() {
                     @Override
                     public void onNext(final List<AddQrCodeBean> data) {

@@ -74,12 +74,15 @@ public class WuLiuFenPeiAdapter extends RecyclerView.Adapter<WuLiuFenPeiAdapter.
         });
         if (data.getWl_cars_state().equals("0")) {
             holder.tvOrfenche.setText("未分车");
+            holder.tvFenpeiwuliuche.setText(mContext.getString(R.string.wl_fenpeiwuliuche));
             holder.tvOrfenche.setTextColor(R.color.zicolor);
         } else if (data.getWl_cars_state().equals("1")) {
             holder.tvOrfenche.setText("已分车");
+            holder.tvFenpeiwuliuche.setText(mContext.getString(R.string.wl_fenpeiwuliuche));
             holder.tvOrfenche.setTextColor(R.color.zicolor);
         } else if(data.getWl_cars_state().equals("2")) {
             holder.tvOrfenche.setText("已变更");
+            holder.tvFenpeiwuliuche.setText(mContext.getString(R.string.wl_fenpeiwuliuche));
             holder.tvOrfenche.setTextColor(R.color.red_ff3300);
         } else {
             holder.tvOrfenche.setText("异常");

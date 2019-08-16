@@ -1572,7 +1572,7 @@ public interface HttpService {
     @POST("allCompany/freehui.do")
     Observable<ResultModel<String>> getYunfei(@Query("user_token") String user_token);
 
-    // 一键抢单
+    // 一键发布
     @POST("ctBuyHostorder/qiangdan.do")
     Observable<ResultModel<String>> yijianqiangdan(@Query("user_token") String user_token,
                                                    @Query("list") String list);

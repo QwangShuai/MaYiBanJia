@@ -90,7 +90,7 @@ public abstract class BaseSijiFragment extends BaseFragment {
     protected void loadData() {
         stateLayout.showSuccessView();
         initview();
-        getPeiSong();
+//        getPeiSong();
     }
 
     @Override
@@ -175,13 +175,13 @@ public abstract class BaseSijiFragment extends BaseFragment {
 
     public void onResume() {
         super.onResume();
-        if (ye != 1) {
+//        if (ye != 1) {
             ye = 1;
             mlist.clear();
             adapter.notifyDataSetChanged();
             getPeiSong();
 
-        }
+//        }
     }
 
     @Override

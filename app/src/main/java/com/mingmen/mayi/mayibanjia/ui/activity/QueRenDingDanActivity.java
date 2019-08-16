@@ -518,7 +518,7 @@ public class QueRenDingDanActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.tv_guize:
-                ToastUtil.showToastLong("规则还在制定中");
+//                ToastUtil.showToastLong("规则还在制定中");
                 break;
             case R.id.tv_biaozhunda:
 //                if(!isTime.equals("标准达")) {

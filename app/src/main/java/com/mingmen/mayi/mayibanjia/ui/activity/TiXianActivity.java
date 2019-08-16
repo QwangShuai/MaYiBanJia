@@ -91,7 +91,7 @@ public class TiXianActivity extends BaseActivity {
     protected void initData() {
         mContext = TiXianActivity.this;
         tvTitle.setText("提现");
-        yue = getIntent().getStringExtra("yue");
+        yue = (int)Math.floor(MyMath.getDouble(Double.valueOf(getIntent().getStringExtra("yue"))))+"";
         tvJine.setText("可提取金额："+yue+"元，");
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
@@ -107,6 +107,9 @@ public class TiXianActivity extends BaseActivity {
                     isClick = false;
                     btnTixian.setBackground(getResources().getDrawable(R.drawable.bg_click_false));
                 } else {
+                    if(Integer.valueOf(s.toString().trim())>Integer.valueOf(yue)){
+                        etJine.setText(yue);
+                    }
                     isClick = true;
                     btnTixian.setBackground(getResources().getDrawable(R.drawable.fillet_solid_zangqing_3));
                 }

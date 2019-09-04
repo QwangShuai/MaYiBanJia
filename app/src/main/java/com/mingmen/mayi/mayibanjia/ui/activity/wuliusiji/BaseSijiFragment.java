@@ -58,7 +58,7 @@ import static android.widget.ListPopupWindow.MATCH_PARENT;
 public abstract class BaseSijiFragment extends BaseFragment {
 
     @BindView(R.id.rv_dingdan)
-    SwipeRecyclerView rvShangpinguanli;
+    SwipeMenuRecyclerView rvShangpinguanli;
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout refreshLayout;
     View view;

@@ -151,17 +151,29 @@ public class DingDanXiangQingActivity extends BaseActivity {
                         } else if (data.getState().equals("404")) {
                             ivState.setImageResource(R.mipmap.daifahuo_ddxq);
 //                            btnZaiciGoumai.setVisibility(View.VISIBLE);
-//                            btnQuerenShouhuo.setVisibility(View.VISIBLE);
                             tvState.setText("卖家已发货");
                         } else if (data.getState().equals("406")) {
                             ivState.setImageResource(R.mipmap.yiwancheng);
                             tvState.setText("买家已收货");
 //                            btnQuerenShouhuo.setVisibility(View.GONE);
-                        } else {
+                        }
+//                        else if(data.getState().equals("408")){
+//                            btnQuerenShouhuo.setVisibility(View.VISIBLE);
+//                            ivState.setImageResource(R.mipmap.yiwancheng);
+//                            tvState.setText("买家已收货");
+//                        }
+                        else {
                             ivState.setImageResource(R.mipmap.yiwancheng);
                             btnShanchuDingdan.setVisibility(View.VISIBLE);
                             tvState.setText("已完成");
                         }
+
+                        if(StringUtil.isValid(data.getPay_state())&&data.getPay_state().equals("408")){
+                            btnQuerenFukuan.setVisibility(View.VISIBLE);
+                        } else {
+                            btnQuerenFukuan.setVisibility(View.GONE);
+                        }
+
                         tvYaoqiushijian.setText("要求送达时间:" + data.getSon_name());
                         tvName.setText(data.getLinman());
                         tvPhone.setText(data.getDianhua());
@@ -264,9 +276,27 @@ public class DingDanXiangQingActivity extends BaseActivity {
                 getyue();
                 break;
             case R.id.btn_queren_shouhuo:
+//                dialog = new ConfirmDialog(mContext,
+//                        mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
+//                dialog.showDialog("是否确认付款");
+//                dialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        dialog.dismiss();
+//                        querenshouhuo();
+//                    }
+//                });
+//                dialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        dialog.cancel();
+//                    }
+//                });
+                break;
+            case R.id.btn_queren_fukuan://支付订单中全部商品
                 dialog = new ConfirmDialog(mContext,
                         mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
-                dialog.showDialog("是否确认收货");
+                dialog.showDialog("是否确认付款");
                 dialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -280,9 +310,6 @@ public class DingDanXiangQingActivity extends BaseActivity {
                         dialog.cancel();
                     }
                 });
-                break;
-            case R.id.btn_queren_fukuan://支付订单中全部商品
-
                 break;
         }
     }

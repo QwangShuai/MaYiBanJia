@@ -48,7 +48,7 @@ import butterknife.Unbinder;
 public abstract class BaseJingliFragment extends BaseFragment {
 
     @BindView(R.id.rv_dingdan)
-    SwipeRecyclerView rvShangpinguanli;
+    SwipeMenuRecyclerView rvShangpinguanli;
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout refreshLayout;
     @BindView(R.id.ll_yifenche)
@@ -229,23 +229,28 @@ public abstract class BaseJingliFragment extends BaseFragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void updateTimer(String message) {
-        if(!message.equals("0000")){
+        if(getUserVisibleHint()){
+            if(!message.equals("0000")){
+                ye = 1;
+                mlist.clear();
+                adapter.notifyDataSetChanged();
+                getPeiSong();
+            }
+        }
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void update(WuliuShaixuanBean bean) {
+        if(getUserVisibleHint()){
+            driverName = bean.getDriverName();
+            driverPhone = bean.getDriverPhone();
+            marketName = bean.getMarketName();
+            wl_cars_order_number = bean.getWl_cars_order_number();
             ye = 1;
             mlist.clear();
             adapter.notifyDataSetChanged();
             getPeiSong();
         }
-    }
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void update(WuliuShaixuanBean bean) {
-        driverName = bean.getDriverName();
-        driverPhone = bean.getDriverPhone();
-        marketName = bean.getMarketName();
-        wl_cars_order_number = bean.getWl_cars_order_number();
-        ye = 1;
-        mlist.clear();
-        adapter.notifyDataSetChanged();
-        getPeiSong();
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -303,4 +308,5 @@ public abstract class BaseJingliFragment extends BaseFragment {
                 break;
         }
     }
+
 }

@@ -1315,7 +1315,7 @@ public class FaBuShangPinActivity extends BaseActivity {
 //                        etMiaoshu.setText(bean.getSpec_describe());
                         tvGgms.setText(bean.getPackThreeName());
                         tvQdlGg.setText(bean.getPackThreeName());
-                        tvDanwei.setText(bean.getPackThreeName());
+                        tvDanwei.setText("元/"+bean.getPackThreeName());
                         tvTjDanwei.setText(bean.getPackThreeName());
                         canShuBean.setClassify_name(bean.getClassify_name());
                         etTejia.addTextChangedListener(new TextWatcher() {

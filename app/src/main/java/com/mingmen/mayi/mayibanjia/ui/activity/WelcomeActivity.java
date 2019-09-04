@@ -93,7 +93,7 @@ public class WelcomeActivity extends BaseActivity {
                             }, 2000);
                         }
                     }
-                });
+                },false);
 
 
     }

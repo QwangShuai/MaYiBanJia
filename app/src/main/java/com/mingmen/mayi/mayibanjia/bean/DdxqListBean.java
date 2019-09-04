@@ -37,6 +37,15 @@ public class DdxqListBean {
     private String dianhua;
     private String append_money;
     private String app_money;
+    private String pay_state;
+
+    public String getPay_state() {
+        return pay_state;
+    }
+
+    public void setPay_state(String pay_state) {
+        this.pay_state = pay_state;
+    }
 
     public String getApp_money() {
         return app_money;

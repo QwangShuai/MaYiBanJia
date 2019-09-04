@@ -18,7 +18,7 @@
     <string name="caiwubaobiao"><u>财务报表</u></string>
     <string name="dabao"><u>查看商品/打包</u></string>
     <string name="add"><u>添加</u></string>
-    <string name="version_code">v1.0.8</string>
+    <string name="version_code">v1.1.2</string>
     <string name="only_input">qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM1234567890</string>
 
     <string name="title_paired_devices">已配对</string>

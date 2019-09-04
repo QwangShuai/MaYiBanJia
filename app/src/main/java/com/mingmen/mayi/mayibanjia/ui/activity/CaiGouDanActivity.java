@@ -242,6 +242,7 @@ public class CaiGouDanActivity extends BaseActivity {
                 final int adapterPosition = menuBridge.getAdapterPosition(); // RecyclerView的Item的position。
                 final CaiGouDanBean item = (CaiGouDanBean) adapter.getItem(adapterPosition);
                 if(item.getOrder_audit_state().equals("903")||item.getOrder_audit_state().equals("904")){
+                    Log.e("onItemClick: ",PreferenceUtils.getString(MyApplication.mContext, "token", "")+"---"+item.getPurchase_id() );
                     confirmDialog.showDialog("是否删除此采购单");
                     confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
                         @Override

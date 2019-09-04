@@ -188,7 +188,7 @@ public class QueRenDingDanActivity extends BaseActivity {
         Log.e("zongjia", zongjia + "");
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
-        tvSpjine.setText(zongjia);
+        tvSpjine.setText(MyMath.getDouble(Double.valueOf(zongjia))+"");
         if(StringUtil.isValid(ct_buy_final_id)){
             adapter = new TiJiaoDingDanShichangAdapter(mContext, hedandata,1);
         } else {
@@ -752,9 +752,12 @@ public class QueRenDingDanActivity extends BaseActivity {
 //                                bean.setGonglishu(o.get(i).getGonglishu());
 //                                shichangList.add(bean);
 //                            }
-                            tvHejijine.setText(MyMath.getDouble(hejijine) + "");
-                            tvZhongliang.setText(+MyMath.getDouble(zongzhong)+"斤)");
-                            tvYunfei.setText(MyMath.getDouble(yunfei)+"");
+                            hejijine = MyMath.getDouble(hejijine);
+                            tvHejijine.setText(hejijine + "");
+                            zongzhong = MyMath.getDouble(zongzhong);
+                            tvZhongliang.setText(zongzhong+"斤)");
+                            yunfei = MyMath.getDouble(yunfei);
+                            tvYunfei.setText(yunfei+"");
                             tvBiaozhunda.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_zangqing_3));
                             tvBiaozhunda.setTextColor(mContext.getResources().getColor(R.color.zangqing));
                         }
@@ -790,9 +793,12 @@ public class QueRenDingDanActivity extends BaseActivity {
                             }
                             tvZhushida.setBackground(mContext.getResources().getDrawable(R.drawable.fillet_hollow_zangqing_3));
                             tvZhushida.setTextColor(mContext.getResources().getColor(R.color.zangqing));
-                            tvHejijine.setText(MyMath.getDouble(hejijine) + "");
-                            tvZhongliang.setText(+MyMath.getDouble(zongzhong)+"斤)");
-                            tvYunfei.setText(MyMath.getDouble(yunfei)+"");
+                            hejijine = MyMath.getDouble(hejijine);
+                            tvHejijine.setText(hejijine + "");
+                            zongzhong = MyMath.getDouble(zongzhong);
+                            tvZhongliang.setText(zongzhong+"斤)");
+                            yunfei = MyMath.getDouble(yunfei);
+                            tvYunfei.setText(yunfei+"");
                             tvSongdashijian.setText("尽快送达");
                             songdashijianid = "尽快送达";
                         }
@@ -843,5 +849,32 @@ public class QueRenDingDanActivity extends BaseActivity {
     protected void onDestroy() {
         EventBus.getDefault().unregister(this);
         super.onDestroy();
+    }
+
+    public void updateMoneyShow(String message, final String money){
+        final ConfirmDialog confirmDialog;
+        confirmDialog = new ConfirmDialog(mContext,
+                mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
+        confirmDialog.showDialog(message);
+        confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirmDialog.dismiss();
+                hejijine = MyMath.getDouble(Double.valueOf(money));
+                tvHejijine.setText(hejijine+"");
+                if (Integer.parseInt(lujingtype) == 1) {
+                    tijiaodingdan();
+                } else {
+                    caigoutijiaodingdan();
+                }
+            }
+        });
+        confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirmDialog.dismiss();
+            }
+        });
+
     }
 }

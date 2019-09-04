@@ -19,7 +19,7 @@ import butterknife.BindView;
  */
 
 
-public class QiYeSouSUoDialog extends Dialog {
+public class QiYeSouSuoDialog extends Dialog {
 
     public View view;
     @BindView(R.id.et_qiyemingcheng)
@@ -38,7 +38,7 @@ public class QiYeSouSUoDialog extends Dialog {
      *
      * @param context 上下文
      */
-    public QiYeSouSUoDialog(Context context, int theme) {
+    public QiYeSouSuoDialog(Context context, int theme) {
         super(context, theme);
         view = View.inflate(context, R.layout.dialog_sousuoqiye, null);
         this.setContentView(view);

@@ -26,6 +26,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
 import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
+import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
 
 import java.util.ArrayList;
@@ -239,7 +240,7 @@ public class YeWuYuanActivity extends BaseActivity {
     @OnClick({R.id.iv_back, R.id.tv_right, R.id.btn_quanbu, R.id.btn_wode, R.id.ll_qygl,
             R.id.ll_dcldd, R.id.ll_ywy, R.id.ll_phone, R.id.ll_dizhi,
             R.id.ll_pwd, R.id.btn_exit, R.id.ll_zcldd, R.id.ll_yjdd, R.id.ll_dqh,
-            R.id.ll_dsh, R.id.ll_ywcsh})
+            R.id.ll_dsh, R.id.ll_ywcsh, R.id.ll_ddbsj})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -320,6 +321,9 @@ public class YeWuYuanActivity extends BaseActivity {
                 break;
             case R.id.ll_ywcsh:
                 JumpScwl("1403", "", "0");
+                break;
+            case R.id.ll_ddbsj:
+                Jump_intent(DaiDaBaoActivity.class,new Bundle());
                 break;
         }
     }

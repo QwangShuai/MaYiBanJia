@@ -562,25 +562,32 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".ui.activity.ZzrzGydActivity"
+        </activity> <!-- 欢迎页 -->
+        <activity
+            android:name=".ui.activity.ZzrzGydActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"  />
-        <activity android:name=".ui.activity.ZzrzCtdActivity"
+            android:windowSoftInputMode="adjustPan" /> <!-- 资质认证供应端 -->
+        <activity
+            android:name=".ui.activity.ZzrzCtdActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"  />
-        <activity android:name=".ui.activity.ShangPinXuanZeActivity"
+            android:windowSoftInputMode="adjustPan" /> <!-- 资质认证餐厅端 -->
+        <activity
+            android:name=".ui.activity.ShangPinXuanZeActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"  />
-        <activity android:name=".ui.activity.WuLiuGrzxActivity"
+            android:windowSoftInputMode="adjustPan" /> <!-- 选择商品 -->
+        <activity
+            android:name=".ui.activity.WuLiuGrzxActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"  />
-        <activity android:name=".ui.activity.JuJueLiShiActivity"
+            android:windowSoftInputMode="adjustPan" /> <!-- 物流端个人中心 -->
+        <activity
+            android:name=".ui.activity.JuJueLiShiActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"  />
-        <activity android:name=".ui.activity.XuanZeCheLiangActivity"
+            android:windowSoftInputMode="adjustPan" /> <!-- 拒绝历史 -->
+        <activity
+            android:name=".ui.activity.XuanZeCheLiangActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" ></activity>
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".ui.activity.DaiDaBaoActivity"></activity> <!-- 选择车辆 -->
     </application>
 
 </manifest>

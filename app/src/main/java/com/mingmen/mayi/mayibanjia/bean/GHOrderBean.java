@@ -343,6 +343,15 @@ public class GHOrderBean {
         private String acount_spec;
         private Object order_details_id;
         private String classify_name;
+        private List<TwoCodeBean> twolist;
+
+        public List<TwoCodeBean> getTwolist() {
+            return twolist;
+        }
+
+        public void setTwolist(List<TwoCodeBean> twolist) {
+            this.twolist = twolist;
+        }
 
         public String getSpecial_commodity() {
             return special_commodity;
@@ -470,6 +479,17 @@ public class GHOrderBean {
 
         public void setOrder_details_id(Object order_details_id) {
             this.order_details_id = order_details_id;
+        }
+        public static class TwoCodeBean{
+            private String onlyCode;//收货唯一编码
+
+            public String getOnlyCode() {
+                return onlyCode;
+            }
+
+            public void setOnlyCode(String onlyCode) {
+                this.onlyCode = onlyCode;
+            }
         }
     }
 }

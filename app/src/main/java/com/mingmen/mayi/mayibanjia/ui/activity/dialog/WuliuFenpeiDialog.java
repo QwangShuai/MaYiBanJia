@@ -52,7 +52,7 @@ public class WuliuFenpeiDialog extends Dialog {
 
 
     public void setText(CheliangBean bean) {
-        this.tvXuanzecheliang.setText(bean.getNew_wl_cars_type_name());
+        this.tvXuanzecheliang.setText(bean.getNew_driver_name());
         if(mytype.equals("0")){
             this.bean.setWl_cars_id(bean.getWl_cars_id());
         } else {
@@ -177,7 +177,7 @@ public class WuliuFenpeiDialog extends Dialog {
             llXinxi.setVisibility(View.VISIBLE);
             tvLianxiren.setText(bean.getDriverName());
             tvLianxidianhua.setText(bean.getDriverPhone());
-            tvXuanzecheliang.setText(bean.getCarTypeName());
+            tvXuanzecheliang.setText(bean.getDriverName());
             tvCheliangleixing.setText(bean.getCarTypeName());
             etLuruyunfei.setText(bean.getLogistics_draw_money());
             tvChepai.setText(bean.getPlateNumber());

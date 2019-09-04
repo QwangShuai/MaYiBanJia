@@ -106,6 +106,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <Button
+            android:visibility="gone"
+            android:id="@+id/bt_gaijia"
+            android:layout_width="70dp"
+            android:layout_height="28dp"
+            android:text="改价"
+            android:textColor="@color/lishisousuo"
+            android:textSize="15sp"
+            android:background="@drawable/fillet_hollow_666666_3"
+            />
+        <Button
             android:id="@+id/bt_bianji"
             android:layout_width="70dp"
             android:layout_height="28dp"

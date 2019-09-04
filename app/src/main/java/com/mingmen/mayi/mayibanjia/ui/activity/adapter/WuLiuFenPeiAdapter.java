@@ -24,6 +24,7 @@ import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ShuruDailog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.WuliuFenpeiDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.wuliujingli.BaseJingliFragment;
 import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -70,8 +71,14 @@ public class WuLiuFenPeiAdapter extends RecyclerView.Adapter<WuLiuFenPeiAdapter.
                     ToastUtil.showToast("此单已分配物流车");
                 }
 
+
             }
         });
+        if(StringUtil.isValid(data.getWl_cars_type())&&"3".equals(data.getWl_cars_type())){
+            holder.tvBiangeng.setVisibility(View.GONE);
+        } else {
+            holder.tvBiangeng.setVisibility(View.VISIBLE);
+        }
         if (data.getWl_cars_state().equals("0")) {
             holder.tvOrfenche.setText("未分车");
             holder.tvFenpeiwuliuche.setText(mContext.getString(R.string.wl_fenpeiwuliuche));

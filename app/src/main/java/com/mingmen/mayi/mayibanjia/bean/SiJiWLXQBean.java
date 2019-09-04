@@ -62,6 +62,15 @@ public class SiJiWLXQBean {
     private String ct_order_id;
     private String gonglishu;
     private String state;
+    private String wlddState;
+
+    public String getWlddState() {
+        return wlddState;
+    }
+
+    public void setWlddState(String wlddState) {
+        this.wlddState = wlddState;
+    }
 
     public String getState() {
         return state;

@@ -3,6 +3,7 @@ package com.mingmen.mayi.mayibanjia.ui.activity.ghdingdan;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.bean.GHOrderBean;
 import com.mingmen.mayi.mayibanjia.ui.activity.AddQrCodeActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.adapter.QuhuomaAdapter;
 import com.mingmen.mayi.mayibanjia.utils.JumpUtil;
 import com.mingmen.mayi.mayibanjia.utils.custom.MarqueeTextView;
 
@@ -30,6 +32,7 @@ public class GHShangPinAdapter extends RecyclerView.Adapter<GHShangPinAdapter.Vi
     private ViewHolder viewHolder;
     private Context mContext;
     private List<GHOrderBean.ZilistBean> mList;
+    private QuhuomaAdapter adapter;
 
     public GHShangPinAdapter(Context context, List<GHOrderBean.ZilistBean> list){
         this.mContext = context;
@@ -57,6 +60,10 @@ public class GHShangPinAdapter extends RecyclerView.Adapter<GHShangPinAdapter.Vi
         holder.tv_jiliang.setText(bean.getAcount_spec());
         holder.tv_jiage.setText("￥:"+String.valueOf(bean.getAll_price())+"元");
         holder.tv_danjia.setText(bean.getPrice()+"元/"+bean.getSpec_name());
+        adapter = new QuhuomaAdapter(mContext,bean.getTwolist());
+        holder.rv_quhuoma.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+        holder.rv_quhuoma.setAdapter(adapter);
+        holder.rv_quhuoma.setFocusable(false);
     }
 
     @Override
@@ -77,6 +84,8 @@ public class GHShangPinAdapter extends RecyclerView.Adapter<GHShangPinAdapter.Vi
         TextView tv_shangpinbeizhu;
         @BindView(R.id.tv_danjia)
         TextView tv_danjia;
+        @BindView(R.id.rv_quhuoma)
+        RecyclerView rv_quhuoma;
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);

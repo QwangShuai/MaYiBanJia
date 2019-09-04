@@ -20,7 +20,7 @@
                 <TextView
                     android:layout_centerVertical="true"
                     android:id="@+id/tv_lianxifangshi"
-                    android:text="选择车辆:"
+                    android:text="选择司机:"
                     android:textSize="14sp"
                     android:textColor="@color/lishisousuo"
                     android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
                         android:inputType="phone"
                         android:layout_centerVertical="true"
                         android:textSize="13sp"
-                        android:hint="请选择车辆"
+                        android:hint="请选择司机"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                 </RelativeLayout>

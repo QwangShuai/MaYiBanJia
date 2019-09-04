@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.mingmen.mayi.mayibanjia.MainActivity;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
+import com.mingmen.mayi.mayibanjia.app.UMConfig;
 import com.mingmen.mayi.mayibanjia.bean.PhoneBean;
 import com.mingmen.mayi.mayibanjia.bean.WoDeBean;
 import com.mingmen.mayi.mayibanjia.bean.ZhangHuRenZhengBean;
@@ -166,7 +167,7 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
 //        }
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
-        getwode();
+//        getwode();
         getRenzheng();
 //        getData();
     }
@@ -315,6 +316,8 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
                 } else {
                     tiShi = "是否开启食时达";
                 }
+                confirmDialog.getTvSubmit().setText("确定");
+                confirmDialog.getTvCancel().setText("取消");
                 confirmDialog.showDialog(tiShi);
                 confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -349,6 +352,8 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
                 } else {
                     close_tiShi = "是否开始营业";
                 }
+                confirmDialog.getTvSubmit().setText("确定");
+                confirmDialog.getTvCancel().setText("取消");
                 confirmDialog.showDialog(close_tiShi);
                 confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -462,6 +467,26 @@ public class GongYingDuanShouYeActivity extends BaseActivity {
         tvDsh.setVisibility(woDeBean.getWait_audit() == 0 ? View.GONE : View.VISIBLE);
         tvDsh.setText(woDeBean.getWait_audit() + "");
         rbPingfen.setRating(woDeBean.getEvaluation());
+
+        if(woDeBean.getBusiness_state().equals("1")){
+            confirmDialog.showDialog(UMConfig.HINT_MESSAGE);
+            confirmDialog.getTvSubmit().setText("开店");
+            confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    confirmDialog.dismiss();
+                    qiehuanState();
+                }
+            });
+            confirmDialog.getTvCancel().setText("编辑");
+            confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    confirmDialog.dismiss();
+                    getDianpuRenzheng("0");
+                }
+            });
+        }
 //        tvDianpuguanzhu.setText(woDeBean.getGuanzhu());
 //        tvLiulanjilu.setText(woDeBean.getLiulan());
 //        if (Integer.parseInt(woDeBean.getStay_payment())==0){

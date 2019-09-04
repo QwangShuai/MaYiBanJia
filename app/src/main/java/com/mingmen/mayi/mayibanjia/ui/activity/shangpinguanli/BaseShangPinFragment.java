@@ -58,7 +58,7 @@ import static android.widget.ListPopupWindow.MATCH_PARENT;
 public abstract class BaseShangPinFragment extends BaseFragment {
 
     @BindView(R.id.rv_dingdan)
-    SwipeRecyclerView rvShangpinguanli;
+    SwipeMenuRecyclerView rvShangpinguanli;
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout refreshLayout;
     @BindView(R.id.ll_list_null)
@@ -68,18 +68,17 @@ public abstract class BaseShangPinFragment extends BaseFragment {
     private boolean isShow;
     private String chaxunzi = "";
     private ArrayList<ShangPinGuanLiBean.GoodsListBean> mlist = new ArrayList<>();
-    private String goods = "0";
+    private String goods = "";
     private ShangPinGuanLiAdapter shangpinguanliadapter;
     private SwipeMenuRecyclerView.LoadMoreListener mLoadMoreListener;
     private int ye = 1;
     protected boolean isCreate = false;
     private String qyid = "";
     private boolean isClick = true;
-
+    ShangPinGuanLiActivity activity;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        isCreate = true;
         EventBus.getDefault().register(this);
     }
 
@@ -101,6 +100,8 @@ public abstract class BaseShangPinFragment extends BaseFragment {
     @Override
     public void onStart() {
         super.onStart();
+        activity = (ShangPinGuanLiActivity) getActivity();
+        goods = activity.getGoods();
     }
 
     //数据
@@ -300,7 +301,6 @@ public abstract class BaseShangPinFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         Log.e("onResume: ", getZhuangTai());
-        Log.e("onResume:goods=", goods);
         if (ye != 1) {
             ye = 1;
             mlist.clear();
@@ -328,5 +328,14 @@ public abstract class BaseShangPinFragment extends BaseFragment {
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(getUserVisibleHint()&&StringUtil.isValid(goods)){
+            ye = 1;
+            getData();
+        }
     }
 }

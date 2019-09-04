@@ -51,4 +51,5 @@ public class QuanBuShangPinFragment extends BaseShangPinFragment {
     public String getZhuangTai() {
         return "0";
     }
+
 }

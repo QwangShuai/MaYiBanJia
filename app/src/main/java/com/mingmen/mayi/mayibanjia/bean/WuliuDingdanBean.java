@@ -27,8 +27,17 @@ public class WuliuDingdanBean {
     private String marketName;
     private String remarke;
     private String wl_cars_type_name;
+    private String wl_cars_type;
     private String logistics_draw_money;
     private List<Dizhi> dizhilist;
+
+    public String getWl_cars_type() {
+        return wl_cars_type;
+    }
+
+    public void setWl_cars_type(String wl_cars_type) {
+        this.wl_cars_type = wl_cars_type;
+    }
 
     public String getLogistics_draw_money() {
         return logistics_draw_money;

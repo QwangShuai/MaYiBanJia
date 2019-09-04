@@ -1024,7 +1024,7 @@ public interface HttpService {
                                            @Query("pay_password") String pay_password);
 
     //确认收货
-    @POST("payHistory/ture.do")
+    @POST(" /payHistory/allwithdrawCash.do")
     Observable<ResultModel<String>> querenshouhuo(@Query("user_token") String user_token,
                                                   @Query("order_id") String order_id);
 
@@ -1634,26 +1634,26 @@ public interface HttpService {
     //  物流经理查询可分车的车辆信息
     @POST("wl/queryOrderCar.do")
     Observable<ResultModel<List<CheliangBean>>> getCheliangList(@Query("user_token") String user_token,
-                                                                 @Query("cars_type") String cars_type,
-                                                                 @Query("new_driver_name") String new_driver_name);
+                                                                @Query("cars_type") String cars_type,
+                                                                @Query("new_driver_name") String new_driver_name);
 
     // 分配物流车
     @POST("wl/addOrderCar.do")
     Observable<ResultModel<String>> fenpeiwuliu(@Query("user_token") String user_token,
-                                                    @Query("remarke") String remarke,
-                                                    @Query("logistics_draw_money") String logistics_draw_money,
-                                                    @Query("wl_cars_order_number") String wl_cars_order_number,
-                                                    @Query("wl_cars_id") String wl_cars_id);
+                                                @Query("remarke") String remarke,
+                                                @Query("logistics_draw_money") String logistics_draw_money,
+                                                @Query("wl_cars_order_number") String wl_cars_order_number,
+                                                @Query("wl_cars_id") String wl_cars_id);
 
     // 变更物流车
     @POST("wl/updateOrderCar.do")
     Observable<ResultModel<String>> biangengwuliu(@Query("user_token") String user_token,
-                                                    @Query("remarke") String remarke,
-                                                    @Query("logistics_draw_money") String logistics_draw_money,
-                                                    @Query("wl_cars_order_number") String wl_cars_order_number,
-                                                    @Query("wl_cars_id") String wl_cars_id,
-                                                    @Query("new_wl_cars_id") String new_wl_cars_id,
-                                                    @Query("remarkeB") String remarkeB);
+                                                  @Query("remarke") String remarke,
+                                                  @Query("logistics_draw_money") String logistics_draw_money,
+                                                  @Query("wl_cars_order_number") String wl_cars_order_number,
+                                                  @Query("wl_cars_id") String wl_cars_id,
+                                                  @Query("new_wl_cars_id") String new_wl_cars_id,
+                                                  @Query("remarkeB") String remarkeB);
 
     // 物流司机个人中心
     @POST("wlcars/queryDriverPersonal.do")
@@ -1671,18 +1671,18 @@ public interface HttpService {
     //业务员车辆list
     @POST("wl/ssdlist.do")
     Observable<ResultModel<WuliuSijiBean>> getYwyWuliuList(@Query("user_token") String user_token,
-                                                                      @Query("wl_cars_state") String wl_cars_state,
-                                                                      @Query("pageNumber") String count,
-                                                                      @Query("wl_order_state") String wl_order_state,
-                                                                      @Query("is_true_market") String is_true_market,
-                                                                      @Query("person_name") String person_name);
+                                                           @Query("wl_cars_state") String wl_cars_state,
+                                                           @Query("pageNumber") String count,
+                                                           @Query("wl_order_state") String wl_order_state,
+                                                           @Query("is_true_market") String is_true_market,
+                                                           @Query("person_name") String person_name);
 
     //查询全部物流信息
     @POST("wl/updateBycar.do")
     Observable<ResultModel<String>> jiedanState(@Query("user_token") String user_token,
-                                                        @Query("wl_cars_order_number") String wl_cars_order_number,
-                                                        @Query("remarke") String remarke,
-                                                        @Query("type") String type);
+                                                @Query("wl_cars_order_number") String wl_cars_order_number,
+                                                @Query("remarke") String remarke,
+                                                @Query("type") String type);
 
     //是否开始接单
     @POST("wlcars/updateStopOrder.do")
@@ -1692,13 +1692,29 @@ public interface HttpService {
     //验证手机号唯一性
     @POST("wlcars/queryByTelephone.do")
     Observable<ResultModel<String>> yanzhengPhone(@Query("user_token") String user_token,
-                                             @Query("new_driver_phone") String new_driver_phone);
+                                                  @Query("new_driver_phone") String new_driver_phone);
 
     //物流经理处理未送达订单（解决异常）
     @POST("wl/updateByWlGM.do")
     Observable<ResultModel<String>> jjycWl(@Query("user_token") String user_token,
-                                                 @Query("wl_cars_order_number") String wl_cars_order_number,
-                                                 @Query("wl_cars_id") String wl_cars_id,
-                                                 @Query("remarke") String remarke);
+                                           @Query("wl_cars_order_number") String wl_cars_order_number,
+                                           @Query("wl_cars_id") String wl_cars_id,
+                                           @Query("remarke") String remarke);
+
+    //获取送货日期
+    @POST("Ordermain/getday.do")
+    Observable<ResultModel<List<String>>> getDate();
+
+    //业务员（供货端待打包状态订单列表）
+    @POST("gyOreder/YWYDB.do")
+    Observable<ResultModel<List<GHOrderBean>>> ywyDdbList(@Query("user_token") String user_token,
+                                                          @Query("pageNumber") String pageNumber);
+
+    //商品列表修改
+    @POST("gyCommodity/updatelie.do")
+    Observable<ResultModel<String>> updateSpjg(@Query("user_token") String user_token,
+                                               @Query("commodity_id") String commodity_id,
+                                               @Query("inventory") String inventory,
+                                               @Query("pice_one") String pice_one);
 
 }

@@ -222,6 +222,7 @@ public class ShangPinGuanLiBean {
             private String region;
             private String approval_state;
             private String fail_reason;
+            private String pin_name;
 
             public String getFail_reason() {
                 return fail_reason;
@@ -229,6 +230,14 @@ public class ShangPinGuanLiBean {
 
             public void setFail_reason(String fail_reason) {
                 this.fail_reason = fail_reason;
+            }
+
+            public String getPin_name() {
+                return pin_name;
+            }
+
+            public void setPin_name(String pin_name) {
+                this.pin_name = pin_name;
             }
 
             public String getAudit_state() {

@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.mingmen.mayi.mayibanjia.ui.activity.LoginActivity;
+import com.mingmen.mayi.mayibanjia.ui.activity.QueRenDingDanActivity;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 
@@ -20,6 +21,7 @@ public class ResultMap<T> implements Function<ResultModel<T>, T> {
   }
   @Override
   public T apply(ResultModel<T> httpResult) {
+    Log.e("codecode", httpResult.getStatus());
     if ("0000".equals(httpResult.getStatus())) {
       Log.e("codecode", httpResult.getStatus());
       Log.e("message", httpResult.getMsg());
@@ -39,8 +41,11 @@ public class ResultMap<T> implements Function<ResultModel<T>, T> {
     } else if("6666".equals(httpResult.getStatus())){
       BaseActivity.showDialog(mContext,httpResult.getMsg());
       throw new RuntimeException(httpResult.getMsg());
-    }  else if("1024".equals(httpResult.getStatus())){
+    } else if("1024".equals(httpResult.getStatus())){
       BaseActivity.exitApp(mContext,httpResult.getMsg());
+      throw new RuntimeException(httpResult.getMsg());
+    } else if("1010".equals(httpResult.getStatus())){
+      QueRenDingDanActivity.instance.updateMoneyShow(httpResult.getMsg(),httpResult.getData().toString());
       throw new RuntimeException(httpResult.getMsg());
     } else {
       Log.e("codecode", httpResult.getStatus());

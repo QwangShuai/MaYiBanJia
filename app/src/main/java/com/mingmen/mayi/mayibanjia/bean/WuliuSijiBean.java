@@ -128,6 +128,24 @@ public class WuliuSijiBean {
         private String wl_order_state;
         private String create_time;
         private String wl_cars_type_name;
+        private String wl_cars_type;
+        private String wlddState;
+
+        public String getWl_cars_type() {
+            return wl_cars_type;
+        }
+
+        public void setWl_cars_type(String wl_cars_type) {
+            this.wl_cars_type = wl_cars_type;
+        }
+
+        public String getWlddState() {
+            return wlddState;
+        }
+
+        public void setWlddState(String wlddState) {
+            this.wlddState = wlddState;
+        }
 
         public String getWl_cars_type_name() {
             return wl_cars_type_name;

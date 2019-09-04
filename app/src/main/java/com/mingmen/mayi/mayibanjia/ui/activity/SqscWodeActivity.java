@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.mingmen.mayi.mayibanjia.MainActivity;
 import com.mingmen.mayi.mayibanjia.R;
 import com.mingmen.mayi.mayibanjia.app.MyApplication;
+import com.mingmen.mayi.mayibanjia.app.UMConfig;
 import com.mingmen.mayi.mayibanjia.bean.SqscWodeBean;
 import com.mingmen.mayi.mayibanjia.http.listener.HttpDataListener;
 import com.mingmen.mayi.mayibanjia.http.manager.HttpManager;
@@ -231,7 +232,7 @@ public class SqscWodeActivity extends BaseActivity {
         confirmDialog = new ConfirmDialog(mContext,
                 mContext.getResources().getIdentifier("CenterDialog", "style", mContext.getPackageName()));
 
-        getShow();
+//        getShow();
     }
 
     @Override
@@ -313,6 +314,8 @@ public class SqscWodeActivity extends BaseActivity {
                 } else {
                     close_tiShi = "是否开始营业";
                 }
+                confirmDialog.getTvSubmit().setText("确定");
+                confirmDialog.getTvCancel().setText("取消");
                 confirmDialog.showDialog(close_tiShi);
                 confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -335,6 +338,8 @@ public class SqscWodeActivity extends BaseActivity {
                 } else {
                     tiShi = "是否开启食时达";
                 }
+                confirmDialog.getTvSubmit().setText("确定");
+                confirmDialog.getTvCancel().setText("取消");
                 confirmDialog.showDialog(tiShi);
                 confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -635,6 +640,26 @@ public class SqscWodeActivity extends BaseActivity {
         tvYishouhuoCt.setText(bean.getAlready_ecipient()+"");
         tvYiwanchengCt.setVisibility(bean.getAlready_complete()==0?View.GONE:View.VISIBLE);
         tvYiwanchengCt.setText(bean.getAlready_complete()+"");
+
+        if(bean.getBusiness_state().equals("1")){
+            confirmDialog.showDialog(UMConfig.HINT_MESSAGE);
+            confirmDialog.getTvSubmit().setText("开店");
+            confirmDialog.getTvSubmit().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    confirmDialog.dismiss();
+                    qiehuanState();
+                }
+            });
+            confirmDialog.getTvCancel().setText("编辑");
+            confirmDialog.getTvCancel().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    confirmDialog.dismiss();
+                    getDianpuRenzheng("0");
+                }
+            });
+        }
     }
 
     private void qiehuanSsd() {

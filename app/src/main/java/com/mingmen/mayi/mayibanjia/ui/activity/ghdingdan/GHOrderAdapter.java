@@ -164,6 +164,8 @@ public class GHOrderAdapter extends RecyclerView.Adapter<GHOrderAdapter.ViewHold
         holder.tv_order_time.setText("下单时间:" + bean.getCreate_time());
         GHShangPinAdapter adapter = new GHShangPinAdapter(mContext, bean.getZilist());
         holder.rv_shangpin.setAdapter(adapter);
+        holder.rv_shangpin.setFocusable(false);
+        holder.rv_shangpin.setNestedScrollingEnabled(false);
         holder.btn_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

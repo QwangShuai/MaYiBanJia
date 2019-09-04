@@ -179,6 +179,7 @@ public abstract class BaseDingDanFragment extends BaseFragment {
                         break;
                     case R.id.ll_rongqi:
                         it = new Intent(getActivity(), DingDanXiangQingActivity.class);
+//                        it.putExtra("state",mlist.get(position).getState());
                         it.putExtra("orderID", mlist.get(position).getOrder_id());
                         startActivity(it);
                         break;

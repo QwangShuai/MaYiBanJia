@@ -14,4 +14,5 @@ public class ShangJiaShangPinFragment extends BaseShangPinFragment{
         return "1";
     }
 
+
 }

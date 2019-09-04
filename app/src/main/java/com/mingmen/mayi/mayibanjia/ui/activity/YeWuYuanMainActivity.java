@@ -25,7 +25,7 @@ import com.mingmen.mayi.mayibanjia.http.manager.RetrofitManager;
 import com.mingmen.mayi.mayibanjia.ui.activity.adapter.QiYeLieBiaoAdapter;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.ConfirmDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.QiYeLieBiaoDialog;
-import com.mingmen.mayi.mayibanjia.ui.activity.dialog.QiYeSouSUoDialog;
+import com.mingmen.mayi.mayibanjia.ui.activity.dialog.QiYeSouSuoDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.YeWuYuanAddDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.YeWuYuanDialog;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
@@ -71,7 +71,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
 
     private Context mContext;
     private YeWuYuanAddDialog addDialog;
-    private QiYeSouSUoDialog sousuodialog;
+    private QiYeSouSuoDialog sousuodialog;
     private SinglePicker<QiYeLeiBieBean> leibiepicker;
     private String leibiename;
     private String leibieid = "";
@@ -379,7 +379,7 @@ public class YeWuYuanMainActivity extends BaseActivity {
             case R.id.tv_right:
                 //搜索弹出框
 //dialog
-                sousuodialog = new QiYeSouSUoDialog(mContext,
+                sousuodialog = new QiYeSouSuoDialog(mContext,
                         mContext.getResources().getIdentifier("BottomDialog", "style", mContext.getPackageName()));
                 sousuodialog.showDialog();
                 sousuodialog.getBtQueding().setOnClickListener(new View.OnClickListener() {

@@ -40,13 +40,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </LinearLayout>
-            <com.mingmen.mayi.mayibanjia.utils.custom.SwipeRecyclerView
+            <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
                 android:layout_weight="1"
                 android:visibility="visible"
                 android:id="@+id/rv_dingdan"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"></com.mingmen.mayi.mayibanjia.utils.custom.SwipeRecyclerView>
+                android:background="@color/white"></com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView>
             <include layout="@layout/view_list_null"></include>
         </LinearLayout>
     </android.support.v4.widget.SwipeRefreshLayout>

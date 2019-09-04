@@ -127,19 +127,17 @@ public class DateDialog extends BaseFragmentDialog implements View.OnClickListen
     }
 
     public void getData(){
-        Map<Integer,String> map= DateUtil.genDate(3);
-        int count = 0;
-        for (String i:map.values()) {
-            SongDaShiJianBean bean = new SongDaShiJianBean();
-            bean.setSon_number(count+"");
-            bean.setSon_name(i);
-            dateList.add(bean);
-        }
+//        Map<Integer,String> map= DateUtil.genDate(3);
+//        int count = 0;
+//        for (String i:map.values()) {
+//            SongDaShiJianBean bean = new SongDaShiJianBean();
+//            bean.setSon_number(count+"");
+//            bean.setSon_name(i);
+//            dateList.add(bean);
+//        }
         dateAdapter = new DataAdapter(mContext,dateList);
+        getDate();
         timeAdapter = new TimeAdapter(mContext,songdashijianlist);
-        dateAdapter.setXztype(dateList.get(0));
-        timeAdapter.setDqId(dateList.get(0).getSon_name());
-        dqId = dateList.get(0).getSon_name();
         dateAdapter.setOnItemClickListener(new DataAdapter.OnItemClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -186,7 +184,35 @@ public class DateDialog extends BaseFragmentDialog implements View.OnClickListen
                     public void onNext(List<SongDaShiJianBean> data) {
                         Log.e("data", new Gson().toJson(data) + "---");
                         songdashijianlist.addAll(data);
+                        timeAdapter.setDqId(dateList.get(0).getSon_name());
                         timeAdapter.notifyDataSetChanged();
+                    }
+                });
+
+    }
+
+    //送达时间
+    private void getDate() {
+        HttpManager.getInstance()
+                .with(mContext)
+                .setObservable(
+                        RetrofitManager
+                                .getService()
+                                .getDate())
+                .setDataListener(new HttpDataListener<List<String>>() {
+                    @Override
+                    public void onNext(List<String> data) {
+                        for (String i:data) {
+                            SongDaShiJianBean bean = new SongDaShiJianBean();
+//                            bean.setSon_number(count+"");
+                            bean.setSon_name(i);
+                            dateList.add(bean);
+                        }
+                        dateAdapter.setXztype(dateList.get(0));
+                        dqId = dateList.get(0).getSon_name();
+                        Log.e("data", new Gson().toJson(data) + "---");
+//                        songdashijianlist.addAll(data);
+                        dateAdapter.notifyDataSetChanged();
                     }
                 });
 

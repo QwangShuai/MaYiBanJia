@@ -92,7 +92,6 @@ public class SiJiPeiSongAdapter extends RecyclerView.Adapter<SiJiPeiSongAdapter.
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final WuliuSijiBean.DdListBean data = mList.get(position);
         Log.e("ceshi----",String.valueOf(data.getWl_order_state()));
-        holder.tv_state.setText(String.valueOf(data.getWl_order_state()));
 
         holder.btnJieshou.setVisibility(View.GONE);
         holder.btnJujue.setVisibility(View.GONE);
@@ -125,7 +124,8 @@ public class SiJiPeiSongAdapter extends RecyclerView.Adapter<SiJiPeiSongAdapter.
                     });
                 }
             });
-        }else if (data.getWl_order_state().equals("待送货")) {
+        }else if (data.getWlddState().equals("1402")) {
+            holder.tv_state.setText("待送货");
             holder.btnTongzhi.setVisibility(View.GONE);
             holder.llSaoma.setVisibility(View.GONE);
             holder.tvQuhuoma.setVisibility(View.GONE);
@@ -150,7 +150,8 @@ public class SiJiPeiSongAdapter extends RecyclerView.Adapter<SiJiPeiSongAdapter.
                     });
                 }
             });
-        }else if(data.getWl_order_state().equals("待确认")){
+        }else if(data.getWlddState().equals("1401")&&data.getWl_cars_type().equals("1")){
+            holder.tv_state.setText("待确认");
             if(isTeshu){
                 holder.btnSure.setVisibility(View.VISIBLE);
                 holder.btnSure.setOnClickListener(new View.OnClickListener() {
@@ -172,11 +173,6 @@ public class SiJiPeiSongAdapter extends RecyclerView.Adapter<SiJiPeiSongAdapter.
                     }
                 });
             } else {
-                holder.btnSure.setVisibility(View.GONE);
-            }
-        }else if(data.getWl_order_state().equals("已分车")){
-            holder.tv_state.setText(data.getWl_cars_type_name());
-            if(data.getWl_cars_type_name().equals("待确认")){
                 holder.btnTongzhi.setVisibility(View.GONE);
                 holder.btnJieshou.setVisibility(View.VISIBLE);
                 holder.btnJujue.setVisibility(View.VISIBLE);
@@ -203,16 +199,26 @@ public class SiJiPeiSongAdapter extends RecyclerView.Adapter<SiJiPeiSongAdapter.
                         dialog.show();
                     }
                 });
-
-            } else {
-                holder.tv_state.setText(data.getWl_cars_type_name());
-                holder.btnTongzhi.setVisibility(View.VISIBLE);
-                holder.btnJieshou.setVisibility(View.GONE);
-                holder.btnJujue.setVisibility(View.GONE);
-                holder.llSaoma.setVisibility(View.VISIBLE);
-                holder.tvQuhuoma.setVisibility(View.VISIBLE);
+                holder.btnSure.setVisibility(View.GONE);
             }
-        }  else {
+        }else if(data.getWlddState().equals("1401")&&data.getWl_cars_type().equals("0")){
+//            holder.tv_state.setText(data.getWl_cars_type_name());
+            holder.tv_state.setText("待取货");
+            holder.btnTongzhi.setVisibility(View.VISIBLE);
+            holder.btnJieshou.setVisibility(View.GONE);
+            holder.btnJujue.setVisibility(View.GONE);
+            holder.llSaoma.setVisibility(View.VISIBLE);
+            holder.tvQuhuoma.setVisibility(View.VISIBLE);
+        }  else if(data.getWlddState().equals("1403")){
+//            holder.tv_state.setText(data.getWl_cars_type_name());
+            holder.tv_state.setText("已完成");
+            holder.btnTongzhi.setVisibility(View.GONE);
+            holder.btnJieshou.setVisibility(View.GONE);
+            holder.btnJujue.setVisibility(View.GONE);
+            holder.llSaoma.setVisibility(View.INVISIBLE);
+            holder.tvQuhuoma.setVisibility(View.INVISIBLE);
+            holder.tv_state.setTextColor(R.color.red_ff3300);
+        }else{
             holder.tv_state.setTextColor(R.color.zicolor);
         }
         holder.tv_order_number.setText("订单编号：" + data.getWl_cars_order_number());

@@ -3,6 +3,7 @@ package com.mingmen.mayi.mayibanjia.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,14 +11,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mingmen.mayi.mayibanjia.R;
-import com.mingmen.mayi.mayibanjia.app.MyApplication;
-import com.mingmen.mayi.mayibanjia.bean.MessageBean;
 import com.mingmen.mayi.mayibanjia.bean.ShangPinGuanLiBean;
 import com.mingmen.mayi.mayibanjia.ui.activity.dialog.SouSuoDialog;
 import com.mingmen.mayi.mayibanjia.ui.activity.shangpinguanli.ShangPinAdapter;
 import com.mingmen.mayi.mayibanjia.ui.base.BaseActivity;
 import com.mingmen.mayi.mayibanjia.ui.view.PagerSlidingTabStrip;
-import com.mingmen.mayi.mayibanjia.utils.PreferenceUtils;
+import com.mingmen.mayi.mayibanjia.utils.AppManager;
 import com.mingmen.mayi.mayibanjia.utils.StringUtil;
 import com.mingmen.mayi.mayibanjia.utils.ToastUtil;
 import com.mingmen.mayi.mayibanjia.utils.custom.CustomViewPager;
@@ -168,7 +167,7 @@ public class ShangPinGuanLiActivity extends BaseActivity {
                 }
                 break;
             case R.id.iv_back:
-                finish();
+                AppManager.getAppManager().finishActivity();
                 break;
             case R.id.iv_sousuo:
                 if (isClick) {
